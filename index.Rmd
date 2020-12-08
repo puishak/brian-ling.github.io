@@ -1,0 +1,28 @@
+--- 
+title: "STAT 362 R for Data Science"
+author: "Brian Ling"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Notes for STAT 362"
+---
+
+
+# Syllabus {-}
+
+Course Description: Introduction to R, data creation and manipulation, data import and export, scripts and functions, control flow, debugging and profiling, data visualization, statistical inference, Monte Carlo methods, decision trees, support vector machines, neural network, numerical methods.
+
+
+
+**Teacher assistant:** TBD
+
+**Office Hours:**
+
+**Intended Student Learning Outcomes**:
+
+1. Understand
+1. 
+1. 
