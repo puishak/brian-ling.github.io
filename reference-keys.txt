@@ -1,14 +1,9 @@
 fig:nice-fig
 tab:nice-tab
-prerequisites
+course-outline
 intro
 literature
 methods
-applications
-example-one
-example-two
-final-words
-teacher-assistant-tbd
-methods-1
 data-visualization
 scatterplot
+final-words
