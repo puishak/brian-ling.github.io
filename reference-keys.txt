@@ -1,2 +1,4 @@
 data-visualization
 scatterplot
+data-visualization-1
+scatterplot-1
