@@ -1,0 +1,14 @@
+fig:nice-fig
+tab:nice-tab
+prerequisites
+intro
+literature
+methods
+applications
+example-one
+example-two
+final-words
+teacher-assistant-tbd
+methods-1
+data-visualization
+scatterplot
