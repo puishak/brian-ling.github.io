@@ -1,9 +1,0 @@
-fig:nice-fig
-tab:nice-tab
-course-outline
-intro
-literature
-methods
-data-visualization
-scatterplot
-final-words
