@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2021-01-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="schedule.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="annoucement.html"><a href="annoucement.html"><i class="fa fa-check"></i>Annoucement</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">STAT 362 R for Data Science</h1>
+<p class="author"><em>Brian Ling</em></p>
+<p class="date"><em>2021-01-10</em></p>
+</div>
+<div id="syllabus" class="section level1 unnumbered">
+<h1>Syllabus</h1>
+<p>STAT 362 R for Data Science</p>
+<p>Department of Mathematics and Statistics, Queen’s University</p>
+<p><strong>Course Description:</strong></p>
+<p>Introduction to R, data creation and manipulation, data import and export, scripts and functions, control flow, debugging and profiling, data visualization, statistical inference, Monte Carlo methods, decision trees, support vector machines, neural network, numerical methods.</p>
+<p><strong>Format and Time:</strong></p>
+<p>Each week:</p>
+<ul>
+<li><p>Two asynchronous lectures will be uploaded on Tue and Wed.</p></li>
+<li><p>We will have one synchronous lecture on Thu (10:30-11:20am) via zoom. Meeting link: see onQ.</p></li>
+</ul>
+<p>Recording of the synchronous lecture will be uploaded to onQ. <strong>All times are Kingston Time</strong></p>
+<p>Annoucement, Schedule, Lecture notes: <a href="https://brian-ling.github.io/" class="uri">https://brian-ling.github.io/</a></p>
+<p><strong>Instructor:</strong></p>
+<p>Brian Ling (<a href="mailto:bl90@queensu.ca" class="email">bl90@queensu.ca</a>)</p>
+<p><strong>Teacher assistant:</strong></p>
+<p>Xinyi GE (<a href="mailto:16xg3@queensu.ca" class="email">16xg3@queensu.ca</a>), Na LI (<a href="mailto:18nl6@queensu.ca" class="email">18nl6@queensu.ca</a>).</p>
+<p>They will be responsible for grading your assignments.</p>
+<p><strong>Office Hours:</strong></p>
+<p>Wed 9pm-10pm, Thu 1pm-2pm, or by appointment (let me know if you cannot attend any of these)</p>
+<p><strong>Intended Student Learning Outcomes</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Understand the fundamental concepts in R</li>
+<li>Be able to import and tidy data for further analysis</li>
+<li>Be able to visualize data and perform exploratory data analysis</li>
+<li>Be able to apply appropriate methods for statistical analysis and interpret the output</li>
+<li>Be able to apply common machine learning algorithms with real-world applications</li>
+<li>Understand the basics of numerical and Monte Carlo methods</li>
+</ol>
+<p><strong>Prerequisite:</strong></p>
+<p>(STAT 263/3.0 or STAT 268/3.0) and MATH 120/3.0 or MATH 121/3.0 or MATH 124/3.0 MATH 126/3.0 or MATH 110/6.0 or MATH 111/6.0 or (MATH 112/3.0 and MATH 212/3.0) or permission of the department.</p>
+<p>In words, you need to understand probability and statistics, linear algebra (matrix operations), and basic calculus.</p>
+<p><strong>Lecture Notes:</strong></p>
+<p>This website.</p>
+<p><strong>Lecture Videos</strong></p>
+<p>See onQ.</p>
+<p><strong>Main Textbooks/Readings:</strong></p>
+<ol style="list-style-type: decimal">
+<li>R for Data Science, by Garrett Grolemund and Hadley Wickham (<a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a>)</li>
+<li>Machine Learning with R, by Brett Lantz</li>
+<li>R Cookbook, by J.D. Long &amp; Paul Teetor (<a href="https://rc2e.com/" class="uri">https://rc2e.com/</a>)</li>
+</ol>
+<p><strong>Other Reference Textbooks/Readings:</strong></p>
+<ol style="list-style-type: decimal">
+<li>R Markdown: The Definitive Guide, by Yihui Xie, J. J. Allaire, Garrett Grolemund (<a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a>)</li>
+<li>R Graphics Cookbook, by Winston Chang (<a href="https://r-graphics.org/" class="uri">https://r-graphics.org/</a>)</li>
+<li>An introduction to R, by W. N. Venables, D. M. Smith and the R Core Team (<a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf" class="uri">https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf</a>)</li>
+</ol>
+<p><strong>Course Outline:</strong></p>
+<ol style="list-style-type: decimal">
+<li>R Basic</li>
+</ol>
+<ul>
+<li>Installing R, Rstudio and packages</li>
+<li>Basic data types and operations</li>
+<li>Data structures: vector, matrix, array, list, dara frame</li>
+<li>Data input and output</li>
+<li>Scripts and functions</li>
+<li>Control flow</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Data visualization with <code>ggplot2</code></li>
+<li>Data manipulation with <code>tidyverse</code></li>
+<li>Statistical inference in R: one/two-sample test of mean and proportion; correlation test; non-parametric test; regression analysis</li>
+<li>Some machine learning methods: nearest neighbors, naive Bayes, decision trees, support vector machines, neural network, k-means clustering</li>
+<li>Introduction to numerical methods: Monte Carlo simulation, gradient descent, Newton Raphson algorithm</li>
+</ol>
+<p>Note: actual topics may change slightly depending on our progress</p>
+<p><strong>Grading Scheme:</strong></p>
+<p>30% assignments, 30% Quizzes, 40% Final Project</p>
+<p><strong>Assignments (30%):</strong></p>
+<p>There will be approximately 6 Assignments.</p>
+<p><em>Late submission</em>: receive 80% of the points (within one day), receive 0 (after one day). No exception other than academic accommodation and academic consideration for an extenuating circumstance. Solution will be posted after one day of the due date. One assignment with the lowest score will be dropped.</p>
+<p>It is recommended to use R Markdown to write your assignment (<a href="https://rmarkdown.rstudio.com/lesson-1.html" class="uri">https://rmarkdown.rstudio.com/lesson-1.html</a>, R Cookbook Ch.16). A template for this will be discussed.</p>
+<p><strong>Quizzes (30%):</strong></p>
+<p>Weekly quizzes. Simple questions will be posted on Thursday each week and each quiz is due on Sunday noon (receive 80% afterwards). You should be able to answer them after attending the lectures. One quiz with the lowest score will be dropped.</p>
+<p><strong>Final Project (40%):</strong></p>
+<p>Form a group of 5-6 students. TA will help with assignment of the group if you cannot find one.
+20% is from the final report. 20% is from the final presentation. All members in the group have to present (more details later). The members are expected to know every part of the project.</p>
+<p><strong>Academic Integrity:</strong></p>
+<p>See <a href="https://www.queensu.ca/artsci/node/22/mid/1247" class="uri">https://www.queensu.ca/artsci/node/22/mid/1247</a>
+Departures from academic integrity include, but are not limited to, plagiarism, use of unauthorized materials, facilitation, forgery and falsification. Actions which contravene the regulation on academic integrity carry sanctions that can range from a warning, to loss of grades on an assignment, to failure of a course, to requirement to withdraw from the university.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="schedule.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
