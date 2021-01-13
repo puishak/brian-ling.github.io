@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-01-12" />
+<meta name="date" content="2021-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -224,21 +224,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Graphs are powerful to illustrate features of the data. You will learn how to create some basic plots as well as using the package <code>ggplot2</code> to create more elegant plots.</p>
 <p>Consider a dataset about cars.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2"></a>mpg</span>
-<span id="cb1-3"><a href="introduction.html#cb1-3"></a><span class="co">## # A tibble: 234 x 11</span></span>
-<span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact</span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact</span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## # ... with 224 more rows</span></span></code></pre></div>
+<span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="co">## Warning: package &#39;ggplot2&#39; was built under R version 4.0.3</span></span>
+<span id="cb1-3"><a href="introduction.html#cb1-3"></a>mpg</span>
+<span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">## # A tibble: 234 x 11</span></span>
+<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact</span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact</span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact</span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact</span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact</span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact</span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact</span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact</span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact</span></span>
+<span id="cb1-17"><a href="introduction.html#cb1-17"></a><span class="co">## # ... with 224 more rows</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
@@ -362,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-17"><a href="introduction.html#cb8-17"></a>p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</span>
 <span id="cb8-18"><a href="introduction.html#cb8-18"></a></span>
 <span id="cb8-19"><a href="introduction.html#cb8-19"></a>subject_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Steve&quot;</span>) <span class="co"># character vector</span></span></code></pre></div>
-<p>Combine two vectors</p>
+<p><strong>Combine two vectors</strong></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction.html#cb9-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)</span>
 <span id="cb9-2"><a href="introduction.html#cb9-2"></a></span>
 <span id="cb9-3"><a href="introduction.html#cb9-3"></a><span class="kw">c</span>(x, y) <span class="co"># note that we created x above</span></span>
@@ -370,23 +371,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-5"><a href="introduction.html#cb9-5"></a></span>
 <span id="cb9-6"><a href="introduction.html#cb9-6"></a><span class="kw">c</span>(y, subject_name) <span class="co"># 2, 4, 6 become characters &quot;2&quot;, &quot;4&quot;, &quot;6&quot;</span></span>
 <span id="cb9-7"><a href="introduction.html#cb9-7"></a><span class="co">## [1] &quot;2&quot;     &quot;4&quot;     &quot;6&quot;     &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span></code></pre></div>
+<p><strong>Assessing elements in the vectors</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction.html#cb10-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb10-2"><a href="introduction.html#cb10-2"></a>y[<span class="dv">2</span>] <span class="co"># second element</span></span>
+<span id="cb10-3"><a href="introduction.html#cb10-3"></a><span class="co">## [1] 4</span></span>
+<span id="cb10-4"><a href="introduction.html#cb10-4"></a>y[<span class="dv">3</span>] <span class="co"># third element</span></span>
+<span id="cb10-5"><a href="introduction.html#cb10-5"></a><span class="co">## [1] 6</span></span></code></pre></div>
 </div>
 <div id="factors" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Factors</h3>
-<ul>
-<li>A factor is a special case of vector that is solely used for representing categoical or ordinal variables</li>
-</ul>
+<p>A factor is a special type of vector that is solely used for representing categorical or ordinal variables.</p>
 <p>Reasons for using factor</p>
 <ul>
 <li><p>the category labels are stored only once. E.g., rather than storing <code>MALE, MALE, MALE, FEMALE</code>, the computer may store <code>1,1,1,2</code>(save memory)</p></li>
 <li><p>many machine learning algorithms treat nominal and numeric features differently and may require the input as a factor</p></li>
 </ul>
-<p>Create a factor</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction.html#cb10-1"></a>gender &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)) </span>
-<span id="cb10-2"><a href="introduction.html#cb10-2"></a></span>
-<span id="cb10-3"><a href="introduction.html#cb10-3"></a><span class="co"># compared with </span></span>
-<span id="cb10-4"><a href="introduction.html#cb10-4"></a><span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)</span>
-<span id="cb10-5"><a href="introduction.html#cb10-5"></a><span class="co">## [1] &quot;MALE&quot;   &quot;MALE&quot;   &quot;FEMALE&quot; &quot;MALE&quot;</span></span></code></pre></div>
+<p><strong>Create a factor</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction.html#cb11-1"></a>gender &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)) </span>
+<span id="cb11-2"><a href="introduction.html#cb11-2"></a></span>
+<span id="cb11-3"><a href="introduction.html#cb11-3"></a>gender</span>
+<span id="cb11-4"><a href="introduction.html#cb11-4"></a><span class="co">## [1] MALE   MALE   FEMALE MALE  </span></span>
+<span id="cb11-5"><a href="introduction.html#cb11-5"></a><span class="co">## Levels: FEMALE MALE</span></span>
+<span id="cb11-6"><a href="introduction.html#cb11-6"></a></span>
+<span id="cb11-7"><a href="introduction.html#cb11-7"></a><span class="co"># compared with </span></span>
+<span id="cb11-8"><a href="introduction.html#cb11-8"></a><span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)</span>
+<span id="cb11-9"><a href="introduction.html#cb11-9"></a><span class="co">## [1] &quot;MALE&quot;   &quot;MALE&quot;   &quot;FEMALE&quot; &quot;MALE&quot;</span></span></code></pre></div>
 </div>
 <div id="matrix" class="section level3">
 <h3><span class="header-section-number">1.4.3</span> Matrix</h3>
@@ -395,44 +404,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>a collection of numbers in a rectangular form</p></li>
 <li><p>A matrix with dimension <code>n</code> by <code>m</code> means the matrix has <code>n</code> rows and <code>m</code> columns.</p></li>
 </ul>
-<p>To create a <span class="math inline">\(3\times 4\)</span> matrix with elements 1:12 filled in column-wise</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction.html#cb11-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>) <span class="co"># note that we use = instead of &lt;- </span></span>
-<span id="cb11-2"><a href="introduction.html#cb11-2"></a>A</span>
-<span id="cb11-3"><a href="introduction.html#cb11-3"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb11-4"><a href="introduction.html#cb11-4"></a><span class="co">## [1,]    1    4    7   10</span></span>
-<span id="cb11-5"><a href="introduction.html#cb11-5"></a><span class="co">## [2,]    2    5    8   11</span></span>
-<span id="cb11-6"><a href="introduction.html#cb11-6"></a><span class="co">## [3,]    3    6    9   12</span></span></code></pre></div>
+<p><strong>Create Matrix:</strong> To create a <span class="math inline">\(3\times 4\)</span> matrix with elements 1:12 filled in column-wise</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction.html#cb12-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>) <span class="co"># note that we use = instead of &lt;- </span></span>
+<span id="cb12-2"><a href="introduction.html#cb12-2"></a>A</span>
+<span id="cb12-3"><a href="introduction.html#cb12-3"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb12-4"><a href="introduction.html#cb12-4"></a><span class="co">## [1,]    1    4    7   10</span></span>
+<span id="cb12-5"><a href="introduction.html#cb12-5"></a><span class="co">## [2,]    2    5    8   11</span></span>
+<span id="cb12-6"><a href="introduction.html#cb12-6"></a><span class="co">## [3,]    3    6    9   12</span></span></code></pre></div>
 <p><strong>Dimension, number of rows, number of columns of a matrix</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction.html#cb12-1"></a><span class="co"># again R is case-sensitive, a and A are different</span></span>
-<span id="cb12-2"><a href="introduction.html#cb12-2"></a><span class="kw">dim</span>(A) <span class="co"># to find the dimension of A</span></span>
-<span id="cb12-3"><a href="introduction.html#cb12-3"></a><span class="co">## [1] 3 4</span></span>
-<span id="cb12-4"><a href="introduction.html#cb12-4"></a></span>
-<span id="cb12-5"><a href="introduction.html#cb12-5"></a><span class="kw">nrow</span>(A) <span class="co"># to find the number of row in A</span></span>
-<span id="cb12-6"><a href="introduction.html#cb12-6"></a><span class="co">## [1] 3</span></span>
-<span id="cb12-7"><a href="introduction.html#cb12-7"></a></span>
-<span id="cb12-8"><a href="introduction.html#cb12-8"></a><span class="kw">ncol</span>(A) <span class="co"># to find the number of column in A</span></span>
-<span id="cb12-9"><a href="introduction.html#cb12-9"></a><span class="co">## [1] 4</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction.html#cb13-1"></a><span class="co"># again R is case-sensitive, a and A are different</span></span>
+<span id="cb13-2"><a href="introduction.html#cb13-2"></a><span class="kw">dim</span>(A) <span class="co"># to find the dimension of A</span></span>
+<span id="cb13-3"><a href="introduction.html#cb13-3"></a><span class="co">## [1] 3 4</span></span>
+<span id="cb13-4"><a href="introduction.html#cb13-4"></a></span>
+<span id="cb13-5"><a href="introduction.html#cb13-5"></a><span class="kw">nrow</span>(A) <span class="co"># to find the number of row in A</span></span>
+<span id="cb13-6"><a href="introduction.html#cb13-6"></a><span class="co">## [1] 3</span></span>
+<span id="cb13-7"><a href="introduction.html#cb13-7"></a></span>
+<span id="cb13-8"><a href="introduction.html#cb13-8"></a><span class="kw">ncol</span>(A) <span class="co"># to find the number of column in A</span></span>
+<span id="cb13-9"><a href="introduction.html#cb13-9"></a><span class="co">## [1] 4</span></span></code></pre></div>
 <p><strong>By default, the matrix is filled column-wise. You can change to row-wise by adding <code>byrow = TRUE</code></strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction.html#cb13-1"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>) </span>
-<span id="cb13-2"><a href="introduction.html#cb13-2"></a>B</span>
-<span id="cb13-3"><a href="introduction.html#cb13-3"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb13-4"><a href="introduction.html#cb13-4"></a><span class="co">## [1,]    1    2    3    4</span></span>
-<span id="cb13-5"><a href="introduction.html#cb13-5"></a><span class="co">## [2,]    5    6    7    8</span></span>
-<span id="cb13-6"><a href="introduction.html#cb13-6"></a><span class="co">## [3,]    9   10   11   12</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction.html#cb14-1"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb14-2"><a href="introduction.html#cb14-2"></a>B</span>
+<span id="cb14-3"><a href="introduction.html#cb14-3"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb14-4"><a href="introduction.html#cb14-4"></a><span class="co">## [1,]    1    2    3    4</span></span>
+<span id="cb14-5"><a href="introduction.html#cb14-5"></a><span class="co">## [2,]    5    6    7    8</span></span>
+<span id="cb14-6"><a href="introduction.html#cb14-6"></a><span class="co">## [3,]    9   10   11   12</span></span></code></pre></div>
 <p><strong>Select rows, columns, submatrix, element</strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction.html#cb14-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># select the element in the 1st row and 2nd column</span></span>
-<span id="cb14-2"><a href="introduction.html#cb14-2"></a><span class="co">## [1] 4</span></span>
-<span id="cb14-3"><a href="introduction.html#cb14-3"></a></span>
-<span id="cb14-4"><a href="introduction.html#cb14-4"></a>A[<span class="dv">2</span>, ] <span class="co"># select 2nd row</span></span>
-<span id="cb14-5"><a href="introduction.html#cb14-5"></a><span class="co">## [1]  2  5  8 11</span></span>
-<span id="cb14-6"><a href="introduction.html#cb14-6"></a></span>
-<span id="cb14-7"><a href="introduction.html#cb14-7"></a>A[, <span class="dv">3</span>] <span class="co"># select 3rd column</span></span>
-<span id="cb14-8"><a href="introduction.html#cb14-8"></a><span class="co">## [1] 7 8 9</span></span>
-<span id="cb14-9"><a href="introduction.html#cb14-9"></a></span>
-<span id="cb14-10"><a href="introduction.html#cb14-10"></a>A[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] <span class="co"># select a submatrix</span></span>
-<span id="cb14-11"><a href="introduction.html#cb14-11"></a><span class="co">##      [,1] [,2]</span></span>
-<span id="cb14-12"><a href="introduction.html#cb14-12"></a><span class="co">## [1,]    7   10</span></span>
-<span id="cb14-13"><a href="introduction.html#cb14-13"></a><span class="co">## [2,]    8   11</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction.html#cb15-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># select the element in the 1st row and 2nd column</span></span>
+<span id="cb15-2"><a href="introduction.html#cb15-2"></a><span class="co">## [1] 4</span></span>
+<span id="cb15-3"><a href="introduction.html#cb15-3"></a></span>
+<span id="cb15-4"><a href="introduction.html#cb15-4"></a>A[<span class="dv">2</span>, ] <span class="co"># select 2nd row</span></span>
+<span id="cb15-5"><a href="introduction.html#cb15-5"></a><span class="co">## [1]  2  5  8 11</span></span>
+<span id="cb15-6"><a href="introduction.html#cb15-6"></a></span>
+<span id="cb15-7"><a href="introduction.html#cb15-7"></a>A[, <span class="dv">3</span>] <span class="co"># select 3rd column</span></span>
+<span id="cb15-8"><a href="introduction.html#cb15-8"></a><span class="co">## [1] 7 8 9</span></span>
+<span id="cb15-9"><a href="introduction.html#cb15-9"></a></span>
+<span id="cb15-10"><a href="introduction.html#cb15-10"></a>A[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] <span class="co"># select a submatrix</span></span>
+<span id="cb15-11"><a href="introduction.html#cb15-11"></a><span class="co">##      [,1] [,2]</span></span>
+<span id="cb15-12"><a href="introduction.html#cb15-12"></a><span class="co">## [1,]    7   10</span></span>
+<span id="cb15-13"><a href="introduction.html#cb15-13"></a><span class="co">## [2,]    8   11</span></span></code></pre></div>
 <p>Try:</p>
 <ul>
 <li><code>A[c(1, 2), c(1, 3, 4)]</code></li>
@@ -440,23 +449,158 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>A[, -2]</code></li>
 </ul>
 <p><strong>Combine Two Matrices</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction.html#cb15-1"></a><span class="kw">cbind</span>(A, B) <span class="co"># combine column-wise</span></span>
-<span id="cb15-2"><a href="introduction.html#cb15-2"></a><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
-<span id="cb15-3"><a href="introduction.html#cb15-3"></a><span class="co">## [1,]    1    4    7   10    1    2    3    4</span></span>
-<span id="cb15-4"><a href="introduction.html#cb15-4"></a><span class="co">## [2,]    2    5    8   11    5    6    7    8</span></span>
-<span id="cb15-5"><a href="introduction.html#cb15-5"></a><span class="co">## [3,]    3    6    9   12    9   10   11   12</span></span>
-<span id="cb15-6"><a href="introduction.html#cb15-6"></a></span>
-<span id="cb15-7"><a href="introduction.html#cb15-7"></a><span class="kw">rbind</span>(A, B) <span class="co"># combine row-wise</span></span>
-<span id="cb15-8"><a href="introduction.html#cb15-8"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb15-9"><a href="introduction.html#cb15-9"></a><span class="co">## [1,]    1    4    7   10</span></span>
-<span id="cb15-10"><a href="introduction.html#cb15-10"></a><span class="co">## [2,]    2    5    8   11</span></span>
-<span id="cb15-11"><a href="introduction.html#cb15-11"></a><span class="co">## [3,]    3    6    9   12</span></span>
-<span id="cb15-12"><a href="introduction.html#cb15-12"></a><span class="co">## [4,]    1    2    3    4</span></span>
-<span id="cb15-13"><a href="introduction.html#cb15-13"></a><span class="co">## [5,]    5    6    7    8</span></span>
-<span id="cb15-14"><a href="introduction.html#cb15-14"></a><span class="co">## [6,]    9   10   11   12</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction.html#cb16-1"></a><span class="kw">cbind</span>(A, B) <span class="co"># combine column-wise</span></span>
+<span id="cb16-2"><a href="introduction.html#cb16-2"></a><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
+<span id="cb16-3"><a href="introduction.html#cb16-3"></a><span class="co">## [1,]    1    4    7   10    1    2    3    4</span></span>
+<span id="cb16-4"><a href="introduction.html#cb16-4"></a><span class="co">## [2,]    2    5    8   11    5    6    7    8</span></span>
+<span id="cb16-5"><a href="introduction.html#cb16-5"></a><span class="co">## [3,]    3    6    9   12    9   10   11   12</span></span>
+<span id="cb16-6"><a href="introduction.html#cb16-6"></a></span>
+<span id="cb16-7"><a href="introduction.html#cb16-7"></a><span class="kw">rbind</span>(A, B) <span class="co"># combine row-wise</span></span>
+<span id="cb16-8"><a href="introduction.html#cb16-8"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb16-9"><a href="introduction.html#cb16-9"></a><span class="co">## [1,]    1    4    7   10</span></span>
+<span id="cb16-10"><a href="introduction.html#cb16-10"></a><span class="co">## [2,]    2    5    8   11</span></span>
+<span id="cb16-11"><a href="introduction.html#cb16-11"></a><span class="co">## [3,]    3    6    9   12</span></span>
+<span id="cb16-12"><a href="introduction.html#cb16-12"></a><span class="co">## [4,]    1    2    3    4</span></span>
+<span id="cb16-13"><a href="introduction.html#cb16-13"></a><span class="co">## [5,]    5    6    7    8</span></span>
+<span id="cb16-14"><a href="introduction.html#cb16-14"></a><span class="co">## [6,]    9   10   11   12</span></span></code></pre></div>
 <p>Try:</p>
 <ul>
 <li><code>rbind(B, A)</code></li>
+</ul>
+<p><strong>Transpose</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="introduction.html#cb17-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb17-2"><a href="introduction.html#cb17-2"></a></span>
+<span id="cb17-3"><a href="introduction.html#cb17-3"></a><span class="kw">t</span>(x) <span class="co"># transpose</span></span>
+<span id="cb17-4"><a href="introduction.html#cb17-4"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb17-5"><a href="introduction.html#cb17-5"></a><span class="co">## [1,]    1    2    3</span></span>
+<span id="cb17-6"><a href="introduction.html#cb17-6"></a></span>
+<span id="cb17-7"><a href="introduction.html#cb17-7"></a>Q &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb17-8"><a href="introduction.html#cb17-8"></a></span>
+<span id="cb17-9"><a href="introduction.html#cb17-9"></a>Q</span>
+<span id="cb17-10"><a href="introduction.html#cb17-10"></a><span class="co">##      [,1] [,2]</span></span>
+<span id="cb17-11"><a href="introduction.html#cb17-11"></a><span class="co">## [1,]    1    3</span></span>
+<span id="cb17-12"><a href="introduction.html#cb17-12"></a><span class="co">## [2,]    2    4</span></span>
+<span id="cb17-13"><a href="introduction.html#cb17-13"></a></span>
+<span id="cb17-14"><a href="introduction.html#cb17-14"></a><span class="kw">t</span>(Q) <span class="co"># transpose</span></span>
+<span id="cb17-15"><a href="introduction.html#cb17-15"></a><span class="co">##      [,1] [,2]</span></span>
+<span id="cb17-16"><a href="introduction.html#cb17-16"></a><span class="co">## [1,]    1    2</span></span>
+<span id="cb17-17"><a href="introduction.html#cb17-17"></a><span class="co">## [2,]    3    4</span></span></code></pre></div>
+<p><strong>Matrix Addition</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction.html#cb18-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="introduction.html#cb18-2"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb18-3"><a href="introduction.html#cb18-3"></a></span>
+<span id="cb18-4"><a href="introduction.html#cb18-4"></a>A<span class="op">+</span>B</span>
+<span id="cb18-5"><a href="introduction.html#cb18-5"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb18-6"><a href="introduction.html#cb18-6"></a><span class="co">## [1,]    3    7   11</span></span>
+<span id="cb18-7"><a href="introduction.html#cb18-7"></a><span class="co">## [2,]    5    9   13</span></span>
+<span id="cb18-8"><a href="introduction.html#cb18-8"></a></span>
+<span id="cb18-9"><a href="introduction.html#cb18-9"></a>A<span class="op">-</span>B</span>
+<span id="cb18-10"><a href="introduction.html#cb18-10"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb18-11"><a href="introduction.html#cb18-11"></a><span class="co">## [1,]   -1   -1   -1</span></span>
+<span id="cb18-12"><a href="introduction.html#cb18-12"></a><span class="co">## [2,]   -1   -1   -1</span></span>
+<span id="cb18-13"><a href="introduction.html#cb18-13"></a></span>
+<span id="cb18-14"><a href="introduction.html#cb18-14"></a>A<span class="op">+</span><span class="dv">2</span></span>
+<span id="cb18-15"><a href="introduction.html#cb18-15"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb18-16"><a href="introduction.html#cb18-16"></a><span class="co">## [1,]    3    5    7</span></span>
+<span id="cb18-17"><a href="introduction.html#cb18-17"></a><span class="co">## [2,]    4    6    8</span></span>
+<span id="cb18-18"><a href="introduction.html#cb18-18"></a></span>
+<span id="cb18-19"><a href="introduction.html#cb18-19"></a>c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb18-20"><a href="introduction.html#cb18-20"></a></span>
+<span id="cb18-21"><a href="introduction.html#cb18-21"></a>A<span class="op">+</span>c </span>
+<span id="cb18-22"><a href="introduction.html#cb18-22"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb18-23"><a href="introduction.html#cb18-23"></a><span class="co">## [1,]    2    4    6</span></span>
+<span id="cb18-24"><a href="introduction.html#cb18-24"></a><span class="co">## [2,]    4    6    8</span></span></code></pre></div>
+<p><strong>Elementwise Product</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction.html#cb19-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb19-2"><a href="introduction.html#cb19-2"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb19-3"><a href="introduction.html#cb19-3"></a></span>
+<span id="cb19-4"><a href="introduction.html#cb19-4"></a>A<span class="op">*</span>B</span>
+<span id="cb19-5"><a href="introduction.html#cb19-5"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb19-6"><a href="introduction.html#cb19-6"></a><span class="co">## [1,]    1    3    5</span></span>
+<span id="cb19-7"><a href="introduction.html#cb19-7"></a><span class="co">## [2,]    4    8   12</span></span>
+<span id="cb19-8"><a href="introduction.html#cb19-8"></a></span>
+<span id="cb19-9"><a href="introduction.html#cb19-9"></a>c &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb19-10"><a href="introduction.html#cb19-10"></a></span>
+<span id="cb19-11"><a href="introduction.html#cb19-11"></a>A<span class="op">*</span>c</span>
+<span id="cb19-12"><a href="introduction.html#cb19-12"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb19-13"><a href="introduction.html#cb19-13"></a><span class="co">## [1,]    2    6   10</span></span>
+<span id="cb19-14"><a href="introduction.html#cb19-14"></a><span class="co">## [2,]    4    8   12</span></span>
+<span id="cb19-15"><a href="introduction.html#cb19-15"></a></span>
+<span id="cb19-16"><a href="introduction.html#cb19-16"></a>c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">100</span>)</span>
+<span id="cb19-17"><a href="introduction.html#cb19-17"></a>A<span class="op">*</span>c</span>
+<span id="cb19-18"><a href="introduction.html#cb19-18"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb19-19"><a href="introduction.html#cb19-19"></a><span class="co">## [1,]   10   30   50</span></span>
+<span id="cb19-20"><a href="introduction.html#cb19-20"></a><span class="co">## [2,]  200  400  600</span></span>
+<span id="cb19-21"><a href="introduction.html#cb19-21"></a></span>
+<span id="cb19-22"><a href="introduction.html#cb19-22"></a>c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>) </span>
+<span id="cb19-23"><a href="introduction.html#cb19-23"></a>A<span class="op">*</span>c  <span class="co"># do you notice the pattern?</span></span>
+<span id="cb19-24"><a href="introduction.html#cb19-24"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb19-25"><a href="introduction.html#cb19-25"></a><span class="co">## [1,]   10 3000  500</span></span>
+<span id="cb19-26"><a href="introduction.html#cb19-26"></a><span class="co">## [2,]  200   40 6000</span></span></code></pre></div>
+<p><strong>Matrix Multiplication</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction.html#cb20-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>) <span class="co"># 3x4 matrix</span></span>
+<span id="cb20-2"><a href="introduction.html#cb20-2"></a></span>
+<span id="cb20-3"><a href="introduction.html#cb20-3"></a><span class="kw">t</span>(A) <span class="co"># 4x3 matrix</span></span>
+<span id="cb20-4"><a href="introduction.html#cb20-4"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb20-5"><a href="introduction.html#cb20-5"></a><span class="co">## [1,]    1    2    3</span></span>
+<span id="cb20-6"><a href="introduction.html#cb20-6"></a><span class="co">## [2,]    4    5    6</span></span>
+<span id="cb20-7"><a href="introduction.html#cb20-7"></a><span class="co">## [3,]    7    8    9</span></span>
+<span id="cb20-8"><a href="introduction.html#cb20-8"></a><span class="co">## [4,]   10   11   12</span></span>
+<span id="cb20-9"><a href="introduction.html#cb20-9"></a></span>
+<span id="cb20-10"><a href="introduction.html#cb20-10"></a><span class="kw">t</span>(A)<span class="op">%*%</span>A <span class="co">#3x3 matrix, %*% = matrix multiplication</span></span>
+<span id="cb20-11"><a href="introduction.html#cb20-11"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb20-12"><a href="introduction.html#cb20-12"></a><span class="co">## [1,]   14   32   50   68</span></span>
+<span id="cb20-13"><a href="introduction.html#cb20-13"></a><span class="co">## [2,]   32   77  122  167</span></span>
+<span id="cb20-14"><a href="introduction.html#cb20-14"></a><span class="co">## [3,]   50  122  194  266</span></span>
+<span id="cb20-15"><a href="introduction.html#cb20-15"></a><span class="co">## [4,]   68  167  266  365</span></span>
+<span id="cb20-16"><a href="introduction.html#cb20-16"></a></span>
+<span id="cb20-17"><a href="introduction.html#cb20-17"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb20-18"><a href="introduction.html#cb20-18"></a></span>
+<span id="cb20-19"><a href="introduction.html#cb20-19"></a>B<span class="op">%*%</span>A</span>
+<span id="cb20-20"><a href="introduction.html#cb20-20"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb20-21"><a href="introduction.html#cb20-21"></a><span class="co">## [1,]   30   66  102  138</span></span>
+<span id="cb20-22"><a href="introduction.html#cb20-22"></a><span class="co">## [2,]   36   81  126  171</span></span>
+<span id="cb20-23"><a href="introduction.html#cb20-23"></a><span class="co">## [3,]   42   96  150  204</span></span>
+<span id="cb20-24"><a href="introduction.html#cb20-24"></a></span>
+<span id="cb20-25"><a href="introduction.html#cb20-25"></a>A<span class="op">%*%</span>B <span class="co"># error, non-conformable arguments</span></span>
+<span id="cb20-26"><a href="introduction.html#cb20-26"></a><span class="co">## Error in A %*% B: non-conformable arguments</span></span></code></pre></div>
+<p><strong>Diagonal Matrix</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="introduction.html#cb21-1"></a><span class="kw">diag</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) <span class="co"># diagonal matrix with diagonal elements being 1:4</span></span>
+<span id="cb21-2"><a href="introduction.html#cb21-2"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb21-3"><a href="introduction.html#cb21-3"></a><span class="co">## [1,]    1    0    0    0</span></span>
+<span id="cb21-4"><a href="introduction.html#cb21-4"></a><span class="co">## [2,]    0    2    0    0</span></span>
+<span id="cb21-5"><a href="introduction.html#cb21-5"></a><span class="co">## [3,]    0    0    3    0</span></span>
+<span id="cb21-6"><a href="introduction.html#cb21-6"></a><span class="co">## [4,]    0    0    0    4</span></span>
+<span id="cb21-7"><a href="introduction.html#cb21-7"></a></span>
+<span id="cb21-8"><a href="introduction.html#cb21-8"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb21-9"><a href="introduction.html#cb21-9"></a></span>
+<span id="cb21-10"><a href="introduction.html#cb21-10"></a>A</span>
+<span id="cb21-11"><a href="introduction.html#cb21-11"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb21-12"><a href="introduction.html#cb21-12"></a><span class="co">## [1,]    1    4    7</span></span>
+<span id="cb21-13"><a href="introduction.html#cb21-13"></a><span class="co">## [2,]    2    5    8</span></span>
+<span id="cb21-14"><a href="introduction.html#cb21-14"></a><span class="co">## [3,]    3    6    9</span></span>
+<span id="cb21-15"><a href="introduction.html#cb21-15"></a></span>
+<span id="cb21-16"><a href="introduction.html#cb21-16"></a><span class="kw">diag</span>(A) <span class="co"># find the diagonal of A</span></span>
+<span id="cb21-17"><a href="introduction.html#cb21-17"></a><span class="co">## [1] 1 5 9</span></span></code></pre></div>
+<p>How to create an identity matrix in R?</p>
+<p><strong>Inverse</strong></p>
+<p>The inverse of a <span class="math inline">\(n \times n\)</span> matrix <span class="math inline">\(A\)</span>, denoted by <span class="math inline">\(A^{-1}\)</span>, is a <span class="math inline">\(n \times n\)</span> matrix such that <span class="math inline">\(AA^{-1} = A^{-1} A = I_n\)</span>, where <span class="math inline">\(I_n\)</span> is the <span class="math inline">\(n\times n\)</span> identity matrix.</p>
+<p>To find the inverse of <span class="math inline">\(A\)</span> in R: <code>solve</code></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction.html#cb22-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb22-2"><a href="introduction.html#cb22-2"></a><span class="kw">solve</span>(A)</span>
+<span id="cb22-3"><a href="introduction.html#cb22-3"></a><span class="co">##      [,1]      [,2]</span></span>
+<span id="cb22-4"><a href="introduction.html#cb22-4"></a><span class="co">## [1,]    1 0.0000000</span></span>
+<span id="cb22-5"><a href="introduction.html#cb22-5"></a><span class="co">## [2,]    0 0.3333333</span></span></code></pre></div>
+<p><strong>Some Statistical Applications</strong></p>
+<p>I will mention a few connections of matrices with statistics.</p>
+<ul>
+<li><p>A dataset is naturally a matrix. Suppose that you have <span class="math inline">\(n\)</span> people. You collected their health information: blood pressure, height, weight, age, whether they smoke (1 if yes, 0 if no), whether they drink (1/0), etc.</p></li>
+<li><p>Linear regression: we observe <span class="math inline">\((x,y)\)</span>, where <span class="math inline">\(x\)</span> is a vector of covariates and <span class="math inline">\(y\)</span> is your response. For example, <span class="math inline">\(y\)</span> is the blood pressure, <span class="math inline">\(x\)</span> is the collection of other health information. The linear regression model assumes that
+<span class="math display">\[y = \beta_0 + x^T \beta_1 + \varepsilon,\]</span>
+where <span class="math inline">\(\varepsilon\)</span> is the error term. Our goal is to estimate <span class="math inline">\(\beta:=(\beta_0, \beta_1)\)</span>. Let <span class="math inline">\(X\)</span> be the design matrix. That is <span class="math inline">\(X\)</span> is a <span class="math inline">\(n \times p\)</span> matrix where <span class="math inline">\(n\)</span> is the number of observation, <span class="math inline">\(p-1\)</span> is the number of covariates. The least squares solution for <span class="math inline">\(\beta\)</span> is
+<span class="math display">\[\hat{\beta} = (X^T X)^{-1}X^TY.\]</span> <strong>We will revisit linear regression later (I know some of you may not know linear regression)</strong>.</p></li>
+<li><p>Correlation matrix, Covariance matrix. Let <span class="math inline">\(X\)</span> be a random vector (column vector). The covariance matrix is defined as
+<span class="math display">\[\Sigma := E[(X-E(X))(X-E(X))^T].\]</span></p></li>
 </ul>
 </div>
 <div id="lists" class="section level3">
@@ -465,88 +609,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>store an ordered set of elements like a vector</p></li>
 <li><p>can store different R data types (unlike a vector)</p></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction.html#cb16-1"></a><span class="co"># let&#39;s create some vectors (of different types)</span></span>
-<span id="cb16-2"><a href="introduction.html#cb16-2"></a>subject_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Steve&quot;</span>) <span class="co"># at this point, you should notice that meaningful names should be used for the variables</span></span>
-<span id="cb16-3"><a href="introduction.html#cb16-3"></a>temperature &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">98.1</span>, <span class="fl">98.6</span>, <span class="fl">101.4</span>)</span>
-<span id="cb16-4"><a href="introduction.html#cb16-4"></a>flu_status &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) <span class="co"># notice how we use _ to separate two words (this is one of the styles in coding, you should be consistent with your style)</span></span>
-<span id="cb16-5"><a href="introduction.html#cb16-5"></a></span>
-<span id="cb16-6"><a href="introduction.html#cb16-6"></a>data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">fullname =</span> subject_name, <span class="dt">temperature =</span> temperature, <span class="dt">flu_status =</span> flu_status) </span>
-<span id="cb16-7"><a href="introduction.html#cb16-7"></a></span>
-<span id="cb16-8"><a href="introduction.html#cb16-8"></a><span class="co"># you may wonder what is the meaning of temperature = temperature</span></span>
-<span id="cb16-9"><a href="introduction.html#cb16-9"></a><span class="co"># in &quot;fullname = subject_name&quot;</span></span>
-<span id="cb16-10"><a href="introduction.html#cb16-10"></a><span class="co"># on the left of = is the name of the 1st element of your list</span></span>
-<span id="cb16-11"><a href="introduction.html#cb16-11"></a><span class="co"># on the right of = is the name of the variable that you want to</span></span>
-<span id="cb16-12"><a href="introduction.html#cb16-12"></a><span class="co"># assign the value to the 1st element</span></span>
-<span id="cb16-13"><a href="introduction.html#cb16-13"></a></span>
-<span id="cb16-14"><a href="introduction.html#cb16-14"></a>data </span>
-<span id="cb16-15"><a href="introduction.html#cb16-15"></a><span class="co">## $fullname</span></span>
-<span id="cb16-16"><a href="introduction.html#cb16-16"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
-<span id="cb16-17"><a href="introduction.html#cb16-17"></a><span class="co">## </span></span>
-<span id="cb16-18"><a href="introduction.html#cb16-18"></a><span class="co">## $temperature</span></span>
-<span id="cb16-19"><a href="introduction.html#cb16-19"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
-<span id="cb16-20"><a href="introduction.html#cb16-20"></a><span class="co">## </span></span>
-<span id="cb16-21"><a href="introduction.html#cb16-21"></a><span class="co">## $flu_status</span></span>
-<span id="cb16-22"><a href="introduction.html#cb16-22"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction.html#cb23-1"></a><span class="co"># let&#39;s create some vectors (of different types)</span></span>
+<span id="cb23-2"><a href="introduction.html#cb23-2"></a>subject_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Steve&quot;</span>) <span class="co"># at this point, you should notice that meaningful names should be used for the variables</span></span>
+<span id="cb23-3"><a href="introduction.html#cb23-3"></a>temperature &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">98.1</span>, <span class="fl">98.6</span>, <span class="fl">101.4</span>)</span>
+<span id="cb23-4"><a href="introduction.html#cb23-4"></a>flu_status &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) <span class="co"># notice how we use _ to separate two words (this is one of the styles in coding, you should be consistent with your style)</span></span>
+<span id="cb23-5"><a href="introduction.html#cb23-5"></a></span>
+<span id="cb23-6"><a href="introduction.html#cb23-6"></a>data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">fullname =</span> subject_name, <span class="dt">temperature =</span> temperature, <span class="dt">flu_status =</span> flu_status) </span>
+<span id="cb23-7"><a href="introduction.html#cb23-7"></a></span>
+<span id="cb23-8"><a href="introduction.html#cb23-8"></a><span class="co"># you may wonder what is the meaning of temperature = temperature</span></span>
+<span id="cb23-9"><a href="introduction.html#cb23-9"></a><span class="co"># in &quot;fullname = subject_name&quot;</span></span>
+<span id="cb23-10"><a href="introduction.html#cb23-10"></a><span class="co"># on the left of = is the name of the 1st element of your list</span></span>
+<span id="cb23-11"><a href="introduction.html#cb23-11"></a><span class="co"># on the right of = is the name of the variable that you want to</span></span>
+<span id="cb23-12"><a href="introduction.html#cb23-12"></a><span class="co"># assign the value to the 1st element</span></span>
+<span id="cb23-13"><a href="introduction.html#cb23-13"></a></span>
+<span id="cb23-14"><a href="introduction.html#cb23-14"></a>data </span>
+<span id="cb23-15"><a href="introduction.html#cb23-15"></a><span class="co">## $fullname</span></span>
+<span id="cb23-16"><a href="introduction.html#cb23-16"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
+<span id="cb23-17"><a href="introduction.html#cb23-17"></a><span class="co">## </span></span>
+<span id="cb23-18"><a href="introduction.html#cb23-18"></a><span class="co">## $temperature</span></span>
+<span id="cb23-19"><a href="introduction.html#cb23-19"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
+<span id="cb23-20"><a href="introduction.html#cb23-20"></a><span class="co">## </span></span>
+<span id="cb23-21"><a href="introduction.html#cb23-21"></a><span class="co">## $flu_status</span></span>
+<span id="cb23-22"><a href="introduction.html#cb23-22"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
 <p>To assess the element of a list:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="introduction.html#cb17-1"></a>data<span class="op">$</span>flu_status</span>
-<span id="cb17-2"><a href="introduction.html#cb17-2"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
-<span id="cb17-3"><a href="introduction.html#cb17-3"></a></span>
-<span id="cb17-4"><a href="introduction.html#cb17-4"></a>data[<span class="kw">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
-<span id="cb17-5"><a href="introduction.html#cb17-5"></a><span class="co">## $temperature</span></span>
-<span id="cb17-6"><a href="introduction.html#cb17-6"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
-<span id="cb17-7"><a href="introduction.html#cb17-7"></a><span class="co">## </span></span>
-<span id="cb17-8"><a href="introduction.html#cb17-8"></a><span class="co">## $flu_status</span></span>
-<span id="cb17-9"><a href="introduction.html#cb17-9"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
-<span id="cb17-10"><a href="introduction.html#cb17-10"></a></span>
-<span id="cb17-11"><a href="introduction.html#cb17-11"></a>data[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># if you don&#39;t have the names</span></span>
-<span id="cb17-12"><a href="introduction.html#cb17-12"></a><span class="co">## $temperature</span></span>
-<span id="cb17-13"><a href="introduction.html#cb17-13"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
-<span id="cb17-14"><a href="introduction.html#cb17-14"></a><span class="co">## </span></span>
-<span id="cb17-15"><a href="introduction.html#cb17-15"></a><span class="co">## $flu_status</span></span>
-<span id="cb17-16"><a href="introduction.html#cb17-16"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction.html#cb24-1"></a>data<span class="op">$</span>flu_status</span>
+<span id="cb24-2"><a href="introduction.html#cb24-2"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
+<span id="cb24-3"><a href="introduction.html#cb24-3"></a></span>
+<span id="cb24-4"><a href="introduction.html#cb24-4"></a>data[<span class="kw">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
+<span id="cb24-5"><a href="introduction.html#cb24-5"></a><span class="co">## $temperature</span></span>
+<span id="cb24-6"><a href="introduction.html#cb24-6"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
+<span id="cb24-7"><a href="introduction.html#cb24-7"></a><span class="co">## </span></span>
+<span id="cb24-8"><a href="introduction.html#cb24-8"></a><span class="co">## $flu_status</span></span>
+<span id="cb24-9"><a href="introduction.html#cb24-9"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
+<span id="cb24-10"><a href="introduction.html#cb24-10"></a></span>
+<span id="cb24-11"><a href="introduction.html#cb24-11"></a>data[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># if you don&#39;t have the names</span></span>
+<span id="cb24-12"><a href="introduction.html#cb24-12"></a><span class="co">## $temperature</span></span>
+<span id="cb24-13"><a href="introduction.html#cb24-13"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
+<span id="cb24-14"><a href="introduction.html#cb24-14"></a><span class="co">## </span></span>
+<span id="cb24-15"><a href="introduction.html#cb24-15"></a><span class="co">## $flu_status</span></span>
+<span id="cb24-16"><a href="introduction.html#cb24-16"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
 </div>
 <div id="data-frames" class="section level3">
 <h3><span class="header-section-number">1.4.5</span> Data frames</h3>
 <p>Data frame can be understood as a list of vectors, each having exactly the same number of values, arranged in a structure like a spreadsheet or database</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction.html#cb18-1"></a>gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)</span>
-<span id="cb18-2"><a href="introduction.html#cb18-2"></a>blood &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;O&quot;</span>, <span class="st">&quot;AB&quot;</span>, <span class="st">&quot;A&quot;</span>)</span>
-<span id="cb18-3"><a href="introduction.html#cb18-3"></a></span>
-<span id="cb18-4"><a href="introduction.html#cb18-4"></a>pt_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(subject_name, temperature, flu_status, gender, blood)</span>
-<span id="cb18-5"><a href="introduction.html#cb18-5"></a></span>
-<span id="cb18-6"><a href="introduction.html#cb18-6"></a>pt_data</span>
-<span id="cb18-7"><a href="introduction.html#cb18-7"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
-<span id="cb18-8"><a href="introduction.html#cb18-8"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
-<span id="cb18-9"><a href="introduction.html#cb18-9"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
-<span id="cb18-10"><a href="introduction.html#cb18-10"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction.html#cb19-1"></a><span class="kw">colnames</span>(pt_data)</span>
-<span id="cb19-2"><a href="introduction.html#cb19-2"></a><span class="co">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;   &quot;gender&quot;       &quot;blood&quot;</span></span>
-<span id="cb19-3"><a href="introduction.html#cb19-3"></a></span>
-<span id="cb19-4"><a href="introduction.html#cb19-4"></a>pt_data<span class="op">$</span>subject_name</span>
-<span id="cb19-5"><a href="introduction.html#cb19-5"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
-<span id="cb19-6"><a href="introduction.html#cb19-6"></a></span>
-<span id="cb19-7"><a href="introduction.html#cb19-7"></a>pt_data[<span class="kw">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
-<span id="cb19-8"><a href="introduction.html#cb19-8"></a><span class="co">##   temperature flu_status</span></span>
-<span id="cb19-9"><a href="introduction.html#cb19-9"></a><span class="co">## 1        98.1      FALSE</span></span>
-<span id="cb19-10"><a href="introduction.html#cb19-10"></a><span class="co">## 2        98.6      FALSE</span></span>
-<span id="cb19-11"><a href="introduction.html#cb19-11"></a><span class="co">## 3       101.4       TRUE</span></span>
-<span id="cb19-12"><a href="introduction.html#cb19-12"></a></span>
-<span id="cb19-13"><a href="introduction.html#cb19-13"></a>pt_data[<span class="dv">1</span>, ] <span class="co"># like a matrix</span></span>
-<span id="cb19-14"><a href="introduction.html#cb19-14"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
-<span id="cb19-15"><a href="introduction.html#cb19-15"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
-<span id="cb19-16"><a href="introduction.html#cb19-16"></a></span>
-<span id="cb19-17"><a href="introduction.html#cb19-17"></a>pt_data[, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] </span>
-<span id="cb19-18"><a href="introduction.html#cb19-18"></a><span class="co">##   temperature flu_status</span></span>
-<span id="cb19-19"><a href="introduction.html#cb19-19"></a><span class="co">## 1        98.1      FALSE</span></span>
-<span id="cb19-20"><a href="introduction.html#cb19-20"></a><span class="co">## 2        98.6      FALSE</span></span>
-<span id="cb19-21"><a href="introduction.html#cb19-21"></a><span class="co">## 3       101.4       TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="introduction.html#cb25-1"></a>gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)</span>
+<span id="cb25-2"><a href="introduction.html#cb25-2"></a>blood &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;O&quot;</span>, <span class="st">&quot;AB&quot;</span>, <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb25-3"><a href="introduction.html#cb25-3"></a></span>
+<span id="cb25-4"><a href="introduction.html#cb25-4"></a>pt_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(subject_name, temperature, flu_status, gender, blood)</span>
+<span id="cb25-5"><a href="introduction.html#cb25-5"></a></span>
+<span id="cb25-6"><a href="introduction.html#cb25-6"></a>pt_data</span>
+<span id="cb25-7"><a href="introduction.html#cb25-7"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
+<span id="cb25-8"><a href="introduction.html#cb25-8"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
+<span id="cb25-9"><a href="introduction.html#cb25-9"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
+<span id="cb25-10"><a href="introduction.html#cb25-10"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction.html#cb26-1"></a><span class="kw">colnames</span>(pt_data)</span>
+<span id="cb26-2"><a href="introduction.html#cb26-2"></a><span class="co">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;   &quot;gender&quot;       &quot;blood&quot;</span></span>
+<span id="cb26-3"><a href="introduction.html#cb26-3"></a></span>
+<span id="cb26-4"><a href="introduction.html#cb26-4"></a>pt_data<span class="op">$</span>subject_name</span>
+<span id="cb26-5"><a href="introduction.html#cb26-5"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
+<span id="cb26-6"><a href="introduction.html#cb26-6"></a></span>
+<span id="cb26-7"><a href="introduction.html#cb26-7"></a>pt_data[<span class="kw">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
+<span id="cb26-8"><a href="introduction.html#cb26-8"></a><span class="co">##   temperature flu_status</span></span>
+<span id="cb26-9"><a href="introduction.html#cb26-9"></a><span class="co">## 1        98.1      FALSE</span></span>
+<span id="cb26-10"><a href="introduction.html#cb26-10"></a><span class="co">## 2        98.6      FALSE</span></span>
+<span id="cb26-11"><a href="introduction.html#cb26-11"></a><span class="co">## 3       101.4       TRUE</span></span>
+<span id="cb26-12"><a href="introduction.html#cb26-12"></a></span>
+<span id="cb26-13"><a href="introduction.html#cb26-13"></a>pt_data[<span class="dv">1</span>, ] <span class="co"># like a matrix</span></span>
+<span id="cb26-14"><a href="introduction.html#cb26-14"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
+<span id="cb26-15"><a href="introduction.html#cb26-15"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
+<span id="cb26-16"><a href="introduction.html#cb26-16"></a></span>
+<span id="cb26-17"><a href="introduction.html#cb26-17"></a>pt_data[, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] </span>
+<span id="cb26-18"><a href="introduction.html#cb26-18"></a><span class="co">##   temperature flu_status</span></span>
+<span id="cb26-19"><a href="introduction.html#cb26-19"></a><span class="co">## 1        98.1      FALSE</span></span>
+<span id="cb26-20"><a href="introduction.html#cb26-20"></a><span class="co">## 2        98.6      FALSE</span></span>
+<span id="cb26-21"><a href="introduction.html#cb26-21"></a><span class="co">## 3       101.4       TRUE</span></span></code></pre></div>
 <p>Create a new column</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction.html#cb20-1"></a>pt_data<span class="op">$</span>temp_c &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temperature <span class="op">-</span><span class="st"> </span><span class="dv">32</span>)<span class="op">*</span><span class="dv">5</span><span class="op">/</span><span class="dv">9</span></span>
-<span id="cb20-2"><a href="introduction.html#cb20-2"></a></span>
-<span id="cb20-3"><a href="introduction.html#cb20-3"></a>pt_data</span>
-<span id="cb20-4"><a href="introduction.html#cb20-4"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c</span></span>
-<span id="cb20-5"><a href="introduction.html#cb20-5"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222</span></span>
-<span id="cb20-6"><a href="introduction.html#cb20-6"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000</span></span>
-<span id="cb20-7"><a href="introduction.html#cb20-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction.html#cb27-1"></a>pt_data<span class="op">$</span>temp_c &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temperature <span class="op">-</span><span class="st"> </span><span class="dv">32</span>)<span class="op">*</span><span class="dv">5</span><span class="op">/</span><span class="dv">9</span></span>
+<span id="cb27-2"><a href="introduction.html#cb27-2"></a></span>
+<span id="cb27-3"><a href="introduction.html#cb27-3"></a>pt_data</span>
+<span id="cb27-4"><a href="introduction.html#cb27-4"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c</span></span>
+<span id="cb27-5"><a href="introduction.html#cb27-5"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222</span></span>
+<span id="cb27-6"><a href="introduction.html#cb27-6"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000</span></span>
+<span id="cb27-7"><a href="introduction.html#cb27-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span></code></pre></div>
 </div>
 </div>
 <div id="operators" class="section level2">
@@ -623,73 +767,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p><code>&amp;</code> and <code>&amp;&amp;</code> indicate logical AND. The shorter form performs elementwise comparisons. The longer form examine only the first element of each vector.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="introduction.html#cb21-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb21-2"><a href="introduction.html#cb21-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb21-3"><a href="introduction.html#cb21-3"></a>x<span class="op">&amp;</span>y</span>
-<span id="cb21-4"><a href="introduction.html#cb21-4"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
-<span id="cb21-5"><a href="introduction.html#cb21-5"></a>x<span class="op">&amp;&amp;</span>y</span>
-<span id="cb21-6"><a href="introduction.html#cb21-6"></a><span class="co">## [1] FALSE</span></span>
-<span id="cb21-7"><a href="introduction.html#cb21-7"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>)</span>
-<span id="cb21-8"><a href="introduction.html#cb21-8"></a>x<span class="op">&amp;&amp;</span>z</span>
-<span id="cb21-9"><a href="introduction.html#cb21-9"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction.html#cb28-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb28-2"><a href="introduction.html#cb28-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb28-3"><a href="introduction.html#cb28-3"></a>x<span class="op">&amp;</span>y</span>
+<span id="cb28-4"><a href="introduction.html#cb28-4"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
+<span id="cb28-5"><a href="introduction.html#cb28-5"></a>x<span class="op">&amp;&amp;</span>y</span>
+<span id="cb28-6"><a href="introduction.html#cb28-6"></a><span class="co">## [1] FALSE</span></span>
+<span id="cb28-7"><a href="introduction.html#cb28-7"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb28-8"><a href="introduction.html#cb28-8"></a>x<span class="op">&amp;&amp;</span>z</span>
+<span id="cb28-9"><a href="introduction.html#cb28-9"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
 <p><code>|</code> and <code>||</code> indicate logical OR. The shorter form performs elementwise comparisons. The longer form examine only the first element of each vector.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction.html#cb22-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb22-2"><a href="introduction.html#cb22-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb22-3"><a href="introduction.html#cb22-3"></a>x<span class="op">|</span>y</span>
-<span id="cb22-4"><a href="introduction.html#cb22-4"></a><span class="co">## [1]  TRUE FALSE  TRUE</span></span>
-<span id="cb22-5"><a href="introduction.html#cb22-5"></a>x<span class="op">||</span>y</span>
-<span id="cb22-6"><a href="introduction.html#cb22-6"></a><span class="co">## [1] TRUE</span></span>
-<span id="cb22-7"><a href="introduction.html#cb22-7"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>)</span>
-<span id="cb22-8"><a href="introduction.html#cb22-8"></a>x<span class="op">||</span>z</span>
-<span id="cb22-9"><a href="introduction.html#cb22-9"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction.html#cb23-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
-<span id="cb23-2"><a href="introduction.html#cb23-2"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
-<span id="cb23-3"><a href="introduction.html#cb23-3"></a><span class="co">## [1]  TRUE  TRUE FALSE FALSE</span></span>
-<span id="cb23-4"><a href="introduction.html#cb23-4"></a><span class="op">!</span>(x<span class="op">&lt;</span><span class="dv">3</span>) </span>
-<span id="cb23-5"><a href="introduction.html#cb23-5"></a><span class="co">## [1] FALSE FALSE  TRUE  TRUE</span></span>
-<span id="cb23-6"><a href="introduction.html#cb23-6"></a>x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="co"># we should use == instead of = for the comparison</span></span>
-<span id="cb23-7"><a href="introduction.html#cb23-7"></a><span class="co">## [1]  TRUE FALSE FALSE FALSE</span></span>
-<span id="cb23-8"><a href="introduction.html#cb23-8"></a>x <span class="op">!=</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb23-9"><a href="introduction.html#cb23-9"></a><span class="co">## [1] FALSE  TRUE  TRUE  TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="introduction.html#cb29-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb29-2"><a href="introduction.html#cb29-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb29-3"><a href="introduction.html#cb29-3"></a>x<span class="op">|</span>y</span>
+<span id="cb29-4"><a href="introduction.html#cb29-4"></a><span class="co">## [1]  TRUE FALSE  TRUE</span></span>
+<span id="cb29-5"><a href="introduction.html#cb29-5"></a>x<span class="op">||</span>y</span>
+<span id="cb29-6"><a href="introduction.html#cb29-6"></a><span class="co">## [1] TRUE</span></span>
+<span id="cb29-7"><a href="introduction.html#cb29-7"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb29-8"><a href="introduction.html#cb29-8"></a>x<span class="op">||</span>z</span>
+<span id="cb29-9"><a href="introduction.html#cb29-9"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction.html#cb30-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb30-2"><a href="introduction.html#cb30-2"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb30-3"><a href="introduction.html#cb30-3"></a><span class="co">## [1]  TRUE  TRUE FALSE FALSE</span></span>
+<span id="cb30-4"><a href="introduction.html#cb30-4"></a><span class="op">!</span>(x<span class="op">&lt;</span><span class="dv">3</span>) </span>
+<span id="cb30-5"><a href="introduction.html#cb30-5"></a><span class="co">## [1] FALSE FALSE  TRUE  TRUE</span></span>
+<span id="cb30-6"><a href="introduction.html#cb30-6"></a>x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="co"># we should use == instead of = for the comparison</span></span>
+<span id="cb30-7"><a href="introduction.html#cb30-7"></a><span class="co">## [1]  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb30-8"><a href="introduction.html#cb30-8"></a>x <span class="op">!=</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb30-9"><a href="introduction.html#cb30-9"></a><span class="co">## [1] FALSE  TRUE  TRUE  TRUE</span></span></code></pre></div>
 <p>Do <code>!(x &gt; 1) &amp; (x &lt; 4)</code> and <code>!((x &gt; 1) &amp; (x &lt; 4))</code> give different results?</p>
 <div id="vectorized-operators" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> Vectorized Operators</h3>
 <p>An important property of many of the operators is that they are “vectorized”. This means that the operation will be performed elementwise.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction.html#cb24-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb24-2"><a href="introduction.html#cb24-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)</span>
-<span id="cb24-3"><a href="introduction.html#cb24-3"></a></span>
-<span id="cb24-4"><a href="introduction.html#cb24-4"></a>x<span class="op">+</span>y</span>
-<span id="cb24-5"><a href="introduction.html#cb24-5"></a><span class="co">## [1]  6  8 10</span></span>
-<span id="cb24-6"><a href="introduction.html#cb24-6"></a></span>
-<span id="cb24-7"><a href="introduction.html#cb24-7"></a>x<span class="op">*</span>y</span>
-<span id="cb24-8"><a href="introduction.html#cb24-8"></a><span class="co">## [1]  5 12 21</span></span>
-<span id="cb24-9"><a href="introduction.html#cb24-9"></a></span>
-<span id="cb24-10"><a href="introduction.html#cb24-10"></a><span class="dv">2</span><span class="op">*</span>x <span class="co"># you do not need to use c(2,2,2)*x</span></span>
-<span id="cb24-11"><a href="introduction.html#cb24-11"></a><span class="co">## [1] 2 4 6</span></span>
-<span id="cb24-12"><a href="introduction.html#cb24-12"></a></span>
-<span id="cb24-13"><a href="introduction.html#cb24-13"></a>y<span class="op">/</span><span class="dv">2</span> <span class="co"># you do not need to use y/c(2,2,2)</span></span>
-<span id="cb24-14"><a href="introduction.html#cb24-14"></a><span class="co">## [1] 2.5 3.0 3.5</span></span>
-<span id="cb24-15"><a href="introduction.html#cb24-15"></a></span>
-<span id="cb24-16"><a href="introduction.html#cb24-16"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb24-17"><a href="introduction.html#cb24-17"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb24-18"><a href="introduction.html#cb24-18"></a></span>
-<span id="cb24-19"><a href="introduction.html#cb24-19"></a>A<span class="op">+</span>B</span>
-<span id="cb24-20"><a href="introduction.html#cb24-20"></a><span class="co">##      [,1] [,2] [,3]</span></span>
-<span id="cb24-21"><a href="introduction.html#cb24-21"></a><span class="co">## [1,]    2    8   14</span></span>
-<span id="cb24-22"><a href="introduction.html#cb24-22"></a><span class="co">## [2,]    4   10   16</span></span>
-<span id="cb24-23"><a href="introduction.html#cb24-23"></a><span class="co">## [3,]    6   12   18</span></span>
-<span id="cb24-24"><a href="introduction.html#cb24-24"></a></span>
-<span id="cb24-25"><a href="introduction.html#cb24-25"></a>A<span class="op">*</span>B <span class="co"># this is not matrix multiplication, but elementiwse multiplication</span></span>
-<span id="cb24-26"><a href="introduction.html#cb24-26"></a><span class="co">##      [,1] [,2] [,3]</span></span>
-<span id="cb24-27"><a href="introduction.html#cb24-27"></a><span class="co">## [1,]    1   16   49</span></span>
-<span id="cb24-28"><a href="introduction.html#cb24-28"></a><span class="co">## [2,]    4   25   64</span></span>
-<span id="cb24-29"><a href="introduction.html#cb24-29"></a><span class="co">## [3,]    9   36   81</span></span>
-<span id="cb24-30"><a href="introduction.html#cb24-30"></a></span>
-<span id="cb24-31"><a href="introduction.html#cb24-31"></a>A<span class="op">%*%</span>B <span class="co"># this is matrix multiplication</span></span>
-<span id="cb24-32"><a href="introduction.html#cb24-32"></a><span class="co">##      [,1] [,2] [,3]</span></span>
-<span id="cb24-33"><a href="introduction.html#cb24-33"></a><span class="co">## [1,]   30   66  102</span></span>
-<span id="cb24-34"><a href="introduction.html#cb24-34"></a><span class="co">## [2,]   36   81  126</span></span>
-<span id="cb24-35"><a href="introduction.html#cb24-35"></a><span class="co">## [3,]   42   96  150</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction.html#cb31-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb31-2"><a href="introduction.html#cb31-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)</span>
+<span id="cb31-3"><a href="introduction.html#cb31-3"></a></span>
+<span id="cb31-4"><a href="introduction.html#cb31-4"></a>x<span class="op">+</span>y</span>
+<span id="cb31-5"><a href="introduction.html#cb31-5"></a><span class="co">## [1]  6  8 10</span></span>
+<span id="cb31-6"><a href="introduction.html#cb31-6"></a></span>
+<span id="cb31-7"><a href="introduction.html#cb31-7"></a>x<span class="op">*</span>y</span>
+<span id="cb31-8"><a href="introduction.html#cb31-8"></a><span class="co">## [1]  5 12 21</span></span>
+<span id="cb31-9"><a href="introduction.html#cb31-9"></a></span>
+<span id="cb31-10"><a href="introduction.html#cb31-10"></a><span class="dv">2</span><span class="op">*</span>x <span class="co"># you do not need to use c(2,2,2)*x</span></span>
+<span id="cb31-11"><a href="introduction.html#cb31-11"></a><span class="co">## [1] 2 4 6</span></span>
+<span id="cb31-12"><a href="introduction.html#cb31-12"></a></span>
+<span id="cb31-13"><a href="introduction.html#cb31-13"></a>y<span class="op">/</span><span class="dv">2</span> <span class="co"># you do not need to use y/c(2,2,2)</span></span>
+<span id="cb31-14"><a href="introduction.html#cb31-14"></a><span class="co">## [1] 2.5 3.0 3.5</span></span>
+<span id="cb31-15"><a href="introduction.html#cb31-15"></a></span>
+<span id="cb31-16"><a href="introduction.html#cb31-16"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb31-17"><a href="introduction.html#cb31-17"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb31-18"><a href="introduction.html#cb31-18"></a></span>
+<span id="cb31-19"><a href="introduction.html#cb31-19"></a>A<span class="op">+</span>B</span>
+<span id="cb31-20"><a href="introduction.html#cb31-20"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb31-21"><a href="introduction.html#cb31-21"></a><span class="co">## [1,]    2    8   14</span></span>
+<span id="cb31-22"><a href="introduction.html#cb31-22"></a><span class="co">## [2,]    4   10   16</span></span>
+<span id="cb31-23"><a href="introduction.html#cb31-23"></a><span class="co">## [3,]    6   12   18</span></span>
+<span id="cb31-24"><a href="introduction.html#cb31-24"></a></span>
+<span id="cb31-25"><a href="introduction.html#cb31-25"></a>A<span class="op">*</span>B <span class="co"># this is not matrix multiplication, but elementiwse multiplication</span></span>
+<span id="cb31-26"><a href="introduction.html#cb31-26"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb31-27"><a href="introduction.html#cb31-27"></a><span class="co">## [1,]    1   16   49</span></span>
+<span id="cb31-28"><a href="introduction.html#cb31-28"></a><span class="co">## [2,]    4   25   64</span></span>
+<span id="cb31-29"><a href="introduction.html#cb31-29"></a><span class="co">## [3,]    9   36   81</span></span>
+<span id="cb31-30"><a href="introduction.html#cb31-30"></a></span>
+<span id="cb31-31"><a href="introduction.html#cb31-31"></a>A<span class="op">%*%</span>B <span class="co"># this is matrix multiplication</span></span>
+<span id="cb31-32"><a href="introduction.html#cb31-32"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb31-33"><a href="introduction.html#cb31-33"></a><span class="co">## [1,]   30   66  102</span></span>
+<span id="cb31-34"><a href="introduction.html#cb31-34"></a><span class="co">## [2,]   36   81  126</span></span>
+<span id="cb31-35"><a href="introduction.html#cb31-35"></a><span class="co">## [3,]   42   96  150</span></span></code></pre></div>
 </div>
 </div>
 <div id="built-in-functions" class="section level2">
@@ -769,80 +913,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 S^2_n := \frac{1}{n-1} \sum^n_{i=1}(x_i-\overline{x}_n)^2.
 \]</span>
 Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not <span class="math inline">\(n\)</span>. The sample standard deviation is the square root of the sample variance.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="introduction.html#cb25-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
-<span id="cb25-2"><a href="introduction.html#cb25-2"></a></span>
-<span id="cb25-3"><a href="introduction.html#cb25-3"></a>y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
-<span id="cb25-4"><a href="introduction.html#cb25-4"></a></span>
-<span id="cb25-5"><a href="introduction.html#cb25-5"></a>y</span>
-<span id="cb25-6"><a href="introduction.html#cb25-6"></a><span class="co">## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</span></span>
-<span id="cb25-7"><a href="introduction.html#cb25-7"></a></span>
-<span id="cb25-8"><a href="introduction.html#cb25-8"></a><span class="kw">ceiling</span>(y)</span>
-<span id="cb25-9"><a href="introduction.html#cb25-9"></a><span class="co">## [1] 1 2 2 2 3</span></span>
-<span id="cb25-10"><a href="introduction.html#cb25-10"></a></span>
-<span id="cb25-11"><a href="introduction.html#cb25-11"></a><span class="kw">sum</span>(x)</span>
-<span id="cb25-12"><a href="introduction.html#cb25-12"></a><span class="co">## [1] 15</span></span>
-<span id="cb25-13"><a href="introduction.html#cb25-13"></a></span>
-<span id="cb25-14"><a href="introduction.html#cb25-14"></a><span class="kw">prod</span>(x)</span>
-<span id="cb25-15"><a href="introduction.html#cb25-15"></a><span class="co">## [1] 120</span></span>
-<span id="cb25-16"><a href="introduction.html#cb25-16"></a></span>
-<span id="cb25-17"><a href="introduction.html#cb25-17"></a><span class="kw">cumsum</span>(x)</span>
-<span id="cb25-18"><a href="introduction.html#cb25-18"></a><span class="co">## [1]  1  3  6 10 15</span></span>
-<span id="cb25-19"><a href="introduction.html#cb25-19"></a></span>
-<span id="cb25-20"><a href="introduction.html#cb25-20"></a><span class="kw">cumprod</span>(x)</span>
-<span id="cb25-21"><a href="introduction.html#cb25-21"></a><span class="co">## [1]   1   2   6  24 120</span></span>
-<span id="cb25-22"><a href="introduction.html#cb25-22"></a></span>
-<span id="cb25-23"><a href="introduction.html#cb25-23"></a><span class="kw">min</span>(x)</span>
-<span id="cb25-24"><a href="introduction.html#cb25-24"></a><span class="co">## [1] 1</span></span>
-<span id="cb25-25"><a href="introduction.html#cb25-25"></a></span>
-<span id="cb25-26"><a href="introduction.html#cb25-26"></a><span class="kw">max</span>(x)</span>
-<span id="cb25-27"><a href="introduction.html#cb25-27"></a><span class="co">## [1] 5</span></span>
-<span id="cb25-28"><a href="introduction.html#cb25-28"></a></span>
-<span id="cb25-29"><a href="introduction.html#cb25-29"></a><span class="kw">range</span>(x)</span>
-<span id="cb25-30"><a href="introduction.html#cb25-30"></a><span class="co">## [1] 1 5</span></span>
-<span id="cb25-31"><a href="introduction.html#cb25-31"></a></span>
-<span id="cb25-32"><a href="introduction.html#cb25-32"></a><span class="kw">mean</span>(x)</span>
-<span id="cb25-33"><a href="introduction.html#cb25-33"></a><span class="co">## [1] 3</span></span>
-<span id="cb25-34"><a href="introduction.html#cb25-34"></a></span>
-<span id="cb25-35"><a href="introduction.html#cb25-35"></a><span class="kw">var</span>(x)</span>
-<span id="cb25-36"><a href="introduction.html#cb25-36"></a><span class="co">## [1] 2.5</span></span>
-<span id="cb25-37"><a href="introduction.html#cb25-37"></a></span>
-<span id="cb25-38"><a href="introduction.html#cb25-38"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>) <span class="co"># create a vector of length 10 with all elements being 0</span></span>
-<span id="cb25-39"><a href="introduction.html#cb25-39"></a><span class="co">##  [1] 0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb25-40"><a href="introduction.html#cb25-40"></a></span>
-<span id="cb25-41"><a href="introduction.html#cb25-41"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>) <span class="co"># create a vector of length 10 with all elements being 1</span></span>
-<span id="cb25-42"><a href="introduction.html#cb25-42"></a><span class="co">##  [1] 1 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="introduction.html#cb32-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb32-2"><a href="introduction.html#cb32-2"></a></span>
+<span id="cb32-3"><a href="introduction.html#cb32-3"></a>y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
+<span id="cb32-4"><a href="introduction.html#cb32-4"></a></span>
+<span id="cb32-5"><a href="introduction.html#cb32-5"></a>y</span>
+<span id="cb32-6"><a href="introduction.html#cb32-6"></a><span class="co">## [1] 1.000000 1.414214 1.732051 2.000000 2.236068</span></span>
+<span id="cb32-7"><a href="introduction.html#cb32-7"></a></span>
+<span id="cb32-8"><a href="introduction.html#cb32-8"></a><span class="kw">ceiling</span>(y)</span>
+<span id="cb32-9"><a href="introduction.html#cb32-9"></a><span class="co">## [1] 1 2 2 2 3</span></span>
+<span id="cb32-10"><a href="introduction.html#cb32-10"></a></span>
+<span id="cb32-11"><a href="introduction.html#cb32-11"></a><span class="kw">sum</span>(x)</span>
+<span id="cb32-12"><a href="introduction.html#cb32-12"></a><span class="co">## [1] 15</span></span>
+<span id="cb32-13"><a href="introduction.html#cb32-13"></a></span>
+<span id="cb32-14"><a href="introduction.html#cb32-14"></a><span class="kw">prod</span>(x)</span>
+<span id="cb32-15"><a href="introduction.html#cb32-15"></a><span class="co">## [1] 120</span></span>
+<span id="cb32-16"><a href="introduction.html#cb32-16"></a></span>
+<span id="cb32-17"><a href="introduction.html#cb32-17"></a><span class="kw">cumsum</span>(x)</span>
+<span id="cb32-18"><a href="introduction.html#cb32-18"></a><span class="co">## [1]  1  3  6 10 15</span></span>
+<span id="cb32-19"><a href="introduction.html#cb32-19"></a></span>
+<span id="cb32-20"><a href="introduction.html#cb32-20"></a><span class="kw">cumprod</span>(x)</span>
+<span id="cb32-21"><a href="introduction.html#cb32-21"></a><span class="co">## [1]   1   2   6  24 120</span></span>
+<span id="cb32-22"><a href="introduction.html#cb32-22"></a></span>
+<span id="cb32-23"><a href="introduction.html#cb32-23"></a><span class="kw">min</span>(x)</span>
+<span id="cb32-24"><a href="introduction.html#cb32-24"></a><span class="co">## [1] 1</span></span>
+<span id="cb32-25"><a href="introduction.html#cb32-25"></a></span>
+<span id="cb32-26"><a href="introduction.html#cb32-26"></a><span class="kw">max</span>(x)</span>
+<span id="cb32-27"><a href="introduction.html#cb32-27"></a><span class="co">## [1] 5</span></span>
+<span id="cb32-28"><a href="introduction.html#cb32-28"></a></span>
+<span id="cb32-29"><a href="introduction.html#cb32-29"></a><span class="kw">range</span>(x)</span>
+<span id="cb32-30"><a href="introduction.html#cb32-30"></a><span class="co">## [1] 1 5</span></span>
+<span id="cb32-31"><a href="introduction.html#cb32-31"></a></span>
+<span id="cb32-32"><a href="introduction.html#cb32-32"></a><span class="kw">mean</span>(x)</span>
+<span id="cb32-33"><a href="introduction.html#cb32-33"></a><span class="co">## [1] 3</span></span>
+<span id="cb32-34"><a href="introduction.html#cb32-34"></a></span>
+<span id="cb32-35"><a href="introduction.html#cb32-35"></a><span class="kw">var</span>(x)</span>
+<span id="cb32-36"><a href="introduction.html#cb32-36"></a><span class="co">## [1] 2.5</span></span>
+<span id="cb32-37"><a href="introduction.html#cb32-37"></a></span>
+<span id="cb32-38"><a href="introduction.html#cb32-38"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>) <span class="co"># create a vector of length 10 with all elements being 0</span></span>
+<span id="cb32-39"><a href="introduction.html#cb32-39"></a><span class="co">##  [1] 0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb32-40"><a href="introduction.html#cb32-40"></a></span>
+<span id="cb32-41"><a href="introduction.html#cb32-41"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>) <span class="co"># create a vector of length 10 with all elements being 1</span></span>
+<span id="cb32-42"><a href="introduction.html#cb32-42"></a><span class="co">##  [1] 1 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
 <div id="seq" class="section level3">
 <h3><span class="header-section-number">1.6.1</span> <code>seq()</code></h3>
 <p>This is an example of function with more than one argument.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction.html#cb26-1"></a><span class="co"># seq(from, to)</span></span>
-<span id="cb26-2"><a href="introduction.html#cb26-2"></a><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
-<span id="cb26-3"><a href="introduction.html#cb26-3"></a><span class="co">## [1] 1 2 3 4 5</span></span>
-<span id="cb26-4"><a href="introduction.html#cb26-4"></a></span>
-<span id="cb26-5"><a href="introduction.html#cb26-5"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">5</span>)</span>
-<span id="cb26-6"><a href="introduction.html#cb26-6"></a><span class="co">## [1] 1 2 3 4 5</span></span>
-<span id="cb26-7"><a href="introduction.html#cb26-7"></a></span>
-<span id="cb26-8"><a href="introduction.html#cb26-8"></a><span class="co"># seq(from, to, by)</span></span>
-<span id="cb26-9"><a href="introduction.html#cb26-9"></a><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb26-10"><a href="introduction.html#cb26-10"></a><span class="co">## [1] 1 3 5</span></span>
-<span id="cb26-11"><a href="introduction.html#cb26-11"></a></span>
-<span id="cb26-12"><a href="introduction.html#cb26-12"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span><span class="dv">5</span>, <span class="dt">by =</span> <span class="dv">2</span>)</span>
-<span id="cb26-13"><a href="introduction.html#cb26-13"></a><span class="co">## [1] 1 3 5</span></span>
-<span id="cb26-14"><a href="introduction.html#cb26-14"></a></span>
-<span id="cb26-15"><a href="introduction.html#cb26-15"></a><span class="co"># seq(from, to, length)</span></span>
-<span id="cb26-16"><a href="introduction.html#cb26-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb26-17"><a href="introduction.html#cb26-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb26-18"><a href="introduction.html#cb26-18"></a></span>
-<span id="cb26-19"><a href="introduction.html#cb26-19"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb26-20"><a href="introduction.html#cb26-20"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="introduction.html#cb33-1"></a><span class="co"># seq(from, to)</span></span>
+<span id="cb33-2"><a href="introduction.html#cb33-2"></a><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb33-3"><a href="introduction.html#cb33-3"></a><span class="co">## [1] 1 2 3 4 5</span></span>
+<span id="cb33-4"><a href="introduction.html#cb33-4"></a></span>
+<span id="cb33-5"><a href="introduction.html#cb33-5"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">5</span>)</span>
+<span id="cb33-6"><a href="introduction.html#cb33-6"></a><span class="co">## [1] 1 2 3 4 5</span></span>
+<span id="cb33-7"><a href="introduction.html#cb33-7"></a></span>
+<span id="cb33-8"><a href="introduction.html#cb33-8"></a><span class="co"># seq(from, to, by)</span></span>
+<span id="cb33-9"><a href="introduction.html#cb33-9"></a><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb33-10"><a href="introduction.html#cb33-10"></a><span class="co">## [1] 1 3 5</span></span>
+<span id="cb33-11"><a href="introduction.html#cb33-11"></a></span>
+<span id="cb33-12"><a href="introduction.html#cb33-12"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span><span class="dv">5</span>, <span class="dt">by =</span> <span class="dv">2</span>)</span>
+<span id="cb33-13"><a href="introduction.html#cb33-13"></a><span class="co">## [1] 1 3 5</span></span>
+<span id="cb33-14"><a href="introduction.html#cb33-14"></a></span>
+<span id="cb33-15"><a href="introduction.html#cb33-15"></a><span class="co"># seq(from, to, length)</span></span>
+<span id="cb33-16"><a href="introduction.html#cb33-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
+<span id="cb33-17"><a href="introduction.html#cb33-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
+<span id="cb33-18"><a href="introduction.html#cb33-18"></a></span>
+<span id="cb33-19"><a href="introduction.html#cb33-19"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
+<span id="cb33-20"><a href="introduction.html#cb33-20"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> <code>rep()</code></h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction.html#cb27-1"></a><span class="co"># rep(data, times), try ?rep</span></span>
-<span id="cb27-2"><a href="introduction.html#cb27-2"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb27-3"><a href="introduction.html#cb27-3"></a><span class="co">##  [1] 0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb27-4"><a href="introduction.html#cb27-4"></a></span>
-<span id="cb27-5"><a href="introduction.html#cb27-5"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">3</span>) </span>
-<span id="cb27-6"><a href="introduction.html#cb27-6"></a><span class="co">## [1] 1 2 3 1 2 3 1 2 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="introduction.html#cb34-1"></a><span class="co"># rep(data, times), try ?rep</span></span>
+<span id="cb34-2"><a href="introduction.html#cb34-2"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb34-3"><a href="introduction.html#cb34-3"></a><span class="co">##  [1] 0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb34-4"><a href="introduction.html#cb34-4"></a></span>
+<span id="cb34-5"><a href="introduction.html#cb34-5"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">3</span>) </span>
+<span id="cb34-6"><a href="introduction.html#cb34-6"></a><span class="co">## [1] 1 2 3 1 2 3 1 2 3</span></span></code></pre></div>
 </div>
 </div>
 <div id="some-useful-rstudio-shortcuts" class="section level2">
@@ -863,42 +1007,42 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <ol style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction.html#cb28-1"></a>x &lt;-<span class="st"> </span>(<span class="dv">10</span><span class="op">:</span><span class="dv">1</span>)[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">4</span>)]</span>
-<span id="cb28-2"><a href="introduction.html#cb28-2"></a>x &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb28-3"><a href="introduction.html#cb28-3"></a>x[<span class="dv">5</span>] <span class="co"># what do you expect to see?</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction.html#cb35-1"></a>x &lt;-<span class="st"> </span>(<span class="dv">10</span><span class="op">:</span><span class="dv">1</span>)[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">4</span>)]</span>
+<span id="cb35-2"><a href="introduction.html#cb35-2"></a>x &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb35-3"><a href="introduction.html#cb35-3"></a>x[<span class="dv">5</span>] <span class="co"># what do you expect to see?</span></span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="introduction.html#cb29-1"></a>a&lt;-<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">3</span><span class="op">+</span><span class="dv">3</span>,<span class="st">&quot;sta&quot;</span>,<span class="dv">3</span><span class="op">&gt;</span><span class="dv">5</span>)</span>
-<span id="cb29-2"><a href="introduction.html#cb29-2"></a>a <span class="co">#?</span></span>
-<span id="cb29-3"><a href="introduction.html#cb29-3"></a><span class="kw">typeof</span>(a) <span class="co">#?</span></span>
-<span id="cb29-4"><a href="introduction.html#cb29-4"></a><span class="kw">length</span>(a) <span class="co">#?</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction.html#cb36-1"></a>a&lt;-<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">3</span><span class="op">+</span><span class="dv">3</span>,<span class="st">&quot;sta&quot;</span>,<span class="dv">3</span><span class="op">&gt;</span><span class="dv">5</span>)</span>
+<span id="cb36-2"><a href="introduction.html#cb36-2"></a>a <span class="co">#?</span></span>
+<span id="cb36-3"><a href="introduction.html#cb36-3"></a><span class="kw">typeof</span>(a) <span class="co">#?</span></span>
+<span id="cb36-4"><a href="introduction.html#cb36-4"></a><span class="kw">length</span>(a) <span class="co">#?</span></span></code></pre></div>
 <ol start="3" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction.html#cb30-1"></a>x&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">2</span>))</span>
-<span id="cb30-2"><a href="introduction.html#cb30-2"></a><span class="op">&gt;</span><span class="st"> </span>x<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">0</span> <span class="co">#?</span></span>
-<span id="cb30-3"><a href="introduction.html#cb30-3"></a><span class="op">&gt;</span><span class="st"> </span>x[x<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">0</span>] <span class="co">#?</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction.html#cb37-1"></a>x&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">2</span>))</span>
+<span id="cb37-2"><a href="introduction.html#cb37-2"></a><span class="op">&gt;</span><span class="st"> </span>x<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">0</span> <span class="co">#?</span></span>
+<span id="cb37-3"><a href="introduction.html#cb37-3"></a><span class="op">&gt;</span><span class="st"> </span>x[x<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">0</span>] <span class="co">#?</span></span></code></pre></div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction.html#cb31-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
-<span id="cb31-2"><a href="introduction.html#cb31-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">trunc</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
-<span id="cb31-3"><a href="introduction.html#cb31-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">floor</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
-<span id="cb31-4"><a href="introduction.html#cb31-4"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ceiling</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
-<span id="cb31-5"><a href="introduction.html#cb31-5"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
-<span id="cb31-6"><a href="introduction.html#cb31-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">trunc</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
-<span id="cb31-7"><a href="introduction.html#cb31-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">floor</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
-<span id="cb31-8"><a href="introduction.html#cb31-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ceiling</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction.html#cb38-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
+<span id="cb38-2"><a href="introduction.html#cb38-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">trunc</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
+<span id="cb38-3"><a href="introduction.html#cb38-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">floor</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
+<span id="cb38-4"><a href="introduction.html#cb38-4"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ceiling</span>(<span class="op">-</span><span class="fl">3.7</span>) <span class="co">#?</span></span>
+<span id="cb38-5"><a href="introduction.html#cb38-5"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">round</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
+<span id="cb38-6"><a href="introduction.html#cb38-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">trunc</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
+<span id="cb38-7"><a href="introduction.html#cb38-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">floor</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span>
+<span id="cb38-8"><a href="introduction.html#cb38-8"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">ceiling</span>(<span class="fl">3.8</span>) <span class="co">#?</span></span></code></pre></div>
 <ol start="5" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="introduction.html#cb32-1"></a><span class="op">&gt;</span><span class="st"> </span>x&lt;-<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb32-2"><a href="introduction.html#cb32-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">sort</span>(x) <span class="co">#?</span></span>
-<span id="cb32-3"><a href="introduction.html#cb32-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">order</span>(x) <span class="co">#?</span></span>
-<span id="cb32-4"><a href="introduction.html#cb32-4"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">sum</span>(x)<span class="op">+</span><span class="kw">prod</span>(x) <span class="co">#?</span></span>
-<span id="cb32-5"><a href="introduction.html#cb32-5"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">cumsum</span>(x)<span class="op">+</span><span class="kw">cumprod</span>(x) <span class="co">#?</span></span>
-<span id="cb32-6"><a href="introduction.html#cb32-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">max</span>(x)<span class="op">+</span><span class="kw">min</span>(x) <span class="co">#?</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction.html#cb39-1"></a><span class="op">&gt;</span><span class="st"> </span>x&lt;-<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb39-2"><a href="introduction.html#cb39-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">sort</span>(x) <span class="co">#?</span></span>
+<span id="cb39-3"><a href="introduction.html#cb39-3"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">order</span>(x) <span class="co">#?</span></span>
+<span id="cb39-4"><a href="introduction.html#cb39-4"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">sum</span>(x)<span class="op">+</span><span class="kw">prod</span>(x) <span class="co">#?</span></span>
+<span id="cb39-5"><a href="introduction.html#cb39-5"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">cumsum</span>(x)<span class="op">+</span><span class="kw">cumprod</span>(x) <span class="co">#?</span></span>
+<span id="cb39-6"><a href="introduction.html#cb39-6"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">max</span>(x)<span class="op">+</span><span class="kw">min</span>(x) <span class="co">#?</span></span></code></pre></div>
 
 </div>
 </div>
