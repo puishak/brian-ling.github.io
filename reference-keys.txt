@@ -15,9 +15,9 @@ factors
 matrix
 lists
 data-frames
-operators
+operators-to-be-updated
 vectorized-operators
-built-in-functions
+built-in-functions-to-be-updated
 seq
 rep
 some-useful-rstudio-shortcuts
