@@ -224,41 +224,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Graphs are powerful to illustrate features of the data. You will learn how to create some basic plots as well as using the package <code>ggplot2</code> to create more elegant plots.</p>
 <p>Consider a dataset about cars.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="co">## Warning: package &#39;ggplot2&#39; was built under R version 4.0.3</span></span>
-<span id="cb1-3"><a href="introduction.html#cb1-3"></a>mpg</span>
-<span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">## # A tibble: 234 x 11</span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact</span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact</span></span>
-<span id="cb1-17"><a href="introduction.html#cb1-17"></a><span class="co">## # ... with 224 more rows</span></span></code></pre></div>
+<span id="cb1-2"><a href="introduction.html#cb1-2"></a>mpg</span>
+<span id="cb1-3"><a href="introduction.html#cb1-3"></a><span class="co">## # A tibble: 234 x 11</span></span>
+<span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </span></span>
+<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact</span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact</span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact</span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact</span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact</span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact</span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact</span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact</span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact</span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## # ... with 224 more rows</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
 <p><strong>Scatterplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p><strong>Scatterplots</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p><strong>Line Chart</strong></p>
+<p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p><strong>Bar chart</strong></p>
+<p><strong>Scatterplots</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p><strong>Another Bar Chart</strong></p>
+<p><strong>Line Chart</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p><strong>Boxplot</strong></p>
+<p><strong>Bar chart</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p><strong>Histogram</strong></p>
+<p><strong>Another Bar Chart</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><strong>Boxplot</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><strong>Histogram</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="statistical-inference" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> Statistical Inference</h3>
@@ -280,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Employ Naive Bayes to build an SMS junk message filter (text data)</p></li>
 </ul>
 <p>A wordcloud of text data</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <ul>
 <li>Use neural network to predict the compressive strength of concrete</li>
 </ul>
@@ -380,11 +379,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="factors" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Factors</h3>
-<p>A factor is a special type of vector that is solely used for representing categorical or ordinal variables.</p>
+<p>A factor is a special type of vector that is solely used for representing categorical (male, female/group 1, group 2, group 3) or ordinal (cold, warm, hot/ low, medium, high) variables.</p>
 <p>Reasons for using factor</p>
 <ul>
 <li><p>the category labels are stored only once. E.g., rather than storing <code>MALE, MALE, MALE, FEMALE</code>, the computer may store <code>1,1,1,2</code>(save memory)</p></li>
-<li><p>many machine learning algorithms treat nominal and numeric features differently and may require the input as a factor</p></li>
+<li><p>many machine learning algorithms treat categorical/ordinal and numeric features differently and may require the input as a factor</p></li>
 </ul>
 <p><strong>Create a factor</strong></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction.html#cb11-1"></a>gender &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>, <span class="st">&quot;FEMALE&quot;</span>, <span class="st">&quot;MALE&quot;</span>)) </span>
@@ -610,27 +609,35 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <li><p>can store different R data types (unlike a vector)</p></li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction.html#cb23-1"></a><span class="co"># let&#39;s create some vectors (of different types)</span></span>
-<span id="cb23-2"><a href="introduction.html#cb23-2"></a>subject_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Steve&quot;</span>) <span class="co"># at this point, you should notice that meaningful names should be used for the variables</span></span>
-<span id="cb23-3"><a href="introduction.html#cb23-3"></a>temperature &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">98.1</span>, <span class="fl">98.6</span>, <span class="fl">101.4</span>)</span>
-<span id="cb23-4"><a href="introduction.html#cb23-4"></a>flu_status &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) <span class="co"># notice how we use _ to separate two words (this is one of the styles in coding, you should be consistent with your style)</span></span>
-<span id="cb23-5"><a href="introduction.html#cb23-5"></a></span>
-<span id="cb23-6"><a href="introduction.html#cb23-6"></a>data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">fullname =</span> subject_name, <span class="dt">temperature =</span> temperature, <span class="dt">flu_status =</span> flu_status) </span>
-<span id="cb23-7"><a href="introduction.html#cb23-7"></a></span>
-<span id="cb23-8"><a href="introduction.html#cb23-8"></a><span class="co"># you may wonder what is the meaning of temperature = temperature</span></span>
-<span id="cb23-9"><a href="introduction.html#cb23-9"></a><span class="co"># in &quot;fullname = subject_name&quot;</span></span>
-<span id="cb23-10"><a href="introduction.html#cb23-10"></a><span class="co"># on the left of = is the name of the 1st element of your list</span></span>
-<span id="cb23-11"><a href="introduction.html#cb23-11"></a><span class="co"># on the right of = is the name of the variable that you want to</span></span>
-<span id="cb23-12"><a href="introduction.html#cb23-12"></a><span class="co"># assign the value to the 1st element</span></span>
+<span id="cb23-2"><a href="introduction.html#cb23-2"></a></span>
+<span id="cb23-3"><a href="introduction.html#cb23-3"></a>subject_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Steve&quot;</span>) </span>
+<span id="cb23-4"><a href="introduction.html#cb23-4"></a></span>
+<span id="cb23-5"><a href="introduction.html#cb23-5"></a><span class="co"># at this point, you should notice that meaningful names should be used for the variables</span></span>
+<span id="cb23-6"><a href="introduction.html#cb23-6"></a></span>
+<span id="cb23-7"><a href="introduction.html#cb23-7"></a>temperature &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">98.1</span>, <span class="fl">98.6</span>, <span class="fl">101.4</span>)</span>
+<span id="cb23-8"><a href="introduction.html#cb23-8"></a></span>
+<span id="cb23-9"><a href="introduction.html#cb23-9"></a>flu_status &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) </span>
+<span id="cb23-10"><a href="introduction.html#cb23-10"></a></span>
+<span id="cb23-11"><a href="introduction.html#cb23-11"></a><span class="co"># notice how we use _ to separate two words </span></span>
+<span id="cb23-12"><a href="introduction.html#cb23-12"></a><span class="co"># this is one of the styles in coding, you should be consistent with your style</span></span>
 <span id="cb23-13"><a href="introduction.html#cb23-13"></a></span>
-<span id="cb23-14"><a href="introduction.html#cb23-14"></a>data </span>
-<span id="cb23-15"><a href="introduction.html#cb23-15"></a><span class="co">## $fullname</span></span>
-<span id="cb23-16"><a href="introduction.html#cb23-16"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
-<span id="cb23-17"><a href="introduction.html#cb23-17"></a><span class="co">## </span></span>
-<span id="cb23-18"><a href="introduction.html#cb23-18"></a><span class="co">## $temperature</span></span>
-<span id="cb23-19"><a href="introduction.html#cb23-19"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
-<span id="cb23-20"><a href="introduction.html#cb23-20"></a><span class="co">## </span></span>
-<span id="cb23-21"><a href="introduction.html#cb23-21"></a><span class="co">## $flu_status</span></span>
-<span id="cb23-22"><a href="introduction.html#cb23-22"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<span id="cb23-14"><a href="introduction.html#cb23-14"></a>data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">fullname =</span> subject_name, <span class="dt">temperature =</span> temperature, <span class="dt">flu_status =</span> flu_status) </span>
+<span id="cb23-15"><a href="introduction.html#cb23-15"></a></span>
+<span id="cb23-16"><a href="introduction.html#cb23-16"></a><span class="co"># you may wonder what is the meaning of temperature = temperature</span></span>
+<span id="cb23-17"><a href="introduction.html#cb23-17"></a><span class="co"># in &quot;fullname = subject_name&quot;</span></span>
+<span id="cb23-18"><a href="introduction.html#cb23-18"></a><span class="co"># on the left of = is the name of the 1st element of your list</span></span>
+<span id="cb23-19"><a href="introduction.html#cb23-19"></a><span class="co"># on the right of = is the name of the variable that you want to</span></span>
+<span id="cb23-20"><a href="introduction.html#cb23-20"></a><span class="co"># assign the value to the 1st element</span></span>
+<span id="cb23-21"><a href="introduction.html#cb23-21"></a></span>
+<span id="cb23-22"><a href="introduction.html#cb23-22"></a>data </span>
+<span id="cb23-23"><a href="introduction.html#cb23-23"></a><span class="co">## $fullname</span></span>
+<span id="cb23-24"><a href="introduction.html#cb23-24"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
+<span id="cb23-25"><a href="introduction.html#cb23-25"></a><span class="co">## </span></span>
+<span id="cb23-26"><a href="introduction.html#cb23-26"></a><span class="co">## $temperature</span></span>
+<span id="cb23-27"><a href="introduction.html#cb23-27"></a><span class="co">## [1]  98.1  98.6 101.4</span></span>
+<span id="cb23-28"><a href="introduction.html#cb23-28"></a><span class="co">## </span></span>
+<span id="cb23-29"><a href="introduction.html#cb23-29"></a><span class="co">## $flu_status</span></span>
+<span id="cb23-30"><a href="introduction.html#cb23-30"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span></code></pre></div>
 <p>To assess the element of a list:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction.html#cb24-1"></a>data<span class="op">$</span>flu_status</span>
 <span id="cb24-2"><a href="introduction.html#cb24-2"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
@@ -690,7 +697,15 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb27-4"><a href="introduction.html#cb27-4"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c</span></span>
 <span id="cb27-5"><a href="introduction.html#cb27-5"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222</span></span>
 <span id="cb27-6"><a href="introduction.html#cb27-6"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000</span></span>
-<span id="cb27-7"><a href="introduction.html#cb27-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span></code></pre></div>
+<span id="cb27-7"><a href="introduction.html#cb27-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span>
+<span id="cb27-8"><a href="introduction.html#cb27-8"></a></span>
+<span id="cb27-9"><a href="introduction.html#cb27-9"></a>pt_data<span class="op">$</span>fever &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temp_c <span class="op">&gt;</span><span class="st"> </span><span class="fl">37.6</span>)</span>
+<span id="cb27-10"><a href="introduction.html#cb27-10"></a></span>
+<span id="cb27-11"><a href="introduction.html#cb27-11"></a>pt_data</span>
+<span id="cb27-12"><a href="introduction.html#cb27-12"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c fever</span></span>
+<span id="cb27-13"><a href="introduction.html#cb27-13"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222 FALSE</span></span>
+<span id="cb27-14"><a href="introduction.html#cb27-14"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000 FALSE</span></span>
+<span id="cb27-15"><a href="introduction.html#cb27-15"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556  TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div id="operators" class="section level2">
@@ -974,10 +989,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb33-14"><a href="introduction.html#cb33-14"></a></span>
 <span id="cb33-15"><a href="introduction.html#cb33-15"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb33-16"><a href="introduction.html#cb33-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb33-17"><a href="introduction.html#cb33-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb33-18"><a href="introduction.html#cb33-18"></a></span>
-<span id="cb33-19"><a href="introduction.html#cb33-19"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb33-20"><a href="introduction.html#cb33-20"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb33-17"><a href="introduction.html#cb33-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5</span></span>
+<span id="cb33-18"><a href="introduction.html#cb33-18"></a><span class="co">## [21] 10.0</span></span>
+<span id="cb33-19"><a href="introduction.html#cb33-19"></a></span>
+<span id="cb33-20"><a href="introduction.html#cb33-20"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
+<span id="cb33-21"><a href="introduction.html#cb33-21"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5</span></span>
+<span id="cb33-22"><a href="introduction.html#cb33-22"></a><span class="co">## [21] 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> <code>rep()</code></h3>
