@@ -1,5 +1,3 @@
-tab:tbl-Discrete
-tab:tbl-Continuous
 introduction
 what-is-r-and-rstudio
 what-will-you-learn-in-this-course
@@ -26,8 +24,3 @@ rep
 pmax-pmin
 some-useful-rstudio-shortcuts
 exercises
-probability-to-be-updated
-probability-distributions
-examples
-simulation
-using-the-sample-function
