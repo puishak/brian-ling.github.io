@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Annoucement | STAT 362 R for Data Science</title>
+  <title>Chapter 2 Probability (to be updated) | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 2 Probability (to be updated) | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 2 Probability (to be updated) | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="schedule.html"/>
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="introduction.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -197,17 +197,219 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="annoucement" class="section level1 unnumbered">
-<h1>Annoucement</h1>
+<div id="probability-to-be-updated" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Probability (to be updated)</h1>
+<p>Reading: R Cookbook Ch8</p>
+<div id="probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.1</span> Probability Distributions</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dnorm</code></td>
+<td>Normal density</td>
+</tr>
+<tr class="even">
+<td><code>pnorm</code></td>
+<td>Normal CDF</td>
+</tr>
+<tr class="odd">
+<td><code>qnorm</code></td>
+<td>Normal quantile function</td>
+</tr>
+<tr class="even">
+<td><code>rnorm</code></td>
+<td>Normal random variables</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">2.2</span> Examples</h2>
+<p>Density of <span class="math inline">\(N(2, 3^2)\)</span> at <span class="math inline">\(5\)</span>.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="probability-to-be-updated.html#cb48-1"></a><span class="kw">dnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb48-2"><a href="probability-to-be-updated.html#cb48-2"></a><span class="co">## [1] 0.08065691</span></span></code></pre></div>
+<p><span class="math inline">\(P(X \leq 3)\)</span>, where <span class="math inline">\(X \sim N(2, 3^2)\)</span></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="probability-to-be-updated.html#cb49-1"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb49-2"><a href="probability-to-be-updated.html#cb49-2"></a><span class="co">## [1] 0.6305587</span></span>
+<span id="cb49-3"><a href="probability-to-be-updated.html#cb49-3"></a><span class="co"># &quot;mean =&quot; and &quot;sd =&quot; are optional</span></span>
+<span id="cb49-4"><a href="probability-to-be-updated.html#cb49-4"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb49-5"><a href="probability-to-be-updated.html#cb49-5"></a><span class="co">## [1] 0.6305587</span></span></code></pre></div>
+<p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="probability-to-be-updated.html#cb50-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb50-2"><a href="probability-to-be-updated.html#cb50-2"></a><span class="co">##  [1] 13.6493715  8.2243045  6.5516917  7.1497842  1.3421600  8.4010430  1.1388874  0.6281746  4.1815016</span></span>
+<span id="cb50-3"><a href="probability-to-be-updated.html#cb50-3"></a><span class="co">## [10]  7.1944180</span></span></code></pre></div>
+<p>95th-tile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="probability-to-be-updated.html#cb51-1"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb51-2"><a href="probability-to-be-updated.html#cb51-2"></a><span class="co">## [1] 1.644854</span></span></code></pre></div>
+<p>Table <a href="probability-to-be-updated.html#tab:tbl-Discrete">2.1</a> describes some common discrete
+distributions, and Table <a href="probability-to-be-updated.html#tab:tbl-Continuous">2.2</a> describes several
+common continuous distributions.</p>
+<table>
+<caption><span id="tab:tbl-Discrete">Table 2.1: </span> Common discrete distributions</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Discrete distribution</th>
+<th>R name</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Binomial</td>
+<td><code>binom</code></td>
+<td><code>n</code> = number of trials; <code>p</code> = probability of success for one trial</td>
+</tr>
+<tr class="even">
+<td>Geometric</td>
+<td><code>geom</code></td>
+<td><code>p</code> = probability of success for one trial</td>
+</tr>
+<tr class="odd">
+<td>Negative binomial (NegBinomial)</td>
+<td><code>nbinom</code></td>
+<td><code>size</code> = number of successful trials; either <code>prob</code> = probability of successful trial or <code>mu</code> = mean</td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td><code>pois</code></td>
+<td><code>lambda</code> = mean</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:tbl-Continuous">Table 2.2: </span> Common continuous distributions</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Continuous distribution</th>
+<th>R name</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Beta</td>
+<td><code>beta</code></td>
+<td><code>shape1</code>; <code>shape2</code></td>
+</tr>
+<tr class="even">
+<td>Cauchy</td>
+<td><code>cauchy</code></td>
+<td><code>location</code>; <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Chi-squared (Chisquare)</td>
+<td><code>chisq</code></td>
+<td><code>df</code> = degrees of freedom</td>
+</tr>
+<tr class="even">
+<td>Exponential</td>
+<td><code>exp</code></td>
+<td><code>rate</code></td>
+</tr>
+<tr class="odd">
+<td>F</td>
+<td><code>f</code></td>
+<td><code>df1</code> and <code>df2</code> = degrees of freedom</td>
+</tr>
+<tr class="even">
+<td>Gamma</td>
+<td><code>gamma</code></td>
+<td><code>rate</code>; either <code>rate</code> or <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Log-normal (Lognormal)</td>
+<td><code>lnorm</code></td>
+<td><code>meanlog</code> = mean on logarithmic scale; <code>sdlog</code> = standard deviation on logarithmic scale</td>
+</tr>
+<tr class="even">
+<td>Logistic</td>
+<td><code>logis</code></td>
+<td><code>location</code>; <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Normal</td>
+<td><code>norm</code></td>
+<td><code>mean</code>; <code>sd</code> = standard deviation</td>
+</tr>
+<tr class="even">
+<td>Student’s <em>t</em> (TDist)</td>
+<td><code>t</code></td>
+<td><code>df</code> = degrees of freedom</td>
+</tr>
+<tr class="odd">
+<td>Uniform</td>
+<td><code>unif</code></td>
+<td><code>min</code> = lower limit; <code>max</code> = upper limit</td>
+</tr>
+</tbody>
+</table>
+<!-- ### Plotting a Density Function -->
+<!-- ```{r, warning=FALSE} -->
+<!-- library(ggplot2) -->
+<!-- x <- seq(-3, +3, 0.1) -->
+<!-- dens <- data.frame(x = x, y = dnorm(x)) -->
+<!-- ggplot(dens, aes(x, y)) + geom_line() -->
+<!-- ``` -->
+<p>?TDist
+?Chisquare</p>
+</div>
+<div id="simulation" class="section level2">
+<h2><span class="header-section-number">2.3</span> Simulation</h2>
+<div id="using-the-sample-function" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Using the sample function</h3>
+<p>Usage of <code>sample</code>:</p>
+<p><code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
+<p>See also <code>?sample</code>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="probability-to-be-updated.html#cb52-1"></a><span class="kw">sample</span>(<span class="dv">10</span>) <span class="co"># random permutation of integers from 1 to 10</span></span>
+<span id="cb52-2"><a href="probability-to-be-updated.html#cb52-2"></a><span class="co">##  [1]  8  1  3  9  2 10  4  6  5  7</span></span>
+<span id="cb52-3"><a href="probability-to-be-updated.html#cb52-3"></a></span>
+<span id="cb52-4"><a href="probability-to-be-updated.html#cb52-4"></a><span class="kw">sample</span>(<span class="dv">10</span>, <span class="dt">replace =</span> T) <span class="co"># sample with replacement</span></span>
+<span id="cb52-5"><a href="probability-to-be-updated.html#cb52-5"></a><span class="co">##  [1]  4  7  5  4  8  4  9 10  5  2</span></span>
+<span id="cb52-6"><a href="probability-to-be-updated.html#cb52-6"></a></span>
+<span id="cb52-7"><a href="probability-to-be-updated.html#cb52-7"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="dt">replace =</span> T) </span>
+<span id="cb52-8"><a href="probability-to-be-updated.html#cb52-8"></a><span class="co">## [1] 5 3 3 1 5</span></span>
+<span id="cb52-9"><a href="probability-to-be-updated.html#cb52-9"></a></span>
+<span id="cb52-10"><a href="probability-to-be-updated.html#cb52-10"></a><span class="co"># simulate 20 random variables from a discrete distribution</span></span>
+<span id="cb52-11"><a href="probability-to-be-updated.html#cb52-11"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), <span class="dt">replace =</span> T)</span>
+<span id="cb52-12"><a href="probability-to-be-updated.html#cb52-12"></a><span class="co">##  [1]  0  1  1  1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  0  0  0</span></span></code></pre></div>
+<p>Example: Suppose we have a fair coin and we play a game. We flip the coin. We win $1 if the result is head and loss $1 if the result is tail. You play the game 100 times. You are interested in the cumculative profit.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="probability-to-be-updated.html#cb53-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># R actually generates pseudo random numbers</span></span>
+<span id="cb53-2"><a href="probability-to-be-updated.html#cb53-2"></a><span class="co"># setting the seed ensure that each time you will get the same result (for teaching, code debugging)</span></span>
+<span id="cb53-3"><a href="probability-to-be-updated.html#cb53-3"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T)  </span>
+<span id="cb53-4"><a href="probability-to-be-updated.html#cb53-4"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="probability-to-be-updated.html#cb54-1"></a></span>
+<span id="cb54-2"><a href="probability-to-be-updated.html#cb54-2"></a><span class="kw">set.seed</span>(<span class="dv">2</span>) </span>
+<span id="cb54-3"><a href="probability-to-be-updated.html#cb54-3"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T) </span>
+<span id="cb54-4"><a href="probability-to-be-updated.html#cb54-4"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-64-2.png" width="672" /></p>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="schedule.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
