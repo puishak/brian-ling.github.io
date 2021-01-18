@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Probability | STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Probability | STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Probability | STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2021-01-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="programming-in-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="annoucement.html"><a href="annoucement.html"><i class="fa fa-check"></i>Annoucement</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Probability</h1>
+<p>Optional Reading: R Cookbook Ch8</p>
+<div id="probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.1</span> Probability Distributions</h2>
+<p>Using the normal distribution as an example:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dnorm</code></td>
+<td>Normal density</td>
+</tr>
+<tr class="even">
+<td><code>pnorm</code></td>
+<td>Normal CDF</td>
+</tr>
+<tr class="odd">
+<td><code>qnorm</code></td>
+<td>Normal quantile function</td>
+</tr>
+<tr class="even">
+<td><code>rnorm</code></td>
+<td>Normal random variables</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p>Density of <span class="math inline">\(N(2, 3^2)\)</span> at <span class="math inline">\(5\)</span>.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="probability.html#cb53-1"></a><span class="kw">dnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb53-2"><a href="probability.html#cb53-2"></a><span class="co">## [1] 0.08065691</span></span></code></pre></div>
+<p><span class="math inline">\(P(X \leq 3)\)</span>, where <span class="math inline">\(X \sim N(2, 3^2)\)</span></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="probability.html#cb54-1"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb54-2"><a href="probability.html#cb54-2"></a><span class="co">## [1] 0.6305587</span></span>
+<span id="cb54-3"><a href="probability.html#cb54-3"></a><span class="co"># &quot;mean =&quot; and &quot;sd =&quot; are optional</span></span>
+<span id="cb54-4"><a href="probability.html#cb54-4"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb54-5"><a href="probability.html#cb54-5"></a><span class="co">## [1] 0.6305587</span></span></code></pre></div>
+<p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="probability.html#cb55-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1] 11.759806  3.900601  6.177290  4.377102  5.164037  2.369043 -1.401542  2.293448</span></span>
+<span id="cb55-3"><a href="probability.html#cb55-3"></a><span class="co">##  [9]  5.915907  5.679247</span></span></code></pre></div>
+<p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="probability.html#cb56-1"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb56-2"><a href="probability.html#cb56-2"></a><span class="co">## [1] 1.644854</span></span></code></pre></div>
+<p>Plotting the normal density</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="probability.html#cb57-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb57-2"><a href="probability.html#cb57-2"></a><span class="kw">plot</span>(x, <span class="kw">dnorm</span>(x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Density of N(0,1)&quot;</span>) <span class="co"># &quot;l&quot; for lines</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-71-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div id="common-distributions" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Common Distributions</h3>
+<table>
+<caption>Common discrete distributions</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Discrete distribution</th>
+<th>R name</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Binomial</td>
+<td><code>binom</code></td>
+<td><code>n</code> = number of trials; <code>p</code> = probability of success for one trial</td>
+</tr>
+<tr class="even">
+<td>Geometric</td>
+<td><code>geom</code></td>
+<td><code>p</code> = probability of success for one trial</td>
+</tr>
+<tr class="odd">
+<td>Negative binomial (NegBinomial)</td>
+<td><code>nbinom</code></td>
+<td><code>size</code> = number of successful trials; either <code>prob</code> = probability of successful trial or <code>mu</code> = mean</td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td><code>pois</code></td>
+<td><code>lambda</code> = mean</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Common continuous distributions</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Continuous distribution</th>
+<th>R name</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Beta</td>
+<td><code>beta</code></td>
+<td><code>shape1</code>; <code>shape2</code></td>
+</tr>
+<tr class="even">
+<td>Cauchy</td>
+<td><code>cauchy</code></td>
+<td><code>location</code>; <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Chi-squared (Chisquare)</td>
+<td><code>chisq</code></td>
+<td><code>df</code> = degrees of freedom</td>
+</tr>
+<tr class="even">
+<td>Exponential</td>
+<td><code>exp</code></td>
+<td><code>rate</code></td>
+</tr>
+<tr class="odd">
+<td>F</td>
+<td><code>f</code></td>
+<td><code>df1</code> and <code>df2</code> = degrees of freedom</td>
+</tr>
+<tr class="even">
+<td>Gamma</td>
+<td><code>gamma</code></td>
+<td><code>rate</code>; either <code>rate</code> or <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Log-normal (Lognormal)</td>
+<td><code>lnorm</code></td>
+<td><code>meanlog</code> = mean on logarithmic scale; <code>sdlog</code> = standard deviation on logarithmic scale</td>
+</tr>
+<tr class="even">
+<td>Logistic</td>
+<td><code>logis</code></td>
+<td><code>location</code>; <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td>Normal</td>
+<td><code>norm</code></td>
+<td><code>mean</code>; <code>sd</code> = standard deviation</td>
+</tr>
+<tr class="even">
+<td>Student’s <em>t</em> (TDist)</td>
+<td><code>t</code></td>
+<td><code>df</code> = degrees of freedom</td>
+</tr>
+<tr class="odd">
+<td>Uniform</td>
+<td><code>unif</code></td>
+<td><code>min</code> = lower limit; <code>max</code> = upper limit</td>
+</tr>
+</tbody>
+</table>
+<p>To get help on the distributions:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="probability.html#cb58-1"></a>?dnorm</span>
+<span id="cb58-2"><a href="probability.html#cb58-2"></a>?dbeta</span>
+<span id="cb58-3"><a href="probability.html#cb58-3"></a>?dcauchy</span>
+<span id="cb58-4"><a href="probability.html#cb58-4"></a></span>
+<span id="cb58-5"><a href="probability.html#cb58-5"></a><span class="co"># the following distributions need to use different code</span></span>
+<span id="cb58-6"><a href="probability.html#cb58-6"></a>?TDist</span>
+<span id="cb58-7"><a href="probability.html#cb58-7"></a>?Chisquare</span>
+<span id="cb58-8"><a href="probability.html#cb58-8"></a>?Lognormal</span></code></pre></div>
+<p><strong>Examples (Using Binomial as an Example)</strong></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="probability.html#cb59-1"></a><span class="kw">dbinom</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># p_X(2), p_X is the pmf of X, X ~ Bin(n=10, p=0.6)</span></span>
+<span id="cb59-2"><a href="probability.html#cb59-2"></a><span class="co">## [1] 0.01061683</span></span>
+<span id="cb59-3"><a href="probability.html#cb59-3"></a></span>
+<span id="cb59-4"><a href="probability.html#cb59-4"></a><span class="kw">pbinom</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># F_X(2), F_X is the CDF of X, X ~ Bin(n=10, p=0.6)</span></span>
+<span id="cb59-5"><a href="probability.html#cb59-5"></a><span class="co">## [1] 0.01229455</span></span>
+<span id="cb59-6"><a href="probability.html#cb59-6"></a></span>
+<span id="cb59-7"><a href="probability.html#cb59-7"></a><span class="kw">qbinom</span>(<span class="fl">0.5</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># 50th percentile of X</span></span>
+<span id="cb59-8"><a href="probability.html#cb59-8"></a><span class="co">## [1] 6</span></span>
+<span id="cb59-9"><a href="probability.html#cb59-9"></a></span>
+<span id="cb59-10"><a href="probability.html#cb59-10"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
+<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 5 6 5 7</span></span>
+<span id="cb59-12"><a href="probability.html#cb59-12"></a></span>
+<span id="cb59-13"><a href="probability.html#cb59-13"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb59-14"><a href="probability.html#cb59-14"></a><span class="kw">plot</span>(x, <span class="kw">dbinom</span>(x,<span class="dv">10</span>,<span class="fl">0.6</span>), <span class="dt">type=</span><span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-73-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="exercises-1" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>The average number of trucks arriving on any one day at a truck depot in a certain city is known to be 12. Assuming the number of trucks arriving on any one day has a Poisson distribution, what is the probability that on a given day fewer than 9 (strictly less than 9) trucks will arrive at this depot?</li>
+</ol>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability.html#cb60-1"></a><span class="kw">ppois</span>(<span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb60-2"><a href="probability.html#cb60-2"></a><span class="co">## [1] 0.1550278</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Let <span class="math inline">\(Z \sim N(0, 1)\)</span>. Find <span class="math inline">\(c\)</span> such that</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(Z \leq c) = 0.1151\)</span></li>
+</ol>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="probability.html#cb61-1"></a><span class="kw">qnorm</span>(<span class="fl">0.1151</span>)</span>
+<span id="cb61-2"><a href="probability.html#cb61-2"></a><span class="co">## [1] -1.199844</span></span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(1\leq Z \leq c) = 0.1525\)</span></li>
+</ol>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="probability.html#cb62-1"></a>c &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">pnorm</span>(<span class="dv">1</span>)<span class="op">+</span><span class="fl">0.1525</span>) <span class="co"># draw a graph</span></span>
+<span id="cb62-2"><a href="probability.html#cb62-2"></a></span>
+<span id="cb62-3"><a href="probability.html#cb62-3"></a><span class="co"># test the answer</span></span>
+<span id="cb62-4"><a href="probability.html#cb62-4"></a><span class="kw">pnorm</span>(c) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb62-5"><a href="probability.html#cb62-5"></a><span class="co">## [1] 0.1525</span></span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(-c \leq Z \leq c) = 0.8164\)</span>.</li>
+</ol>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="probability.html#cb63-1"></a><span class="co"># P(0 &lt;= Z &lt;= c) = 0.8164/2</span></span>
+<span id="cb63-2"><a href="probability.html#cb63-2"></a><span class="co"># P(Z &lt;= c) = 0.8164/2 + 0.5</span></span>
+<span id="cb63-3"><a href="probability.html#cb63-3"></a>c &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.8164</span><span class="op">/</span><span class="dv">2</span><span class="fl">+0.5</span>)</span>
+<span id="cb63-4"><a href="probability.html#cb63-4"></a></span>
+<span id="cb63-5"><a href="probability.html#cb63-5"></a><span class="co"># test our answer</span></span>
+<span id="cb63-6"><a href="probability.html#cb63-6"></a><span class="kw">pnorm</span>(c)<span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>c)</span>
+<span id="cb63-7"><a href="probability.html#cb63-7"></a><span class="co">## [1] 0.8164</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Plot the density of a chi-squared distribution with degrees of freedom <span class="math inline">\(4\)</span>, from <span class="math inline">\(x=0\)</span> to <span class="math inline">\(x=10\)</span>.</li>
+<li>Find the 95th percentile of this distribution.</li>
+</ol>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="probability.html#cb64-1"></a><span class="co"># note that a chi-squared r.v. is nonnegative</span></span>
+<span id="cb64-2"><a href="probability.html#cb64-2"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb64-3"><a href="probability.html#cb64-3"></a><span class="kw">plot</span>(x, <span class="kw">dchisq</span>(x, <span class="dt">df =</span> <span class="dv">4</span>), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-78-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="probability.html#cb65-1"></a><span class="kw">qchisq</span>(<span class="fl">0.95</span>, <span class="dt">df =</span> <span class="dv">4</span>)</span>
+<span id="cb65-2"><a href="probability.html#cb65-2"></a><span class="co">## [1] 9.487729</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Simulate <span class="math inline">\(10\)</span> Bernoulli random variables with parameter <span class="math inline">\(0.6\)</span>.</li>
+</ol>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="probability.html#cb66-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
+<span id="cb66-2"><a href="probability.html#cb66-2"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</span>
+<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 1 1 1 1 1 1 1 1 1 0</span></span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
+</ol>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="probability.html#cb67-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb67-2"><a href="probability.html#cb67-2"></a><span class="kw">plot</span>(x, <span class="kw">dpois</span>(x, <span class="dv">2</span>), <span class="dt">type=</span><span class="st">&quot;h&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-80-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Draw a plot to illustrate that the 97.5th percentile of the t distribution will be getting closer to that of the standard normal distribution when the degrees of freedom increases.</li>
+</ol>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="probability.html#cb68-1"></a>x &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">:</span><span class="dv">200</span></span>
+<span id="cb68-2"><a href="probability.html#cb68-2"></a><span class="kw">plot</span>(x, <span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.9</span>,<span class="fl">2.3</span>))</span>
+<span id="cb68-3"><a href="probability.html#cb68-3"></a><span class="co"># add a horizontal line with value at qnorm(0.975)</span></span>
+<span id="cb68-4"><a href="probability.html#cb68-4"></a><span class="co"># lty = 2 for dashed line, check ?par</span></span>
+<span id="cb68-5"><a href="probability.html#cb68-5"></a><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">qnorm</span>(<span class="fl">0.975</span>), <span class="dt">lty =</span> <span class="dv">2</span>) </span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-81-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="probability.html#cb69-1"></a></span>
+<span id="cb69-2"><a href="probability.html#cb69-2"></a><span class="co"># Therefore, for a large sample, t-test and z-test will give you similar result.</span></span></code></pre></div>
+</div>
+</div>
+<div id="simulation" class="section level2">
+<h2><span class="header-section-number">2.2</span> Simulation</h2>
+<ul>
+<li><p>We have already seen how to use functions like <code>runif</code>, <code>rnorm</code>, <code>rbinom</code> to generate random variables.</p></li>
+<li><p>R actually generates pseudo-random number sequence (deterministic sequence of numbers that approximates the properties of random numbers)</p></li>
+<li><p>The pseduo-random number sequence will be the same if it is initialized by the same seed (can be used to reproduce the same simulation results or used to debug).</p></li>
+</ul>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability.html#cb70-1"></a><span class="co"># every time you run the first two lines, you get the same result</span></span>
+<span id="cb70-2"><a href="probability.html#cb70-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb70-3"><a href="probability.html#cb70-3"></a><span class="kw">runif</span>(<span class="dv">5</span>) </span>
+<span id="cb70-4"><a href="probability.html#cb70-4"></a><span class="co">## [1] 0.2655087 0.3721239 0.5728534 0.9082078 0.2016819</span></span>
+<span id="cb70-5"><a href="probability.html#cb70-5"></a></span>
+<span id="cb70-6"><a href="probability.html#cb70-6"></a><span class="co"># every time you run the following code, you get a different result</span></span>
+<span id="cb70-7"><a href="probability.html#cb70-7"></a><span class="kw">runif</span>(<span class="dv">5</span>)</span>
+<span id="cb70-8"><a href="probability.html#cb70-8"></a><span class="co">## [1] 0.89838968 0.94467527 0.66079779 0.62911404 0.06178627</span></span></code></pre></div>
+<p><strong>Sampling from discrete distributions</strong></p>
+<p>Usage of <code>sample</code>:</p>
+<p><code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
+<p>See also <code>?sample</code>.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="probability.html#cb71-1"></a><span class="kw">sample</span>(<span class="dv">10</span>) <span class="co"># random permutation of integers from 1 to 10</span></span>
+<span id="cb71-2"><a href="probability.html#cb71-2"></a><span class="co">##  [1]  3  1  5  8  2  6 10  9  4  7</span></span>
+<span id="cb71-3"><a href="probability.html#cb71-3"></a></span>
+<span id="cb71-4"><a href="probability.html#cb71-4"></a><span class="kw">sample</span>(<span class="dv">10</span>, <span class="dt">replace =</span> T) <span class="co"># sample with replacement</span></span>
+<span id="cb71-5"><a href="probability.html#cb71-5"></a><span class="co">##  [1]  5  9  9  5  5  2 10  9  1  4</span></span>
+<span id="cb71-6"><a href="probability.html#cb71-6"></a></span>
+<span id="cb71-7"><a href="probability.html#cb71-7"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="dt">replace =</span> T) </span>
+<span id="cb71-8"><a href="probability.html#cb71-8"></a><span class="co">## [1] 5 3 3 3 3</span></span>
+<span id="cb71-9"><a href="probability.html#cb71-9"></a></span>
+<span id="cb71-10"><a href="probability.html#cb71-10"></a><span class="co"># simulate 20 random variables from a discrete distribution</span></span>
+<span id="cb71-11"><a href="probability.html#cb71-11"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), <span class="dt">replace =</span> T)</span>
+<span id="cb71-12"><a href="probability.html#cb71-12"></a><span class="co">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0  1  1  0 -1  0</span></span></code></pre></div>
+<p><strong>Example</strong>: Suppose we have a fair coin and we play a game. We flip the coin. We win $1 if the result is head and lose $1 if the result is tail. You play the game 100 times. You are interested in the cumulative profit.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="probability.html#cb72-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># R actually generates pseudo random numbers</span></span>
+<span id="cb72-2"><a href="probability.html#cb72-2"></a><span class="co"># setting the seed ensure that each time you will get the same result</span></span>
+<span id="cb72-3"><a href="probability.html#cb72-3"></a><span class="co"># for illustration, code debugging, reproducibility</span></span>
+<span id="cb72-4"><a href="probability.html#cb72-4"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T)  </span>
+<span id="cb72-5"><a href="probability.html#cb72-5"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-84-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="probability.html#cb73-1"></a></span>
+<span id="cb73-2"><a href="probability.html#cb73-2"></a><span class="kw">set.seed</span>(<span class="dv">2</span>) </span>
+<span id="cb73-3"><a href="probability.html#cb73-3"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T) </span>
+<span id="cb73-4"><a href="probability.html#cb73-4"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-84-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Example</strong>: You have two dice <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. For die <span class="math inline">\(A\)</span>, there are <span class="math inline">\(6\)</span> sides with numbers <span class="math inline">\(1,2,3,4,5,6\)</span> and the corresponding probability of getting these values are <span class="math inline">\(0.1,0.1,0.1,0.1,0.1,0.5\)</span>. For die <span class="math inline">\(B\)</span>, there are <span class="math inline">\(4\)</span> sides with numbers <span class="math inline">\(1,2,3,7\)</span> and the corresponding probability of getting these values are <span class="math inline">\(0.3,0.2,0.3,0.2\)</span>. You roll the two dice independently. Estimate <span class="math inline">\(P(X &gt; Y)\)</span> using simulation, where <span class="math inline">\(X\)</span> is the result from die <span class="math inline">\(A\)</span> and <span class="math inline">\(Y\)</span> is the result from die <span class="math inline">\(B\)</span>.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability.html#cb74-1"></a>n &lt;-<span class="st"> </span><span class="dv">10000</span> <span class="co"># number of simulations</span></span>
+<span id="cb74-2"><a href="probability.html#cb74-2"></a>X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span>))</span>
+<span id="cb74-3"><a href="probability.html#cb74-3"></a>Y &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">7</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.3</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span>,<span class="fl">0.2</span>))</span>
+<span id="cb74-4"><a href="probability.html#cb74-4"></a><span class="kw">mean</span>(X<span class="op">&gt;</span>Y)</span>
+<span id="cb74-5"><a href="probability.html#cb74-5"></a><span class="co">## [1] 0.6408</span></span></code></pre></div>
+<p>Why the sample mean approximates the required probability? Recall the strong law of large numbers (SLLN). Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be independent and identically distributed random variables with mean <span class="math inline">\(\mu:=E(X)\)</span>. Let <span class="math inline">\(\overline{X}_n:= \frac{1}{n} \sum^n_{i=1}X_i\)</span>. Then
+<span class="math display">\[\overline{X}_n \stackrel{a.s.}{\rightarrow} \mu.\]</span>
+Note: a.s. means almost surely. The above convergence means <span class="math inline">\(P(\lim_{n\rightarrow \infty} \overline{X}_n = \mu) = 1\)</span>. Note that (the expectation of an indicator random variable is the probability that the corresponding event will happen)
+<span class="math display">\[ P(X&gt;Y) = E(I(X&gt;Y)).\]</span>
+To apply SLLN, we just need to recognize the underlying random variable is <span class="math inline">\(I(X&gt;Y)\)</span>. Then, with probability <span class="math inline">\(1\)</span>, the sample mean
+<span class="math display">\[ \frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i) \rightarrow P(X&gt;Y).\]</span>
+The quantity on the LHS is what we compute in <code>mean(X&gt;Y)</code> (note that we are using vectorized comparison).</p>
+<p><strong><em>We will see additional simulation examples after we talk about some programming in R</em></strong></p>
+<p>There are many important topics that we will not discuss</p>
+<ol style="list-style-type: decimal">
+<li>algorithms for simulating random variables</li>
+</ol>
+<ul>
+<li>inverse transform</li>
+<li>acceptance rejection</li>
+<li>Markov Chain Monte Carlo</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>methods to reduce variance in simulation</li>
+</ol>
+<ul>
+<li>Control variates</li>
+<li>Antithetic variates</li>
+<li>Importance sampling</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="programming-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

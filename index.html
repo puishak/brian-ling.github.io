@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2021-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,6 +169,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts</a></li>
 <li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -193,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">STAT 362 R for Data Science</h1>
 <p class="author"><em>Brian Ling</em></p>
-<p class="date"><em>2021-01-14</em></p>
+<p class="date"><em>2021-01-18</em></p>
 </div>
 <div id="syllabus" class="section level1 unnumbered">
 <h1>Syllabus</h1>
@@ -217,6 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>They will be responsible for grading your assignments.</p>
 <p><strong>Office Hours:</strong></p>
 <p>Wed 9pm-10pm, Thu 1pm-2pm, Fri 10:00-10:30am, or by appointment (let me know if you cannot attend any of these)</p>
+<p>Meeting link: see onQ (same as the link for the synchronous lecture)</p>
 <p><strong>Intended Student Learning Outcomes</strong>:</p>
 <ol style="list-style-type: decimal">
 <li>Understand the fundamental concepts in R</li>
@@ -230,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>(STAT 263/3.0 or STAT 268/3.0) and MATH 120/3.0 or MATH 121/3.0 or MATH 124/3.0 MATH 126/3.0 or MATH 110/6.0 or MATH 111/6.0 or (MATH 112/3.0 and MATH 212/3.0) or permission of the department.</p>
 <p>In words, you need to understand probability and statistics, linear algebra (matrix operations), and basic calculus.</p>
 <p><strong>Lecture Notes:</strong></p>
-<p>This website.</p>
+<p>See <a href="https://brian-ling.github.io/" class="uri">https://brian-ling.github.io/</a>. Pdf in onQ.</p>
 <p><strong>Lecture Videos</strong></p>
 <p>See onQ.</p>
 <p><strong>Main Textbooks/Readings:</strong></p>
