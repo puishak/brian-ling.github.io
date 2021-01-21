@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-01-18" />
+<meta name="date" content="2021-01-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,7 +213,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="programming-in-r" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Programming in R</h1>
-<p>Optional reading: R Cookbook Ch 15</p>
+<p>Optional reading: R Cookbook Ch 15, R for data science <a href="https://r4ds.had.co.nz/program-intro.html" class="uri">https://r4ds.had.co.nz/program-intro.html</a></p>
+<p>Hands-on programming with R:
+<a href="https://rstudio-education.github.io/hopr/" class="uri">https://rstudio-education.github.io/hopr/</a></p>
 <div id="writing-functions-in-r" class="section level2">
 <h2><span class="header-section-number">3.1</span> Writing functions in R</h2>
 <ul>
@@ -419,176 +421,193 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb91-12"><a href="programming-in-r.html#cb91-12"></a><span class="co"># What happen if you change &quot;i &lt; 6&quot; to &quot;i &lt;= 6&quot;? Ans: will print 1 to 6</span></span>
 <span id="cb91-13"><a href="programming-in-r.html#cb91-13"></a></span>
 <span id="cb91-14"><a href="programming-in-r.html#cb91-14"></a><span class="co"># What happen if you change &quot;i &lt; 6&quot; to &quot;i &lt;= 5&quot;? Ans: outputs are the same</span></span></code></pre></div>
+<p>Another example:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="programming-in-r.html#cb92-1"></a><span class="co"># find the smallest n such that 1^2+ 2^2+ ... + n^2 &gt; 65</span></span>
+<span id="cb92-2"><a href="programming-in-r.html#cb92-2"></a>sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb92-3"><a href="programming-in-r.html#cb92-3"></a>i &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb92-4"><a href="programming-in-r.html#cb92-4"></a><span class="cf">while</span> (sum <span class="op">&lt;</span><span class="st"> </span><span class="dv">65</span>) {</span>
+<span id="cb92-5"><a href="programming-in-r.html#cb92-5"></a>  sum &lt;-<span class="st"> </span>sum <span class="op">+</span><span class="st"> </span>i<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb92-6"><a href="programming-in-r.html#cb92-6"></a>  <span class="kw">print</span>(<span class="kw">c</span>(i, sum))  </span>
+<span id="cb92-7"><a href="programming-in-r.html#cb92-7"></a>  i &lt;-<span class="st"> </span>i<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb92-8"><a href="programming-in-r.html#cb92-8"></a>}</span>
+<span id="cb92-9"><a href="programming-in-r.html#cb92-9"></a><span class="co">## [1] 1 1</span></span>
+<span id="cb92-10"><a href="programming-in-r.html#cb92-10"></a><span class="co">## [1] 2 5</span></span>
+<span id="cb92-11"><a href="programming-in-r.html#cb92-11"></a><span class="co">## [1]  3 14</span></span>
+<span id="cb92-12"><a href="programming-in-r.html#cb92-12"></a><span class="co">## [1]  4 30</span></span>
+<span id="cb92-13"><a href="programming-in-r.html#cb92-13"></a><span class="co">## [1]  5 55</span></span>
+<span id="cb92-14"><a href="programming-in-r.html#cb92-14"></a><span class="co">## [1]  6 91</span></span>
+<span id="cb92-15"><a href="programming-in-r.html#cb92-15"></a>i <span class="co"># 6 </span></span>
+<span id="cb92-16"><a href="programming-in-r.html#cb92-16"></a><span class="co">## [1] 7</span></span></code></pre></div>
 </div>
 <div id="if-cond" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> if (cond)</h3>
 <p>Syntax:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="programming-in-r.html#cb92-1"></a><span class="cf">if</span> (condition) {</span>
-<span id="cb92-2"><a href="programming-in-r.html#cb92-2"></a>  statement <span class="co"># do this if the condition is TRUE</span></span>
-<span id="cb92-3"><a href="programming-in-r.html#cb92-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="programming-in-r.html#cb93-1"></a><span class="cf">if</span> (condition) {</span>
+<span id="cb93-2"><a href="programming-in-r.html#cb93-2"></a>  statement <span class="co"># do this if the condition is TRUE</span></span>
+<span id="cb93-3"><a href="programming-in-r.html#cb93-3"></a>}</span></code></pre></div>
 <p>Example: write a function that outputs “positive” if a positive number is entered.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="programming-in-r.html#cb93-1"></a><span class="co"># check if a number if positive</span></span>
-<span id="cb93-2"><a href="programming-in-r.html#cb93-2"></a>my_pos &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb93-3"><a href="programming-in-r.html#cb93-3"></a>  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) { </span>
-<span id="cb93-4"><a href="programming-in-r.html#cb93-4"></a>    <span class="kw">print</span>(<span class="st">&quot;positive&quot;</span>)  </span>
-<span id="cb93-5"><a href="programming-in-r.html#cb93-5"></a>  }</span>
-<span id="cb93-6"><a href="programming-in-r.html#cb93-6"></a>}</span>
-<span id="cb93-7"><a href="programming-in-r.html#cb93-7"></a></span>
-<span id="cb93-8"><a href="programming-in-r.html#cb93-8"></a><span class="kw">my_pos</span>(<span class="op">-</span><span class="dv">2</span>)</span>
-<span id="cb93-9"><a href="programming-in-r.html#cb93-9"></a></span>
-<span id="cb93-10"><a href="programming-in-r.html#cb93-10"></a><span class="kw">my_pos</span>(<span class="dv">2</span>)</span>
-<span id="cb93-11"><a href="programming-in-r.html#cb93-11"></a><span class="co">## [1] &quot;positive&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="programming-in-r.html#cb94-1"></a><span class="co"># check if a number if positive</span></span>
+<span id="cb94-2"><a href="programming-in-r.html#cb94-2"></a>my_pos &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb94-3"><a href="programming-in-r.html#cb94-3"></a>  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) { </span>
+<span id="cb94-4"><a href="programming-in-r.html#cb94-4"></a>    <span class="kw">print</span>(<span class="st">&quot;positive&quot;</span>)  </span>
+<span id="cb94-5"><a href="programming-in-r.html#cb94-5"></a>  }</span>
+<span id="cb94-6"><a href="programming-in-r.html#cb94-6"></a>}</span>
+<span id="cb94-7"><a href="programming-in-r.html#cb94-7"></a></span>
+<span id="cb94-8"><a href="programming-in-r.html#cb94-8"></a><span class="kw">my_pos</span>(<span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb94-9"><a href="programming-in-r.html#cb94-9"></a></span>
+<span id="cb94-10"><a href="programming-in-r.html#cb94-10"></a><span class="kw">my_pos</span>(<span class="dv">2</span>)</span>
+<span id="cb94-11"><a href="programming-in-r.html#cb94-11"></a><span class="co">## [1] &quot;positive&quot;</span></span></code></pre></div>
 </div>
 <div id="if-cond-else-expr" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> if (cond) else expr</h3>
 <p>Syntax</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="programming-in-r.html#cb94-1"></a><span class="cf">if</span> (condition) {</span>
-<span id="cb94-2"><a href="programming-in-r.html#cb94-2"></a>  statement1 <span class="co"># do this if condition is TRUE</span></span>
-<span id="cb94-3"><a href="programming-in-r.html#cb94-3"></a>  } <span class="cf">else</span> {</span>
-<span id="cb94-4"><a href="programming-in-r.html#cb94-4"></a>  statement2 <span class="co"># do this if condition is FALSE</span></span>
-<span id="cb94-5"><a href="programming-in-r.html#cb94-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="programming-in-r.html#cb95-1"></a><span class="cf">if</span> (condition) {</span>
+<span id="cb95-2"><a href="programming-in-r.html#cb95-2"></a>  statement1 <span class="co"># do this if condition is TRUE</span></span>
+<span id="cb95-3"><a href="programming-in-r.html#cb95-3"></a>  } <span class="cf">else</span> {</span>
+<span id="cb95-4"><a href="programming-in-r.html#cb95-4"></a>  statement2 <span class="co"># do this if condition is FALSE</span></span>
+<span id="cb95-5"><a href="programming-in-r.html#cb95-5"></a>}</span></code></pre></div>
 <p>Example:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="programming-in-r.html#cb95-1"></a><span class="co"># write my own absolute value function</span></span>
-<span id="cb95-2"><a href="programming-in-r.html#cb95-2"></a>my_abs &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb95-3"><a href="programming-in-r.html#cb95-3"></a> <span class="cf">if</span> (x<span class="op">&gt;=</span><span class="dv">0</span>) {</span>
-<span id="cb95-4"><a href="programming-in-r.html#cb95-4"></a>   <span class="kw">return</span>(x)</span>
-<span id="cb95-5"><a href="programming-in-r.html#cb95-5"></a> } <span class="cf">else</span> {</span>
-<span id="cb95-6"><a href="programming-in-r.html#cb95-6"></a>   <span class="kw">return</span>(<span class="op">-</span>x)</span>
-<span id="cb95-7"><a href="programming-in-r.html#cb95-7"></a> }</span>
-<span id="cb95-8"><a href="programming-in-r.html#cb95-8"></a>}</span>
-<span id="cb95-9"><a href="programming-in-r.html#cb95-9"></a></span>
-<span id="cb95-10"><a href="programming-in-r.html#cb95-10"></a><span class="kw">my_abs</span>(<span class="op">-</span><span class="dv">2</span>)</span>
-<span id="cb95-11"><a href="programming-in-r.html#cb95-11"></a><span class="co">## [1] 2</span></span>
-<span id="cb95-12"><a href="programming-in-r.html#cb95-12"></a></span>
-<span id="cb95-13"><a href="programming-in-r.html#cb95-13"></a><span class="kw">my_abs</span>(<span class="dv">3</span>)</span>
-<span id="cb95-14"><a href="programming-in-r.html#cb95-14"></a><span class="co">## [1] 3</span></span>
-<span id="cb95-15"><a href="programming-in-r.html#cb95-15"></a></span>
-<span id="cb95-16"><a href="programming-in-r.html#cb95-16"></a><span class="kw">my_abs</span>(<span class="dv">0</span>)</span>
-<span id="cb95-17"><a href="programming-in-r.html#cb95-17"></a><span class="co">## [1] 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="programming-in-r.html#cb96-1"></a><span class="co"># write my own absolute value function</span></span>
+<span id="cb96-2"><a href="programming-in-r.html#cb96-2"></a>my_abs &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb96-3"><a href="programming-in-r.html#cb96-3"></a> <span class="cf">if</span> (x<span class="op">&gt;=</span><span class="dv">0</span>) {</span>
+<span id="cb96-4"><a href="programming-in-r.html#cb96-4"></a>   <span class="kw">return</span>(x)</span>
+<span id="cb96-5"><a href="programming-in-r.html#cb96-5"></a> } <span class="cf">else</span> {</span>
+<span id="cb96-6"><a href="programming-in-r.html#cb96-6"></a>   <span class="kw">return</span>(<span class="op">-</span>x)</span>
+<span id="cb96-7"><a href="programming-in-r.html#cb96-7"></a> }</span>
+<span id="cb96-8"><a href="programming-in-r.html#cb96-8"></a>}</span>
+<span id="cb96-9"><a href="programming-in-r.html#cb96-9"></a></span>
+<span id="cb96-10"><a href="programming-in-r.html#cb96-10"></a><span class="kw">my_abs</span>(<span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb96-11"><a href="programming-in-r.html#cb96-11"></a><span class="co">## [1] 2</span></span>
+<span id="cb96-12"><a href="programming-in-r.html#cb96-12"></a></span>
+<span id="cb96-13"><a href="programming-in-r.html#cb96-13"></a><span class="kw">my_abs</span>(<span class="dv">3</span>)</span>
+<span id="cb96-14"><a href="programming-in-r.html#cb96-14"></a><span class="co">## [1] 3</span></span>
+<span id="cb96-15"><a href="programming-in-r.html#cb96-15"></a></span>
+<span id="cb96-16"><a href="programming-in-r.html#cb96-16"></a><span class="kw">my_abs</span>(<span class="dv">0</span>)</span>
+<span id="cb96-17"><a href="programming-in-r.html#cb96-17"></a><span class="co">## [1] 0</span></span></code></pre></div>
 <p>Error-handling in a function:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="programming-in-r.html#cb96-1"></a>my_sqrt =<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb96-2"><a href="programming-in-r.html#cb96-2"></a>  <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb96-3"><a href="programming-in-r.html#cb96-3"></a>    <span class="kw">print</span>(<span class="kw">sqrt</span>(x))             <span class="co"># do this if x &gt;= 0</span></span>
-<span id="cb96-4"><a href="programming-in-r.html#cb96-4"></a>  } <span class="cf">else</span> {</span>
-<span id="cb96-5"><a href="programming-in-r.html#cb96-5"></a>    <span class="kw">cat</span>(<span class="st">&quot;Error: this is a negative number!&quot;</span>)   <span class="co"># do this otherwise</span></span>
-<span id="cb96-6"><a href="programming-in-r.html#cb96-6"></a>  }</span>
-<span id="cb96-7"><a href="programming-in-r.html#cb96-7"></a>}</span>
-<span id="cb96-8"><a href="programming-in-r.html#cb96-8"></a><span class="kw">my_sqrt</span>(<span class="op">-</span><span class="dv">2</span>)</span>
-<span id="cb96-9"><a href="programming-in-r.html#cb96-9"></a><span class="co">## Error: this is a negative number!</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="programming-in-r.html#cb97-1"></a>my_sqrt =<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb97-2"><a href="programming-in-r.html#cb97-2"></a>  <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb97-3"><a href="programming-in-r.html#cb97-3"></a>    <span class="kw">print</span>(<span class="kw">sqrt</span>(x))             <span class="co"># do this if x &gt;= 0</span></span>
+<span id="cb97-4"><a href="programming-in-r.html#cb97-4"></a>  } <span class="cf">else</span> {</span>
+<span id="cb97-5"><a href="programming-in-r.html#cb97-5"></a>    <span class="kw">cat</span>(<span class="st">&quot;Error: this is a negative number!&quot;</span>)   <span class="co"># do this otherwise</span></span>
+<span id="cb97-6"><a href="programming-in-r.html#cb97-6"></a>  }</span>
+<span id="cb97-7"><a href="programming-in-r.html#cb97-7"></a>}</span>
+<span id="cb97-8"><a href="programming-in-r.html#cb97-8"></a><span class="kw">my_sqrt</span>(<span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb97-9"><a href="programming-in-r.html#cb97-9"></a><span class="co">## Error: this is a negative number!</span></span></code></pre></div>
 </div>
 <div id="if-else-ladder" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> If else ladder</h3>
 <p>Syntax</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="programming-in-r.html#cb97-1"></a><span class="co"># Example</span></span>
-<span id="cb97-2"><a href="programming-in-r.html#cb97-2"></a><span class="cf">if</span> (condition1) {</span>
-<span id="cb97-3"><a href="programming-in-r.html#cb97-3"></a>  statement1</span>
-<span id="cb97-4"><a href="programming-in-r.html#cb97-4"></a>} <span class="cf">else</span> <span class="cf">if</span> (condition2) {</span>
-<span id="cb97-5"><a href="programming-in-r.html#cb97-5"></a>  statement2</span>
-<span id="cb97-6"><a href="programming-in-r.html#cb97-6"></a>} <span class="cf">else</span> <span class="cf">if</span> (condition1) {</span>
-<span id="cb97-7"><a href="programming-in-r.html#cb97-7"></a>  statement3</span>
-<span id="cb97-8"><a href="programming-in-r.html#cb97-8"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="programming-in-r.html#cb98-1"></a><span class="co"># Example</span></span>
+<span id="cb98-2"><a href="programming-in-r.html#cb98-2"></a><span class="cf">if</span> (condition1) {</span>
+<span id="cb98-3"><a href="programming-in-r.html#cb98-3"></a>  statement1</span>
+<span id="cb98-4"><a href="programming-in-r.html#cb98-4"></a>} <span class="cf">else</span> <span class="cf">if</span> (condition2) {</span>
+<span id="cb98-5"><a href="programming-in-r.html#cb98-5"></a>  statement2</span>
+<span id="cb98-6"><a href="programming-in-r.html#cb98-6"></a>} <span class="cf">else</span> <span class="cf">if</span> (condition1) {</span>
+<span id="cb98-7"><a href="programming-in-r.html#cb98-7"></a>  statement3</span>
+<span id="cb98-8"><a href="programming-in-r.html#cb98-8"></a>} </span></code></pre></div>
 <p>Example:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="programming-in-r.html#cb98-1"></a>score_to_grade =<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb98-2"><a href="programming-in-r.html#cb98-2"></a>  <span class="cf">if</span> (x<span class="op">&gt;=</span><span class="dv">90</span>) {</span>
-<span id="cb98-3"><a href="programming-in-r.html#cb98-3"></a>    <span class="kw">cat</span>(<span class="st">&quot;A+&quot;</span>)</span>
-<span id="cb98-4"><a href="programming-in-r.html#cb98-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="dv">85</span>) {</span>
-<span id="cb98-5"><a href="programming-in-r.html#cb98-5"></a>    <span class="kw">cat</span>(<span class="st">&quot;A&quot;</span>)</span>
-<span id="cb98-6"><a href="programming-in-r.html#cb98-6"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="dv">80</span>) {</span>
-<span id="cb98-7"><a href="programming-in-r.html#cb98-7"></a>    <span class="kw">cat</span>(<span class="st">&quot;A-&quot;</span>)</span>
-<span id="cb98-8"><a href="programming-in-r.html#cb98-8"></a>  } <span class="cf">else</span> {</span>
-<span id="cb98-9"><a href="programming-in-r.html#cb98-9"></a>    <span class="kw">cat</span>(<span class="st">&quot;B+ or below&quot;</span>)</span>
-<span id="cb98-10"><a href="programming-in-r.html#cb98-10"></a>  }</span>
-<span id="cb98-11"><a href="programming-in-r.html#cb98-11"></a>}</span>
-<span id="cb98-12"><a href="programming-in-r.html#cb98-12"></a></span>
-<span id="cb98-13"><a href="programming-in-r.html#cb98-13"></a><span class="co"># after you write the function, you should check each case carefully</span></span>
-<span id="cb98-14"><a href="programming-in-r.html#cb98-14"></a><span class="kw">score_to_grade</span>(<span class="dv">92</span>)</span>
-<span id="cb98-15"><a href="programming-in-r.html#cb98-15"></a><span class="co">## A+</span></span>
-<span id="cb98-16"><a href="programming-in-r.html#cb98-16"></a><span class="kw">score_to_grade</span>(<span class="dv">88</span>)</span>
-<span id="cb98-17"><a href="programming-in-r.html#cb98-17"></a><span class="co">## A</span></span>
-<span id="cb98-18"><a href="programming-in-r.html#cb98-18"></a><span class="kw">score_to_grade</span>(<span class="dv">83</span>)</span>
-<span id="cb98-19"><a href="programming-in-r.html#cb98-19"></a><span class="co">## A-</span></span>
-<span id="cb98-20"><a href="programming-in-r.html#cb98-20"></a><span class="kw">score_to_grade</span>(<span class="dv">78</span>)</span>
-<span id="cb98-21"><a href="programming-in-r.html#cb98-21"></a><span class="co">## B+ or below</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="programming-in-r.html#cb99-1"></a>score_to_grade =<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb99-2"><a href="programming-in-r.html#cb99-2"></a>  <span class="cf">if</span> (x<span class="op">&gt;=</span><span class="dv">90</span>) {</span>
+<span id="cb99-3"><a href="programming-in-r.html#cb99-3"></a>    <span class="kw">cat</span>(<span class="st">&quot;A+&quot;</span>)</span>
+<span id="cb99-4"><a href="programming-in-r.html#cb99-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="dv">85</span>) {</span>
+<span id="cb99-5"><a href="programming-in-r.html#cb99-5"></a>    <span class="kw">cat</span>(<span class="st">&quot;A&quot;</span>)</span>
+<span id="cb99-6"><a href="programming-in-r.html#cb99-6"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;=</span><span class="dv">80</span>) {</span>
+<span id="cb99-7"><a href="programming-in-r.html#cb99-7"></a>    <span class="kw">cat</span>(<span class="st">&quot;A-&quot;</span>)</span>
+<span id="cb99-8"><a href="programming-in-r.html#cb99-8"></a>  } <span class="cf">else</span> {</span>
+<span id="cb99-9"><a href="programming-in-r.html#cb99-9"></a>    <span class="kw">cat</span>(<span class="st">&quot;B+ or below&quot;</span>)</span>
+<span id="cb99-10"><a href="programming-in-r.html#cb99-10"></a>  }</span>
+<span id="cb99-11"><a href="programming-in-r.html#cb99-11"></a>}</span>
+<span id="cb99-12"><a href="programming-in-r.html#cb99-12"></a></span>
+<span id="cb99-13"><a href="programming-in-r.html#cb99-13"></a><span class="co"># after you write the function, you should check each case carefully</span></span>
+<span id="cb99-14"><a href="programming-in-r.html#cb99-14"></a><span class="kw">score_to_grade</span>(<span class="dv">92</span>)</span>
+<span id="cb99-15"><a href="programming-in-r.html#cb99-15"></a><span class="co">## A+</span></span>
+<span id="cb99-16"><a href="programming-in-r.html#cb99-16"></a><span class="kw">score_to_grade</span>(<span class="dv">88</span>)</span>
+<span id="cb99-17"><a href="programming-in-r.html#cb99-17"></a><span class="co">## A</span></span>
+<span id="cb99-18"><a href="programming-in-r.html#cb99-18"></a><span class="kw">score_to_grade</span>(<span class="dv">83</span>)</span>
+<span id="cb99-19"><a href="programming-in-r.html#cb99-19"></a><span class="co">## A-</span></span>
+<span id="cb99-20"><a href="programming-in-r.html#cb99-20"></a><span class="kw">score_to_grade</span>(<span class="dv">78</span>)</span>
+<span id="cb99-21"><a href="programming-in-r.html#cb99-21"></a><span class="co">## B+ or below</span></span></code></pre></div>
 </div>
 </div>
 <div id="automatically-reindent-code" class="section level2">
 <h2><span class="header-section-number">3.3</span> Automatically Reindent Code</h2>
 <p>To indent a block of code, highlight the text in RStudio, then press Ctrl+i (Windows or Linux) or press Cmd+i (Mac).</p>
 <p>Poor indentation, difficult to read</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="programming-in-r.html#cb99-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
-<span id="cb99-2"><a href="programming-in-r.html#cb99-2"></a><span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
-<span id="cb99-3"><a href="programming-in-r.html#cb99-3"></a>      <span class="kw">print</span>(i<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb99-4"><a href="programming-in-r.html#cb99-4"></a>          } <span class="cf">else</span> {</span>
-<span id="cb99-5"><a href="programming-in-r.html#cb99-5"></a>  <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
-<span id="cb99-6"><a href="programming-in-r.html#cb99-6"></a>}</span>
-<span id="cb99-7"><a href="programming-in-r.html#cb99-7"></a>      }</span>
-<span id="cb99-8"><a href="programming-in-r.html#cb99-8"></a><span class="co">## [1] 3</span></span>
-<span id="cb99-9"><a href="programming-in-r.html#cb99-9"></a><span class="co">## [1] 6</span></span>
-<span id="cb99-10"><a href="programming-in-r.html#cb99-10"></a><span class="co">## [1] 9</span></span>
-<span id="cb99-11"><a href="programming-in-r.html#cb99-11"></a><span class="co">## [1] 16</span></span>
-<span id="cb99-12"><a href="programming-in-r.html#cb99-12"></a><span class="co">## [1] 25</span></span></code></pre></div>
-<p>Highlight the block of code, press Ctrl+i or Cmd+i</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="programming-in-r.html#cb100-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
-<span id="cb100-2"><a href="programming-in-r.html#cb100-2"></a>  <span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
-<span id="cb100-3"><a href="programming-in-r.html#cb100-3"></a>    <span class="kw">print</span>(i<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb100-4"><a href="programming-in-r.html#cb100-4"></a>  } <span class="cf">else</span> {</span>
-<span id="cb100-5"><a href="programming-in-r.html#cb100-5"></a>    <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
-<span id="cb100-6"><a href="programming-in-r.html#cb100-6"></a>  }</span>
-<span id="cb100-7"><a href="programming-in-r.html#cb100-7"></a>}</span>
+<span id="cb100-2"><a href="programming-in-r.html#cb100-2"></a><span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
+<span id="cb100-3"><a href="programming-in-r.html#cb100-3"></a>      <span class="kw">print</span>(i<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb100-4"><a href="programming-in-r.html#cb100-4"></a>          } <span class="cf">else</span> {</span>
+<span id="cb100-5"><a href="programming-in-r.html#cb100-5"></a>  <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb100-6"><a href="programming-in-r.html#cb100-6"></a>}</span>
+<span id="cb100-7"><a href="programming-in-r.html#cb100-7"></a>      }</span>
 <span id="cb100-8"><a href="programming-in-r.html#cb100-8"></a><span class="co">## [1] 3</span></span>
 <span id="cb100-9"><a href="programming-in-r.html#cb100-9"></a><span class="co">## [1] 6</span></span>
 <span id="cb100-10"><a href="programming-in-r.html#cb100-10"></a><span class="co">## [1] 9</span></span>
 <span id="cb100-11"><a href="programming-in-r.html#cb100-11"></a><span class="co">## [1] 16</span></span>
 <span id="cb100-12"><a href="programming-in-r.html#cb100-12"></a><span class="co">## [1] 25</span></span></code></pre></div>
+<p>Highlight the block of code, press Ctrl+i or Cmd+i</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="programming-in-r.html#cb101-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb101-2"><a href="programming-in-r.html#cb101-2"></a>  <span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
+<span id="cb101-3"><a href="programming-in-r.html#cb101-3"></a>    <span class="kw">print</span>(i<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb101-4"><a href="programming-in-r.html#cb101-4"></a>  } <span class="cf">else</span> {</span>
+<span id="cb101-5"><a href="programming-in-r.html#cb101-5"></a>    <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb101-6"><a href="programming-in-r.html#cb101-6"></a>  }</span>
+<span id="cb101-7"><a href="programming-in-r.html#cb101-7"></a>}</span>
+<span id="cb101-8"><a href="programming-in-r.html#cb101-8"></a><span class="co">## [1] 3</span></span>
+<span id="cb101-9"><a href="programming-in-r.html#cb101-9"></a><span class="co">## [1] 6</span></span>
+<span id="cb101-10"><a href="programming-in-r.html#cb101-10"></a><span class="co">## [1] 9</span></span>
+<span id="cb101-11"><a href="programming-in-r.html#cb101-11"></a><span class="co">## [1] 16</span></span>
+<span id="cb101-12"><a href="programming-in-r.html#cb101-12"></a><span class="co">## [1] 25</span></span></code></pre></div>
 </div>
 <div id="speed-consideration" class="section level2">
 <h2><span class="header-section-number">3.4</span> Speed Consideration</h2>
 <p>While the computing power is getting stronger and stronger, we should still write code that runs efficiently.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="programming-in-r.html#cb101-1"></a><span class="co"># suppose we want to simulate 1 million normal random variables</span></span>
-<span id="cb101-2"><a href="programming-in-r.html#cb101-2"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
-<span id="cb101-3"><a href="programming-in-r.html#cb101-3"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
-<span id="cb101-4"><a href="programming-in-r.html#cb101-4"></a>initial_time &lt;-<span class="st"> </span><span class="kw">proc.time</span>()</span>
-<span id="cb101-5"><a href="programming-in-r.html#cb101-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb101-6"><a href="programming-in-r.html#cb101-6"></a>  x[i] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb101-7"><a href="programming-in-r.html#cb101-7"></a>}</span>
-<span id="cb101-8"><a href="programming-in-r.html#cb101-8"></a><span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>initial_time</span>
-<span id="cb101-9"><a href="programming-in-r.html#cb101-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb101-10"><a href="programming-in-r.html#cb101-10"></a><span class="co">##    0.31    0.16    0.47</span></span></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="programming-in-r.html#cb102-1"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
-<span id="cb102-2"><a href="programming-in-r.html#cb102-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
-<span id="cb102-3"><a href="programming-in-r.html#cb102-3"></a><span class="co"># Alternatively</span></span>
-<span id="cb102-4"><a href="programming-in-r.html#cb102-4"></a><span class="kw">system.time</span>({</span>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="programming-in-r.html#cb102-1"></a><span class="co"># suppose we want to simulate 200,000 normal random variables</span></span>
+<span id="cb102-2"><a href="programming-in-r.html#cb102-2"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
+<span id="cb102-3"><a href="programming-in-r.html#cb102-3"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
+<span id="cb102-4"><a href="programming-in-r.html#cb102-4"></a>initial_time &lt;-<span class="st"> </span><span class="kw">proc.time</span>()</span>
 <span id="cb102-5"><a href="programming-in-r.html#cb102-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
 <span id="cb102-6"><a href="programming-in-r.html#cb102-6"></a>  x[i] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
 <span id="cb102-7"><a href="programming-in-r.html#cb102-7"></a>}</span>
-<span id="cb102-8"><a href="programming-in-r.html#cb102-8"></a>})</span>
+<span id="cb102-8"><a href="programming-in-r.html#cb102-8"></a><span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>initial_time</span>
 <span id="cb102-9"><a href="programming-in-r.html#cb102-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.25    0.00    0.25</span></span></code></pre></div>
+<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.42    0.00    0.42</span></span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="programming-in-r.html#cb103-1"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
+<span id="cb103-2"><a href="programming-in-r.html#cb103-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
+<span id="cb103-3"><a href="programming-in-r.html#cb103-3"></a><span class="co"># Alternatively</span></span>
+<span id="cb103-4"><a href="programming-in-r.html#cb103-4"></a><span class="kw">system.time</span>({</span>
+<span id="cb103-5"><a href="programming-in-r.html#cb103-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
+<span id="cb103-6"><a href="programming-in-r.html#cb103-6"></a>  x[i] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb103-7"><a href="programming-in-r.html#cb103-7"></a>}</span>
+<span id="cb103-8"><a href="programming-in-r.html#cb103-8"></a>})</span>
+<span id="cb103-9"><a href="programming-in-r.html#cb103-9"></a><span class="co">##    user  system elapsed </span></span>
+<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.28    0.01    0.30</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="programming-in-r.html#cb103-1"></a><span class="kw">system.time</span>({</span>
-<span id="cb103-2"><a href="programming-in-r.html#cb103-2"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span></span>
-<span id="cb103-3"><a href="programming-in-r.html#cb103-3"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb103-4"><a href="programming-in-r.html#cb103-4"></a>})</span>
-<span id="cb103-5"><a href="programming-in-r.html#cb103-5"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb103-6"><a href="programming-in-r.html#cb103-6"></a><span class="co">##    0.02    0.00    0.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="programming-in-r.html#cb104-1"></a><span class="kw">system.time</span>({</span>
+<span id="cb104-2"><a href="programming-in-r.html#cb104-2"></a>  n &lt;-<span class="st"> </span><span class="dv">200000</span></span>
+<span id="cb104-3"><a href="programming-in-r.html#cb104-3"></a>  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
+<span id="cb104-4"><a href="programming-in-r.html#cb104-4"></a>})</span>
+<span id="cb104-5"><a href="programming-in-r.html#cb104-5"></a><span class="co">##    user  system elapsed </span></span>
+<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="co">##    0.01    0.00    0.01</span></span></code></pre></div>
 <p>Another example:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="programming-in-r.html#cb104-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb104-2"><a href="programming-in-r.html#cb104-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
-<span id="cb104-3"><a href="programming-in-r.html#cb104-3"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
-<span id="cb104-4"><a href="programming-in-r.html#cb104-4"></a>v &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="fl">2e6</span>)</span>
-<span id="cb104-5"><a href="programming-in-r.html#cb104-5"></a></span>
-<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="kw">system.time</span>({</span>
-<span id="cb104-7"><a href="programming-in-r.html#cb104-7"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){ </span>
-<span id="cb104-8"><a href="programming-in-r.html#cb104-8"></a>    v[i] &lt;-<span class="st"> </span>x[i]<span class="op">+</span>y[i]</span>
-<span id="cb104-9"><a href="programming-in-r.html#cb104-9"></a>  }</span>
-<span id="cb104-10"><a href="programming-in-r.html#cb104-10"></a>})</span>
-<span id="cb104-11"><a href="programming-in-r.html#cb104-11"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb104-12"><a href="programming-in-r.html#cb104-12"></a><span class="co">##    0.14    0.00    0.14</span></span>
-<span id="cb104-13"><a href="programming-in-r.html#cb104-13"></a></span>
-<span id="cb104-14"><a href="programming-in-r.html#cb104-14"></a><span class="kw">system.time</span>(v &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y)</span>
-<span id="cb104-15"><a href="programming-in-r.html#cb104-15"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb104-16"><a href="programming-in-r.html#cb104-16"></a><span class="co">##    0.02    0.00    0.01</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="programming-in-r.html#cb105-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb105-2"><a href="programming-in-r.html#cb105-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
+<span id="cb105-3"><a href="programming-in-r.html#cb105-3"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
+<span id="cb105-4"><a href="programming-in-r.html#cb105-4"></a>v &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="fl">2e6</span>)</span>
+<span id="cb105-5"><a href="programming-in-r.html#cb105-5"></a></span>
+<span id="cb105-6"><a href="programming-in-r.html#cb105-6"></a><span class="kw">system.time</span>({</span>
+<span id="cb105-7"><a href="programming-in-r.html#cb105-7"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){ </span>
+<span id="cb105-8"><a href="programming-in-r.html#cb105-8"></a>    v[i] &lt;-<span class="st"> </span>x[i]<span class="op">+</span>y[i]</span>
+<span id="cb105-9"><a href="programming-in-r.html#cb105-9"></a>  }</span>
+<span id="cb105-10"><a href="programming-in-r.html#cb105-10"></a>})</span>
+<span id="cb105-11"><a href="programming-in-r.html#cb105-11"></a><span class="co">##    user  system elapsed </span></span>
+<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.14    0.00    0.14</span></span>
+<span id="cb105-13"><a href="programming-in-r.html#cb105-13"></a></span>
+<span id="cb105-14"><a href="programming-in-r.html#cb105-14"></a><span class="kw">system.time</span>(v &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y)</span>
+<span id="cb105-15"><a href="programming-in-r.html#cb105-15"></a><span class="co">##    user  system elapsed </span></span>
+<span id="cb105-16"><a href="programming-in-r.html#cb105-16"></a><span class="co">##    0.02    0.00    0.01</span></span></code></pre></div>
 <p>The general rule is to use vectorized operations whenever possible and to avoid using for loops. We use a for loop when the code is not time-consuming or when the code is hard to write without using a for loop. A more advanced option is to combine C++ with R using the package <code>rcpp</code>. That is, we can write the most time-consuming part of the R code in C++, which could run many times faster (will not be discussed in this course).</p>
 </div>
 <div id="another-simulation-example" class="section level2">
@@ -600,14 +619,14 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 and
 <span class="math display">\[P_{t+1} = P_0 e^{ \sum^{t+1}_{i=1} r_i}.\]</span></p>
 <p>Suppose that the current price of a certain stock <span class="math inline">\(P_0\)</span> is <span class="math inline">\(100\)</span>, <span class="math inline">\(\mu = 0.0002\)</span> and <span class="math inline">\(\sigma = 0.015\)</span>. Using simulation, estimate the probability that the price is below $95 at the close of at least one of the next 30 trading days.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="programming-in-r.html#cb105-1"></a>no_sim &lt;-<span class="st"> </span><span class="dv">10000</span> <span class="co"># number of simulation</span></span>
-<span id="cb105-2"><a href="programming-in-r.html#cb105-2"></a>below &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, no_sim)</span>
-<span id="cb105-3"><a href="programming-in-r.html#cb105-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>no_sim) {</span>
-<span id="cb105-4"><a href="programming-in-r.html#cb105-4"></a>  price &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">exp</span>(<span class="kw">cumsum</span>(<span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dt">mean =</span> <span class="fl">0.0002</span>, <span class="dt">sd =</span> <span class="fl">0.015</span>)))</span>
-<span id="cb105-5"><a href="programming-in-r.html#cb105-5"></a>  below[i] &lt;-<span class="st"> </span><span class="kw">min</span>(price) <span class="op">&lt;</span><span class="st"> </span><span class="dv">95</span></span>
-<span id="cb105-6"><a href="programming-in-r.html#cb105-6"></a>}</span>
-<span id="cb105-7"><a href="programming-in-r.html#cb105-7"></a><span class="kw">mean</span>(below)</span>
-<span id="cb105-8"><a href="programming-in-r.html#cb105-8"></a><span class="co">## [1] 0.4384</span></span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="programming-in-r.html#cb106-1"></a>no_sim &lt;-<span class="st"> </span><span class="dv">10000</span> <span class="co"># number of simulation</span></span>
+<span id="cb106-2"><a href="programming-in-r.html#cb106-2"></a>below &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, no_sim)</span>
+<span id="cb106-3"><a href="programming-in-r.html#cb106-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>no_sim) {</span>
+<span id="cb106-4"><a href="programming-in-r.html#cb106-4"></a>  price &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span><span class="kw">exp</span>(<span class="kw">cumsum</span>(<span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dt">mean =</span> <span class="fl">0.0002</span>, <span class="dt">sd =</span> <span class="fl">0.015</span>)))</span>
+<span id="cb106-5"><a href="programming-in-r.html#cb106-5"></a>  below[i] &lt;-<span class="st"> </span><span class="kw">min</span>(price) <span class="op">&lt;</span><span class="st"> </span><span class="dv">95</span></span>
+<span id="cb106-6"><a href="programming-in-r.html#cb106-6"></a>}</span>
+<span id="cb106-7"><a href="programming-in-r.html#cb106-7"></a><span class="kw">mean</span>(below)</span>
+<span id="cb106-8"><a href="programming-in-r.html#cb106-8"></a><span class="co">## [1] 0.4384</span></span></code></pre></div>
 <!-- ```{r} -->
 <!-- system.time({ -->
 <!-- no_sim <- 300000 -->
