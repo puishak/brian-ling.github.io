@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Schedule | STAT 362 R for Data Science</title>
+  <title>Chapter 5 Managing Data with R | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Schedule | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 5 Managing Data with R | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Schedule | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 5 Managing Data with R | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="annoucement.html"/>
+<link rel="prev" href="creating-some-basic-plots.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -231,92 +231,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="schedule" class="section level1 unnumbered">
-<h1>Schedule</h1>
-<!-- ```{r, echo=FALSE, warning=FALSE} -->
-<!-- library(knitr) -->
-<!-- # kable(mtcars[1:5, ], caption = "A knitr kable.") -->
-<!-- Lecture = paste("Lect ",  1:3, sep ="")  -->
-<!-- # Date = paste("Sep ", 1:13, sep ="") -->
-<!-- Content = c("Introduction of the course, installation of R and RStudio", 1:2) -->
-<!-- Reading = c("Syllabus", "", "") -->
-<!-- Asg_Quiz = c("", "", "") -->
-<!-- Sync = c("", "", "Jan 14") -->
-<!-- schedule = data.frame(Lecture, Content, Reading, Asg_Quiz, Sync) -->
-<!-- kable(schedule) -->
-<!-- ``` -->
-<table>
-<colgroup>
-<col width="12%" />
-<col width="50%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Lecture</th>
-<th>Content</th>
-<th>Reading</th>
-<th>Asg Quiz</th>
-<th>Sync</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lect 1</td>
-<td>Introduction of the course, installation of R and RStudio</td>
-<td>Syllabus, 1-1.4.1</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr class="even">
-<td>Lect 2</td>
-<td>Factors, Matrix, Lists, Data frames</td>
-<td>1.4.1-1.4.5</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr class="odd">
-<td>Lect 3</td>
-<td>Operators, built-in functions</td>
-<td>1.5-1.6</td>
-<td>Quiz 1 (Due Jan 17 11:59pm)</td>
-<td>Yes (Thu 10:30-11:20am)</td>
-</tr>
-<tr class="even">
-<td>Lect 4</td>
-<td>Shortcuts, probability distributions</td>
-<td>1.7-1.9, 2.1</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lect 5</td>
-<td>simulation, functions, loops</td>
-<td>2.2, 3.1, 3.2</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lect 6</td>
-<td>control flow, speed consideration, simulation</td>
-<td>3.2-3.5</td>
-<td>Quiz 1 (Due Jan 24 11:59pm)</td>
-<td>Yes (Thu 10:30-11:20am)</td>
-</tr>
-</tbody>
-</table>
-<p>Reading = lecture notes</p>
+<div id="managing-data-with-r" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Managing Data with R</h1>
+<p>Optional Reading: ML with R Ch2</p>
+<div id="missing-values" class="section level2">
+<h2><span class="header-section-number">5.1</span> Missing Values</h2>
+<p>Missing values are common in real datasets.</p>
+<p><code>NA</code> is used to denote missing values.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="managing-data-with-r.html#cb150-1"></a>(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">4</span>)) <span class="co"># we can use (x&lt;-1) to assign 1 to x and display x at the same time</span></span>
+<span id="cb150-2"><a href="managing-data-with-r.html#cb150-2"></a><span class="co">## [1]  1  2  3 NA  4 NA  4</span></span>
+<span id="cb150-3"><a href="managing-data-with-r.html#cb150-3"></a></span>
+<span id="cb150-4"><a href="managing-data-with-r.html#cb150-4"></a><span class="kw">mean</span>(x) <span class="co"># mean cannot be computed when missing values exist</span></span>
+<span id="cb150-5"><a href="managing-data-with-r.html#cb150-5"></a><span class="co">## [1] NA</span></span>
+<span id="cb150-6"><a href="managing-data-with-r.html#cb150-6"></a></span>
+<span id="cb150-7"><a href="managing-data-with-r.html#cb150-7"></a><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># NA values will be removed before computing mean</span></span>
+<span id="cb150-8"><a href="managing-data-with-r.html#cb150-8"></a><span class="co">## [1] 2.8</span></span>
+<span id="cb150-9"><a href="managing-data-with-r.html#cb150-9"></a></span>
+<span id="cb150-10"><a href="managing-data-with-r.html#cb150-10"></a><span class="kw">sd</span>(x)  <span class="co"># sd cannot be computed when missing values exist</span></span>
+<span id="cb150-11"><a href="managing-data-with-r.html#cb150-11"></a><span class="co">## [1] NA</span></span>
+<span id="cb150-12"><a href="managing-data-with-r.html#cb150-12"></a></span>
+<span id="cb150-13"><a href="managing-data-with-r.html#cb150-13"></a><span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># NA values will be removed before computing SD</span></span>
+<span id="cb150-14"><a href="managing-data-with-r.html#cb150-14"></a><span class="co">## [1] 1.30384</span></span>
+<span id="cb150-15"><a href="managing-data-with-r.html#cb150-15"></a></span>
+<span id="cb150-16"><a href="managing-data-with-r.html#cb150-16"></a><span class="kw">is.na</span>(x) <span class="co"># logical vector</span></span>
+<span id="cb150-17"><a href="managing-data-with-r.html#cb150-17"></a><span class="co">## [1] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE</span></span>
+<span id="cb150-18"><a href="managing-data-with-r.html#cb150-18"></a></span>
+<span id="cb150-19"><a href="managing-data-with-r.html#cb150-19"></a>x[<span class="op">!</span><span class="kw">is.na</span>(x)] <span class="co">#select the elements with non-missing valuess</span></span>
+<span id="cb150-20"><a href="managing-data-with-r.html#cb150-20"></a><span class="co">## [1] 1 2 3 4 4</span></span>
+<span id="cb150-21"><a href="managing-data-with-r.html#cb150-21"></a></span>
+<span id="cb150-22"><a href="managing-data-with-r.html#cb150-22"></a><span class="kw">na.omit</span>(x) <span class="co"># select the elements with non-missing valuess</span></span>
+<span id="cb150-23"><a href="managing-data-with-r.html#cb150-23"></a><span class="co">## [1] 1 2 3 4 4</span></span>
+<span id="cb150-24"><a href="managing-data-with-r.html#cb150-24"></a><span class="co">## attr(,&quot;na.action&quot;)</span></span>
+<span id="cb150-25"><a href="managing-data-with-r.html#cb150-25"></a><span class="co">## [1] 4 6</span></span>
+<span id="cb150-26"><a href="managing-data-with-r.html#cb150-26"></a><span class="co">## attr(,&quot;class&quot;)</span></span>
+<span id="cb150-27"><a href="managing-data-with-r.html#cb150-27"></a><span class="co">## [1] &quot;omit&quot;</span></span></code></pre></div>
+</div>
+<div id="saving-loading-and-removing-r-data-structures" class="section level2">
+<h2><span class="header-section-number">5.2</span> Saving, loading, and removing R data structures</h2>
+<p>Removing all objects in R:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="managing-data-with-r.html#cb151-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span></code></pre></div>
+<p><code>ls()</code> returns a vector of all data structures currently in memory</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="managing-data-with-r.html#cb152-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb152-2"><a href="managing-data-with-r.html#cb152-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb152-3"><a href="managing-data-with-r.html#cb152-3"></a><span class="kw">ls</span>()</span>
+<span id="cb152-4"><a href="managing-data-with-r.html#cb152-4"></a><span class="co">## [1] &quot;x&quot; &quot;y&quot;</span></span></code></pre></div>
+<p>To remove <code>x</code> from the memory</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="managing-data-with-r.html#cb153-1"></a><span class="kw">rm</span>(x)</span>
+<span id="cb153-2"><a href="managing-data-with-r.html#cb153-2"></a>x <span class="co"># because we have deleted x, an error message occurs</span></span>
+<span id="cb153-3"><a href="managing-data-with-r.html#cb153-3"></a><span class="co">## Error in eval(expr, envir, enclos): object &#39;x&#39; not found</span></span></code></pre></div>
+<p>Saving objects to a file (regardless of whether they are vectors, factors, lists, etc)</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="managing-data-with-r.html#cb154-1"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb154-2"><a href="managing-data-with-r.html#cb154-2"></a></span>
+<span id="cb154-3"><a href="managing-data-with-r.html#cb154-3"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb154-4"><a href="managing-data-with-r.html#cb154-4"></a>  <span class="kw">return</span>(<span class="dv">1</span>)</span>
+<span id="cb154-5"><a href="managing-data-with-r.html#cb154-5"></a>}</span>
+<span id="cb154-6"><a href="managing-data-with-r.html#cb154-6"></a></span>
+<span id="cb154-7"><a href="managing-data-with-r.html#cb154-7"></a><span class="kw">save</span>(A, f, <span class="dt">file =</span> <span class="st">&quot;my_data.RData&quot;</span>)</span></code></pre></div>
+<p>Loading objects from a <code>.RData</code> file.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="managing-data-with-r.html#cb155-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>()) <span class="co"># remove everything </span></span>
+<span id="cb155-2"><a href="managing-data-with-r.html#cb155-2"></a></span>
+<span id="cb155-3"><a href="managing-data-with-r.html#cb155-3"></a><span class="kw">load</span>(<span class="st">&quot;my_data.RData&quot;</span>)</span>
+<span id="cb155-4"><a href="managing-data-with-r.html#cb155-4"></a></span>
+<span id="cb155-5"><a href="managing-data-with-r.html#cb155-5"></a>A</span>
+<span id="cb155-6"><a href="managing-data-with-r.html#cb155-6"></a><span class="co">##      [,1] [,2] [,3]</span></span>
+<span id="cb155-7"><a href="managing-data-with-r.html#cb155-7"></a><span class="co">## [1,]    1    4    7</span></span>
+<span id="cb155-8"><a href="managing-data-with-r.html#cb155-8"></a><span class="co">## [2,]    2    5    8</span></span>
+<span id="cb155-9"><a href="managing-data-with-r.html#cb155-9"></a><span class="co">## [3,]    3    6    9</span></span>
+<span id="cb155-10"><a href="managing-data-with-r.html#cb155-10"></a></span>
+<span id="cb155-11"><a href="managing-data-with-r.html#cb155-11"></a>f</span>
+<span id="cb155-12"><a href="managing-data-with-r.html#cb155-12"></a><span class="co">## function(x){</span></span>
+<span id="cb155-13"><a href="managing-data-with-r.html#cb155-13"></a><span class="co">##   return(1)</span></span>
+<span id="cb155-14"><a href="managing-data-with-r.html#cb155-14"></a><span class="co">## }</span></span></code></pre></div>
+</div>
+<div id="importing-and-saving-data-from-csv-files" class="section level2">
+<h2><span class="header-section-number">5.3</span> Importing and saving data from CSV files</h2>
+<p><strong>Finding current directory</strong></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="managing-data-with-r.html#cb156-1"></a><span class="kw">getwd</span>()</span>
+<span id="cb156-2"><a href="managing-data-with-r.html#cb156-2"></a><span class="co">## [1] &quot;C:/Queens Teaching/Teaching/STAT 362/website&quot;</span></span></code></pre></div>
+<p>If you use mac, you will probably see <code>"/Users/..../"</code>.</p>
+<p><strong>Setting working directory</strong></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="managing-data-with-r.html#cb157-1"></a><span class="kw">setwd</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/Notes&quot;</span>) <span class="co"># use /, not \</span></span></code></pre></div>
+<p>If you use mac, change the above code accordingly.</p>
+<p><strong>Writing to a file</strong></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="managing-data-with-r.html#cb158-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))</span>
+<span id="cb158-2"><a href="managing-data-with-r.html#cb158-2"></a>my_data</span>
+<span id="cb158-3"><a href="managing-data-with-r.html#cb158-3"></a><span class="co">##   x y</span></span>
+<span id="cb158-4"><a href="managing-data-with-r.html#cb158-4"></a><span class="co">## 1 1 4</span></span>
+<span id="cb158-5"><a href="managing-data-with-r.html#cb158-5"></a><span class="co">## 2 2 5</span></span>
+<span id="cb158-6"><a href="managing-data-with-r.html#cb158-6"></a><span class="co">## 3 3 6</span></span>
+<span id="cb158-7"><a href="managing-data-with-r.html#cb158-7"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb158-8"><a href="managing-data-with-r.html#cb158-8"></a><span class="kw">write_csv</span>(my_data, <span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/my_data.csv&quot;</span>)</span></code></pre></div>
+<p><strong>Reading a csv file</strong></p>
+<p>A comma-separated values (CSV) file is a delimited text file that uses a comma to separate values. If we use <code>read_csv</code> from the package <code>tidyverse</code>, the resulting object is a tibble. If we use <code>read.csv</code> from base R, the resulting object is a data frame. See R for data science (<a href="https://r4ds.had.co.nz/data-import.html" class="uri">https://r4ds.had.co.nz/data-import.html</a>) for a discussion on the differences between <code>read.csv</code> and <code>read_csv</code>.</p>
+<p>A tibble allows us to perform different types of transformation (next chapter).</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="managing-data-with-r.html#cb159-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/my_data.csv&quot;</span>) </span>
+<span id="cb159-2"><a href="managing-data-with-r.html#cb159-2"></a><span class="co">## </span></span>
+<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification --------------------------------------------------------------</span></span>
+<span id="cb159-4"><a href="managing-data-with-r.html#cb159-4"></a><span class="co">## cols(</span></span>
+<span id="cb159-5"><a href="managing-data-with-r.html#cb159-5"></a><span class="co">##   x = col_double(),</span></span>
+<span id="cb159-6"><a href="managing-data-with-r.html#cb159-6"></a><span class="co">##   y = col_double()</span></span>
+<span id="cb159-7"><a href="managing-data-with-r.html#cb159-7"></a><span class="co">## )</span></span></code></pre></div>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="annoucement.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="creating-some-basic-plots.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
