@@ -58,3 +58,8 @@ managing-data-with-r
 missing-values
 saving-loading-and-removing-r-data-structures
 importing-and-saving-data-from-csv-files
+review-1-lect-1-8
+simulation-1
+matrix-1
+basic-operation
+some-basic-plots-in-r
