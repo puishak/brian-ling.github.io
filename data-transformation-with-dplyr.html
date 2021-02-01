@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Data Transformation with dplyr | STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Data Transformation with dplyr | STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Data Transformation with dplyr | STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2021-01-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="review-1-lect-1-8.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="annoucement.html"><a href="annoucement.html"><i class="fa fa-check"></i>Annoucement</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>4</b> Creating Some Basic Plots</a><ul>
+<li class="chapter" data-level="4.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>4.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="4.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>4.2</b> Line Graph</a></li>
+<li class="chapter" data-level="4.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>4.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="4.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>4.4</b> Histogram</a></li>
+<li class="chapter" data-level="4.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>4.5</b> Box Plot</a></li>
+<li class="chapter" data-level="4.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>4.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="4.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>4.7</b> More on plots with base R</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>4.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="4.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>4.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="4.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>4.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="4.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>4.7.4</b> Elements on plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#summary-of-ggplot"><i class="fa fa-check"></i><b>4.8</b> Summary of <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>5</b> Managing Data with R</a><ul>
+<li class="chapter" data-level="5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>5.1</b> Missing Values</a></li>
+<li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html"><i class="fa fa-check"></i><b>6</b> Review 1 (Lect 1-8)</a><ul>
+<li class="chapter" data-level="6.1" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix</a></li>
+<li class="chapter" data-level="6.3" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
+<li class="chapter" data-level="6.4" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code></a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation-with-dplyr" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Data Transformation with <code>dplyr</code></h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Reference: see <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a></p>
+<p><strong>Preparation</strong></p>
+<p>We will use a dataset in the package <code>nycflights13</code>. To install it:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="data-transformation-with-dplyr.html#cb179-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;nycflights13&quot;</span>)</span></code></pre></div>
+<p>To use the dataset or functions in the package, we first load the library:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="data-transformation-with-dplyr.html#cb180-1"></a><span class="kw">library</span>(nycflights13)</span></code></pre></div>
+<p>In Chapter 4, we have installed <code>tidyverse</code>, which contains the package <code>dplyr</code>. Now, load the package</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="data-transformation-with-dplyr.html#cb181-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<p><strong>nycflights13</strong></p>
+<p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="data-transformation-with-dplyr.html#cb182-1"></a><span class="co"># let&#39;s view the dataset</span></span>
+<span id="cb182-2"><a href="data-transformation-with-dplyr.html#cb182-2"></a>flights</span>
+<span id="cb182-3"><a href="data-transformation-with-dplyr.html#cb182-3"></a><span class="co">## # A tibble: 336,776 x 19</span></span>
+<span id="cb182-4"><a href="data-transformation-with-dplyr.html#cb182-4"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
+<span id="cb182-5"><a href="data-transformation-with-dplyr.html#cb182-5"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span id="cb182-6"><a href="data-transformation-with-dplyr.html#cb182-6"></a><span class="co">##  1  2013     1     1      517            515         2      830            819</span></span>
+<span id="cb182-7"><a href="data-transformation-with-dplyr.html#cb182-7"></a><span class="co">##  2  2013     1     1      533            529         4      850            830</span></span>
+<span id="cb182-8"><a href="data-transformation-with-dplyr.html#cb182-8"></a><span class="co">##  3  2013     1     1      542            540         2      923            850</span></span>
+<span id="cb182-9"><a href="data-transformation-with-dplyr.html#cb182-9"></a><span class="co">##  4  2013     1     1      544            545        -1     1004           1022</span></span>
+<span id="cb182-10"><a href="data-transformation-with-dplyr.html#cb182-10"></a><span class="co">##  5  2013     1     1      554            600        -6      812            837</span></span>
+<span id="cb182-11"><a href="data-transformation-with-dplyr.html#cb182-11"></a><span class="co">##  6  2013     1     1      554            558        -4      740            728</span></span>
+<span id="cb182-12"><a href="data-transformation-with-dplyr.html#cb182-12"></a><span class="co">##  7  2013     1     1      555            600        -5      913            854</span></span>
+<span id="cb182-13"><a href="data-transformation-with-dplyr.html#cb182-13"></a><span class="co">##  8  2013     1     1      557            600        -3      709            723</span></span>
+<span id="cb182-14"><a href="data-transformation-with-dplyr.html#cb182-14"></a><span class="co">##  9  2013     1     1      557            600        -3      838            846</span></span>
+<span id="cb182-15"><a href="data-transformation-with-dplyr.html#cb182-15"></a><span class="co">## 10  2013     1     1      558            600        -2      753            745</span></span>
+<span id="cb182-16"><a href="data-transformation-with-dplyr.html#cb182-16"></a><span class="co">## # ... with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb182-17"><a href="data-transformation-with-dplyr.html#cb182-17"></a><span class="co">## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb182-18"><a href="data-transformation-with-dplyr.html#cb182-18"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<p><code>flights</code> is a tibble. Tibbles are data frames with better properties.</p>
+<p><strong>Optional</strong>: If you are interested in the differences between a <code>data frame</code> and a <code>tibble</code>, you can go to
+<a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></p>
+<p>To view the complete dataset, use <code>View(flights)</code>.</p>
+<p><strong>Five key dplyr functions</strong></p>
+<ol style="list-style-type: decimal">
+<li><code>arrange()</code>: reorder the rows</li>
+<li><code>fliter()</code>: pick observations by their values</li>
+<li><code>select()</code>: pick variables by their names</li>
+<li><code>mutate()</code>: create new variables with functions of existing variables</li>
+<li><code>summarize()</code>: collapse many values down to a single summary
+<!-- 6. `group_by()`: changes the scope of each function from operating on the entire dataset to operating on it group-by-group --></li>
+</ol>
+<p>All functions work similarly:</p>
+<ol style="list-style-type: decimal">
+<li>The first argument is a data frame/ tibble</li>
+<li>The subsequent argument describe what to do with the data frame, using the variable names (without quotes).</li>
+<li>The result is a new data frame.</li>
+</ol>
+<p>Of course, it is also possible to perform the same tasks without using <code>dplyr</code> functions. We will also discuss briefly how to use the base subsetting with <code>[]</code> to select the data. In general, the functions in <code>dplyr</code> are designed to transform the data more easily.</p>
+</div>
+<div id="arrange" class="section level2">
+<h2><span class="header-section-number">7.2</span> <code>arrange()</code></h2>
+<p><code>arrange()</code> orders your dataset. If more than one column name is provided, each additional column will be used to break ties in the values of preceding columns.</p>
+<p>To reorder by a column in <strong>ascending order</strong>:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="data-transformation-with-dplyr.html#cb183-1"></a><span class="kw">arrange</span>(flights, year, month, day)</span></code></pre></div>
+<p>Let’s create a simple dataset to illustrate this because <code>flights</code> is already sorted in year, month and day.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="data-transformation-with-dplyr.html#cb184-1"></a>(data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>)))</span>
+<span id="cb184-2"><a href="data-transformation-with-dplyr.html#cb184-2"></a><span class="co">## # A tibble: 5 x 2</span></span>
+<span id="cb184-3"><a href="data-transformation-with-dplyr.html#cb184-3"></a><span class="co">##       x     y</span></span>
+<span id="cb184-4"><a href="data-transformation-with-dplyr.html#cb184-4"></a><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb184-5"><a href="data-transformation-with-dplyr.html#cb184-5"></a><span class="co">## 1     2     2</span></span>
+<span id="cb184-6"><a href="data-transformation-with-dplyr.html#cb184-6"></a><span class="co">## 2     2     3</span></span>
+<span id="cb184-7"><a href="data-transformation-with-dplyr.html#cb184-7"></a><span class="co">## 3     1    10</span></span>
+<span id="cb184-8"><a href="data-transformation-with-dplyr.html#cb184-8"></a><span class="co">## 4     4    10</span></span>
+<span id="cb184-9"><a href="data-transformation-with-dplyr.html#cb184-9"></a><span class="co">## 5     5    10</span></span>
+<span id="cb184-10"><a href="data-transformation-with-dplyr.html#cb184-10"></a></span>
+<span id="cb184-11"><a href="data-transformation-with-dplyr.html#cb184-11"></a><span class="kw">arrange</span>(data, x)</span>
+<span id="cb184-12"><a href="data-transformation-with-dplyr.html#cb184-12"></a><span class="co">## # A tibble: 5 x 2</span></span>
+<span id="cb184-13"><a href="data-transformation-with-dplyr.html#cb184-13"></a><span class="co">##       x     y</span></span>
+<span id="cb184-14"><a href="data-transformation-with-dplyr.html#cb184-14"></a><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb184-15"><a href="data-transformation-with-dplyr.html#cb184-15"></a><span class="co">## 1     1    10</span></span>
+<span id="cb184-16"><a href="data-transformation-with-dplyr.html#cb184-16"></a><span class="co">## 2     2     2</span></span>
+<span id="cb184-17"><a href="data-transformation-with-dplyr.html#cb184-17"></a><span class="co">## 3     2     3</span></span>
+<span id="cb184-18"><a href="data-transformation-with-dplyr.html#cb184-18"></a><span class="co">## 4     4    10</span></span>
+<span id="cb184-19"><a href="data-transformation-with-dplyr.html#cb184-19"></a><span class="co">## 5     5    10</span></span>
+<span id="cb184-20"><a href="data-transformation-with-dplyr.html#cb184-20"></a></span>
+<span id="cb184-21"><a href="data-transformation-with-dplyr.html#cb184-21"></a><span class="co"># first sort in ascending order of x, use y to break any ties and sort in descending order</span></span>
+<span id="cb184-22"><a href="data-transformation-with-dplyr.html#cb184-22"></a><span class="kw">arrange</span>(data, x, <span class="kw">desc</span>(y))</span>
+<span id="cb184-23"><a href="data-transformation-with-dplyr.html#cb184-23"></a><span class="co">## # A tibble: 5 x 2</span></span>
+<span id="cb184-24"><a href="data-transformation-with-dplyr.html#cb184-24"></a><span class="co">##       x     y</span></span>
+<span id="cb184-25"><a href="data-transformation-with-dplyr.html#cb184-25"></a><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb184-26"><a href="data-transformation-with-dplyr.html#cb184-26"></a><span class="co">## 1     1    10</span></span>
+<span id="cb184-27"><a href="data-transformation-with-dplyr.html#cb184-27"></a><span class="co">## 2     2     3</span></span>
+<span id="cb184-28"><a href="data-transformation-with-dplyr.html#cb184-28"></a><span class="co">## 3     2     2</span></span>
+<span id="cb184-29"><a href="data-transformation-with-dplyr.html#cb184-29"></a><span class="co">## 4     4    10</span></span>
+<span id="cb184-30"><a href="data-transformation-with-dplyr.html#cb184-30"></a><span class="co">## 5     5    10</span></span></code></pre></div>
+<p>To reorder by a column in <strong>descending order</strong>, use <code>desc()</code>:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="data-transformation-with-dplyr.html#cb185-1"></a><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(arr_delay))</span></code></pre></div>
+<p>Missing values are always sorted at the end</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="data-transformation-with-dplyr.html#cb186-1"></a><span class="co"># create a tibble with one column called x with values 5,2,NA</span></span>
+<span id="cb186-2"><a href="data-transformation-with-dplyr.html#cb186-2"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>,<span class="ot">NA</span>)) </span>
+<span id="cb186-3"><a href="data-transformation-with-dplyr.html#cb186-3"></a><span class="kw">arrange</span>(df, x)</span>
+<span id="cb186-4"><a href="data-transformation-with-dplyr.html#cb186-4"></a><span class="co">## # A tibble: 3 x 1</span></span>
+<span id="cb186-5"><a href="data-transformation-with-dplyr.html#cb186-5"></a><span class="co">##       x</span></span>
+<span id="cb186-6"><a href="data-transformation-with-dplyr.html#cb186-6"></a><span class="co">##   &lt;dbl&gt;</span></span>
+<span id="cb186-7"><a href="data-transformation-with-dplyr.html#cb186-7"></a><span class="co">## 1     2</span></span>
+<span id="cb186-8"><a href="data-transformation-with-dplyr.html#cb186-8"></a><span class="co">## 2     5</span></span>
+<span id="cb186-9"><a href="data-transformation-with-dplyr.html#cb186-9"></a><span class="co">## 3    NA</span></span>
+<span id="cb186-10"><a href="data-transformation-with-dplyr.html#cb186-10"></a></span>
+<span id="cb186-11"><a href="data-transformation-with-dplyr.html#cb186-11"></a><span class="kw">arrange</span>(df, <span class="kw">desc</span>(x))</span>
+<span id="cb186-12"><a href="data-transformation-with-dplyr.html#cb186-12"></a><span class="co">## # A tibble: 3 x 1</span></span>
+<span id="cb186-13"><a href="data-transformation-with-dplyr.html#cb186-13"></a><span class="co">##       x</span></span>
+<span id="cb186-14"><a href="data-transformation-with-dplyr.html#cb186-14"></a><span class="co">##   &lt;dbl&gt;</span></span>
+<span id="cb186-15"><a href="data-transformation-with-dplyr.html#cb186-15"></a><span class="co">## 1     5</span></span>
+<span id="cb186-16"><a href="data-transformation-with-dplyr.html#cb186-16"></a><span class="co">## 2     2</span></span>
+<span id="cb186-17"><a href="data-transformation-with-dplyr.html#cb186-17"></a><span class="co">## 3    NA</span></span></code></pre></div>
+<div id="exercises-2" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Sort <code>flights</code> to find the most delayed flights. Find the flights that left earliest.</li>
+</ol>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="data-transformation-with-dplyr.html#cb187-1"></a><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(dep_delay))</span>
+<span id="cb187-2"><a href="data-transformation-with-dplyr.html#cb187-2"></a></span>
+<span id="cb187-3"><a href="data-transformation-with-dplyr.html#cb187-3"></a><span class="kw">arrange</span>(flights, dep_delay)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Which flights traveled the longest? Which traveled the shortest?</li>
+</ol>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="data-transformation-with-dplyr.html#cb188-1"></a><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(distance))</span>
+<span id="cb188-2"><a href="data-transformation-with-dplyr.html#cb188-2"></a></span>
+<span id="cb188-3"><a href="data-transformation-with-dplyr.html#cb188-3"></a><span class="kw">arrange</span>(flights, distance)</span></code></pre></div>
+</div>
+</div>
+<div id="filter" class="section level2">
+<h2><span class="header-section-number">7.3</span> <code>filter()</code></h2>
+<p><strong><code>filter()</code> only includes rows where the condition is <code>TRUE</code></strong></p>
+<p>Select all flights on Jan 1st:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="data-transformation-with-dplyr.html#cb189-1"></a><span class="co"># flights is the name of your data frame</span></span>
+<span id="cb189-2"><a href="data-transformation-with-dplyr.html#cb189-2"></a><span class="co"># month == 1, day == 1 is the condition</span></span>
+<span id="cb189-3"><a href="data-transformation-with-dplyr.html#cb189-3"></a>(jan1 &lt;-<span class="st"> </span><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb189-4"><a href="data-transformation-with-dplyr.html#cb189-4"></a><span class="co">## # A tibble: 842 x 19</span></span>
+<span id="cb189-5"><a href="data-transformation-with-dplyr.html#cb189-5"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
+<span id="cb189-6"><a href="data-transformation-with-dplyr.html#cb189-6"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span id="cb189-7"><a href="data-transformation-with-dplyr.html#cb189-7"></a><span class="co">##  1  2013     1     1      517            515         2      830            819</span></span>
+<span id="cb189-8"><a href="data-transformation-with-dplyr.html#cb189-8"></a><span class="co">##  2  2013     1     1      533            529         4      850            830</span></span>
+<span id="cb189-9"><a href="data-transformation-with-dplyr.html#cb189-9"></a><span class="co">##  3  2013     1     1      542            540         2      923            850</span></span>
+<span id="cb189-10"><a href="data-transformation-with-dplyr.html#cb189-10"></a><span class="co">##  4  2013     1     1      544            545        -1     1004           1022</span></span>
+<span id="cb189-11"><a href="data-transformation-with-dplyr.html#cb189-11"></a><span class="co">##  5  2013     1     1      554            600        -6      812            837</span></span>
+<span id="cb189-12"><a href="data-transformation-with-dplyr.html#cb189-12"></a><span class="co">##  6  2013     1     1      554            558        -4      740            728</span></span>
+<span id="cb189-13"><a href="data-transformation-with-dplyr.html#cb189-13"></a><span class="co">##  7  2013     1     1      555            600        -5      913            854</span></span>
+<span id="cb189-14"><a href="data-transformation-with-dplyr.html#cb189-14"></a><span class="co">##  8  2013     1     1      557            600        -3      709            723</span></span>
+<span id="cb189-15"><a href="data-transformation-with-dplyr.html#cb189-15"></a><span class="co">##  9  2013     1     1      557            600        -3      838            846</span></span>
+<span id="cb189-16"><a href="data-transformation-with-dplyr.html#cb189-16"></a><span class="co">## 10  2013     1     1      558            600        -2      753            745</span></span>
+<span id="cb189-17"><a href="data-transformation-with-dplyr.html#cb189-17"></a><span class="co">## # ... with 832 more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
+<span id="cb189-18"><a href="data-transformation-with-dplyr.html#cb189-18"></a><span class="co">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></span>
+<span id="cb189-19"><a href="data-transformation-with-dplyr.html#cb189-19"></a><span class="co">## #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<p>Let’s use a simple dataset to see how to perform the same task without <code>filter</code>:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="data-transformation-with-dplyr.html#cb190-1"></a><span class="co"># just a simple dataset</span></span>
+<span id="cb190-2"><a href="data-transformation-with-dplyr.html#cb190-2"></a>(data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>), <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</span>
+<span id="cb190-3"><a href="data-transformation-with-dplyr.html#cb190-3"></a><span class="co">## # A tibble: 5 x 2</span></span>
+<span id="cb190-4"><a href="data-transformation-with-dplyr.html#cb190-4"></a><span class="co">##       x     y</span></span>
+<span id="cb190-5"><a href="data-transformation-with-dplyr.html#cb190-5"></a><span class="co">##   &lt;dbl&gt; &lt;int&gt;</span></span>
+<span id="cb190-6"><a href="data-transformation-with-dplyr.html#cb190-6"></a><span class="co">## 1     1     1</span></span>
+<span id="cb190-7"><a href="data-transformation-with-dplyr.html#cb190-7"></a><span class="co">## 2     3     2</span></span>
+<span id="cb190-8"><a href="data-transformation-with-dplyr.html#cb190-8"></a><span class="co">## 3     5     3</span></span>
+<span id="cb190-9"><a href="data-transformation-with-dplyr.html#cb190-9"></a><span class="co">## 4     5     4</span></span>
+<span id="cb190-10"><a href="data-transformation-with-dplyr.html#cb190-10"></a><span class="co">## 5     3     5</span></span>
+<span id="cb190-11"><a href="data-transformation-with-dplyr.html#cb190-11"></a></span>
+<span id="cb190-12"><a href="data-transformation-with-dplyr.html#cb190-12"></a>data<span class="op">$</span>x<span class="op">==</span><span class="dv">5</span> <span class="co"># logical vector</span></span>
+<span id="cb190-13"><a href="data-transformation-with-dplyr.html#cb190-13"></a><span class="co">## [1] FALSE FALSE  TRUE  TRUE FALSE</span></span>
+<span id="cb190-14"><a href="data-transformation-with-dplyr.html#cb190-14"></a></span>
+<span id="cb190-15"><a href="data-transformation-with-dplyr.html#cb190-15"></a>data[data<span class="op">$</span>x<span class="op">==</span><span class="dv">5</span>,] <span class="co"># select the rows with value &quot;TRUE&quot;</span></span>
+<span id="cb190-16"><a href="data-transformation-with-dplyr.html#cb190-16"></a><span class="co">## # A tibble: 2 x 2</span></span>
+<span id="cb190-17"><a href="data-transformation-with-dplyr.html#cb190-17"></a><span class="co">##       x     y</span></span>
+<span id="cb190-18"><a href="data-transformation-with-dplyr.html#cb190-18"></a><span class="co">##   &lt;dbl&gt; &lt;int&gt;</span></span>
+<span id="cb190-19"><a href="data-transformation-with-dplyr.html#cb190-19"></a><span class="co">## 1     5     3</span></span>
+<span id="cb190-20"><a href="data-transformation-with-dplyr.html#cb190-20"></a><span class="co">## 2     5     4</span></span>
+<span id="cb190-21"><a href="data-transformation-with-dplyr.html#cb190-21"></a></span>
+<span id="cb190-22"><a href="data-transformation-with-dplyr.html#cb190-22"></a><span class="co"># returning to the flights dataset</span></span>
+<span id="cb190-23"><a href="data-transformation-with-dplyr.html#cb190-23"></a>base_jan1 &lt;-<span class="st"> </span>flights[(flights<span class="op">$</span>month<span class="op">==</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>day<span class="op">==</span><span class="dv">1</span>), ]</span></code></pre></div>
+<p><code>(flights$month==1 &amp; flights$day==1)</code> is a logical vector indicating if the corresponding flight was on Jan 1 (<code>TRUE</code> if yes).</p>
+<p>Now, let’s check if <code>jan1</code> and <code>base_jan1</code> are the same using <code>identical</code>:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="data-transformation-with-dplyr.html#cb191-1"></a><span class="kw">identical</span>(jan1, base_jan1) <span class="co"># TURE means they are the same, FALSE means they are not the same</span></span>
+<span id="cb191-2"><a href="data-transformation-with-dplyr.html#cb191-2"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<p><strong>More Examples</strong></p>
+<p>Select flights that departed in <strong>Nov or Dec</strong></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="data-transformation-with-dplyr.html#cb192-1"></a><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">11</span> <span class="op">|</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)</span>
+<span id="cb192-2"><a href="data-transformation-with-dplyr.html#cb192-2"></a></span>
+<span id="cb192-3"><a href="data-transformation-with-dplyr.html#cb192-3"></a><span class="co"># alternatively, simpler code</span></span>
+<span id="cb192-4"><a href="data-transformation-with-dplyr.html#cb192-4"></a><span class="kw">filter</span>(flights, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">12</span>))</span></code></pre></div>
+<p>How to use the operator <code>%in%</code>?</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="data-transformation-with-dplyr.html#cb193-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span>
+<span id="cb193-2"><a href="data-transformation-with-dplyr.html#cb193-2"></a></span>
+<span id="cb193-3"><a href="data-transformation-with-dplyr.html#cb193-3"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb193-4"><a href="data-transformation-with-dplyr.html#cb193-4"></a>x<span class="op">%in%</span>y <span class="co">#whether 1 is in {1,3,5}</span></span>
+<span id="cb193-5"><a href="data-transformation-with-dplyr.html#cb193-5"></a><span class="co">## [1] TRUE</span></span>
+<span id="cb193-6"><a href="data-transformation-with-dplyr.html#cb193-6"></a></span>
+<span id="cb193-7"><a href="data-transformation-with-dplyr.html#cb193-7"></a>x&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>)</span>
+<span id="cb193-8"><a href="data-transformation-with-dplyr.html#cb193-8"></a>x<span class="op">%in%</span>y <span class="co"># check if whether each element in x is in {1,3,5}</span></span>
+<span id="cb193-9"><a href="data-transformation-with-dplyr.html#cb193-9"></a><span class="co">## [1]  TRUE  TRUE FALSE FALSE  TRUE</span></span></code></pre></div>
+<p><code>%in%</code> also works with characters</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="data-transformation-with-dplyr.html#cb194-1"></a><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)</span>
+<span id="cb194-2"><a href="data-transformation-with-dplyr.html#cb194-2"></a><span class="co">## [1]  TRUE FALSE</span></span></code></pre></div>
+<p>The result is <code>TRUE FALSE</code> because <code>"a"</code> is in <code>c("a", "c", "d")</code> and <code>"b"</code> is not in <code>c("a", "c", "d")</code>.</p>
+<p>Perform the same task without <code>filter</code>:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="data-transformation-with-dplyr.html#cb195-1"></a>flights[flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">11</span> <span class="op">|</span><span class="st"> </span>flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">12</span>,]</span>
+<span id="cb195-2"><a href="data-transformation-with-dplyr.html#cb195-2"></a></span>
+<span id="cb195-3"><a href="data-transformation-with-dplyr.html#cb195-3"></a><span class="co"># or </span></span>
+<span id="cb195-4"><a href="data-transformation-with-dplyr.html#cb195-4"></a>flights[flights<span class="op">$</span>month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">12</span>), ]</span></code></pre></div>
+<p>Flights that were <strong>not delayed</strong> (on arrival or departure) by <strong>more than two hours</strong>:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="data-transformation-with-dplyr.html#cb196-1"></a>delay1 &lt;-<span class="st"> </span><span class="kw">filter</span>(flights, arr_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span>, dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span>)</span></code></pre></div>
+<p>Without using <code>filter</code></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="data-transformation-with-dplyr.html#cb197-1"></a>delay2 &lt;-<span class="st"> </span>flights[flights<span class="op">$</span>arr_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span>, ]</span></code></pre></div>
+<p>Let’s check if <code>delay1</code> and <code>delay2</code> are the same.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="data-transformation-with-dplyr.html#cb198-1"></a><span class="kw">identical</span>(delay1, delay2)</span>
+<span id="cb198-2"><a href="data-transformation-with-dplyr.html#cb198-2"></a><span class="co">## [1] FALSE</span></span></code></pre></div>
+<p>The result is <code>FALSE</code>, meaning <code>delay1</code> and <code>delay2</code> are not the same. Why? Because some elements in <code>flights$arr_delay &lt;= 120 &amp; flights$dep_delay &lt;= 120</code> are <code>NA</code>.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="data-transformation-with-dplyr.html#cb199-1"></a><span class="co"># to find out the number of NA values</span></span>
+<span id="cb199-2"><a href="data-transformation-with-dplyr.html#cb199-2"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(flights<span class="op">$</span>arr_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span>))</span>
+<span id="cb199-3"><a href="data-transformation-with-dplyr.html#cb199-3"></a><span class="co">## [1] 9304</span></span></code></pre></div>
+<p>As a result, with the base subsetting method, a row with all <code>NA</code> values will be selected. On the other hand, for <code>filter</code>, when a condition evaluates to <code>NA</code>, the row will be dropped. Let’s create a small dataset to illustrate this. From now on, let’s try to use <code>tibble</code> instead of <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="data-transformation-with-dplyr.html#cb200-1"></a>data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x=</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="ot">NA</span>,<span class="dv">4</span>)) </span>
+<span id="cb200-2"><a href="data-transformation-with-dplyr.html#cb200-2"></a></span>
+<span id="cb200-3"><a href="data-transformation-with-dplyr.html#cb200-3"></a>data[data<span class="op">$</span>y <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>, ] </span>
+<span id="cb200-4"><a href="data-transformation-with-dplyr.html#cb200-4"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb200-5"><a href="data-transformation-with-dplyr.html#cb200-5"></a><span class="co">##       x     y</span></span>
+<span id="cb200-6"><a href="data-transformation-with-dplyr.html#cb200-6"></a><span class="co">##   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb200-7"><a href="data-transformation-with-dplyr.html#cb200-7"></a><span class="co">## 1     1     1</span></span>
+<span id="cb200-8"><a href="data-transformation-with-dplyr.html#cb200-8"></a><span class="co">## 2     2     2</span></span>
+<span id="cb200-9"><a href="data-transformation-with-dplyr.html#cb200-9"></a><span class="co">## 3    NA    NA</span></span>
+<span id="cb200-10"><a href="data-transformation-with-dplyr.html#cb200-10"></a></span>
+<span id="cb200-11"><a href="data-transformation-with-dplyr.html#cb200-11"></a><span class="co"># to avoid the above problem</span></span>
+<span id="cb200-12"><a href="data-transformation-with-dplyr.html#cb200-12"></a><span class="co"># which() returns which elements are TRUE</span></span>
+<span id="cb200-13"><a href="data-transformation-with-dplyr.html#cb200-13"></a><span class="kw">which</span>(data<span class="op">$</span>y <span class="op">&lt;=</span><span class="dv">3</span>) <span class="co"># the result is 1, 2</span></span>
+<span id="cb200-14"><a href="data-transformation-with-dplyr.html#cb200-14"></a><span class="co">## [1] 1 2</span></span>
+<span id="cb200-15"><a href="data-transformation-with-dplyr.html#cb200-15"></a>data[<span class="kw">which</span>(data<span class="op">$</span>y <span class="op">&lt;=</span><span class="dv">3</span>), ] <span class="co"># select row 1, row 2</span></span>
+<span id="cb200-16"><a href="data-transformation-with-dplyr.html#cb200-16"></a><span class="co">## # A tibble: 2 x 2</span></span>
+<span id="cb200-17"><a href="data-transformation-with-dplyr.html#cb200-17"></a><span class="co">##       x     y</span></span>
+<span id="cb200-18"><a href="data-transformation-with-dplyr.html#cb200-18"></a><span class="co">##   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb200-19"><a href="data-transformation-with-dplyr.html#cb200-19"></a><span class="co">## 1     1     1</span></span>
+<span id="cb200-20"><a href="data-transformation-with-dplyr.html#cb200-20"></a><span class="co">## 2     2     2</span></span>
+<span id="cb200-21"><a href="data-transformation-with-dplyr.html#cb200-21"></a></span>
+<span id="cb200-22"><a href="data-transformation-with-dplyr.html#cb200-22"></a><span class="co"># using filter</span></span>
+<span id="cb200-23"><a href="data-transformation-with-dplyr.html#cb200-23"></a><span class="kw">filter</span>(data, y <span class="op">&lt;=</span><span class="dv">3</span>)</span>
+<span id="cb200-24"><a href="data-transformation-with-dplyr.html#cb200-24"></a><span class="co">## # A tibble: 2 x 2</span></span>
+<span id="cb200-25"><a href="data-transformation-with-dplyr.html#cb200-25"></a><span class="co">##       x     y</span></span>
+<span id="cb200-26"><a href="data-transformation-with-dplyr.html#cb200-26"></a><span class="co">##   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb200-27"><a href="data-transformation-with-dplyr.html#cb200-27"></a><span class="co">## 1     1     1</span></span>
+<span id="cb200-28"><a href="data-transformation-with-dplyr.html#cb200-28"></a><span class="co">## 2     2     2</span></span>
+<span id="cb200-29"><a href="data-transformation-with-dplyr.html#cb200-29"></a></span>
+<span id="cb200-30"><a href="data-transformation-with-dplyr.html#cb200-30"></a><span class="co"># if we want to include the row where the value of y is NA</span></span>
+<span id="cb200-31"><a href="data-transformation-with-dplyr.html#cb200-31"></a><span class="co"># recall that | means &quot;or&quot;</span></span>
+<span id="cb200-32"><a href="data-transformation-with-dplyr.html#cb200-32"></a>data[<span class="kw">which</span>(data<span class="op">$</span>y <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span><span class="kw">is.na</span>(data<span class="op">$</span>y)), ]</span>
+<span id="cb200-33"><a href="data-transformation-with-dplyr.html#cb200-33"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb200-34"><a href="data-transformation-with-dplyr.html#cb200-34"></a><span class="co">##       x     y</span></span>
+<span id="cb200-35"><a href="data-transformation-with-dplyr.html#cb200-35"></a><span class="co">##   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb200-36"><a href="data-transformation-with-dplyr.html#cb200-36"></a><span class="co">## 1     1     1</span></span>
+<span id="cb200-37"><a href="data-transformation-with-dplyr.html#cb200-37"></a><span class="co">## 2     2     2</span></span>
+<span id="cb200-38"><a href="data-transformation-with-dplyr.html#cb200-38"></a><span class="co">## 3     3    NA</span></span>
+<span id="cb200-39"><a href="data-transformation-with-dplyr.html#cb200-39"></a></span>
+<span id="cb200-40"><a href="data-transformation-with-dplyr.html#cb200-40"></a><span class="co"># using filter</span></span>
+<span id="cb200-41"><a href="data-transformation-with-dplyr.html#cb200-41"></a><span class="kw">filter</span>(data, y <span class="op">&lt;=</span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span><span class="kw">is.na</span>(y)) </span>
+<span id="cb200-42"><a href="data-transformation-with-dplyr.html#cb200-42"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb200-43"><a href="data-transformation-with-dplyr.html#cb200-43"></a><span class="co">##       x     y</span></span>
+<span id="cb200-44"><a href="data-transformation-with-dplyr.html#cb200-44"></a><span class="co">##   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb200-45"><a href="data-transformation-with-dplyr.html#cb200-45"></a><span class="co">## 1     1     1</span></span>
+<span id="cb200-46"><a href="data-transformation-with-dplyr.html#cb200-46"></a><span class="co">## 2     2     2</span></span>
+<span id="cb200-47"><a href="data-transformation-with-dplyr.html#cb200-47"></a><span class="co">## 3     3    NA</span></span></code></pre></div>
+<!-- ```{r} -->
+<!-- # to find out how many NA values in the column "arr_delay" in the tibble "delay1" -->
+<!-- sum(is.na(delay1$arr_delay)) # 0, no flights with arr_delay = NA are selected -->
+<!-- # to find out how many NA values in the column "arr_delay" in the tibble "delay2" -->
+<!-- sum(is.na(delay2$arr_delay)) # 9304 flights with arr_delay = NA are selected -->
+<!-- ``` -->
+<p>If you want to drop the NA values with base subsetting<code>[]</code>, you may use</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="data-transformation-with-dplyr.html#cb201-1"></a>delay3 &lt;-<span class="st"> </span>flights[<span class="kw">which</span>((flights<span class="op">$</span>arr_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">120</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), ]</span></code></pre></div>
+<p>To see if <code>delay1</code> and <code>delay3</code> are exactly the same:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="data-transformation-with-dplyr.html#cb202-1"></a><span class="kw">identical</span>(delay1, delay3) <span class="co"># TRUE means exactly the same</span></span>
+<span id="cb202-2"><a href="data-transformation-with-dplyr.html#cb202-2"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<p>At this point, you should see that <code>filter</code> could perform the same tasks with simpler code.</p>
+<div id="exercises-3" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Exercises</h3>
+<p>1a. Find all flights that had an arrival delay of two or more hours (drop the rows with <code>NA</code> in <code>arr_delay</code>).</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="data-transformation-with-dplyr.html#cb203-1"></a><span class="co"># Using &quot;filter&quot;</span></span>
+<span id="cb203-2"><a href="data-transformation-with-dplyr.html#cb203-2"></a><span class="kw">filter</span>(flights, arr_delay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">120</span>)</span>
+<span id="cb203-3"><a href="data-transformation-with-dplyr.html#cb203-3"></a></span>
+<span id="cb203-4"><a href="data-transformation-with-dplyr.html#cb203-4"></a><span class="co"># Without using &quot;filter&quot;</span></span>
+<span id="cb203-5"><a href="data-transformation-with-dplyr.html#cb203-5"></a>flights[<span class="kw">which</span>(flights<span class="op">$</span>arr_delay <span class="op">&gt;=</span><span class="dv">120</span>), ] </span></code></pre></div>
+<p>1b. Find all flights that flew to Houston (IAH or HOU).</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="data-transformation-with-dplyr.html#cb204-1"></a><span class="co"># Using &quot;filter&quot;</span></span>
+<span id="cb204-2"><a href="data-transformation-with-dplyr.html#cb204-2"></a><span class="kw">filter</span>(flights, dest <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;IAH&quot;</span>, <span class="st">&quot;HOU&quot;</span>))</span>
+<span id="cb204-3"><a href="data-transformation-with-dplyr.html#cb204-3"></a></span>
+<span id="cb204-4"><a href="data-transformation-with-dplyr.html#cb204-4"></a><span class="co"># Without using &quot;filter&quot;</span></span>
+<span id="cb204-5"><a href="data-transformation-with-dplyr.html#cb204-5"></a>flights[<span class="kw">which</span>(flights<span class="op">$</span>dest <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;IAH&quot;</span>, <span class="st">&quot;HOU&quot;</span>)), ]</span></code></pre></div>
+<p>1c. Find all flights that were operated by United, American, or Delta</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="data-transformation-with-dplyr.html#cb205-1"></a><span class="co"># find all the sorted carrier codes in the dataset</span></span>
+<span id="cb205-2"><a href="data-transformation-with-dplyr.html#cb205-2"></a><span class="kw">sort</span>(<span class="kw">unique</span>(flights<span class="op">$</span>carrier)) </span>
+<span id="cb205-3"><a href="data-transformation-with-dplyr.html#cb205-3"></a><span class="co">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot; &quot;US&quot; &quot;VX&quot; &quot;WN&quot;</span></span>
+<span id="cb205-4"><a href="data-transformation-with-dplyr.html#cb205-4"></a><span class="co">## [16] &quot;YV&quot;</span></span>
+<span id="cb205-5"><a href="data-transformation-with-dplyr.html#cb205-5"></a></span>
+<span id="cb205-6"><a href="data-transformation-with-dplyr.html#cb205-6"></a><span class="co"># look up airline names from their carrier codes</span></span>
+<span id="cb205-7"><a href="data-transformation-with-dplyr.html#cb205-7"></a>airlines </span>
+<span id="cb205-8"><a href="data-transformation-with-dplyr.html#cb205-8"></a><span class="co">## # A tibble: 16 x 2</span></span>
+<span id="cb205-9"><a href="data-transformation-with-dplyr.html#cb205-9"></a><span class="co">##    carrier name                       </span></span>
+<span id="cb205-10"><a href="data-transformation-with-dplyr.html#cb205-10"></a><span class="co">##    &lt;chr&gt;   &lt;chr&gt;                      </span></span>
+<span id="cb205-11"><a href="data-transformation-with-dplyr.html#cb205-11"></a><span class="co">##  1 9E      Endeavor Air Inc.          </span></span>
+<span id="cb205-12"><a href="data-transformation-with-dplyr.html#cb205-12"></a><span class="co">##  2 AA      American Airlines Inc.     </span></span>
+<span id="cb205-13"><a href="data-transformation-with-dplyr.html#cb205-13"></a><span class="co">##  3 AS      Alaska Airlines Inc.       </span></span>
+<span id="cb205-14"><a href="data-transformation-with-dplyr.html#cb205-14"></a><span class="co">##  4 B6      JetBlue Airways            </span></span>
+<span id="cb205-15"><a href="data-transformation-with-dplyr.html#cb205-15"></a><span class="co">##  5 DL      Delta Air Lines Inc.       </span></span>
+<span id="cb205-16"><a href="data-transformation-with-dplyr.html#cb205-16"></a><span class="co">##  6 EV      ExpressJet Airlines Inc.   </span></span>
+<span id="cb205-17"><a href="data-transformation-with-dplyr.html#cb205-17"></a><span class="co">##  7 F9      Frontier Airlines Inc.     </span></span>
+<span id="cb205-18"><a href="data-transformation-with-dplyr.html#cb205-18"></a><span class="co">##  8 FL      AirTran Airways Corporation</span></span>
+<span id="cb205-19"><a href="data-transformation-with-dplyr.html#cb205-19"></a><span class="co">##  9 HA      Hawaiian Airlines Inc.     </span></span>
+<span id="cb205-20"><a href="data-transformation-with-dplyr.html#cb205-20"></a><span class="co">## 10 MQ      Envoy Air                  </span></span>
+<span id="cb205-21"><a href="data-transformation-with-dplyr.html#cb205-21"></a><span class="co">## 11 OO      SkyWest Airlines Inc.      </span></span>
+<span id="cb205-22"><a href="data-transformation-with-dplyr.html#cb205-22"></a><span class="co">## 12 UA      United Air Lines Inc.      </span></span>
+<span id="cb205-23"><a href="data-transformation-with-dplyr.html#cb205-23"></a><span class="co">## 13 US      US Airways Inc.            </span></span>
+<span id="cb205-24"><a href="data-transformation-with-dplyr.html#cb205-24"></a><span class="co">## 14 VX      Virgin America             </span></span>
+<span id="cb205-25"><a href="data-transformation-with-dplyr.html#cb205-25"></a><span class="co">## 15 WN      Southwest Airlines Co.     </span></span>
+<span id="cb205-26"><a href="data-transformation-with-dplyr.html#cb205-26"></a><span class="co">## 16 YV      Mesa Airlines Inc.</span></span>
+<span id="cb205-27"><a href="data-transformation-with-dplyr.html#cb205-27"></a></span>
+<span id="cb205-28"><a href="data-transformation-with-dplyr.html#cb205-28"></a><span class="co"># after looking up the names, we know UA = United, AA = American, DL = Delta</span></span>
+<span id="cb205-29"><a href="data-transformation-with-dplyr.html#cb205-29"></a><span class="kw">filter</span>(flights, carrier <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;UA&quot;</span>, <span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>))</span>
+<span id="cb205-30"><a href="data-transformation-with-dplyr.html#cb205-30"></a><span class="co">## # A tibble: 139,504 x 19</span></span>
+<span id="cb205-31"><a href="data-transformation-with-dplyr.html#cb205-31"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
+<span id="cb205-32"><a href="data-transformation-with-dplyr.html#cb205-32"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span id="cb205-33"><a href="data-transformation-with-dplyr.html#cb205-33"></a><span class="co">##  1  2013     1     1      517            515         2      830            819</span></span>
+<span id="cb205-34"><a href="data-transformation-with-dplyr.html#cb205-34"></a><span class="co">##  2  2013     1     1      533            529         4      850            830</span></span>
+<span id="cb205-35"><a href="data-transformation-with-dplyr.html#cb205-35"></a><span class="co">##  3  2013     1     1      542            540         2      923            850</span></span>
+<span id="cb205-36"><a href="data-transformation-with-dplyr.html#cb205-36"></a><span class="co">##  4  2013     1     1      554            600        -6      812            837</span></span>
+<span id="cb205-37"><a href="data-transformation-with-dplyr.html#cb205-37"></a><span class="co">##  5  2013     1     1      554            558        -4      740            728</span></span>
+<span id="cb205-38"><a href="data-transformation-with-dplyr.html#cb205-38"></a><span class="co">##  6  2013     1     1      558            600        -2      753            745</span></span>
+<span id="cb205-39"><a href="data-transformation-with-dplyr.html#cb205-39"></a><span class="co">##  7  2013     1     1      558            600        -2      924            917</span></span>
+<span id="cb205-40"><a href="data-transformation-with-dplyr.html#cb205-40"></a><span class="co">##  8  2013     1     1      558            600        -2      923            937</span></span>
+<span id="cb205-41"><a href="data-transformation-with-dplyr.html#cb205-41"></a><span class="co">##  9  2013     1     1      559            600        -1      941            910</span></span>
+<span id="cb205-42"><a href="data-transformation-with-dplyr.html#cb205-42"></a><span class="co">## 10  2013     1     1      559            600        -1      854            902</span></span>
+<span id="cb205-43"><a href="data-transformation-with-dplyr.html#cb205-43"></a><span class="co">## # ... with 139,494 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span id="cb205-44"><a href="data-transformation-with-dplyr.html#cb205-44"></a><span class="co">## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb205-45"><a href="data-transformation-with-dplyr.html#cb205-45"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<p>1d. Find all flights that departed in summer (July, August, and September)</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="data-transformation-with-dplyr.html#cb206-1"></a><span class="kw">filter</span>(flights, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb206-2"><a href="data-transformation-with-dplyr.html#cb206-2"></a></span>
+<span id="cb206-3"><a href="data-transformation-with-dplyr.html#cb206-3"></a><span class="co"># Alternative Method</span></span>
+<span id="cb206-4"><a href="data-transformation-with-dplyr.html#cb206-4"></a><span class="kw">filter</span>(flights, <span class="kw">between</span>(month, <span class="dv">7</span>, <span class="dv">9</span>)) </span></code></pre></div>
+<p>1e. Find all flights that arrived more than two hours late, but didn’t leave late</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="data-transformation-with-dplyr.html#cb207-1"></a><span class="kw">filter</span>(flights, arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>, dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
+<p>The next two exercises are trickier.</p>
+<p><strong>1f</strong>. Find all flights that were delayed by at least an hour, but made up over 30 minutes in flight. First, the flight was delayed by at least an hour is the same as <code>dep_delay &gt;=60</code>. Second, if a flight made up over 30 minutes in flight, the arrival delay must be at least 30 minutes less than the departure delay, which is the same as <code>dep_delay - arr_delay &gt; 30</code>.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="data-transformation-with-dplyr.html#cb208-1"></a><span class="kw">filter</span>(flights, dep_delay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span>, dep_delay <span class="op">-</span><span class="st"> </span>arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>)</span></code></pre></div>
+<p><strong>1g</strong>. Find all flights that departed between midnight and 6 a.m. (inclusive).
+The first question that should come to your mind is how is <strong>midnight</strong> represented in the dataset? Let’s take a look at <code>summary(flights$dep_time)</code>.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="data-transformation-with-dplyr.html#cb209-1"></a><span class="kw">summary</span>(flights<span class="op">$</span>dep_time)</span>
+<span id="cb209-2"><a href="data-transformation-with-dplyr.html#cb209-2"></a><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></span>
+<span id="cb209-3"><a href="data-transformation-with-dplyr.html#cb209-3"></a><span class="co">##       1     907    1401    1349    1744    2400    8255</span></span></code></pre></div>
+<p>The minimum is <code>1</code> and the maximum is <code>2400</code>. Therefore, you know <strong>midnight</strong> is represented by <code>2400</code> instead of <code>0</code> in this dataset. The answer to the question would be</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="data-transformation-with-dplyr.html#cb210-1"></a><span class="kw">filter</span>(flights, dep_time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">600</span> <span class="op">|</span><span class="st"> </span>dep_time <span class="op">==</span><span class="st"> </span><span class="dv">2400</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="review-1-lect-1-8.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

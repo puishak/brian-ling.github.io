@@ -63,3 +63,9 @@ simulation-1
 matrix-1
 basic-operation
 some-basic-plots-in-r
+data-transformation-with-dplyr
+introduction-1
+arrange
+exercises-2
+filter
+exercises-3

@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-01-29" />
+<meta name="date" content="2021-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,6 +217,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
 <li class="chapter" data-level="6.4" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code></a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -332,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A tibble allows us to perform different types of transformation (next chapter).</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="managing-data-with-r.html#cb159-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/my_data.csv&quot;</span>) </span>
 <span id="cb159-2"><a href="managing-data-with-r.html#cb159-2"></a><span class="co">## </span></span>
-<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification -------------------------------------------------------------------------</span></span>
+<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification ---------------------------------------------------------</span></span>
 <span id="cb159-4"><a href="managing-data-with-r.html#cb159-4"></a><span class="co">## cols(</span></span>
 <span id="cb159-5"><a href="managing-data-with-r.html#cb159-5"></a><span class="co">##   x = col_double(),</span></span>
 <span id="cb159-6"><a href="managing-data-with-r.html#cb159-6"></a><span class="co">##   y = col_double()</span></span>
