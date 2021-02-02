@@ -69,3 +69,9 @@ arrange
 exercises-2
 filter
 exercises-3
+select
+exercises-4
+mutate
+exercises-5
+summarize
+summary
