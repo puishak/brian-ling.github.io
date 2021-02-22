@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-02-07" />
+<meta name="date" content="2021-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="data-transformation-with-dplyr.html"/>
-
+<link rel="next" href="statistical-inference-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -259,6 +259,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.7.6</b> Saving your plots</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -482,8 +498,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb270-2"><a href="data-visualization-with-ggplot2.html#cb270-2"></a>flights_delay &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></span>
 <span id="cb270-3"><a href="data-visualization-with-ggplot2.html#cb270-3"></a><span class="st">  </span><span class="kw">group_by</span>(month, origin) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb270-4"><a href="data-visualization-with-ggplot2.html#cb270-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb270-5"><a href="data-visualization-with-ggplot2.html#cb270-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span>
-<span id="cb270-6"><a href="data-visualization-with-ggplot2.html#cb270-6"></a><span class="co">## `summarise()` regrouping output by &#39;month&#39; (override with `.groups` argument)</span></span></code></pre></div>
+<span id="cb270-5"><a href="data-visualization-with-ggplot2.html#cb270-5"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
 <p>Line Graph:</p>
 <div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="data-visualization-with-ggplot2.html#cb271-1"></a><span class="kw">ggplot</span>(flights_delay, <span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> delay, <span class="dt">color =</span> origin)) <span class="op">+</span></span>
 <span id="cb271-2"><a href="data-visualization-with-ggplot2.html#cb271-2"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
@@ -574,101 +589,111 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb287-4"><a href="data-visualization-with-ggplot2.html#cb287-4"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(</span>
 <span id="cb287-5"><a href="data-visualization-with-ggplot2.html#cb287-5"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
 <span id="cb287-6"><a href="data-visualization-with-ggplot2.html#cb287-6"></a>    <span class="dt">guide =</span> <span class="kw">guide_legend</span>(<span class="dt">override.aes =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">21</span>)) <span class="co"># to change the legend</span></span>
-<span id="cb287-7"><a href="data-visualization-with-ggplot2.html#cb287-7"></a>  )</span></code></pre></div>
+<span id="cb287-7"><a href="data-visualization-with-ggplot2.html#cb287-7"></a>  ) </span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-302-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Changing the mark ticks, limits and labels of the x-axis and y-axis:</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="data-visualization-with-ggplot2.html#cb288-1"></a><span class="kw">ggplot</span>(heightweight2, <span class="kw">aes</span>(<span class="dt">x =</span> ageYear, <span class="dt">y =</span> heightIn, <span class="dt">shape =</span> sex, <span class="dt">fill =</span> weightgroup)) <span class="op">+</span></span>
+<span id="cb288-2"><a href="data-visualization-with-ggplot2.html#cb288-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb288-3"><a href="data-visualization-with-ggplot2.html#cb288-3"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">24</span>)) <span class="op">+</span></span>
+<span id="cb288-4"><a href="data-visualization-with-ggplot2.html#cb288-4"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(</span>
+<span id="cb288-5"><a href="data-visualization-with-ggplot2.html#cb288-5"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb288-6"><a href="data-visualization-with-ggplot2.html#cb288-6"></a>    <span class="dt">guide =</span> <span class="kw">guide_legend</span>(<span class="dt">override.aes =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">21</span>)) <span class="co"># to change the legend</span></span>
+<span id="cb288-7"><a href="data-visualization-with-ggplot2.html#cb288-7"></a>  ) <span class="op">+</span></span>
+<span id="cb288-8"><a href="data-visualization-with-ggplot2.html#cb288-8"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age (Year)&quot;</span>, <span class="dt">breaks =</span> <span class="dv">11</span><span class="op">:</span><span class="dv">18</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">18</span>)) <span class="op">+</span></span>
+<span id="cb288-9"><a href="data-visualization-with-ggplot2.html#cb288-9"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Height (In)&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">50</span>, <span class="dv">70</span>, <span class="dv">5</span>), <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">73</span>))</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-303-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div id="overplotting" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Overplotting</h3>
 <p>Overplotting refers to the situation when you have a large dataset so that the points in a scatter plot overlap and obscure each other.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="data-visualization-with-ggplot2.html#cb288-1"></a><span class="co"># We can create a variable to store the &quot;ggplot&quot; </span></span>
-<span id="cb288-2"><a href="data-visualization-with-ggplot2.html#cb288-2"></a>diamonds_ggplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))</span>
-<span id="cb288-3"><a href="data-visualization-with-ggplot2.html#cb288-3"></a>diamonds_ggplot <span class="op">+</span></span>
-<span id="cb288-4"><a href="data-visualization-with-ggplot2.html#cb288-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-303-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="data-visualization-with-ggplot2.html#cb289-1"></a><span class="co"># We can create a variable to store the &quot;ggplot&quot; </span></span>
+<span id="cb289-2"><a href="data-visualization-with-ggplot2.html#cb289-2"></a>diamonds_ggplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))</span>
+<span id="cb289-3"><a href="data-visualization-with-ggplot2.html#cb289-3"></a>diamonds_ggplot <span class="op">+</span></span>
+<span id="cb289-4"><a href="data-visualization-with-ggplot2.html#cb289-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-304-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Possible solutions for overplotting:</p>
 <ol style="list-style-type: decimal">
 <li>Use smaller points (<code>size</code>)</li>
 </ol>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="data-visualization-with-ggplot2.html#cb289-1"></a><span class="co"># with diamonds_ggplot, we do not have to type </span></span>
-<span id="cb289-2"><a href="data-visualization-with-ggplot2.html#cb289-2"></a><span class="co"># ggplot(diamonds, aes(x = carat, y = price))</span></span>
-<span id="cb289-3"><a href="data-visualization-with-ggplot2.html#cb289-3"></a>diamonds_ggplot <span class="op">+</span></span>
-<span id="cb289-4"><a href="data-visualization-with-ggplot2.html#cb289-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.1</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-304-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="data-visualization-with-ggplot2.html#cb290-1"></a><span class="co"># with diamonds_ggplot, we do not have to type </span></span>
+<span id="cb290-2"><a href="data-visualization-with-ggplot2.html#cb290-2"></a><span class="co"># ggplot(diamonds, aes(x = carat, y = price))</span></span>
+<span id="cb290-3"><a href="data-visualization-with-ggplot2.html#cb290-3"></a>diamonds_ggplot <span class="op">+</span></span>
+<span id="cb290-4"><a href="data-visualization-with-ggplot2.html#cb290-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-305-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Make the points semitransparent (<code>alpha</code>)</li>
 </ol>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="data-visualization-with-ggplot2.html#cb290-1"></a>diamonds_ggplot <span class="op">+</span></span>
-<span id="cb290-2"><a href="data-visualization-with-ggplot2.html#cb290-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="co"># 0.05 = 95% transparent</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-305-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="data-visualization-with-ggplot2.html#cb291-1"></a>diamonds_ggplot <span class="op">+</span></span>
+<span id="cb291-2"><a href="data-visualization-with-ggplot2.html#cb291-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="co"># 0.05 = 95% transparent</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-306-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We can see some vertical bands at some values of carats, meaning that diamonds tend to be cut to those sizes.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Bin the data into rectangles (<code>stat_bin2d</code>)</li>
 </ol>
 <p><code>bins</code> controls the number of bins in the x and y directions. The color of the rectangle indicates how many data points there are in the region.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="data-visualization-with-ggplot2.html#cb291-1"></a><span class="co"># by default, bins = 30</span></span>
-<span id="cb291-2"><a href="data-visualization-with-ggplot2.html#cb291-2"></a>diamonds_ggplot <span class="op">+</span></span>
-<span id="cb291-3"><a href="data-visualization-with-ggplot2.html#cb291-3"></a><span class="st">  </span><span class="kw">stat_bin2d</span>(<span class="dt">bins =</span> <span class="dv">3</span>)  </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-306-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>With <code>bins = 50</code>:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="data-visualization-with-ggplot2.html#cb292-1"></a>diamonds_ggplot <span class="op">+</span></span>
-<span id="cb292-2"><a href="data-visualization-with-ggplot2.html#cb292-2"></a><span class="st">  </span><span class="kw">stat_bin2d</span>(<span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span></span>
-<span id="cb292-3"><a href="data-visualization-with-ggplot2.html#cb292-3"></a><span class="st">  </span><span class="kw">scale_fill_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="data-visualization-with-ggplot2.html#cb292-1"></a><span class="co"># by default, bins = 30</span></span>
+<span id="cb292-2"><a href="data-visualization-with-ggplot2.html#cb292-2"></a>diamonds_ggplot <span class="op">+</span></span>
+<span id="cb292-3"><a href="data-visualization-with-ggplot2.html#cb292-3"></a><span class="st">  </span><span class="kw">stat_bin2d</span>(<span class="dt">bins =</span> <span class="dv">3</span>)  </span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-307-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>With <code>bins = 50</code>:</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="data-visualization-with-ggplot2.html#cb293-1"></a>diamonds_ggplot <span class="op">+</span></span>
+<span id="cb293-2"><a href="data-visualization-with-ggplot2.html#cb293-2"></a><span class="st">  </span><span class="kw">stat_bin2d</span>(<span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span></span>
+<span id="cb293-3"><a href="data-visualization-with-ggplot2.html#cb293-3"></a><span class="st">  </span><span class="kw">scale_fill_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-308-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Overplotting can also occur when the data is discrete on one or both axes.</li>
 </ol>
 <p>In the following example, we use the dataset <code>ChickWeight</code>, where <code>Time</code> is a discrete variable.</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="data-visualization-with-ggplot2.html#cb293-1"></a><span class="kw">head</span>(ChickWeight)</span>
-<span id="cb293-2"><a href="data-visualization-with-ggplot2.html#cb293-2"></a><span class="co">##   weight Time Chick Diet</span></span>
-<span id="cb293-3"><a href="data-visualization-with-ggplot2.html#cb293-3"></a><span class="co">## 1     42    0     1    1</span></span>
-<span id="cb293-4"><a href="data-visualization-with-ggplot2.html#cb293-4"></a><span class="co">## 2     51    2     1    1</span></span>
-<span id="cb293-5"><a href="data-visualization-with-ggplot2.html#cb293-5"></a><span class="co">## 3     59    4     1    1</span></span>
-<span id="cb293-6"><a href="data-visualization-with-ggplot2.html#cb293-6"></a><span class="co">## 4     64    6     1    1</span></span>
-<span id="cb293-7"><a href="data-visualization-with-ggplot2.html#cb293-7"></a><span class="co">## 5     76    8     1    1</span></span>
-<span id="cb293-8"><a href="data-visualization-with-ggplot2.html#cb293-8"></a><span class="co">## 6     93   10     1    1</span></span></code></pre></div>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="data-visualization-with-ggplot2.html#cb294-1"></a><span class="co"># create a base plot</span></span>
-<span id="cb294-2"><a href="data-visualization-with-ggplot2.html#cb294-2"></a>cw_ggplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> weight))</span>
-<span id="cb294-3"><a href="data-visualization-with-ggplot2.html#cb294-3"></a>cw_ggplot <span class="op">+</span></span>
-<span id="cb294-4"><a href="data-visualization-with-ggplot2.html#cb294-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-309-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>You may randomly jitter the points:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="data-visualization-with-ggplot2.html#cb295-1"></a>cw_ggplot <span class="op">+</span></span>
-<span id="cb295-2"><a href="data-visualization-with-ggplot2.html#cb295-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="data-visualization-with-ggplot2.html#cb294-1"></a><span class="kw">head</span>(ChickWeight)</span>
+<span id="cb294-2"><a href="data-visualization-with-ggplot2.html#cb294-2"></a><span class="co">##   weight Time Chick Diet</span></span>
+<span id="cb294-3"><a href="data-visualization-with-ggplot2.html#cb294-3"></a><span class="co">## 1     42    0     1    1</span></span>
+<span id="cb294-4"><a href="data-visualization-with-ggplot2.html#cb294-4"></a><span class="co">## 2     51    2     1    1</span></span>
+<span id="cb294-5"><a href="data-visualization-with-ggplot2.html#cb294-5"></a><span class="co">## 3     59    4     1    1</span></span>
+<span id="cb294-6"><a href="data-visualization-with-ggplot2.html#cb294-6"></a><span class="co">## 4     64    6     1    1</span></span>
+<span id="cb294-7"><a href="data-visualization-with-ggplot2.html#cb294-7"></a><span class="co">## 5     76    8     1    1</span></span>
+<span id="cb294-8"><a href="data-visualization-with-ggplot2.html#cb294-8"></a><span class="co">## 6     93   10     1    1</span></span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="data-visualization-with-ggplot2.html#cb295-1"></a><span class="co"># create a base plot</span></span>
+<span id="cb295-2"><a href="data-visualization-with-ggplot2.html#cb295-2"></a>cw_ggplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> weight))</span>
+<span id="cb295-3"><a href="data-visualization-with-ggplot2.html#cb295-3"></a>cw_ggplot <span class="op">+</span></span>
+<span id="cb295-4"><a href="data-visualization-with-ggplot2.html#cb295-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-310-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Jittering the points means a small amount of random variation is added to the location of each point. If you only want to jitter in the x-direction:</p>
+<p>You may randomly jitter the points:</p>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="data-visualization-with-ggplot2.html#cb296-1"></a>cw_ggplot <span class="op">+</span></span>
-<span id="cb296-2"><a href="data-visualization-with-ggplot2.html#cb296-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="dv">0</span>))</span></code></pre></div>
+<span id="cb296-2"><a href="data-visualization-with-ggplot2.html#cb296-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-311-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Jittering the points means a small amount of random variation is added to the location of each point. If you only want to jitter in the x-direction:</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-visualization-with-ggplot2.html#cb297-1"></a>cw_ggplot <span class="op">+</span></span>
+<span id="cb297-2"><a href="data-visualization-with-ggplot2.html#cb297-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="dv">0</span>))</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-312-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="labelling-points-in-a-scatter-plot" class="section level3">
 <h3><span class="header-section-number">8.4.2</span> Labelling points in a scatter plot</h3>
 <p>We can use <code>annotate()</code> or <code>geom_text_repel()</code> to label points in a scatter plot. For the latter, we have to install the package ggrepel.</p>
 <p>We will use the <code>countries</code> dataset in the package gcookbook and visualize the relationship between health expenditures and infant mortality rate. We will consider a subset of data by focusing the data from 2009 and countries with more than <span class="math inline">\(2,000\)</span> USD health expenditures per capita:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-visualization-with-ggplot2.html#cb297-1"></a>countries_subset &lt;-<span class="st"> </span>countries <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb297-2"><a href="data-visualization-with-ggplot2.html#cb297-2"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2009</span>, healthexp <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="data-visualization-with-ggplot2.html#cb298-1"></a>countries_subset &lt;-<span class="st"> </span>countries <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb298-2"><a href="data-visualization-with-ggplot2.html#cb298-2"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="dv">2009</span>, healthexp <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>)</span></code></pre></div>
 <p>Using annotate:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="data-visualization-with-ggplot2.html#cb298-1"></a><span class="co"># find out the x and y coordinates for the point corresponding to Canada</span></span>
-<span id="cb298-2"><a href="data-visualization-with-ggplot2.html#cb298-2"></a>canada_x &lt;-<span class="st"> </span><span class="kw">filter</span>(countries_subset, Name <span class="op">==</span><span class="st"> &quot;Canada&quot;</span>)<span class="op">$</span>healthexp</span>
-<span id="cb298-3"><a href="data-visualization-with-ggplot2.html#cb298-3"></a>canada_y &lt;-<span class="st"> </span><span class="kw">filter</span>(countries_subset, Name <span class="op">==</span><span class="st"> &quot;Canada&quot;</span>)<span class="op">$</span>infmortality</span>
-<span id="cb298-4"><a href="data-visualization-with-ggplot2.html#cb298-4"></a></span>
-<span id="cb298-5"><a href="data-visualization-with-ggplot2.html#cb298-5"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb298-6"><a href="data-visualization-with-ggplot2.html#cb298-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb298-7"><a href="data-visualization-with-ggplot2.html#cb298-7"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> canada_x, <span class="dt">y =</span> canada_y <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>, <span class="dt">label =</span> <span class="st">&quot;Canada&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-313-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="data-visualization-with-ggplot2.html#cb299-1"></a><span class="co"># + 0.2 is to avoid the label placing on top of the point</span></span></code></pre></div>
-<p>Label all the points with <code>geom_text_repel</code>:</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="data-visualization-with-ggplot2.html#cb300-1"></a><span class="co"># to use geom_text_repel, load the package ggrepel</span></span>
-<span id="cb300-2"><a href="data-visualization-with-ggplot2.html#cb300-2"></a><span class="kw">library</span>(ggrepel)</span>
-<span id="cb300-3"><a href="data-visualization-with-ggplot2.html#cb300-3"></a><span class="co">## Warning: package &#39;ggrepel&#39; was built under R version 4.0.3</span></span>
-<span id="cb300-4"><a href="data-visualization-with-ggplot2.html#cb300-4"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb300-5"><a href="data-visualization-with-ggplot2.html#cb300-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb300-6"><a href="data-visualization-with-ggplot2.html#cb300-6"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Name), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="data-visualization-with-ggplot2.html#cb299-1"></a><span class="co"># find out the x and y coordinates for the point corresponding to Canada</span></span>
+<span id="cb299-2"><a href="data-visualization-with-ggplot2.html#cb299-2"></a>canada_x &lt;-<span class="st"> </span><span class="kw">filter</span>(countries_subset, Name <span class="op">==</span><span class="st"> &quot;Canada&quot;</span>)<span class="op">$</span>healthexp</span>
+<span id="cb299-3"><a href="data-visualization-with-ggplot2.html#cb299-3"></a>canada_y &lt;-<span class="st"> </span><span class="kw">filter</span>(countries_subset, Name <span class="op">==</span><span class="st"> &quot;Canada&quot;</span>)<span class="op">$</span>infmortality</span>
+<span id="cb299-4"><a href="data-visualization-with-ggplot2.html#cb299-4"></a></span>
+<span id="cb299-5"><a href="data-visualization-with-ggplot2.html#cb299-5"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb299-6"><a href="data-visualization-with-ggplot2.html#cb299-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb299-7"><a href="data-visualization-with-ggplot2.html#cb299-7"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> canada_x, <span class="dt">y =</span> canada_y <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>, <span class="dt">label =</span> <span class="st">&quot;Canada&quot;</span>)</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-314-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Label all the points with <code>geom_label_repel</code> (with a box around the label):</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="data-visualization-with-ggplot2.html#cb301-1"></a><span class="co"># geom_label_repel also depends on the package ggrepel</span></span>
-<span id="cb301-2"><a href="data-visualization-with-ggplot2.html#cb301-2"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb301-3"><a href="data-visualization-with-ggplot2.html#cb301-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb301-4"><a href="data-visualization-with-ggplot2.html#cb301-4"></a><span class="st">  </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Name), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="data-visualization-with-ggplot2.html#cb300-1"></a><span class="co"># + 0.2 is to avoid the label placing on top of the point</span></span></code></pre></div>
+<p>Label all the points with <code>geom_text_repel</code>:</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="data-visualization-with-ggplot2.html#cb301-1"></a><span class="co"># to use geom_text_repel, load the package ggrepel</span></span>
+<span id="cb301-2"><a href="data-visualization-with-ggplot2.html#cb301-2"></a><span class="kw">library</span>(ggrepel)</span>
+<span id="cb301-3"><a href="data-visualization-with-ggplot2.html#cb301-3"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb301-4"><a href="data-visualization-with-ggplot2.html#cb301-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb301-5"><a href="data-visualization-with-ggplot2.html#cb301-5"></a><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Name), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-315-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Label all the points with <code>geom_label_repel</code> (with a box around the label):</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="data-visualization-with-ggplot2.html#cb302-1"></a><span class="co"># geom_label_repel also depends on the package ggrepel</span></span>
+<span id="cb302-2"><a href="data-visualization-with-ggplot2.html#cb302-2"></a><span class="kw">ggplot</span>(countries_subset, <span class="kw">aes</span>(<span class="dt">x =</span> healthexp, <span class="dt">y =</span> infmortality)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb302-3"><a href="data-visualization-with-ggplot2.html#cb302-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb302-4"><a href="data-visualization-with-ggplot2.html#cb302-4"></a><span class="st">  </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Name), <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-316-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="summarizing-data-distributions" class="section level2">
@@ -676,111 +701,111 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="histogram-1" class="section level3">
 <h3><span class="header-section-number">8.5.1</span> Histogram</h3>
 <p>Histogram can be used to visualize the distribution of a variable. We will illustrate how to create histograms using the dataset <code>birthwt</code> from the package MASS.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="data-visualization-with-ggplot2.html#cb302-1"></a><span class="kw">library</span>(MASS)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="data-visualization-with-ggplot2.html#cb303-1"></a><span class="kw">library</span>(MASS)</span></code></pre></div>
 <p><code>birthwt</code> contains data of 189 birth weights with some covariates of the mothers.</p>
 <p>Take a look at the dataset:</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="data-visualization-with-ggplot2.html#cb303-1"></a><span class="kw">head</span>(birthwt)</span>
-<span id="cb303-2"><a href="data-visualization-with-ggplot2.html#cb303-2"></a><span class="co">##    low age lwt race smoke ptl ht ui ftv  bwt</span></span>
-<span id="cb303-3"><a href="data-visualization-with-ggplot2.html#cb303-3"></a><span class="co">## 85   0  19 182    2     0   0  0  1   0 2523</span></span>
-<span id="cb303-4"><a href="data-visualization-with-ggplot2.html#cb303-4"></a><span class="co">## 86   0  33 155    3     0   0  0  0   3 2551</span></span>
-<span id="cb303-5"><a href="data-visualization-with-ggplot2.html#cb303-5"></a><span class="co">## 87   0  20 105    1     1   0  0  0   1 2557</span></span>
-<span id="cb303-6"><a href="data-visualization-with-ggplot2.html#cb303-6"></a><span class="co">## 88   0  21 108    1     1   0  0  1   2 2594</span></span>
-<span id="cb303-7"><a href="data-visualization-with-ggplot2.html#cb303-7"></a><span class="co">## 89   0  18 107    1     1   0  0  1   0 2600</span></span>
-<span id="cb303-8"><a href="data-visualization-with-ggplot2.html#cb303-8"></a><span class="co">## 91   0  21 124    3     0   0  0  0   0 2622</span></span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="data-visualization-with-ggplot2.html#cb304-1"></a><span class="kw">head</span>(birthwt)</span>
+<span id="cb304-2"><a href="data-visualization-with-ggplot2.html#cb304-2"></a><span class="co">##    low age lwt race smoke ptl ht ui ftv  bwt</span></span>
+<span id="cb304-3"><a href="data-visualization-with-ggplot2.html#cb304-3"></a><span class="co">## 85   0  19 182    2     0   0  0  1   0 2523</span></span>
+<span id="cb304-4"><a href="data-visualization-with-ggplot2.html#cb304-4"></a><span class="co">## 86   0  33 155    3     0   0  0  0   3 2551</span></span>
+<span id="cb304-5"><a href="data-visualization-with-ggplot2.html#cb304-5"></a><span class="co">## 87   0  20 105    1     1   0  0  0   1 2557</span></span>
+<span id="cb304-6"><a href="data-visualization-with-ggplot2.html#cb304-6"></a><span class="co">## 88   0  21 108    1     1   0  0  1   2 2594</span></span>
+<span id="cb304-7"><a href="data-visualization-with-ggplot2.html#cb304-7"></a><span class="co">## 89   0  18 107    1     1   0  0  1   0 2600</span></span>
+<span id="cb304-8"><a href="data-visualization-with-ggplot2.html#cb304-8"></a><span class="co">## 91   0  21 124    3     0   0  0  0   0 2622</span></span></code></pre></div>
 <p>Basic histogram:</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="data-visualization-with-ggplot2.html#cb304-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x=</span>bwt)) <span class="op">+</span></span>
-<span id="cb304-2"><a href="data-visualization-with-ggplot2.html#cb304-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span>
-<span id="cb304-3"><a href="data-visualization-with-ggplot2.html#cb304-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-319-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Plot a histogram with density (not frequency):</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="data-visualization-with-ggplot2.html#cb305-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x=</span>bwt)) <span class="op">+</span></span>
-<span id="cb305-2"><a href="data-visualization-with-ggplot2.html#cb305-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..))</span>
-<span id="cb305-3"><a href="data-visualization-with-ggplot2.html#cb305-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span id="cb305-2"><a href="data-visualization-with-ggplot2.html#cb305-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-320-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Plot a histogram with density (not frequency):</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="data-visualization-with-ggplot2.html#cb306-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x=</span>bwt)) <span class="op">+</span></span>
+<span id="cb306-2"><a href="data-visualization-with-ggplot2.html#cb306-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..))</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-321-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>To compare two histograms</strong></p>
 <ol style="list-style-type: decimal">
 <li>Use <code>facet_grid()</code> to display two histograms in the same plot.</li>
 </ol>
 <p>Suppose we group the data according to the smoking status during pregnancy and we want to display the two histograms of the birth weight:</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="data-visualization-with-ggplot2.html#cb306-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
-<span id="cb306-2"><a href="data-visualization-with-ggplot2.html#cb306-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
-<span id="cb306-3"><a href="data-visualization-with-ggplot2.html#cb306-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span>
-<span id="cb306-4"><a href="data-visualization-with-ggplot2.html#cb306-4"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-321-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>To change the label, we can change the content of the variable:</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="data-visualization-with-ggplot2.html#cb307-1"></a><span class="co"># create another dataset</span></span>
-<span id="cb307-2"><a href="data-visualization-with-ggplot2.html#cb307-2"></a>birthwt_mod &lt;-<span class="st"> </span>birthwt</span>
-<span id="cb307-3"><a href="data-visualization-with-ggplot2.html#cb307-3"></a>birthwt_mod<span class="op">$</span>smoke &lt;-<span class="st"> </span><span class="kw">ifelse</span>(birthwt_mod<span class="op">$</span>smoke <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Smoke&quot;</span>, <span class="st">&quot;No Smoke&quot;</span>)</span>
-<span id="cb307-4"><a href="data-visualization-with-ggplot2.html#cb307-4"></a></span>
-<span id="cb307-5"><a href="data-visualization-with-ggplot2.html#cb307-5"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
-<span id="cb307-6"><a href="data-visualization-with-ggplot2.html#cb307-6"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
-<span id="cb307-7"><a href="data-visualization-with-ggplot2.html#cb307-7"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span>
-<span id="cb307-8"><a href="data-visualization-with-ggplot2.html#cb307-8"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="data-visualization-with-ggplot2.html#cb307-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
+<span id="cb307-2"><a href="data-visualization-with-ggplot2.html#cb307-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
+<span id="cb307-3"><a href="data-visualization-with-ggplot2.html#cb307-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-322-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>To change the label, we can change the content of the variable:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="data-visualization-with-ggplot2.html#cb308-1"></a><span class="co"># create another dataset</span></span>
+<span id="cb308-2"><a href="data-visualization-with-ggplot2.html#cb308-2"></a>birthwt_mod &lt;-<span class="st"> </span>birthwt</span>
+<span id="cb308-3"><a href="data-visualization-with-ggplot2.html#cb308-3"></a>birthwt_mod<span class="op">$</span>smoke &lt;-<span class="st"> </span><span class="kw">ifelse</span>(birthwt_mod<span class="op">$</span>smoke <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Smoke&quot;</span>, <span class="st">&quot;No Smoke&quot;</span>)</span>
+<span id="cb308-4"><a href="data-visualization-with-ggplot2.html#cb308-4"></a></span>
+<span id="cb308-5"><a href="data-visualization-with-ggplot2.html#cb308-5"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
+<span id="cb308-6"><a href="data-visualization-with-ggplot2.html#cb308-6"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
+<span id="cb308-7"><a href="data-visualization-with-ggplot2.html#cb308-7"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-323-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Alternatively, we can use <code>recode_factor</code>:</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="data-visualization-with-ggplot2.html#cb308-1"></a>birthwt_mod<span class="op">$</span>smoke &lt;-<span class="st"> </span><span class="kw">recode_factor</span>(birthwt_mod<span class="op">$</span>smoke, </span>
-<span id="cb308-2"><a href="data-visualization-with-ggplot2.html#cb308-2"></a>                                   <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;No Smoke&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;Smoke&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="data-visualization-with-ggplot2.html#cb309-1"></a>birthwt_mod<span class="op">$</span>smoke &lt;-<span class="st"> </span><span class="kw">recode_factor</span>(birthwt_mod<span class="op">$</span>smoke, </span>
+<span id="cb309-2"><a href="data-visualization-with-ggplot2.html#cb309-2"></a>                                   <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;No Smoke&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;Smoke&quot;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>fill()</code> to put two groups in the same plot with different colors. We need to set <code>position = "identity"</code>; otherwise, the bars will be stacked on top of each other vertically which is not what we want.</li>
 </ol>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="data-visualization-with-ggplot2.html#cb309-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x=</span>bwt, <span class="dt">fill=</span>smoke)) <span class="op">+</span></span>
-<span id="cb309-2"><a href="data-visualization-with-ggplot2.html#cb309-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="co">#+</span></span>
-<span id="cb309-3"><a href="data-visualization-with-ggplot2.html#cb309-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-324-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="data-visualization-with-ggplot2.html#cb310-1"></a><span class="co">#  facet_grid(race~., scales=&quot;free&quot;)</span></span></code></pre></div>
-<p>It is also possible to use both <code>facet_grid</code> and <code>fill</code> when we have want to group the data with two discrete variables. We will illustrate this with grouping according to the smoking status and the race. We also add <code>scales = "free"</code> so that the ranges of the y-axes will be adjusted according to the data in each histogram.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="data-visualization-with-ggplot2.html#cb311-1"></a><span class="co"># change the name so that the labels can be understood easily</span></span>
-<span id="cb311-2"><a href="data-visualization-with-ggplot2.html#cb311-2"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">1</span>)] =<span class="st"> &quot;White&quot;</span></span>
-<span id="cb311-3"><a href="data-visualization-with-ggplot2.html#cb311-3"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">2</span>)] =<span class="st"> &quot;Black&quot;</span></span>
-<span id="cb311-4"><a href="data-visualization-with-ggplot2.html#cb311-4"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">3</span>)] =<span class="st"> &quot;Other&quot;</span></span>
-<span id="cb311-5"><a href="data-visualization-with-ggplot2.html#cb311-5"></a></span>
-<span id="cb311-6"><a href="data-visualization-with-ggplot2.html#cb311-6"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">fill =</span> smoke)) <span class="op">+</span></span>
-<span id="cb311-7"><a href="data-visualization-with-ggplot2.html#cb311-7"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
-<span id="cb311-8"><a href="data-visualization-with-ggplot2.html#cb311-8"></a><span class="st">  </span><span class="kw">facet_grid</span>(race <span class="op">~</span><span class="st"> </span>., <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</span>
-<span id="cb311-9"><a href="data-visualization-with-ggplot2.html#cb311-9"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="data-visualization-with-ggplot2.html#cb310-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x=</span>bwt, <span class="dt">fill=</span>smoke)) <span class="op">+</span></span>
+<span id="cb310-2"><a href="data-visualization-with-ggplot2.html#cb310-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="co">#+</span></span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-325-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="data-visualization-with-ggplot2.html#cb311-1"></a><span class="co">#  facet_grid(race~., scales=&quot;free&quot;)</span></span></code></pre></div>
+<p>It is also possible to use both <code>facet_grid</code> and <code>fill</code> when we have want to group the data with two discrete variables. We will illustrate this with grouping according to the smoking status and the race. We also add <code>scales = "free"</code> so that the ranges of the y-axes will be adjusted according to the data in each histogram.</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="data-visualization-with-ggplot2.html#cb312-1"></a><span class="co"># change the name so that the labels can be understood easily</span></span>
+<span id="cb312-2"><a href="data-visualization-with-ggplot2.html#cb312-2"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">1</span>)] =<span class="st"> &quot;White&quot;</span></span>
+<span id="cb312-3"><a href="data-visualization-with-ggplot2.html#cb312-3"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">2</span>)] =<span class="st"> &quot;Black&quot;</span></span>
+<span id="cb312-4"><a href="data-visualization-with-ggplot2.html#cb312-4"></a>birthwt_mod<span class="op">$</span>race[<span class="kw">which</span>(birthwt_mod<span class="op">$</span>race<span class="op">==</span><span class="dv">3</span>)] =<span class="st"> &quot;Other&quot;</span></span>
+<span id="cb312-5"><a href="data-visualization-with-ggplot2.html#cb312-5"></a></span>
+<span id="cb312-6"><a href="data-visualization-with-ggplot2.html#cb312-6"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">fill =</span> smoke)) <span class="op">+</span></span>
+<span id="cb312-7"><a href="data-visualization-with-ggplot2.html#cb312-7"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb312-8"><a href="data-visualization-with-ggplot2.html#cb312-8"></a><span class="st">  </span><span class="kw">facet_grid</span>(race <span class="op">~</span><span class="st"> </span>., <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-326-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Note: we do not have a large dataset in this example so that grouping by two variables may not give us a very good understanding of the data.</p>
 </div>
 <div id="kernel-density-estimate" class="section level3">
 <h3><span class="header-section-number">8.5.2</span> Kernel Density Estimate</h3>
-<p>We can create a kernel density estimate of the distribution using <code>geom_density()</code>. Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be i.i.d. random variables from some distribution with density <span class="math inline">\(f\)</span>. The kernel density estimator is
+<p>Kernel density estimation is a nonparametric method to estimate the density of the samples. Nonparametric method means we do not impose a parametric model. A parametric model has a finite dimensional parameter <span class="math inline">\(\theta \in \mathbb{R}^d\)</span> for some finite <span class="math inline">\(d\)</span>. Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be i.i.d. random variables from some distribution with density <span class="math inline">\(f\)</span>. The histogram for <span class="math inline">\(f\)</span> at point <span class="math inline">\(x_0\)</span> is
 <span class="math display">\[\begin{equation*}
-\hat{f}_n(x) = \frac{1}{nh}\sum^n_{i=1} K \bigg( \frac{x - x_i}{h} \bigg),
+\hat{f}(x_0) = \frac{\text{number of $x_i$ in the bin containing $x_0$}}{n h},
 \end{equation*}\]</span>
-where <span class="math inline">\(K\)</span> is a kernel and <span class="math inline">\(h\)</span> is the bandwidth. For our purposes, a kernel is a non-negative function such that <span class="math inline">\(\int^\infty_{-\infty}K(x)dx = 1\)</span> and <span class="math inline">\(\int^\infty_{-\infty} x K(x)dx =0\)</span>. For example,
+where the bin width is <span class="math inline">\(h\)</span>. As we already know, the histogram will not give a smooth estimate of the density. One may use another method called kernel density estimator, which could produce smooth estimate of the density. The kernel density estimator is
+<span class="math display">\[\begin{equation*}
+\hat{f}_n(x_0) = \frac{1}{nh}\sum^n_{i=1} K \bigg( \frac{x_0 - x_i}{h} \bigg),
+\end{equation*}\]</span>
+where <span class="math inline">\(K\)</span> is a kernel and <span class="math inline">\(h\)</span> is the bandwidth. For our purposes, a kernel is a non-negative symmetric function such that <span class="math inline">\(\int^\infty_{-\infty}K(x)dx = 1\)</span> and <span class="math inline">\(\int^\infty_{-\infty} x K(x)dx =0\)</span>. For example,
 <span class="math display">\[\begin{eqnarray*}
 \text{the boxcar kernel:} &amp;&amp; K(x) = \frac{1}{2}I(|x| \leq 1)\\
 \text{the Gaussian kernel:} &amp;&amp; K(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \\
 \text{the Epanechnikov kernel:} &amp;&amp; K(x) = \frac{3}{4}(1-x^2)I(|x| \leq 1) \\
 \text{the tricube kernel:} &amp;&amp; K(x) = \frac{70}{81}(1-|x|^3)^3I(|x| \leq 1),
 \end{eqnarray*}\]</span>
-where <span class="math inline">\(I(|x| \leq 1) = 1\)</span> if <span class="math inline">\(|x| \leq 1\)</span> and equals <span class="math inline">\(0\)</span> otherwise. The bandwidth will control the smoothness of the estimate: larger bandwidth will result in a smoother curve and smaller bandwidth will result in a noisy and rought curve.</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="data-visualization-with-ggplot2.html#cb312-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
-<span id="cb312-2"><a href="data-visualization-with-ggplot2.html#cb312-2"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb312-3"><a href="data-visualization-with-ggplot2.html#cb312-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="fl">0.25</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb312-4"><a href="data-visualization-with-ggplot2.html#cb312-4"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-326-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Overlaying a density curve with a histogram</strong></p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="data-visualization-with-ggplot2.html#cb313-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
-<span id="cb313-2"><a href="data-visualization-with-ggplot2.html#cb313-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">&quot;cornsilk&quot;</span>, <span class="kw">aes</span>(<span class="dt">y =</span> ..density..)) <span class="op">+</span></span>
-<span id="cb313-3"><a href="data-visualization-with-ggplot2.html#cb313-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span>
-<span id="cb313-4"><a href="data-visualization-with-ggplot2.html#cb313-4"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+where <span class="math inline">\(I(|x| \leq 1) = 1\)</span> if <span class="math inline">\(|x| \leq 1\)</span> and equals <span class="math inline">\(0\)</span> otherwise.</p>
 <p><img src="Book_files/figure-html/unnamed-chunk-327-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Displaying kernel density Estimates from grouped data</strong></p>
-<p>To use <code>geom_density()</code> to display kernel density estiamtes from grouped data, the grouping variable must be a factor or a character vector. Recall that in <code>birthwt_mod</code> that we created earlier, the smoke variable is a character vector.</p>
-<p>With <code>color</code>:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="data-visualization-with-ggplot2.html#cb314-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">color =</span> smoke)) <span class="op">+</span></span>
-<span id="cb314-2"><a href="data-visualization-with-ggplot2.html#cb314-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p>Since the kernel is symmetric around <span class="math inline">\(0\)</span>, the magnitude <span class="math inline">\((x-x_i)/h\)</span> is the distance from <span class="math inline">\(0\)</span>. For the above kernels, the value of the kernels is smaller when we evaluate at a point further from <span class="math inline">\(0\)</span>. Therefore, data close to <span class="math inline">\(x_0\)</span> will contribute larger weights in estimating <span class="math inline">\(\hat{f}(x_0)\)</span>.</p>
+<p>The bandwidth will control the smoothness of the estimate: larger bandwidth will result in a smoother curve and smaller bandwidth will result in a noisy and rough curve. We can create a kernel density estimate of the distribution using <code>geom_density()</code>.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="data-visualization-with-ggplot2.html#cb313-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
+<span id="cb313-2"><a href="data-visualization-with-ggplot2.html#cb313-2"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb313-3"><a href="data-visualization-with-ggplot2.html#cb313-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="fl">0.25</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># smaller bandwidth -&gt; noisy</span></span>
+<span id="cb313-4"><a href="data-visualization-with-ggplot2.html#cb313-4"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="co"># large bandwidth -&gt; smoother</span></span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-328-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>With <code>fill</code>:</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="data-visualization-with-ggplot2.html#cb315-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">fill =</span> smoke)) <span class="op">+</span></span>
-<span id="cb315-2"><a href="data-visualization-with-ggplot2.html#cb315-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="co"># to control the transparency </span></span></code></pre></div>
+<p><strong>Overlaying a density curve with a histogram</strong></p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="data-visualization-with-ggplot2.html#cb314-1"></a><span class="kw">ggplot</span>(birthwt, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
+<span id="cb314-2"><a href="data-visualization-with-ggplot2.html#cb314-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">&quot;cornsilk&quot;</span>, <span class="kw">aes</span>(<span class="dt">y =</span> ..density..)) <span class="op">+</span></span>
+<span id="cb314-3"><a href="data-visualization-with-ggplot2.html#cb314-3"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-329-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>With <code>facet_grid()</code>:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="data-visualization-with-ggplot2.html#cb316-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
-<span id="cb316-2"><a href="data-visualization-with-ggplot2.html#cb316-2"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb316-3"><a href="data-visualization-with-ggplot2.html#cb316-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<p><strong>Displaying kernel density Estimates from grouped data</strong></p>
+<p>To use <code>geom_density()</code> to display kernel density estimates from grouped data, the grouping variable must be a factor or a character vector. Recall that in <code>birthwt_mod</code> that we created earlier, the smoke variable is a character vector.</p>
+<p>With <code>color</code>:</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="data-visualization-with-ggplot2.html#cb315-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">color =</span> smoke)) <span class="op">+</span></span>
+<span id="cb315-2"><a href="data-visualization-with-ggplot2.html#cb315-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-330-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>With <code>fill</code>:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="data-visualization-with-ggplot2.html#cb316-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt, <span class="dt">fill =</span> smoke)) <span class="op">+</span></span>
+<span id="cb316-2"><a href="data-visualization-with-ggplot2.html#cb316-2"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="co"># to control the transparency </span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-331-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>With <code>facet_grid()</code>:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="data-visualization-with-ggplot2.html#cb317-1"></a><span class="kw">ggplot</span>(birthwt_mod, <span class="kw">aes</span>(<span class="dt">x =</span> bwt)) <span class="op">+</span></span>
+<span id="cb317-2"><a href="data-visualization-with-ggplot2.html#cb317-2"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb317-3"><a href="data-visualization-with-ggplot2.html#cb317-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(smoke <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-332-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="saving-your-plots" class="section level2">
@@ -791,16 +816,16 @@ where <span class="math inline">\(I(|x| \leq 1) = 1\)</span> if <span class="mat
 <div id="outputting-to-pdf-vector-files" class="section level3">
 <h3><span class="header-section-number">8.6.1</span> Outputting to pdf vector files</h3>
 <p>Suppose you want to save the plot from the following code:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="data-visualization-with-ggplot2.html#cb317-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
-<span id="cb317-2"><a href="data-visualization-with-ggplot2.html#cb317-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="data-visualization-with-ggplot2.html#cb318-1"></a><span class="co"># first argument is the file name</span></span>
-<span id="cb318-2"><a href="data-visualization-with-ggplot2.html#cb318-2"></a><span class="co"># width and height are in inches</span></span>
-<span id="cb318-3"><a href="data-visualization-with-ggplot2.html#cb318-3"></a><span class="kw">pdf</span>(<span class="st">&quot;filename.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">4</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span>
-<span id="cb318-4"><a href="data-visualization-with-ggplot2.html#cb318-4"></a></span>
-<span id="cb318-5"><a href="data-visualization-with-ggplot2.html#cb318-5"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
-<span id="cb318-6"><a href="data-visualization-with-ggplot2.html#cb318-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
-<span id="cb318-7"><a href="data-visualization-with-ggplot2.html#cb318-7"></a></span>
-<span id="cb318-8"><a href="data-visualization-with-ggplot2.html#cb318-8"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="data-visualization-with-ggplot2.html#cb318-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
+<span id="cb318-2"><a href="data-visualization-with-ggplot2.html#cb318-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="data-visualization-with-ggplot2.html#cb319-1"></a><span class="co"># first argument is the file name</span></span>
+<span id="cb319-2"><a href="data-visualization-with-ggplot2.html#cb319-2"></a><span class="co"># width and height are in inches</span></span>
+<span id="cb319-3"><a href="data-visualization-with-ggplot2.html#cb319-3"></a><span class="kw">pdf</span>(<span class="st">&quot;filename.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">4</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span>
+<span id="cb319-4"><a href="data-visualization-with-ggplot2.html#cb319-4"></a></span>
+<span id="cb319-5"><a href="data-visualization-with-ggplot2.html#cb319-5"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
+<span id="cb319-6"><a href="data-visualization-with-ggplot2.html#cb319-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb319-7"><a href="data-visualization-with-ggplot2.html#cb319-7"></a></span>
+<span id="cb319-8"><a href="data-visualization-with-ggplot2.html#cb319-8"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 <p>Outputting to a pdf file:</p>
 <ul>
 <li>usually the best option</li>
@@ -810,17 +835,17 @@ where <span class="math inline">\(I(|x| \leq 1) = 1\)</span> if <span class="mat
 </div>
 <div id="outputting-to-bitmap-files" class="section level3">
 <h3><span class="header-section-number">8.6.2</span> Outputting to bitmap files</h3>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="data-visualization-with-ggplot2.html#cb319-1"></a><span class="co"># width and heights are in pixels</span></span>
-<span id="cb319-2"><a href="data-visualization-with-ggplot2.html#cb319-2"></a><span class="kw">png</span>(<span class="st">&quot;png_plot.png&quot;</span>, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">600</span>)</span>
-<span id="cb319-3"><a href="data-visualization-with-ggplot2.html#cb319-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt,<span class="dt">y=</span>mpg)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb319-4"><a href="data-visualization-with-ggplot2.html#cb319-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
-<span id="cb319-5"><a href="data-visualization-with-ggplot2.html#cb319-5"></a><span class="kw">dev.off</span>()</span></code></pre></div>
-<p>For high-quality print output, it is recommended to use <strong>at least 300 ppi</strong> (ppi = pixels per inch). Suppose you want to create a 4x4-inch PNG file with 300 ppi:</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="data-visualization-with-ggplot2.html#cb320-1"></a>ppi &lt;-<span class="st"> </span><span class="dv">300</span></span>
-<span id="cb320-2"><a href="data-visualization-with-ggplot2.html#cb320-2"></a><span class="kw">png</span>(<span class="st">&quot;png_plot.png&quot;</span>, <span class="dt">width =</span> <span class="dv">4</span><span class="op">*</span>ppi, <span class="dt">height =</span> <span class="dv">4</span><span class="op">*</span>ppi, <span class="dt">res =</span> ppi)</span>
-<span id="cb320-3"><a href="data-visualization-with-ggplot2.html#cb320-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span></span>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="data-visualization-with-ggplot2.html#cb320-1"></a><span class="co"># width and heights are in pixels</span></span>
+<span id="cb320-2"><a href="data-visualization-with-ggplot2.html#cb320-2"></a><span class="kw">png</span>(<span class="st">&quot;png_plot.png&quot;</span>, <span class="dt">width =</span> <span class="dv">600</span>, <span class="dt">height =</span> <span class="dv">600</span>)</span>
+<span id="cb320-3"><a href="data-visualization-with-ggplot2.html#cb320-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt,<span class="dt">y=</span>mpg)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb320-4"><a href="data-visualization-with-ggplot2.html#cb320-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
 <span id="cb320-5"><a href="data-visualization-with-ggplot2.html#cb320-5"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<p>For high-quality print output, it is recommended to use <strong>at least 300 ppi</strong> (ppi = pixels per inch). Suppose you want to create a 4x4-inch PNG file with 300 ppi:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="data-visualization-with-ggplot2.html#cb321-1"></a>ppi &lt;-<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb321-2"><a href="data-visualization-with-ggplot2.html#cb321-2"></a><span class="kw">png</span>(<span class="st">&quot;png_plot.png&quot;</span>, <span class="dt">width =</span> <span class="dv">4</span><span class="op">*</span>ppi, <span class="dt">height =</span> <span class="dv">4</span><span class="op">*</span>ppi, <span class="dt">res =</span> ppi)</span>
+<span id="cb321-3"><a href="data-visualization-with-ggplot2.html#cb321-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb321-4"><a href="data-visualization-with-ggplot2.html#cb321-4"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb321-5"><a href="data-visualization-with-ggplot2.html#cb321-5"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="summary-1" class="section level2">
@@ -891,8 +916,8 @@ where <span class="math inline">\(I(|x| \leq 1) = 1\)</span> if <span class="mat
           </div>
         </div>
       </div>
-<a href="data-transformation-with-dplyr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="data-transformation-with-dplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-inference-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

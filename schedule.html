@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-02-07" />
+<meta name="date" content="2021-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -259,6 +259,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.7.6</b> Saving your plots</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -295,11 +311,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ``` -->
 <table>
 <colgroup>
-<col width="12%" />
+<col width="11%" />
 <col width="50%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
+<col width="16%" />
+<col width="22%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -307,7 +322,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th>Content</th>
 <th>Reading</th>
 <th>Asg Quiz</th>
-<th>Sync</th>
 </tr>
 </thead>
 <tbody>
@@ -316,27 +330,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>Introduction of the course, installation of R and RStudio</td>
 <td>Syllabus, 1-1.4.1</td>
 <td>–</td>
-<td>–</td>
 </tr>
 <tr class="even">
 <td>Lect 2</td>
 <td>Factors, Matrix, Lists, Data frames</td>
 <td>1.4.1-1.4.5</td>
 <td>–</td>
-<td>–</td>
 </tr>
 <tr class="odd">
 <td>Lect 3</td>
 <td>Operators, built-in functions</td>
 <td>1.5-1.6</td>
-<td>Quiz 1 (Due Jan 17 11:59pm)</td>
-<td>Thu 10:30-11:20am</td>
+<td>Quiz 1 (Due Jan 17)</td>
 </tr>
 <tr class="even">
 <td>Lect 4</td>
 <td>Shortcuts, probability distributions</td>
 <td>1.7-1.9, 2.1</td>
-<td></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -344,20 +354,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>simulation, functions, loops</td>
 <td>2.2, 3.1, 3.2</td>
 <td></td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Lect 6</td>
 <td>control flow, speed consideration, simulation</td>
 <td>3.2-3.5</td>
-<td>Quiz 2 (Due Jan 24 11:59pm)</td>
-<td>Thu 10:30-11:20am</td>
+<td>Quiz 2 (Due Jan 24)</td>
 </tr>
 <tr class="odd">
 <td>Lect 7</td>
 <td>Basic plots in R</td>
 <td>4.1-4.6</td>
-<td></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -365,20 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>Basic plots in R, Managing data in R</td>
 <td>4.7, 5.1-5.3</td>
 <td></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Lect 9</td>
 <td>Review of Lect 1- 8</td>
 <td>6.1-6.4</td>
-<td>Quiz 3 (Due Jan 31 11:59pm)</td>
-<td>Thu 10:30-11:20am</td>
+<td>Quiz 3 (Due Jan 31)</td>
 </tr>
 <tr class="even">
 <td>Lect 10</td>
 <td><code>dplyr</code>, <code>arrange</code>, <code>filter</code></td>
 <td>7.1-7.3</td>
-<td></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -386,17 +390,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td><code>filter</code></td>
 <td>7.3</td>
 <td></td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Lect 12</td>
-<td><code>select</code>, <code>mutate</code>, <code>summarize</code></td>
-<td>7.3</td>
-<td>Quiz 4 (Due Feb 7 11:59pm</td>
-<td>Thu 10:30-11:20am</td>
+<td><code>select</code>, <code>mutate</code></td>
+<td>7.4-7.5</td>
+<td>Quiz 4 (Due Feb 7)</td>
+</tr>
+<tr class="odd">
+<td>Lect 13</td>
+<td><code>summarize</code>, <code>%&gt;%</code>, bar chart</td>
+<td>7.6, 8.1, 8.2</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Lect 14</td>
+<td>bar chart, line graph</td>
+<td>8.2-8.3</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Lect 15</td>
+<td>scatterplot, histogram</td>
+<td>8.4-8.5</td>
+<td>Quiz 5 (Due Feb 26)</td>
+</tr>
+<tr class="even">
+<td>Lect 16</td>
+<td>kernel density, MLE review, logistic regression, <code>optim()</code></td>
+<td>8.5-8.6, 9.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Lect 17</td>
+<td>logistic regression, simulation</td>
+<td>9.1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Lect 18</td>
+<td>Interval estimation, hypothesis testing</td>
+<td>9.2</td>
+<td>Quiz 6 (Due Feb 28), Asg 3 (Due Mar 1)</td>
 </tr>
 </tbody>
 </table>
+<p>Week 6: Study Quiz 5 solution and comments</p>
+<p>Due date: always at 11:59pm</p>
 <p>Reading = lecture notes</p>
 
 </div>

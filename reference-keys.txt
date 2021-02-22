@@ -95,3 +95,16 @@ line-graphs
 scatter-plot-1
 summarizing-data-distributions-1
 saving-your-plots-1
+statistical-inference-in-r
+maximum-likelihood-estimation
+exercises-on-mle
+summary-2
+interval-estimation-and-hypothesis-testing
+examples-of-hypothesis-testing
+null-hypotheses-alternative-hypotheses-and-p-values
+type-i-error-and-type-ii-error
+inference-for-mean-of-one-sample
+comparing-the-means-of-two-samples
+inference-of-a-sample-proportion
+testing-groups-for-equal-proportions
+testing-if-two-samples-have-the-same-underlying-distribution
