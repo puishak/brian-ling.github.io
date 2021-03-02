@@ -108,3 +108,10 @@ comparing-the-means-of-two-samples
 inference-of-a-sample-proportion
 testing-groups-for-equal-proportions
 testing-if-two-samples-have-the-same-underlying-distribution
+k-nearest-neighbors
+introduction-2
+feature-scaling
+example-classifying-breast-cancers
+evaluating-model-performance
+using-z-score-standardization
+testing-alternative-values-of-k
