@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -522,20 +522,13 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <span id="cb361-14"><a href="k-nearest-neighbors.html#cb361-14"></a>}</span>
 <span id="cb361-15"><a href="k-nearest-neighbors.html#cb361-15"></a></span>
 <span id="cb361-16"><a href="k-nearest-neighbors.html#cb361-16"></a>result</span>
-<span id="cb361-17"><a href="k-nearest-neighbors.html#cb361-17"></a><span class="co">##      k value False Negatives False Positives</span></span>
-<span id="cb361-18"><a href="k-nearest-neighbors.html#cb361-18"></a><span class="co">## [1,]       1               4               3</span></span>
-<span id="cb361-19"><a href="k-nearest-neighbors.html#cb361-19"></a><span class="co">## [2,]       5               4               1</span></span>
-<span id="cb361-20"><a href="k-nearest-neighbors.html#cb361-20"></a><span class="co">## [3,]      11               3               1</span></span>
-<span id="cb361-21"><a href="k-nearest-neighbors.html#cb361-21"></a><span class="co">## [4,]      15               3               2</span></span>
-<span id="cb361-22"><a href="k-nearest-neighbors.html#cb361-22"></a><span class="co">## [5,]      21               4               2</span></span>
-<span id="cb361-23"><a href="k-nearest-neighbors.html#cb361-23"></a><span class="co">## [6,]      27               3               2</span></span>
-<span id="cb361-24"><a href="k-nearest-neighbors.html#cb361-24"></a><span class="co">##      Percent Classified Correctly</span></span>
-<span id="cb361-25"><a href="k-nearest-neighbors.html#cb361-25"></a><span class="co">## [1,]                         0.93</span></span>
-<span id="cb361-26"><a href="k-nearest-neighbors.html#cb361-26"></a><span class="co">## [2,]                         0.95</span></span>
-<span id="cb361-27"><a href="k-nearest-neighbors.html#cb361-27"></a><span class="co">## [3,]                         0.96</span></span>
-<span id="cb361-28"><a href="k-nearest-neighbors.html#cb361-28"></a><span class="co">## [4,]                         0.95</span></span>
-<span id="cb361-29"><a href="k-nearest-neighbors.html#cb361-29"></a><span class="co">## [5,]                         0.94</span></span>
-<span id="cb361-30"><a href="k-nearest-neighbors.html#cb361-30"></a><span class="co">## [6,]                         0.95</span></span></code></pre></div>
+<span id="cb361-17"><a href="k-nearest-neighbors.html#cb361-17"></a><span class="co">##      k value False Negatives False Positives Percent Classified Correctly</span></span>
+<span id="cb361-18"><a href="k-nearest-neighbors.html#cb361-18"></a><span class="co">## [1,]       1               4               3                         0.93</span></span>
+<span id="cb361-19"><a href="k-nearest-neighbors.html#cb361-19"></a><span class="co">## [2,]       5               4               1                         0.95</span></span>
+<span id="cb361-20"><a href="k-nearest-neighbors.html#cb361-20"></a><span class="co">## [3,]      11               3               1                         0.96</span></span>
+<span id="cb361-21"><a href="k-nearest-neighbors.html#cb361-21"></a><span class="co">## [4,]      15               3               2                         0.95</span></span>
+<span id="cb361-22"><a href="k-nearest-neighbors.html#cb361-22"></a><span class="co">## [5,]      21               4               2                         0.94</span></span>
+<span id="cb361-23"><a href="k-nearest-neighbors.html#cb361-23"></a><span class="co">## [6,]      27               3               2                         0.95</span></span></code></pre></div>
 <p><strong>Important remark</strong>: while the accuracy is the highest when <span class="math inline">\(k = 11\)</span>, it does not mean the model is the best for this data. Note that</p>
 <ol style="list-style-type: decimal">
 <li><p>We split the dataset into a training dataset and a testing dataset using <strong>one particular random partition</strong>. With another random partition, the results would be <strong>different</strong>. The more appropriate way to assess the accuracy is to use repeated <span class="math inline">\(k\)</span>-fold cross validation (the <span class="math inline">\(k\)</span> here is different from the <span class="math inline">\(k\)</span> in our <span class="math inline">\(k\)</span>-NN algorithm). We shall discuss this later.</p></li>

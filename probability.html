@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -348,8 +348,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-5"><a href="probability.html#cb54-5"></a><span class="co">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="probability.html#cb55-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1] -5.1730373  1.2422689  6.7471144  0.5624077  1.3002883  5.8187082</span></span>
-<span id="cb55-3"><a href="probability.html#cb55-3"></a><span class="co">##  [7]  9.9689716 -1.3870039  1.7206970  2.4218192</span></span></code></pre></div>
+<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1] -1.1627704  1.2299483 -1.8527734  1.0806251  6.3108719  4.4707855</span></span>
+<span id="cb55-3"><a href="probability.html#cb55-3"></a><span class="co">##  [7]  4.3038223  4.6072161  3.8863634 -0.6679703</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="probability.html#cb56-1"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb56-2"><a href="probability.html#cb56-2"></a><span class="co">## [1] 1.644854</span></span></code></pre></div>
@@ -488,7 +488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-8"><a href="probability.html#cb59-8"></a><span class="co">## [1] 6</span></span>
 <span id="cb59-9"><a href="probability.html#cb59-9"></a></span>
 <span id="cb59-10"><a href="probability.html#cb59-10"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 8 6 4 7</span></span>
+<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 6 3 6 3</span></span>
 <span id="cb59-12"><a href="probability.html#cb59-12"></a></span>
 <span id="cb59-13"><a href="probability.html#cb59-13"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
 <span id="cb59-14"><a href="probability.html#cb59-14"></a><span class="kw">plot</span>(x, <span class="kw">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -545,7 +545,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="probability.html#cb66-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb66-2"><a href="probability.html#cb66-2"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 1 1 0 1 1 1 0 1 1 0</span></span></code></pre></div>
+<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 0 1 1 1 1 1 1 1 1 0</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>

@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -320,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## {
 ##     UseMethod(&quot;select&quot;)
 ## }
-## &lt;bytecode: 0x0000017e6e716170&gt;
+## &lt;bytecode: 0x000001e7bca30680&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <p><strong>nycflights13</strong></p>
 <p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
@@ -458,8 +458,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb190-16"><a href="data-transformation-with-dplyr.html#cb190-16"></a><span class="co">## 10  2013     1     1      558            600        -2      753</span></span>
 <span id="cb190-17"><a href="data-transformation-with-dplyr.html#cb190-17"></a><span class="co">## # ... with 832 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,</span></span>
 <span id="cb190-18"><a href="data-transformation-with-dplyr.html#cb190-18"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
-<span id="cb190-19"><a href="data-transformation-with-dplyr.html#cb190-19"></a><span class="co">## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,</span></span>
-<span id="cb190-20"><a href="data-transformation-with-dplyr.html#cb190-20"></a><span class="co">## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb190-19"><a href="data-transformation-with-dplyr.html#cb190-19"></a><span class="co">## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb190-20"><a href="data-transformation-with-dplyr.html#cb190-20"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Let’s use a simple dataset to see how to perform the same task without <code>filter</code>:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="data-transformation-with-dplyr.html#cb191-1"></a><span class="co"># just a simple dataset</span></span>
 <span id="cb191-2"><a href="data-transformation-with-dplyr.html#cb191-2"></a>(data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>), <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</span>
@@ -601,8 +601,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>1c. Find all flights that were operated by United, American, or Delta</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="data-transformation-with-dplyr.html#cb206-1"></a><span class="co"># find all the sorted carrier codes in the dataset</span></span>
 <span id="cb206-2"><a href="data-transformation-with-dplyr.html#cb206-2"></a><span class="kw">sort</span>(<span class="kw">unique</span>(flights<span class="op">$</span>carrier)) </span>
-<span id="cb206-3"><a href="data-transformation-with-dplyr.html#cb206-3"></a><span class="co">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot; &quot;US&quot;</span></span>
-<span id="cb206-4"><a href="data-transformation-with-dplyr.html#cb206-4"></a><span class="co">## [14] &quot;VX&quot; &quot;WN&quot; &quot;YV&quot;</span></span>
+<span id="cb206-3"><a href="data-transformation-with-dplyr.html#cb206-3"></a><span class="co">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot; &quot;US&quot; &quot;VX&quot;</span></span>
+<span id="cb206-4"><a href="data-transformation-with-dplyr.html#cb206-4"></a><span class="co">## [15] &quot;WN&quot; &quot;YV&quot;</span></span>
 <span id="cb206-5"><a href="data-transformation-with-dplyr.html#cb206-5"></a></span>
 <span id="cb206-6"><a href="data-transformation-with-dplyr.html#cb206-6"></a><span class="co"># look up airline names from their carrier codes</span></span>
 <span id="cb206-7"><a href="data-transformation-with-dplyr.html#cb206-7"></a>airlines </span>
@@ -968,12 +968,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-transformation-with-dplyr.html#cb236-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb236-2"><a href="data-transformation-with-dplyr.html#cb236-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb236-3"><a href="data-transformation-with-dplyr.html#cb236-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.04    0.00    0.05</span></span>
+<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.06    0.00    0.06</span></span>
 <span id="cb236-5"><a href="data-transformation-with-dplyr.html#cb236-5"></a></span>
 <span id="cb236-6"><a href="data-transformation-with-dplyr.html#cb236-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb236-7"><a href="data-transformation-with-dplyr.html#cb236-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb236-8"><a href="data-transformation-with-dplyr.html#cb236-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.36    0.00    0.36</span></span></code></pre></div>
+<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.47    0.01    0.48</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->

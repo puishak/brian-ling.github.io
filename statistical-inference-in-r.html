@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -484,7 +484,7 @@ L(\alpha, \beta |y_1,\ldots,y_n) = \prod^n_{i=1} \frac{\beta^\alpha}{\Gamma(\alp
 \end{equation*}\]</span>
 The log likelihood, after simpliciation, is
 <span class="math display">\[\begin{equation*}
-\log L(\alpha, \beta) = n \alpha \log \beta - n \log \Gamma(\alpha) + (\alpha - 1) \sum^n_{i=1} y_i - \beta \sum^n_{i=1} y_i.
+\log L(\alpha, \beta) = n \alpha \log \beta - n \log \Gamma(\alpha) + (\alpha - 1) \sum^n_{i=1} \log y_i - \beta \sum^n_{i=1} y_i.
 \end{equation*}\]</span></p>
 <div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="statistical-inference-in-r.html#cb330-1"></a><span class="co"># Setting</span></span>
 <span id="cb330-2"><a href="statistical-inference-in-r.html#cb330-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
@@ -567,6 +567,7 @@ is at least <span class="math inline">\(42,000\)</span></p></li>
 <p>An assertion or conjecture about the distribution of one or more random variables is called a <strong>statistical hypothesis</strong>.</p>
 <p>If a statistical hypothesis completely specifies the distribution, it is called a <strong>simple hypothesis</strong>; if not, it is referred to as a <strong>composite hypothesis</strong>.</p>
 <p><strong>Null hypothesis</strong> In view of the assumptions of “no difference,” hypotheses such as these led to the term null hypothesis, but nowadays this term is applied to any hypothesis that we may want to test.</p>
+<p><strong>p-value</strong>: the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct</p>
 <p><strong>Steps in Hypothesis Testing</strong></p>
 <ol style="list-style-type: decimal">
 <li>Assume the null hypothesis is true</li>
