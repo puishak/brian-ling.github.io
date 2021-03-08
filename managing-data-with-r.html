@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-04" />
+<meta name="date" content="2021-03-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -284,6 +284,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>10.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="classification-trees.html"><a href="classification-trees.html"><i class="fa fa-check"></i><b>11</b> Classification Trees</a><ul>
+<li class="chapter" data-level="11.1" data-path="classification-trees.html"><a href="classification-trees.html#introduction-3"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-trees.html"><a href="classification-trees.html#the-c5.0-classification-tree-algorithm"><i class="fa fa-check"></i><b>11.2</b> The C5.0 classification tree algorithm</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="classification-trees.html"><a href="classification-trees.html#choosing-the-best-split"><i class="fa fa-check"></i><b>11.2.1</b> Choosing the best split</a></li>
+<li class="chapter" data-level="11.2.2" data-path="classification-trees.html"><a href="classification-trees.html#pruning-the-decision-tree"><i class="fa fa-check"></i><b>11.2.2</b> Pruning the decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="classification-trees.html"><a href="classification-trees.html#example-iris"><i class="fa fa-check"></i><b>11.3</b> Example: <code>iris</code></a></li>
+<li class="chapter" data-level="11.4" data-path="classification-trees.html"><a href="classification-trees.html#example-identifying-risky-bank-loans"><i class="fa fa-check"></i><b>11.4</b> Example: identifying risky bank loans</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="classification-trees.html"><a href="classification-trees.html#adaptive-boosting"><i class="fa fa-check"></i><b>11.4.1</b> Adaptive boosting</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -399,7 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A tibble allows us to perform different types of transformation (next chapter).</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="managing-data-with-r.html#cb159-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/my_data.csv&quot;</span>) </span>
 <span id="cb159-2"><a href="managing-data-with-r.html#cb159-2"></a><span class="co">## </span></span>
-<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification --------------------------------------------------</span></span>
+<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification ------------------------------------------------------------</span></span>
 <span id="cb159-4"><a href="managing-data-with-r.html#cb159-4"></a><span class="co">## cols(</span></span>
 <span id="cb159-5"><a href="managing-data-with-r.html#cb159-5"></a><span class="co">##   x = col_double(),</span></span>
 <span id="cb159-6"><a href="managing-data-with-r.html#cb159-6"></a><span class="co">##   y = col_double()</span></span>

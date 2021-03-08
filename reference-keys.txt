@@ -115,3 +115,11 @@ example-classifying-breast-cancers
 evaluating-model-performance
 using-z-score-standardization
 testing-alternative-values-of-k
+classification-trees
+introduction-3
+the-c5.0-classification-tree-algorithm
+choosing-the-best-split
+pruning-the-decision-tree
+example-iris
+example-identifying-risky-bank-loans
+adaptive-boosting
