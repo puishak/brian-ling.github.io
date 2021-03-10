@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-07" />
+<meta name="date" content="2021-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,6 +295,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.4.1" data-path="classification-trees.html"><a href="classification-trees.html#adaptive-boosting"><i class="fa fa-check"></i><b>11.4.1</b> Adaptive boosting</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>12.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>12.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>12.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>12.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>12.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>12.7</b> Prediction</a></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>12.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>12.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>12.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -331,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## {
 ##     UseMethod(&quot;select&quot;)
 ## }
-## &lt;bytecode: 0x0000022d937a6d40&gt;
+## &lt;bytecode: 0x000001c3ffe0b230&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <p><strong>nycflights13</strong></p>
 <p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
@@ -974,12 +988,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-transformation-with-dplyr.html#cb236-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb236-2"><a href="data-transformation-with-dplyr.html#cb236-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb236-3"><a href="data-transformation-with-dplyr.html#cb236-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.06    0.00    0.07</span></span>
+<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.04    0.00    0.05</span></span>
 <span id="cb236-5"><a href="data-transformation-with-dplyr.html#cb236-5"></a></span>
 <span id="cb236-6"><a href="data-transformation-with-dplyr.html#cb236-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb236-7"><a href="data-transformation-with-dplyr.html#cb236-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb236-8"><a href="data-transformation-with-dplyr.html#cb236-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.39    0.00    0.39</span></span></code></pre></div>
+<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.44    0.00    0.44</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->

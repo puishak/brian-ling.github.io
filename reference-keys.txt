@@ -123,3 +123,16 @@ pruning-the-decision-tree
 example-iris
 example-identifying-risky-bank-loans
 adaptive-boosting
+linear-regression-models
+simple-linear-regression
+smoothed-conditional-means
+multiple-linear-regression
+example-diamonds
+categorical-predictors
+compare-models-using-anova
+prediction
+interaction-terms
+variable-transformation
+polynomial-regression
+stepwise-regression
+best-subset
