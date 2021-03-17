@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 k-nearest neighbors | STAT 362 R for Data Science</title>
+  <title>Chapter 13 Root finding and optimization | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 k-nearest neighbors | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 13 Root finding and optimization | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 k-nearest neighbors | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 13 Root finding and optimization | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistical-inference-in-r.html"/>
-<link rel="next" href="classification-trees.html"/>
+<link rel="prev" href="linear-regression-models.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -340,233 +340,250 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="k-nearest-neighbors" class="section level1">
-<h1><span class="header-section-number">Chapter 10</span> k-nearest neighbors</h1>
-<p>Optional Reading: Chapter 3 in Machine Learning with R by Brett Lantz</p>
-<div id="introduction-2" class="section level2">
-<h2><span class="header-section-number">10.1</span> Introduction</h2>
-<p><strong>Setting:</strong> We have data <span class="math inline">\(\{(x_i, y_i) : i=1,\ldots,n \}\)</span>, where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are the vector of the features the class label for the <span class="math inline">\(i\)</span>th observation respectively. For example, in breast cancer diagnosis, <span class="math inline">\(x_i\)</span> could be some summary statistics of the radius, texture, perimeter, area of the cell nuclei from a digitized image of a fine needle aspirate of a breast mass; <span class="math inline">\(y_i\)</span> is the diagnosis (malignant or benign).</p>
-<p>We now have a new data point <span class="math inline">\(x^*\)</span> (of course we do not have the class label <span class="math inline">\(y^*\)</span>) and we want to assign a class label to it. For example, after a subject has a breast fine needle aspiration, can we use existing data to predict if the subject has breast cancer?</p>
-<p>In this chapter, we will study the <span class="math inline">\(k\)</span>-nearest neighbors (<span class="math inline">\(k\)</span>-NN) algorithm for classification. <span class="math inline">\(k\)</span>-NN algorithm uses information about an example’s <span class="math inline">\(k\)</span> nearest neighbors to classify unlabeled examples. To measure how close the examples are, we need a <strong>distance measure</strong>. Traditionally, the <span class="math inline">\(k\)</span>-NN algorithm uses Euclidean distance. Given two points <span class="math inline">\(u = (u_1,\ldots,u_p)\)</span> and <span class="math inline">\(w = (w_1,\ldots,w_p)\)</span>, the Euclidean distance between them is
-<span class="math display">\[\begin{equation*}
-d(u, w) = \sqrt{ \sum^p_{i=1}(u_i - w_i)^2}.
-\end{equation*}\]</span></p>
+<div id="root-finding-and-optimization" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Root finding and optimization</h1>
+<p>Reference: Computational Methods for Numerical Analysis with R by James P. Howard, II</p>
+<p>Library used:</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="root-finding-and-optimization.html#cb427-1"></a><span class="kw">library</span>(Deriv) <span class="co"># for symbolic differentiation</span></span>
+<span id="cb427-2"><a href="root-finding-and-optimization.html#cb427-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<p>Since some of you have some questions about <code>optim()</code>. I will briefly introduce some basic algorithms for root finding and optimization. A root of a function means the <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x) = 0\)</span>.</p>
+<p>Some common questions:</p>
+<ol style="list-style-type: decimal">
+<li>what is the use of <code>par</code> in <code>optim()</code></li>
+<li>why you get different minimizers with different initial values</li>
+</ol>
+<div id="root-finding" class="section level2">
+<h2><span class="header-section-number">13.1</span> Root Finding</h2>
+<div id="bisection-method" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> Bisection Method</h3>
+<p><strong>Game:</strong> Before we introduce the bisection method, consider a game where Player <span class="math inline">\(A\)</span> picks an integer from <span class="math inline">\(1\)</span> to <span class="math inline">\(100\)</span>, and Player <span class="math inline">\(B\)</span> has to guess this number. Player <span class="math inline">\(A\)</span> will tell Player <span class="math inline">\(B\)</span> if the guess is too low or too high. For example,</p>
+<ol style="list-style-type: decimal">
+<li>Player <span class="math inline">\(A\)</span> picks <span class="math inline">\(10\)</span>.</li>
+<li>Player <span class="math inline">\(B\)</span> guesses <span class="math inline">\(40\)</span>.</li>
+<li>Player <span class="math inline">\(A\)</span> tells Player <span class="math inline">\(B\)</span> the number is too high.</li>
+<li>Player <span class="math inline">\(B\)</span> will then pick a number from <span class="math inline">\(1\)</span> to <span class="math inline">\(40\)</span>, say, <span class="math inline">\(28\)</span>.</li>
+<li>Play <span class="math inline">\(A\)</span> tells Player <span class="math inline">\(B\)</span> the number is also too high.</li>
+</ol>
+<p>Eventually, Player <span class="math inline">\(B\)</span> can guess the number correctly. You may realize that the best approach is to halve the range with each turn.</p>
+<p><strong>Idea of Bisection Method:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Recall that for any continuous function <span class="math inline">\(f\)</span>, if it has values of opposite sign in an interval, then it has a root in the interval. For example, if <span class="math inline">\(f(a) &lt; 0\)</span> and <span class="math inline">\(f(b) &gt; 0\)</span>, then there exists <span class="math inline">\(c \in (a, b)\)</span> such that <span class="math inline">\(f(c) = 0\)</span>.</p></li>
+<li><p>Now, suppose that <span class="math inline">\(f(a) f(b) &lt; 0\)</span> (so that <span class="math inline">\(f\)</span> has values of opposite sign at <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>). Let <span class="math inline">\(\varepsilon\)</span> denote a tolerance level.</p></li>
+</ol>
 <p><strong>Algorithm:</strong></p>
 <ol style="list-style-type: decimal">
-<li>Compute the Euclidean distance <span class="math inline">\(d(x_i, x^*)\)</span> for <span class="math inline">\(i=1,\ldots,n\)</span></li>
-<li>Find the <span class="math inline">\(k\)</span> training data with the smallest <span class="math inline">\(d(x_i, x^*)\)</span></li>
-<li>The predicted class for <span class="math inline">\(x^*\)</span> is determined by the majority vote of the <span class="math inline">\(k\)</span> training data in Step 2.</li>
+<li>Let <span class="math inline">\(c = \frac{a + b}{2}\)</span>.</li>
+<li>If <span class="math inline">\(f(c) = 0\)</span>, stop and return <span class="math inline">\(c\)</span>.</li>
+<li>If <span class="math inline">\(\text{sign}(f(a)) \neq \text{sign}(f(c))\)</span>; set <span class="math inline">\(b = c\)</span>; else set <span class="math inline">\(a = c\)</span>.</li>
+<li>Repeat Step 1 to 3 until <span class="math inline">\(|b-a| &lt; \varepsilon\)</span>.</li>
 </ol>
-<p>The idea before the algorithm is simple. We expect that observations with similar features should have the same class label. In the following figure, we have some labeled data. Suppose the black dot is our new data without label, which group will you assign this data to? A natural choice is to assign the black dot to group A because the <span class="math inline">\(5\)</span> nearest neighbors are all in group A. This is the idea of <span class="math inline">\(k\)</span>-nearest neighbors algorithm.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-375-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Remark:</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>We can use the <span class="math inline">\(k\)</span>-NN algorithm for regression. In that case, <span class="math inline">\(y_i\)</span> is the numeric response. The corresponding algorithm replaces the majority vote by the mean of the responses in the <span class="math inline">\(k\)</span> nearest training data.</p></li>
-<li><p>Other distance measures could be used.</p></li>
-<li><p>There are different methods to break ties.</p></li>
-<li><p>There is no learning phase.</p></li>
-</ol>
-<p><strong>Applications:</strong></p>
-<ul>
-<li>Computer vision applications, including optical character recognition and facial recognition in both still images and video</li>
-<li>Recommendation systems that predict whether a person will enjoy a movie or song</li>
-<li>Identifying patterns in genetic data to detect specific proteins or diseases</li>
-</ul>
-<p><strong>Strengths of <span class="math inline">\(k\)</span>-NN:</strong></p>
-<ul>
-<li>Simple and effective</li>
-<li>Makes no assumptions about the underlying data distribution</li>
-</ul>
-<p><strong>Weaknesses of <span class="math inline">\(k\)</span>-NN:</strong></p>
-<ul>
-<li>Does not produce a model, limiting the ability to understand how the features are related to the class</li>
-<li>Requires selection of an appropriate <span class="math inline">\(k\)</span></li>
-<li>Slow classification phase</li>
-<li>Nominal features and missing data require additional processing</li>
-</ul>
-<p><strong>Choosing an appropriate <span class="math inline">\(k\)</span>:</strong></p>
-<ul>
-<li>Large <span class="math inline">\(k\)</span>: reduce the impact or variance caused by noisy data, may underfit the traning data</li>
-<li>Small <span class="math inline">\(k\)</span>: may overfit the data</li>
-</ul>
-<p>Extreme case: <span class="math inline">\(k = n\)</span>, the most common class will always be the prediction</p>
-<p>Some people suggest using <span class="math inline">\(\sqrt{n}\)</span> as <span class="math inline">\(k\)</span>. One may also use a validation set or cross-validation to choose the appropriate <span class="math inline">\(k\)</span> (will discuss these later).</p>
+<p><strong>Implementation in R:</strong></p>
+<p>This is a good example to see when a <code>while</code> loop is useful.</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="root-finding-and-optimization.html#cb428-1"></a>bisection &lt;-<span class="st"> </span><span class="cf">function</span>(f, a, b, <span class="dt">tol =</span> <span class="fl">1e-5</span>, <span class="dt">max_iter =</span> <span class="dv">100</span>) {</span>
+<span id="cb428-2"><a href="root-finding-and-optimization.html#cb428-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb428-3"><a href="root-finding-and-optimization.html#cb428-3"></a>  f_a &lt;-<span class="st"> </span><span class="kw">f</span>(a)</span>
+<span id="cb428-4"><a href="root-finding-and-optimization.html#cb428-4"></a>  f_b &lt;-<span class="st"> </span><span class="kw">f</span>(b)</span>
+<span id="cb428-5"><a href="root-finding-and-optimization.html#cb428-5"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(b <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
+<span id="cb428-6"><a href="root-finding-and-optimization.html#cb428-6"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb428-7"><a href="root-finding-and-optimization.html#cb428-7"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
+<span id="cb428-8"><a href="root-finding-and-optimization.html#cb428-8"></a>      <span class="kw">warning</span>(<span class="st">&quot;Maximum number of iteration reached&quot;</span>)</span>
+<span id="cb428-9"><a href="root-finding-and-optimization.html#cb428-9"></a>      <span class="kw">return</span>(x_mid)</span>
+<span id="cb428-10"><a href="root-finding-and-optimization.html#cb428-10"></a>    }</span>
+<span id="cb428-11"><a href="root-finding-and-optimization.html#cb428-11"></a>    x_mid &lt;-<span class="st"> </span>(a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb428-12"><a href="root-finding-and-optimization.html#cb428-12"></a>    y_mid &lt;-<span class="st"> </span><span class="kw">f</span>(x_mid)</span>
+<span id="cb428-13"><a href="root-finding-and-optimization.html#cb428-13"></a>    <span class="cf">if</span> (f_a <span class="op">*</span><span class="st"> </span>y_mid <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb428-14"><a href="root-finding-and-optimization.html#cb428-14"></a>      a &lt;-<span class="st"> </span>x_mid</span>
+<span id="cb428-15"><a href="root-finding-and-optimization.html#cb428-15"></a>      f_a &lt;-<span class="st"> </span>y_mid</span>
+<span id="cb428-16"><a href="root-finding-and-optimization.html#cb428-16"></a>    } <span class="cf">else</span> {</span>
+<span id="cb428-17"><a href="root-finding-and-optimization.html#cb428-17"></a>      b &lt;-<span class="st"> </span>x_mid</span>
+<span id="cb428-18"><a href="root-finding-and-optimization.html#cb428-18"></a>      f_b &lt;-<span class="st"> </span>y_mid</span>
+<span id="cb428-19"><a href="root-finding-and-optimization.html#cb428-19"></a>    }</span>
+<span id="cb428-20"><a href="root-finding-and-optimization.html#cb428-20"></a>  }</span>
+<span id="cb428-21"><a href="root-finding-and-optimization.html#cb428-21"></a>  <span class="kw">return</span>((a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb428-22"><a href="root-finding-and-optimization.html#cb428-22"></a>}</span></code></pre></div>
+<p>Remark: 1e-3 = 0.001. We set the default value of <span class="math inline">\(\varepsilon\)</span> to <span class="math inline">\(0.001\)</span> and the maximum number of iterations to <span class="math inline">\(100\)</span>.</p>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="root-finding-and-optimization.html#cb429-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb429-2"><a href="root-finding-and-optimization.html#cb429-2"></a>  x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb429-3"><a href="root-finding-and-optimization.html#cb429-3"></a>}</span></code></pre></div>
+<p>Without providing the values of <code>tol</code> and <code>max_iter</code>, the function will use <code>tol = 1e-3</code> and <code>max_iter = 100</code>.</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="root-finding-and-optimization.html#cb430-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>)</span>
+<span id="cb430-2"><a href="root-finding-and-optimization.html#cb430-2"></a><span class="co">## [1] 1.000001</span></span></code></pre></div>
+<p>To change <code>tol</code>:</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="root-finding-and-optimization.html#cb431-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.1</span>)</span>
+<span id="cb431-2"><a href="root-finding-and-optimization.html#cb431-2"></a><span class="co">## [1] 1.015625</span></span>
+<span id="cb431-3"><a href="root-finding-and-optimization.html#cb431-3"></a></span>
+<span id="cb431-4"><a href="root-finding-and-optimization.html#cb431-4"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.0000001</span>)</span>
+<span id="cb431-5"><a href="root-finding-and-optimization.html#cb431-5"></a><span class="co">## [1] 1</span></span></code></pre></div>
+<p>To change <code>max_iter</code>:</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="root-finding-and-optimization.html#cb432-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.000000000001</span>, <span class="dt">max_iter =</span> <span class="dv">10</span>)</span>
+<span id="cb432-2"><a href="root-finding-and-optimization.html#cb432-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of</span></span>
+<span id="cb432-3"><a href="root-finding-and-optimization.html#cb432-3"></a><span class="co">## iteration reached</span></span>
+<span id="cb432-4"><a href="root-finding-and-optimization.html#cb432-4"></a><span class="co">## [1] 1.000244</span></span></code></pre></div>
 </div>
-<div id="feature-scaling" class="section level2">
-<h2><span class="header-section-number">10.2</span> Feature Scaling</h2>
-<p>Clearly, if the features are in different scales, the distance measure computed will be dominated by some of the features and will not take into account of the importance of other features. Let’s assume we have <span class="math inline">\(n\)</span> data and <span class="math inline">\(p\)</span> features.</p>
-<p>Two common methods for feature scaling:</p>
-<ol style="list-style-type: decimal">
-<li><strong>min-max normalization</strong></li>
-</ol>
-<p>For each <span class="math inline">\(i=1,\ldots,p\)</span>, <span class="math inline">\(j=1,\ldots,n\)</span>,
-<span class="math display">\[\begin{equation*}
-x^*_{ij} = \frac{x_{ij} - \min x_i}{\max x_i -\min x_i},
-\end{equation*}\]</span>
-where <span class="math inline">\(\min x_i = \min_{j=1,\ldots,n} x_{ij}\)</span> and <span class="math inline">\(\max x_i = \max_{j=1,\ldots,n} x_{ij}\)</span>. The normalized features will have values between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong><span class="math inline">\(z\)</span>-score standardization</strong>
-For each <span class="math inline">\(i=1,\ldots,p\)</span>, <span class="math inline">\(j=1,\ldots,n\)</span>,
-<span class="math display">\[\begin{equation*}
-x^*_{ij} = \frac{x_{ij} - \overline{x}_i}{s_i},
-\end{equation*}\]</span>
-where <span class="math inline">\(\overline{x}_i\)</span> and <span class="math inline">\(s_i\)</span> are the sample mean and standard deviation of <span class="math inline">\(\{x_{i1},\ldots,x_{in}\}\)</span>.</li>
-</ol>
-<p>For nominal features, we can convert them into a numeric feature using dummy coding. For example, if a nominal feature called temperature takes three values: hot, medium and cold. You can define two additional binary indicator variables:
-<span class="math display">\[\begin{equation*}
-\text{hot} = \left\{ 
-\begin{array}{ll}
-1 &amp; \text{if temperature = hot} \\
-0 &amp; \text{otherwise}
-\end{array}
-\right.
-\end{equation*}\]</span>
-and
-<span class="math display">\[\begin{equation*}
-\text{medium} = \left\{ 
-\begin{array}{ll}
-1 &amp; \text{if temperature = medium} \\
-0 &amp; \text{otherwise.}
-\end{array}
-\right.
-\end{equation*}\]</span>
-When both hot and medium are <span class="math inline">\(0\)</span>, we know the temperature is cold. In general, if we have <span class="math inline">\(n\)</span> categories, we only need to create <span class="math inline">\(n-1\)</span> additional binary indicators.</p>
 </div>
-<div id="example-classifying-breast-cancers" class="section level2">
-<h2><span class="header-section-number">10.3</span> Example: Classifying Breast Cancers</h2>
-<p>We will use the breast cancecr from UC Irvine Machine Learning Repository <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29" class="uri">https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29</a></p>
-<p>Download the dataset from onQ. Read the data (change the path to where you save your data):</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="k-nearest-neighbors.html#cb352-1"></a>wbcd &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
-<p>Variables:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="k-nearest-neighbors.html#cb353-1"></a><span class="kw">names</span>(wbcd)</span>
-<span id="cb353-2"><a href="k-nearest-neighbors.html#cb353-2"></a><span class="co">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;               &quot;radius_mean&quot;            </span></span>
-<span id="cb353-3"><a href="k-nearest-neighbors.html#cb353-3"></a><span class="co">##  [4] &quot;texture_mean&quot;            &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
-<span id="cb353-4"><a href="k-nearest-neighbors.html#cb353-4"></a><span class="co">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;        &quot;concavity_mean&quot;         </span></span>
-<span id="cb353-5"><a href="k-nearest-neighbors.html#cb353-5"></a><span class="co">## [10] &quot;concave.points_mean&quot;     &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
-<span id="cb353-6"><a href="k-nearest-neighbors.html#cb353-6"></a><span class="co">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;              &quot;perimeter_se&quot;           </span></span>
-<span id="cb353-7"><a href="k-nearest-neighbors.html#cb353-7"></a><span class="co">## [16] &quot;area_se&quot;                 &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
-<span id="cb353-8"><a href="k-nearest-neighbors.html#cb353-8"></a><span class="co">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;       &quot;symmetry_se&quot;            </span></span>
-<span id="cb353-9"><a href="k-nearest-neighbors.html#cb353-9"></a><span class="co">## [22] &quot;fractal_dimension_se&quot;    &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
-<span id="cb353-10"><a href="k-nearest-neighbors.html#cb353-10"></a><span class="co">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;              &quot;smoothness_worst&quot;       </span></span>
-<span id="cb353-11"><a href="k-nearest-neighbors.html#cb353-11"></a><span class="co">## [28] &quot;compactness_worst&quot;       &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
-<span id="cb353-12"><a href="k-nearest-neighbors.html#cb353-12"></a><span class="co">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
-<p><strong>Creating Training and Testing Datasets</strong></p>
-<p>The first column is <code>id</code>, which should not be included in the classification. The second column is <code>diagnosis</code>. <code>B</code> means benign and <code>M</code> means malignant. In short, the meaning of malignant is cancerous and the meaning of benign is non-cancerous. We will separate the labels from the features. To evaluate the model performance, we always split our full dataset into a training dataset and a testing daatset.</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="k-nearest-neighbors.html#cb354-1"></a><span class="kw">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>
-<span id="cb354-2"><a href="k-nearest-neighbors.html#cb354-2"></a><span class="co"># create the random numbers for selecting the rows in the dataset</span></span>
-<span id="cb354-3"><a href="k-nearest-neighbors.html#cb354-3"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(wbcd), <span class="dv">469</span>) </span>
-<span id="cb354-4"><a href="k-nearest-neighbors.html#cb354-4"></a></span>
-<span id="cb354-5"><a href="k-nearest-neighbors.html#cb354-5"></a><span class="co"># our &quot;x&quot;</span></span>
-<span id="cb354-6"><a href="k-nearest-neighbors.html#cb354-6"></a>wbcd_train &lt;-<span class="st"> </span>wbcd[random_index, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</span>
-<span id="cb354-7"><a href="k-nearest-neighbors.html#cb354-7"></a>wbcd_test &lt;-<span class="st"> </span>wbcd[<span class="op">-</span>random_index, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</span>
-<span id="cb354-8"><a href="k-nearest-neighbors.html#cb354-8"></a></span>
-<span id="cb354-9"><a href="k-nearest-neighbors.html#cb354-9"></a><span class="co"># our &quot;y&quot;</span></span>
-<span id="cb354-10"><a href="k-nearest-neighbors.html#cb354-10"></a>wbcd_train_labels &lt;-<span class="st"> </span>wbcd[random_index, ]<span class="op">$</span>diagnosis</span>
-<span id="cb354-11"><a href="k-nearest-neighbors.html#cb354-11"></a>wbcd_test_labels &lt;-<span class="st"> </span>wbcd[<span class="op">-</span>random_index, ]<span class="op">$</span>diagnosis</span></code></pre></div>
-<p>Note: In forming a training dataset and a testing dataset, you should not select the first <span class="math inline">\(469\)</span> rows (unless you know the data have been randomly organized).</p>
-<p><strong>Normalizing the data</strong></p>
+<div id="newton-raphson-method" class="section level2">
+<h2><span class="header-section-number">13.2</span> Newton-Raphson Method</h2>
+<p>Newton-Raphson method can be used to find a root of a function.</p>
+<p><strong>Idea of Netwon-Raphson Method (or Netwon’s Method):</strong></p>
 <ol style="list-style-type: decimal">
-<li>We have to normalize the features in both the training datasets and testing datasets</li>
-<li>We have to use the same normalizing methods for these two datasets</li>
-<li>Compute the min and max (or mean and sd) using only the training datasets</li>
+<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, approximate your function by its tangent line at <span class="math inline">\(x_0\)</span> and find the root (you can find the root of a line easily). To find the root, we equate the slope at <span class="math inline">\(x_0\)</span> found by <span class="math inline">\(f&#39;(x_0)\)</span> and using the two points <span class="math inline">\((x_1, 0)\)</span> and <span class="math inline">\((x_0, f(x_0))\)</span>, where <span class="math inline">\(x_1\)</span> denotes the root of the tangent line at <span class="math inline">\(x_0\)</span>. That is,
+<span class="math display">\[\begin{equation*}
+\frac{f(x_0) - 0}{x_1 - x_0} = f&#39;(x_0).
+\end{equation*}\]</span>
+Rearranging the terms give
+<span class="math display">\[\begin{equation*}
+x_1 = x_0 - \frac{f(x_0)}{f&#39;(x_0)}.
+\end{equation*}\]</span></p></li>
+<li><p>Iterate the above procedure until convergence.</p></li>
 </ol>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="k-nearest-neighbors.html#cb355-1"></a>wbcd_train_n &lt;-<span class="st"> </span>wbcd_train</span>
-<span id="cb355-2"><a href="k-nearest-neighbors.html#cb355-2"></a>wbcd_test_n &lt;-<span class="st"> </span>wbcd_test</span>
-<span id="cb355-3"><a href="k-nearest-neighbors.html#cb355-3"></a></span>
-<span id="cb355-4"><a href="k-nearest-neighbors.html#cb355-4"></a>train_min &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, min)</span>
-<span id="cb355-5"><a href="k-nearest-neighbors.html#cb355-5"></a>train_max &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, max)</span>
-<span id="cb355-6"><a href="k-nearest-neighbors.html#cb355-6"></a></span>
-<span id="cb355-7"><a href="k-nearest-neighbors.html#cb355-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(wbcd_train)) {</span>
-<span id="cb355-8"><a href="k-nearest-neighbors.html#cb355-8"></a>  wbcd_train_n[, i] &lt;-<span class="st"> </span>(wbcd_train[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
-<span id="cb355-9"><a href="k-nearest-neighbors.html#cb355-9"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
-<span id="cb355-10"><a href="k-nearest-neighbors.html#cb355-10"></a>  wbcd_test_n[, i] &lt;-<span class="st"> </span>(wbcd_test[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
-<span id="cb355-11"><a href="k-nearest-neighbors.html#cb355-11"></a>}</span></code></pre></div>
-<p>We will use <code>knn()</code> in the package <code>class</code> to perform <span class="math inline">\(k\)</span>-NN classification. <code>knn()</code> will return a factor of classifications of testing dataset.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="k-nearest-neighbors.html#cb356-1"></a><span class="kw">library</span>(class) <span class="co"># install it if you haven&#39;t done so</span></span>
-<span id="cb356-2"><a href="k-nearest-neighbors.html#cb356-2"></a>knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_n, <span class="dt">test =</span> wbcd_test_n, </span>
-<span id="cb356-3"><a href="k-nearest-neighbors.html#cb356-3"></a>                     <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> <span class="dv">21</span>)</span></code></pre></div>
+<p>Here is an gif animination from wikipedia:
+<a href="https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif" class="uri">https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif</a></p>
+<p><strong>Algorithm of Netwon-Raphson Method:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, set
+<span class="math display">\[\begin{equation*}
+x_1 = x_0 - \frac{f(x_0)}{f&#39;(x_0)}.
+\end{equation*}\]</span></p></li>
+<li><p>Iterate the following equation until convergence
+<span class="math display">\[\begin{equation*}
+x_n = x_{n-1} - \frac{f(x_{n-1})}{f&#39;(x_{n-1})}.
+\end{equation*}\]</span></p></li>
+</ol>
+<p><strong>Implementation in R:</strong></p>
 <ul>
-<li><code>train</code> : training dataset</li>
-<li><code>test</code>: testing dataset</li>
-<li><code>cl</code>: training labels</li>
-<li><code>k</code>: <span class="math inline">\(k\)</span>-nearest neighbors will be used</li>
+<li><code>f</code> is the function you want to find the root</li>
+<li><code>fp</code> is the first derivative of <code>f</code></li>
+<li><code>x0</code> is the initial value.</li>
+<li>Since we cannot iterate indefinitely, we have to set a tolerance (<code>tol</code>) and a maximum number of iteration (<code>max_iter</code>).</li>
 </ul>
-<div id="evaluating-model-performance" class="section level3">
-<h3><span class="header-section-number">10.3.1</span> Evaluating Model Performance</h3>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="k-nearest-neighbors.html#cb357-1"></a><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb357-2"><a href="k-nearest-neighbors.html#cb357-2"></a><span class="co">##                 knn_predicted</span></span>
-<span id="cb357-3"><a href="k-nearest-neighbors.html#cb357-3"></a><span class="co">## wbcd_test_labels  B  M</span></span>
-<span id="cb357-4"><a href="k-nearest-neighbors.html#cb357-4"></a><span class="co">##                B 57  2</span></span>
-<span id="cb357-5"><a href="k-nearest-neighbors.html#cb357-5"></a><span class="co">##                M  4 37</span></span></code></pre></div>
-<p><strong>False positive</strong>: an error where the test result incorrectly indicates the presence of a condition such as a disease when the disease is not present. In this example, we have <span class="math inline">\(2\)</span> false positives.</p>
-<p><strong>False Negative</strong>: an error where the test result incorrectly fails to indicate the presence of a condition when it is present. In this example, we have <span class="math inline">\(4\)</span> false negatives.</p>
-<p>Here the “test result” means our prediction.</p>
-<p>The <strong>accuracy</strong> is
-<span class="math display">\[\begin{equation*}
-\text{accuracy} = \frac{57+37}{57+2+4+37} = 0.94.
-\end{equation*}\]</span></p>
-<p>The <strong>error rate</strong> is
-<span class="math display">\[\begin{equation*}
-\text{error rate} = \frac{2 + 4}{57+2+4+37} = 0.06 = 1- \text{accuracy}.
-\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="root-finding-and-optimization.html#cb433-1"></a>NR &lt;-<span class="st"> </span><span class="cf">function</span>(f, fp, x0, <span class="dt">tol =</span> <span class="fl">1e-3</span>, <span class="dt">max_iter =</span> <span class="dv">100</span>) {</span>
+<span id="cb433-2"><a href="root-finding-and-optimization.html#cb433-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb433-3"><a href="root-finding-and-optimization.html#cb433-3"></a>  old_x &lt;-<span class="st"> </span>x0</span>
+<span id="cb433-4"><a href="root-finding-and-optimization.html#cb433-4"></a>  x &lt;-<span class="st"> </span>old_x <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span>tol <span class="co"># any number such that abs(x - old_x) &gt; tol</span></span>
+<span id="cb433-5"><a href="root-finding-and-optimization.html#cb433-5"></a>  </span>
+<span id="cb433-6"><a href="root-finding-and-optimization.html#cb433-6"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>old_x) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
+<span id="cb433-7"><a href="root-finding-and-optimization.html#cb433-7"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb433-8"><a href="root-finding-and-optimization.html#cb433-8"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
+<span id="cb433-9"><a href="root-finding-and-optimization.html#cb433-9"></a>      <span class="kw">print</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
+<span id="cb433-10"><a href="root-finding-and-optimization.html#cb433-10"></a>      <span class="kw">return</span>(x)</span>
+<span id="cb433-11"><a href="root-finding-and-optimization.html#cb433-11"></a>    }</span>
+<span id="cb433-12"><a href="root-finding-and-optimization.html#cb433-12"></a>    old_x &lt;-<span class="st"> </span>x</span>
+<span id="cb433-13"><a href="root-finding-and-optimization.html#cb433-13"></a>    x &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="kw">f</span>(x) <span class="op">/</span><span class="st"> </span><span class="kw">fp</span>(x)</span>
+<span id="cb433-14"><a href="root-finding-and-optimization.html#cb433-14"></a>  }</span>
+<span id="cb433-15"><a href="root-finding-and-optimization.html#cb433-15"></a>  <span class="kw">return</span>(x)</span>
+<span id="cb433-16"><a href="root-finding-and-optimization.html#cb433-16"></a>}</span></code></pre></div>
+<p><strong>Symbolic differentiation</strong></p>
+<p>To perform symbolic differentiation in R (instead of numerical differentiation), we can use <code>Deriv()</code> in the package <code>Deriv</code>.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="root-finding-and-optimization.html#cb434-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) { </span>
+<span id="cb434-2"><a href="root-finding-and-optimization.html#cb434-2"></a>  x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb434-3"><a href="root-finding-and-optimization.html#cb434-3"></a>}</span>
+<span id="cb434-4"><a href="root-finding-and-optimization.html#cb434-4"></a></span>
+<span id="cb434-5"><a href="root-finding-and-optimization.html#cb434-5"></a><span class="co"># Symbolic differentiation</span></span>
+<span id="cb434-6"><a href="root-finding-and-optimization.html#cb434-6"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
+<span id="cb434-7"><a href="root-finding-and-optimization.html#cb434-7"></a></span>
+<span id="cb434-8"><a href="root-finding-and-optimization.html#cb434-8"></a>fp <span class="co"># we know it is 2x - 2</span></span>
+<span id="cb434-9"><a href="root-finding-and-optimization.html#cb434-9"></a><span class="co">## function (x) </span></span>
+<span id="cb434-10"><a href="root-finding-and-optimization.html#cb434-10"></a><span class="co">## 2 * x - 2</span></span></code></pre></div>
+<p><strong>Apply our NR function</strong></p>
+<p>Let’s plot the function first.</p>
+<p><img src="Book_files/figure-html/unnamed-chunk-473-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Using our function:</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="root-finding-and-optimization.html#cb435-1"></a><span class="kw">NR</span>(f, fp, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb435-2"><a href="root-finding-and-optimization.html#cb435-2"></a><span class="co">## [1] 1.000508</span></span></code></pre></div>
 </div>
-<div id="using-z-score-standardization" class="section level3">
-<h3><span class="header-section-number">10.3.2</span> Using <span class="math inline">\(z\)</span>-score standardization</h3>
-<p>Let’s try the <span class="math inline">\(z\)</span>-score standardization.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="k-nearest-neighbors.html#cb358-1"></a>wbcd_train_s &lt;-<span class="st"> </span>wbcd_train</span>
-<span id="cb358-2"><a href="k-nearest-neighbors.html#cb358-2"></a>wbcd_test_s &lt;-<span class="st"> </span>wbcd_test</span>
-<span id="cb358-3"><a href="k-nearest-neighbors.html#cb358-3"></a></span>
-<span id="cb358-4"><a href="k-nearest-neighbors.html#cb358-4"></a>train_mean &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, mean)</span>
-<span id="cb358-5"><a href="k-nearest-neighbors.html#cb358-5"></a>train_sd &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, sd)</span>
-<span id="cb358-6"><a href="k-nearest-neighbors.html#cb358-6"></a></span>
-<span id="cb358-7"><a href="k-nearest-neighbors.html#cb358-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(wbcd_train)) {</span>
-<span id="cb358-8"><a href="k-nearest-neighbors.html#cb358-8"></a>  wbcd_train_s[, i] &lt;-<span class="st"> </span>(wbcd_train[, i] <span class="op">-</span><span class="st"> </span>train_mean[i]) <span class="op">/</span><span class="st"> </span>train_sd[i]</span>
-<span id="cb358-9"><a href="k-nearest-neighbors.html#cb358-9"></a>  <span class="co"># use the mean and sd from training data to normalize the testing data</span></span>
-<span id="cb358-10"><a href="k-nearest-neighbors.html#cb358-10"></a>  wbcd_test_s[, i] &lt;-<span class="st"> </span>(wbcd_test[, i] <span class="op">-</span><span class="st"> </span>train_mean[i]) <span class="op">/</span><span class="st"> </span>train_sd[i]</span>
-<span id="cb358-11"><a href="k-nearest-neighbors.html#cb358-11"></a>}</span></code></pre></div>
-<p>Perform <span class="math inline">\(k\)</span>-NN:</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="k-nearest-neighbors.html#cb359-1"></a>knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_s, <span class="dt">test =</span> wbcd_test_s, </span>
-<span id="cb359-2"><a href="k-nearest-neighbors.html#cb359-2"></a>                     <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> <span class="dv">21</span>)</span></code></pre></div>
-<p>Evaluate the performance:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="k-nearest-neighbors.html#cb360-1"></a><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb360-2"><a href="k-nearest-neighbors.html#cb360-2"></a><span class="co">##                 knn_predicted</span></span>
-<span id="cb360-3"><a href="k-nearest-neighbors.html#cb360-3"></a><span class="co">## wbcd_test_labels  B  M</span></span>
-<span id="cb360-4"><a href="k-nearest-neighbors.html#cb360-4"></a><span class="co">##                B 58  1</span></span>
-<span id="cb360-5"><a href="k-nearest-neighbors.html#cb360-5"></a><span class="co">##                M  5 36</span></span></code></pre></div>
-<p>The performance using <span class="math inline">\(z\)</span>-score standardization and min-max normalization is similar.</p>
-</div>
-<div id="testing-alternative-values-of-k" class="section level3">
-<h3><span class="header-section-number">10.3.3</span> Testing alternative values of <span class="math inline">\(k\)</span></h3>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="k-nearest-neighbors.html#cb361-1"></a>k &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">27</span>)</span>
-<span id="cb361-2"><a href="k-nearest-neighbors.html#cb361-2"></a>result &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(k), <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb361-3"><a href="k-nearest-neighbors.html#cb361-3"></a>result[, <span class="dv">1</span>] &lt;-<span class="st"> </span>k</span>
-<span id="cb361-4"><a href="k-nearest-neighbors.html#cb361-4"></a><span class="kw">colnames</span>(result) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;k value&quot;</span>, <span class="st">&quot;False Negatives&quot;</span>, <span class="st">&quot;False Positives&quot;</span>, </span>
-<span id="cb361-5"><a href="k-nearest-neighbors.html#cb361-5"></a>                     <span class="st">&quot;Percent Classified Correctly&quot;</span>)</span>
-<span id="cb361-6"><a href="k-nearest-neighbors.html#cb361-6"></a></span>
-<span id="cb361-7"><a href="k-nearest-neighbors.html#cb361-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(k)) {</span>
-<span id="cb361-8"><a href="k-nearest-neighbors.html#cb361-8"></a>  knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_n, <span class="dt">test =</span> wbcd_test_n,</span>
-<span id="cb361-9"><a href="k-nearest-neighbors.html#cb361-9"></a>                       <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> k[i])</span>
-<span id="cb361-10"><a href="k-nearest-neighbors.html#cb361-10"></a>  confusion_matrix &lt;-<span class="st"> </span><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb361-11"><a href="k-nearest-neighbors.html#cb361-11"></a>  result[i, <span class="dv">2</span>] &lt;-<span class="st"> </span>confusion_matrix[<span class="dv">2</span>, <span class="dv">1</span>]</span>
-<span id="cb361-12"><a href="k-nearest-neighbors.html#cb361-12"></a>  result[i, <span class="dv">3</span>] &lt;-<span class="st"> </span>confusion_matrix[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb361-13"><a href="k-nearest-neighbors.html#cb361-13"></a>  result[i, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion_matrix)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(wbcd_test_labels)</span>
-<span id="cb361-14"><a href="k-nearest-neighbors.html#cb361-14"></a>}</span>
-<span id="cb361-15"><a href="k-nearest-neighbors.html#cb361-15"></a></span>
-<span id="cb361-16"><a href="k-nearest-neighbors.html#cb361-16"></a>result</span>
-<span id="cb361-17"><a href="k-nearest-neighbors.html#cb361-17"></a><span class="co">##      k value False Negatives False Positives Percent Classified Correctly</span></span>
-<span id="cb361-18"><a href="k-nearest-neighbors.html#cb361-18"></a><span class="co">## [1,]       1               4               3                         0.93</span></span>
-<span id="cb361-19"><a href="k-nearest-neighbors.html#cb361-19"></a><span class="co">## [2,]       5               4               1                         0.95</span></span>
-<span id="cb361-20"><a href="k-nearest-neighbors.html#cb361-20"></a><span class="co">## [3,]      11               3               1                         0.96</span></span>
-<span id="cb361-21"><a href="k-nearest-neighbors.html#cb361-21"></a><span class="co">## [4,]      15               3               2                         0.95</span></span>
-<span id="cb361-22"><a href="k-nearest-neighbors.html#cb361-22"></a><span class="co">## [5,]      21               4               2                         0.94</span></span>
-<span id="cb361-23"><a href="k-nearest-neighbors.html#cb361-23"></a><span class="co">## [6,]      27               3               2                         0.95</span></span></code></pre></div>
-<p><strong>Important remark</strong>: while the accuracy is the highest when <span class="math inline">\(k = 11\)</span>, it does not mean the model is the best for this data. Note that</p>
+<div id="minimization-and-maximization" class="section level2">
+<h2><span class="header-section-number">13.3</span> Minimization and Maximization</h2>
+<div id="newton-raphson-method-1" class="section level3">
+<h3><span class="header-section-number">13.3.1</span> Newton-Raphson Method</h3>
+<p>Recall that at local extrema, <span class="math inline">\(f&#39;(x) = 0\)</span>, therefore we can use the Netwon-Raphson method for minimization and maximization.</p>
+<p><strong>Algorithm of Netwon-Raphson Method:</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>We split the dataset into a training dataset and a testing dataset using <strong>one particular random partition</strong>. With another random partition, the results would be <strong>different</strong>. The more appropriate way to assess the accuracy is to use repeated <span class="math inline">\(k\)</span>-fold cross validation (the <span class="math inline">\(k\)</span> here is different from the <span class="math inline">\(k\)</span> in our <span class="math inline">\(k\)</span>-NN algorithm). We shall discuss this later.</p></li>
-<li><p>Having false Negatives could be a more severe problem than having false positives in this example. Although in this example, when <span class="math inline">\(k=11\)</span>, it also produces the lowest number of false negatives.</p></li>
+<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, set
+<span class="math display">\[\begin{equation*}
+x_1 = x_0 - \frac{f&#39;(x_0)}{f&#39;&#39;(x_0)}.
+\end{equation*}\]</span></p></li>
+<li><p>Iterate the following equation until convergence
+<span class="math display">\[\begin{equation*}
+x_n = x_{n-1} - \frac{f&#39;(x_{n-1})}{f&#39;&#39;(x_{n-1})}.
+\end{equation*}\]</span></p></li>
+</ol>
+</div>
+<div id="gradient-descent" class="section level3">
+<h3><span class="header-section-number">13.3.2</span> Gradient Descent</h3>
+<p>Gradient Descent</p>
+<ul>
+<li>Iterative method for finding a local minimum</li>
+<li>Requires an initial value and a step size <span class="math inline">\(h\)</span></li>
+</ul>
+<p><strong>Idea of Gradient Descent:</strong></p>
+<ol style="list-style-type: decimal">
+<li>The gradient descent method uses the derivative at <span class="math inline">\(x\)</span> and takes a step down, of size <span class="math inline">\(h\)</span>, in the direction of the slope.</li>
+<li>The process is repeated using the new point as <span class="math inline">\(x\)</span>.</li>
+<li>As the function slides down a slope, the derivative will start shrinking resulting in smaller changes in <span class="math inline">\(x\)</span>.</li>
+<li>As the change in <span class="math inline">\(x\)</span> decreases below the tolerance value, we have reached a local minimum.</li>
+</ol>
+<p><strong>Algorithm of Gradient Descent:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Set an initial point <span class="math inline">\(x_0\)</span> and a step size <span class="math inline">\(h &gt; 0\)</span></li>
+<li>Iterate until convergence:
+<span class="math display">\[\begin{equation*}
+x_{n+1} = x_{n} - h f&#39;(x_{n}).
+\end{equation*}\]</span></li>
+</ol>
+<p><strong>Implementation in R:</strong></p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="root-finding-and-optimization.html#cb436-1"></a>grad_des &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
+<span id="cb436-2"><a href="root-finding-and-optimization.html#cb436-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb436-3"><a href="root-finding-and-optimization.html#cb436-3"></a>  old_x &lt;-<span class="st"> </span>x0</span>
+<span id="cb436-4"><a href="root-finding-and-optimization.html#cb436-4"></a>  x &lt;-<span class="st"> </span>x0 <span class="op">-</span><span class="st"> </span>h <span class="op">*</span><span class="st"> </span><span class="kw">fp</span>(x0)</span>
+<span id="cb436-5"><a href="root-finding-and-optimization.html#cb436-5"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>old_x) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
+<span id="cb436-6"><a href="root-finding-and-optimization.html#cb436-6"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb436-7"><a href="root-finding-and-optimization.html#cb436-7"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
+<span id="cb436-8"><a href="root-finding-and-optimization.html#cb436-8"></a>      <span class="kw">stop</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
+<span id="cb436-9"><a href="root-finding-and-optimization.html#cb436-9"></a>    }</span>
+<span id="cb436-10"><a href="root-finding-and-optimization.html#cb436-10"></a>    old_x &lt;-<span class="st"> </span>x</span>
+<span id="cb436-11"><a href="root-finding-and-optimization.html#cb436-11"></a>    x &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span>h <span class="op">*</span><span class="st"> </span><span class="kw">fp</span>(x)</span>
+<span id="cb436-12"><a href="root-finding-and-optimization.html#cb436-12"></a>  }</span>
+<span id="cb436-13"><a href="root-finding-and-optimization.html#cb436-13"></a>  <span class="kw">return</span>(x)</span>
+<span id="cb436-14"><a href="root-finding-and-optimization.html#cb436-14"></a>}</span></code></pre></div>
+<p><strong>Example:</strong> Find the local minima of <span class="math inline">\(f(x) = \frac{1}{4} x^4 + x^3 - x - 1\)</span>.</p>
+<p>Plot:</p>
+<p><img src="Book_files/figure-html/unnamed-chunk-476-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Gradient descent:</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="root-finding-and-optimization.html#cb437-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="dv">1</span><span class="op">/</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>}</span>
+<span id="cb437-2"><a href="root-finding-and-optimization.html#cb437-2"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
+<span id="cb437-3"><a href="root-finding-and-optimization.html#cb437-3"></a></span>
+<span id="cb437-4"><a href="root-finding-and-optimization.html#cb437-4"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">-2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
+<span id="cb437-5"><a href="root-finding-and-optimization.html#cb437-5"></a><span class="co">## [1] -2.878225</span></span>
+<span id="cb437-6"><a href="root-finding-and-optimization.html#cb437-6"></a></span>
+<span id="cb437-7"><a href="root-finding-and-optimization.html#cb437-7"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
+<span id="cb437-8"><a href="root-finding-and-optimization.html#cb437-8"></a><span class="co">## [1] 0.5344021</span></span></code></pre></div>
+<p><strong>Remark</strong>: to find a local maximum, use gradient ascent.</p>
+<p>Algorithm:</p>
+<ol style="list-style-type: decimal">
+<li>Set an initial point <span class="math inline">\(x_0\)</span> and a step size <span class="math inline">\(h &gt; 0\)</span></li>
+<li>Iterate until convergence:
+<span class="math display">\[\begin{equation*}
+x_{n+1} = x_{n} + h f&#39;(x_{n}).
+\end{equation*}\]</span></li>
+</ol>
+<p>Implementation:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="root-finding-and-optimization.html#cb438-1"></a>grad_asc &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
+<span id="cb438-2"><a href="root-finding-and-optimization.html#cb438-2"></a>  <span class="kw">grad_des</span>(fp, x0, <span class="op">-</span>h, tol, max_iter)</span>
+<span id="cb438-3"><a href="root-finding-and-optimization.html#cb438-3"></a>}</span></code></pre></div>
+<p>Example:</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="root-finding-and-optimization.html#cb439-1"></a><span class="kw">grad_asc</span>(fp, <span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="fl">-0.01</span>)</span>
+<span id="cb439-2"><a href="root-finding-and-optimization.html#cb439-2"></a><span class="co">## [1] 0.5297277</span></span></code></pre></div>
+</div>
+</div>
+<div id="optim" class="section level2">
+<h2><span class="header-section-number">13.4</span> <code>optim</code></h2>
+<ol style="list-style-type: decimal">
+<li><p>Going back to <code>optim()</code>, the <code>par</code> plays the same role as the <code>x_0</code> in the Netwon-Raphson method and the gradient descent method.</p></li>
+<li><p>Since we have some tolerance level and the iteration will stop when the tolerance level is reached, if you start at different initial values, you may get slightly different results</p></li>
+<li><p>I used some random numbers for the initial values in <code>optim()</code> because we do not know a good estimate of the minimizer. In general, you will perform the optimization with several set of different initial values and see which one results in a smaller function value. Sometimes, the algorithm will get stuck in a local minimum and using several set of random initial values can alleviate this problem.</p></li>
 </ol>
 
-</div>
 </div>
 </div>
             </section>
@@ -574,8 +591,8 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
           </div>
         </div>
       </div>
-<a href="statistical-inference-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="classification-trees.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

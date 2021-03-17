@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="classification-trees.html"/>
-
+<link rel="next" href="root-finding-and-optimization.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -309,6 +309,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression</a></li>
 <li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>13</b> Root finding and optimization</a><ul>
+<li class="chapter" data-level="13.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>13.1</b> Root Finding</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>13.1.1</b> Bisection Method</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>13.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>13.3</b> Minimization and Maximization</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>13.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>13.3.2</b> Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -550,9 +561,9 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="linear-regression-models.html#cb401-1"></a><span class="kw">names</span>(fit)</span>
-<span id="cb401-2"><a href="linear-regression-models.html#cb401-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;</span></span>
-<span id="cb401-3"><a href="linear-regression-models.html#cb401-3"></a><span class="co">##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         </span></span>
-<span id="cb401-4"><a href="linear-regression-models.html#cb401-4"></a><span class="co">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb401-2"><a href="linear-regression-models.html#cb401-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span></span>
+<span id="cb401-3"><a href="linear-regression-models.html#cb401-3"></a><span class="co">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span></span>
+<span id="cb401-4"><a href="linear-regression-models.html#cb401-4"></a><span class="co">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="linear-regression-models.html#cb402-1"></a>fit<span class="op">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb402-2"><a href="linear-regression-models.html#cb402-2"></a><span class="co">## (Intercept)          x1          x2 </span></span>
@@ -1097,8 +1108,8 @@ where <span class="math inline">\(k\)</span> is the number of parameters, <span 
           </div>
         </div>
       </div>
-<a href="classification-trees.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="classification-trees.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="root-finding-and-optimization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

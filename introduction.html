@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -309,6 +309,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression</a></li>
 <li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>13</b> Root finding and optimization</a><ul>
+<li class="chapter" data-level="13.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>13.1</b> Root Finding</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>13.1.1</b> Bisection Method</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>13.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>13.3</b> Minimization and Maximization</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>13.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>13.3.2</b> Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -368,18 +379,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="co">## Warning: package &#39;ggplot2&#39; was built under R version 4.0.3</span></span>
 <span id="cb1-3"><a href="introduction.html#cb1-3"></a>mpg</span>
 <span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">## # A tibble: 234 x 11</span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    manufacturer model     displ  year   cyl trans     drv     cty   hwy fl    class </span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; </span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  1 audi         a4          1.8  1999     4 auto(l5)  f        18    29 p     compa~</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  2 audi         a4          1.8  1999     4 manual(m~ f        21    29 p     compa~</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  3 audi         a4          2    2008     4 manual(m~ f        20    31 p     compa~</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  4 audi         a4          2    2008     4 auto(av)  f        21    30 p     compa~</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  5 audi         a4          2.8  1999     6 auto(l5)  f        16    26 p     compa~</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  6 audi         a4          2.8  1999     6 manual(m~ f        18    26 p     compa~</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  7 audi         a4          3.1  2008     6 auto(av)  f        18    27 p     compa~</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  8 audi         a4 quatt~   1.8  1999     4 manual(m~ 4        18    26 p     compa~</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  9 audi         a4 quatt~   1.8  1999     4 auto(l5)  4        16    25 p     compa~</span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## 10 audi         a4 quatt~   2    2008     4 manual(m~ 4        20    28 p     compa~</span></span>
+<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">##    manufacturer model    displ  year   cyl trans    drv     cty   hwy fl    class </span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; </span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##  1 audi         a4         1.8  1999     4 auto(l5) f        18    29 p     compa~</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  2 audi         a4         1.8  1999     4 manual(~ f        21    29 p     compa~</span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  3 audi         a4         2    2008     4 manual(~ f        20    31 p     compa~</span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  4 audi         a4         2    2008     4 auto(av) f        21    30 p     compa~</span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  5 audi         a4         2.8  1999     6 auto(l5) f        16    26 p     compa~</span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  6 audi         a4         2.8  1999     6 manual(~ f        18    26 p     compa~</span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  7 audi         a4         3.1  2008     6 auto(av) f        18    27 p     compa~</span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  8 audi         a4 quat~   1.8  1999     4 manual(~ 4        18    26 p     compa~</span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  9 audi         a4 quat~   1.8  1999     4 auto(l5) 4        16    25 p     compa~</span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">## 10 audi         a4 quat~   2    2008     4 manual(~ 4        20    28 p     compa~</span></span>
 <span id="cb1-17"><a href="introduction.html#cb1-17"></a><span class="co">## # ... with 224 more rows</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
@@ -1225,12 +1236,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb40-14"><a href="introduction.html#cb40-14"></a></span>
 <span id="cb40-15"><a href="introduction.html#cb40-15"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb40-16"><a href="introduction.html#cb40-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5</span></span>
-<span id="cb40-18"><a href="introduction.html#cb40-18"></a><span class="co">## [17]  8.0  8.5  9.0  9.5 10.0</span></span>
+<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb40-18"><a href="introduction.html#cb40-18"></a><span class="co">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
 <span id="cb40-19"><a href="introduction.html#cb40-19"></a></span>
 <span id="cb40-20"><a href="introduction.html#cb40-20"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-21"><a href="introduction.html#cb40-21"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5</span></span>
-<span id="cb40-22"><a href="introduction.html#cb40-22"></a><span class="co">## [17]  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb40-21"><a href="introduction.html#cb40-21"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb40-22"><a href="introduction.html#cb40-22"></a><span class="co">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> <code>rep()</code></h3>

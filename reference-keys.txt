@@ -136,3 +136,11 @@ variable-transformation
 polynomial-regression
 stepwise-regression
 best-subset
+root-finding-and-optimization
+root-finding
+bisection-method
+newton-raphson-method
+minimization-and-maximization
+newton-raphson-method-1
+gradient-descent
+optim
