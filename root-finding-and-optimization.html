@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-17" />
+<meta name="date" content="2021-03-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -381,26 +381,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This is a good example to see when a <code>while</code> loop is useful.</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="root-finding-and-optimization.html#cb428-1"></a>bisection &lt;-<span class="st"> </span><span class="cf">function</span>(f, a, b, <span class="dt">tol =</span> <span class="fl">1e-5</span>, <span class="dt">max_iter =</span> <span class="dv">100</span>) {</span>
 <span id="cb428-2"><a href="root-finding-and-optimization.html#cb428-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb428-3"><a href="root-finding-and-optimization.html#cb428-3"></a>  f_a &lt;-<span class="st"> </span><span class="kw">f</span>(a)</span>
-<span id="cb428-4"><a href="root-finding-and-optimization.html#cb428-4"></a>  f_b &lt;-<span class="st"> </span><span class="kw">f</span>(b)</span>
-<span id="cb428-5"><a href="root-finding-and-optimization.html#cb428-5"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(b <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
-<span id="cb428-6"><a href="root-finding-and-optimization.html#cb428-6"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb428-7"><a href="root-finding-and-optimization.html#cb428-7"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
-<span id="cb428-8"><a href="root-finding-and-optimization.html#cb428-8"></a>      <span class="kw">warning</span>(<span class="st">&quot;Maximum number of iteration reached&quot;</span>)</span>
-<span id="cb428-9"><a href="root-finding-and-optimization.html#cb428-9"></a>      <span class="kw">return</span>(x_mid)</span>
-<span id="cb428-10"><a href="root-finding-and-optimization.html#cb428-10"></a>    }</span>
-<span id="cb428-11"><a href="root-finding-and-optimization.html#cb428-11"></a>    x_mid &lt;-<span class="st"> </span>(a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb428-12"><a href="root-finding-and-optimization.html#cb428-12"></a>    y_mid &lt;-<span class="st"> </span><span class="kw">f</span>(x_mid)</span>
-<span id="cb428-13"><a href="root-finding-and-optimization.html#cb428-13"></a>    <span class="cf">if</span> (f_a <span class="op">*</span><span class="st"> </span>y_mid <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb428-14"><a href="root-finding-and-optimization.html#cb428-14"></a>      a &lt;-<span class="st"> </span>x_mid</span>
-<span id="cb428-15"><a href="root-finding-and-optimization.html#cb428-15"></a>      f_a &lt;-<span class="st"> </span>y_mid</span>
-<span id="cb428-16"><a href="root-finding-and-optimization.html#cb428-16"></a>    } <span class="cf">else</span> {</span>
-<span id="cb428-17"><a href="root-finding-and-optimization.html#cb428-17"></a>      b &lt;-<span class="st"> </span>x_mid</span>
-<span id="cb428-18"><a href="root-finding-and-optimization.html#cb428-18"></a>      f_b &lt;-<span class="st"> </span>y_mid</span>
-<span id="cb428-19"><a href="root-finding-and-optimization.html#cb428-19"></a>    }</span>
-<span id="cb428-20"><a href="root-finding-and-optimization.html#cb428-20"></a>  }</span>
-<span id="cb428-21"><a href="root-finding-and-optimization.html#cb428-21"></a>  <span class="kw">return</span>((a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb428-22"><a href="root-finding-and-optimization.html#cb428-22"></a>}</span></code></pre></div>
+<span id="cb428-3"><a href="root-finding-and-optimization.html#cb428-3"></a>  </span>
+<span id="cb428-4"><a href="root-finding-and-optimization.html#cb428-4"></a>  <span class="co"># Step 4</span></span>
+<span id="cb428-5"><a href="root-finding-and-optimization.html#cb428-5"></a>  <span class="cf">while</span> (<span class="kw">abs</span>(b <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
+<span id="cb428-6"><a href="root-finding-and-optimization.html#cb428-6"></a>    <span class="co"># Step 1</span></span>
+<span id="cb428-7"><a href="root-finding-and-optimization.html#cb428-7"></a>    c &lt;-<span class="st"> </span>(a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span> </span>
+<span id="cb428-8"><a href="root-finding-and-optimization.html#cb428-8"></a>    </span>
+<span id="cb428-9"><a href="root-finding-and-optimization.html#cb428-9"></a>    <span class="co"># Step 2: if f(c) = 0, stop and return c</span></span>
+<span id="cb428-10"><a href="root-finding-and-optimization.html#cb428-10"></a>     <span class="cf">if</span> (<span class="kw">f</span>(c) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb428-11"><a href="root-finding-and-optimization.html#cb428-11"></a>      <span class="kw">return</span>(c)</span>
+<span id="cb428-12"><a href="root-finding-and-optimization.html#cb428-12"></a>    }</span>
+<span id="cb428-13"><a href="root-finding-and-optimization.html#cb428-13"></a>    </span>
+<span id="cb428-14"><a href="root-finding-and-optimization.html#cb428-14"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb428-15"><a href="root-finding-and-optimization.html#cb428-15"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
+<span id="cb428-16"><a href="root-finding-and-optimization.html#cb428-16"></a>      <span class="kw">warning</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
+<span id="cb428-17"><a href="root-finding-and-optimization.html#cb428-17"></a>      <span class="kw">return</span>(c)</span>
+<span id="cb428-18"><a href="root-finding-and-optimization.html#cb428-18"></a>    }</span>
+<span id="cb428-19"><a href="root-finding-and-optimization.html#cb428-19"></a>    </span>
+<span id="cb428-20"><a href="root-finding-and-optimization.html#cb428-20"></a>    <span class="co"># Step 3</span></span>
+<span id="cb428-21"><a href="root-finding-and-optimization.html#cb428-21"></a>    <span class="cf">if</span> (<span class="kw">f</span>(a) <span class="op">*</span><span class="st"> </span><span class="kw">f</span>(c) <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb428-22"><a href="root-finding-and-optimization.html#cb428-22"></a>      b &lt;-<span class="st"> </span>c</span>
+<span id="cb428-23"><a href="root-finding-and-optimization.html#cb428-23"></a>    } <span class="cf">else</span> {</span>
+<span id="cb428-24"><a href="root-finding-and-optimization.html#cb428-24"></a>      a &lt;-<span class="st"> </span>c</span>
+<span id="cb428-25"><a href="root-finding-and-optimization.html#cb428-25"></a>    }</span>
+<span id="cb428-26"><a href="root-finding-and-optimization.html#cb428-26"></a>    <span class="co"># print(round(c(c, f(c)), digits = 3))</span></span>
+<span id="cb428-27"><a href="root-finding-and-optimization.html#cb428-27"></a>  }</span>
+<span id="cb428-28"><a href="root-finding-and-optimization.html#cb428-28"></a>  <span class="kw">return</span>((a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb428-29"><a href="root-finding-and-optimization.html#cb428-29"></a>}</span></code></pre></div>
 <p>Remark: 1e-3 = 0.001. We set the default value of <span class="math inline">\(\varepsilon\)</span> to <span class="math inline">\(0.001\)</span> and the maximum number of iterations to <span class="math inline">\(100\)</span>.</p>
 <p><strong>Example</strong></p>
 <div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="root-finding-and-optimization.html#cb429-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
@@ -417,9 +424,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb431-5"><a href="root-finding-and-optimization.html#cb431-5"></a><span class="co">## [1] 1</span></span></code></pre></div>
 <p>To change <code>max_iter</code>:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="root-finding-and-optimization.html#cb432-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.000000000001</span>, <span class="dt">max_iter =</span> <span class="dv">10</span>)</span>
-<span id="cb432-2"><a href="root-finding-and-optimization.html#cb432-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of</span></span>
-<span id="cb432-3"><a href="root-finding-and-optimization.html#cb432-3"></a><span class="co">## iteration reached</span></span>
-<span id="cb432-4"><a href="root-finding-and-optimization.html#cb432-4"></a><span class="co">## [1] 1.000244</span></span></code></pre></div>
+<span id="cb432-2"><a href="root-finding-and-optimization.html#cb432-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10):</span></span>
+<span id="cb432-3"><a href="root-finding-and-optimization.html#cb432-3"></a><span class="co">## Maximum number of iterations reached</span></span>
+<span id="cb432-4"><a href="root-finding-and-optimization.html#cb432-4"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
 </div>
 </div>
 <div id="newton-raphson-method" class="section level2">
