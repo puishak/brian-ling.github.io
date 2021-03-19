@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-18" />
+<meta name="date" content="2021-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -542,7 +542,7 @@ x_{n+1} = x_{n} - h f&#39;(x_{n}).
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="root-finding-and-optimization.html#cb436-1"></a>grad_des &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
 <span id="cb436-2"><a href="root-finding-and-optimization.html#cb436-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb436-3"><a href="root-finding-and-optimization.html#cb436-3"></a>  old_x &lt;-<span class="st"> </span>x0</span>
-<span id="cb436-4"><a href="root-finding-and-optimization.html#cb436-4"></a>  x &lt;-<span class="st"> </span>x0 <span class="op">-</span><span class="st"> </span>h <span class="op">*</span><span class="st"> </span><span class="kw">fp</span>(x0)</span>
+<span id="cb436-4"><a href="root-finding-and-optimization.html#cb436-4"></a>  x &lt;-<span class="st"> </span>x0 <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>tol</span>
 <span id="cb436-5"><a href="root-finding-and-optimization.html#cb436-5"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>old_x) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
 <span id="cb436-6"><a href="root-finding-and-optimization.html#cb436-6"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
 <span id="cb436-7"><a href="root-finding-and-optimization.html#cb436-7"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
@@ -561,10 +561,13 @@ x_{n+1} = x_{n} - h f&#39;(x_{n}).
 <span id="cb437-2"><a href="root-finding-and-optimization.html#cb437-2"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
 <span id="cb437-3"><a href="root-finding-and-optimization.html#cb437-3"></a></span>
 <span id="cb437-4"><a href="root-finding-and-optimization.html#cb437-4"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">-2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
-<span id="cb437-5"><a href="root-finding-and-optimization.html#cb437-5"></a><span class="co">## [1] -2.878225</span></span>
+<span id="cb437-5"><a href="root-finding-and-optimization.html#cb437-5"></a><span class="co">## [1] -2.878224</span></span>
 <span id="cb437-6"><a href="root-finding-and-optimization.html#cb437-6"></a></span>
 <span id="cb437-7"><a href="root-finding-and-optimization.html#cb437-7"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
-<span id="cb437-8"><a href="root-finding-and-optimization.html#cb437-8"></a><span class="co">## [1] 0.5344021</span></span></code></pre></div>
+<span id="cb437-8"><a href="root-finding-and-optimization.html#cb437-8"></a><span class="co">## [1] 0.5344022</span></span></code></pre></div>
+<p>Displaying error message:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="root-finding-and-optimization.html#cb438-1"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">-2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>, <span class="dt">max_iter =</span> <span class="dv">2</span>)</span>
+<span id="cb438-2"><a href="root-finding-and-optimization.html#cb438-2"></a><span class="co">## Error in grad_des(fp, x0 = -2, h = 0.01, max_iter = 2): Maximum number of iterations reached</span></span></code></pre></div>
 <p><strong>Remark</strong>: to find a local maximum, use gradient ascent.</p>
 <p>Algorithm:</p>
 <ol style="list-style-type: decimal">
@@ -575,12 +578,12 @@ x_{n+1} = x_{n} + h f&#39;(x_{n}).
 \end{equation*}\]</span></li>
 </ol>
 <p>Implementation:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="root-finding-and-optimization.html#cb438-1"></a>grad_asc &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
-<span id="cb438-2"><a href="root-finding-and-optimization.html#cb438-2"></a>  <span class="kw">grad_des</span>(fp, x0, <span class="op">-</span>h, tol, max_iter)</span>
-<span id="cb438-3"><a href="root-finding-and-optimization.html#cb438-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="root-finding-and-optimization.html#cb439-1"></a>grad_asc &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
+<span id="cb439-2"><a href="root-finding-and-optimization.html#cb439-2"></a>  <span class="kw">grad_des</span>(fp, x0, <span class="op">-</span>h, tol, max_iter)</span>
+<span id="cb439-3"><a href="root-finding-and-optimization.html#cb439-3"></a>}</span></code></pre></div>
 <p>Example:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="root-finding-and-optimization.html#cb439-1"></a><span class="kw">grad_asc</span>(fp, <span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="fl">-0.01</span>)</span>
-<span id="cb439-2"><a href="root-finding-and-optimization.html#cb439-2"></a><span class="co">## [1] 0.5297277</span></span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="root-finding-and-optimization.html#cb440-1"></a><span class="kw">grad_asc</span>(fp, <span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
+<span id="cb440-2"><a href="root-finding-and-optimization.html#cb440-2"></a><span class="co">## [1] -0.6490877</span></span></code></pre></div>
 </div>
 </div>
 <div id="optim" class="section level2">
