@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Annoucement | STAT 362 R for Data Science</title>
+  <title>Chapter 14 Logistic Regression Model | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 14 Logistic Regression Model | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 14 Logistic Regression Model | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="schedule.html"/>
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="root-finding-and-optimization.html"/>
+<link rel="next" href="k-means-clustering.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -348,16 +348,201 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="annoucement" class="section level1 unnumbered">
-<h1>Annoucement</h1>
-<p><strong>Quiz</strong></p>
-<ol style="list-style-type: decimal">
-<li>All the quizzes are not timed.</li>
-<li>You should not discuss with your friends or seek any help online.</li>
-</ol>
-<p>Quiz 1 is now available: onQ-&gt; Assessements -&gt; Quizzes-&gt;Quiz 1. Please complete it by Jan 17 at 11:59pm (= Jan 18 at 12:00 am).</p>
-<p><strong>Assignment</strong></p>
-<p>Assignment 1: covers the materials in Lect 1-6.</p>
+<div id="logistic-regression-model" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Logistic Regression Model</h1>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="logistic-regression-model.html#cb441-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb441-2"><a href="logistic-regression-model.html#cb441-2"></a><span class="kw">library</span>(mlbench) <span class="co"># for some datasets</span></span></code></pre></div>
+<p>We have already seen logistic regression model in Chapter 9. Logistic regression is one of the most common methods for classification.</p>
+<p>Suppose we observe <span class="math inline">\(\{(x_i, y_i):i=1,\ldots,n\}\)</span>, where <span class="math inline">\(y_i\)</span> is a binary variable and <span class="math inline">\(x_i\)</span> is a vector of covariates (including the intercept <span class="math inline">\(1\)</span>). In logistic regression we assume that
+<span class="math display">\[\begin{equation*}
+P(Y_i = 1|x_i, \beta) = \frac{e^{x^T_i \beta}}{1+e^{x^T_i \beta}} = \frac{ e^{\beta_0 + \beta_1 x_{i1} +\ldots +\beta_p x_{ip}}}{1 +  e^{\beta_0 + \beta_1 x_{i1} +\ldots +\beta_p x_{ip}}}.
+\end{equation*}\]</span>
+Since <span class="math inline">\(Y_i\)</span> takes only two values,
+<span class="math display">\[\begin{equation*}
+P(Y_i = 0|x_i, \beta) = \frac{1}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+We can use one single formula for <span class="math inline">\(y = 0, 1\)</span>:
+<span class="math display">\[\begin{equation*}
+P(Y_i = y|x_i, \beta) = \frac{e^{(x^T_i \beta)y_i}}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+The likelihood function (conditional on x) is
+<span class="math display">\[\begin{equation*}
+L(\beta|y_1,\ldots,y_n, x_1,\ldots,x_n) = \prod^n_{i=1} P(Y_i = y_i|x_i, \beta) = \prod^n_{i=1} \frac{e^{(x^T_i \beta)y_i}}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing <span class="math inline">\(L(\beta|y,x)\)</span> with respect to <span class="math inline">\(\beta\)</span>. We usually maximize the <strong>natural</strong> logarithm of the likelihood function instead of the likelihood function, which is easier. The log likelihood function is
+<span class="math display">\[\begin{equation*}
+\sum^n_{i=1} \bigg( (x^T_i \beta) y_i - \log(1+e^{x^T_i \beta}) \bigg),
+\end{equation*}\]</span>
+which can be maximized numerically in computer.</p>
+<p><strong>Odds</strong></p>
+<p>In statistics, odds of an event are defined as the ratio of the probability that the event will occur to the probability that the event will not occur. For example, if the event of interest is getting a <span class="math inline">\(6\)</span> when you roll a die. The odds are <span class="math inline">\((1/6):(5/6) = 1:5\)</span>.</p>
+<p>In the logistic regression model, the odds of <span class="math inline">\(Y=1\)</span> given <span class="math inline">\(x\)</span> are
+<span class="math display">\[\begin{equation*}
+\frac{P(Y=1|x)}{P(Y=0|x)} = e^{\beta^T x}.
+\end{equation*}\]</span></p>
+<p>Interpretation of <span class="math inline">\(\beta_j\)</span>: changing the value of <span class="math inline">\(x_j\)</span> by one unit, while keeping other predictors fixed, multiplies the odds by <span class="math inline">\(e^{\beta_j}\)</span>.</p>
+<p><strong>Log odds</strong></p>
+<p>The log odds is the log of the odds.</p>
+<p>In the logistic regression model, the log odds of <span class="math inline">\(Y=1\)</span> given <span class="math inline">\(x\)</span> are
+<span class="math display">\[\begin{equation*}
+\log \frac{P(Y=1|x)}{P(Y=0|x)} = \beta^T x.
+\end{equation*}\]</span></p>
+<p>Interpretation of <span class="math inline">\(\beta_j\)</span>: changing the value of <span class="math inline">\(x_j\)</span> by one unit, while keeping other predictors fixed, changes the log odds by <span class="math inline">\(\beta_j\)</span>.</p>
+<p><strong>logit function</strong></p>
+<p>The logit function, <span class="math inline">\(\text{logit}:(0, 1) \rightarrow \mathbb{R}\)</span>, is defined as
+<span class="math display">\[\begin{equation*}
+\text{logit}(p) = \log \frac{p}{1-p}.
+\end{equation*}\]</span></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-483-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>logistic function</strong></p>
+<p>The standard logistic function is defined as
+<span class="math display">\[\begin{equation*}
+f(x) = \frac{1}{1+e^{-x}} = \frac{e^x}{1+e^x}.
+\end{equation*}\]</span>
+It is the inverse of the logit function.</p>
+<p><img src="Book_files/figure-html/unnamed-chunk-484-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Example</strong></p>
+<p>The package <code>mlbench</code> contains some artificial and real-world machine learning benchmark problems (datasets). See <a href="https://cran.r-project.org/web/packages/mlbench/mlbench.pdf" class="uri">https://cran.r-project.org/web/packages/mlbench/mlbench.pdf</a></p>
+<p>We will use the dataset <code>PimaIndiansDiabetes2</code> from <code>mlbench</code>.</p>
+<p>Details:</p>
+<ul>
+<li><code>pregnant</code>: Number of times pregnant</li>
+<li><code>glucose</code>: Plasma glucose concentration (glucose tolerance test)</li>
+<li><code>pressure</code>: Diastolic blood pressure (mm Hg)</li>
+<li><code>triceps</code>: Triceps skin fold thickness (mm)</li>
+<li><code>insulin</code>: 2-Hour serum insulin (mu U/ml)</li>
+<li><code>mass</code>: Body mass index (weight in kg/(height in m)^2)</li>
+<li><code>pedigree</code>: Diabetes pedigree function</li>
+<li><code>age</code>: Age (years)</li>
+<li><code>diabetes</code>: Class variable (test for diabetes)</li>
+</ul>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="logistic-regression-model.html#cb442-1"></a><span class="kw">data</span>(PimaIndiansDiabetes2)</span>
+<span id="cb442-2"><a href="logistic-regression-model.html#cb442-2"></a></span>
+<span id="cb442-3"><a href="logistic-regression-model.html#cb442-3"></a>PimaIndiansDiabetes2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(PimaIndiansDiabetes2)</span>
+<span id="cb442-4"><a href="logistic-regression-model.html#cb442-4"></a></span>
+<span id="cb442-5"><a href="logistic-regression-model.html#cb442-5"></a></span>
+<span id="cb442-6"><a href="logistic-regression-model.html#cb442-6"></a><span class="co"># Split the data into training and test set</span></span>
+<span id="cb442-7"><a href="logistic-regression-model.html#cb442-7"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb442-8"><a href="logistic-regression-model.html#cb442-8"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb442-9"><a href="logistic-regression-model.html#cb442-9"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
+<span id="cb442-10"><a href="logistic-regression-model.html#cb442-10"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb442-11"><a href="logistic-regression-model.html#cb442-11"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span></code></pre></div>
+<p>Simple model:</p>
+<ul>
+<li><p>Fitting a logistic regression model is similar to fitting a linear regression model. In addition to the formula and the data, we use <code>glm()</code> and specify <code>family = binomial</code>.</p></li>
+<li><p><code>predict(fit_simple, test_data, type = "response")</code>: give us the estimated probability</p></li>
+<li><p><code>ifelse(prob &gt; 0.5, "pos", "neg")</code>: classify the case as <code>pos</code> when the probability is greater than <span class="math inline">\(0.5\)</span></p></li>
+</ul>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="logistic-regression-model.html#cb443-1"></a><span class="co"># Estimation</span></span>
+<span id="cb443-2"><a href="logistic-regression-model.html#cb443-2"></a>fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb443-3"><a href="logistic-regression-model.html#cb443-3"></a></span>
+<span id="cb443-4"><a href="logistic-regression-model.html#cb443-4"></a><span class="co"># Summary</span></span>
+<span id="cb443-5"><a href="logistic-regression-model.html#cb443-5"></a><span class="kw">summary</span>(fit_simple)</span>
+<span id="cb443-6"><a href="logistic-regression-model.html#cb443-6"></a><span class="co">## </span></span>
+<span id="cb443-7"><a href="logistic-regression-model.html#cb443-7"></a><span class="co">## Call:</span></span>
+<span id="cb443-8"><a href="logistic-regression-model.html#cb443-8"></a><span class="co">## glm(formula = diabetes ~ glucose, family = binomial, data = train_data)</span></span>
+<span id="cb443-9"><a href="logistic-regression-model.html#cb443-9"></a><span class="co">## </span></span>
+<span id="cb443-10"><a href="logistic-regression-model.html#cb443-10"></a><span class="co">## Deviance Residuals: </span></span>
+<span id="cb443-11"><a href="logistic-regression-model.html#cb443-11"></a><span class="co">##     Min       1Q   Median       3Q      Max  </span></span>
+<span id="cb443-12"><a href="logistic-regression-model.html#cb443-12"></a><span class="co">## -2.2089  -0.7182  -0.4459   0.7004   2.4145  </span></span>
+<span id="cb443-13"><a href="logistic-regression-model.html#cb443-13"></a><span class="co">## </span></span>
+<span id="cb443-14"><a href="logistic-regression-model.html#cb443-14"></a><span class="co">## Coefficients:</span></span>
+<span id="cb443-15"><a href="logistic-regression-model.html#cb443-15"></a><span class="co">##              Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb443-16"><a href="logistic-regression-model.html#cb443-16"></a><span class="co">## (Intercept) -6.419871   0.774032  -8.294  &lt; 2e-16 ***</span></span>
+<span id="cb443-17"><a href="logistic-regression-model.html#cb443-17"></a><span class="co">## glucose      0.044509   0.005775   7.707 1.29e-14 ***</span></span>
+<span id="cb443-18"><a href="logistic-regression-model.html#cb443-18"></a><span class="co">## ---</span></span>
+<span id="cb443-19"><a href="logistic-regression-model.html#cb443-19"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb443-20"><a href="logistic-regression-model.html#cb443-20"></a><span class="co">## </span></span>
+<span id="cb443-21"><a href="logistic-regression-model.html#cb443-21"></a><span class="co">## (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span id="cb443-22"><a href="logistic-regression-model.html#cb443-22"></a><span class="co">## </span></span>
+<span id="cb443-23"><a href="logistic-regression-model.html#cb443-23"></a><span class="co">##     Null deviance: 348.35  on 273  degrees of freedom</span></span>
+<span id="cb443-24"><a href="logistic-regression-model.html#cb443-24"></a><span class="co">## Residual deviance: 262.14  on 272  degrees of freedom</span></span>
+<span id="cb443-25"><a href="logistic-regression-model.html#cb443-25"></a><span class="co">## AIC: 266.14</span></span>
+<span id="cb443-26"><a href="logistic-regression-model.html#cb443-26"></a><span class="co">## </span></span>
+<span id="cb443-27"><a href="logistic-regression-model.html#cb443-27"></a><span class="co">## Number of Fisher Scoring iterations: 4</span></span>
+<span id="cb443-28"><a href="logistic-regression-model.html#cb443-28"></a></span>
+<span id="cb443-29"><a href="logistic-regression-model.html#cb443-29"></a><span class="co"># Prediction</span></span>
+<span id="cb443-30"><a href="logistic-regression-model.html#cb443-30"></a>prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb443-31"><a href="logistic-regression-model.html#cb443-31"></a>predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb443-32"><a href="logistic-regression-model.html#cb443-32"></a></span>
+<span id="cb443-33"><a href="logistic-regression-model.html#cb443-33"></a><span class="co"># Confusion Matrix</span></span>
+<span id="cb443-34"><a href="logistic-regression-model.html#cb443-34"></a><span class="kw">table</span>(predicted_class, test_data<span class="op">$</span>diabetes) </span>
+<span id="cb443-35"><a href="logistic-regression-model.html#cb443-35"></a><span class="co">##                </span></span>
+<span id="cb443-36"><a href="logistic-regression-model.html#cb443-36"></a><span class="co">## predicted_class neg pos</span></span>
+<span id="cb443-37"><a href="logistic-regression-model.html#cb443-37"></a><span class="co">##             neg  71  23</span></span>
+<span id="cb443-38"><a href="logistic-regression-model.html#cb443-38"></a><span class="co">##             pos   8  16</span></span>
+<span id="cb443-39"><a href="logistic-regression-model.html#cb443-39"></a></span>
+<span id="cb443-40"><a href="logistic-regression-model.html#cb443-40"></a><span class="co"># Accuracy</span></span>
+<span id="cb443-41"><a href="logistic-regression-model.html#cb443-41"></a><span class="kw">mean</span>(predicted_class <span class="op">==</span><span class="st"> </span>test_data<span class="op">$</span>diabetes)</span>
+<span id="cb443-42"><a href="logistic-regression-model.html#cb443-42"></a><span class="co">## [1] 0.7372881</span></span></code></pre></div>
+<p>For this simple model, the accuracy is <span class="math inline">\(73.7\%\)</span>.</p>
+<p>Now, we will use all the covariates.</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="logistic-regression-model.html#cb444-1"></a><span class="co"># Estimation</span></span>
+<span id="cb444-2"><a href="logistic-regression-model.html#cb444-2"></a>fit &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb444-3"><a href="logistic-regression-model.html#cb444-3"></a></span>
+<span id="cb444-4"><a href="logistic-regression-model.html#cb444-4"></a><span class="co"># Summary</span></span>
+<span id="cb444-5"><a href="logistic-regression-model.html#cb444-5"></a><span class="kw">summary</span>(fit)</span>
+<span id="cb444-6"><a href="logistic-regression-model.html#cb444-6"></a><span class="co">## </span></span>
+<span id="cb444-7"><a href="logistic-regression-model.html#cb444-7"></a><span class="co">## Call:</span></span>
+<span id="cb444-8"><a href="logistic-regression-model.html#cb444-8"></a><span class="co">## glm(formula = diabetes ~ ., family = binomial, data = train_data)</span></span>
+<span id="cb444-9"><a href="logistic-regression-model.html#cb444-9"></a><span class="co">## </span></span>
+<span id="cb444-10"><a href="logistic-regression-model.html#cb444-10"></a><span class="co">## Deviance Residuals: </span></span>
+<span id="cb444-11"><a href="logistic-regression-model.html#cb444-11"></a><span class="co">##     Min       1Q   Median       3Q      Max  </span></span>
+<span id="cb444-12"><a href="logistic-regression-model.html#cb444-12"></a><span class="co">## -2.6139  -0.6178  -0.3523   0.5804   2.1311  </span></span>
+<span id="cb444-13"><a href="logistic-regression-model.html#cb444-13"></a><span class="co">## </span></span>
+<span id="cb444-14"><a href="logistic-regression-model.html#cb444-14"></a><span class="co">## Coefficients:</span></span>
+<span id="cb444-15"><a href="logistic-regression-model.html#cb444-15"></a><span class="co">##               Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb444-16"><a href="logistic-regression-model.html#cb444-16"></a><span class="co">## (Intercept) -1.130e+01  1.558e+00  -7.250 4.18e-13 ***</span></span>
+<span id="cb444-17"><a href="logistic-regression-model.html#cb444-17"></a><span class="co">## pregnant     2.511e-02  6.582e-02   0.381   0.7028    </span></span>
+<span id="cb444-18"><a href="logistic-regression-model.html#cb444-18"></a><span class="co">## glucose      4.038e-02  7.028e-03   5.745 9.17e-09 ***</span></span>
+<span id="cb444-19"><a href="logistic-regression-model.html#cb444-19"></a><span class="co">## pressure     1.368e-02  1.562e-02   0.876   0.3811    </span></span>
+<span id="cb444-20"><a href="logistic-regression-model.html#cb444-20"></a><span class="co">## triceps      1.381e-02  2.151e-02   0.642   0.5209    </span></span>
+<span id="cb444-21"><a href="logistic-regression-model.html#cb444-21"></a><span class="co">## insulin     -9.559e-04  1.808e-03  -0.529   0.5970    </span></span>
+<span id="cb444-22"><a href="logistic-regression-model.html#cb444-22"></a><span class="co">## mass         7.334e-02  3.586e-02   2.045   0.0408 *  </span></span>
+<span id="cb444-23"><a href="logistic-regression-model.html#cb444-23"></a><span class="co">## pedigree     8.706e-01  5.093e-01   1.709   0.0874 .  </span></span>
+<span id="cb444-24"><a href="logistic-regression-model.html#cb444-24"></a><span class="co">## age          3.612e-02  2.323e-02   1.555   0.1200    </span></span>
+<span id="cb444-25"><a href="logistic-regression-model.html#cb444-25"></a><span class="co">## ---</span></span>
+<span id="cb444-26"><a href="logistic-regression-model.html#cb444-26"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb444-27"><a href="logistic-regression-model.html#cb444-27"></a><span class="co">## </span></span>
+<span id="cb444-28"><a href="logistic-regression-model.html#cb444-28"></a><span class="co">## (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span id="cb444-29"><a href="logistic-regression-model.html#cb444-29"></a><span class="co">## </span></span>
+<span id="cb444-30"><a href="logistic-regression-model.html#cb444-30"></a><span class="co">##     Null deviance: 348.35  on 273  degrees of freedom</span></span>
+<span id="cb444-31"><a href="logistic-regression-model.html#cb444-31"></a><span class="co">## Residual deviance: 233.54  on 265  degrees of freedom</span></span>
+<span id="cb444-32"><a href="logistic-regression-model.html#cb444-32"></a><span class="co">## AIC: 251.54</span></span>
+<span id="cb444-33"><a href="logistic-regression-model.html#cb444-33"></a><span class="co">## </span></span>
+<span id="cb444-34"><a href="logistic-regression-model.html#cb444-34"></a><span class="co">## Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb444-35"><a href="logistic-regression-model.html#cb444-35"></a></span>
+<span id="cb444-36"><a href="logistic-regression-model.html#cb444-36"></a><span class="co"># Prediction</span></span>
+<span id="cb444-37"><a href="logistic-regression-model.html#cb444-37"></a>prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb444-38"><a href="logistic-regression-model.html#cb444-38"></a>predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb444-39"><a href="logistic-regression-model.html#cb444-39"></a></span>
+<span id="cb444-40"><a href="logistic-regression-model.html#cb444-40"></a><span class="co"># Confusion Matrix</span></span>
+<span id="cb444-41"><a href="logistic-regression-model.html#cb444-41"></a><span class="kw">table</span>(predicted_class, test_data<span class="op">$</span>diabetes)</span>
+<span id="cb444-42"><a href="logistic-regression-model.html#cb444-42"></a><span class="co">##                </span></span>
+<span id="cb444-43"><a href="logistic-regression-model.html#cb444-43"></a><span class="co">## predicted_class neg pos</span></span>
+<span id="cb444-44"><a href="logistic-regression-model.html#cb444-44"></a><span class="co">##             neg  69  15</span></span>
+<span id="cb444-45"><a href="logistic-regression-model.html#cb444-45"></a><span class="co">##             pos  10  24</span></span>
+<span id="cb444-46"><a href="logistic-regression-model.html#cb444-46"></a></span>
+<span id="cb444-47"><a href="logistic-regression-model.html#cb444-47"></a><span class="co"># Accuracy</span></span>
+<span id="cb444-48"><a href="logistic-regression-model.html#cb444-48"></a><span class="kw">mean</span>(predicted_class <span class="op">==</span><span class="st"> </span>test_data<span class="op">$</span>diabetes)</span>
+<span id="cb444-49"><a href="logistic-regression-model.html#cb444-49"></a><span class="co">## [1] 0.7881356</span></span></code></pre></div>
+<p>The accuracy is <span class="math inline">\(78.8\%\)</span>.</p>
+<!-- ```{r} -->
+<!-- wbcd <- read.csv("C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_data.csv") -->
+<!-- set.seed(60) # reproduce the result -->
+<!-- random_index <- sample(nrow(wbcd), 469) -->
+<!-- # our "x" -->
+<!-- wbcd_train <- wbcd[random_index, -(1:2)] -->
+<!-- wbcd_test <- wbcd[-random_index, -(1:2)] -->
+<!-- # our "y" -->
+<!-- wbcd_train_labels <- wbcd[random_index, ]$diagnosis -->
+<!-- wbcd_test_labels <- wbcd[-random_index, ]$diagnosis -->
+<!-- data = cbind(wbcd_train_labels, wbcd_train) -->
+<!-- data$wbcd_train_labels <- as.numeric(data$wbcd_train_labels== "B") -->
+<!-- fit <- glm(wbcd_train_labels ~ ., family = "binomial", data = data) -->
+<!-- summary(fit) -->
+<!-- predict(fit, wbcd_test) -->
+<!-- ``` -->
 
 </div>
             </section>
@@ -365,8 +550,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="schedule.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="root-finding-and-optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="k-means-clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

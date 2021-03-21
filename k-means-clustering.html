@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Annoucement | STAT 362 R for Data Science</title>
+  <title>Chapter 15 k-means Clustering | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 15 k-means Clustering | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Annoucement | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 15 k-means Clustering | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="schedule.html"/>
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="logistic-regression-model.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -348,25 +348,292 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="annoucement" class="section level1 unnumbered">
-<h1>Annoucement</h1>
-<p><strong>Quiz</strong></p>
+<div id="k-means-clustering" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> k-means Clustering</h1>
+<p>Reference: Ch9 of Machine Learning with R, Ch6 of R Graphics Cookbook</p>
+<p>Packages used:</p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="k-means-clustering.html#cb445-1"></a><span class="kw">library</span>(tidyverse) <span class="co"># for read_csv</span></span>
+<span id="cb445-2"><a href="k-means-clustering.html#cb445-2"></a><span class="kw">library</span>(factoextra) <span class="co"># visualize clusering results</span></span>
+<span id="cb445-3"><a href="k-means-clustering.html#cb445-3"></a><span class="kw">library</span>(jpeg) <span class="co"># readJPEG reads an image from a JPEG file/content into a raster array</span></span>
+<span id="cb445-4"><a href="k-means-clustering.html#cb445-4"></a><span class="kw">library</span>(ggpubr)</span></code></pre></div>
+<div id="introduction-4" class="section level2">
+<h2><span class="header-section-number">15.1</span> Introduction</h2>
+<p><strong>Clustering</strong></p>
+<p>Clustering is an unsupervised learning task that divides data into clusters, or groups of “similar” items while data points in different clusters are very different. It is an unsupervised learning method as we do not have “labels” of the data. We do not have the ground truth to compare the results. Clustering will only tell you which groups of data are similar. One may get some meaningful interpretation of the groups by studying the members in each group, e.g., by calculating some summary statistics and making use of some visualization tools.</p>
+<p><strong><span class="math inline">\(k\)</span>-means clustering</strong></p>
+<p><span class="math inline">\(k\)</span>-means clustering is one of the most popular clustering methods. It is intended for situations in which all variables are of the <strong>numeric type</strong>.</p>
+<p>In <span class="math inline">\(k\)</span>-means clustering, all the examples are assigned to one of the <span class="math inline">\(k\)</span> clusters, where <span class="math inline">\(k\)</span> is a positive integer that has been specified before performing the clustering. The goal is to assign similar data to the same cluster.</p>
+<p><strong>Some Applications</strong></p>
 <ol style="list-style-type: decimal">
-<li>All the quizzes are not timed.</li>
-<li>You should not discuss with your friends or seek any help online.</li>
+<li><p>Cluster analysis: Interesting groups may be discovered, such as the groups of motor insurance policy holders with a high average claim cost, or the groups of clients in a banking database having a heavy investment in real estate. In marketing segmentation, we segment customers into groups with similar demographics or buying patterns for targeted marketing campaigns</p></li>
+<li><p>Vector quantization: “<span class="math inline">\(k\)</span>-means originates from signal processing, and still finds use in this domain. For example, in computer graphics, color quantization is the task of reducing the color palette of an image to a fixed number of colors <span class="math inline">\(k\)</span>. The <span class="math inline">\(k\)</span>-means algorithm can easily be used for this task and produces competitive results. A use case for this approach is image segmentation.” See <a href="https://en.wikipedia.org/wiki/Image_segmentation" class="uri">https://en.wikipedia.org/wiki/Image_segmentation</a></p></li>
 </ol>
-<p>Quiz 1 is now available: onQ-&gt; Assessements -&gt; Quizzes-&gt;Quiz 1. Please complete it by Jan 17 at 11:59pm (= Jan 18 at 12:00 am).</p>
-<p><strong>Assignment</strong></p>
-<p>Assignment 1: covers the materials in Lect 1-6.</p>
+<p><strong>Notation and Setting</strong></p>
+<p>We have <span class="math inline">\(n\)</span> data points <span class="math inline">\(x_i = (x_{i1},\ldots,x_{ip})&#39; \in \mathbb{R}^p\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span>. Each observation is uniquely labeled by an integer <span class="math inline">\(i \in \{1,\ldots,n\}\)</span>. We use the notation <span class="math inline">\(C_i\)</span> to denote which cluster the <span class="math inline">\(i\)</span>th observation is assigned to. For example, <span class="math inline">\(C_1 = 2\)</span> means the <span class="math inline">\(1\)</span>st observation is assigned to the <span class="math inline">\(2\)</span>nd cluster, and <span class="math inline">\(C_2 = 3\)</span> means the <span class="math inline">\(2\)</span>nd observation is assigned to the <span class="math inline">\(3\)</span>rd cluster.</p>
+<p>We use</p>
+<ul>
+<li><span class="math inline">\(i\)</span> to index data</li>
+<li><span class="math inline">\(j\)</span> to index cluster</li>
+<li><span class="math inline">\(l\)</span> to index feature</li>
+</ul>
+<p><strong>Dissimilarity measure</strong></p>
+<p>In clustering, one have to define a dissimilarity measure <span class="math inline">\(d\)</span>. In <span class="math inline">\(k\)</span>-means clustering, the <strong>squared</strong> Euclidean distance is used. Given two data points <span class="math inline">\(x_i = (x_{i1},\ldots,x_{ip})\)</span> and <span class="math inline">\(x_{i&#39;} = (x_{i&#39;1},\ldots,x_{i&#39;p})\)</span>, the squared Euclidean distance is given by
+<span class="math display">\[\begin{equation*}
+d(x_i, x_{i&#39;}) = \sum^p_{l=1} (x_{il} - x_{i&#39;l})^2 = ||x_i - x_{i&#39;}||^2.
+\end{equation*}\]</span></p>
+<p><strong>k-means clustering algorithm (Lloyd’s algorithm)</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Specify the number of clusters <span class="math inline">\(k\)</span></p></li>
+<li><p>Randomly select <span class="math inline">\(k\)</span> data points as the centroids, denoted by <span class="math inline">\(\mu_1,\ldots,\mu_k\)</span>.</p></li>
+<li><p>For each <span class="math inline">\(i=1,\ldots,n\)</span>, set
+<span class="math display">\[
+C_i = \text{argmin}_j ||x_i - \mu_j||^2.
+\]</span>
+In words, assign the closest cluster to the <span class="math inline">\(i\)</span>th observation.</p></li>
+<li><p>For each <span class="math inline">\(j=1,\ldots,k\)</span>, <span class="math inline">\(l=1,\ldots,p\)</span>, set
+<span class="math display">\[
+\mu_{jl} = \frac{\sum^n_{i=1}I(C_i =j) x_{il}}{\sum^n_{i=1}I(C_i =j)}.
+\]</span>
+In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all the points assigned to <span class="math inline">\(j\)</span>th cluster. Note that <span class="math inline">\(\mu_j = (\mu_{j1},\ldots,\mu_{jp})\)</span>.</p></li>
+<li><p>Repeat Steps 3 - 4 until the assignments do not change.</p></li>
+</ol>
+<p><strong>Remarks</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\text{argmin}\)</span> is the argument of the minimum. <span class="math inline">\(\text{argmin}_j ||x_i - \mu_j||^2\)</span> means the value of <span class="math inline">\(j\)</span> such that <span class="math inline">\(||x_i - \mu_j||^2\)</span> is minimum.</p></li>
+<li><p><span class="math inline">\(I(C_i = j)\)</span> equals <span class="math inline">\(1\)</span> if <span class="math inline">\(C_i = j\)</span> and equals <span class="math inline">\(0\)</span> otherwise. The <span class="math inline">\(I\)</span> is the indicator function.</p></li>
+<li><p><span class="math inline">\(k\)</span>-means is sensitive to the number of clusters. See the elbow method.</p></li>
+<li><p><span class="math inline">\(k\)</span>-means is sensitive to the randomly-chosen cluster centers. Different initial centers may result in different clustering results. As a result, we should use multiple set of initial cluster centers and choose the best result (smallest within-group sum of squared errors, see the end of this chapter).</p></li>
+<li><p>Scale your data before applying <span class="math inline">\(k\)</span>-means clustering.</p></li>
+</ol>
+<p><strong>For categorical data</strong>: one possible solution is to use <span class="math inline">\(k\)</span>-modes. The <span class="math inline">\(k\)</span>-modes algorithm uses a matching dissimilarity measure to deal with categorical objects, replaces the means of clusters with modes, and uses a frequency-based method to update modes in the clustering process to minimize the clustering cost functions</p>
+<p><strong>For mixed data (numeric + categorical features)</strong>: can use <span class="math inline">\(k\)</span>-prototypes. It integrates the <span class="math inline">\(k\)</span>-means and <span class="math inline">\(k\)</span>-modes algorithms using a combined dissimilarity measure.</p>
+<p>R package: <code>clustMixType</code></p>
+<p>See also Extensions to the k-Means Algorithm for Clustering Large Data Sets with Categorical Values by Z. Huang (1998).</p>
+</div>
+<div id="applications" class="section level2">
+<h2><span class="header-section-number">15.2</span> Applications</h2>
+<div id="cluster-analysis" class="section level3">
+<h3><span class="header-section-number">15.2.1</span> Cluster Analysis</h3>
+<p>The <code>Mall_Customers.csv</code> (in onQ) contains the gender, age, annual income and spending score of some customers.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="k-means-clustering.html#cb446-1"></a>mall &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/Mall_Customers.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="k-means-clustering.html#cb447-1"></a>mall</span>
+<span id="cb447-2"><a href="k-means-clustering.html#cb447-2"></a><span class="co">## # A tibble: 200 x 5</span></span>
+<span id="cb447-3"><a href="k-means-clustering.html#cb447-3"></a><span class="co">##    CustomerID Gender   Age `Annual Income (k$)` `Spending Score (1-100)`</span></span>
+<span id="cb447-4"><a href="k-means-clustering.html#cb447-4"></a><span class="co">##         &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;                &lt;dbl&gt;                    &lt;dbl&gt;</span></span>
+<span id="cb447-5"><a href="k-means-clustering.html#cb447-5"></a><span class="co">##  1          1 Male      19                   15                       39</span></span>
+<span id="cb447-6"><a href="k-means-clustering.html#cb447-6"></a><span class="co">##  2          2 Male      21                   15                       81</span></span>
+<span id="cb447-7"><a href="k-means-clustering.html#cb447-7"></a><span class="co">##  3          3 Female    20                   16                        6</span></span>
+<span id="cb447-8"><a href="k-means-clustering.html#cb447-8"></a><span class="co">##  4          4 Female    23                   16                       77</span></span>
+<span id="cb447-9"><a href="k-means-clustering.html#cb447-9"></a><span class="co">##  5          5 Female    31                   17                       40</span></span>
+<span id="cb447-10"><a href="k-means-clustering.html#cb447-10"></a><span class="co">##  6          6 Female    22                   17                       76</span></span>
+<span id="cb447-11"><a href="k-means-clustering.html#cb447-11"></a><span class="co">##  7          7 Female    35                   18                        6</span></span>
+<span id="cb447-12"><a href="k-means-clustering.html#cb447-12"></a><span class="co">##  8          8 Female    23                   18                       94</span></span>
+<span id="cb447-13"><a href="k-means-clustering.html#cb447-13"></a><span class="co">##  9          9 Male      64                   19                        3</span></span>
+<span id="cb447-14"><a href="k-means-clustering.html#cb447-14"></a><span class="co">## 10         10 Female    30                   19                       72</span></span>
+<span id="cb447-15"><a href="k-means-clustering.html#cb447-15"></a><span class="co">## # ... with 190 more rows</span></span></code></pre></div>
+<p>We will use the <code>kmeans()</code> function in R (contained in base R) to perform <span class="math inline">\(k\)</span>-means clustering.</p>
+<ul>
+<li><p><code>x</code>: your dataframe/ matrix</p></li>
+<li><p><code>centers</code>: the number of clusters</p></li>
+<li><p><code>nstart</code>: how many random sets should be chosen (the best result will be reported)</p></li>
+</ul>
+<p>Let’s perform a <span class="math inline">\(k\)</span>-means clustering on the customers using <code>Annual Income (k$)</code> and <code>Spending Score (1-100)</code> with <span class="math inline">\(k=3\)</span>.</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="k-means-clustering.html#cb448-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="k-means-clustering.html#cb449-1"></a><span class="co"># To view the cluster</span></span>
+<span id="cb449-2"><a href="k-means-clustering.html#cb449-2"></a>mall_kmeans<span class="op">$</span>cluster</span>
+<span id="cb449-3"><a href="k-means-clustering.html#cb449-3"></a><span class="co">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb449-4"><a href="k-means-clustering.html#cb449-4"></a><span class="co">##  [49] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb449-5"><a href="k-means-clustering.html#cb449-5"></a><span class="co">##  [97] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
+<span id="cb449-6"><a href="k-means-clustering.html#cb449-6"></a><span class="co">## [145] 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
+<span id="cb449-7"><a href="k-means-clustering.html#cb449-7"></a><span class="co">## [193] 2 1 2 1 2 1 2 1</span></span>
+<span id="cb449-8"><a href="k-means-clustering.html#cb449-8"></a></span>
+<span id="cb449-9"><a href="k-means-clustering.html#cb449-9"></a><span class="co"># To view the centers</span></span>
+<span id="cb449-10"><a href="k-means-clustering.html#cb449-10"></a>mall_kmeans<span class="op">$</span>centers</span>
+<span id="cb449-11"><a href="k-means-clustering.html#cb449-11"></a><span class="co">##   Annual Income (k$) Spending Score (1-100)</span></span>
+<span id="cb449-12"><a href="k-means-clustering.html#cb449-12"></a><span class="co">## 1          0.9891010             1.23640011</span></span>
+<span id="cb449-13"><a href="k-means-clustering.html#cb449-13"></a><span class="co">## 2          1.0066735            -1.22246770</span></span>
+<span id="cb449-14"><a href="k-means-clustering.html#cb449-14"></a><span class="co">## 3         -0.6246222            -0.01435636</span></span></code></pre></div>
+<p>Visualize the clusters:</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="k-means-clustering.html#cb450-1"></a><span class="kw">library</span>(factoextra)</span>
+<span id="cb450-2"><a href="k-means-clustering.html#cb450-2"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-495-1.png" width="75%" style="display: block; margin: auto;" />
+By looking at the plot, we see the 3 clusters are</p>
+<ul>
+<li>high annual income + low spending score</li>
+<li>high annual income + high spending score</li>
+<li>low annual income</li>
+</ul>
+<p>Let’s try <span class="math inline">\(k=5\)</span>:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="k-means-clustering.html#cb451-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">5</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
+<p>Visualizing the clusters:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="k-means-clustering.html#cb452-1"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-497-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The <span class="math inline">\(5\)</span> clusters are</p>
+<ul>
+<li>high annual income + low spending score</li>
+<li>high annual income + high spending score</li>
+<li>medium annual income + medium spending score</li>
+<li>low annual income + high spending score</li>
+<li>low annual income + low spending score</li>
+</ul>
+<p>Now, let’s use one more variable for clustering:</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="k-means-clustering.html#cb453-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">5</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
+<p>To visualize more than 2 variables, we can use a dimension reduction technique called principal component analysis. The function <code>fviz_cluster</code> will automatically perform that and give you a <span class="math inline">\(2D\)</span>-plot using the first two principal comonents.</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="k-means-clustering.html#cb454-1"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-499-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>To understand more about the clusters, we should take a look at some plots and some summary statistics. An example is to use violin plots.</p>
+<p><strong>Violin Plots</strong></p>
+<p>A violin plot is a kernel density estimate, mirrored so that it forms a symmetrical shape. It is a helpful tool to compare multiple data distributions when we put several plots side by side. To provide additional information, we can also have box plots overlaid, with a white dot at the median.</p>
+<p>We first add the cluster information to our dataset.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="k-means-clustering.html#cb455-1"></a>mall_cluster &lt;-<span class="st"> </span><span class="kw">mutate</span>(mall, <span class="dt">Cluster =</span> <span class="kw">factor</span>(mall_kmeans<span class="op">$</span>cluster))</span></code></pre></div>
+<p><strong>Create violin plots</strong></p>
+<p><code>outlier.colour = NA</code>: do not display outliers</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="k-means-clustering.html#cb456-1"></a>mall_cluster <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb456-2"><a href="k-means-clustering.html#cb456-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Cluster, <span class="dt">y =</span> <span class="st">`</span><span class="dt">Annual Income (k$)</span><span class="st">`</span>)) <span class="op">+</span></span>
+<span id="cb456-3"><a href="k-means-clustering.html#cb456-3"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">trim =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb456-4"><a href="k-means-clustering.html#cb456-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">outlier.colour =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb456-5"><a href="k-means-clustering.html#cb456-5"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> median, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">size =</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-501-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The other two variables:</p>
+<p><img src="Book_files/figure-html/unnamed-chunk-502-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-503-1.png" width="75%" style="display: block; margin: auto;" />
+<strong>Determine the optimal <span class="math inline">\(k\)</span></strong></p>
+<p>The elbow method is a heuristic method to determine the number of clusters. We plot the total within-group sum of squared errors against the number of clusters. We pick the elbow of the curve as the number of clusters to use. The elbow (or knee) of a curve is a point where the curve visibly bends.</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="k-means-clustering.html#cb457-1"></a>WSS &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb457-2"><a href="k-means-clustering.html#cb457-2"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb457-3"><a href="k-means-clustering.html#cb457-3"></a>  <span class="co"># extract the total within-group sum of squared errors</span></span>
+<span id="cb457-4"><a href="k-means-clustering.html#cb457-4"></a>  WSS[k] =<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> k, <span class="dt">nstart =</span> <span class="dv">25</span>)<span class="op">$</span>tot.withinss</span>
+<span id="cb457-5"><a href="k-means-clustering.html#cb457-5"></a>}</span>
+<span id="cb457-6"><a href="k-means-clustering.html#cb457-6"></a></span>
+<span id="cb457-7"><a href="k-means-clustering.html#cb457-7"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y =</span> WSS)) <span class="op">+</span></span>
+<span id="cb457-8"><a href="k-means-clustering.html#cb457-8"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb457-9"><a href="k-means-clustering.html#cb457-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb457-10"><a href="k-means-clustering.html#cb457-10"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb457-11"><a href="k-means-clustering.html#cb457-11"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;k&quot;</span>, <span class="dt">limits =</span> <span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">+</span></span>
+<span id="cb457-12"><a href="k-means-clustering.html#cb457-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Elbow Method&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-504-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>It seems to me that the curve bends at <span class="math inline">\(k=4\)</span>.</p>
+</div>
+<div id="image-segementation" class="section level3">
+<h3><span class="header-section-number">15.2.2</span> Image Segementation</h3>
+<p>Image segementation using <span class="math inline">\(k\)</span>-means clustering:</p>
+<ul>
+<li>Each pixel is a data point.</li>
+<li>Group the pixels into <span class="math inline">\(k\)</span> different clusters</li>
+</ul>
+<p>We will use the <code>readJPEG()</code> function from the package <code>jpeg</code> to reads an image from a jpeg file into a raster array.</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="k-means-clustering.html#cb458-1"></a><span class="kw">library</span>(jpeg)</span>
+<span id="cb458-2"><a href="k-means-clustering.html#cb458-2"></a></span>
+<span id="cb458-3"><a href="k-means-clustering.html#cb458-3"></a><span class="co"># read the image into a raster array</span></span>
+<span id="cb458-4"><a href="k-means-clustering.html#cb458-4"></a>image &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/image/flower_s.jpg&quot;</span>)</span>
+<span id="cb458-5"><a href="k-means-clustering.html#cb458-5"></a></span>
+<span id="cb458-6"><a href="k-means-clustering.html#cb458-6"></a><span class="co"># 3-way array (matrix = 2-way array)</span></span>
+<span id="cb458-7"><a href="k-means-clustering.html#cb458-7"></a>(image_dim &lt;-<span class="st"> </span><span class="kw">dim</span>(image))</span>
+<span id="cb458-8"><a href="k-means-clustering.html#cb458-8"></a><span class="co">## [1] 200 300   3</span></span>
+<span id="cb458-9"><a href="k-means-clustering.html#cb458-9"></a></span>
+<span id="cb458-10"><a href="k-means-clustering.html#cb458-10"></a><span class="co"># Assign RGB channels to each pixel </span></span>
+<span id="cb458-11"><a href="k-means-clustering.html#cb458-11"></a>image_RGB &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb458-12"><a href="k-means-clustering.html#cb458-12"></a>  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>image_dim[<span class="dv">2</span>], <span class="dt">each =</span> image_dim[<span class="dv">1</span>]),</span>
+<span id="cb458-13"><a href="k-means-clustering.html#cb458-13"></a>  <span class="dt">y =</span> <span class="kw">rep</span>(image_dim[<span class="dv">1</span>]<span class="op">:</span><span class="dv">1</span>, image_dim[<span class="dv">2</span>]),</span>
+<span id="cb458-14"><a href="k-means-clustering.html#cb458-14"></a>  <span class="dt">R =</span> <span class="kw">as.vector</span>(image[, , <span class="dv">1</span>]),</span>
+<span id="cb458-15"><a href="k-means-clustering.html#cb458-15"></a>  <span class="dt">G =</span> <span class="kw">as.vector</span>(image[, , <span class="dv">2</span>]),</span>
+<span id="cb458-16"><a href="k-means-clustering.html#cb458-16"></a>  <span class="dt">B =</span> <span class="kw">as.vector</span>(image[, , <span class="dv">3</span>])</span>
+<span id="cb458-17"><a href="k-means-clustering.html#cb458-17"></a>  )</span>
+<span id="cb458-18"><a href="k-means-clustering.html#cb458-18"></a></span>
+<span id="cb458-19"><a href="k-means-clustering.html#cb458-19"></a><span class="co"># use view(image_RGB) to view the resulting tibble</span></span></code></pre></div>
+<p>Original Image</p>
+<p><img src="image/flower_s.jpg" width="50%" style="display: block; margin: auto;" /></p>
+<!-- ```{r eval = FALSE} -->
+<!-- # Plot the image -->
+<!-- ggplot(data = image, aes(x = x, y = y)) +  -->
+<!--   geom_point(colour = rgb(image[c("R", "G", "B")])) + -->
+<!--   labs(title = "Original Image") + -->
+<!--   xlab("") + -->
+<!--   ylab("")  -->
+<!-- ``` -->
+<p>Apply <span class="math inline">\(k\)</span>-means clustering:</p>
+<p><img src="image/flower_cluster.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Code for creating the above images:</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="k-means-clustering.html#cb459-1"></a>cluster_plot &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb459-2"><a href="k-means-clustering.html#cb459-2"></a>i &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb459-3"><a href="k-means-clustering.html#cb459-3"></a></span>
+<span id="cb459-4"><a href="k-means-clustering.html#cb459-4"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)) {</span>
+<span id="cb459-5"><a href="k-means-clustering.html#cb459-5"></a>  i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb459-6"><a href="k-means-clustering.html#cb459-6"></a></span>
+<span id="cb459-7"><a href="k-means-clustering.html#cb459-7"></a>  <span class="co"># perform k-means</span></span>
+<span id="cb459-8"><a href="k-means-clustering.html#cb459-8"></a>    image_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(image_RGB[, <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;B&quot;</span>)], <span class="dt">centers =</span> k, <span class="dt">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb459-9"><a href="k-means-clustering.html#cb459-9"></a>    </span>
+<span id="cb459-10"><a href="k-means-clustering.html#cb459-10"></a>  <span class="co"># for each pixel, use the colour of the center of the corresponding cluster</span></span>
+<span id="cb459-11"><a href="k-means-clustering.html#cb459-11"></a>  cluster_color &lt;-<span class="st"> </span><span class="kw">rgb</span>(image_kmeans<span class="op">$</span>centers[image_kmeans<span class="op">$</span>cluster, ])</span>
+<span id="cb459-12"><a href="k-means-clustering.html#cb459-12"></a>  </span>
+<span id="cb459-13"><a href="k-means-clustering.html#cb459-13"></a>  cluster_plot[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> image_RGB, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb459-14"><a href="k-means-clustering.html#cb459-14"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> cluster_color) <span class="op">+</span></span>
+<span id="cb459-15"><a href="k-means-clustering.html#cb459-15"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;k = &quot;</span>, k)) <span class="op">+</span></span>
+<span id="cb459-16"><a href="k-means-clustering.html#cb459-16"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb459-17"><a href="k-means-clustering.html#cb459-17"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb459-18"><a href="k-means-clustering.html#cb459-18"></a>}</span>
+<span id="cb459-19"><a href="k-means-clustering.html#cb459-19"></a></span>
+<span id="cb459-20"><a href="k-means-clustering.html#cb459-20"></a><span class="co"># save the plots to your computer</span></span>
+<span id="cb459-21"><a href="k-means-clustering.html#cb459-21"></a><span class="kw">png</span>(<span class="kw">paste0</span>(<span class="st">&quot;image/flower_cluster.png&quot;</span>), <span class="dt">width =</span> <span class="dv">900</span>, <span class="dt">height =</span> <span class="dv">600</span>)</span>
+<span id="cb459-22"><a href="k-means-clustering.html#cb459-22"></a><span class="kw">ggarrange</span>(cluster_plot[[<span class="dv">1</span>]], cluster_plot[[<span class="dv">2</span>]], cluster_plot[[<span class="dv">3</span>]], cluster_plot[[<span class="dv">4</span>]])</span>
+<span id="cb459-23"><a href="k-means-clustering.html#cb459-23"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<p><strong>Another example</strong></p>
+<p>Original Image:</p>
+<p><img src="image/swing_s.jpg" width="50%" style="display: block; margin: auto;" /></p>
+<p>Apply <span class="math inline">\(k\)</span>-means clustering:</p>
+<p><img src="image/swing_cluster.png" width="80%" style="display: block; margin: auto;" /></p>
+<p><strong>Explanation of the algorithm</strong></p>
+<p>The <span class="math inline">\(k\)</span>-means algorithm searches for a partition of the data into <span class="math inline">\(k\)</span> clusters . It tries to minimize the within-group sum of squared errors (WSS):
+<span class="math display">\[\begin{equation*}
+WSS(C, \mu) = \sum^k_{j=1} \sum^n_{i=1} I(C_i = j) ||x_i - \mu_j||^2,
+\end{equation*}\]</span>
+where <span class="math inline">\(C = (C_1,\ldots,C_n)\)</span> and <span class="math inline">\(\mu = \{\mu_1,\ldots,\mu_k\}\)</span>. To minimize WGSS, the algorithm iteratively solves two problems:</p>
+<ul>
+<li><p>Problem 1. Fix <span class="math inline">\(\mu\)</span> and minimize <span class="math inline">\(WGSS(C, \mu)\)</span> with respect to <span class="math inline">\(C\)</span> (Step 3 in the algorithm)</p></li>
+<li><p>Problem 2. Fix <span class="math inline">\(C\)</span> and minimize <span class="math inline">\(WGSS(C, \mu)\)</span> with respect to <span class="math inline">\(\mu\)</span> (Step 4 in the algorithm)</p></li>
+</ul>
+<p>For Problem 1, the solution is
+<span class="math display">\[\begin{equation*}
+C_i = \text{argmin}_j ||x_i - \mu_j||^2.
+\end{equation*}\]</span></p>
+<p>For Problem 2, the solution is
+<span class="math display">\[\begin{equation*}
+\mu_{jl} = \frac{\sum^n_{i=1}I(C_i = j) x_{il}}{\sum^n_{i=1} I(C_i=j)}.
+\end{equation*}\]</span></p>
+<!-- **Explanation of the algorithm** -->
+<!-- In $k$-means clustering, our goal is to find $C$ which assigns close points to the same cluster. Therefore, it makes sense to minimize the following loss function -->
+<!-- \begin{equation*} -->
+<!-- W(C) = \frac{1}{2} \sum^k_{j=1} \sum_{i:C(i)=j} \sum_{i':C(i')=j} ||x_i - x_i'||^2. -->
+<!-- \end{equation*} -->
+<!-- Te above loss function can be rewritten as -->
+<!-- \begin{equation*} -->
+<!-- W(C) = \sum^k_{j=1} N_j \sum_{i:C(i)=j} ||x_i - \overline{x}_j||^2, -->
+<!-- \end{equation*} -->
+<!-- where $\overline{x}_j$ is the mean vector associated with the $j$th cluster and $N_j = \sum^n_{i=1} I(C(i)=j)$ is the size of the $j$th cluster. -->
+<!-- Because the number of possible assignments of the $n$ data points to $k$ clusters are too many, instead of trying to get a global minimizer by evaluating the loss function $W$ at every possible assignments, one will use an iterative greedy descent, which is much faster but usually converge to local optima. An iterative descent algorithm for finding -->
+<!-- \begin{equation*} -->
+<!-- C^* = \text{argmin}_C \sum^k_{j=1} N_j \sum_{i:C(i)=j} ||x_i - \overline{x}_j||^2 -->
+<!-- \end{equation*} -->
+<!-- can be obtained by noting that for any set of observations $S$ (in particular, it also holds in our case), -->
+<!-- \begin{equation*} -->
+<!-- \overline{x}_S = \text{argmin}_\mu \sum_{i \in S}||x_i - \mu||^2, -->
+<!-- \end{equation*} -->
+<!-- where $\overline{x}_S$ is the average of all the observations in $S$. Therefore, we can enlarge the optimization problem to -->
+<!-- \begin{equation*} -->
+<!-- \min_{C, \mu_1,\ldots,\mu_k} \sum^k_{j=1}N_j \sum_{i:C(i) =j}||x_i - \mu_j||^2. -->
+<!-- \end{equation*} -->
+<!-- To solve the above enlarged optimization problem, one may apply the alternating algorithm described above: Step 3 is to minimize over $C$ by fixing $\mu_1,\ldots,\mu_k$ and Step 4 is to minimize over $\mu_1,\ldots,\mu_k$ by fixing $C$. -->
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="schedule.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic-regression-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

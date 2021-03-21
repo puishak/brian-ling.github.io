@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -319,6 +319,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>13.3.2</b> Gradient Descent</a></li>
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>14</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="15" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>15</b> k-means Clustering</a><ul>
+<li class="chapter" data-level="15.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-4"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>15.2</b> Applications</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>15.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="15.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation"><i class="fa fa-check"></i><b>15.2.2</b> Image Segementation</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -701,7 +709,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb102-7"><a href="programming-in-r.html#cb102-7"></a>}</span>
 <span id="cb102-8"><a href="programming-in-r.html#cb102-8"></a><span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>initial_time</span>
 <span id="cb102-9"><a href="programming-in-r.html#cb102-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.41    0.00    0.42</span></span></code></pre></div>
+<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##     0.5     0.0     0.5</span></span></code></pre></div>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="programming-in-r.html#cb103-1"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
 <span id="cb103-2"><a href="programming-in-r.html#cb103-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb103-3"><a href="programming-in-r.html#cb103-3"></a><span class="co"># Alternatively</span></span>
@@ -711,7 +719,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb103-7"><a href="programming-in-r.html#cb103-7"></a>}</span>
 <span id="cb103-8"><a href="programming-in-r.html#cb103-8"></a>})</span>
 <span id="cb103-9"><a href="programming-in-r.html#cb103-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.52    0.00    0.55</span></span></code></pre></div>
+<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.39    0.00    0.39</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="programming-in-r.html#cb104-1"></a><span class="kw">system.time</span>({</span>
@@ -719,7 +727,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb104-3"><a href="programming-in-r.html#cb104-3"></a>  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
 <span id="cb104-4"><a href="programming-in-r.html#cb104-4"></a>})</span>
 <span id="cb104-5"><a href="programming-in-r.html#cb104-5"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="co">##    0.01    0.00    0.02</span></span></code></pre></div>
+<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="co">##       0       0       0</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="programming-in-r.html#cb105-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb105-2"><a href="programming-in-r.html#cb105-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -732,7 +740,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb105-9"><a href="programming-in-r.html#cb105-9"></a>  }</span>
 <span id="cb105-10"><a href="programming-in-r.html#cb105-10"></a>})</span>
 <span id="cb105-11"><a href="programming-in-r.html#cb105-11"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.13    0.00    0.13</span></span>
+<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.17    0.00    0.17</span></span>
 <span id="cb105-13"><a href="programming-in-r.html#cb105-13"></a></span>
 <span id="cb105-14"><a href="programming-in-r.html#cb105-14"></a><span class="kw">system.time</span>(v &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y)</span>
 <span id="cb105-15"><a href="programming-in-r.html#cb105-15"></a><span class="co">##    user  system elapsed </span></span>

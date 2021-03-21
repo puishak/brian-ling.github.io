@@ -144,3 +144,9 @@ minimization-and-maximization
 newton-raphson-method-1
 gradient-descent
 optim
+logistic-regression-model
+k-means-clustering
+introduction-4
+applications
+cluster-analysis
+image-segementation

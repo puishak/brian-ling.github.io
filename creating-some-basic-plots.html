@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -320,6 +320,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>14</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="15" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>15</b> k-means Clustering</a><ul>
+<li class="chapter" data-level="15.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-4"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>15.2</b> Applications</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>15.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="15.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation"><i class="fa fa-check"></i><b>15.2.2</b> Image Segementation</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -361,20 +369,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Scatter Plot</h2>
 <p>Let’s take a look at the <code>mtcars</code> dataset. This dataset comes with base R.</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="creating-some-basic-plots.html#cb109-1"></a><span class="kw">head</span>(mtcars) <span class="co"># this is a data frame</span></span>
-<span id="cb109-2"><a href="creating-some-basic-plots.html#cb109-2"></a><span class="co">##                    mpg cyl disp  hp drat    wt  qsec vs am gear</span></span>
-<span id="cb109-3"><a href="creating-some-basic-plots.html#cb109-3"></a><span class="co">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4</span></span>
-<span id="cb109-4"><a href="creating-some-basic-plots.html#cb109-4"></a><span class="co">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4</span></span>
-<span id="cb109-5"><a href="creating-some-basic-plots.html#cb109-5"></a><span class="co">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4</span></span>
-<span id="cb109-6"><a href="creating-some-basic-plots.html#cb109-6"></a><span class="co">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3</span></span>
-<span id="cb109-7"><a href="creating-some-basic-plots.html#cb109-7"></a><span class="co">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3</span></span>
-<span id="cb109-8"><a href="creating-some-basic-plots.html#cb109-8"></a><span class="co">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3</span></span>
-<span id="cb109-9"><a href="creating-some-basic-plots.html#cb109-9"></a><span class="co">##                   carb</span></span>
-<span id="cb109-10"><a href="creating-some-basic-plots.html#cb109-10"></a><span class="co">## Mazda RX4            4</span></span>
-<span id="cb109-11"><a href="creating-some-basic-plots.html#cb109-11"></a><span class="co">## Mazda RX4 Wag        4</span></span>
-<span id="cb109-12"><a href="creating-some-basic-plots.html#cb109-12"></a><span class="co">## Datsun 710           1</span></span>
-<span id="cb109-13"><a href="creating-some-basic-plots.html#cb109-13"></a><span class="co">## Hornet 4 Drive       1</span></span>
-<span id="cb109-14"><a href="creating-some-basic-plots.html#cb109-14"></a><span class="co">## Hornet Sportabout    2</span></span>
-<span id="cb109-15"><a href="creating-some-basic-plots.html#cb109-15"></a><span class="co">## Valiant              1</span></span></code></pre></div>
+<span id="cb109-2"><a href="creating-some-basic-plots.html#cb109-2"></a><span class="co">##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb109-3"><a href="creating-some-basic-plots.html#cb109-3"></a><span class="co">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb109-4"><a href="creating-some-basic-plots.html#cb109-4"></a><span class="co">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb109-5"><a href="creating-some-basic-plots.html#cb109-5"></a><span class="co">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb109-6"><a href="creating-some-basic-plots.html#cb109-6"></a><span class="co">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb109-7"><a href="creating-some-basic-plots.html#cb109-7"></a><span class="co">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb109-8"><a href="creating-some-basic-plots.html#cb109-8"></a><span class="co">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="creating-some-basic-plots.html#cb110-1"></a><span class="kw">str</span>(mtcars) <span class="co"># display the structure of the data frame</span></span>
 <span id="cb110-2"><a href="creating-some-basic-plots.html#cb110-2"></a><span class="co">## &#39;data.frame&#39;:    32 obs. of  11 variables:</span></span>
 <span id="cb110-3"><a href="creating-some-basic-plots.html#cb110-3"></a><span class="co">##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
@@ -524,8 +525,7 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <p><strong>Histogram with ggplo2</strong></p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="creating-some-basic-plots.html#cb132-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span></span>
 <span id="cb132-2"><a href="creating-some-basic-plots.html#cb132-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span>
-<span id="cb132-3"><a href="creating-some-basic-plots.html#cb132-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with</span></span>
-<span id="cb132-4"><a href="creating-some-basic-plots.html#cb132-4"></a><span class="co">## `binwidth`.</span></span></code></pre></div>
+<span id="cb132-3"><a href="creating-some-basic-plots.html#cb132-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-143-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="creating-some-basic-plots.html#cb133-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span></span>
 <span id="cb133-2"><a href="creating-some-basic-plots.html#cb133-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">2.5</span>)</span></code></pre></div>
