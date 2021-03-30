@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-20" />
+<meta name="date" content="2021-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -328,6 +328,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation"><i class="fa fa-check"></i><b>15.2.2</b> Image Segementation</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>16</b> Neural Networks</a><ul>
+<li class="chapter" data-level="16.1" data-path="neural-networks.html"><a href="neural-networks.html#introduction-5"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="neural-networks.html"><a href="neural-networks.html#regression-predict-the-strength-of-concrete"><i class="fa fa-check"></i><b>16.2</b> Regression: Predict the Strength of Concrete</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="neural-networks.html"><a href="neural-networks.html#data"><i class="fa fa-check"></i><b>16.2.1</b> Data</a></li>
+<li class="chapter" data-level="16.2.2" data-path="neural-networks.html"><a href="neural-networks.html#training-a-model"><i class="fa fa-check"></i><b>16.2.2</b> Training a model</a></li>
+<li class="chapter" data-level="16.2.3" data-path="neural-networks.html"><a href="neural-networks.html#understanding-the-model"><i class="fa fa-check"></i><b>16.2.3</b> Understanding the model</a></li>
+<li class="chapter" data-level="16.2.4" data-path="neural-networks.html"><a href="neural-networks.html#evaluating-the-performance"><i class="fa fa-check"></i><b>16.2.4</b> Evaluating the Performance</a></li>
+<li class="chapter" data-level="16.2.5" data-path="neural-networks.html"><a href="neural-networks.html#improving-the-model"><i class="fa fa-check"></i><b>16.2.5</b> Improving the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="neural-networks.html"><a href="neural-networks.html#classification"><i class="fa fa-check"></i><b>16.3</b> Classification</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -443,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A tibble allows us to perform different types of transformation (next chapter).</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="managing-data-with-r.html#cb159-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/my_data.csv&quot;</span>) </span>
 <span id="cb159-2"><a href="managing-data-with-r.html#cb159-2"></a><span class="co">## </span></span>
-<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification ------------------------------------------------------------------------------</span></span>
+<span id="cb159-3"><a href="managing-data-with-r.html#cb159-3"></a><span class="co">## -- Column specification -------------------------------------------------------------------</span></span>
 <span id="cb159-4"><a href="managing-data-with-r.html#cb159-4"></a><span class="co">## cols(</span></span>
 <span id="cb159-5"><a href="managing-data-with-r.html#cb159-5"></a><span class="co">##   x = col_double(),</span></span>
 <span id="cb159-6"><a href="managing-data-with-r.html#cb159-6"></a><span class="co">##   y = col_double()</span></span>

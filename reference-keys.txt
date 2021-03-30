@@ -150,3 +150,12 @@ introduction-4
 applications
 cluster-analysis
 image-segementation
+neural-networks
+introduction-5
+regression-predict-the-strength-of-concrete
+data
+training-a-model
+understanding-the-model
+evaluating-the-performance
+improving-the-model
+classification

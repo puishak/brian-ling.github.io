@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 16 Neural Networks | STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 16 Neural Networks | STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 16 Neural Networks | STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2021-03-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="k-means-clustering.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="annoucement.html"><a href="annoucement.html"><i class="fa fa-check"></i>Annoucement</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>4</b> Creating Some Basic Plots</a><ul>
+<li class="chapter" data-level="4.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>4.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="4.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>4.2</b> Line Graph</a></li>
+<li class="chapter" data-level="4.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>4.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="4.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>4.4</b> Histogram</a></li>
+<li class="chapter" data-level="4.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>4.5</b> Box Plot</a></li>
+<li class="chapter" data-level="4.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>4.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="4.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>4.7</b> More on plots with base R</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>4.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="4.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>4.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="4.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>4.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="4.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>4.7.4</b> Elements on plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#summary-of-ggplot"><i class="fa fa-check"></i><b>4.8</b> Summary of <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>5</b> Managing Data with R</a><ul>
+<li class="chapter" data-level="5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>5.1</b> Missing Values</a></li>
+<li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html"><i class="fa fa-check"></i><b>6</b> Review 1 (Lect 1-8)</a><ul>
+<li class="chapter" data-level="6.1" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix</a></li>
+<li class="chapter" data-level="6.3" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
+<li class="chapter" data-level="6.4" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code></a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#select"><i class="fa fa-check"></i><b>7.4</b> <code>select()</code></a><ul>
+<li class="chapter" data-level="7.4.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-4"><i class="fa fa-check"></i><b>7.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5</b> <code>mutate()</code></a><ul>
+<li class="chapter" data-level="7.5.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-5"><i class="fa fa-check"></i><b>7.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.6</b> <code>summarize()</code></a></li>
+<li class="chapter" data-level="7.7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summary"><i class="fa fa-check"></i><b>7.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>8.1</b> Combining Multiple Operations with Pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>8.2</b> Bar charts</a></li>
+<li class="chapter" data-level="8.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>8.3</b> Line Graph</a></li>
+<li class="chapter" data-level="8.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>8.4</b> Scatter Plots</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>8.4.1</b> Overplotting</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>8.4.2</b> Labelling points in a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>8.5</b> Summarizing Data Distributions</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>8.5.1</b> Histogram</a></li>
+<li class="chapter" data-level="8.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>8.5.2</b> Kernel Density Estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>8.6</b> Saving your plots</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>8.6.1</b> Outputting to pdf vector files</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>8.6.2</b> Outputting to bitmap files</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>8.7</b> Summary</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe-1"><i class="fa fa-check"></i><b>8.7.1</b> Combining multiple operations with pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>8.7.2</b> Bar charts</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>8.7.3</b> Line graphs</a></li>
+<li class="chapter" data-level="8.7.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>8.7.4</b> Scatter plot</a></li>
+<li class="chapter" data-level="8.7.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>8.7.5</b> Summarizing data distributions</a></li>
+<li class="chapter" data-level="8.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.7.6</b> Saving your plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>10</b> k-nearest neighbors</a><ul>
+<li class="chapter" data-level="10.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-2"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>10.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="10.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>10.3</b> Example: Classifying Breast Cancers</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>10.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="10.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>10.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="10.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>10.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification-trees.html"><a href="classification-trees.html"><i class="fa fa-check"></i><b>11</b> Classification Trees</a><ul>
+<li class="chapter" data-level="11.1" data-path="classification-trees.html"><a href="classification-trees.html#introduction-3"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-trees.html"><a href="classification-trees.html#the-c5.0-classification-tree-algorithm"><i class="fa fa-check"></i><b>11.2</b> The C5.0 classification tree algorithm</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="classification-trees.html"><a href="classification-trees.html#choosing-the-best-split"><i class="fa fa-check"></i><b>11.2.1</b> Choosing the best split</a></li>
+<li class="chapter" data-level="11.2.2" data-path="classification-trees.html"><a href="classification-trees.html#pruning-the-decision-tree"><i class="fa fa-check"></i><b>11.2.2</b> Pruning the decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="classification-trees.html"><a href="classification-trees.html#example-iris"><i class="fa fa-check"></i><b>11.3</b> Example: <code>iris</code></a></li>
+<li class="chapter" data-level="11.4" data-path="classification-trees.html"><a href="classification-trees.html#example-identifying-risky-bank-loans"><i class="fa fa-check"></i><b>11.4</b> Example: identifying risky bank loans</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="classification-trees.html"><a href="classification-trees.html#adaptive-boosting"><i class="fa fa-check"></i><b>11.4.1</b> Adaptive boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>12.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>12.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>12.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>12.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>12.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>12.7</b> Prediction</a></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>12.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>12.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>12.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>13</b> Root finding and optimization</a><ul>
+<li class="chapter" data-level="13.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>13.1</b> Root Finding</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>13.1.1</b> Bisection Method</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>13.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>13.3</b> Minimization and Maximization</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>13.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>13.3.2</b> Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>14</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="15" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>15</b> k-means Clustering</a><ul>
+<li class="chapter" data-level="15.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-4"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>15.2</b> Applications</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>15.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="15.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation"><i class="fa fa-check"></i><b>15.2.2</b> Image Segementation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>16</b> Neural Networks</a><ul>
+<li class="chapter" data-level="16.1" data-path="neural-networks.html"><a href="neural-networks.html#introduction-5"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="neural-networks.html"><a href="neural-networks.html#regression-predict-the-strength-of-concrete"><i class="fa fa-check"></i><b>16.2</b> Regression: Predict the Strength of Concrete</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="neural-networks.html"><a href="neural-networks.html#data"><i class="fa fa-check"></i><b>16.2.1</b> Data</a></li>
+<li class="chapter" data-level="16.2.2" data-path="neural-networks.html"><a href="neural-networks.html#training-a-model"><i class="fa fa-check"></i><b>16.2.2</b> Training a model</a></li>
+<li class="chapter" data-level="16.2.3" data-path="neural-networks.html"><a href="neural-networks.html#understanding-the-model"><i class="fa fa-check"></i><b>16.2.3</b> Understanding the model</a></li>
+<li class="chapter" data-level="16.2.4" data-path="neural-networks.html"><a href="neural-networks.html#evaluating-the-performance"><i class="fa fa-check"></i><b>16.2.4</b> Evaluating the Performance</a></li>
+<li class="chapter" data-level="16.2.5" data-path="neural-networks.html"><a href="neural-networks.html#improving-the-model"><i class="fa fa-check"></i><b>16.2.5</b> Improving the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="neural-networks.html"><a href="neural-networks.html#classification"><i class="fa fa-check"></i><b>16.3</b> Classification</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="neural-networks" class="section level1">
+<h1><span class="header-section-number">Chapter 16</span> Neural Networks</h1>
+<p>Optional Reading: Chapter 7 in Machine Learning with R by Brett Lantz</p>
+<p>Packages used:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="neural-networks.html#cb460-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb460-2"><a href="neural-networks.html#cb460-2"></a><span class="kw">library</span>(neuralnet)</span>
+<span id="cb460-3"><a href="neural-networks.html#cb460-3"></a><span class="kw">library</span>(ggpubr)</span></code></pre></div>
+<div id="introduction-5" class="section level2">
+<h2><span class="header-section-number">16.1</span> Introduction</h2>
+<ul>
+<li><p>An <strong>artificial neural network (ANN)</strong> (or simply <strong>neural network</strong>) models the relationship between a set of input signals and output signals using a model derived from our understanding of how a <strong>biological brain</strong> responds to stimuli from sensory inputs.</p></li>
+<li><p>The human brain is made up of about <span class="math inline">\(85\)</span> billion neurons. A neuron is an electrically excitable cell that communicates with other cells via specialized connections called synapses. ANNs contain far fewer artificial neurons (units).</p></li>
+<li><p>A neural network is simply a nested nonlinear model.</p></li>
+<li><p>Neural network can be used for <strong>regression</strong> and <strong>classification</strong>.</p>
+<ul>
+<li>For regression, we can have more than one output unit (response).</li>
+<li>For classification, we have <span class="math inline">\(K\)</span> output units. Each unit models the probability of class <span class="math inline">\(k\)</span> for <span class="math inline">\(k=1,\ldots,K\)</span>. We can code our class label as <span class="math inline">\(K\)</span> <span class="math inline">\(0-1\)</span> variables. For example, if you have <span class="math inline">\(3\)</span> classes “a”, “b” and “c”. Then, we <span class="math inline">\((Y_1, Y_2, Y_3) = (1, 0, 0)\)</span> if the class label is “a”, <span class="math inline">\((Y_1, Y_2, Y_3) = (0, 1, 0)\)</span> if the class label is “b”, <span class="math inline">\((Y_1, Y_2, Y_3) = (0, 0, 1)\)</span> if the class label is “c”.</li>
+</ul></li>
+<li><p>The following figure shows a <strong>single hidden layer feedforward neural network</strong>. It is also an example of a 2-layer neural network (one hidden layer + one output layer, the input layer is not counted as a layer).</p></li>
+</ul>
+<p><img src="image/ann_topology.JPG" width="50%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Suppose we have <span class="math inline">\(p\)</span> features <span class="math inline">\(X_1,\ldots,X_p\)</span>, one hidden layer with <span class="math inline">\(J\)</span> hidden units and <span class="math inline">\(K\)</span> outputs <span class="math inline">\(Y_1,\ldots,Y_K\)</span>.</p>
+<ul>
+<li><p>Input layer: the units are the features <span class="math inline">\(X_1, X_2,\ldots, X_p\)</span>.</p></li>
+<li><p>Hidden layer: for <span class="math inline">\(j=1,\ldots,J\)</span>,
+<span class="math display">\[\begin{equation*}
+h_j(X) = f \bigg(v_{j0} + \sum^p_{i=1} v_{ji} X_i\bigg).
+\end{equation*}\]</span>
+The units in the hidden layer are called hidden units because the values are not directly observed.</p></li>
+<li><p>Output layer: for <span class="math inline">\(k=1,\ldots,K\)</span>,
+<span class="math display">\[\begin{equation*}
+o_k(X) = g\bigg(w_{k0} + \sum^J_{j=1} w_{kj} h_j(X) \bigg).
+\end{equation*}\]</span>
+The <span class="math inline">\(o_K(X)\)</span>’s are the predictions of <span class="math inline">\(Y_k\)</span>’s.</p></li>
+<li><p><span class="math inline">\(v_{ji}\)</span>’s and <span class="math inline">\(w_{kj}\)</span>’s are the unknown weights to be estimated.</p></li>
+<li><p><span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are the activation functions.</p></li>
+<li><p>Each unit computes its value based on linear combination of values of units
+that point into it, and an activation function.</p></li>
+</ul></li>
+<li><p>Deep neural network = neural network with multiple hidden layers</p></li>
+<li><p>Deep learning = the practice of training deep neural networks</p></li>
+</ul>
+<p><span class="math inline">\(3\)</span> characteristics of neural networks:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Activation function</strong>: transforms a neuron’s net input signal into a single output signal to be broadcasted further in the network. Activation function allows the neural network to approximate nonlinear function. Without nonlinearities,
+the neural network would be linear, no matter how many layers it has.</p></li>
+<li><p><strong>Network topology</strong> (or architecture): describes the number of neurons in the model as well as the number of layers and manner in which they are connected.</p></li>
+<li><p><strong>Training algorithm</strong>: specifies how connection weights are set in order to inhibit or excite neurons in proportion to the input signal</p></li>
+</ol>
+<p><strong>Activation functions</strong></p>
+<ul>
+<li><p>For regression, we typically choose the identity function for the output function. That is, <span class="math inline">\(g(x) = x\)</span>.</p></li>
+<li><p>For classification, we can use the logistic function or the softmax function for the output function which returns a value between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p></li>
+</ul>
+<!-- Unit step activation function -->
+<!-- ```{r echo=FALSE, out.width="50%"} -->
+<!-- x <- seq(-10, 10, len = 1000) -->
+<!-- y <- as.numeric(x >= 0) -->
+<!-- ggplot(mapping = aes(x = x, y = y)) + -->
+<!--   geom_line() + -->
+<!--   labs(y = "output signal", x = "sum of input signals") -->
+<!-- ``` -->
+<!-- - Typical output signal range: $(0, 1), (-1, 1), (-\infty, \infty)$. -->
+<ul>
+<li><p>Different activation function may fit certain types of data more appropriately.</p></li>
+<li><p>Some common activation functions:</p>
+<ul>
+<li>Logistic sigmoid <span class="math inline">\(f(x) = \frac{1}{1+e^{-x}}\)</span>. Range = <span class="math inline">\((0, 1)\)</span></li>
+</ul></li>
+</ul>
+<p><img src="Book_files/figure-html/unnamed-chunk-514-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>tanh <span class="math inline">\(f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\)</span>. Range = <span class="math inline">\((-1, 1)\)</span>.</li>
+</ul>
+<p><img src="Book_files/figure-html/unnamed-chunk-515-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Rectified Linear Unit (ReLU) <span class="math inline">\(f(x) = x I(x \geq 0)\)</span>. Range = <span class="math inline">\([0, \infty)\)</span>.</li>
+</ul>
+<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><strong>Network typology</strong></p>
+<p><span class="math inline">\(3\)</span> key characteristics:</p>
+<ul>
+<li><p>The number of layers</p>
+<ul>
+<li><p>Single-layer network</p></li>
+<li><p>Multilayer network: one or more hidden layers</p></li>
+</ul></li>
+<li><p>Whether information in the network is allowed to travel backward</p>
+<ul>
+<li><p>Feedforward network: input signal is fed in one direction from the input layer to the output layer</p></li>
+<li><p>Recurrent network (or feedback network): allows signals to travel backward using loops</p></li>
+</ul></li>
+<li><p>The number of nodes within each layer of the network</p>
+<ol style="list-style-type: decimal">
+<li><p>Number of input nodes = number of features</p></li>
+<li><p>Number of hidden nodes = user decide prior to training the model</p></li>
+<li><p>Number of output nodes = number of outcomes to be modeled or the number of class levels in the outcome</p></li>
+</ol></li>
+</ul>
+<p>In general, using a larger number of neurons will fit the training data better, but this runs a risk of overfitting (generalize poorly to future data). It can also take more time to train the model.</p>
+<p><strong>Training the model</strong></p>
+<ul>
+<li><p>For regression, the loss function is the sum-of-squared errors:
+<span class="math display">\[\begin{equation*}
+L(\theta) =  \frac{1}{2} \sum^K_{k=1} \sum^N_{i=1} (y_{ik} - o_k(x_i))^2.
+\end{equation*}\]</span>
+Here <span class="math inline">\(x_i\)</span> is a vector of features for the <span class="math inline">\(i\)</span>th example and <span class="math inline">\((y_{i1},\ldots,y_{iK})\)</span> is the vector of outputs. <span class="math inline">\(o_k(x_i)\)</span> is the prediction of <span class="math inline">\(y_{ik}\)</span>. <span class="math inline">\(\theta\)</span> is the collection of all the weights.</p></li>
+<li><p>For classification, we use either sum-of-squared errors or cross-entropy. The cross-entropy is defined as
+<span class="math display">\[\begin{equation*}
+L(\theta) = - \sum^N_{i=1} \sum^K_{k=1} y_{ik} \log o_k(x_i).
+\end{equation*}\]</span></p></li>
+</ul>
+<p>The generic approach to minimizing <span class="math inline">\(L(\theta)\)</span> is by gradient descent, called back-propagation in this setting using the chain rule for differentiation. We will not go into the detail of this method.</p>
+</div>
+<div id="regression-predict-the-strength-of-concrete" class="section level2">
+<h2><span class="header-section-number">16.2</span> Regression: Predict the Strength of Concrete</h2>
+<p>In engineering, it is crucial to have accurate estimates of the performance of building materials. These estimates are required in order to develop safety guidelines governing the materials used in the construction of buildings, bridges, and roadways.</p>
+<p>Estimating the strength of concrete is a challenge of particular interest. Although it is used in nearly every construction project, concrete performance varies greatly due to a wide variety of ingredients that interact in complex ways. As a result, it is difficult to accurately predict concrete strength of the final product. A model that could reliably predict concrete strength given a listing of the composition of the input materials could result in safer construction practices.</p>
+<div id="data" class="section level3">
+<h3><span class="header-section-number">16.2.1</span> Data</h3>
+<p>We will use the data donated to the UCI Machine Learning Repository by I-Cheng Yeh.
+<a href="https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength" class="uri">https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength</a></p>
+<p><strong>Description of the data:</strong></p>
+<p>Concrete is the most important material in civil engineering. The
+concrete compressive strength is a highly nonlinear function of age and
+ingredients. These ingredients include cement, blast furnace slag, fly ash, water, superplasticizer, coarse aggregate, and fine aggregate.</p>
+<p>The actual concrete compressive strength (MPa) for a given mixture under a specific age (days) was determined from laboratory. Data is in raw form (not scaled).</p>
+<p><strong>Import the Data</strong></p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="neural-networks.html#cb461-1"></a>concrete &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/concrete.csv&quot;</span>)</span>
+<span id="cb461-2"><a href="neural-networks.html#cb461-2"></a></span>
+<span id="cb461-3"><a href="neural-networks.html#cb461-3"></a>concrete</span>
+<span id="cb461-4"><a href="neural-networks.html#cb461-4"></a><span class="co">## # A tibble: 1,030 x 9</span></span>
+<span id="cb461-5"><a href="neural-networks.html#cb461-5"></a><span class="co">##    cement  slag   ash water superplastic coarseagg fineagg   age strength</span></span>
+<span id="cb461-6"><a href="neural-networks.html#cb461-6"></a><span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb461-7"><a href="neural-networks.html#cb461-7"></a><span class="co">##  1   540     0      0   162          2.5     1040     676     28     80.0</span></span>
+<span id="cb461-8"><a href="neural-networks.html#cb461-8"></a><span class="co">##  2   540     0      0   162          2.5     1055     676     28     61.9</span></span>
+<span id="cb461-9"><a href="neural-networks.html#cb461-9"></a><span class="co">##  3   332.  142.     0   228          0        932     594    270     40.3</span></span>
+<span id="cb461-10"><a href="neural-networks.html#cb461-10"></a><span class="co">##  4   332.  142.     0   228          0        932     594    365     41.0</span></span>
+<span id="cb461-11"><a href="neural-networks.html#cb461-11"></a><span class="co">##  5   199.  132.     0   192          0        978.    826.   360     44.3</span></span>
+<span id="cb461-12"><a href="neural-networks.html#cb461-12"></a><span class="co">##  6   266   114      0   228          0        932     670     90     47.0</span></span>
+<span id="cb461-13"><a href="neural-networks.html#cb461-13"></a><span class="co">##  7   380    95      0   228          0        932     594    365     43.7</span></span>
+<span id="cb461-14"><a href="neural-networks.html#cb461-14"></a><span class="co">##  8   380    95      0   228          0        932     594     28     36.4</span></span>
+<span id="cb461-15"><a href="neural-networks.html#cb461-15"></a><span class="co">##  9   266   114      0   228          0        932     670     28     45.8</span></span>
+<span id="cb461-16"><a href="neural-networks.html#cb461-16"></a><span class="co">## 10   475     0      0   228          0        932     594     28     39.3</span></span>
+<span id="cb461-17"><a href="neural-networks.html#cb461-17"></a><span class="co">## # ... with 1,020 more rows</span></span></code></pre></div>
+<ul>
+<li><p>We have <span class="math inline">\(8\)</span> features and <span class="math inline">\(1\)</span> outcome.</p></li>
+<li><p>Neural networks work best when the input data are scaled to a narrow range around zero. We discussed feature scaling when we discuss <span class="math inline">\(k\)</span>-NN. Here, we will normalize the data.</p></li>
+<li><p>Before we normalize the data, we will separate the our data into a training dataset and a testing dataset. We will use <span class="math inline">\(75\%\)</span> of the data to form our training dataset and the rest to form our testing dataset.</p></li>
+</ul>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="neural-networks.html#cb462-1"></a><span class="kw">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb462-2"><a href="neural-networks.html#cb462-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(concrete), <span class="dt">size =</span> <span class="kw">nrow</span>(concrete) <span class="op">*</span><span class="st"> </span><span class="fl">0.75</span>)</span>
+<span id="cb462-3"><a href="neural-networks.html#cb462-3"></a>concrete_train &lt;-<span class="st"> </span>concrete[random_index, ] </span>
+<span id="cb462-4"><a href="neural-networks.html#cb462-4"></a>concrete_test &lt;-<span class="st"> </span>concrete[<span class="op">-</span>random_index, ]</span></code></pre></div>
+<p><strong>Normalize the data</strong></p>
+<p>Define a function to normalize our training data and testing data.</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="neural-networks.html#cb463-1"></a>normalize &lt;-<span class="st"> </span><span class="cf">function</span>(train, test) {</span>
+<span id="cb463-2"><a href="neural-networks.html#cb463-2"></a>  train_n &lt;-<span class="st"> </span>train</span>
+<span id="cb463-3"><a href="neural-networks.html#cb463-3"></a>  test_n &lt;-<span class="st"> </span>test</span>
+<span id="cb463-4"><a href="neural-networks.html#cb463-4"></a>  </span>
+<span id="cb463-5"><a href="neural-networks.html#cb463-5"></a>  train_min &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, min)</span>
+<span id="cb463-6"><a href="neural-networks.html#cb463-6"></a>  train_max &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, max)</span>
+<span id="cb463-7"><a href="neural-networks.html#cb463-7"></a>  </span>
+<span id="cb463-8"><a href="neural-networks.html#cb463-8"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(train)) {</span>
+<span id="cb463-9"><a href="neural-networks.html#cb463-9"></a>    train_n[, i] &lt;-<span class="st"> </span>(train[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i])</span>
+<span id="cb463-10"><a href="neural-networks.html#cb463-10"></a>  </span>
+<span id="cb463-11"><a href="neural-networks.html#cb463-11"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
+<span id="cb463-12"><a href="neural-networks.html#cb463-12"></a>    test_n[, i] &lt;-<span class="st"> </span>(test_n[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
+<span id="cb463-13"><a href="neural-networks.html#cb463-13"></a>  }  </span>
+<span id="cb463-14"><a href="neural-networks.html#cb463-14"></a>  </span>
+<span id="cb463-15"><a href="neural-networks.html#cb463-15"></a>  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">train =</span> train_n, <span class="dt">test =</span> test_n))</span>
+<span id="cb463-16"><a href="neural-networks.html#cb463-16"></a>}</span></code></pre></div>
+<p>Apply the <code>normalize</code> function:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="neural-networks.html#cb464-1"></a>train_test_n &lt;-<span class="st"> </span><span class="kw">normalize</span>(concrete_train, concrete_test)</span>
+<span id="cb464-2"><a href="neural-networks.html#cb464-2"></a>concrete_train_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>train</span>
+<span id="cb464-3"><a href="neural-networks.html#cb464-3"></a>concrete_test_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>test</span></code></pre></div>
+</div>
+<div id="training-a-model" class="section level3">
+<h3><span class="header-section-number">16.2.2</span> Training a model</h3>
+<p>We will train a multilayer feedforward neural network using the function <code>neuralnet()</code> in the package <code>neuralnet</code>.</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="neural-networks.html#cb465-1"></a><span class="kw">library</span>(neuralnet)</span></code></pre></div>
+<p>Usage of the function:</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="neural-networks.html#cb466-1"></a><span class="kw">neuralnet</span>(formula, data, <span class="dt">hidden =</span> <span class="dv">1</span>, <span class="dt">act.fct =</span> <span class="st">&quot;logistic&quot;</span>)</span></code></pre></div>
+<ul>
+<li><p><code>formula</code>: same as the formula used in <code>lm()</code>, e.g., <code>strength ~ .</code> and <code>strange ~ cement + slag</code>.</p></li>
+<li><p><code>hidden</code>: the number of neurons in the hidden layer (by default, <span class="math inline">\(1\)</span> hidden layer with <span class="math inline">\(1\)</span> neuron). To use <span class="math inline">\(2\)</span> hidden layers with <span class="math inline">\(3\)</span> and <span class="math inline">\(4\)</span> neurons, set <code>hidden = c(3, 4)</code>.</p></li>
+<li><p><code>act.fct</code>: the activation function. The default is to use the logistic function.</p></li>
+</ul>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="neural-networks.html#cb467-1"></a><span class="co"># The default is to use one hidden layer with one unit</span></span>
+<span id="cb467-2"><a href="neural-networks.html#cb467-2"></a><span class="co"># you get slightly different results each time because of the random initial values</span></span>
+<span id="cb467-3"><a href="neural-networks.html#cb467-3"></a><span class="co"># set the seed to reproduce the result</span></span>
+<span id="cb467-4"><a href="neural-networks.html#cb467-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) </span>
+<span id="cb467-5"><a href="neural-networks.html#cb467-5"></a>concrete_ANN &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n)</span></code></pre></div>
+<p>Visualize the network (for learning and teaching purpose):</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="neural-networks.html#cb468-1"></a><span class="kw">plot</span>(concrete_ANN)</span></code></pre></div>
+<p><img src="image/concrete_ANN.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>The numbers on the arrows are the weights.</p></li>
+<li><p>The additional <span class="math inline">\(1\)</span> is the bias term (recall that in linear regression we always include the intercept too).</p></li>
+</ul>
+</div>
+<div id="understanding-the-model" class="section level3">
+<h3><span class="header-section-number">16.2.3</span> Understanding the model</h3>
+<p>Now, let’s understand the model by computing the prediction manually. We will first define the logistic function.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="neural-networks.html#cb469-1"></a>logistic &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb469-2"><a href="neural-networks.html#cb469-2"></a>  <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x))</span>
+<span id="cb469-3"><a href="neural-networks.html#cb469-3"></a>}</span></code></pre></div>
+<p>Predicted values:</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="neural-networks.html#cb470-1"></a>fitted_values &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>net.result[[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
+<span id="cb470-2"><a href="neural-networks.html#cb470-2"></a></span>
+<span id="cb470-3"><a href="neural-networks.html#cb470-3"></a>fitted_values[<span class="dv">1</span>]</span>
+<span id="cb470-4"><a href="neural-networks.html#cb470-4"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
+<p>Step-by-step calculation:</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="neural-networks.html#cb471-1"></a><span class="co"># Extract the weights v_{ji}</span></span>
+<span id="cb471-2"><a href="neural-networks.html#cb471-2"></a>weights &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
+<span id="cb471-3"><a href="neural-networks.html#cb471-3"></a></span>
+<span id="cb471-4"><a href="neural-networks.html#cb471-4"></a><span class="co"># (1, X_1, X_2, ..., X_p)</span></span>
+<span id="cb471-5"><a href="neural-networks.html#cb471-5"></a>features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">as.numeric</span>(concrete_train_n[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]))</span>
+<span id="cb471-6"><a href="neural-networks.html#cb471-6"></a></span>
+<span id="cb471-7"><a href="neural-networks.html#cb471-7"></a><span class="co"># v_{j0} + sum v_{ji} X_i </span></span>
+<span id="cb471-8"><a href="neural-networks.html#cb471-8"></a>linear_combination &lt;-<span class="st"> </span><span class="kw">sum</span>(weights <span class="op">*</span><span class="st"> </span>features)</span>
+<span id="cb471-9"><a href="neural-networks.html#cb471-9"></a></span>
+<span id="cb471-10"><a href="neural-networks.html#cb471-10"></a><span class="co"># h_j(X) = f(v_{j0} + sum v_{ji} X_i) (J = 1 as we only have 1 hidden unit)</span></span>
+<span id="cb471-11"><a href="neural-networks.html#cb471-11"></a>h_X &lt;-<span class="st"> </span><span class="kw">logistic</span>(linear_combination)</span>
+<span id="cb471-12"><a href="neural-networks.html#cb471-12"></a></span>
+<span id="cb471-13"><a href="neural-networks.html#cb471-13"></a><span class="co"># Extract the weights w_{kj}</span></span>
+<span id="cb471-14"><a href="neural-networks.html#cb471-14"></a>weights2 &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">2</span>]][, <span class="dv">1</span>]</span>
+<span id="cb471-15"><a href="neural-networks.html#cb471-15"></a></span>
+<span id="cb471-16"><a href="neural-networks.html#cb471-16"></a><span class="co"># o_K(X) = g(w_{k0} + sum w_{kj} h_j(X)), with g(x) = x</span></span>
+<span id="cb471-17"><a href="neural-networks.html#cb471-17"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">1</span>, h_X) <span class="op">*</span><span class="st"> </span>weights2) </span>
+<span id="cb471-18"><a href="neural-networks.html#cb471-18"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
+</div>
+<div id="evaluating-the-performance" class="section level3">
+<h3><span class="header-section-number">16.2.4</span> Evaluating the Performance</h3>
+<p><strong>Prediction</strong></p>
+<p>Use the <code>compute</code> function:</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="neural-networks.html#cb472-1"></a><span class="co"># I used neuralnet::compute instead of compute because dplyr also contains a function called compute</span></span>
+<span id="cb472-2"><a href="neural-networks.html#cb472-2"></a>prediction &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb472-3"><a href="neural-networks.html#cb472-3"></a>predicted_strength &lt;-<span class="st"> </span>prediction<span class="op">$</span>net.result[, <span class="dv">1</span>]</span></code></pre></div>
+<p>Scatterplot of predictions versus the true values.</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="neural-networks.html#cb473-1"></a>plot_predict_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength)) <span class="op">+</span></span>
+<span id="cb473-2"><a href="neural-networks.html#cb473-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb473-3"><a href="neural-networks.html#cb473-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Single Hidden Layer with 1 unit&quot;</span>)</span>
+<span id="cb473-4"><a href="neural-networks.html#cb473-4"></a>plot_predict_<span class="dv">1</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-531-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>Since this is a numeric prediction problem rather than a classification problem, we cannot use a confusion matrix to examine model accuracy. Instead, we can use correlation to measure the performance of the prediction. The higher the correlation, the better the prediction is.</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="neural-networks.html#cb474-1"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength)</span>
+<span id="cb474-2"><a href="neural-networks.html#cb474-2"></a><span class="co">## [1] 0.8222051</span></span></code></pre></div>
+</div>
+<div id="improving-the-model" class="section level3">
+<h3><span class="header-section-number">16.2.5</span> Improving the Model</h3>
+<p>One hidden layer with <span class="math inline">\(5\)</span> units:</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="neural-networks.html#cb475-1"></a>concrete_ANN_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="dv">5</span>)</span>
+<span id="cb475-2"><a href="neural-networks.html#cb475-2"></a></span>
+<span id="cb475-3"><a href="neural-networks.html#cb475-3"></a>prediction_<span class="dv">5</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">5</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb475-4"><a href="neural-networks.html#cb475-4"></a>predicted_strength_<span class="dv">5</span> &lt;-<span class="st"> </span>prediction_<span class="dv">5</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
+<span id="cb475-5"><a href="neural-networks.html#cb475-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">5</span>)</span>
+<span id="cb475-6"><a href="neural-networks.html#cb475-6"></a><span class="co">## [1] 0.9092216</span></span></code></pre></div>
+<p><img src="image/concrete_ANN_5.jpeg" width="80%" style="display: block; margin: auto;" /></p>
+<p>Two hidden layers, each with <span class="math inline">\(5\)</span> units:</p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="neural-networks.html#cb476-1"></a>concrete_ANN_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb476-2"><a href="neural-networks.html#cb476-2"></a></span>
+<span id="cb476-3"><a href="neural-networks.html#cb476-3"></a>prediction_<span class="dv">55</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">55</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb476-4"><a href="neural-networks.html#cb476-4"></a>predicted_strength_<span class="dv">55</span> &lt;-<span class="st"> </span>prediction_<span class="dv">55</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
+<span id="cb476-5"><a href="neural-networks.html#cb476-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">55</span>)</span>
+<span id="cb476-6"><a href="neural-networks.html#cb476-6"></a><span class="co">## [1] 0.9274489</span></span></code></pre></div>
+<p><img src="image/concrete_ANN_55.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="neural-networks.html#cb477-1"></a>plot_predict_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength_<span class="dv">55</span>)) <span class="op">+</span></span>
+<span id="cb477-2"><a href="neural-networks.html#cb477-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb477-3"><a href="neural-networks.html#cb477-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Two Hidden Layers, each with 5 units&quot;</span>)</span>
+<span id="cb477-4"><a href="neural-networks.html#cb477-4"></a><span class="kw">ggarrange</span>(plot_predict_<span class="dv">1</span>, plot_predict_<span class="dv">55</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-537-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="classification" class="section level2">
+<h2><span class="header-section-number">16.3</span> Classification</h2>
+<p>We will use the breast cancer dataset to illustrate how to perform classification using neural networks.</p>
+<p>The following datasets are normalized already with the output being (B, M). Download them in onQ.</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="neural-networks.html#cb478-1"></a>wbcd_train_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_train_normalize_01.csv&quot;</span>)</span>
+<span id="cb478-2"><a href="neural-networks.html#cb478-2"></a></span>
+<span id="cb478-3"><a href="neural-networks.html#cb478-3"></a>wbcd_test_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_test_normalize_01.csv&quot;</span>)</span></code></pre></div>
+<p>Train the model:</p>
+<p>Set <code>linear.output = FALSE</code> to use the logistic function to get a predicted number between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="neural-networks.html#cb479-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb479-2"><a href="neural-networks.html#cb479-2"></a>fit &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(B <span class="op">+</span><span class="st"> </span>M <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> wbcd_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb479-3"><a href="neural-networks.html#cb479-3"></a>                 <span class="dt">linear.output =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>3-layer feedforward neural network:</p>
+<p><img src="image/wbcd_ann_44.jpeg" width="80%" style="display: block; margin: auto;" /></p>
+<p><strong>Evaluate the performance</strong></p>
+<p>Training Data:</p>
+<p>Use <code>max.col</code> to find the column correspond to the maximum number.</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="neural-networks.html#cb480-1"></a><span class="co"># Training Data</span></span>
+<span id="cb480-2"><a href="neural-networks.html#cb480-2"></a></span>
+<span id="cb480-3"><a href="neural-networks.html#cb480-3"></a><span class="co"># predicted probability of the class</span></span>
+<span id="cb480-4"><a href="neural-networks.html#cb480-4"></a><span class="kw">head</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result) </span>
+<span id="cb480-5"><a href="neural-networks.html#cb480-5"></a><span class="co">##              [,1]         [,2]</span></span>
+<span id="cb480-6"><a href="neural-networks.html#cb480-6"></a><span class="co">## [1,] 5.310829e-14 1.000000e+00</span></span>
+<span id="cb480-7"><a href="neural-networks.html#cb480-7"></a><span class="co">## [2,] 1.000000e+00 3.221476e-12</span></span>
+<span id="cb480-8"><a href="neural-networks.html#cb480-8"></a><span class="co">## [3,] 1.000000e+00 2.943722e-12</span></span>
+<span id="cb480-9"><a href="neural-networks.html#cb480-9"></a><span class="co">## [4,] 4.879723e-15 1.000000e+00</span></span>
+<span id="cb480-10"><a href="neural-networks.html#cb480-10"></a><span class="co">## [5,] 2.869652e-07 9.999998e-01</span></span>
+<span id="cb480-11"><a href="neural-networks.html#cb480-11"></a><span class="co">## [6,] 1.000000e+00 1.947128e-12</span></span>
+<span id="cb480-12"><a href="neural-networks.html#cb480-12"></a></span>
+<span id="cb480-13"><a href="neural-networks.html#cb480-13"></a><span class="co"># assign the class label according to the one with a higher probability</span></span>
+<span id="cb480-14"><a href="neural-networks.html#cb480-14"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result)</span>
+<span id="cb480-15"><a href="neural-networks.html#cb480-15"></a></span>
+<span id="cb480-16"><a href="neural-networks.html#cb480-16"></a><span class="co"># first column is for B, second column is for M</span></span>
+<span id="cb480-17"><a href="neural-networks.html#cb480-17"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
+<span id="cb480-18"><a href="neural-networks.html#cb480-18"></a></span>
+<span id="cb480-19"><a href="neural-networks.html#cb480-19"></a>train_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_train_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
+<span id="cb480-20"><a href="neural-networks.html#cb480-20"></a></span>
+<span id="cb480-21"><a href="neural-networks.html#cb480-21"></a><span class="co"># Confusion Matrix for Training Data</span></span>
+<span id="cb480-22"><a href="neural-networks.html#cb480-22"></a><span class="kw">table</span>(train_diagnosis, predict)</span>
+<span id="cb480-23"><a href="neural-networks.html#cb480-23"></a><span class="co">##                predict</span></span>
+<span id="cb480-24"><a href="neural-networks.html#cb480-24"></a><span class="co">## train_diagnosis   B   M</span></span>
+<span id="cb480-25"><a href="neural-networks.html#cb480-25"></a><span class="co">##               B 298   0</span></span>
+<span id="cb480-26"><a href="neural-networks.html#cb480-26"></a><span class="co">##               M   4 167</span></span></code></pre></div>
+<p>Testing Data:</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="neural-networks.html#cb481-1"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_test_n)<span class="op">$</span>net.result)</span>
+<span id="cb481-2"><a href="neural-networks.html#cb481-2"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
+<span id="cb481-3"><a href="neural-networks.html#cb481-3"></a></span>
+<span id="cb481-4"><a href="neural-networks.html#cb481-4"></a>test_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_test_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
+<span id="cb481-5"><a href="neural-networks.html#cb481-5"></a></span>
+<span id="cb481-6"><a href="neural-networks.html#cb481-6"></a><span class="co"># Confusion Matrix for Testing Data</span></span>
+<span id="cb481-7"><a href="neural-networks.html#cb481-7"></a><span class="kw">table</span>(test_diagnosis, predict)</span>
+<span id="cb481-8"><a href="neural-networks.html#cb481-8"></a><span class="co">##               predict</span></span>
+<span id="cb481-9"><a href="neural-networks.html#cb481-9"></a><span class="co">## test_diagnosis  B  M</span></span>
+<span id="cb481-10"><a href="neural-networks.html#cb481-10"></a><span class="co">##              B 57  2</span></span>
+<span id="cb481-11"><a href="neural-networks.html#cb481-11"></a><span class="co">##              M  1 40</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="k-means-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
