@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2021-03-29" />
+<meta name="date" content="2021-04-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="k-means-clustering.html"/>
-
+<link rel="next" href="evaluating-model-performance-1.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -338,6 +338,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2.5" data-path="neural-networks.html"><a href="neural-networks.html#improving-the-model"><i class="fa fa-check"></i><b>16.2.5</b> Improving the Model</a></li>
 </ul></li>
 <li class="chapter" data-level="16.3" data-path="neural-networks.html"><a href="neural-networks.html#classification"><i class="fa fa-check"></i><b>16.3</b> Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>17</b> Evaluating Model Performance</a><ul>
+<li class="chapter" data-level="17.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>17.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="17.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>17.2</b> Other Measures of Performance</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>17.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="17.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>17.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="17.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>17.2.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>17.3</b> Estimating future performances</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation"><i class="fa fa-check"></i><b>17.3.1</b> Cross-validation</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -653,7 +664,7 @@ ingredients. These ingredients include cement, blast furnace slag, fly ash, wate
 <p>Use <code>max.col</code> to find the column correspond to the maximum number.</p>
 <div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="neural-networks.html#cb480-1"></a><span class="co"># Training Data</span></span>
 <span id="cb480-2"><a href="neural-networks.html#cb480-2"></a></span>
-<span id="cb480-3"><a href="neural-networks.html#cb480-3"></a><span class="co"># predicted probability of the class</span></span>
+<span id="cb480-3"><a href="neural-networks.html#cb480-3"></a><span class="co"># result</span></span>
 <span id="cb480-4"><a href="neural-networks.html#cb480-4"></a><span class="kw">head</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result) </span>
 <span id="cb480-5"><a href="neural-networks.html#cb480-5"></a><span class="co">##              [,1]         [,2]</span></span>
 <span id="cb480-6"><a href="neural-networks.html#cb480-6"></a><span class="co">## [1,] 5.310829e-14 1.000000e+00</span></span>
@@ -663,7 +674,7 @@ ingredients. These ingredients include cement, blast furnace slag, fly ash, wate
 <span id="cb480-10"><a href="neural-networks.html#cb480-10"></a><span class="co">## [5,] 2.869652e-07 9.999998e-01</span></span>
 <span id="cb480-11"><a href="neural-networks.html#cb480-11"></a><span class="co">## [6,] 1.000000e+00 1.947128e-12</span></span>
 <span id="cb480-12"><a href="neural-networks.html#cb480-12"></a></span>
-<span id="cb480-13"><a href="neural-networks.html#cb480-13"></a><span class="co"># assign the class label according to the one with a higher probability</span></span>
+<span id="cb480-13"><a href="neural-networks.html#cb480-13"></a><span class="co"># assign the class label according to the one with a larger number</span></span>
 <span id="cb480-14"><a href="neural-networks.html#cb480-14"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result)</span>
 <span id="cb480-15"><a href="neural-networks.html#cb480-15"></a></span>
 <span id="cb480-16"><a href="neural-networks.html#cb480-16"></a><span class="co"># first column is for B, second column is for M</span></span>
@@ -697,8 +708,8 @@ ingredients. These ingredients include cement, blast furnace slag, fly ash, wate
           </div>
         </div>
       </div>
-<a href="k-means-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="k-means-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaluating-model-performance-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

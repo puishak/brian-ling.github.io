@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 17 Evaluating Model Performance | STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 17 Evaluating Model Performance | STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 17 Evaluating Model Performance | STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2021-04-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="neural-networks.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="schedule.html"><a href="schedule.html"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="annoucement.html"><a href="annoucement.html"><i class="fa fa-check"></i>Annoucement</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists</a></li>
+<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>4</b> Creating Some Basic Plots</a><ul>
+<li class="chapter" data-level="4.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>4.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="4.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>4.2</b> Line Graph</a></li>
+<li class="chapter" data-level="4.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>4.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="4.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>4.4</b> Histogram</a></li>
+<li class="chapter" data-level="4.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>4.5</b> Box Plot</a></li>
+<li class="chapter" data-level="4.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>4.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="4.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>4.7</b> More on plots with base R</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>4.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="4.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>4.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="4.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>4.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="4.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>4.7.4</b> Elements on plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#summary-of-ggplot"><i class="fa fa-check"></i><b>4.8</b> Summary of <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>5</b> Managing Data with R</a><ul>
+<li class="chapter" data-level="5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>5.1</b> Missing Values</a></li>
+<li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html"><i class="fa fa-check"></i><b>6</b> Review 1 (Lect 1-8)</a><ul>
+<li class="chapter" data-level="6.1" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix</a></li>
+<li class="chapter" data-level="6.3" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
+<li class="chapter" data-level="6.4" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code></a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#select"><i class="fa fa-check"></i><b>7.4</b> <code>select()</code></a><ul>
+<li class="chapter" data-level="7.4.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-4"><i class="fa fa-check"></i><b>7.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5</b> <code>mutate()</code></a><ul>
+<li class="chapter" data-level="7.5.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-5"><i class="fa fa-check"></i><b>7.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.6</b> <code>summarize()</code></a></li>
+<li class="chapter" data-level="7.7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summary"><i class="fa fa-check"></i><b>7.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>8.1</b> Combining Multiple Operations with Pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>8.2</b> Bar charts</a></li>
+<li class="chapter" data-level="8.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>8.3</b> Line Graph</a></li>
+<li class="chapter" data-level="8.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>8.4</b> Scatter Plots</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>8.4.1</b> Overplotting</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>8.4.2</b> Labelling points in a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>8.5</b> Summarizing Data Distributions</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>8.5.1</b> Histogram</a></li>
+<li class="chapter" data-level="8.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>8.5.2</b> Kernel Density Estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>8.6</b> Saving your plots</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>8.6.1</b> Outputting to pdf vector files</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>8.6.2</b> Outputting to bitmap files</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>8.7</b> Summary</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe-1"><i class="fa fa-check"></i><b>8.7.1</b> Combining multiple operations with pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>8.7.2</b> Bar charts</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>8.7.3</b> Line graphs</a></li>
+<li class="chapter" data-level="8.7.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>8.7.4</b> Scatter plot</a></li>
+<li class="chapter" data-level="8.7.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>8.7.5</b> Summarizing data distributions</a></li>
+<li class="chapter" data-level="8.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.7.6</b> Saving your plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>10</b> k-nearest neighbors</a><ul>
+<li class="chapter" data-level="10.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-2"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>10.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="10.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>10.3</b> Example: Classifying Breast Cancers</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>10.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="10.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>10.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="10.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>10.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="classification-trees.html"><a href="classification-trees.html"><i class="fa fa-check"></i><b>11</b> Classification Trees</a><ul>
+<li class="chapter" data-level="11.1" data-path="classification-trees.html"><a href="classification-trees.html#introduction-3"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-trees.html"><a href="classification-trees.html#the-c5.0-classification-tree-algorithm"><i class="fa fa-check"></i><b>11.2</b> The C5.0 classification tree algorithm</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="classification-trees.html"><a href="classification-trees.html#choosing-the-best-split"><i class="fa fa-check"></i><b>11.2.1</b> Choosing the best split</a></li>
+<li class="chapter" data-level="11.2.2" data-path="classification-trees.html"><a href="classification-trees.html#pruning-the-decision-tree"><i class="fa fa-check"></i><b>11.2.2</b> Pruning the decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="classification-trees.html"><a href="classification-trees.html#example-iris"><i class="fa fa-check"></i><b>11.3</b> Example: <code>iris</code></a></li>
+<li class="chapter" data-level="11.4" data-path="classification-trees.html"><a href="classification-trees.html#example-identifying-risky-bank-loans"><i class="fa fa-check"></i><b>11.4</b> Example: identifying risky bank loans</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="classification-trees.html"><a href="classification-trees.html#adaptive-boosting"><i class="fa fa-check"></i><b>11.4.1</b> Adaptive boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>12.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>12.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>12.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>12.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>12.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>12.7</b> Prediction</a></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>12.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>12.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>12.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>13</b> Root finding and optimization</a><ul>
+<li class="chapter" data-level="13.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>13.1</b> Root Finding</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>13.1.1</b> Bisection Method</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>13.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>13.3</b> Minimization and Maximization</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>13.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="13.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>13.3.2</b> Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>13.4</b> <code>optim</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>14</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="15" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>15</b> k-means Clustering</a><ul>
+<li class="chapter" data-level="15.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-4"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>15.2</b> Applications</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>15.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="15.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation"><i class="fa fa-check"></i><b>15.2.2</b> Image Segementation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>16</b> Neural Networks</a><ul>
+<li class="chapter" data-level="16.1" data-path="neural-networks.html"><a href="neural-networks.html#introduction-5"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="neural-networks.html"><a href="neural-networks.html#regression-predict-the-strength-of-concrete"><i class="fa fa-check"></i><b>16.2</b> Regression: Predict the Strength of Concrete</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="neural-networks.html"><a href="neural-networks.html#data"><i class="fa fa-check"></i><b>16.2.1</b> Data</a></li>
+<li class="chapter" data-level="16.2.2" data-path="neural-networks.html"><a href="neural-networks.html#training-a-model"><i class="fa fa-check"></i><b>16.2.2</b> Training a model</a></li>
+<li class="chapter" data-level="16.2.3" data-path="neural-networks.html"><a href="neural-networks.html#understanding-the-model"><i class="fa fa-check"></i><b>16.2.3</b> Understanding the model</a></li>
+<li class="chapter" data-level="16.2.4" data-path="neural-networks.html"><a href="neural-networks.html#evaluating-the-performance"><i class="fa fa-check"></i><b>16.2.4</b> Evaluating the Performance</a></li>
+<li class="chapter" data-level="16.2.5" data-path="neural-networks.html"><a href="neural-networks.html#improving-the-model"><i class="fa fa-check"></i><b>16.2.5</b> Improving the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="neural-networks.html"><a href="neural-networks.html#classification"><i class="fa fa-check"></i><b>16.3</b> Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>17</b> Evaluating Model Performance</a><ul>
+<li class="chapter" data-level="17.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>17.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="17.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>17.2</b> Other Measures of Performance</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>17.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="17.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>17.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="17.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>17.2.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>17.3</b> Estimating future performances</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation"><i class="fa fa-check"></i><b>17.3.1</b> Cross-validation</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="evaluating-model-performance-1" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Evaluating Model Performance</h1>
+<p>Reference: Chapter 10 in Machine Learning with R by Brett Lantz</p>
+<p>Packages used in this chapter:</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="evaluating-model-performance-1.html#cb482-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb482-2"><a href="evaluating-model-performance-1.html#cb482-2"></a><span class="kw">library</span>(gmodels)</span>
+<span id="cb482-3"><a href="evaluating-model-performance-1.html#cb482-3"></a><span class="kw">library</span>(pROC)</span>
+<span id="cb482-4"><a href="evaluating-model-performance-1.html#cb482-4"></a><span class="kw">library</span>(mlbench)</span></code></pre></div>
+<div id="accuracy-and-confusion-matrix" class="section level2">
+<h2><span class="header-section-number">17.1</span> Accuracy and Confusion Matrix</h2>
+<p>We have defined Accuracy as</p>
+<p><span class="math display">\[\begin{equation*}
+\text{Accuracy} = \frac{\text{number of correct predictions}}{\text{total number of predictions}}.
+\end{equation*}\]</span></p>
+<p>However, the class imbalance problem below will show that this measure may not be a good measure of model performance in many cases.</p>
+<p><strong>Class imbalance problem</strong></p>
+<ul>
+<li><p>If you have a model with <span class="math inline">\(99\%\)</span> accuracy, does that mean the model is useful?</p></li>
+<li><p>Imagine a disease that is found 11 out of every 1000 people.</p></li>
+<li><p>A model that predicts <strong>no disease</strong> will have an accuracy of <span class="math inline">\(989/1000 = 98.9\%\)</span>, which is just slightly lower than the accuracy of your model.</p></li>
+<li><p>This shows that accuracy alone may not be a particular useful measure of performance in many applications.</p></li>
+<li><p>Class imbalance problem = the trouble associated with data having a large majority of records belonging to a single class</p></li>
+</ul>
+<p>Another problem is that accuracy does not tell us whether the model is good at identifying the positive cases or the negative cases.</p>
+<!-- Two types of predictions: -->
+<!-- 1. predicted class value -->
+<!-- 2. estimated probability of the prediction -->
+<p><strong>Confusion matrices</strong></p>
+<p>We have already seen some confusion matrices in previous chapters.</p>
+<ul>
+<li><p>A confusion matrix is a table that categorizes predictions according to whether they match the actual value.</p></li>
+<li><p>Correct predictions fall on the diagonal in the confusion matrix</p></li>
+</ul>
+<p>Recall the logistic regression example:</p>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="evaluating-model-performance-1.html#cb483-1"></a><span class="kw">library</span>(mlbench)</span>
+<span id="cb483-2"><a href="evaluating-model-performance-1.html#cb483-2"></a></span>
+<span id="cb483-3"><a href="evaluating-model-performance-1.html#cb483-3"></a><span class="kw">data</span>(PimaIndiansDiabetes2)</span>
+<span id="cb483-4"><a href="evaluating-model-performance-1.html#cb483-4"></a>PimaIndiansDiabetes2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(PimaIndiansDiabetes2)</span>
+<span id="cb483-5"><a href="evaluating-model-performance-1.html#cb483-5"></a></span>
+<span id="cb483-6"><a href="evaluating-model-performance-1.html#cb483-6"></a><span class="co"># Split the data into training and test set</span></span>
+<span id="cb483-7"><a href="evaluating-model-performance-1.html#cb483-7"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb483-8"><a href="evaluating-model-performance-1.html#cb483-8"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb483-9"><a href="evaluating-model-performance-1.html#cb483-9"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
+<span id="cb483-10"><a href="evaluating-model-performance-1.html#cb483-10"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb483-11"><a href="evaluating-model-performance-1.html#cb483-11"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
+<span id="cb483-12"><a href="evaluating-model-performance-1.html#cb483-12"></a>fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb483-13"><a href="evaluating-model-performance-1.html#cb483-13"></a></span>
+<span id="cb483-14"><a href="evaluating-model-performance-1.html#cb483-14"></a><span class="co"># Prediction</span></span>
+<span id="cb483-15"><a href="evaluating-model-performance-1.html#cb483-15"></a>prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb483-16"><a href="evaluating-model-performance-1.html#cb483-16"></a>predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span></code></pre></div>
+<p>We can use the function <code>CrossTable()</code> from the package <code>gmodels</code> to create a confusion matrix with some additional information.</p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="evaluating-model-performance-1.html#cb484-1"></a><span class="kw">library</span>(gmodels)</span>
+<span id="cb484-2"><a href="evaluating-model-performance-1.html#cb484-2"></a><span class="kw">CrossTable</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">prop.chisq =</span> <span class="ot">FALSE</span>) </span>
+<span id="cb484-3"><a href="evaluating-model-performance-1.html#cb484-3"></a><span class="co">## </span></span>
+<span id="cb484-4"><a href="evaluating-model-performance-1.html#cb484-4"></a><span class="co">##  </span></span>
+<span id="cb484-5"><a href="evaluating-model-performance-1.html#cb484-5"></a><span class="co">##    Cell Contents</span></span>
+<span id="cb484-6"><a href="evaluating-model-performance-1.html#cb484-6"></a><span class="co">## |-------------------------|</span></span>
+<span id="cb484-7"><a href="evaluating-model-performance-1.html#cb484-7"></a><span class="co">## |                       N |</span></span>
+<span id="cb484-8"><a href="evaluating-model-performance-1.html#cb484-8"></a><span class="co">## |           N / Row Total |</span></span>
+<span id="cb484-9"><a href="evaluating-model-performance-1.html#cb484-9"></a><span class="co">## |           N / Col Total |</span></span>
+<span id="cb484-10"><a href="evaluating-model-performance-1.html#cb484-10"></a><span class="co">## |         N / Table Total |</span></span>
+<span id="cb484-11"><a href="evaluating-model-performance-1.html#cb484-11"></a><span class="co">## |-------------------------|</span></span>
+<span id="cb484-12"><a href="evaluating-model-performance-1.html#cb484-12"></a><span class="co">## </span></span>
+<span id="cb484-13"><a href="evaluating-model-performance-1.html#cb484-13"></a><span class="co">##  </span></span>
+<span id="cb484-14"><a href="evaluating-model-performance-1.html#cb484-14"></a><span class="co">## Total Observations in Table:  118 </span></span>
+<span id="cb484-15"><a href="evaluating-model-performance-1.html#cb484-15"></a><span class="co">## </span></span>
+<span id="cb484-16"><a href="evaluating-model-performance-1.html#cb484-16"></a><span class="co">##  </span></span>
+<span id="cb484-17"><a href="evaluating-model-performance-1.html#cb484-17"></a><span class="co">##                 | test_data$diabetes </span></span>
+<span id="cb484-18"><a href="evaluating-model-performance-1.html#cb484-18"></a><span class="co">## predicted_class |       neg |       pos | Row Total | </span></span>
+<span id="cb484-19"><a href="evaluating-model-performance-1.html#cb484-19"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb484-20"><a href="evaluating-model-performance-1.html#cb484-20"></a><span class="co">##             neg |        71 |        23 |        94 | </span></span>
+<span id="cb484-21"><a href="evaluating-model-performance-1.html#cb484-21"></a><span class="co">##                 |     0.755 |     0.245 |     0.797 | </span></span>
+<span id="cb484-22"><a href="evaluating-model-performance-1.html#cb484-22"></a><span class="co">##                 |     0.899 |     0.590 |           | </span></span>
+<span id="cb484-23"><a href="evaluating-model-performance-1.html#cb484-23"></a><span class="co">##                 |     0.602 |     0.195 |           | </span></span>
+<span id="cb484-24"><a href="evaluating-model-performance-1.html#cb484-24"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb484-25"><a href="evaluating-model-performance-1.html#cb484-25"></a><span class="co">##             pos |         8 |        16 |        24 | </span></span>
+<span id="cb484-26"><a href="evaluating-model-performance-1.html#cb484-26"></a><span class="co">##                 |     0.333 |     0.667 |     0.203 | </span></span>
+<span id="cb484-27"><a href="evaluating-model-performance-1.html#cb484-27"></a><span class="co">##                 |     0.101 |     0.410 |           | </span></span>
+<span id="cb484-28"><a href="evaluating-model-performance-1.html#cb484-28"></a><span class="co">##                 |     0.068 |     0.136 |           | </span></span>
+<span id="cb484-29"><a href="evaluating-model-performance-1.html#cb484-29"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb484-30"><a href="evaluating-model-performance-1.html#cb484-30"></a><span class="co">##    Column Total |        79 |        39 |       118 | </span></span>
+<span id="cb484-31"><a href="evaluating-model-performance-1.html#cb484-31"></a><span class="co">##                 |     0.669 |     0.331 |           | </span></span>
+<span id="cb484-32"><a href="evaluating-model-performance-1.html#cb484-32"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb484-33"><a href="evaluating-model-performance-1.html#cb484-33"></a><span class="co">## </span></span>
+<span id="cb484-34"><a href="evaluating-model-performance-1.html#cb484-34"></a><span class="co">## </span></span></code></pre></div>
+<p>The <span class="math inline">\(3\)</span> proportions are</p>
+<ul>
+<li>N / Row Total (e.g. <span class="math inline">\(71/94 = 0.755\)</span>)</li>
+<li>N / Col Total (e.g. <span class="math inline">\(71/79 = 0.899\)</span>)</li>
+<li>N / Table Total (e.g. <span class="math inline">\(71/118 = 0.602\)</span>)</li>
+</ul>
+<p>In a confusion matrix, predictions fall into one of the four categories:</p>
+<ul>
+<li>True positive (TP): Correctly classified as the class of interest</li>
+<li>True negative (TN): Correctly classified as not the class of interest</li>
+<li>False positive (FP): Incorrectly classified as the class of interest</li>
+<li>False negative (FN): Incorrectly classified as not the class of interest</li>
+</ul>
+<p><strong>Positive</strong> = the class of interest</p>
+<p>The notations TP, TN, FP and FN are also used to refer to the number of times the predictions fell into each of these categories.</p>
+<p>In the logistic regression example, suppose our class of interest is <code>pos</code>.</p>
+<ul>
+<li>TP = 16</li>
+<li>TN = 71</li>
+<li>FP = 8</li>
+<li>FN = 23</li>
+</ul>
+</div>
+<div id="other-measures-of-performance" class="section level2">
+<h2><span class="header-section-number">17.2</span> Other Measures of Performance</h2>
+<p>The package <code>caret</code> contains a function <code>confusionMatrix()</code> to output several useful measures of classification performance. We will talk about some of them in the next section.</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="evaluating-model-performance-1.html#cb485-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb485-2"><a href="evaluating-model-performance-1.html#cb485-2"></a><span class="co"># requires factor inputs</span></span>
+<span id="cb485-3"><a href="evaluating-model-performance-1.html#cb485-3"></a><span class="kw">confusionMatrix</span>(<span class="dt">data =</span> <span class="kw">factor</span>(predicted_class), <span class="dt">reference =</span>  <span class="kw">factor</span>(test_data<span class="op">$</span>diabetes),</span>
+<span id="cb485-4"><a href="evaluating-model-performance-1.html#cb485-4"></a>                <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb485-5"><a href="evaluating-model-performance-1.html#cb485-5"></a><span class="co">## Confusion Matrix and Statistics</span></span>
+<span id="cb485-6"><a href="evaluating-model-performance-1.html#cb485-6"></a><span class="co">## </span></span>
+<span id="cb485-7"><a href="evaluating-model-performance-1.html#cb485-7"></a><span class="co">##           Reference</span></span>
+<span id="cb485-8"><a href="evaluating-model-performance-1.html#cb485-8"></a><span class="co">## Prediction neg pos</span></span>
+<span id="cb485-9"><a href="evaluating-model-performance-1.html#cb485-9"></a><span class="co">##        neg  71  23</span></span>
+<span id="cb485-10"><a href="evaluating-model-performance-1.html#cb485-10"></a><span class="co">##        pos   8  16</span></span>
+<span id="cb485-11"><a href="evaluating-model-performance-1.html#cb485-11"></a><span class="co">##                                          </span></span>
+<span id="cb485-12"><a href="evaluating-model-performance-1.html#cb485-12"></a><span class="co">##                Accuracy : 0.7373         </span></span>
+<span id="cb485-13"><a href="evaluating-model-performance-1.html#cb485-13"></a><span class="co">##                  95% CI : (0.6483, 0.814)</span></span>
+<span id="cb485-14"><a href="evaluating-model-performance-1.html#cb485-14"></a><span class="co">##     No Information Rate : 0.6695         </span></span>
+<span id="cb485-15"><a href="evaluating-model-performance-1.html#cb485-15"></a><span class="co">##     P-Value [Acc &gt; NIR] : 0.06908        </span></span>
+<span id="cb485-16"><a href="evaluating-model-performance-1.html#cb485-16"></a><span class="co">##                                          </span></span>
+<span id="cb485-17"><a href="evaluating-model-performance-1.html#cb485-17"></a><span class="co">##                   Kappa : 0.3423         </span></span>
+<span id="cb485-18"><a href="evaluating-model-performance-1.html#cb485-18"></a><span class="co">##                                          </span></span>
+<span id="cb485-19"><a href="evaluating-model-performance-1.html#cb485-19"></a><span class="co">##  Mcnemar&#39;s Test P-Value : 0.01192        </span></span>
+<span id="cb485-20"><a href="evaluating-model-performance-1.html#cb485-20"></a><span class="co">##                                          </span></span>
+<span id="cb485-21"><a href="evaluating-model-performance-1.html#cb485-21"></a><span class="co">##             Sensitivity : 0.4103         </span></span>
+<span id="cb485-22"><a href="evaluating-model-performance-1.html#cb485-22"></a><span class="co">##             Specificity : 0.8987         </span></span>
+<span id="cb485-23"><a href="evaluating-model-performance-1.html#cb485-23"></a><span class="co">##          Pos Pred Value : 0.6667         </span></span>
+<span id="cb485-24"><a href="evaluating-model-performance-1.html#cb485-24"></a><span class="co">##          Neg Pred Value : 0.7553         </span></span>
+<span id="cb485-25"><a href="evaluating-model-performance-1.html#cb485-25"></a><span class="co">##              Prevalence : 0.3305         </span></span>
+<span id="cb485-26"><a href="evaluating-model-performance-1.html#cb485-26"></a><span class="co">##          Detection Rate : 0.1356         </span></span>
+<span id="cb485-27"><a href="evaluating-model-performance-1.html#cb485-27"></a><span class="co">##    Detection Prevalence : 0.2034         </span></span>
+<span id="cb485-28"><a href="evaluating-model-performance-1.html#cb485-28"></a><span class="co">##       Balanced Accuracy : 0.6545         </span></span>
+<span id="cb485-29"><a href="evaluating-model-performance-1.html#cb485-29"></a><span class="co">##                                          </span></span>
+<span id="cb485-30"><a href="evaluating-model-performance-1.html#cb485-30"></a><span class="co">##        &#39;Positive&#39; Class : pos            </span></span>
+<span id="cb485-31"><a href="evaluating-model-performance-1.html#cb485-31"></a><span class="co">## </span></span></code></pre></div>
+<div id="the-kappa-statistic" class="section level3">
+<h3><span class="header-section-number">17.2.1</span> The kappa statistic</h3>
+<p>Idea: we want to adjust accuracy by accounting for the possibility of a correct prediction by chance alone. For example, if the disease is found <span class="math inline">\(11\)</span> out of every <span class="math inline">\(1000\)</span> people, we can predict each case randomly by assigning the positive case with probability <span class="math inline">\(0.989\)</span>. In this way, our accuracy will be <span class="math inline">\(98.9\%\)</span> on average.</p>
+<p>Definition of the kappa statistic:</p>
+<p><span class="math display">\[\begin{equation*}
+\kappa = \frac{p_a - p_e}{1 - p_e},
+\end{equation*}\]</span>
+where</p>
+<ul>
+<li><span class="math inline">\(p_a\)</span> is the proportion of actual agreement. That is, <span class="math inline">\(p_a\)</span> is the proportion of all instances where the predicted type and actual type agree. Mathematically,</li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+p_a = \frac{TP + TN}{TP + TN + FP + FN} = \text{Accuracy}.
+\end{equation*}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(p_e\)</span> is the expected agreement between the classifier and the true values, under the assumption that they were chosen at random. Let</p>
+<ul>
+<li><p><span class="math inline">\(p_{\text{pos, actual}}\)</span> denote the proportion of the <strong>positive</strong> cases in the <strong>actual data</strong></p></li>
+<li><p><span class="math inline">\(p_{\text{neg, actual}}\)</span> denote the proportion of the <strong>negative</strong> cases in the <strong>actual data</strong></p></li>
+<li><p><span class="math inline">\(p_{\text{pos, pred}}\)</span> denote the proportion of the <strong>positive</strong> cases in the <strong>predictions</strong></p></li>
+<li><p><span class="math inline">\(p_{\text{neg, pred}}\)</span> denote the proportion of <strong>negative</strong> cases in the <strong>predictions</strong></p></li>
+</ul></li>
+<li><p>Mathematically,</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+p_e = p_{\text{pos, actual}} \times p_{\text{pos, pred}} + p_{\text{neg, actual}}  \times p_{\text{neg, pred}}.
+\end{equation*}\]</span>
+This is because there are only two ways to get agreement (both are positive and both are negative) and the predictions are chosen at random (so that the predictions and the actual data are independent -&gt; independence means multiplication in probability).</p>
+<p>In the above example,</p>
+<ul>
+<li><span class="math inline">\(p_a = \frac{16 + 71}{118} = 0.7372881\)</span></li>
+<li><span class="math inline">\(p_e = \frac{79}{118} \frac{94}{118} + \frac{39}{118} \frac{24}{118} = 0.6005458\)</span>.</li>
+<li><span class="math inline">\(\kappa = \frac{p_a - p_e}{1 - p_e} = 0.342\)</span>.</li>
+</ul>
+<p>Common interpretation of <span class="math inline">\(\kappa\)</span>:</p>
+<ul>
+<li>less than <span class="math inline">\(0.2\)</span> = poor agreement</li>
+<li><span class="math inline">\(0.2\)</span> to <span class="math inline">\(0.4\)</span> = fair agreement</li>
+<li><span class="math inline">\(0.4\)</span> to <span class="math inline">\(0.8\)</span> = moderate agreement</li>
+<li><span class="math inline">\(0.6\)</span> to <span class="math inline">\(0.8\)</span> = good agreement</li>
+<li><span class="math inline">\(0.8\)</span> to <span class="math inline">\(1\)</span> = very good agreement</li>
+</ul>
+</div>
+<div id="sensitivity-and-specificity" class="section level3">
+<h3><span class="header-section-number">17.2.2</span> Sensitivity and specificity</h3>
+<ul>
+<li><p>Most of you have probably received some spam (junk email) in your email. Many email providers filter the spam automatically. You may also experience that sometimes some legitimate emails (ham) are classified as spam.</p></li>
+<li><p>Finding a useful classifier often involves a balance between predictions that are overly conservative and overly aggressive.</p>
+<ul>
+<li><p>(Overly Aggressive) For example, you can classify an email as spam if you have never sent an email to that address.</p></li>
+<li><p>(Overly Conservative) To guarantee that no ham messages will be inadvertently filtered might require us to allow an unacceptable amount of spam to pass through the filter.</p></li>
+</ul></li>
+</ul>
+<p>A pair of performance measures captures this trade-off: <strong>sensitivity</strong> and <strong>specificity</strong>.</p>
+<ul>
+<li><p>Sensitivity (also called the true positive rate) is defined as
+<span class="math display">\[\begin{equation*}
+\text{Sensitivity} = \frac{TP}{TP + FN}.
+\end{equation*}\]</span>
+It is the proportion of positive examples that are correctly classified. E.g., the proportion of spam filtered.</p></li>
+<li><p>Specificity (also called the true negative rate) is defined as
+<span class="math display">\[\begin{equation*}
+\text{Specificity} = \frac{TN}{TN + FP}.
+\end{equation*}\]</span>
+It is the proportion of negative examples that are correctly classified. E.g., the proportion of ham not filtered.</p></li>
+<li><p>Ideally, we want both of them to be close to <span class="math inline">\(1\)</span>.</p></li>
+<li><p>There is usually a tradeoff between the two measures.</p></li>
+</ul>
+</div>
+<div id="roc-and-auc" class="section level3">
+<h3><span class="header-section-number">17.2.3</span> ROC and AUC</h3>
+<p>ROC = receiver operating characteristic curve</p>
+<p>AUC = area under the ROC curve</p>
+<p>Recall that in the logistic regression example, we chose <span class="math inline">\(0.5\)</span> as the threshold to decide our predictions. Changing this threshold will change the <strong>sensitivity</strong> and the <strong>specificity</strong> of your model. ROC is a tool to visualize the trade-off between the sensitivity and specificity. In ROC, sensitivity is plot against 1 - specificity at different levels of the threshold. It tells you how well the model perform.</p>
+<ul>
+<li>A classifier that is closer to the perfect classifier is considered to be better</li>
+<li>A classifier that results in a higher AUC is considered to be better</li>
+<li>The diagonal line from the bottom-left to the top-right corner of the diagram represents a classifier with no predictive value.</li>
+</ul>
+<p><img src="Book_files/figure-html/unnamed-chunk-551-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>To understand how ROC is constructed, we use our logistic regression example. The package <code>caret</code> contains the two functions <code>sensitivity</code> and <code>specificity</code> to compute the sensitivity and specificity, respectively.</p>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="evaluating-model-performance-1.html#cb486-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb486-2"><a href="evaluating-model-performance-1.html#cb486-2"></a>threshold &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb486-3"><a href="evaluating-model-performance-1.html#cb486-3"></a>roc_sensitivity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
+<span id="cb486-4"><a href="evaluating-model-performance-1.html#cb486-4"></a>roc_specificity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
+<span id="cb486-5"><a href="evaluating-model-performance-1.html#cb486-5"></a></span>
+<span id="cb486-6"><a href="evaluating-model-performance-1.html#cb486-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(threshold)) {</span>
+<span id="cb486-7"><a href="evaluating-model-performance-1.html#cb486-7"></a>  <span class="co"># for each value of threshold, find our predictions</span></span>
+<span id="cb486-8"><a href="evaluating-model-performance-1.html#cb486-8"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span>threshold[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>))</span>
+<span id="cb486-9"><a href="evaluating-model-performance-1.html#cb486-9"></a>  <span class="co"># compute the corresponding sensitivity and specificity</span></span>
+<span id="cb486-10"><a href="evaluating-model-performance-1.html#cb486-10"></a>  roc_sensitivity[i] &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb486-11"><a href="evaluating-model-performance-1.html#cb486-11"></a>  roc_specificity[i]  &lt;-<span class="st"> </span><span class="kw">specificity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">negative =</span> <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb486-12"><a href="evaluating-model-performance-1.html#cb486-12"></a>}</span>
+<span id="cb486-13"><a href="evaluating-model-performance-1.html#cb486-13"></a></span>
+<span id="cb486-14"><a href="evaluating-model-performance-1.html#cb486-14"></a><span class="co"># ROC, use geom_path instead of geom_line to retain the order when joining the points</span></span>
+<span id="cb486-15"><a href="evaluating-model-performance-1.html#cb486-15"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>roc_specificity, <span class="dt">y =</span> roc_sensitivity)) <span class="op">+</span></span>
+<span id="cb486-16"><a href="evaluating-model-performance-1.html#cb486-16"></a><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></span>
+<span id="cb486-17"><a href="evaluating-model-performance-1.html#cb486-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
+<p>There is a function called <code>roc()</code> in the package <code>pROC</code> to construct the ROC.</p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="evaluating-model-performance-1.html#cb487-1"></a><span class="kw">library</span>(pROC)</span>
+<span id="cb487-2"><a href="evaluating-model-performance-1.html#cb487-2"></a></span>
+<span id="cb487-3"><a href="evaluating-model-performance-1.html#cb487-3"></a>roc_logistic &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes)</span>
+<span id="cb487-4"><a href="evaluating-model-performance-1.html#cb487-4"></a></span>
+<span id="cb487-5"><a href="evaluating-model-performance-1.html#cb487-5"></a><span class="kw">plot</span>(roc_logistic)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-553-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="evaluating-model-performance-1.html#cb488-1"></a></span>
+<span id="cb488-2"><a href="evaluating-model-performance-1.html#cb488-2"></a><span class="co"># find the AUC</span></span>
+<span id="cb488-3"><a href="evaluating-model-performance-1.html#cb488-3"></a><span class="kw">auc</span>(roc_logistic)</span>
+<span id="cb488-4"><a href="evaluating-model-performance-1.html#cb488-4"></a><span class="co">## Area under the curve: 0.7592</span></span></code></pre></div>
+<p>Note that the x-axis label from this function is Specificity starting from 1.</p>
+</div>
+</div>
+<div id="estimating-future-performances" class="section level2">
+<h2><span class="header-section-number">17.3</span> Estimating future performances</h2>
+<ul>
+<li><p>Recall that in evaluating the model performance, we have partition our data into training and testing datasets. This is known as the holdout method.</p></li>
+<li><p>To estimate the future performance, we should not use any part of the testing data when we train our model using our training dataset. Otherwise, our result will be biased.</p></li>
+</ul>
+<p>One problem with the above random partition is that the proportions of the class of interest are very different in the training dataset and testing datase even if we have randomly selected our observations.</p>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="evaluating-model-performance-1.html#cb489-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb489-2"><a href="evaluating-model-performance-1.html#cb489-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb489-3"><a href="evaluating-model-performance-1.html#cb489-3"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
+<span id="cb489-4"><a href="evaluating-model-performance-1.html#cb489-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb489-5"><a href="evaluating-model-performance-1.html#cb489-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
+<span id="cb489-6"><a href="evaluating-model-performance-1.html#cb489-6"></a></span>
+<span id="cb489-7"><a href="evaluating-model-performance-1.html#cb489-7"></a><span class="kw">table</span>(train_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_data)</span>
+<span id="cb489-8"><a href="evaluating-model-performance-1.html#cb489-8"></a><span class="co">## </span></span>
+<span id="cb489-9"><a href="evaluating-model-performance-1.html#cb489-9"></a><span class="co">##      neg      pos </span></span>
+<span id="cb489-10"><a href="evaluating-model-performance-1.html#cb489-10"></a><span class="co">## 0.649635 0.350365</span></span>
+<span id="cb489-11"><a href="evaluating-model-performance-1.html#cb489-11"></a></span>
+<span id="cb489-12"><a href="evaluating-model-performance-1.html#cb489-12"></a><span class="kw">table</span>(test_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(test_data)</span>
+<span id="cb489-13"><a href="evaluating-model-performance-1.html#cb489-13"></a><span class="co">## </span></span>
+<span id="cb489-14"><a href="evaluating-model-performance-1.html#cb489-14"></a><span class="co">##       neg       pos </span></span>
+<span id="cb489-15"><a href="evaluating-model-performance-1.html#cb489-15"></a><span class="co">## 0.7118644 0.2881356</span></span></code></pre></div>
+<p>You can see that the proportion of <code>pos</code> in the training dataset is <span class="math inline">\(0.350\)</span> while that in the testing dataset is <span class="math inline">\(0.288\)</span>. This may affect the estimation of the model performance.</p>
+<p>To avoid this issue, we can use <strong>stratified random sampling</strong> to ensure the training dataset and testing dataset have nearly the same proportion in the class of interest.</p>
+<p>To do that in R, we can use the function <code>createDataPartition</code> from the package <code>caret</code>.</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="evaluating-model-performance-1.html#cb490-1"></a>stratified_random_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes,</span>
+<span id="cb490-2"><a href="evaluating-model-performance-1.html#cb490-2"></a>                                               <span class="dt">p =</span> <span class="fl">0.7</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb490-3"><a href="evaluating-model-performance-1.html#cb490-3"></a></span>
+<span id="cb490-4"><a href="evaluating-model-performance-1.html#cb490-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[stratified_random_index, ]</span>
+<span id="cb490-5"><a href="evaluating-model-performance-1.html#cb490-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>stratified_random_index, ]</span>
+<span id="cb490-6"><a href="evaluating-model-performance-1.html#cb490-6"></a></span>
+<span id="cb490-7"><a href="evaluating-model-performance-1.html#cb490-7"></a><span class="kw">table</span>(train_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_data)</span>
+<span id="cb490-8"><a href="evaluating-model-performance-1.html#cb490-8"></a><span class="co">## </span></span>
+<span id="cb490-9"><a href="evaluating-model-performance-1.html#cb490-9"></a><span class="co">##       neg       pos </span></span>
+<span id="cb490-10"><a href="evaluating-model-performance-1.html#cb490-10"></a><span class="co">## 0.6690909 0.3309091</span></span>
+<span id="cb490-11"><a href="evaluating-model-performance-1.html#cb490-11"></a></span>
+<span id="cb490-12"><a href="evaluating-model-performance-1.html#cb490-12"></a><span class="kw">table</span>(test_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(test_data)</span>
+<span id="cb490-13"><a href="evaluating-model-performance-1.html#cb490-13"></a><span class="co">## </span></span>
+<span id="cb490-14"><a href="evaluating-model-performance-1.html#cb490-14"></a><span class="co">##       neg       pos </span></span>
+<span id="cb490-15"><a href="evaluating-model-performance-1.html#cb490-15"></a><span class="co">## 0.6666667 0.3333333</span></span>
+<span id="cb490-16"><a href="evaluating-model-performance-1.html#cb490-16"></a></span>
+<span id="cb490-17"><a href="evaluating-model-performance-1.html#cb490-17"></a><span class="kw">table</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(PimaIndiansDiabetes2)</span>
+<span id="cb490-18"><a href="evaluating-model-performance-1.html#cb490-18"></a><span class="co">## </span></span>
+<span id="cb490-19"><a href="evaluating-model-performance-1.html#cb490-19"></a><span class="co">##       neg       pos </span></span>
+<span id="cb490-20"><a href="evaluating-model-performance-1.html#cb490-20"></a><span class="co">## 0.6683673 0.3316327</span></span></code></pre></div>
+<p>Now, both proportions are similar to the one in the whole dataset.</p>
+<p>While stratified sampling distribute the classes evenly, it does not guarantee other variables are distributed evenly.</p>
+<ul>
+<li>To mitigate the problem, we can use repeated holdout. That is, we repeat the whole process several times with several random holdout samples and take the average of the performance measures to evaluate the model performance. As multiple holdout samples are used, it is less likely that the model is trained or tested on non-representative data.</li>
+</ul>
+<div id="cross-validation" class="section level3">
+<h3><span class="header-section-number">17.3.1</span> Cross-validation</h3>
+<p><span class="math inline">\(k\)</span>-fold cross-validation (<span class="math inline">\(k\)</span>-fold CV) is a procedure in which instead of randomly partition the data many times, we divide the data into <span class="math inline">\(k\)</span> random non-overlapping partitions. Then, we combine <span class="math inline">\(k-1\)</span> partitions to form a training dataset and the remaining one to form the testing dataset. We repeat this procedure <span class="math inline">\(k\)</span> times using different partitions and obtain <span class="math inline">\(k\)</span> evaluations. It is common to use <span class="math inline">\(10\)</span>-fold CV.</p>
+<p>For example, when <span class="math inline">\(k=3\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Randomly split your dataset <span class="math inline">\(S\)</span> into <span class="math inline">\(3\)</span> partitions <span class="math inline">\(S_1,S_2,S_3\)</span>.</li>
+<li>Use <span class="math inline">\(S_1, S_2\)</span> to train your model. Evaluate the performance using <span class="math inline">\(S_3\)</span>.</li>
+<li>Use <span class="math inline">\(S_1, S_3\)</span> to train your model. Evaluate the performance using <span class="math inline">\(S_2\)</span>.</li>
+<li>Use <span class="math inline">\(S_2, S_3\)</span> to train your model. Evaluate the performance using <span class="math inline">\(S_1\)</span>.</li>
+<li>Report the average of the performance measures obtained in Steps 2-4.</li>
+</ol>
+<p>See <a href="https://en.wikipedia.org/wiki/File:KfoldCV.gif" class="uri">https://en.wikipedia.org/wiki/File:KfoldCV.gif</a> for a gif animation showing the <span class="math inline">\(k\)</span>-fold CV.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="evaluating-model-performance-1.html#cb491-1"></a>k &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb491-2"><a href="evaluating-model-performance-1.html#cb491-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb491-3"><a href="evaluating-model-performance-1.html#cb491-3"></a><span class="co"># the result is a list</span></span>
+<span id="cb491-4"><a href="evaluating-model-performance-1.html#cb491-4"></a>folds &lt;-<span class="st"> </span><span class="kw">createFolds</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes, <span class="dt">k =</span> k)</span>
+<span id="cb491-5"><a href="evaluating-model-performance-1.html#cb491-5"></a>accuracy &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
+<span id="cb491-6"><a href="evaluating-model-performance-1.html#cb491-6"></a>AUC &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
+<span id="cb491-7"><a href="evaluating-model-performance-1.html#cb491-7"></a></span>
+<span id="cb491-8"><a href="evaluating-model-performance-1.html#cb491-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>k) {</span>
+<span id="cb491-9"><a href="evaluating-model-performance-1.html#cb491-9"></a>  train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[folds[[i]], ]</span>
+<span id="cb491-10"><a href="evaluating-model-performance-1.html#cb491-10"></a>  test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>folds[[i]], ]</span>
+<span id="cb491-11"><a href="evaluating-model-performance-1.html#cb491-11"></a>  fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb491-12"><a href="evaluating-model-performance-1.html#cb491-12"></a></span>
+<span id="cb491-13"><a href="evaluating-model-performance-1.html#cb491-13"></a>  <span class="co"># Prediction</span></span>
+<span id="cb491-14"><a href="evaluating-model-performance-1.html#cb491-14"></a>  prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb491-15"><a href="evaluating-model-performance-1.html#cb491-15"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb491-16"><a href="evaluating-model-performance-1.html#cb491-16"></a>  </span>
+<span id="cb491-17"><a href="evaluating-model-performance-1.html#cb491-17"></a>  <span class="co"># Compute accuracy and AUC</span></span>
+<span id="cb491-18"><a href="evaluating-model-performance-1.html#cb491-18"></a>  accuracy[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(predicted_class <span class="op">==</span><span class="st"> </span>test_data<span class="op">$</span>diabetes)</span>
+<span id="cb491-19"><a href="evaluating-model-performance-1.html#cb491-19"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">auc</span>(<span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes))</span>
+<span id="cb491-20"><a href="evaluating-model-performance-1.html#cb491-20"></a>}</span></code></pre></div>
+<p>Results:</p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="evaluating-model-performance-1.html#cb492-1"></a>accuracy</span>
+<span id="cb492-2"><a href="evaluating-model-performance-1.html#cb492-2"></a><span class="co">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411 0.7563739</span></span>
+<span id="cb492-3"><a href="evaluating-model-performance-1.html#cb492-3"></a><span class="co">##  [8] 0.7620397 0.7443182 0.7705382</span></span>
+<span id="cb492-4"><a href="evaluating-model-performance-1.html#cb492-4"></a></span>
+<span id="cb492-5"><a href="evaluating-model-performance-1.html#cb492-5"></a><span class="kw">mean</span>(accuracy)</span>
+<span id="cb492-6"><a href="evaluating-model-performance-1.html#cb492-6"></a><span class="co">## [1] 0.7607689</span></span>
+<span id="cb492-7"><a href="evaluating-model-performance-1.html#cb492-7"></a></span>
+<span id="cb492-8"><a href="evaluating-model-performance-1.html#cb492-8"></a>AUC</span>
+<span id="cb492-9"><a href="evaluating-model-performance-1.html#cb492-9"></a><span class="co">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021 0.8012821</span></span>
+<span id="cb492-10"><a href="evaluating-model-performance-1.html#cb492-10"></a><span class="co">##  [8] 0.8102455 0.7917803 0.8177061</span></span>
+<span id="cb492-11"><a href="evaluating-model-performance-1.html#cb492-11"></a></span>
+<span id="cb492-12"><a href="evaluating-model-performance-1.html#cb492-12"></a><span class="kw">mean</span>(AUC)</span>
+<span id="cb492-13"><a href="evaluating-model-performance-1.html#cb492-13"></a><span class="co">## [1] 0.8057514</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="neural-networks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

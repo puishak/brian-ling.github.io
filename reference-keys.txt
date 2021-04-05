@@ -159,3 +159,11 @@ understanding-the-model
 evaluating-the-performance
 improving-the-model
 classification
+evaluating-model-performance-1
+accuracy-and-confusion-matrix
+other-measures-of-performance
+the-kappa-statistic
+sensitivity-and-specificity
+roc-and-auc
+estimating-future-performances
+cross-validation
