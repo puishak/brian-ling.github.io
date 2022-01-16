@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-10" />
+<meta name="date" content="2022-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -969,29 +969,31 @@ From the above formula, you could determine the minimum number of simulations re
 <span id="cb347-3"><a href="statistical-inference-in-r.html#cb347-3"></a>no_trial &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>) <span class="co"># corresponding no. of trails in the 3 groups</span></span>
 <span id="cb347-4"><a href="statistical-inference-in-r.html#cb347-4"></a><span class="kw">prop.test</span>(no_success, no_trial)</span>
 <span id="cb347-5"><a href="statistical-inference-in-r.html#cb347-5"></a><span class="co">## </span></span>
-<span id="cb347-6"><a href="statistical-inference-in-r.html#cb347-6"></a><span class="co">##  3-sample test for equality of proportions without continuity correction</span></span>
-<span id="cb347-7"><a href="statistical-inference-in-r.html#cb347-7"></a><span class="co">## </span></span>
-<span id="cb347-8"><a href="statistical-inference-in-r.html#cb347-8"></a><span class="co">## data:  no_success out of no_trial</span></span>
-<span id="cb347-9"><a href="statistical-inference-in-r.html#cb347-9"></a><span class="co">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
-<span id="cb347-10"><a href="statistical-inference-in-r.html#cb347-10"></a><span class="co">## alternative hypothesis: two.sided</span></span>
-<span id="cb347-11"><a href="statistical-inference-in-r.html#cb347-11"></a><span class="co">## sample estimates:</span></span>
-<span id="cb347-12"><a href="statistical-inference-in-r.html#cb347-12"></a><span class="co">## prop 1 prop 2 prop 3 </span></span>
-<span id="cb347-13"><a href="statistical-inference-in-r.html#cb347-13"></a><span class="co">##   0.48   0.60   0.50</span></span></code></pre></div>
+<span id="cb347-6"><a href="statistical-inference-in-r.html#cb347-6"></a><span class="co">##  3-sample test for equality of proportions without continuity</span></span>
+<span id="cb347-7"><a href="statistical-inference-in-r.html#cb347-7"></a><span class="co">##  correction</span></span>
+<span id="cb347-8"><a href="statistical-inference-in-r.html#cb347-8"></a><span class="co">## </span></span>
+<span id="cb347-9"><a href="statistical-inference-in-r.html#cb347-9"></a><span class="co">## data:  no_success out of no_trial</span></span>
+<span id="cb347-10"><a href="statistical-inference-in-r.html#cb347-10"></a><span class="co">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
+<span id="cb347-11"><a href="statistical-inference-in-r.html#cb347-11"></a><span class="co">## alternative hypothesis: two.sided</span></span>
+<span id="cb347-12"><a href="statistical-inference-in-r.html#cb347-12"></a><span class="co">## sample estimates:</span></span>
+<span id="cb347-13"><a href="statistical-inference-in-r.html#cb347-13"></a><span class="co">## prop 1 prop 2 prop 3 </span></span>
+<span id="cb347-14"><a href="statistical-inference-in-r.html#cb347-14"></a><span class="co">##   0.48   0.60   0.50</span></span></code></pre></div>
 <p><span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the three groups have the same proportion of success.</p>
 <p><strong>Example</strong></p>
 <p>In a class of <span class="math inline">\(38\)</span> students, <span class="math inline">\(14\)</span> of them got <span class="math inline">\(A\)</span>. In another class of <span class="math inline">\(40\)</span> students, only <span class="math inline">\(10\)</span> got <span class="math inline">\(A\)</span>. We want to know if the difference between the two proportions is statistically significant.</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="statistical-inference-in-r.html#cb348-1"></a><span class="kw">prop.test</span>(<span class="kw">c</span>(<span class="dv">14</span>, <span class="dv">10</span>), <span class="kw">c</span>(<span class="dv">38</span>, <span class="dv">40</span>))</span>
 <span id="cb348-2"><a href="statistical-inference-in-r.html#cb348-2"></a><span class="co">## </span></span>
-<span id="cb348-3"><a href="statistical-inference-in-r.html#cb348-3"></a><span class="co">##  2-sample test for equality of proportions with continuity correction</span></span>
-<span id="cb348-4"><a href="statistical-inference-in-r.html#cb348-4"></a><span class="co">## </span></span>
-<span id="cb348-5"><a href="statistical-inference-in-r.html#cb348-5"></a><span class="co">## data:  c(14, 10) out of c(38, 40)</span></span>
-<span id="cb348-6"><a href="statistical-inference-in-r.html#cb348-6"></a><span class="co">## X-squared = 0.7872, df = 1, p-value = 0.3749</span></span>
-<span id="cb348-7"><a href="statistical-inference-in-r.html#cb348-7"></a><span class="co">## alternative hypothesis: two.sided</span></span>
-<span id="cb348-8"><a href="statistical-inference-in-r.html#cb348-8"></a><span class="co">## 95 percent confidence interval:</span></span>
-<span id="cb348-9"><a href="statistical-inference-in-r.html#cb348-9"></a><span class="co">##  -0.1110245  0.3478666</span></span>
-<span id="cb348-10"><a href="statistical-inference-in-r.html#cb348-10"></a><span class="co">## sample estimates:</span></span>
-<span id="cb348-11"><a href="statistical-inference-in-r.html#cb348-11"></a><span class="co">##    prop 1    prop 2 </span></span>
-<span id="cb348-12"><a href="statistical-inference-in-r.html#cb348-12"></a><span class="co">## 0.3684211 0.2500000</span></span></code></pre></div>
+<span id="cb348-3"><a href="statistical-inference-in-r.html#cb348-3"></a><span class="co">##  2-sample test for equality of proportions with continuity</span></span>
+<span id="cb348-4"><a href="statistical-inference-in-r.html#cb348-4"></a><span class="co">##  correction</span></span>
+<span id="cb348-5"><a href="statistical-inference-in-r.html#cb348-5"></a><span class="co">## </span></span>
+<span id="cb348-6"><a href="statistical-inference-in-r.html#cb348-6"></a><span class="co">## data:  c(14, 10) out of c(38, 40)</span></span>
+<span id="cb348-7"><a href="statistical-inference-in-r.html#cb348-7"></a><span class="co">## X-squared = 0.7872, df = 1, p-value = 0.3749</span></span>
+<span id="cb348-8"><a href="statistical-inference-in-r.html#cb348-8"></a><span class="co">## alternative hypothesis: two.sided</span></span>
+<span id="cb348-9"><a href="statistical-inference-in-r.html#cb348-9"></a><span class="co">## 95 percent confidence interval:</span></span>
+<span id="cb348-10"><a href="statistical-inference-in-r.html#cb348-10"></a><span class="co">##  -0.1110245  0.3478666</span></span>
+<span id="cb348-11"><a href="statistical-inference-in-r.html#cb348-11"></a><span class="co">## sample estimates:</span></span>
+<span id="cb348-12"><a href="statistical-inference-in-r.html#cb348-12"></a><span class="co">##    prop 1    prop 2 </span></span>
+<span id="cb348-13"><a href="statistical-inference-in-r.html#cb348-13"></a><span class="co">## 0.3684211 0.2500000</span></span></code></pre></div>
 <p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the students in the two groups have the same proportion of getting an A.</p>
 </div>
 <div id="testing-if-two-samples-have-the-same-underlying-distribution" class="section level3">

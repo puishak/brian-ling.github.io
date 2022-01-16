@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-10" />
+<meta name="date" content="2022-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -401,12 +401,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb76-15"><a href="programming-in-r.html#cb76-15"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb76-16"><a href="programming-in-r.html#cb76-16"></a><span class="kw">my_var</span>(x)</span>
 <span id="cb76-17"><a href="programming-in-r.html#cb76-17"></a><span class="co">## [1] 4.262595</span></span>
-<span id="cb76-18"><a href="programming-in-r.html#cb76-18"></a><span class="kw">var</span>(x) <span class="co"># why the result is not equal to 2?</span></span>
+<span id="cb76-18"><a href="programming-in-r.html#cb76-18"></a><span class="kw">var</span>(x) <span class="co"># why the result is not equal to 4?</span></span>
 <span id="cb76-19"><a href="programming-in-r.html#cb76-19"></a><span class="co">## [1] 4.262595</span></span></code></pre></div>
 <ul>
 <li>We can also write</li>
 </ul>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="programming-in-r.html#cb77-1"></a>my_var2 &lt;-<span class="st"> </span><span class="cf">function</span>(x){<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)}</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="programming-in-r.html#cb77-1"></a>my_var2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)}</span></code></pre></div>
 <ul>
 <li>The variable <code>x</code> is the argument to be passed into the function. The variables <code>mean_x</code> and <code>n</code> are <strong><em>local variables</em></strong> whose scope is within this function.</li>
 </ul>
@@ -434,14 +434,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-2"><a href="programming-in-r.html#cb79-2"></a>my_var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb79-3"><a href="programming-in-r.html#cb79-3"></a>  mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb79-4"><a href="programming-in-r.html#cb79-4"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb79-5"><a href="programming-in-r.html#cb79-5"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb79-5"><a href="programming-in-r.html#cb79-5"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
 <span id="cb79-6"><a href="programming-in-r.html#cb79-6"></a>}</span>
 <span id="cb79-7"><a href="programming-in-r.html#cb79-7"></a></span>
 <span id="cb79-8"><a href="programming-in-r.html#cb79-8"></a><span class="co"># no indentation</span></span>
 <span id="cb79-9"><a href="programming-in-r.html#cb79-9"></a>my_var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb79-10"><a href="programming-in-r.html#cb79-10"></a>mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb79-11"><a href="programming-in-r.html#cb79-11"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb79-12"><a href="programming-in-r.html#cb79-12"></a><span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb79-12"><a href="programming-in-r.html#cb79-12"></a><span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
 <span id="cb79-13"><a href="programming-in-r.html#cb79-13"></a>}</span></code></pre></div>
 <p><strong><em>The number of arguments passed to a function can be more than one</em></strong></p>
 <p><strong>Example:</strong> Write a function to compute the pooled sample standard deviation of two independent samples <span class="math inline">\(x_1,\ldots,x_n\)</span> and <span class="math inline">\(y_1,\ldots,y_m\)</span> of sizes <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span>. Recall that the pooled sample standard deviation is defined as:
@@ -452,26 +452,26 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="programming-in-r.html#cb80-1"></a>pooled_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
 <span id="cb80-2"><a href="programming-in-r.html#cb80-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
 <span id="cb80-3"><a href="programming-in-r.html#cb80-3"></a>  m &lt;-<span class="st"> </span><span class="kw">length</span>(y)</span>
-<span id="cb80-4"><a href="programming-in-r.html#cb80-4"></a>  <span class="kw">return</span>(<span class="kw">sqrt</span>(((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(x) <span class="op">+</span><span class="st"> </span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y))<span class="op">/</span>(m <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>)))</span>
+<span id="cb80-4"><a href="programming-in-r.html#cb80-4"></a>  <span class="kw">return</span>(<span class="kw">sqrt</span>(((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(x) <span class="op">+</span><span class="st"> </span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y)) <span class="op">/</span><span class="st"> </span>(m <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>)))</span>
 <span id="cb80-5"><a href="programming-in-r.html#cb80-5"></a>}</span></code></pre></div>
 <p>Remark: if the final statement will output something, it will be the output of the function. You can also use <code>return()</code> as above. That is, <code>pooled_sd</code> and <code>pooled_sd2</code> are exactly the same.</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="programming-in-r.html#cb81-1"></a>pooled_sd2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
 <span id="cb81-2"><a href="programming-in-r.html#cb81-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
 <span id="cb81-3"><a href="programming-in-r.html#cb81-3"></a>  m &lt;-<span class="st"> </span><span class="kw">length</span>(y)</span>
-<span id="cb81-4"><a href="programming-in-r.html#cb81-4"></a>  <span class="kw">sqrt</span>(((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(x) <span class="op">+</span><span class="st"> </span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y))<span class="op">/</span>(m <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>))</span>
+<span id="cb81-4"><a href="programming-in-r.html#cb81-4"></a>  <span class="kw">sqrt</span>(((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(x) <span class="op">+</span><span class="st"> </span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y)) <span class="op">/</span><span class="st"> </span>(m <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>))</span>
 <span id="cb81-5"><a href="programming-in-r.html#cb81-5"></a>}</span></code></pre></div>
 <p><strong><em>You can return more than one value in a function</em></strong></p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="programming-in-r.html#cb82-1"></a>my_var_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb82-2"><a href="programming-in-r.html#cb82-2"></a>  mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb82-3"><a href="programming-in-r.html#cb82-3"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb82-4"><a href="programming-in-r.html#cb82-4"></a>  my_var &lt;-<span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb82-4"><a href="programming-in-r.html#cb82-4"></a>  my_var &lt;-<span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
 <span id="cb82-5"><a href="programming-in-r.html#cb82-5"></a>  <span class="kw">return</span>(<span class="kw">c</span>(my_var, <span class="kw">sqrt</span>(my_var)))</span>
 <span id="cb82-6"><a href="programming-in-r.html#cb82-6"></a>}</span></code></pre></div>
 <p>You may also return a list</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="programming-in-r.html#cb83-1"></a>my_var_sd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb83-2"><a href="programming-in-r.html#cb83-2"></a>  mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb83-3"><a href="programming-in-r.html#cb83-3"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb83-4"><a href="programming-in-r.html#cb83-4"></a>  my_var &lt;-<span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb83-4"><a href="programming-in-r.html#cb83-4"></a>  my_var &lt;-<span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
 <span id="cb83-5"><a href="programming-in-r.html#cb83-5"></a>  output &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">var =</span> my_var, <span class="dt">sd =</span> <span class="kw">sqrt</span>(my_var))</span>
 <span id="cb83-6"><a href="programming-in-r.html#cb83-6"></a>  <span class="kw">return</span>(output)</span>
 <span id="cb83-7"><a href="programming-in-r.html#cb83-7"></a>}</span></code></pre></div>
@@ -539,7 +539,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="programming-in-r.html#cb88-1"></a>sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb88-2"><a href="programming-in-r.html#cb88-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
 <span id="cb88-3"><a href="programming-in-r.html#cb88-3"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</span>
-<span id="cb88-4"><a href="programming-in-r.html#cb88-4"></a>    sum &lt;-<span class="st"> </span>sum <span class="op">+</span><span class="st"> </span>i<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(i <span class="op">+</span><span class="st"> </span>j)<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb88-4"><a href="programming-in-r.html#cb88-4"></a>    sum &lt;-<span class="st"> </span>sum <span class="op">+</span><span class="st"> </span>i<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(i <span class="op">+</span><span class="st"> </span>j)<span class="op">^</span><span class="dv">2</span></span>
 <span id="cb88-5"><a href="programming-in-r.html#cb88-5"></a>  }</span>
 <span id="cb88-6"><a href="programming-in-r.html#cb88-6"></a>}</span>
 <span id="cb88-7"><a href="programming-in-r.html#cb88-7"></a>sum</span>
@@ -550,7 +550,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="programming-in-r.html#cb89-1"></a>sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb89-2"><a href="programming-in-r.html#cb89-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
 <span id="cb89-3"><a href="programming-in-r.html#cb89-3"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>i) {</span>
-<span id="cb89-4"><a href="programming-in-r.html#cb89-4"></a>    sum &lt;-<span class="st"> </span>sum <span class="op">+</span><span class="st"> </span>i<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(i <span class="op">+</span><span class="st"> </span>j)<span class="op">^</span><span class="dv">3</span></span>
+<span id="cb89-4"><a href="programming-in-r.html#cb89-4"></a>    sum &lt;-<span class="st"> </span>sum <span class="op">+</span><span class="st"> </span>i<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(i <span class="op">+</span><span class="st"> </span>j)<span class="op">^</span><span class="dv">3</span></span>
 <span id="cb89-5"><a href="programming-in-r.html#cb89-5"></a>  }</span>
 <span id="cb89-6"><a href="programming-in-r.html#cb89-6"></a>}</span>
 <span id="cb89-7"><a href="programming-in-r.html#cb89-7"></a>sum</span>
@@ -693,7 +693,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <p>Poor indentation, difficult to read</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="programming-in-r.html#cb100-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
 <span id="cb100-2"><a href="programming-in-r.html#cb100-2"></a><span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
-<span id="cb100-3"><a href="programming-in-r.html#cb100-3"></a>      <span class="kw">print</span>(i<span class="op">*</span><span class="dv">2</span>)</span>
+<span id="cb100-3"><a href="programming-in-r.html#cb100-3"></a>      <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</span>
 <span id="cb100-4"><a href="programming-in-r.html#cb100-4"></a>          } <span class="cf">else</span> {</span>
 <span id="cb100-5"><a href="programming-in-r.html#cb100-5"></a>  <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
 <span id="cb100-6"><a href="programming-in-r.html#cb100-6"></a>}</span>
@@ -706,7 +706,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <p>Highlight the block of code, press Ctrl+i or Cmd+i</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="programming-in-r.html#cb101-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
 <span id="cb101-2"><a href="programming-in-r.html#cb101-2"></a>  <span class="cf">if</span> (i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) {</span>
-<span id="cb101-3"><a href="programming-in-r.html#cb101-3"></a>    <span class="kw">print</span>(i<span class="op">*</span><span class="dv">2</span>)</span>
+<span id="cb101-3"><a href="programming-in-r.html#cb101-3"></a>    <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</span>
 <span id="cb101-4"><a href="programming-in-r.html#cb101-4"></a>  } <span class="cf">else</span> {</span>
 <span id="cb101-5"><a href="programming-in-r.html#cb101-5"></a>    <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span>
 <span id="cb101-6"><a href="programming-in-r.html#cb101-6"></a>  }</span>
@@ -729,17 +729,17 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb102-7"><a href="programming-in-r.html#cb102-7"></a>}</span>
 <span id="cb102-8"><a href="programming-in-r.html#cb102-8"></a><span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>initial_time</span>
 <span id="cb102-9"><a href="programming-in-r.html#cb102-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.42    0.00    0.43</span></span></code></pre></div>
+<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.37    0.02    0.39</span></span></code></pre></div>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="programming-in-r.html#cb103-1"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
 <span id="cb103-2"><a href="programming-in-r.html#cb103-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb103-3"><a href="programming-in-r.html#cb103-3"></a><span class="co"># Alternatively</span></span>
 <span id="cb103-4"><a href="programming-in-r.html#cb103-4"></a><span class="kw">system.time</span>({</span>
-<span id="cb103-5"><a href="programming-in-r.html#cb103-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb103-6"><a href="programming-in-r.html#cb103-6"></a>  x[i] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb103-7"><a href="programming-in-r.html#cb103-7"></a>}</span>
+<span id="cb103-5"><a href="programming-in-r.html#cb103-5"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
+<span id="cb103-6"><a href="programming-in-r.html#cb103-6"></a>    x[i] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb103-7"><a href="programming-in-r.html#cb103-7"></a>  }</span>
 <span id="cb103-8"><a href="programming-in-r.html#cb103-8"></a>})</span>
 <span id="cb103-9"><a href="programming-in-r.html#cb103-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.31    0.00    0.31</span></span></code></pre></div>
+<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.33    0.00    0.33</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="programming-in-r.html#cb104-1"></a><span class="kw">system.time</span>({</span>
@@ -747,7 +747,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb104-3"><a href="programming-in-r.html#cb104-3"></a>  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
 <span id="cb104-4"><a href="programming-in-r.html#cb104-4"></a>})</span>
 <span id="cb104-5"><a href="programming-in-r.html#cb104-5"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="co">##    0.01    0.00    0.02</span></span></code></pre></div>
+<span id="cb104-6"><a href="programming-in-r.html#cb104-6"></a><span class="co">##       0       0       0</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="programming-in-r.html#cb105-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb105-2"><a href="programming-in-r.html#cb105-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -756,11 +756,11 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb105-5"><a href="programming-in-r.html#cb105-5"></a></span>
 <span id="cb105-6"><a href="programming-in-r.html#cb105-6"></a><span class="kw">system.time</span>({</span>
 <span id="cb105-7"><a href="programming-in-r.html#cb105-7"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)){ </span>
-<span id="cb105-8"><a href="programming-in-r.html#cb105-8"></a>    v[i] &lt;-<span class="st"> </span>x[i]<span class="op">+</span>y[i]</span>
+<span id="cb105-8"><a href="programming-in-r.html#cb105-8"></a>    v[i] &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>y[i]</span>
 <span id="cb105-9"><a href="programming-in-r.html#cb105-9"></a>  }</span>
 <span id="cb105-10"><a href="programming-in-r.html#cb105-10"></a>})</span>
 <span id="cb105-11"><a href="programming-in-r.html#cb105-11"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.12    0.01    0.14</span></span>
+<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.15    0.00    0.15</span></span>
 <span id="cb105-13"><a href="programming-in-r.html#cb105-13"></a></span>
 <span id="cb105-14"><a href="programming-in-r.html#cb105-14"></a><span class="kw">system.time</span>(v &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y)</span>
 <span id="cb105-15"><a href="programming-in-r.html#cb105-15"></a><span class="co">##    user  system elapsed </span></span>
