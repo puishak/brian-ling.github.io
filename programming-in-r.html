@@ -387,7 +387,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="programming-in-r.html#cb76-1"></a>my_var &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb76-2"><a href="programming-in-r.html#cb76-2"></a>  mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb76-3"><a href="programming-in-r.html#cb76-3"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb76-4"><a href="programming-in-r.html#cb76-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb76-4"><a href="programming-in-r.html#cb76-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>mean_x)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span>
 <span id="cb76-5"><a href="programming-in-r.html#cb76-5"></a>}</span>
 <span id="cb76-6"><a href="programming-in-r.html#cb76-6"></a></span>
 <span id="cb76-7"><a href="programming-in-r.html#cb76-7"></a>y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span></span>
@@ -475,7 +475,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb83-5"><a href="programming-in-r.html#cb83-5"></a>  output &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">var =</span> my_var, <span class="dt">sd =</span> <span class="kw">sqrt</span>(my_var))</span>
 <span id="cb83-6"><a href="programming-in-r.html#cb83-6"></a>  <span class="kw">return</span>(output)</span>
 <span id="cb83-7"><a href="programming-in-r.html#cb83-7"></a>}</span></code></pre></div>
-<p>Example: write a function called <code>my_summary</code> that will output a list with elements being the mean, sd, median, min and max of a given vector.</p>
+<p>Example: write a function called <code>my_summary</code> that will output a list with elements being equal to the mean, sd, median, min and max of a given vector.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="programming-in-r.html#cb84-1"></a>my_summary &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
 <span id="cb84-2"><a href="programming-in-r.html#cb84-2"></a>  output &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(x), <span class="dt">sd =</span> <span class="kw">sd</span>(x), <span class="dt">median =</span> <span class="kw">median</span>(x), <span class="dt">min =</span> <span class="kw">min</span>(x), <span class="dt">max =</span> <span class="kw">max</span>(x))</span>
 <span id="cb84-3"><a href="programming-in-r.html#cb84-3"></a>  <span class="kw">return</span>(output)  </span>
@@ -729,7 +729,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb102-7"><a href="programming-in-r.html#cb102-7"></a>}</span>
 <span id="cb102-8"><a href="programming-in-r.html#cb102-8"></a><span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>initial_time</span>
 <span id="cb102-9"><a href="programming-in-r.html#cb102-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.37    0.02    0.39</span></span></code></pre></div>
+<span id="cb102-10"><a href="programming-in-r.html#cb102-10"></a><span class="co">##    0.34    0.00    0.35</span></span></code></pre></div>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="programming-in-r.html#cb103-1"></a>n &lt;-<span class="st"> </span><span class="dv">200000</span> </span>
 <span id="cb103-2"><a href="programming-in-r.html#cb103-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb103-3"><a href="programming-in-r.html#cb103-3"></a><span class="co"># Alternatively</span></span>
@@ -739,7 +739,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb103-7"><a href="programming-in-r.html#cb103-7"></a>  }</span>
 <span id="cb103-8"><a href="programming-in-r.html#cb103-8"></a>})</span>
 <span id="cb103-9"><a href="programming-in-r.html#cb103-9"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.33    0.00    0.33</span></span></code></pre></div>
+<span id="cb103-10"><a href="programming-in-r.html#cb103-10"></a><span class="co">##    0.31    0.00    0.31</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="programming-in-r.html#cb104-1"></a><span class="kw">system.time</span>({</span>
@@ -760,11 +760,11 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb105-9"><a href="programming-in-r.html#cb105-9"></a>  }</span>
 <span id="cb105-10"><a href="programming-in-r.html#cb105-10"></a>})</span>
 <span id="cb105-11"><a href="programming-in-r.html#cb105-11"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.15    0.00    0.15</span></span>
+<span id="cb105-12"><a href="programming-in-r.html#cb105-12"></a><span class="co">##    0.11    0.00    0.11</span></span>
 <span id="cb105-13"><a href="programming-in-r.html#cb105-13"></a></span>
 <span id="cb105-14"><a href="programming-in-r.html#cb105-14"></a><span class="kw">system.time</span>(v &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y)</span>
 <span id="cb105-15"><a href="programming-in-r.html#cb105-15"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb105-16"><a href="programming-in-r.html#cb105-16"></a><span class="co">##       0       0       0</span></span></code></pre></div>
+<span id="cb105-16"><a href="programming-in-r.html#cb105-16"></a><span class="co">##    0.01    0.00    0.01</span></span></code></pre></div>
 <p>The general rule is to use vectorized operations whenever possible and to avoid using for loops. We use a for loop when the code is not time-consuming or when the code is hard to write without using a for loop. A more advanced option is to combine C++ with R using the package <code>rcpp</code>. That is, we can write the most time-consuming part of the R code in C++, which could run many times faster (will not be discussed in this course).</p>
 <p>See also <a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/" class="uri">http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/</a></p>
 </div>

@@ -501,19 +501,20 @@ ingredients. These ingredients include cement, blast furnace slag, fly ash, wate
 <span id="cb461-2"><a href="neural-networks.html#cb461-2"></a></span>
 <span id="cb461-3"><a href="neural-networks.html#cb461-3"></a>concrete</span>
 <span id="cb461-4"><a href="neural-networks.html#cb461-4"></a><span class="co">## # A tibble: 1,030 x 9</span></span>
-<span id="cb461-5"><a href="neural-networks.html#cb461-5"></a><span class="co">##    cement  slag   ash water superplastic coarseagg fineagg   age</span></span>
-<span id="cb461-6"><a href="neural-networks.html#cb461-6"></a><span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb461-7"><a href="neural-networks.html#cb461-7"></a><span class="co">##  1   540     0      0   162          2.5     1040     676     28</span></span>
-<span id="cb461-8"><a href="neural-networks.html#cb461-8"></a><span class="co">##  2   540     0      0   162          2.5     1055     676     28</span></span>
-<span id="cb461-9"><a href="neural-networks.html#cb461-9"></a><span class="co">##  3   332.  142.     0   228          0        932     594    270</span></span>
-<span id="cb461-10"><a href="neural-networks.html#cb461-10"></a><span class="co">##  4   332.  142.     0   228          0        932     594    365</span></span>
-<span id="cb461-11"><a href="neural-networks.html#cb461-11"></a><span class="co">##  5   199.  132.     0   192          0        978.    826.   360</span></span>
-<span id="cb461-12"><a href="neural-networks.html#cb461-12"></a><span class="co">##  6   266   114      0   228          0        932     670     90</span></span>
-<span id="cb461-13"><a href="neural-networks.html#cb461-13"></a><span class="co">##  7   380    95      0   228          0        932     594    365</span></span>
-<span id="cb461-14"><a href="neural-networks.html#cb461-14"></a><span class="co">##  8   380    95      0   228          0        932     594     28</span></span>
-<span id="cb461-15"><a href="neural-networks.html#cb461-15"></a><span class="co">##  9   266   114      0   228          0        932     670     28</span></span>
-<span id="cb461-16"><a href="neural-networks.html#cb461-16"></a><span class="co">## 10   475     0      0   228          0        932     594     28</span></span>
-<span id="cb461-17"><a href="neural-networks.html#cb461-17"></a><span class="co">## # ... with 1,020 more rows, and 1 more variable: strength &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb461-5"><a href="neural-networks.html#cb461-5"></a><span class="co">##    cement  slag   ash water superplastic coarseagg</span></span>
+<span id="cb461-6"><a href="neural-networks.html#cb461-6"></a><span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb461-7"><a href="neural-networks.html#cb461-7"></a><span class="co">##  1   540     0      0   162          2.5     1040 </span></span>
+<span id="cb461-8"><a href="neural-networks.html#cb461-8"></a><span class="co">##  2   540     0      0   162          2.5     1055 </span></span>
+<span id="cb461-9"><a href="neural-networks.html#cb461-9"></a><span class="co">##  3   332.  142.     0   228          0        932 </span></span>
+<span id="cb461-10"><a href="neural-networks.html#cb461-10"></a><span class="co">##  4   332.  142.     0   228          0        932 </span></span>
+<span id="cb461-11"><a href="neural-networks.html#cb461-11"></a><span class="co">##  5   199.  132.     0   192          0        978.</span></span>
+<span id="cb461-12"><a href="neural-networks.html#cb461-12"></a><span class="co">##  6   266   114      0   228          0        932 </span></span>
+<span id="cb461-13"><a href="neural-networks.html#cb461-13"></a><span class="co">##  7   380    95      0   228          0        932 </span></span>
+<span id="cb461-14"><a href="neural-networks.html#cb461-14"></a><span class="co">##  8   380    95      0   228          0        932 </span></span>
+<span id="cb461-15"><a href="neural-networks.html#cb461-15"></a><span class="co">##  9   266   114      0   228          0        932 </span></span>
+<span id="cb461-16"><a href="neural-networks.html#cb461-16"></a><span class="co">## 10   475     0      0   228          0        932 </span></span>
+<span id="cb461-17"><a href="neural-networks.html#cb461-17"></a><span class="co">## # ... with 1,020 more rows, and 3 more variables:</span></span>
+<span id="cb461-18"><a href="neural-networks.html#cb461-18"></a><span class="co">## #   fineagg &lt;dbl&gt;, age &lt;dbl&gt;, strength &lt;dbl&gt;</span></span></code></pre></div>
 <ul>
 <li><p>We have <span class="math inline">\(8\)</span> features and <span class="math inline">\(1\)</span> outcome.</p></li>
 <li><p>Neural networks work best when the input data are scaled to a narrow range around zero. We discussed feature scaling when we discuss <span class="math inline">\(k\)</span>-NN. Here, we will normalize the data.</p></li>

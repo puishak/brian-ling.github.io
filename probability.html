@@ -412,8 +412,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-5"><a href="probability.html#cb54-5"></a><span class="co">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="probability.html#cb55-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1]  6.057808  5.642458  4.295809  3.660670  3.429976 -1.237122</span></span>
-<span id="cb55-3"><a href="probability.html#cb55-3"></a><span class="co">##  [7]  7.518039  3.913067  3.069113  2.409496</span></span></code></pre></div>
+<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1] 1.2617809 8.2924483 7.1868660 0.6708818 0.8165144</span></span>
+<span id="cb55-3"><a href="probability.html#cb55-3"></a><span class="co">##  [6] 3.4758039 0.9351433 1.7180346 8.9513534 2.4652314</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="probability.html#cb56-1"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb56-2"><a href="probability.html#cb56-2"></a><span class="co">## [1] 1.644854</span></span></code></pre></div>
@@ -552,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-8"><a href="probability.html#cb59-8"></a><span class="co">## [1] 6</span></span>
 <span id="cb59-9"><a href="probability.html#cb59-9"></a></span>
 <span id="cb59-10"><a href="probability.html#cb59-10"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 8 5 5 7</span></span>
+<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 7 7 8 6</span></span>
 <span id="cb59-12"><a href="probability.html#cb59-12"></a></span>
 <span id="cb59-13"><a href="probability.html#cb59-13"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
 <span id="cb59-14"><a href="probability.html#cb59-14"></a><span class="kw">plot</span>(x, <span class="kw">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -609,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="probability.html#cb66-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb66-2"><a href="probability.html#cb66-2"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 1 1 1 1 1 1 0 0 0 1</span></span></code></pre></div>
+<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 1 1 0 1 0 1 1 0 1 1</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>
@@ -643,7 +643,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-5"><a href="probability.html#cb70-5"></a></span>
 <span id="cb70-6"><a href="probability.html#cb70-6"></a><span class="co"># every time you run the following code, you get a different result</span></span>
 <span id="cb70-7"><a href="probability.html#cb70-7"></a><span class="kw">runif</span>(<span class="dv">5</span>)</span>
-<span id="cb70-8"><a href="probability.html#cb70-8"></a><span class="co">## [1] 0.89838968 0.94467527 0.66079779 0.62911404 0.06178627</span></span></code></pre></div>
+<span id="cb70-8"><a href="probability.html#cb70-8"></a><span class="co">## [1] 0.89838968 0.94467527 0.66079779 0.62911404</span></span>
+<span id="cb70-9"><a href="probability.html#cb70-9"></a><span class="co">## [5] 0.06178627</span></span></code></pre></div>
 <p><strong>Sampling from discrete distributions</strong></p>
 <p>Usage of <code>sample</code>:</p>
 <p><code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
@@ -659,7 +660,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-9"><a href="probability.html#cb71-9"></a></span>
 <span id="cb71-10"><a href="probability.html#cb71-10"></a><span class="co"># simulate 20 random variables from a discrete distribution</span></span>
 <span id="cb71-11"><a href="probability.html#cb71-11"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), <span class="dt">replace =</span> T)</span>
-<span id="cb71-12"><a href="probability.html#cb71-12"></a><span class="co">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0  1  1  0 -1  0</span></span></code></pre></div>
+<span id="cb71-12"><a href="probability.html#cb71-12"></a><span class="co">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0  1  1</span></span>
+<span id="cb71-13"><a href="probability.html#cb71-13"></a><span class="co">## [18]  0 -1  0</span></span></code></pre></div>
 <p><strong>Example</strong>: Suppose we have a fair coin and we play a game. We flip the coin. We win $1 if the result is head and lose $1 if the result is tail. You play the game 100 times. You are interested in the cumulative profit.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="probability.html#cb72-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># R actually generates pseudo random numbers</span></span>
 <span id="cb72-2"><a href="probability.html#cb72-2"></a><span class="co"># setting the seed ensure that each time you will get the same result</span></span>

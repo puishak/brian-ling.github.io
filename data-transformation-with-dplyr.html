@@ -384,30 +384,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## {
 ##     UseMethod(&quot;select&quot;)
 ## }
-## &lt;bytecode: 0x000001e09ef26a30&gt;
+## &lt;bytecode: 0x0000021ef12d10a0&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <p><strong>nycflights13</strong></p>
 <p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="data-transformation-with-dplyr.html#cb183-1"></a><span class="co"># let&#39;s view the dataset</span></span>
 <span id="cb183-2"><a href="data-transformation-with-dplyr.html#cb183-2"></a>flights</span>
 <span id="cb183-3"><a href="data-transformation-with-dplyr.html#cb183-3"></a><span class="co">## # A tibble: 336,776 x 19</span></span>
-<span id="cb183-4"><a href="data-transformation-with-dplyr.html#cb183-4"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time</span></span>
-<span id="cb183-5"><a href="data-transformation-with-dplyr.html#cb183-5"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span></span>
-<span id="cb183-6"><a href="data-transformation-with-dplyr.html#cb183-6"></a><span class="co">##  1  2013     1     1      517            515         2      830</span></span>
-<span id="cb183-7"><a href="data-transformation-with-dplyr.html#cb183-7"></a><span class="co">##  2  2013     1     1      533            529         4      850</span></span>
-<span id="cb183-8"><a href="data-transformation-with-dplyr.html#cb183-8"></a><span class="co">##  3  2013     1     1      542            540         2      923</span></span>
-<span id="cb183-9"><a href="data-transformation-with-dplyr.html#cb183-9"></a><span class="co">##  4  2013     1     1      544            545        -1     1004</span></span>
-<span id="cb183-10"><a href="data-transformation-with-dplyr.html#cb183-10"></a><span class="co">##  5  2013     1     1      554            600        -6      812</span></span>
-<span id="cb183-11"><a href="data-transformation-with-dplyr.html#cb183-11"></a><span class="co">##  6  2013     1     1      554            558        -4      740</span></span>
-<span id="cb183-12"><a href="data-transformation-with-dplyr.html#cb183-12"></a><span class="co">##  7  2013     1     1      555            600        -5      913</span></span>
-<span id="cb183-13"><a href="data-transformation-with-dplyr.html#cb183-13"></a><span class="co">##  8  2013     1     1      557            600        -3      709</span></span>
-<span id="cb183-14"><a href="data-transformation-with-dplyr.html#cb183-14"></a><span class="co">##  9  2013     1     1      557            600        -3      838</span></span>
-<span id="cb183-15"><a href="data-transformation-with-dplyr.html#cb183-15"></a><span class="co">## 10  2013     1     1      558            600        -2      753</span></span>
-<span id="cb183-16"><a href="data-transformation-with-dplyr.html#cb183-16"></a><span class="co">## # ... with 336,766 more rows, and 12 more variables:</span></span>
-<span id="cb183-17"><a href="data-transformation-with-dplyr.html#cb183-17"></a><span class="co">## #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb183-18"><a href="data-transformation-with-dplyr.html#cb183-18"></a><span class="co">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb183-19"><a href="data-transformation-with-dplyr.html#cb183-19"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
-<span id="cb183-20"><a href="data-transformation-with-dplyr.html#cb183-20"></a><span class="co">## #   time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb183-4"><a href="data-transformation-with-dplyr.html#cb183-4"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span id="cb183-5"><a href="data-transformation-with-dplyr.html#cb183-5"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb183-6"><a href="data-transformation-with-dplyr.html#cb183-6"></a><span class="co">##  1  2013     1     1      517            515         2</span></span>
+<span id="cb183-7"><a href="data-transformation-with-dplyr.html#cb183-7"></a><span class="co">##  2  2013     1     1      533            529         4</span></span>
+<span id="cb183-8"><a href="data-transformation-with-dplyr.html#cb183-8"></a><span class="co">##  3  2013     1     1      542            540         2</span></span>
+<span id="cb183-9"><a href="data-transformation-with-dplyr.html#cb183-9"></a><span class="co">##  4  2013     1     1      544            545        -1</span></span>
+<span id="cb183-10"><a href="data-transformation-with-dplyr.html#cb183-10"></a><span class="co">##  5  2013     1     1      554            600        -6</span></span>
+<span id="cb183-11"><a href="data-transformation-with-dplyr.html#cb183-11"></a><span class="co">##  6  2013     1     1      554            558        -4</span></span>
+<span id="cb183-12"><a href="data-transformation-with-dplyr.html#cb183-12"></a><span class="co">##  7  2013     1     1      555            600        -5</span></span>
+<span id="cb183-13"><a href="data-transformation-with-dplyr.html#cb183-13"></a><span class="co">##  8  2013     1     1      557            600        -3</span></span>
+<span id="cb183-14"><a href="data-transformation-with-dplyr.html#cb183-14"></a><span class="co">##  9  2013     1     1      557            600        -3</span></span>
+<span id="cb183-15"><a href="data-transformation-with-dplyr.html#cb183-15"></a><span class="co">## 10  2013     1     1      558            600        -2</span></span>
+<span id="cb183-16"><a href="data-transformation-with-dplyr.html#cb183-16"></a><span class="co">## # ... with 336,766 more rows, and 13 more variables:</span></span>
+<span id="cb183-17"><a href="data-transformation-with-dplyr.html#cb183-17"></a><span class="co">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
+<span id="cb183-18"><a href="data-transformation-with-dplyr.html#cb183-18"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
+<span id="cb183-19"><a href="data-transformation-with-dplyr.html#cb183-19"></a><span class="co">## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb183-20"><a href="data-transformation-with-dplyr.html#cb183-20"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb183-21"><a href="data-transformation-with-dplyr.html#cb183-21"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p><code>flights</code> is a tibble. Tibbles are data frames with better properties.</p>
 <p><strong>Optional</strong>: If you are interested in the differences between a <code>data frame</code> and a <code>tibble</code>, you can go to
 <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></p>
@@ -509,23 +510,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb190-2"><a href="data-transformation-with-dplyr.html#cb190-2"></a><span class="co"># month == 1, day == 1 is the condition</span></span>
 <span id="cb190-3"><a href="data-transformation-with-dplyr.html#cb190-3"></a>(jan1 &lt;-<span class="st"> </span><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>))</span>
 <span id="cb190-4"><a href="data-transformation-with-dplyr.html#cb190-4"></a><span class="co">## # A tibble: 842 x 19</span></span>
-<span id="cb190-5"><a href="data-transformation-with-dplyr.html#cb190-5"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time</span></span>
-<span id="cb190-6"><a href="data-transformation-with-dplyr.html#cb190-6"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span></span>
-<span id="cb190-7"><a href="data-transformation-with-dplyr.html#cb190-7"></a><span class="co">##  1  2013     1     1      517            515         2      830</span></span>
-<span id="cb190-8"><a href="data-transformation-with-dplyr.html#cb190-8"></a><span class="co">##  2  2013     1     1      533            529         4      850</span></span>
-<span id="cb190-9"><a href="data-transformation-with-dplyr.html#cb190-9"></a><span class="co">##  3  2013     1     1      542            540         2      923</span></span>
-<span id="cb190-10"><a href="data-transformation-with-dplyr.html#cb190-10"></a><span class="co">##  4  2013     1     1      544            545        -1     1004</span></span>
-<span id="cb190-11"><a href="data-transformation-with-dplyr.html#cb190-11"></a><span class="co">##  5  2013     1     1      554            600        -6      812</span></span>
-<span id="cb190-12"><a href="data-transformation-with-dplyr.html#cb190-12"></a><span class="co">##  6  2013     1     1      554            558        -4      740</span></span>
-<span id="cb190-13"><a href="data-transformation-with-dplyr.html#cb190-13"></a><span class="co">##  7  2013     1     1      555            600        -5      913</span></span>
-<span id="cb190-14"><a href="data-transformation-with-dplyr.html#cb190-14"></a><span class="co">##  8  2013     1     1      557            600        -3      709</span></span>
-<span id="cb190-15"><a href="data-transformation-with-dplyr.html#cb190-15"></a><span class="co">##  9  2013     1     1      557            600        -3      838</span></span>
-<span id="cb190-16"><a href="data-transformation-with-dplyr.html#cb190-16"></a><span class="co">## 10  2013     1     1      558            600        -2      753</span></span>
-<span id="cb190-17"><a href="data-transformation-with-dplyr.html#cb190-17"></a><span class="co">## # ... with 832 more rows, and 12 more variables:</span></span>
-<span id="cb190-18"><a href="data-transformation-with-dplyr.html#cb190-18"></a><span class="co">## #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb190-19"><a href="data-transformation-with-dplyr.html#cb190-19"></a><span class="co">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb190-20"><a href="data-transformation-with-dplyr.html#cb190-20"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
-<span id="cb190-21"><a href="data-transformation-with-dplyr.html#cb190-21"></a><span class="co">## #   time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb190-5"><a href="data-transformation-with-dplyr.html#cb190-5"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span id="cb190-6"><a href="data-transformation-with-dplyr.html#cb190-6"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb190-7"><a href="data-transformation-with-dplyr.html#cb190-7"></a><span class="co">##  1  2013     1     1      517            515         2</span></span>
+<span id="cb190-8"><a href="data-transformation-with-dplyr.html#cb190-8"></a><span class="co">##  2  2013     1     1      533            529         4</span></span>
+<span id="cb190-9"><a href="data-transformation-with-dplyr.html#cb190-9"></a><span class="co">##  3  2013     1     1      542            540         2</span></span>
+<span id="cb190-10"><a href="data-transformation-with-dplyr.html#cb190-10"></a><span class="co">##  4  2013     1     1      544            545        -1</span></span>
+<span id="cb190-11"><a href="data-transformation-with-dplyr.html#cb190-11"></a><span class="co">##  5  2013     1     1      554            600        -6</span></span>
+<span id="cb190-12"><a href="data-transformation-with-dplyr.html#cb190-12"></a><span class="co">##  6  2013     1     1      554            558        -4</span></span>
+<span id="cb190-13"><a href="data-transformation-with-dplyr.html#cb190-13"></a><span class="co">##  7  2013     1     1      555            600        -5</span></span>
+<span id="cb190-14"><a href="data-transformation-with-dplyr.html#cb190-14"></a><span class="co">##  8  2013     1     1      557            600        -3</span></span>
+<span id="cb190-15"><a href="data-transformation-with-dplyr.html#cb190-15"></a><span class="co">##  9  2013     1     1      557            600        -3</span></span>
+<span id="cb190-16"><a href="data-transformation-with-dplyr.html#cb190-16"></a><span class="co">## 10  2013     1     1      558            600        -2</span></span>
+<span id="cb190-17"><a href="data-transformation-with-dplyr.html#cb190-17"></a><span class="co">## # ... with 832 more rows, and 13 more variables:</span></span>
+<span id="cb190-18"><a href="data-transformation-with-dplyr.html#cb190-18"></a><span class="co">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
+<span id="cb190-19"><a href="data-transformation-with-dplyr.html#cb190-19"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
+<span id="cb190-20"><a href="data-transformation-with-dplyr.html#cb190-20"></a><span class="co">## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb190-21"><a href="data-transformation-with-dplyr.html#cb190-21"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb190-22"><a href="data-transformation-with-dplyr.html#cb190-22"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Let’s use a simple dataset to see how to perform the same task without <code>filter</code>:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="data-transformation-with-dplyr.html#cb191-1"></a><span class="co"># just a simple dataset</span></span>
 <span id="cb191-2"><a href="data-transformation-with-dplyr.html#cb191-2"></a>(data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>), <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))</span>
@@ -667,8 +669,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>1c. Find all flights that were operated by United, American, or Delta</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="data-transformation-with-dplyr.html#cb206-1"></a><span class="co"># find all the sorted carrier codes in the dataset</span></span>
 <span id="cb206-2"><a href="data-transformation-with-dplyr.html#cb206-2"></a><span class="kw">sort</span>(<span class="kw">unique</span>(flights<span class="op">$</span>carrier)) </span>
-<span id="cb206-3"><a href="data-transformation-with-dplyr.html#cb206-3"></a><span class="co">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot; &quot;US&quot;</span></span>
-<span id="cb206-4"><a href="data-transformation-with-dplyr.html#cb206-4"></a><span class="co">## [14] &quot;VX&quot; &quot;WN&quot; &quot;YV&quot;</span></span>
+<span id="cb206-3"><a href="data-transformation-with-dplyr.html#cb206-3"></a><span class="co">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot;</span></span>
+<span id="cb206-4"><a href="data-transformation-with-dplyr.html#cb206-4"></a><span class="co">## [11] &quot;OO&quot; &quot;UA&quot; &quot;US&quot; &quot;VX&quot; &quot;WN&quot; &quot;YV&quot;</span></span>
 <span id="cb206-5"><a href="data-transformation-with-dplyr.html#cb206-5"></a></span>
 <span id="cb206-6"><a href="data-transformation-with-dplyr.html#cb206-6"></a><span class="co"># look up airline names from their carrier codes</span></span>
 <span id="cb206-7"><a href="data-transformation-with-dplyr.html#cb206-7"></a>airlines </span>
@@ -695,23 +697,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb206-28"><a href="data-transformation-with-dplyr.html#cb206-28"></a><span class="co"># after looking up the names, we know UA = United, AA = American, DL = Delta</span></span>
 <span id="cb206-29"><a href="data-transformation-with-dplyr.html#cb206-29"></a><span class="kw">filter</span>(flights, carrier <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;UA&quot;</span>, <span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>))</span>
 <span id="cb206-30"><a href="data-transformation-with-dplyr.html#cb206-30"></a><span class="co">## # A tibble: 139,504 x 19</span></span>
-<span id="cb206-31"><a href="data-transformation-with-dplyr.html#cb206-31"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time</span></span>
-<span id="cb206-32"><a href="data-transformation-with-dplyr.html#cb206-32"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span></span>
-<span id="cb206-33"><a href="data-transformation-with-dplyr.html#cb206-33"></a><span class="co">##  1  2013     1     1      517            515         2      830</span></span>
-<span id="cb206-34"><a href="data-transformation-with-dplyr.html#cb206-34"></a><span class="co">##  2  2013     1     1      533            529         4      850</span></span>
-<span id="cb206-35"><a href="data-transformation-with-dplyr.html#cb206-35"></a><span class="co">##  3  2013     1     1      542            540         2      923</span></span>
-<span id="cb206-36"><a href="data-transformation-with-dplyr.html#cb206-36"></a><span class="co">##  4  2013     1     1      554            600        -6      812</span></span>
-<span id="cb206-37"><a href="data-transformation-with-dplyr.html#cb206-37"></a><span class="co">##  5  2013     1     1      554            558        -4      740</span></span>
-<span id="cb206-38"><a href="data-transformation-with-dplyr.html#cb206-38"></a><span class="co">##  6  2013     1     1      558            600        -2      753</span></span>
-<span id="cb206-39"><a href="data-transformation-with-dplyr.html#cb206-39"></a><span class="co">##  7  2013     1     1      558            600        -2      924</span></span>
-<span id="cb206-40"><a href="data-transformation-with-dplyr.html#cb206-40"></a><span class="co">##  8  2013     1     1      558            600        -2      923</span></span>
-<span id="cb206-41"><a href="data-transformation-with-dplyr.html#cb206-41"></a><span class="co">##  9  2013     1     1      559            600        -1      941</span></span>
-<span id="cb206-42"><a href="data-transformation-with-dplyr.html#cb206-42"></a><span class="co">## 10  2013     1     1      559            600        -1      854</span></span>
-<span id="cb206-43"><a href="data-transformation-with-dplyr.html#cb206-43"></a><span class="co">## # ... with 139,494 more rows, and 12 more variables:</span></span>
-<span id="cb206-44"><a href="data-transformation-with-dplyr.html#cb206-44"></a><span class="co">## #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb206-45"><a href="data-transformation-with-dplyr.html#cb206-45"></a><span class="co">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb206-46"><a href="data-transformation-with-dplyr.html#cb206-46"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
-<span id="cb206-47"><a href="data-transformation-with-dplyr.html#cb206-47"></a><span class="co">## #   time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb206-31"><a href="data-transformation-with-dplyr.html#cb206-31"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span id="cb206-32"><a href="data-transformation-with-dplyr.html#cb206-32"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb206-33"><a href="data-transformation-with-dplyr.html#cb206-33"></a><span class="co">##  1  2013     1     1      517            515         2</span></span>
+<span id="cb206-34"><a href="data-transformation-with-dplyr.html#cb206-34"></a><span class="co">##  2  2013     1     1      533            529         4</span></span>
+<span id="cb206-35"><a href="data-transformation-with-dplyr.html#cb206-35"></a><span class="co">##  3  2013     1     1      542            540         2</span></span>
+<span id="cb206-36"><a href="data-transformation-with-dplyr.html#cb206-36"></a><span class="co">##  4  2013     1     1      554            600        -6</span></span>
+<span id="cb206-37"><a href="data-transformation-with-dplyr.html#cb206-37"></a><span class="co">##  5  2013     1     1      554            558        -4</span></span>
+<span id="cb206-38"><a href="data-transformation-with-dplyr.html#cb206-38"></a><span class="co">##  6  2013     1     1      558            600        -2</span></span>
+<span id="cb206-39"><a href="data-transformation-with-dplyr.html#cb206-39"></a><span class="co">##  7  2013     1     1      558            600        -2</span></span>
+<span id="cb206-40"><a href="data-transformation-with-dplyr.html#cb206-40"></a><span class="co">##  8  2013     1     1      558            600        -2</span></span>
+<span id="cb206-41"><a href="data-transformation-with-dplyr.html#cb206-41"></a><span class="co">##  9  2013     1     1      559            600        -1</span></span>
+<span id="cb206-42"><a href="data-transformation-with-dplyr.html#cb206-42"></a><span class="co">## 10  2013     1     1      559            600        -1</span></span>
+<span id="cb206-43"><a href="data-transformation-with-dplyr.html#cb206-43"></a><span class="co">## # ... with 139,494 more rows, and 13 more variables:</span></span>
+<span id="cb206-44"><a href="data-transformation-with-dplyr.html#cb206-44"></a><span class="co">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
+<span id="cb206-45"><a href="data-transformation-with-dplyr.html#cb206-45"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
+<span id="cb206-46"><a href="data-transformation-with-dplyr.html#cb206-46"></a><span class="co">## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb206-47"><a href="data-transformation-with-dplyr.html#cb206-47"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb206-48"><a href="data-transformation-with-dplyr.html#cb206-48"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>1d. Find all flights that departed in summer (July, August, and September)</p>
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="data-transformation-with-dplyr.html#cb207-1"></a><span class="kw">filter</span>(flights, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>))</span>
 <span id="cb207-2"><a href="data-transformation-with-dplyr.html#cb207-2"></a></span>
@@ -833,38 +836,40 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>Does the result of running the following code surprise you?</p>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="data-transformation-with-dplyr.html#cb219-1"></a><span class="kw">select</span>(flights, <span class="kw">contains</span>(<span class="st">&quot;TIME&quot;</span>))</span>
 <span id="cb219-2"><a href="data-transformation-with-dplyr.html#cb219-2"></a><span class="co">## # A tibble: 336,776 x 6</span></span>
-<span id="cb219-3"><a href="data-transformation-with-dplyr.html#cb219-3"></a><span class="co">##    dep_time sched_dep_time arr_time sched_arr_time air_time</span></span>
-<span id="cb219-4"><a href="data-transformation-with-dplyr.html#cb219-4"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt;</span></span>
-<span id="cb219-5"><a href="data-transformation-with-dplyr.html#cb219-5"></a><span class="co">##  1      517            515      830            819      227</span></span>
-<span id="cb219-6"><a href="data-transformation-with-dplyr.html#cb219-6"></a><span class="co">##  2      533            529      850            830      227</span></span>
-<span id="cb219-7"><a href="data-transformation-with-dplyr.html#cb219-7"></a><span class="co">##  3      542            540      923            850      160</span></span>
-<span id="cb219-8"><a href="data-transformation-with-dplyr.html#cb219-8"></a><span class="co">##  4      544            545     1004           1022      183</span></span>
-<span id="cb219-9"><a href="data-transformation-with-dplyr.html#cb219-9"></a><span class="co">##  5      554            600      812            837      116</span></span>
-<span id="cb219-10"><a href="data-transformation-with-dplyr.html#cb219-10"></a><span class="co">##  6      554            558      740            728      150</span></span>
-<span id="cb219-11"><a href="data-transformation-with-dplyr.html#cb219-11"></a><span class="co">##  7      555            600      913            854      158</span></span>
-<span id="cb219-12"><a href="data-transformation-with-dplyr.html#cb219-12"></a><span class="co">##  8      557            600      709            723       53</span></span>
-<span id="cb219-13"><a href="data-transformation-with-dplyr.html#cb219-13"></a><span class="co">##  9      557            600      838            846      140</span></span>
-<span id="cb219-14"><a href="data-transformation-with-dplyr.html#cb219-14"></a><span class="co">## 10      558            600      753            745      138</span></span>
-<span id="cb219-15"><a href="data-transformation-with-dplyr.html#cb219-15"></a><span class="co">## # ... with 336,766 more rows, and 1 more variable: time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb219-3"><a href="data-transformation-with-dplyr.html#cb219-3"></a><span class="co">##    dep_time sched_dep_time arr_time sched_arr_time</span></span>
+<span id="cb219-4"><a href="data-transformation-with-dplyr.html#cb219-4"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span id="cb219-5"><a href="data-transformation-with-dplyr.html#cb219-5"></a><span class="co">##  1      517            515      830            819</span></span>
+<span id="cb219-6"><a href="data-transformation-with-dplyr.html#cb219-6"></a><span class="co">##  2      533            529      850            830</span></span>
+<span id="cb219-7"><a href="data-transformation-with-dplyr.html#cb219-7"></a><span class="co">##  3      542            540      923            850</span></span>
+<span id="cb219-8"><a href="data-transformation-with-dplyr.html#cb219-8"></a><span class="co">##  4      544            545     1004           1022</span></span>
+<span id="cb219-9"><a href="data-transformation-with-dplyr.html#cb219-9"></a><span class="co">##  5      554            600      812            837</span></span>
+<span id="cb219-10"><a href="data-transformation-with-dplyr.html#cb219-10"></a><span class="co">##  6      554            558      740            728</span></span>
+<span id="cb219-11"><a href="data-transformation-with-dplyr.html#cb219-11"></a><span class="co">##  7      555            600      913            854</span></span>
+<span id="cb219-12"><a href="data-transformation-with-dplyr.html#cb219-12"></a><span class="co">##  8      557            600      709            723</span></span>
+<span id="cb219-13"><a href="data-transformation-with-dplyr.html#cb219-13"></a><span class="co">##  9      557            600      838            846</span></span>
+<span id="cb219-14"><a href="data-transformation-with-dplyr.html#cb219-14"></a><span class="co">## 10      558            600      753            745</span></span>
+<span id="cb219-15"><a href="data-transformation-with-dplyr.html#cb219-15"></a><span class="co">## # ... with 336,766 more rows, and 2 more variables:</span></span>
+<span id="cb219-16"><a href="data-transformation-with-dplyr.html#cb219-16"></a><span class="co">## #   air_time &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Yes, because we used “TIME” but not “time” and still get the selected columns. If you check <code>?contains</code>, you can see that the default is to ignore the case. To change the default:</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="data-transformation-with-dplyr.html#cb220-1"></a><span class="kw">select</span>(flights, <span class="kw">contains</span>(<span class="st">&quot;TIME&quot;</span>, <span class="dt">ignore.case =</span> <span class="ot">FALSE</span>))</span>
 <span id="cb220-2"><a href="data-transformation-with-dplyr.html#cb220-2"></a><span class="co">## # A tibble: 336,776 x 0</span></span></code></pre></div>
 <p>Ex: without using <code>select()</code>, select all the columns that contain “time”.</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="data-transformation-with-dplyr.html#cb221-1"></a>flights[<span class="kw">grep</span>(<span class="st">&quot;time&quot;</span>, <span class="kw">names</span>(flights))]</span>
 <span id="cb221-2"><a href="data-transformation-with-dplyr.html#cb221-2"></a><span class="co">## # A tibble: 336,776 x 6</span></span>
-<span id="cb221-3"><a href="data-transformation-with-dplyr.html#cb221-3"></a><span class="co">##    dep_time sched_dep_time arr_time sched_arr_time air_time</span></span>
-<span id="cb221-4"><a href="data-transformation-with-dplyr.html#cb221-4"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt;</span></span>
-<span id="cb221-5"><a href="data-transformation-with-dplyr.html#cb221-5"></a><span class="co">##  1      517            515      830            819      227</span></span>
-<span id="cb221-6"><a href="data-transformation-with-dplyr.html#cb221-6"></a><span class="co">##  2      533            529      850            830      227</span></span>
-<span id="cb221-7"><a href="data-transformation-with-dplyr.html#cb221-7"></a><span class="co">##  3      542            540      923            850      160</span></span>
-<span id="cb221-8"><a href="data-transformation-with-dplyr.html#cb221-8"></a><span class="co">##  4      544            545     1004           1022      183</span></span>
-<span id="cb221-9"><a href="data-transformation-with-dplyr.html#cb221-9"></a><span class="co">##  5      554            600      812            837      116</span></span>
-<span id="cb221-10"><a href="data-transformation-with-dplyr.html#cb221-10"></a><span class="co">##  6      554            558      740            728      150</span></span>
-<span id="cb221-11"><a href="data-transformation-with-dplyr.html#cb221-11"></a><span class="co">##  7      555            600      913            854      158</span></span>
-<span id="cb221-12"><a href="data-transformation-with-dplyr.html#cb221-12"></a><span class="co">##  8      557            600      709            723       53</span></span>
-<span id="cb221-13"><a href="data-transformation-with-dplyr.html#cb221-13"></a><span class="co">##  9      557            600      838            846      140</span></span>
-<span id="cb221-14"><a href="data-transformation-with-dplyr.html#cb221-14"></a><span class="co">## 10      558            600      753            745      138</span></span>
-<span id="cb221-15"><a href="data-transformation-with-dplyr.html#cb221-15"></a><span class="co">## # ... with 336,766 more rows, and 1 more variable: time_hour &lt;dttm&gt;</span></span></code></pre></div>
+<span id="cb221-3"><a href="data-transformation-with-dplyr.html#cb221-3"></a><span class="co">##    dep_time sched_dep_time arr_time sched_arr_time</span></span>
+<span id="cb221-4"><a href="data-transformation-with-dplyr.html#cb221-4"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span id="cb221-5"><a href="data-transformation-with-dplyr.html#cb221-5"></a><span class="co">##  1      517            515      830            819</span></span>
+<span id="cb221-6"><a href="data-transformation-with-dplyr.html#cb221-6"></a><span class="co">##  2      533            529      850            830</span></span>
+<span id="cb221-7"><a href="data-transformation-with-dplyr.html#cb221-7"></a><span class="co">##  3      542            540      923            850</span></span>
+<span id="cb221-8"><a href="data-transformation-with-dplyr.html#cb221-8"></a><span class="co">##  4      544            545     1004           1022</span></span>
+<span id="cb221-9"><a href="data-transformation-with-dplyr.html#cb221-9"></a><span class="co">##  5      554            600      812            837</span></span>
+<span id="cb221-10"><a href="data-transformation-with-dplyr.html#cb221-10"></a><span class="co">##  6      554            558      740            728</span></span>
+<span id="cb221-11"><a href="data-transformation-with-dplyr.html#cb221-11"></a><span class="co">##  7      555            600      913            854</span></span>
+<span id="cb221-12"><a href="data-transformation-with-dplyr.html#cb221-12"></a><span class="co">##  8      557            600      709            723</span></span>
+<span id="cb221-13"><a href="data-transformation-with-dplyr.html#cb221-13"></a><span class="co">##  9      557            600      838            846</span></span>
+<span id="cb221-14"><a href="data-transformation-with-dplyr.html#cb221-14"></a><span class="co">## 10      558            600      753            745</span></span>
+<span id="cb221-15"><a href="data-transformation-with-dplyr.html#cb221-15"></a><span class="co">## # ... with 336,766 more rows, and 2 more variables:</span></span>
+<span id="cb221-16"><a href="data-transformation-with-dplyr.html#cb221-16"></a><span class="co">## #   air_time &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Basic Usage of <code>grep</code>: <code>grep(pattern, x)</code>.</p>
 <ul>
 <li><code>pattern</code>: character string. e.g., “time”, “delay”, “air”</li>
@@ -890,19 +895,20 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>Now, let’s use <code>mutate()</code> to create a variable called <code>gain</code> (how much time we gain in flight) defined as <code>arr_delay</code>-<code>dep_delay</code> and a variable called <code>speed</code> (miles/hour) defined as <code>distance</code>/<code>air_time</code>.</p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="data-transformation-with-dplyr.html#cb224-1"></a><span class="kw">mutate</span>(flights_sml, <span class="dt">gain =</span> arr_delay <span class="op">-</span><span class="st"> </span>dep_delay, <span class="dt">speed =</span> distance <span class="op">/</span><span class="st"> </span>air_time <span class="op">*</span><span class="st"> </span><span class="dv">60</span>)</span>
 <span id="cb224-2"><a href="data-transformation-with-dplyr.html#cb224-2"></a><span class="co">## # A tibble: 336,776 x 9</span></span>
-<span id="cb224-3"><a href="data-transformation-with-dplyr.html#cb224-3"></a><span class="co">##     year month   day arr_delay dep_delay distance air_time  gain</span></span>
-<span id="cb224-4"><a href="data-transformation-with-dplyr.html#cb224-4"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb224-5"><a href="data-transformation-with-dplyr.html#cb224-5"></a><span class="co">##  1  2013     1     1        11         2     1400      227     9</span></span>
-<span id="cb224-6"><a href="data-transformation-with-dplyr.html#cb224-6"></a><span class="co">##  2  2013     1     1        20         4     1416      227    16</span></span>
-<span id="cb224-7"><a href="data-transformation-with-dplyr.html#cb224-7"></a><span class="co">##  3  2013     1     1        33         2     1089      160    31</span></span>
-<span id="cb224-8"><a href="data-transformation-with-dplyr.html#cb224-8"></a><span class="co">##  4  2013     1     1       -18        -1     1576      183   -17</span></span>
-<span id="cb224-9"><a href="data-transformation-with-dplyr.html#cb224-9"></a><span class="co">##  5  2013     1     1       -25        -6      762      116   -19</span></span>
-<span id="cb224-10"><a href="data-transformation-with-dplyr.html#cb224-10"></a><span class="co">##  6  2013     1     1        12        -4      719      150    16</span></span>
-<span id="cb224-11"><a href="data-transformation-with-dplyr.html#cb224-11"></a><span class="co">##  7  2013     1     1        19        -5     1065      158    24</span></span>
-<span id="cb224-12"><a href="data-transformation-with-dplyr.html#cb224-12"></a><span class="co">##  8  2013     1     1       -14        -3      229       53   -11</span></span>
-<span id="cb224-13"><a href="data-transformation-with-dplyr.html#cb224-13"></a><span class="co">##  9  2013     1     1        -8        -3      944      140    -5</span></span>
-<span id="cb224-14"><a href="data-transformation-with-dplyr.html#cb224-14"></a><span class="co">## 10  2013     1     1         8        -2      733      138    10</span></span>
-<span id="cb224-15"><a href="data-transformation-with-dplyr.html#cb224-15"></a><span class="co">## # ... with 336,766 more rows, and 1 more variable: speed &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb224-3"><a href="data-transformation-with-dplyr.html#cb224-3"></a><span class="co">##     year month   day arr_delay dep_delay distance</span></span>
+<span id="cb224-4"><a href="data-transformation-with-dplyr.html#cb224-4"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb224-5"><a href="data-transformation-with-dplyr.html#cb224-5"></a><span class="co">##  1  2013     1     1        11         2     1400</span></span>
+<span id="cb224-6"><a href="data-transformation-with-dplyr.html#cb224-6"></a><span class="co">##  2  2013     1     1        20         4     1416</span></span>
+<span id="cb224-7"><a href="data-transformation-with-dplyr.html#cb224-7"></a><span class="co">##  3  2013     1     1        33         2     1089</span></span>
+<span id="cb224-8"><a href="data-transformation-with-dplyr.html#cb224-8"></a><span class="co">##  4  2013     1     1       -18        -1     1576</span></span>
+<span id="cb224-9"><a href="data-transformation-with-dplyr.html#cb224-9"></a><span class="co">##  5  2013     1     1       -25        -6      762</span></span>
+<span id="cb224-10"><a href="data-transformation-with-dplyr.html#cb224-10"></a><span class="co">##  6  2013     1     1        12        -4      719</span></span>
+<span id="cb224-11"><a href="data-transformation-with-dplyr.html#cb224-11"></a><span class="co">##  7  2013     1     1        19        -5     1065</span></span>
+<span id="cb224-12"><a href="data-transformation-with-dplyr.html#cb224-12"></a><span class="co">##  8  2013     1     1       -14        -3      229</span></span>
+<span id="cb224-13"><a href="data-transformation-with-dplyr.html#cb224-13"></a><span class="co">##  9  2013     1     1        -8        -3      944</span></span>
+<span id="cb224-14"><a href="data-transformation-with-dplyr.html#cb224-14"></a><span class="co">## 10  2013     1     1         8        -2      733</span></span>
+<span id="cb224-15"><a href="data-transformation-with-dplyr.html#cb224-15"></a><span class="co">## # ... with 336,766 more rows, and 3 more variables:</span></span>
+<span id="cb224-16"><a href="data-transformation-with-dplyr.html#cb224-16"></a><span class="co">## #   air_time &lt;dbl&gt;, gain &lt;dbl&gt;, speed &lt;dbl&gt;</span></span></code></pre></div>
 <p>To keep the new variables only, use <code>transmute()</code>:</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="data-transformation-with-dplyr.html#cb225-1"></a><span class="kw">transmute</span>(flights_sml, <span class="dt">gain =</span> arr_delay <span class="op">-</span><span class="st"> </span>dep_delay, <span class="dt">speed =</span> distance <span class="op">/</span><span class="st">  </span>air_time <span class="op">*</span><span class="st"> </span><span class="dv">60</span>)</span>
 <span id="cb225-2"><a href="data-transformation-with-dplyr.html#cb225-2"></a><span class="co">## # A tibble: 336,776 x 2</span></span>
@@ -953,18 +959,18 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb230-4"><a href="data-transformation-with-dplyr.html#cb230-4"></a><span class="kw">mutate</span>(flights_time, <span class="dt">min_dep_time =</span> (dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>, </span>
 <span id="cb230-5"><a href="data-transformation-with-dplyr.html#cb230-5"></a>       <span class="dt">min_sched_dep_time =</span> (sched_dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>sched_dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>)</span>
 <span id="cb230-6"><a href="data-transformation-with-dplyr.html#cb230-6"></a><span class="co">## # A tibble: 336,776 x 4</span></span>
-<span id="cb230-7"><a href="data-transformation-with-dplyr.html#cb230-7"></a><span class="co">##    dep_time sched_dep_time min_dep_time min_sched_dep_time</span></span>
-<span id="cb230-8"><a href="data-transformation-with-dplyr.html#cb230-8"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;              &lt;dbl&gt;</span></span>
-<span id="cb230-9"><a href="data-transformation-with-dplyr.html#cb230-9"></a><span class="co">##  1      517            515          317                315</span></span>
-<span id="cb230-10"><a href="data-transformation-with-dplyr.html#cb230-10"></a><span class="co">##  2      533            529          333                329</span></span>
-<span id="cb230-11"><a href="data-transformation-with-dplyr.html#cb230-11"></a><span class="co">##  3      542            540          342                340</span></span>
-<span id="cb230-12"><a href="data-transformation-with-dplyr.html#cb230-12"></a><span class="co">##  4      544            545          344                345</span></span>
-<span id="cb230-13"><a href="data-transformation-with-dplyr.html#cb230-13"></a><span class="co">##  5      554            600          354                360</span></span>
-<span id="cb230-14"><a href="data-transformation-with-dplyr.html#cb230-14"></a><span class="co">##  6      554            558          354                358</span></span>
-<span id="cb230-15"><a href="data-transformation-with-dplyr.html#cb230-15"></a><span class="co">##  7      555            600          355                360</span></span>
-<span id="cb230-16"><a href="data-transformation-with-dplyr.html#cb230-16"></a><span class="co">##  8      557            600          357                360</span></span>
-<span id="cb230-17"><a href="data-transformation-with-dplyr.html#cb230-17"></a><span class="co">##  9      557            600          357                360</span></span>
-<span id="cb230-18"><a href="data-transformation-with-dplyr.html#cb230-18"></a><span class="co">## 10      558            600          358                360</span></span>
+<span id="cb230-7"><a href="data-transformation-with-dplyr.html#cb230-7"></a><span class="co">##    dep_time sched_dep_time min_dep_time min_sched_dep_t~</span></span>
+<span id="cb230-8"><a href="data-transformation-with-dplyr.html#cb230-8"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb230-9"><a href="data-transformation-with-dplyr.html#cb230-9"></a><span class="co">##  1      517            515          317              315</span></span>
+<span id="cb230-10"><a href="data-transformation-with-dplyr.html#cb230-10"></a><span class="co">##  2      533            529          333              329</span></span>
+<span id="cb230-11"><a href="data-transformation-with-dplyr.html#cb230-11"></a><span class="co">##  3      542            540          342              340</span></span>
+<span id="cb230-12"><a href="data-transformation-with-dplyr.html#cb230-12"></a><span class="co">##  4      544            545          344              345</span></span>
+<span id="cb230-13"><a href="data-transformation-with-dplyr.html#cb230-13"></a><span class="co">##  5      554            600          354              360</span></span>
+<span id="cb230-14"><a href="data-transformation-with-dplyr.html#cb230-14"></a><span class="co">##  6      554            558          354              358</span></span>
+<span id="cb230-15"><a href="data-transformation-with-dplyr.html#cb230-15"></a><span class="co">##  7      555            600          355              360</span></span>
+<span id="cb230-16"><a href="data-transformation-with-dplyr.html#cb230-16"></a><span class="co">##  8      557            600          357              360</span></span>
+<span id="cb230-17"><a href="data-transformation-with-dplyr.html#cb230-17"></a><span class="co">##  9      557            600          357              360</span></span>
+<span id="cb230-18"><a href="data-transformation-with-dplyr.html#cb230-18"></a><span class="co">## 10      558            600          358              360</span></span>
 <span id="cb230-19"><a href="data-transformation-with-dplyr.html#cb230-19"></a><span class="co">## # ... with 336,766 more rows</span></span></code></pre></div>
 <p>The above code doesn’t look good because we have written the formula to complete the same task twice. We can define a function to do this:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="data-transformation-with-dplyr.html#cb231-1"></a>time_to_minutes &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
@@ -995,23 +1001,25 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb234-5"><a href="data-transformation-with-dplyr.html#cb234-5"></a><span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_ifelse</span>(dep_time),</span>
 <span id="cb234-6"><a href="data-transformation-with-dplyr.html#cb234-6"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_ifelse</span>(sched_dep_time))</span>
 <span id="cb234-7"><a href="data-transformation-with-dplyr.html#cb234-7"></a><span class="co">## # A tibble: 336,776 x 21</span></span>
-<span id="cb234-8"><a href="data-transformation-with-dplyr.html#cb234-8"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay arr_time</span></span>
-<span id="cb234-9"><a href="data-transformation-with-dplyr.html#cb234-9"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span></span>
-<span id="cb234-10"><a href="data-transformation-with-dplyr.html#cb234-10"></a><span class="co">##  1  2013     1     1      517            515         2      830</span></span>
-<span id="cb234-11"><a href="data-transformation-with-dplyr.html#cb234-11"></a><span class="co">##  2  2013     1     1      533            529         4      850</span></span>
-<span id="cb234-12"><a href="data-transformation-with-dplyr.html#cb234-12"></a><span class="co">##  3  2013     1     1      542            540         2      923</span></span>
-<span id="cb234-13"><a href="data-transformation-with-dplyr.html#cb234-13"></a><span class="co">##  4  2013     1     1      544            545        -1     1004</span></span>
-<span id="cb234-14"><a href="data-transformation-with-dplyr.html#cb234-14"></a><span class="co">##  5  2013     1     1      554            600        -6      812</span></span>
-<span id="cb234-15"><a href="data-transformation-with-dplyr.html#cb234-15"></a><span class="co">##  6  2013     1     1      554            558        -4      740</span></span>
-<span id="cb234-16"><a href="data-transformation-with-dplyr.html#cb234-16"></a><span class="co">##  7  2013     1     1      555            600        -5      913</span></span>
-<span id="cb234-17"><a href="data-transformation-with-dplyr.html#cb234-17"></a><span class="co">##  8  2013     1     1      557            600        -3      709</span></span>
-<span id="cb234-18"><a href="data-transformation-with-dplyr.html#cb234-18"></a><span class="co">##  9  2013     1     1      557            600        -3      838</span></span>
-<span id="cb234-19"><a href="data-transformation-with-dplyr.html#cb234-19"></a><span class="co">## 10  2013     1     1      558            600        -2      753</span></span>
-<span id="cb234-20"><a href="data-transformation-with-dplyr.html#cb234-20"></a><span class="co">## # ... with 336,766 more rows, and 14 more variables:</span></span>
-<span id="cb234-21"><a href="data-transformation-with-dplyr.html#cb234-21"></a><span class="co">## #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb234-22"><a href="data-transformation-with-dplyr.html#cb234-22"></a><span class="co">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
-<span id="cb234-23"><a href="data-transformation-with-dplyr.html#cb234-23"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
-<span id="cb234-24"><a href="data-transformation-with-dplyr.html#cb234-24"></a><span class="co">## #   time_hour &lt;dttm&gt;, min_dep_time &lt;dbl&gt;, min_sched_dep_time &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb234-8"><a href="data-transformation-with-dplyr.html#cb234-8"></a><span class="co">##     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span id="cb234-9"><a href="data-transformation-with-dplyr.html#cb234-9"></a><span class="co">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb234-10"><a href="data-transformation-with-dplyr.html#cb234-10"></a><span class="co">##  1  2013     1     1      517            515         2</span></span>
+<span id="cb234-11"><a href="data-transformation-with-dplyr.html#cb234-11"></a><span class="co">##  2  2013     1     1      533            529         4</span></span>
+<span id="cb234-12"><a href="data-transformation-with-dplyr.html#cb234-12"></a><span class="co">##  3  2013     1     1      542            540         2</span></span>
+<span id="cb234-13"><a href="data-transformation-with-dplyr.html#cb234-13"></a><span class="co">##  4  2013     1     1      544            545        -1</span></span>
+<span id="cb234-14"><a href="data-transformation-with-dplyr.html#cb234-14"></a><span class="co">##  5  2013     1     1      554            600        -6</span></span>
+<span id="cb234-15"><a href="data-transformation-with-dplyr.html#cb234-15"></a><span class="co">##  6  2013     1     1      554            558        -4</span></span>
+<span id="cb234-16"><a href="data-transformation-with-dplyr.html#cb234-16"></a><span class="co">##  7  2013     1     1      555            600        -5</span></span>
+<span id="cb234-17"><a href="data-transformation-with-dplyr.html#cb234-17"></a><span class="co">##  8  2013     1     1      557            600        -3</span></span>
+<span id="cb234-18"><a href="data-transformation-with-dplyr.html#cb234-18"></a><span class="co">##  9  2013     1     1      557            600        -3</span></span>
+<span id="cb234-19"><a href="data-transformation-with-dplyr.html#cb234-19"></a><span class="co">## 10  2013     1     1      558            600        -2</span></span>
+<span id="cb234-20"><a href="data-transformation-with-dplyr.html#cb234-20"></a><span class="co">## # ... with 336,766 more rows, and 15 more variables:</span></span>
+<span id="cb234-21"><a href="data-transformation-with-dplyr.html#cb234-21"></a><span class="co">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
+<span id="cb234-22"><a href="data-transformation-with-dplyr.html#cb234-22"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
+<span id="cb234-23"><a href="data-transformation-with-dplyr.html#cb234-23"></a><span class="co">## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb234-24"><a href="data-transformation-with-dplyr.html#cb234-24"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb234-25"><a href="data-transformation-with-dplyr.html#cb234-25"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, min_dep_time &lt;dbl&gt;,</span></span>
+<span id="cb234-26"><a href="data-transformation-with-dplyr.html#cb234-26"></a><span class="co">## #   min_sched_dep_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>A less efficient way with for loop and if-else:</p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="data-transformation-with-dplyr.html#cb235-1"></a><span class="co"># if for if-else approach</span></span>
 <span id="cb235-2"><a href="data-transformation-with-dplyr.html#cb235-2"></a>time_to_minutes_if &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
@@ -1035,12 +1043,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-transformation-with-dplyr.html#cb236-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb236-2"><a href="data-transformation-with-dplyr.html#cb236-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb236-3"><a href="data-transformation-with-dplyr.html#cb236-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.05    0.00    0.05</span></span>
+<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.05    0.00    0.04</span></span>
 <span id="cb236-5"><a href="data-transformation-with-dplyr.html#cb236-5"></a></span>
 <span id="cb236-6"><a href="data-transformation-with-dplyr.html#cb236-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb236-7"><a href="data-transformation-with-dplyr.html#cb236-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb236-8"><a href="data-transformation-with-dplyr.html#cb236-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.39    0.00    0.39</span></span></code></pre></div>
+<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.34    0.00    0.35</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->

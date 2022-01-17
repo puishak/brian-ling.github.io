@@ -404,24 +404,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Graphs are powerful to illustrate features of the data. You will learn how to create some basic plots as well as using the package <code>ggplot2</code> to create more elegant plots.</p>
 <p>Consider a dataset about cars.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="co">## Warning: package &#39;ggplot2&#39; was built under R version 4.0.3</span></span>
-<span id="cb1-3"><a href="introduction.html#cb1-3"></a><span class="co">## Use suppressPackageStartupMessages() to eliminate package</span></span>
-<span id="cb1-4"><a href="introduction.html#cb1-4"></a><span class="co">## startup messages</span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a>mpg</span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">## # A tibble: 234 x 11</span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##    manufacturer model displ  year   cyl trans drv     cty   hwy fl   </span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  1 audi         a4      1.8  1999     4 auto~ f        18    29 p    </span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  2 audi         a4      1.8  1999     4 manu~ f        21    29 p    </span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  3 audi         a4      2    2008     4 manu~ f        20    31 p    </span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  4 audi         a4      2    2008     4 auto~ f        21    30 p    </span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  5 audi         a4      2.8  1999     6 auto~ f        16    26 p    </span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  6 audi         a4      2.8  1999     6 manu~ f        18    26 p    </span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  7 audi         a4      3.1  2008     6 auto~ f        18    27 p    </span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">##  8 audi         a4 q~   1.8  1999     4 manu~ 4        18    26 p    </span></span>
-<span id="cb1-17"><a href="introduction.html#cb1-17"></a><span class="co">##  9 audi         a4 q~   1.8  1999     4 auto~ 4        16    25 p    </span></span>
-<span id="cb1-18"><a href="introduction.html#cb1-18"></a><span class="co">## 10 audi         a4 q~   2    2008     4 manu~ 4        20    28 p    </span></span>
-<span id="cb1-19"><a href="introduction.html#cb1-19"></a><span class="co">## # ... with 224 more rows, and 1 more variable: class &lt;chr&gt;</span></span></code></pre></div>
+<span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="co">## Warning: package &#39;ggplot2&#39; was built under R version</span></span>
+<span id="cb1-3"><a href="introduction.html#cb1-3"></a><span class="co">## 4.0.3</span></span>
+<span id="cb1-4"><a href="introduction.html#cb1-4"></a>mpg</span>
+<span id="cb1-5"><a href="introduction.html#cb1-5"></a><span class="co">## # A tibble: 234 x 11</span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6"></a><span class="co">##    manufacturer model displ  year   cyl trans drv  </span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7"></a><span class="co">##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="co">##  1 audi         a4      1.8  1999     4 auto~ f    </span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9"></a><span class="co">##  2 audi         a4      1.8  1999     4 manu~ f    </span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10"></a><span class="co">##  3 audi         a4      2    2008     4 manu~ f    </span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11"></a><span class="co">##  4 audi         a4      2    2008     4 auto~ f    </span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12"></a><span class="co">##  5 audi         a4      2.8  1999     6 auto~ f    </span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="co">##  6 audi         a4      2.8  1999     6 manu~ f    </span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14"></a><span class="co">##  7 audi         a4      3.1  2008     6 auto~ f    </span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15"></a><span class="co">##  8 audi         a4 q~   1.8  1999     4 manu~ 4    </span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16"></a><span class="co">##  9 audi         a4 q~   1.8  1999     4 auto~ 4    </span></span>
+<span id="cb1-17"><a href="introduction.html#cb1-17"></a><span class="co">## 10 audi         a4 q~   2    2008     4 manu~ 4    </span></span>
+<span id="cb1-18"><a href="introduction.html#cb1-18"></a><span class="co">## # ... with 224 more rows, and 4 more variables:</span></span>
+<span id="cb1-19"><a href="introduction.html#cb1-19"></a><span class="co">## #   cty &lt;int&gt;, hwy &lt;int&gt;, fl &lt;chr&gt;, class &lt;chr&gt;</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
@@ -853,8 +853,8 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb25-9"><a href="introduction.html#cb25-9"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
 <span id="cb25-10"><a href="introduction.html#cb25-10"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction.html#cb26-1"></a><span class="kw">colnames</span>(pt_data)</span>
-<span id="cb26-2"><a href="introduction.html#cb26-2"></a><span class="co">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;   &quot;gender&quot;      </span></span>
-<span id="cb26-3"><a href="introduction.html#cb26-3"></a><span class="co">## [5] &quot;blood&quot;</span></span>
+<span id="cb26-2"><a href="introduction.html#cb26-2"></a><span class="co">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;  </span></span>
+<span id="cb26-3"><a href="introduction.html#cb26-3"></a><span class="co">## [4] &quot;gender&quot;       &quot;blood&quot;</span></span>
 <span id="cb26-4"><a href="introduction.html#cb26-4"></a></span>
 <span id="cb26-5"><a href="introduction.html#cb26-5"></a>pt_data<span class="op">$</span>subject_name</span>
 <span id="cb26-6"><a href="introduction.html#cb26-6"></a><span class="co">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
@@ -878,18 +878,26 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction.html#cb27-1"></a>pt_data<span class="op">$</span>temp_c &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temperature <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span><span class="dv">5</span> <span class="op">/</span><span class="st"> </span><span class="dv">9</span></span>
 <span id="cb27-2"><a href="introduction.html#cb27-2"></a></span>
 <span id="cb27-3"><a href="introduction.html#cb27-3"></a>pt_data</span>
-<span id="cb27-4"><a href="introduction.html#cb27-4"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c</span></span>
-<span id="cb27-5"><a href="introduction.html#cb27-5"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222</span></span>
-<span id="cb27-6"><a href="introduction.html#cb27-6"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000</span></span>
-<span id="cb27-7"><a href="introduction.html#cb27-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span>
-<span id="cb27-8"><a href="introduction.html#cb27-8"></a></span>
-<span id="cb27-9"><a href="introduction.html#cb27-9"></a>pt_data<span class="op">$</span>fever &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temp_c <span class="op">&gt;</span><span class="st"> </span><span class="fl">37.6</span>)</span>
-<span id="cb27-10"><a href="introduction.html#cb27-10"></a></span>
-<span id="cb27-11"><a href="introduction.html#cb27-11"></a>pt_data</span>
-<span id="cb27-12"><a href="introduction.html#cb27-12"></a><span class="co">##   subject_name temperature flu_status gender blood   temp_c fever</span></span>
-<span id="cb27-13"><a href="introduction.html#cb27-13"></a><span class="co">## 1         John        98.1      FALSE   MALE     O 36.72222 FALSE</span></span>
-<span id="cb27-14"><a href="introduction.html#cb27-14"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000 FALSE</span></span>
-<span id="cb27-15"><a href="introduction.html#cb27-15"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A 38.55556  TRUE</span></span></code></pre></div>
+<span id="cb27-4"><a href="introduction.html#cb27-4"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
+<span id="cb27-5"><a href="introduction.html#cb27-5"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
+<span id="cb27-6"><a href="introduction.html#cb27-6"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
+<span id="cb27-7"><a href="introduction.html#cb27-7"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A</span></span>
+<span id="cb27-8"><a href="introduction.html#cb27-8"></a><span class="co">##     temp_c</span></span>
+<span id="cb27-9"><a href="introduction.html#cb27-9"></a><span class="co">## 1 36.72222</span></span>
+<span id="cb27-10"><a href="introduction.html#cb27-10"></a><span class="co">## 2 37.00000</span></span>
+<span id="cb27-11"><a href="introduction.html#cb27-11"></a><span class="co">## 3 38.55556</span></span>
+<span id="cb27-12"><a href="introduction.html#cb27-12"></a></span>
+<span id="cb27-13"><a href="introduction.html#cb27-13"></a>pt_data<span class="op">$</span>fever &lt;-<span class="st"> </span>(pt_data<span class="op">$</span>temp_c <span class="op">&gt;</span><span class="st"> </span><span class="fl">37.6</span>)</span>
+<span id="cb27-14"><a href="introduction.html#cb27-14"></a></span>
+<span id="cb27-15"><a href="introduction.html#cb27-15"></a>pt_data</span>
+<span id="cb27-16"><a href="introduction.html#cb27-16"></a><span class="co">##   subject_name temperature flu_status gender blood</span></span>
+<span id="cb27-17"><a href="introduction.html#cb27-17"></a><span class="co">## 1         John        98.1      FALSE   MALE     O</span></span>
+<span id="cb27-18"><a href="introduction.html#cb27-18"></a><span class="co">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
+<span id="cb27-19"><a href="introduction.html#cb27-19"></a><span class="co">## 3        Steve       101.4       TRUE   MALE     A</span></span>
+<span id="cb27-20"><a href="introduction.html#cb27-20"></a><span class="co">##     temp_c fever</span></span>
+<span id="cb27-21"><a href="introduction.html#cb27-21"></a><span class="co">## 1 36.72222 FALSE</span></span>
+<span id="cb27-22"><a href="introduction.html#cb27-22"></a><span class="co">## 2 37.00000 FALSE</span></span>
+<span id="cb27-23"><a href="introduction.html#cb27-23"></a><span class="co">## 3 38.55556  TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div id="operators" class="section level2">
@@ -1267,12 +1275,14 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb40-14"><a href="introduction.html#cb40-14"></a></span>
 <span id="cb40-15"><a href="introduction.html#cb40-15"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb40-16"><a href="introduction.html#cb40-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0</span></span>
-<span id="cb40-18"><a href="introduction.html#cb40-18"></a><span class="co">## [14]  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb40-19"><a href="introduction.html#cb40-19"></a></span>
-<span id="cb40-20"><a href="introduction.html#cb40-20"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-21"><a href="introduction.html#cb40-21"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0</span></span>
-<span id="cb40-22"><a href="introduction.html#cb40-22"></a><span class="co">## [14]  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5</span></span>
+<span id="cb40-18"><a href="introduction.html#cb40-18"></a><span class="co">## [11]  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5</span></span>
+<span id="cb40-19"><a href="introduction.html#cb40-19"></a><span class="co">## [21] 10.0</span></span>
+<span id="cb40-20"><a href="introduction.html#cb40-20"></a></span>
+<span id="cb40-21"><a href="introduction.html#cb40-21"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
+<span id="cb40-22"><a href="introduction.html#cb40-22"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5</span></span>
+<span id="cb40-23"><a href="introduction.html#cb40-23"></a><span class="co">## [11]  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5</span></span>
+<span id="cb40-24"><a href="introduction.html#cb40-24"></a><span class="co">## [21] 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> <code>rep()</code></h3>
@@ -1381,11 +1391,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 </ol>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction.html#cb49-1"></a>a&lt;-<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;sta&quot;</span> , <span class="dv">3</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</span>
 <span id="cb49-2"><a href="introduction.html#cb49-2"></a>a <span class="co"># when you combine numeric, characters and logical values, the results become character</span></span>
-<span id="cb49-3"><a href="introduction.html#cb49-3"></a><span class="co">## [1] &quot;1&quot;     &quot;2&quot;     &quot;3&quot;     &quot;6&quot;     &quot;6&quot;     &quot;sta&quot;   &quot;FALSE&quot;</span></span>
-<span id="cb49-4"><a href="introduction.html#cb49-4"></a><span class="kw">typeof</span>(a) <span class="co"># character</span></span>
-<span id="cb49-5"><a href="introduction.html#cb49-5"></a><span class="co">## [1] &quot;character&quot;</span></span>
-<span id="cb49-6"><a href="introduction.html#cb49-6"></a><span class="kw">length</span>(a) <span class="co"># </span></span>
-<span id="cb49-7"><a href="introduction.html#cb49-7"></a><span class="co">## [1] 7</span></span></code></pre></div>
+<span id="cb49-3"><a href="introduction.html#cb49-3"></a><span class="co">## [1] &quot;1&quot;     &quot;2&quot;     &quot;3&quot;     &quot;6&quot;     &quot;6&quot;     &quot;sta&quot;  </span></span>
+<span id="cb49-4"><a href="introduction.html#cb49-4"></a><span class="co">## [7] &quot;FALSE&quot;</span></span>
+<span id="cb49-5"><a href="introduction.html#cb49-5"></a><span class="kw">typeof</span>(a) <span class="co"># character</span></span>
+<span id="cb49-6"><a href="introduction.html#cb49-6"></a><span class="co">## [1] &quot;character&quot;</span></span>
+<span id="cb49-7"><a href="introduction.html#cb49-7"></a><span class="kw">length</span>(a) <span class="co"># </span></span>
+<span id="cb49-8"><a href="introduction.html#cb49-8"></a><span class="co">## [1] 7</span></span></code></pre></div>
 <ol start="3" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
@@ -1401,8 +1412,8 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb50-10"><a href="introduction.html#cb50-10"></a><span class="co"># 6 is repeated 3 times</span></span>
 <span id="cb50-11"><a href="introduction.html#cb50-11"></a></span>
 <span id="cb50-12"><a href="introduction.html#cb50-12"></a>x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="co"># check if the modulus is 0 when x is divided by 2</span></span>
-<span id="cb50-13"><a href="introduction.html#cb50-13"></a><span class="co">##  [1] FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE</span></span>
-<span id="cb50-14"><a href="introduction.html#cb50-14"></a><span class="co">## [11]  TRUE  TRUE</span></span>
+<span id="cb50-13"><a href="introduction.html#cb50-13"></a><span class="co">##  [1] FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE</span></span>
+<span id="cb50-14"><a href="introduction.html#cb50-14"></a><span class="co">##  [9] FALSE  TRUE  TRUE  TRUE</span></span>
 <span id="cb50-15"><a href="introduction.html#cb50-15"></a><span class="co"># this is equivalent to ask if the elements are even</span></span>
 <span id="cb50-16"><a href="introduction.html#cb50-16"></a></span>
 <span id="cb50-17"><a href="introduction.html#cb50-17"></a>x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] <span class="co"># find out all the even elements</span></span>
