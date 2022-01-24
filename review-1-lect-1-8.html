@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-17" />
+<meta name="date" content="2022-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -391,7 +391,7 @@ where <span class="math inline">\(I(\cdot)\)</span> is the indicator function, t
 <span id="cb161-2"><a href="review-1-lect-1-8.html#cb161-2"></a>X &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">2</span>) </span>
 <span id="cb161-3"><a href="review-1-lect-1-8.html#cb161-3"></a>Y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">3</span>)</span>
 <span id="cb161-4"><a href="review-1-lect-1-8.html#cb161-4"></a><span class="kw">mean</span>(X <span class="op">&gt;</span><span class="st"> </span>Y) </span>
-<span id="cb161-5"><a href="review-1-lect-1-8.html#cb161-5"></a><span class="co">## [1] 0.4372</span></span></code></pre></div>
+<span id="cb161-5"><a href="review-1-lect-1-8.html#cb161-5"></a><span class="co">## [1] 0.4309</span></span></code></pre></div>
 <p>The code <code>mean(X &gt; Y)</code> is computing
 <span class="math display">\[\begin{equation*}
 \frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i),
@@ -421,7 +421,7 @@ Let X ~ N(mean = 2, sd =1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous unifor
 <span id="cb163-3"><a href="review-1-lect-1-8.html#cb163-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
 <span id="cb163-4"><a href="review-1-lect-1-8.html#cb163-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
 <span id="cb163-5"><a href="review-1-lect-1-8.html#cb163-5"></a><span class="kw">mean</span>(<span class="kw">pmax</span>(x,y) <span class="op">&gt;</span><span class="st"> </span>z) </span>
-<span id="cb163-6"><a href="review-1-lect-1-8.html#cb163-6"></a><span class="co">## [1] 0.5131</span></span></code></pre></div>
+<span id="cb163-6"><a href="review-1-lect-1-8.html#cb163-6"></a><span class="co">## [1] 0.51502</span></span></code></pre></div>
 <p><strong>Ex 2</strong>
 Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous uniform distribution on [0,4]). Estimate <span class="math inline">\(P(\min(X,Y)&gt;Z)\)</span>.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="review-1-lect-1-8.html#cb164-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
@@ -429,7 +429,7 @@ Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous unifo
 <span id="cb164-3"><a href="review-1-lect-1-8.html#cb164-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
 <span id="cb164-4"><a href="review-1-lect-1-8.html#cb164-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
 <span id="cb164-5"><a href="review-1-lect-1-8.html#cb164-5"></a><span class="kw">mean</span>(<span class="kw">pmin</span>(x, y) <span class="op">&gt;</span><span class="st"> </span>z) <span class="co"># what is the difference between pmin and min?</span></span>
-<span id="cb164-6"><a href="review-1-lect-1-8.html#cb164-6"></a><span class="co">## [1] 0.11471</span></span></code></pre></div>
+<span id="cb164-6"><a href="review-1-lect-1-8.html#cb164-6"></a><span class="co">## [1] 0.11361</span></span></code></pre></div>
 <p><strong>Ex 3</strong>
 Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous uniform distribution on [0,4]). Estimate <span class="math inline">\(P(X^2 Y&gt;Z)\)</span>.</p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="review-1-lect-1-8.html#cb165-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
@@ -437,7 +437,7 @@ Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous unifo
 <span id="cb165-3"><a href="review-1-lect-1-8.html#cb165-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
 <span id="cb165-4"><a href="review-1-lect-1-8.html#cb165-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
 <span id="cb165-5"><a href="review-1-lect-1-8.html#cb165-5"></a><span class="kw">mean</span>(x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span>z)</span>
-<span id="cb165-6"><a href="review-1-lect-1-8.html#cb165-6"></a><span class="co">## [1] 0.41099</span></span></code></pre></div>
+<span id="cb165-6"><a href="review-1-lect-1-8.html#cb165-6"></a><span class="co">## [1] 0.41158</span></span></code></pre></div>
 <p><strong>Ex 4</strong>
 Person <span class="math inline">\(A\)</span> generates a random variable <span class="math inline">\(X \sim N(2, 1)\)</span> and Person <span class="math inline">\(B\)</span> generates a random variable <span class="math inline">\(Z \sim Unif(0, 4)\)</span>. If <span class="math inline">\(X &lt; Z\)</span>, Person <span class="math inline">\(A\)</span> will discard <span class="math inline">\(X\)</span> and generate another random variable <span class="math inline">\(Y \sim Exp(0.5)\)</span>. Find the probability that the number generated by <span class="math inline">\(A\)</span> is greater than that by <span class="math inline">\(B\)</span>.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="review-1-lect-1-8.html#cb166-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
@@ -454,14 +454,14 @@ Person <span class="math inline">\(A\)</span> generates a random variable <span 
 <span id="cb166-12"><a href="review-1-lect-1-8.html#cb166-12"></a>}</span>
 <span id="cb166-13"><a href="review-1-lect-1-8.html#cb166-13"></a></span>
 <span id="cb166-14"><a href="review-1-lect-1-8.html#cb166-14"></a><span class="kw">mean</span>(greater)</span>
-<span id="cb166-15"><a href="review-1-lect-1-8.html#cb166-15"></a><span class="co">## [1] 0.63699</span></span></code></pre></div>
+<span id="cb166-15"><a href="review-1-lect-1-8.html#cb166-15"></a><span class="co">## [1] 0.63698</span></span></code></pre></div>
 <p>Remark: you may find that the following code gives you almost the same answer. Why?</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="review-1-lect-1-8.html#cb167-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
 <span id="cb167-2"><a href="review-1-lect-1-8.html#cb167-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
 <span id="cb167-3"><a href="review-1-lect-1-8.html#cb167-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="fl">0.5</span>)</span>
 <span id="cb167-4"><a href="review-1-lect-1-8.html#cb167-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
 <span id="cb167-5"><a href="review-1-lect-1-8.html#cb167-5"></a><span class="kw">mean</span>(<span class="kw">pmax</span>(x, y) <span class="op">&gt;</span><span class="st"> </span>z)</span>
-<span id="cb167-6"><a href="review-1-lect-1-8.html#cb167-6"></a><span class="co">## [1] 0.63969</span></span></code></pre></div>
+<span id="cb167-6"><a href="review-1-lect-1-8.html#cb167-6"></a><span class="co">## [1] 0.63904</span></span></code></pre></div>
 <p><strong>Ex 5</strong>
 Let X ~ N(mean = 2, sd = 1) and Y ~ Exp(rate = 2). Estimate <span class="math inline">\(E(min(X,Y))\)</span>.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="review-1-lect-1-8.html#cb168-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>

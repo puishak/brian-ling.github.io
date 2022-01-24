@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-17" />
+<meta name="date" content="2022-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -438,20 +438,20 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="k-means-clustering.html#cb446-1"></a>mall &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/Mall_Customers.csv&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="k-means-clustering.html#cb447-1"></a>mall</span>
 <span id="cb447-2"><a href="k-means-clustering.html#cb447-2"></a><span class="co">## # A tibble: 200 x 5</span></span>
-<span id="cb447-3"><a href="k-means-clustering.html#cb447-3"></a><span class="co">##    CustomerID Gender   Age `Annual Income ~</span></span>
-<span id="cb447-4"><a href="k-means-clustering.html#cb447-4"></a><span class="co">##         &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb447-5"><a href="k-means-clustering.html#cb447-5"></a><span class="co">##  1          1 Male      19               15</span></span>
-<span id="cb447-6"><a href="k-means-clustering.html#cb447-6"></a><span class="co">##  2          2 Male      21               15</span></span>
-<span id="cb447-7"><a href="k-means-clustering.html#cb447-7"></a><span class="co">##  3          3 Female    20               16</span></span>
-<span id="cb447-8"><a href="k-means-clustering.html#cb447-8"></a><span class="co">##  4          4 Female    23               16</span></span>
-<span id="cb447-9"><a href="k-means-clustering.html#cb447-9"></a><span class="co">##  5          5 Female    31               17</span></span>
-<span id="cb447-10"><a href="k-means-clustering.html#cb447-10"></a><span class="co">##  6          6 Female    22               17</span></span>
-<span id="cb447-11"><a href="k-means-clustering.html#cb447-11"></a><span class="co">##  7          7 Female    35               18</span></span>
-<span id="cb447-12"><a href="k-means-clustering.html#cb447-12"></a><span class="co">##  8          8 Female    23               18</span></span>
-<span id="cb447-13"><a href="k-means-clustering.html#cb447-13"></a><span class="co">##  9          9 Male      64               19</span></span>
-<span id="cb447-14"><a href="k-means-clustering.html#cb447-14"></a><span class="co">## 10         10 Female    30               19</span></span>
+<span id="cb447-3"><a href="k-means-clustering.html#cb447-3"></a><span class="co">##    CustomerID Gender   Age `Annual Income (k$)`</span></span>
+<span id="cb447-4"><a href="k-means-clustering.html#cb447-4"></a><span class="co">##         &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span id="cb447-5"><a href="k-means-clustering.html#cb447-5"></a><span class="co">##  1          1 Male      19                   15</span></span>
+<span id="cb447-6"><a href="k-means-clustering.html#cb447-6"></a><span class="co">##  2          2 Male      21                   15</span></span>
+<span id="cb447-7"><a href="k-means-clustering.html#cb447-7"></a><span class="co">##  3          3 Female    20                   16</span></span>
+<span id="cb447-8"><a href="k-means-clustering.html#cb447-8"></a><span class="co">##  4          4 Female    23                   16</span></span>
+<span id="cb447-9"><a href="k-means-clustering.html#cb447-9"></a><span class="co">##  5          5 Female    31                   17</span></span>
+<span id="cb447-10"><a href="k-means-clustering.html#cb447-10"></a><span class="co">##  6          6 Female    22                   17</span></span>
+<span id="cb447-11"><a href="k-means-clustering.html#cb447-11"></a><span class="co">##  7          7 Female    35                   18</span></span>
+<span id="cb447-12"><a href="k-means-clustering.html#cb447-12"></a><span class="co">##  8          8 Female    23                   18</span></span>
+<span id="cb447-13"><a href="k-means-clustering.html#cb447-13"></a><span class="co">##  9          9 Male      64                   19</span></span>
+<span id="cb447-14"><a href="k-means-clustering.html#cb447-14"></a><span class="co">## 10         10 Female    30                   19</span></span>
 <span id="cb447-15"><a href="k-means-clustering.html#cb447-15"></a><span class="co">## # ... with 190 more rows, and 1 more variable:</span></span>
-<span id="cb447-16"><a href="k-means-clustering.html#cb447-16"></a><span class="co">## #   `Spending Score (1-100)` &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb447-16"><a href="k-means-clustering.html#cb447-16"></a><span class="co">## #   Spending Score (1-100) &lt;dbl&gt;</span></span></code></pre></div>
 <p>We will use the <code>kmeans()</code> function in R (contained in base R) to perform <span class="math inline">\(k\)</span>-means clustering.</p>
 <ul>
 <li><p><code>x</code>: your dataframe/ matrix</p></li>

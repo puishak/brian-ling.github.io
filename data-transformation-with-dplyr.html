@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-17" />
+<meta name="date" content="2022-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -384,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## {
 ##     UseMethod(&quot;select&quot;)
 ## }
-## &lt;bytecode: 0x00000207f377f960&gt;
+## &lt;bytecode: 0x000001f7344af360&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <p><strong>nycflights13</strong></p>
 <p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
@@ -728,8 +728,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>1g</strong>. Find all flights that departed between midnight and 6 a.m. (inclusive).
 The first question that should come to your mind is how is <strong>midnight</strong> represented in the dataset? Let’s take a look at <code>summary(flights$dep_time)</code>.</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="data-transformation-with-dplyr.html#cb210-1"></a><span class="kw">summary</span>(flights<span class="op">$</span>dep_time)</span>
-<span id="cb210-2"><a href="data-transformation-with-dplyr.html#cb210-2"></a><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></span>
-<span id="cb210-3"><a href="data-transformation-with-dplyr.html#cb210-3"></a><span class="co">##       1     907    1401    1349    1744    2400    8255</span></span></code></pre></div>
+<span id="cb210-2"><a href="data-transformation-with-dplyr.html#cb210-2"></a><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb210-3"><a href="data-transformation-with-dplyr.html#cb210-3"></a><span class="co">##       1     907    1401    1349    1744    2400 </span></span>
+<span id="cb210-4"><a href="data-transformation-with-dplyr.html#cb210-4"></a><span class="co">##    NA&#39;s </span></span>
+<span id="cb210-5"><a href="data-transformation-with-dplyr.html#cb210-5"></a><span class="co">##    8255</span></span></code></pre></div>
 <p>The minimum is <code>1</code> and the maximum is <code>2400</code>. Therefore, you know <strong>midnight</strong> is represented by <code>2400</code> instead of <code>0</code> in this dataset. The answer to the question would be</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="data-transformation-with-dplyr.html#cb211-1"></a><span class="kw">filter</span>(flights, dep_time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">600</span> <span class="op">|</span><span class="st"> </span>dep_time <span class="op">==</span><span class="st"> </span><span class="dv">2400</span>)</span></code></pre></div>
 </div>
@@ -959,19 +961,20 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb230-4"><a href="data-transformation-with-dplyr.html#cb230-4"></a><span class="kw">mutate</span>(flights_time, <span class="dt">min_dep_time =</span> (dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>, </span>
 <span id="cb230-5"><a href="data-transformation-with-dplyr.html#cb230-5"></a>       <span class="dt">min_sched_dep_time =</span> (sched_dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>sched_dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>)</span>
 <span id="cb230-6"><a href="data-transformation-with-dplyr.html#cb230-6"></a><span class="co">## # A tibble: 336,776 x 4</span></span>
-<span id="cb230-7"><a href="data-transformation-with-dplyr.html#cb230-7"></a><span class="co">##    dep_time sched_dep_time min_dep_time min_sched_dep_t~</span></span>
-<span id="cb230-8"><a href="data-transformation-with-dplyr.html#cb230-8"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb230-9"><a href="data-transformation-with-dplyr.html#cb230-9"></a><span class="co">##  1      517            515          317              315</span></span>
-<span id="cb230-10"><a href="data-transformation-with-dplyr.html#cb230-10"></a><span class="co">##  2      533            529          333              329</span></span>
-<span id="cb230-11"><a href="data-transformation-with-dplyr.html#cb230-11"></a><span class="co">##  3      542            540          342              340</span></span>
-<span id="cb230-12"><a href="data-transformation-with-dplyr.html#cb230-12"></a><span class="co">##  4      544            545          344              345</span></span>
-<span id="cb230-13"><a href="data-transformation-with-dplyr.html#cb230-13"></a><span class="co">##  5      554            600          354              360</span></span>
-<span id="cb230-14"><a href="data-transformation-with-dplyr.html#cb230-14"></a><span class="co">##  6      554            558          354              358</span></span>
-<span id="cb230-15"><a href="data-transformation-with-dplyr.html#cb230-15"></a><span class="co">##  7      555            600          355              360</span></span>
-<span id="cb230-16"><a href="data-transformation-with-dplyr.html#cb230-16"></a><span class="co">##  8      557            600          357              360</span></span>
-<span id="cb230-17"><a href="data-transformation-with-dplyr.html#cb230-17"></a><span class="co">##  9      557            600          357              360</span></span>
-<span id="cb230-18"><a href="data-transformation-with-dplyr.html#cb230-18"></a><span class="co">## 10      558            600          358              360</span></span>
-<span id="cb230-19"><a href="data-transformation-with-dplyr.html#cb230-19"></a><span class="co">## # ... with 336,766 more rows</span></span></code></pre></div>
+<span id="cb230-7"><a href="data-transformation-with-dplyr.html#cb230-7"></a><span class="co">##    dep_time sched_dep_time min_dep_time</span></span>
+<span id="cb230-8"><a href="data-transformation-with-dplyr.html#cb230-8"></a><span class="co">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;</span></span>
+<span id="cb230-9"><a href="data-transformation-with-dplyr.html#cb230-9"></a><span class="co">##  1      517            515          317</span></span>
+<span id="cb230-10"><a href="data-transformation-with-dplyr.html#cb230-10"></a><span class="co">##  2      533            529          333</span></span>
+<span id="cb230-11"><a href="data-transformation-with-dplyr.html#cb230-11"></a><span class="co">##  3      542            540          342</span></span>
+<span id="cb230-12"><a href="data-transformation-with-dplyr.html#cb230-12"></a><span class="co">##  4      544            545          344</span></span>
+<span id="cb230-13"><a href="data-transformation-with-dplyr.html#cb230-13"></a><span class="co">##  5      554            600          354</span></span>
+<span id="cb230-14"><a href="data-transformation-with-dplyr.html#cb230-14"></a><span class="co">##  6      554            558          354</span></span>
+<span id="cb230-15"><a href="data-transformation-with-dplyr.html#cb230-15"></a><span class="co">##  7      555            600          355</span></span>
+<span id="cb230-16"><a href="data-transformation-with-dplyr.html#cb230-16"></a><span class="co">##  8      557            600          357</span></span>
+<span id="cb230-17"><a href="data-transformation-with-dplyr.html#cb230-17"></a><span class="co">##  9      557            600          357</span></span>
+<span id="cb230-18"><a href="data-transformation-with-dplyr.html#cb230-18"></a><span class="co">## 10      558            600          358</span></span>
+<span id="cb230-19"><a href="data-transformation-with-dplyr.html#cb230-19"></a><span class="co">## # ... with 336,766 more rows, and 1 more variable:</span></span>
+<span id="cb230-20"><a href="data-transformation-with-dplyr.html#cb230-20"></a><span class="co">## #   min_sched_dep_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>The above code doesn’t look good because we have written the formula to complete the same task twice. We can define a function to do this:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="data-transformation-with-dplyr.html#cb231-1"></a>time_to_minutes &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
 <span id="cb231-2"><a href="data-transformation-with-dplyr.html#cb231-2"></a>  (x <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>x <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span></span>
@@ -1018,8 +1021,8 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb234-22"><a href="data-transformation-with-dplyr.html#cb234-22"></a><span class="co">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
 <span id="cb234-23"><a href="data-transformation-with-dplyr.html#cb234-23"></a><span class="co">## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span id="cb234-24"><a href="data-transformation-with-dplyr.html#cb234-24"></a><span class="co">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
-<span id="cb234-25"><a href="data-transformation-with-dplyr.html#cb234-25"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, min_dep_time &lt;dbl&gt;,</span></span>
-<span id="cb234-26"><a href="data-transformation-with-dplyr.html#cb234-26"></a><span class="co">## #   min_sched_dep_time &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb234-25"><a href="data-transformation-with-dplyr.html#cb234-25"></a><span class="co">## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
+<span id="cb234-26"><a href="data-transformation-with-dplyr.html#cb234-26"></a><span class="co">## #   min_dep_time &lt;dbl&gt;, min_sched_dep_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>A less efficient way with for loop and if-else:</p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="data-transformation-with-dplyr.html#cb235-1"></a><span class="co"># if for if-else approach</span></span>
 <span id="cb235-2"><a href="data-transformation-with-dplyr.html#cb235-2"></a>time_to_minutes_if &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
@@ -1048,7 +1051,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb236-6"><a href="data-transformation-with-dplyr.html#cb236-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb236-7"><a href="data-transformation-with-dplyr.html#cb236-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb236-8"><a href="data-transformation-with-dplyr.html#cb236-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.35    0.00    0.35</span></span></code></pre></div>
+<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.44    0.00    0.44</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->
@@ -1081,7 +1084,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>E.g.: Average delay per date (more useful):</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="data-transformation-with-dplyr.html#cb238-1"></a>by_day &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)</span>
 <span id="cb238-2"><a href="data-transformation-with-dplyr.html#cb238-2"></a><span class="kw">summarize</span>(by_day, <span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb238-3"><a href="data-transformation-with-dplyr.html#cb238-3"></a><span class="co">## `summarise()` regrouping output by &#39;year&#39;, &#39;month&#39; (override with `.groups` argument)</span></span>
+<span id="cb238-3"><a href="data-transformation-with-dplyr.html#cb238-3"></a><span class="co">## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using the `.groups` argument.</span></span>
 <span id="cb238-4"><a href="data-transformation-with-dplyr.html#cb238-4"></a><span class="co">## # A tibble: 365 x 4</span></span>
 <span id="cb238-5"><a href="data-transformation-with-dplyr.html#cb238-5"></a><span class="co">## # Groups:   year, month [12]</span></span>
 <span id="cb238-6"><a href="data-transformation-with-dplyr.html#cb238-6"></a><span class="co">##     year month   day delay</span></span>
@@ -1100,7 +1103,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>E.g: Average delay per month:</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="data-transformation-with-dplyr.html#cb239-1"></a>by_month &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month)</span>
 <span id="cb239-2"><a href="data-transformation-with-dplyr.html#cb239-2"></a><span class="kw">summarize</span>(by_month, <span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb239-3"><a href="data-transformation-with-dplyr.html#cb239-3"></a><span class="co">## `summarise()` regrouping output by &#39;year&#39; (override with `.groups` argument)</span></span>
+<span id="cb239-3"><a href="data-transformation-with-dplyr.html#cb239-3"></a><span class="co">## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</span></span>
 <span id="cb239-4"><a href="data-transformation-with-dplyr.html#cb239-4"></a><span class="co">## # A tibble: 12 x 3</span></span>
 <span id="cb239-5"><a href="data-transformation-with-dplyr.html#cb239-5"></a><span class="co">## # Groups:   year [1]</span></span>
 <span id="cb239-6"><a href="data-transformation-with-dplyr.html#cb239-6"></a><span class="co">##     year month delay</span></span>
@@ -1121,42 +1124,39 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb239-21"><a href="data-transformation-with-dplyr.html#cb239-21"></a><span class="co"># we only have 1 year, not necessary to use year</span></span>
 <span id="cb239-22"><a href="data-transformation-with-dplyr.html#cb239-22"></a>by_month &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, month) </span>
 <span id="cb239-23"><a href="data-transformation-with-dplyr.html#cb239-23"></a><span class="kw">summarize</span>(by_month, <span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay,<span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb239-24"><a href="data-transformation-with-dplyr.html#cb239-24"></a><span class="co">## `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb239-25"><a href="data-transformation-with-dplyr.html#cb239-25"></a><span class="co">## # A tibble: 12 x 2</span></span>
-<span id="cb239-26"><a href="data-transformation-with-dplyr.html#cb239-26"></a><span class="co">##    month delay</span></span>
-<span id="cb239-27"><a href="data-transformation-with-dplyr.html#cb239-27"></a><span class="co">##    &lt;int&gt; &lt;dbl&gt;</span></span>
-<span id="cb239-28"><a href="data-transformation-with-dplyr.html#cb239-28"></a><span class="co">##  1     1 10.0 </span></span>
-<span id="cb239-29"><a href="data-transformation-with-dplyr.html#cb239-29"></a><span class="co">##  2     2 10.8 </span></span>
-<span id="cb239-30"><a href="data-transformation-with-dplyr.html#cb239-30"></a><span class="co">##  3     3 13.2 </span></span>
-<span id="cb239-31"><a href="data-transformation-with-dplyr.html#cb239-31"></a><span class="co">##  4     4 13.9 </span></span>
-<span id="cb239-32"><a href="data-transformation-with-dplyr.html#cb239-32"></a><span class="co">##  5     5 13.0 </span></span>
-<span id="cb239-33"><a href="data-transformation-with-dplyr.html#cb239-33"></a><span class="co">##  6     6 20.8 </span></span>
-<span id="cb239-34"><a href="data-transformation-with-dplyr.html#cb239-34"></a><span class="co">##  7     7 21.7 </span></span>
-<span id="cb239-35"><a href="data-transformation-with-dplyr.html#cb239-35"></a><span class="co">##  8     8 12.6 </span></span>
-<span id="cb239-36"><a href="data-transformation-with-dplyr.html#cb239-36"></a><span class="co">##  9     9  6.72</span></span>
-<span id="cb239-37"><a href="data-transformation-with-dplyr.html#cb239-37"></a><span class="co">## 10    10  6.24</span></span>
-<span id="cb239-38"><a href="data-transformation-with-dplyr.html#cb239-38"></a><span class="co">## 11    11  5.44</span></span>
-<span id="cb239-39"><a href="data-transformation-with-dplyr.html#cb239-39"></a><span class="co">## 12    12 16.6</span></span></code></pre></div>
+<span id="cb239-24"><a href="data-transformation-with-dplyr.html#cb239-24"></a><span class="co">## # A tibble: 12 x 2</span></span>
+<span id="cb239-25"><a href="data-transformation-with-dplyr.html#cb239-25"></a><span class="co">##    month delay</span></span>
+<span id="cb239-26"><a href="data-transformation-with-dplyr.html#cb239-26"></a><span class="co">##    &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb239-27"><a href="data-transformation-with-dplyr.html#cb239-27"></a><span class="co">##  1     1 10.0 </span></span>
+<span id="cb239-28"><a href="data-transformation-with-dplyr.html#cb239-28"></a><span class="co">##  2     2 10.8 </span></span>
+<span id="cb239-29"><a href="data-transformation-with-dplyr.html#cb239-29"></a><span class="co">##  3     3 13.2 </span></span>
+<span id="cb239-30"><a href="data-transformation-with-dplyr.html#cb239-30"></a><span class="co">##  4     4 13.9 </span></span>
+<span id="cb239-31"><a href="data-transformation-with-dplyr.html#cb239-31"></a><span class="co">##  5     5 13.0 </span></span>
+<span id="cb239-32"><a href="data-transformation-with-dplyr.html#cb239-32"></a><span class="co">##  6     6 20.8 </span></span>
+<span id="cb239-33"><a href="data-transformation-with-dplyr.html#cb239-33"></a><span class="co">##  7     7 21.7 </span></span>
+<span id="cb239-34"><a href="data-transformation-with-dplyr.html#cb239-34"></a><span class="co">##  8     8 12.6 </span></span>
+<span id="cb239-35"><a href="data-transformation-with-dplyr.html#cb239-35"></a><span class="co">##  9     9  6.72</span></span>
+<span id="cb239-36"><a href="data-transformation-with-dplyr.html#cb239-36"></a><span class="co">## 10    10  6.24</span></span>
+<span id="cb239-37"><a href="data-transformation-with-dplyr.html#cb239-37"></a><span class="co">## 11    11  5.44</span></span>
+<span id="cb239-38"><a href="data-transformation-with-dplyr.html#cb239-38"></a><span class="co">## 12    12 16.6</span></span></code></pre></div>
 <p>Ex: Find the average weights of the cars grouped by the number of gears.</p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="data-transformation-with-dplyr.html#cb240-1"></a>mtcars_gear &lt;-<span class="st"> </span><span class="kw">group_by</span>(mtcars, gear)</span>
 <span id="cb240-2"><a href="data-transformation-with-dplyr.html#cb240-2"></a><span class="kw">summarize</span>(mtcars_gear, <span class="dt">avg_wt =</span> <span class="kw">mean</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb240-3"><a href="data-transformation-with-dplyr.html#cb240-3"></a><span class="co">## `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb240-4"><a href="data-transformation-with-dplyr.html#cb240-4"></a><span class="co">## # A tibble: 3 x 2</span></span>
-<span id="cb240-5"><a href="data-transformation-with-dplyr.html#cb240-5"></a><span class="co">##    gear avg_wt</span></span>
-<span id="cb240-6"><a href="data-transformation-with-dplyr.html#cb240-6"></a><span class="co">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb240-7"><a href="data-transformation-with-dplyr.html#cb240-7"></a><span class="co">## 1     3   3.89</span></span>
-<span id="cb240-8"><a href="data-transformation-with-dplyr.html#cb240-8"></a><span class="co">## 2     4   2.62</span></span>
-<span id="cb240-9"><a href="data-transformation-with-dplyr.html#cb240-9"></a><span class="co">## 3     5   2.63</span></span></code></pre></div>
+<span id="cb240-3"><a href="data-transformation-with-dplyr.html#cb240-3"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb240-4"><a href="data-transformation-with-dplyr.html#cb240-4"></a><span class="co">##    gear avg_wt</span></span>
+<span id="cb240-5"><a href="data-transformation-with-dplyr.html#cb240-5"></a><span class="co">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb240-6"><a href="data-transformation-with-dplyr.html#cb240-6"></a><span class="co">## 1     3   3.89</span></span>
+<span id="cb240-7"><a href="data-transformation-with-dplyr.html#cb240-7"></a><span class="co">## 2     4   2.62</span></span>
+<span id="cb240-8"><a href="data-transformation-with-dplyr.html#cb240-8"></a><span class="co">## 3     5   2.63</span></span></code></pre></div>
 <p>Ex: Find the sample standard deviation of the weights of the cars grouped by the number of gears.</p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="data-transformation-with-dplyr.html#cb241-1"></a>mtcars_gear &lt;-<span class="st"> </span><span class="kw">group_by</span>(mtcars, gear)</span>
 <span id="cb241-2"><a href="data-transformation-with-dplyr.html#cb241-2"></a><span class="kw">summarize</span>(mtcars_gear, <span class="dt">avg_wt =</span> <span class="kw">sd</span>(wt, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb241-3"><a href="data-transformation-with-dplyr.html#cb241-3"></a><span class="co">## `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb241-4"><a href="data-transformation-with-dplyr.html#cb241-4"></a><span class="co">## # A tibble: 3 x 2</span></span>
-<span id="cb241-5"><a href="data-transformation-with-dplyr.html#cb241-5"></a><span class="co">##    gear avg_wt</span></span>
-<span id="cb241-6"><a href="data-transformation-with-dplyr.html#cb241-6"></a><span class="co">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb241-7"><a href="data-transformation-with-dplyr.html#cb241-7"></a><span class="co">## 1     3  0.833</span></span>
-<span id="cb241-8"><a href="data-transformation-with-dplyr.html#cb241-8"></a><span class="co">## 2     4  0.633</span></span>
-<span id="cb241-9"><a href="data-transformation-with-dplyr.html#cb241-9"></a><span class="co">## 3     5  0.819</span></span></code></pre></div>
+<span id="cb241-3"><a href="data-transformation-with-dplyr.html#cb241-3"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb241-4"><a href="data-transformation-with-dplyr.html#cb241-4"></a><span class="co">##    gear avg_wt</span></span>
+<span id="cb241-5"><a href="data-transformation-with-dplyr.html#cb241-5"></a><span class="co">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb241-6"><a href="data-transformation-with-dplyr.html#cb241-6"></a><span class="co">## 1     3  0.833</span></span>
+<span id="cb241-7"><a href="data-transformation-with-dplyr.html#cb241-7"></a><span class="co">## 2     4  0.633</span></span>
+<span id="cb241-8"><a href="data-transformation-with-dplyr.html#cb241-8"></a><span class="co">## 3     5  0.819</span></span></code></pre></div>
 </div>
 <div id="summary" class="section level2">
 <h2><span class="header-section-number">7.7</span> Summary</h2>
