@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="review-1-lect-1-8.html"/>
+<link rel="prev" href="review-chapter-1-5.html"/>
 <link rel="next" href="data-visualization-with-ggplot2.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -209,11 +209,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures</a></li>
 <li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html"><i class="fa fa-check"></i><b>6</b> Review 1 (Lect 1-8)</a><ul>
-<li class="chapter" data-level="6.1" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation</a></li>
-<li class="chapter" data-level="6.2" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix</a></li>
-<li class="chapter" data-level="6.3" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
-<li class="chapter" data-level="6.4" data-path="review-1-lect-1-8.html"><a href="review-1-lect-1-8.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
+<li class="chapter" data-level="6" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html"><i class="fa fa-check"></i><b>6</b> Review (Chapter 1-5)</a><ul>
+<li class="chapter" data-level="6.1" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix</a></li>
+<li class="chapter" data-level="6.3" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation</a></li>
+<li class="chapter" data-level="6.4" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code></a><ul>
 <li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
@@ -384,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## {
 ##     UseMethod(&quot;select&quot;)
 ## }
-## &lt;bytecode: 0x000001f7344af360&gt;
+## &lt;bytecode: 0x000002730422f110&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <p><strong>nycflights13</strong></p>
 <p>The dataset <code>flights</code> in the package <code>nyclfights13</code> contains all <span class="math inline">\(336,776\)</span> flights that departed from New York City in 2013. Check <code>?flights</code> for details.</p>
@@ -1046,12 +1046,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="data-transformation-with-dplyr.html#cb236-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb236-2"><a href="data-transformation-with-dplyr.html#cb236-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb236-3"><a href="data-transformation-with-dplyr.html#cb236-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.05    0.00    0.05</span></span>
+<span id="cb236-4"><a href="data-transformation-with-dplyr.html#cb236-4"></a><span class="co">##    0.05    0.00    0.04</span></span>
 <span id="cb236-5"><a href="data-transformation-with-dplyr.html#cb236-5"></a></span>
 <span id="cb236-6"><a href="data-transformation-with-dplyr.html#cb236-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb236-7"><a href="data-transformation-with-dplyr.html#cb236-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb236-8"><a href="data-transformation-with-dplyr.html#cb236-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.44    0.00    0.44</span></span></code></pre></div>
+<span id="cb236-9"><a href="data-transformation-with-dplyr.html#cb236-9"></a><span class="co">##    0.36    0.00    0.36</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->
@@ -1169,7 +1169,7 @@ The first question that should come to your mind is how is <strong>midnight</str
           </div>
         </div>
       </div>
-<a href="review-1-lect-1-8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="review-chapter-1-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="data-visualization-with-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

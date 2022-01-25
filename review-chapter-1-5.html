@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 13 Root finding and optimization | STAT 362 R for Data Science</title>
+  <title>Chapter 6 Review (Chapter 1-5) | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 Root finding and optimization | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 6 Review (Chapter 1-5) | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Root finding and optimization | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 6 Review (Chapter 1-5) | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="linear-regression-models.html"/>
-<link rel="next" href="logistic-regression-model.html"/>
+<link rel="prev" href="managing-data-with-r.html"/>
+<link rel="next" href="data-transformation-with-dplyr.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -368,259 +368,280 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="root-finding-and-optimization" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Root finding and optimization</h1>
-<p>Reference: Computational Methods for Numerical Analysis with R by James P. Howard, II</p>
-<p>Library used:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="root-finding-and-optimization.html#cb427-1"></a><span class="kw">library</span>(Deriv) <span class="co"># for symbolic differentiation</span></span>
-<span id="cb427-2"><a href="root-finding-and-optimization.html#cb427-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<p>Since some of you have some questions about <code>optim()</code>. I will briefly introduce some basic algorithms for root finding and optimization. A root of a function means the <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x) = 0\)</span>.</p>
-<p>Some common questions:</p>
-<ol style="list-style-type: decimal">
-<li>what is the use of <code>par</code> in <code>optim()</code></li>
-<li>why you get different minimizers with different initial values</li>
-</ol>
-<div id="root-finding" class="section level2">
-<h2><span class="header-section-number">13.1</span> Root Finding</h2>
-<div id="bisection-method" class="section level3">
-<h3><span class="header-section-number">13.1.1</span> Bisection Method</h3>
-<p><strong>Game:</strong> Before we introduce the bisection method, consider a game where Player <span class="math inline">\(A\)</span> picks an integer from <span class="math inline">\(1\)</span> to <span class="math inline">\(100\)</span>, and Player <span class="math inline">\(B\)</span> has to guess this number. Player <span class="math inline">\(A\)</span> will tell Player <span class="math inline">\(B\)</span> if the guess is too low or too high. For example,</p>
-<ol style="list-style-type: decimal">
-<li>Player <span class="math inline">\(A\)</span> picks <span class="math inline">\(10\)</span>.</li>
-<li>Player <span class="math inline">\(B\)</span> guesses <span class="math inline">\(40\)</span>.</li>
-<li>Player <span class="math inline">\(A\)</span> tells Player <span class="math inline">\(B\)</span> the number is too high.</li>
-<li>Player <span class="math inline">\(B\)</span> will then pick a number from <span class="math inline">\(1\)</span> to <span class="math inline">\(40\)</span>, say, <span class="math inline">\(28\)</span>.</li>
-<li>Play <span class="math inline">\(A\)</span> tells Player <span class="math inline">\(B\)</span> the number is also too high.</li>
-</ol>
-<p>Eventually, Player <span class="math inline">\(B\)</span> can guess the number correctly. You may realize that the best approach is to halve the range with each turn.</p>
-<p><strong>Idea of Bisection Method:</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>Recall that for any continuous function <span class="math inline">\(f\)</span>, if it has values of opposite sign in an interval, then it has a root in the interval. For example, if <span class="math inline">\(f(a) &lt; 0\)</span> and <span class="math inline">\(f(b) &gt; 0\)</span>, then there exists <span class="math inline">\(c \in (a, b)\)</span> such that <span class="math inline">\(f(c) = 0\)</span>.</p></li>
-<li><p>Now, suppose that <span class="math inline">\(f(a) f(b) &lt; 0\)</span> (so that <span class="math inline">\(f\)</span> has values of opposite sign at <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>). Let <span class="math inline">\(\varepsilon\)</span> denote a tolerance level.</p></li>
-</ol>
-<p><strong>Algorithm:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Let <span class="math inline">\(c = \frac{a + b}{2}\)</span>.</li>
-<li>If <span class="math inline">\(f(c) = 0\)</span>, stop and return <span class="math inline">\(c\)</span>.</li>
-<li>If <span class="math inline">\(\text{sign}(f(a)) \neq \text{sign}(f(c))\)</span>; set <span class="math inline">\(b = c\)</span>; else set <span class="math inline">\(a = c\)</span>.</li>
-<li>Repeat Step 1 to 3 until <span class="math inline">\(|b-a| &lt; \varepsilon\)</span>.</li>
-</ol>
-<p><strong>Implementation in R:</strong></p>
-<p>This is a good example to see when a <code>while</code> loop is useful.</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="root-finding-and-optimization.html#cb428-1"></a>bisection &lt;-<span class="st"> </span><span class="cf">function</span>(f, a, b, <span class="dt">tol =</span> <span class="fl">1e-5</span>, <span class="dt">max_iter =</span> <span class="dv">100</span>) {</span>
-<span id="cb428-2"><a href="root-finding-and-optimization.html#cb428-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb428-3"><a href="root-finding-and-optimization.html#cb428-3"></a>  </span>
-<span id="cb428-4"><a href="root-finding-and-optimization.html#cb428-4"></a>  <span class="co"># Step 4</span></span>
-<span id="cb428-5"><a href="root-finding-and-optimization.html#cb428-5"></a>  <span class="cf">while</span> (<span class="kw">abs</span>(b <span class="op">-</span><span class="st"> </span>a) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
-<span id="cb428-6"><a href="root-finding-and-optimization.html#cb428-6"></a>    <span class="co"># Step 1</span></span>
-<span id="cb428-7"><a href="root-finding-and-optimization.html#cb428-7"></a>    c &lt;-<span class="st"> </span>(a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span> </span>
-<span id="cb428-8"><a href="root-finding-and-optimization.html#cb428-8"></a>    </span>
-<span id="cb428-9"><a href="root-finding-and-optimization.html#cb428-9"></a>    <span class="co"># Step 2: if f(c) = 0, stop and return c</span></span>
-<span id="cb428-10"><a href="root-finding-and-optimization.html#cb428-10"></a>     <span class="cf">if</span> (<span class="kw">f</span>(c) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb428-11"><a href="root-finding-and-optimization.html#cb428-11"></a>      <span class="kw">return</span>(c)</span>
-<span id="cb428-12"><a href="root-finding-and-optimization.html#cb428-12"></a>    }</span>
-<span id="cb428-13"><a href="root-finding-and-optimization.html#cb428-13"></a>    </span>
-<span id="cb428-14"><a href="root-finding-and-optimization.html#cb428-14"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb428-15"><a href="root-finding-and-optimization.html#cb428-15"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
-<span id="cb428-16"><a href="root-finding-and-optimization.html#cb428-16"></a>      <span class="kw">warning</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
-<span id="cb428-17"><a href="root-finding-and-optimization.html#cb428-17"></a>      <span class="kw">return</span>(c)</span>
-<span id="cb428-18"><a href="root-finding-and-optimization.html#cb428-18"></a>    }</span>
-<span id="cb428-19"><a href="root-finding-and-optimization.html#cb428-19"></a>    </span>
-<span id="cb428-20"><a href="root-finding-and-optimization.html#cb428-20"></a>    <span class="co"># Step 3</span></span>
-<span id="cb428-21"><a href="root-finding-and-optimization.html#cb428-21"></a>    <span class="cf">if</span> (<span class="kw">f</span>(a) <span class="op">*</span><span class="st"> </span><span class="kw">f</span>(c) <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb428-22"><a href="root-finding-and-optimization.html#cb428-22"></a>      b &lt;-<span class="st"> </span>c</span>
-<span id="cb428-23"><a href="root-finding-and-optimization.html#cb428-23"></a>    } <span class="cf">else</span> {</span>
-<span id="cb428-24"><a href="root-finding-and-optimization.html#cb428-24"></a>      a &lt;-<span class="st"> </span>c</span>
-<span id="cb428-25"><a href="root-finding-and-optimization.html#cb428-25"></a>    }</span>
-<span id="cb428-26"><a href="root-finding-and-optimization.html#cb428-26"></a>    <span class="co"># print(round(c(c, f(c)), digits = 3))</span></span>
-<span id="cb428-27"><a href="root-finding-and-optimization.html#cb428-27"></a>  }</span>
-<span id="cb428-28"><a href="root-finding-and-optimization.html#cb428-28"></a>  <span class="kw">return</span>((a <span class="op">+</span><span class="st"> </span>b) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb428-29"><a href="root-finding-and-optimization.html#cb428-29"></a>}</span></code></pre></div>
-<p>Remark: 1e-3 = 0.001. We set the default value of <span class="math inline">\(\varepsilon\)</span> to <span class="math inline">\(0.001\)</span> and the maximum number of iterations to <span class="math inline">\(100\)</span>.</p>
-<p><strong>Example</strong></p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="root-finding-and-optimization.html#cb429-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb429-2"><a href="root-finding-and-optimization.html#cb429-2"></a>  x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb429-3"><a href="root-finding-and-optimization.html#cb429-3"></a>}</span></code></pre></div>
-<p>Without providing the values of <code>tol</code> and <code>max_iter</code>, the function will use <code>tol = 1e-3</code> and <code>max_iter = 100</code>.</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="root-finding-and-optimization.html#cb430-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>)</span>
-<span id="cb430-2"><a href="root-finding-and-optimization.html#cb430-2"></a><span class="co">## [1] 1.000001</span></span></code></pre></div>
-<p>To change <code>tol</code>:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="root-finding-and-optimization.html#cb431-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.1</span>)</span>
-<span id="cb431-2"><a href="root-finding-and-optimization.html#cb431-2"></a><span class="co">## [1] 1.015625</span></span>
-<span id="cb431-3"><a href="root-finding-and-optimization.html#cb431-3"></a></span>
-<span id="cb431-4"><a href="root-finding-and-optimization.html#cb431-4"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.0000001</span>)</span>
-<span id="cb431-5"><a href="root-finding-and-optimization.html#cb431-5"></a><span class="co">## [1] 1</span></span></code></pre></div>
-<p>To change <code>max_iter</code>:</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="root-finding-and-optimization.html#cb432-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.000000000001</span>, <span class="dt">max_iter =</span> <span class="dv">10</span>)</span>
-<span id="cb432-2"><a href="root-finding-and-optimization.html#cb432-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12,</span></span>
-<span id="cb432-3"><a href="root-finding-and-optimization.html#cb432-3"></a><span class="co">## max_iter = 10): Maximum number of iterations reached</span></span>
-<span id="cb432-4"><a href="root-finding-and-optimization.html#cb432-4"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
-</div>
-</div>
-<div id="newton-raphson-method" class="section level2">
-<h2><span class="header-section-number">13.2</span> Newton-Raphson Method</h2>
-<p>Newton-Raphson method can be used to find a root of a function.</p>
-<p><strong>Idea of Netwon-Raphson Method (or Netwon’s Method):</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, approximate your function by its tangent line at <span class="math inline">\(x_0\)</span> and find the root (you can find the root of a line easily). To find the root, we equate the slope at <span class="math inline">\(x_0\)</span> found by <span class="math inline">\(f&#39;(x_0)\)</span> and using the two points <span class="math inline">\((x_1, 0)\)</span> and <span class="math inline">\((x_0, f(x_0))\)</span>, where <span class="math inline">\(x_1\)</span> denotes the root of the tangent line at <span class="math inline">\(x_0\)</span>. That is,
+<div id="review-chapter-1-5" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Review (Chapter 1-5)</h1>
+<div id="simulation-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Simulation</h2>
+<p><strong>Basic vectorized comparison</strong></p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="review-chapter-1-5.html#cb160-1"></a>X &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb160-2"><a href="review-chapter-1-5.html#cb160-2"></a>Y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb160-3"><a href="review-chapter-1-5.html#cb160-3"></a>X <span class="op">&gt;</span><span class="st"> </span>Y <span class="co"># FALSE FALSE TRUE</span></span>
+<span id="cb160-4"><a href="review-chapter-1-5.html#cb160-4"></a><span class="co">## [1] FALSE FALSE  TRUE</span></span>
+<span id="cb160-5"><a href="review-chapter-1-5.html#cb160-5"></a><span class="kw">sum</span>(X <span class="op">&gt;</span><span class="st"> </span>Y) <span class="co"># TRUE = 1, FALSE = 0</span></span>
+<span id="cb160-6"><a href="review-chapter-1-5.html#cb160-6"></a><span class="co">## [1] 1</span></span>
+<span id="cb160-7"><a href="review-chapter-1-5.html#cb160-7"></a><span class="kw">mean</span>(X <span class="op">&gt;</span><span class="st"> </span>Y) <span class="co"># 1/3</span></span>
+<span id="cb160-8"><a href="review-chapter-1-5.html#cb160-8"></a><span class="co">## [1] 0.3333333</span></span></code></pre></div>
+<p>The code <code>mean(X &gt; Y)</code> is computing
 <span class="math display">\[\begin{equation*}
-\frac{f(x_0) - 0}{x_1 - x_0} = f&#39;(x_0).
+\frac{1}{3}( I(X_1 &gt; Y_1) + I(X_2 &gt; Y_2) + I(X_3 &gt; Y_3)),
 \end{equation*}\]</span>
-Rearranging the terms give
+where <span class="math inline">\(I(\cdot)\)</span> is the indicator function, that is, <span class="math inline">\(I(X_1 &gt; Y_1) = 1\)</span> if <span class="math inline">\(X_1 &gt; Y_1\)</span> and <span class="math inline">\(I(X_1 &gt; Y_1) = 0\)</span> if <span class="math inline">\(X_1 \leq Y_1\)</span>.</p>
+<p><strong>Example</strong>: Let <span class="math inline">\(X \sim N(mean = 0, sd = 2)\)</span> and <span class="math inline">\(Y \sim Exp(rate = 3)\)</span>. Estimate <span class="math inline">\(P(X &gt; Y)\)</span> using simulation.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="review-chapter-1-5.html#cb161-1"></a>n &lt;-<span class="st"> </span><span class="dv">10000</span> <span class="co"># number of simulations</span></span>
+<span id="cb161-2"><a href="review-chapter-1-5.html#cb161-2"></a>X &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">2</span>) </span>
+<span id="cb161-3"><a href="review-chapter-1-5.html#cb161-3"></a>Y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">3</span>)</span>
+<span id="cb161-4"><a href="review-chapter-1-5.html#cb161-4"></a><span class="kw">mean</span>(X <span class="op">&gt;</span><span class="st"> </span>Y) </span>
+<span id="cb161-5"><a href="review-chapter-1-5.html#cb161-5"></a><span class="co">## [1] 0.4309</span></span></code></pre></div>
+<p>The code <code>mean(X &gt; Y)</code> is computing
 <span class="math display">\[\begin{equation*}
-x_1 = x_0 - \frac{f(x_0)}{f&#39;(x_0)}.
-\end{equation*}\]</span></p></li>
-<li><p>Iterate the above procedure until convergence.</p></li>
-</ol>
-<p>Here is an gif animination from wikipedia:
-<a href="https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif" class="uri">https://en.wikipedia.org/wiki/Newton%27s_method#/media/File:NewtonIteration_Ani.gif</a></p>
-<p><strong>Algorithm of Netwon-Raphson Method:</strong></p>
+\frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i),
+\end{equation*}\]</span>
+which is an approximation of <span class="math inline">\(P(X&gt;Y)\)</span>.</p>
+<p><strong>Theory</strong></p>
+<p>Why the sample mean <span class="math inline">\(\frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i)\)</span> approximates the required probability <span class="math inline">\(P(X&gt;Y)\)</span>?</p>
+<p>Recall the strong law of large numbers (SLLN): Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be independent and identically distributed random variables with mean <span class="math inline">\(\mu:=E(X)\)</span>. Let <span class="math inline">\(\overline{X}_n:= \frac{1}{n} \sum^n_{i=1}X_i\)</span>. Then
+<span class="math display">\[\overline{X}_n \stackrel{a.s.}{\rightarrow} \mu.\]</span>
+Note: a.s. means almost surely (probability = 1). The above convergence means <span class="math inline">\(P(\lim_{n\rightarrow \infty} \overline{X}_n = \mu) = 1\)</span>. Note that (the expectation of an indicator random variable is the probability that the corresponding event will happen)
+<span class="math display">\[ P(X&gt;Y) = E(I(X&gt;Y)).\]</span>
+To apply SLLN, we just need to recognize the underlying random variable is <span class="math inline">\(I(X&gt;Y)\)</span> (which follows a Bernoulli distribution with parameter <span class="math inline">\(P(X&gt;Y)\)</span>). Then, with probability <span class="math inline">\(1\)</span>, the sample mean
+<span class="math display">\[ \frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i) \rightarrow P(X&gt;Y).\]</span>
+The quantity on the LHS is what we compute in <code>mean(X&gt;Y)</code> (note that we are using vectorized comparison). This is the reason why we can use <code>mean(X&gt;Y)</code> to estimate <span class="math inline">\(P(X&gt;Y)\)</span>.</p>
+<p><strong>Ex 1</strong>:
+Let X ~ N(mean = 2, sd =1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous uniform distribution on [0,4]). Estimate <span class="math inline">\(P(\max(X,Y)&gt;Z)\)</span>.</p>
+<p>Recall the difference between <code>pmax</code> and <code>max</code>:</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="review-chapter-1-5.html#cb162-1"></a><span class="co"># always try with simple examples when you test the usage of functions</span></span>
+<span id="cb162-2"><a href="review-chapter-1-5.html#cb162-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb162-3"><a href="review-chapter-1-5.html#cb162-3"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
+<span id="cb162-4"><a href="review-chapter-1-5.html#cb162-4"></a><span class="kw">max</span>(x, y)</span>
+<span id="cb162-5"><a href="review-chapter-1-5.html#cb162-5"></a><span class="co">## [1] 10</span></span>
+<span id="cb162-6"><a href="review-chapter-1-5.html#cb162-6"></a><span class="kw">pmax</span>(x, y)</span>
+<span id="cb162-7"><a href="review-chapter-1-5.html#cb162-7"></a><span class="co">## [1]  1  5 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="review-chapter-1-5.html#cb163-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb163-2"><a href="review-chapter-1-5.html#cb163-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb163-3"><a href="review-chapter-1-5.html#cb163-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb163-4"><a href="review-chapter-1-5.html#cb163-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb163-5"><a href="review-chapter-1-5.html#cb163-5"></a><span class="kw">mean</span>(<span class="kw">pmax</span>(x, y) <span class="op">&gt;</span><span class="st"> </span>z) </span>
+<span id="cb163-6"><a href="review-chapter-1-5.html#cb163-6"></a><span class="co">## [1] 0.51502</span></span></code></pre></div>
+<p><strong>Ex 2</strong>
+Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous uniform distribution on [0,4]). Estimate <span class="math inline">\(P(\min(X,Y)&gt;Z)\)</span>.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="review-chapter-1-5.html#cb164-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb164-2"><a href="review-chapter-1-5.html#cb164-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb164-3"><a href="review-chapter-1-5.html#cb164-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb164-4"><a href="review-chapter-1-5.html#cb164-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb164-5"><a href="review-chapter-1-5.html#cb164-5"></a><span class="kw">mean</span>(<span class="kw">pmin</span>(x, y) <span class="op">&gt;</span><span class="st"> </span>z) <span class="co"># what is the difference between pmin and min?</span></span>
+<span id="cb164-6"><a href="review-chapter-1-5.html#cb164-6"></a><span class="co">## [1] 0.11361</span></span></code></pre></div>
+<p><strong>Ex 3</strong>
+Let X ~ N(mean = 2, sd = 1), Y ~ Exp(rate = 2), Z ~ Unif(0, 4) (continuous uniform distribution on [0,4]). Estimate <span class="math inline">\(P(X^2 Y&gt;Z)\)</span>.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="review-chapter-1-5.html#cb165-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb165-2"><a href="review-chapter-1-5.html#cb165-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb165-3"><a href="review-chapter-1-5.html#cb165-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb165-4"><a href="review-chapter-1-5.html#cb165-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb165-5"><a href="review-chapter-1-5.html#cb165-5"></a><span class="kw">mean</span>(x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span>z)</span>
+<span id="cb165-6"><a href="review-chapter-1-5.html#cb165-6"></a><span class="co">## [1] 0.41158</span></span></code></pre></div>
+<p><strong>Ex 4</strong>
+Person <span class="math inline">\(A\)</span> generates a random variable <span class="math inline">\(X \sim N(2, 1)\)</span> and Person <span class="math inline">\(B\)</span> generates a random variable <span class="math inline">\(Z \sim Unif(0, 4)\)</span>. If <span class="math inline">\(X &lt; Z\)</span>, Person <span class="math inline">\(A\)</span> will discard <span class="math inline">\(X\)</span> and generate another random variable <span class="math inline">\(Y \sim Exp(0.5)\)</span>. Find the probability that the number generated by <span class="math inline">\(A\)</span> is greater than that by <span class="math inline">\(B\)</span>.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="review-chapter-1-5.html#cb166-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb166-2"><a href="review-chapter-1-5.html#cb166-2"></a>greater &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n)</span>
+<span id="cb166-3"><a href="review-chapter-1-5.html#cb166-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
+<span id="cb166-4"><a href="review-chapter-1-5.html#cb166-4"></a>  X &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb166-5"><a href="review-chapter-1-5.html#cb166-5"></a>  Z &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb166-6"><a href="review-chapter-1-5.html#cb166-6"></a>  <span class="cf">if</span> (X<span class="op">&lt;</span><span class="st"> </span>Z) {</span>
+<span id="cb166-7"><a href="review-chapter-1-5.html#cb166-7"></a>    Y &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="fl">0.5</span>)</span>
+<span id="cb166-8"><a href="review-chapter-1-5.html#cb166-8"></a>    greater[i] &lt;-<span class="st"> </span>Y <span class="op">&gt;</span><span class="st"> </span>Z</span>
+<span id="cb166-9"><a href="review-chapter-1-5.html#cb166-9"></a>  } <span class="cf">else</span> {</span>
+<span id="cb166-10"><a href="review-chapter-1-5.html#cb166-10"></a>    greater[i] &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># 1 means A&#39;s no &gt; B&#39;s no</span></span>
+<span id="cb166-11"><a href="review-chapter-1-5.html#cb166-11"></a>  }</span>
+<span id="cb166-12"><a href="review-chapter-1-5.html#cb166-12"></a>}</span>
+<span id="cb166-13"><a href="review-chapter-1-5.html#cb166-13"></a></span>
+<span id="cb166-14"><a href="review-chapter-1-5.html#cb166-14"></a><span class="kw">mean</span>(greater)</span>
+<span id="cb166-15"><a href="review-chapter-1-5.html#cb166-15"></a><span class="co">## [1] 0.63698</span></span></code></pre></div>
+<p>Remark: you may find that the following code gives you almost the same answer. Why?</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="review-chapter-1-5.html#cb167-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb167-2"><a href="review-chapter-1-5.html#cb167-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb167-3"><a href="review-chapter-1-5.html#cb167-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="fl">0.5</span>)</span>
+<span id="cb167-4"><a href="review-chapter-1-5.html#cb167-4"></a>z &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb167-5"><a href="review-chapter-1-5.html#cb167-5"></a><span class="kw">mean</span>(<span class="kw">pmax</span>(x, y) <span class="op">&gt;</span><span class="st"> </span>z)</span>
+<span id="cb167-6"><a href="review-chapter-1-5.html#cb167-6"></a><span class="co">## [1] 0.63904</span></span></code></pre></div>
+<p><strong>Ex 5</strong>
+Let X ~ N(mean = 2, sd = 1) and Y ~ Exp(rate = 2). Estimate <span class="math inline">\(E(min(X,Y))\)</span>.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="review-chapter-1-5.html#cb168-1"></a>n &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb168-2"><a href="review-chapter-1-5.html#cb168-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb168-3"><a href="review-chapter-1-5.html#cb168-3"></a>y &lt;-<span class="st"> </span><span class="kw">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb168-4"><a href="review-chapter-1-5.html#cb168-4"></a><span class="kw">mean</span>(<span class="kw">pmin</span>(x, y))</span>
+<span id="cb168-5"><a href="review-chapter-1-5.html#cb168-5"></a><span class="co">## [1] 0.445328</span></span></code></pre></div>
+<p>The code <code>mean(pmin(x, y))</code> computes
+<span class="math display">\[\begin{equation*}
+\frac{1}{n} \sum^n_{i=1} \min(X_i, Y_i),
+\end{equation*}\]</span>
+which approximates <span class="math inline">\(E(\min(X,Y))\)</span> by the SLLN.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="matrix-1" class="section level2">
+<h2><span class="header-section-number">6.2</span> Matrix</h2>
+<p><strong>Ex6:</strong> Write a function called <code>matrix_times_vector</code> to compute <span class="math inline">\(X Y\)</span>, where <span class="math inline">\(X\)</span> is a matrix and <span class="math inline">\(Y\)</span> is a vector. The output should be a vector.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="review-chapter-1-5.html#cb169-1"></a>matrix_times_vector =<span class="st"> </span><span class="cf">function</span>(X, Y) {</span>
+<span id="cb169-2"><a href="review-chapter-1-5.html#cb169-2"></a>  <span class="kw">as.vector</span>(X <span class="op">%*%</span><span class="st"> </span>Y)</span>
+<span id="cb169-3"><a href="review-chapter-1-5.html#cb169-3"></a>}</span>
+<span id="cb169-4"><a href="review-chapter-1-5.html#cb169-4"></a></span>
+<span id="cb169-5"><a href="review-chapter-1-5.html#cb169-5"></a><span class="co"># e.g.</span></span>
+<span id="cb169-6"><a href="review-chapter-1-5.html#cb169-6"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb169-7"><a href="review-chapter-1-5.html#cb169-7"></a>Y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb169-8"><a href="review-chapter-1-5.html#cb169-8"></a>X</span>
+<span id="cb169-9"><a href="review-chapter-1-5.html#cb169-9"></a><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb169-10"><a href="review-chapter-1-5.html#cb169-10"></a><span class="co">## [1,]    1    4    7   10</span></span>
+<span id="cb169-11"><a href="review-chapter-1-5.html#cb169-11"></a><span class="co">## [2,]    2    5    8   11</span></span>
+<span id="cb169-12"><a href="review-chapter-1-5.html#cb169-12"></a><span class="co">## [3,]    3    6    9   12</span></span>
+<span id="cb169-13"><a href="review-chapter-1-5.html#cb169-13"></a>Y</span>
+<span id="cb169-14"><a href="review-chapter-1-5.html#cb169-14"></a><span class="co">## [1] 1 2 3 4</span></span>
+<span id="cb169-15"><a href="review-chapter-1-5.html#cb169-15"></a><span class="kw">matrix_times_vector</span>(X, Y)</span>
+<span id="cb169-16"><a href="review-chapter-1-5.html#cb169-16"></a><span class="co">## [1] 70 80 90</span></span></code></pre></div>
+<p>Note:</p>
 <ol style="list-style-type: decimal">
-<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, set
-<span class="math display">\[\begin{equation*}
-x_1 = x_0 - \frac{f(x_0)}{f&#39;(x_0)}.
-\end{equation*}\]</span></p></li>
-<li><p>Iterate the following equation until convergence
-<span class="math display">\[\begin{equation*}
-x_n = x_{n-1} - \frac{f(x_{n-1})}{f&#39;(x_{n-1})}.
-\end{equation*}\]</span></p></li>
+<li><code>X%*%Y</code> will return a matrix. We can use <code>as.vector</code> to change it into a vector.</li>
+<li>It is common to see the error <code>non-conformable arguments</code>. This is because the dimensions of your matrices/vectors do not match.</li>
 </ol>
-<p><strong>Implementation in R:</strong></p>
 <ul>
-<li><code>f</code> is the function you want to find the root</li>
-<li><code>fp</code> is the first derivative of <code>f</code></li>
-<li><code>x0</code> is the initial value.</li>
-<li>Since we cannot iterate indefinitely, we have to set a tolerance (<code>tol</code>) and a maximum number of iteration (<code>max_iter</code>).</li>
+<li>If you have a <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(A\)</span> and <span class="math inline">\(m \times q\)</span> matrix <span class="math inline">\(B\)</span>, you can do the matrix multiplication <span class="math inline">\(AB\)</span> only if <span class="math inline">\(p = m\)</span>. In R, if this is not the case, there will be an error.</li>
+<li>Similarly, if you have a vector <span class="math inline">\(d\)</span> of length <span class="math inline">\(m\)</span>. You can do the matrix multiplication <span class="math inline">\(A d\)</span> only if <span class="math inline">\(p = m\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="root-finding-and-optimization.html#cb433-1"></a>NR &lt;-<span class="st"> </span><span class="cf">function</span>(f, fp, x0, <span class="dt">tol =</span> <span class="fl">1e-3</span>, <span class="dt">max_iter =</span> <span class="dv">100</span>) {</span>
-<span id="cb433-2"><a href="root-finding-and-optimization.html#cb433-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb433-3"><a href="root-finding-and-optimization.html#cb433-3"></a>  old_x &lt;-<span class="st"> </span>x0</span>
-<span id="cb433-4"><a href="root-finding-and-optimization.html#cb433-4"></a>  x &lt;-<span class="st"> </span>old_x <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span>tol <span class="co"># any number such that abs(x - old_x) &gt; tol</span></span>
-<span id="cb433-5"><a href="root-finding-and-optimization.html#cb433-5"></a>  </span>
-<span id="cb433-6"><a href="root-finding-and-optimization.html#cb433-6"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>old_x) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
-<span id="cb433-7"><a href="root-finding-and-optimization.html#cb433-7"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb433-8"><a href="root-finding-and-optimization.html#cb433-8"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
-<span id="cb433-9"><a href="root-finding-and-optimization.html#cb433-9"></a>      <span class="kw">print</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
-<span id="cb433-10"><a href="root-finding-and-optimization.html#cb433-10"></a>      <span class="kw">return</span>(x)</span>
-<span id="cb433-11"><a href="root-finding-and-optimization.html#cb433-11"></a>    }</span>
-<span id="cb433-12"><a href="root-finding-and-optimization.html#cb433-12"></a>    old_x &lt;-<span class="st"> </span>x</span>
-<span id="cb433-13"><a href="root-finding-and-optimization.html#cb433-13"></a>    x &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="kw">f</span>(x) <span class="op">/</span><span class="st"> </span><span class="kw">fp</span>(x)</span>
-<span id="cb433-14"><a href="root-finding-and-optimization.html#cb433-14"></a>  }</span>
-<span id="cb433-15"><a href="root-finding-and-optimization.html#cb433-15"></a>  <span class="kw">return</span>(x)</span>
-<span id="cb433-16"><a href="root-finding-and-optimization.html#cb433-16"></a>}</span></code></pre></div>
-<p><strong>Symbolic differentiation</strong></p>
-<p>To perform symbolic differentiation in R (instead of numerical differentiation), we can use <code>Deriv()</code> in the package <code>Deriv</code>.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="root-finding-and-optimization.html#cb434-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) { </span>
-<span id="cb434-2"><a href="root-finding-and-optimization.html#cb434-2"></a>  x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb434-3"><a href="root-finding-and-optimization.html#cb434-3"></a>}</span>
-<span id="cb434-4"><a href="root-finding-and-optimization.html#cb434-4"></a></span>
-<span id="cb434-5"><a href="root-finding-and-optimization.html#cb434-5"></a><span class="co"># Symbolic differentiation</span></span>
-<span id="cb434-6"><a href="root-finding-and-optimization.html#cb434-6"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
-<span id="cb434-7"><a href="root-finding-and-optimization.html#cb434-7"></a></span>
-<span id="cb434-8"><a href="root-finding-and-optimization.html#cb434-8"></a>fp <span class="co"># we know it is 2x - 2</span></span>
-<span id="cb434-9"><a href="root-finding-and-optimization.html#cb434-9"></a><span class="co">## function (x) </span></span>
-<span id="cb434-10"><a href="root-finding-and-optimization.html#cb434-10"></a><span class="co">## 2 * x - 2</span></span></code></pre></div>
-<p><strong>Apply our NR function</strong></p>
-<p>Let’s plot the function first.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-473-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Using our function:</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="root-finding-and-optimization.html#cb435-1"></a><span class="kw">NR</span>(f, fp, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">1e-3</span>)</span>
-<span id="cb435-2"><a href="root-finding-and-optimization.html#cb435-2"></a><span class="co">## [1] 1.000508</span></span></code></pre></div>
+<p><strong>Ex7:</strong> Write a function called <code>matrix_times_vector2</code> to compute <span class="math inline">\(X Y\)</span>, where <span class="math inline">\(X\)</span> is a matrix and <span class="math inline">\(Y\)</span> is a vector. The output should be a vector. However, you should check if the dimensions of the inputs are appropriate before you perform the calculation. Display an error message <code>The dimensions do not match</code> if this is not the case.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="review-chapter-1-5.html#cb170-1"></a>matrix_times_vector2 =<span class="st"> </span><span class="cf">function</span>(X, Y) {</span>
+<span id="cb170-2"><a href="review-chapter-1-5.html#cb170-2"></a>  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(X)</span>
+<span id="cb170-3"><a href="review-chapter-1-5.html#cb170-3"></a>  m &lt;-<span class="st"> </span><span class="kw">length</span>(Y)</span>
+<span id="cb170-4"><a href="review-chapter-1-5.html#cb170-4"></a>  <span class="cf">if</span> (p <span class="op">==</span><span class="st"> </span>m) {</span>
+<span id="cb170-5"><a href="review-chapter-1-5.html#cb170-5"></a>    <span class="kw">return</span>(<span class="kw">as.vector</span>(X <span class="op">%*%</span><span class="st"> </span>Y))   </span>
+<span id="cb170-6"><a href="review-chapter-1-5.html#cb170-6"></a>  } <span class="cf">else</span> {</span>
+<span id="cb170-7"><a href="review-chapter-1-5.html#cb170-7"></a>    <span class="kw">cat</span>(<span class="st">&quot;The dimensions do not match&quot;</span>)</span>
+<span id="cb170-8"><a href="review-chapter-1-5.html#cb170-8"></a>  }</span>
+<span id="cb170-9"><a href="review-chapter-1-5.html#cb170-9"></a>}</span>
+<span id="cb170-10"><a href="review-chapter-1-5.html#cb170-10"></a></span>
+<span id="cb170-11"><a href="review-chapter-1-5.html#cb170-11"></a><span class="co"># e.g.</span></span>
+<span id="cb170-12"><a href="review-chapter-1-5.html#cb170-12"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb170-13"><a href="review-chapter-1-5.html#cb170-13"></a>Y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb170-14"><a href="review-chapter-1-5.html#cb170-14"></a><span class="kw">matrix_times_vector2</span>(X, Y)</span>
+<span id="cb170-15"><a href="review-chapter-1-5.html#cb170-15"></a><span class="co">## The dimensions do not match</span></span>
+<span id="cb170-16"><a href="review-chapter-1-5.html#cb170-16"></a></span>
+<span id="cb170-17"><a href="review-chapter-1-5.html#cb170-17"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb170-18"><a href="review-chapter-1-5.html#cb170-18"></a>Y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></span>
+<span id="cb170-19"><a href="review-chapter-1-5.html#cb170-19"></a><span class="kw">matrix_times_vector2</span>(X, Y)</span>
+<span id="cb170-20"><a href="review-chapter-1-5.html#cb170-20"></a><span class="co">## [1] 70 80 90</span></span></code></pre></div>
+<p><strong>Example</strong>: if <code>A</code> is matrix and <code>x</code> is a vector, you can find the sums of the elements in <code>A</code> and <code>x</code> by <code>sum(A)</code> and <code>sum(x)</code> respectively.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="review-chapter-1-5.html#cb171-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb171-2"><a href="review-chapter-1-5.html#cb171-2"></a><span class="kw">sum</span>(x)</span>
+<span id="cb171-3"><a href="review-chapter-1-5.html#cb171-3"></a><span class="co">## [1] 55</span></span>
+<span id="cb171-4"><a href="review-chapter-1-5.html#cb171-4"></a></span>
+<span id="cb171-5"><a href="review-chapter-1-5.html#cb171-5"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb171-6"><a href="review-chapter-1-5.html#cb171-6"></a><span class="kw">sum</span>(A)</span>
+<span id="cb171-7"><a href="review-chapter-1-5.html#cb171-7"></a><span class="co">## [1] 55</span></span></code></pre></div>
+<p><strong>Ex 8</strong>:</p>
+<p>Find <span class="math inline">\(\sum^{5}_{x=1}\sum^{4}_{y=1} \frac{x}{x+y}\)</span> without any loops.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="review-chapter-1-5.html#cb172-1"></a>(x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)) <span class="co"># define and display at the same time using (...)</span></span>
+<span id="cb172-2"><a href="review-chapter-1-5.html#cb172-2"></a><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb172-3"><a href="review-chapter-1-5.html#cb172-3"></a><span class="co">## [1,]    1    2    3    4    5</span></span>
+<span id="cb172-4"><a href="review-chapter-1-5.html#cb172-4"></a><span class="co">## [2,]    1    2    3    4    5</span></span>
+<span id="cb172-5"><a href="review-chapter-1-5.html#cb172-5"></a><span class="co">## [3,]    1    2    3    4    5</span></span>
+<span id="cb172-6"><a href="review-chapter-1-5.html#cb172-6"></a><span class="co">## [4,]    1    2    3    4    5</span></span>
+<span id="cb172-7"><a href="review-chapter-1-5.html#cb172-7"></a>(y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb172-8"><a href="review-chapter-1-5.html#cb172-8"></a><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb172-9"><a href="review-chapter-1-5.html#cb172-9"></a><span class="co">## [1,]    1    1    1    1    1</span></span>
+<span id="cb172-10"><a href="review-chapter-1-5.html#cb172-10"></a><span class="co">## [2,]    2    2    2    2    2</span></span>
+<span id="cb172-11"><a href="review-chapter-1-5.html#cb172-11"></a><span class="co">## [3,]    3    3    3    3    3</span></span>
+<span id="cb172-12"><a href="review-chapter-1-5.html#cb172-12"></a><span class="co">## [4,]    4    4    4    4    4</span></span>
+<span id="cb172-13"><a href="review-chapter-1-5.html#cb172-13"></a>x <span class="op">/</span><span class="st"> </span>(x <span class="op">+</span><span class="st"> </span>y) <span class="co"># vectorized operation</span></span>
+<span id="cb172-14"><a href="review-chapter-1-5.html#cb172-14"></a><span class="co">##           [,1]      [,2]      [,3]      [,4]      [,5]</span></span>
+<span id="cb172-15"><a href="review-chapter-1-5.html#cb172-15"></a><span class="co">## [1,] 0.5000000 0.6666667 0.7500000 0.8000000 0.8333333</span></span>
+<span id="cb172-16"><a href="review-chapter-1-5.html#cb172-16"></a><span class="co">## [2,] 0.3333333 0.5000000 0.6000000 0.6666667 0.7142857</span></span>
+<span id="cb172-17"><a href="review-chapter-1-5.html#cb172-17"></a><span class="co">## [3,] 0.2500000 0.4000000 0.5000000 0.5714286 0.6250000</span></span>
+<span id="cb172-18"><a href="review-chapter-1-5.html#cb172-18"></a><span class="co">## [4,] 0.2000000 0.3333333 0.4285714 0.5000000 0.5555556</span></span>
+<span id="cb172-19"><a href="review-chapter-1-5.html#cb172-19"></a><span class="kw">sum</span>(x <span class="op">/</span><span class="st"> </span>(x <span class="op">+</span><span class="st"> </span>y))</span>
+<span id="cb172-20"><a href="review-chapter-1-5.html#cb172-20"></a><span class="co">## [1] 10.72817</span></span></code></pre></div>
 </div>
-<div id="minimization-and-maximization" class="section level2">
-<h2><span class="header-section-number">13.3</span> Minimization and Maximization</h2>
-<div id="newton-raphson-method-1" class="section level3">
-<h3><span class="header-section-number">13.3.1</span> Newton-Raphson Method</h3>
-<p>Recall that at local extrema, <span class="math inline">\(f&#39;(x) = 0\)</span>, therefore we can use the Netwon-Raphson method for minimization and maximization.</p>
-<p><strong>Algorithm of Netwon-Raphson Method:</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>Given an initial estimate of the root <span class="math inline">\(x_0\)</span>, set
+<div id="basic-operation" class="section level2">
+<h2><span class="header-section-number">6.3</span> Basic Operation</h2>
+<p><strong>Example</strong> Let v be a vector of integers. Write a one-line R code to compute the product of all the even integers in v.</p>
+<p>To illustrate how to solve the question step by step:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="review-chapter-1-5.html#cb173-1"></a>v &lt;-<span class="st"> </span><span class="dv">-10</span><span class="op">:</span><span class="dv">10</span> <span class="co"># begin writing your code by setting some integers</span></span>
+<span id="cb173-2"><a href="review-chapter-1-5.html#cb173-2"></a>v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
+<span id="cb173-3"><a href="review-chapter-1-5.html#cb173-3"></a><span class="co">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
+<span id="cb173-4"><a href="review-chapter-1-5.html#cb173-4"></a>v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
+<span id="cb173-5"><a href="review-chapter-1-5.html#cb173-5"></a><span class="co">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span>
+<span id="cb173-6"><a href="review-chapter-1-5.html#cb173-6"></a><span class="co">##  [9]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span>
+<span id="cb173-7"><a href="review-chapter-1-5.html#cb173-7"></a><span class="co">## [17]  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb173-8"><a href="review-chapter-1-5.html#cb173-8"></a>v[v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
+<span id="cb173-9"><a href="review-chapter-1-5.html#cb173-9"></a><span class="co">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
+<span id="cb173-10"><a href="review-chapter-1-5.html#cb173-10"></a><span class="kw">prod</span>(v[v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]) <span class="co"># find the product</span></span>
+<span id="cb173-11"><a href="review-chapter-1-5.html#cb173-11"></a><span class="co">## [1] 0</span></span>
+<span id="cb173-12"><a href="review-chapter-1-5.html#cb173-12"></a></span>
+<span id="cb173-13"><a href="review-chapter-1-5.html#cb173-13"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
+<span id="cb173-14"><a href="review-chapter-1-5.html#cb173-14"></a><span class="co"># let&#39;s change to some other vector</span></span>
+<span id="cb173-15"><a href="review-chapter-1-5.html#cb173-15"></a>v &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span></span>
+<span id="cb173-16"><a href="review-chapter-1-5.html#cb173-16"></a><span class="kw">prod</span>(v[v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])</span>
+<span id="cb173-17"><a href="review-chapter-1-5.html#cb173-17"></a><span class="co">## [1] 384</span></span>
+<span id="cb173-18"><a href="review-chapter-1-5.html#cb173-18"></a></span>
+<span id="cb173-19"><a href="review-chapter-1-5.html#cb173-19"></a><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="dv">8</span> <span class="co">#check </span></span>
+<span id="cb173-20"><a href="review-chapter-1-5.html#cb173-20"></a><span class="co">## [1] 384</span></span>
+<span id="cb173-21"><a href="review-chapter-1-5.html#cb173-21"></a></span>
+<span id="cb173-22"><a href="review-chapter-1-5.html#cb173-22"></a><span class="co"># now, the final answer is prod(v[v%%2 == 0])</span></span></code></pre></div>
+<p><strong>Ex 9a:</strong> Given that <code>x = 1:100</code>. Write a one-line R code to copmute
 <span class="math display">\[\begin{equation*}
-x_1 = x_0 - \frac{f&#39;(x_0)}{f&#39;&#39;(x_0)}.
-\end{equation*}\]</span></p></li>
-<li><p>Iterate the following equation until convergence
+S := 1^2 - 2^2 + 3^2 - \ldots + 99^2 - 100^2.
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="review-chapter-1-5.html#cb174-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></span>
+<span id="cb174-2"><a href="review-chapter-1-5.html#cb174-2"></a><span class="kw">sum</span>((x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])<span class="op">^</span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>((x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb174-3"><a href="review-chapter-1-5.html#cb174-3"></a><span class="co">## [1] -5050</span></span></code></pre></div>
+<p><strong>Ex 9b (optional)</strong> Can you do <strong>Ex 9a</strong> without any program or calculator?</p>
+<p><strong>Ex 10:</strong> Write a function with inputs <code>n</code> and <code>p</code> to compute
 <span class="math display">\[\begin{equation*}
-x_n = x_{n-1} - \frac{f&#39;(x_{n-1})}{f&#39;&#39;(x_{n-1})}.
-\end{equation*}\]</span></p></li>
-</ol>
+S(n, p) := 1^p - 2^p + 3^p -\ldots + (-1)^{n-1} (n-1)^p  + (-1)^n n^p.
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="review-chapter-1-5.html#cb175-1"></a>snp &lt;-<span class="st"> </span><span class="cf">function</span>(n, p) {</span>
+<span id="cb175-2"><a href="review-chapter-1-5.html#cb175-2"></a>  x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>n</span>
+<span id="cb175-3"><a href="review-chapter-1-5.html#cb175-3"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])<span class="op">^</span>p) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>((x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])<span class="op">^</span>p))</span>
+<span id="cb175-4"><a href="review-chapter-1-5.html#cb175-4"></a>}</span></code></pre></div>
 </div>
-<div id="gradient-descent" class="section level3">
-<h3><span class="header-section-number">13.3.2</span> Gradient Descent</h3>
-<p>Gradient Descent</p>
-<ul>
-<li>Iterative method for finding a local minimum</li>
-<li>Requires an initial value and a step size <span class="math inline">\(h\)</span></li>
-</ul>
-<p><strong>Idea of Gradient Descent:</strong></p>
-<ol style="list-style-type: decimal">
-<li>The gradient descent method uses the derivative at <span class="math inline">\(x\)</span> and takes a step down, of size <span class="math inline">\(h\)</span>, in the direction of the slope.</li>
-<li>The process is repeated using the new point as <span class="math inline">\(x\)</span>.</li>
-<li>As the function slides down a slope, the derivative will start shrinking resulting in smaller changes in <span class="math inline">\(x\)</span>.</li>
-<li>As the change in <span class="math inline">\(x\)</span> decreases below the tolerance value, we have reached a local minimum.</li>
-</ol>
-<p><strong>Algorithm of Gradient Descent:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Set an initial point <span class="math inline">\(x_0\)</span> and a step size <span class="math inline">\(h &gt; 0\)</span></li>
-<li>Iterate until convergence:
-<span class="math display">\[\begin{equation*}
-x_{n+1} = x_{n} - h f&#39;(x_{n}).
-\end{equation*}\]</span></li>
-</ol>
-<p><strong>Implementation in R:</strong></p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="root-finding-and-optimization.html#cb436-1"></a>grad_des &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
-<span id="cb436-2"><a href="root-finding-and-optimization.html#cb436-2"></a>  iter &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb436-3"><a href="root-finding-and-optimization.html#cb436-3"></a>  old_x &lt;-<span class="st"> </span>x0</span>
-<span id="cb436-4"><a href="root-finding-and-optimization.html#cb436-4"></a>  x &lt;-<span class="st"> </span>x0 <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>tol</span>
-<span id="cb436-5"><a href="root-finding-and-optimization.html#cb436-5"></a>  <span class="cf">while</span>(<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>old_x) <span class="op">&gt;</span><span class="st"> </span>tol) {</span>
-<span id="cb436-6"><a href="root-finding-and-optimization.html#cb436-6"></a>    iter &lt;-<span class="st"> </span>iter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb436-7"><a href="root-finding-and-optimization.html#cb436-7"></a>    <span class="cf">if</span> (iter <span class="op">&gt;</span><span class="st"> </span>max_iter) {</span>
-<span id="cb436-8"><a href="root-finding-and-optimization.html#cb436-8"></a>      <span class="kw">stop</span>(<span class="st">&quot;Maximum number of iterations reached&quot;</span>)</span>
-<span id="cb436-9"><a href="root-finding-and-optimization.html#cb436-9"></a>    }</span>
-<span id="cb436-10"><a href="root-finding-and-optimization.html#cb436-10"></a>    old_x &lt;-<span class="st"> </span>x</span>
-<span id="cb436-11"><a href="root-finding-and-optimization.html#cb436-11"></a>    x &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span>h <span class="op">*</span><span class="st"> </span><span class="kw">fp</span>(x)</span>
-<span id="cb436-12"><a href="root-finding-and-optimization.html#cb436-12"></a>  }</span>
-<span id="cb436-13"><a href="root-finding-and-optimization.html#cb436-13"></a>  <span class="kw">return</span>(x)</span>
-<span id="cb436-14"><a href="root-finding-and-optimization.html#cb436-14"></a>}</span></code></pre></div>
-<p><strong>Example:</strong> Find the local minima of <span class="math inline">\(f(x) = \frac{1}{4} x^4 + x^3 - x - 1\)</span>.</p>
-<p>Plot:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-476-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Gradient descent:</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="root-finding-and-optimization.html#cb437-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="dv">1</span><span class="op">/</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>}</span>
-<span id="cb437-2"><a href="root-finding-and-optimization.html#cb437-2"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
-<span id="cb437-3"><a href="root-finding-and-optimization.html#cb437-3"></a></span>
-<span id="cb437-4"><a href="root-finding-and-optimization.html#cb437-4"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">-2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
-<span id="cb437-5"><a href="root-finding-and-optimization.html#cb437-5"></a><span class="co">## [1] -2.878224</span></span>
-<span id="cb437-6"><a href="root-finding-and-optimization.html#cb437-6"></a></span>
-<span id="cb437-7"><a href="root-finding-and-optimization.html#cb437-7"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
-<span id="cb437-8"><a href="root-finding-and-optimization.html#cb437-8"></a><span class="co">## [1] 0.5344022</span></span></code></pre></div>
-<p>Displaying error message:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="root-finding-and-optimization.html#cb438-1"></a><span class="kw">grad_des</span>(fp, <span class="dt">x0 =</span> <span class="dv">-2</span>, <span class="dt">h =</span> <span class="fl">0.01</span>, <span class="dt">max_iter =</span> <span class="dv">2</span>)</span>
-<span id="cb438-2"><a href="root-finding-and-optimization.html#cb438-2"></a><span class="co">## Error in grad_des(fp, x0 = -2, h = 0.01, max_iter = 2): Maximum number of iterations reached</span></span></code></pre></div>
-<p><strong>Remark</strong>: to find a local maximum, use gradient ascent.</p>
-<p>Algorithm:</p>
-<ol style="list-style-type: decimal">
-<li>Set an initial point <span class="math inline">\(x_0\)</span> and a step size <span class="math inline">\(h &gt; 0\)</span></li>
-<li>Iterate until convergence:
-<span class="math display">\[\begin{equation*}
-x_{n+1} = x_{n} + h f&#39;(x_{n}).
-\end{equation*}\]</span></li>
-</ol>
-<p>Implementation:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="root-finding-and-optimization.html#cb439-1"></a>grad_asc &lt;-<span class="st"> </span><span class="cf">function</span>(fp, x0, <span class="dt">h =</span> <span class="fl">1e-3</span>, <span class="dt">tol =</span> <span class="fl">1e-4</span>, <span class="dt">max_iter =</span> <span class="dv">1000</span>) {</span>
-<span id="cb439-2"><a href="root-finding-and-optimization.html#cb439-2"></a>  <span class="kw">grad_des</span>(fp, x0, <span class="op">-</span>h, tol, max_iter)</span>
-<span id="cb439-3"><a href="root-finding-and-optimization.html#cb439-3"></a>}</span></code></pre></div>
-<p>Example:</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="root-finding-and-optimization.html#cb440-1"></a><span class="kw">grad_asc</span>(fp, <span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="fl">0.01</span>)</span>
-<span id="cb440-2"><a href="root-finding-and-optimization.html#cb440-2"></a><span class="co">## [1] -0.6490877</span></span></code></pre></div>
-</div>
-</div>
-<div id="optim" class="section level2">
-<h2><span class="header-section-number">13.4</span> <code>optim</code></h2>
-<ol style="list-style-type: decimal">
-<li><p>Going back to <code>optim()</code>, the <code>par</code> plays the same role as the <code>x_0</code> in the Netwon-Raphson method and the gradient descent method.</p></li>
-<li><p>Since we have some tolerance level and the iteration will stop when the tolerance level is reached, if you start at different initial values, you may get slightly different results</p></li>
-<li><p>I used some random numbers for the initial values in <code>optim()</code> because we do not know a good estimate of the minimizer. In general, you will perform the optimization with several set of different initial values and see which one results in a smaller function value. Sometimes, the algorithm will get stuck in a local minimum and using several set of random initial values can alleviate this problem.</p></li>
-</ol>
+<div id="some-basic-plots-in-r" class="section level2">
+<h2><span class="header-section-number">6.4</span> Some basic plots in R</h2>
+<p><strong>Example</strong>
+Write a function called <code>my_summary_plot</code> with input being two numeric vectors <code>x,y</code> and outputs a <span class="math inline">\(2 \times 2\)</span> multi-frame plot with (i) histogram of <code>x</code>, (ii) histogram of <code>y</code>, (iii) scatter plot of <code>y</code> versu <code>x</code>, and (iv) boxplots of <code>x</code> and <code>y</code>.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="review-chapter-1-5.html#cb176-1"></a><span class="co"># when you write a function, you can begin with some sample x and y</span></span>
+<span id="cb176-2"><a href="review-chapter-1-5.html#cb176-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb176-3"><a href="review-chapter-1-5.html#cb176-3"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb176-4"><a href="review-chapter-1-5.html#cb176-4"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb176-5"><a href="review-chapter-1-5.html#cb176-5"></a><span class="kw">hist</span>(x)</span>
+<span id="cb176-6"><a href="review-chapter-1-5.html#cb176-6"></a><span class="kw">hist</span>(y)</span>
+<span id="cb176-7"><a href="review-chapter-1-5.html#cb176-7"></a><span class="kw">plot</span>(x, y)</span>
+<span id="cb176-8"><a href="review-chapter-1-5.html#cb176-8"></a><span class="kw">boxplot</span>(x, y)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="review-chapter-1-5.html#cb177-1"></a></span>
+<span id="cb177-2"><a href="review-chapter-1-5.html#cb177-2"></a><span class="co"># after that, you wrap the code into a function without defining x, y</span></span>
+<span id="cb177-3"><a href="review-chapter-1-5.html#cb177-3"></a>my_summary_plot =<span class="st"> </span><span class="cf">function</span>(x, y){</span>
+<span id="cb177-4"><a href="review-chapter-1-5.html#cb177-4"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb177-5"><a href="review-chapter-1-5.html#cb177-5"></a>  <span class="kw">hist</span>(x)</span>
+<span id="cb177-6"><a href="review-chapter-1-5.html#cb177-6"></a>  <span class="kw">hist</span>(y)</span>
+<span id="cb177-7"><a href="review-chapter-1-5.html#cb177-7"></a>  <span class="kw">plot</span>(x, y)</span>
+<span id="cb177-8"><a href="review-chapter-1-5.html#cb177-8"></a>  <span class="kw">boxplot</span>(x, y)</span>
+<span id="cb177-9"><a href="review-chapter-1-5.html#cb177-9"></a>}</span>
+<span id="cb177-10"><a href="review-chapter-1-5.html#cb177-10"></a></span>
+<span id="cb177-11"><a href="review-chapter-1-5.html#cb177-11"></a><span class="co"># after you write the function, you should try if it will work or not</span></span>
+<span id="cb177-12"><a href="review-chapter-1-5.html#cb177-12"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>()) <span class="co"># let&#39;s remove everything in the memory</span></span>
+<span id="cb177-13"><a href="review-chapter-1-5.html#cb177-13"></a>my_summary_plot =<span class="cf">function</span>(x, y){</span>
+<span id="cb177-14"><a href="review-chapter-1-5.html#cb177-14"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb177-15"><a href="review-chapter-1-5.html#cb177-15"></a>  <span class="kw">hist</span>(x)</span>
+<span id="cb177-16"><a href="review-chapter-1-5.html#cb177-16"></a>  <span class="kw">hist</span>(y)</span>
+<span id="cb177-17"><a href="review-chapter-1-5.html#cb177-17"></a>  <span class="kw">plot</span>(x, y)</span>
+<span id="cb177-18"><a href="review-chapter-1-5.html#cb177-18"></a>  <span class="kw">boxplot</span>(x, y)</span>
+<span id="cb177-19"><a href="review-chapter-1-5.html#cb177-19"></a>}</span>
+<span id="cb177-20"><a href="review-chapter-1-5.html#cb177-20"></a></span>
+<span id="cb177-21"><a href="review-chapter-1-5.html#cb177-21"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb177-22"><a href="review-chapter-1-5.html#cb177-22"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb177-23"><a href="review-chapter-1-5.html#cb177-23"></a><span class="kw">my_summary_plot</span>(x,y)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="review-chapter-1-5.html#cb178-1"></a></span>
+<span id="cb178-2"><a href="review-chapter-1-5.html#cb178-2"></a><span class="co"># try another example</span></span>
+<span id="cb178-3"><a href="review-chapter-1-5.html#cb178-3"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb178-4"><a href="review-chapter-1-5.html#cb178-4"></a>y &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb178-5"><a href="review-chapter-1-5.html#cb178-5"></a><span class="kw">my_summary_plot</span>(x, y)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-3.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -629,8 +650,8 @@ x_{n+1} = x_{n} + h f&#39;(x_{n}).
           </div>
         </div>
       </div>
-<a href="linear-regression-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="logistic-regression-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="managing-data-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation-with-dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
