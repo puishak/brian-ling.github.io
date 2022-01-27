@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-01-25" />
+<meta name="date" content="2022-01-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -467,38 +467,22 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="k-nearest-neighbors.html#cb352-1"></a>wbcd &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
 <p>Variables:</p>
 <div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="k-nearest-neighbors.html#cb353-1"></a><span class="kw">names</span>(wbcd)</span>
-<span id="cb353-2"><a href="k-nearest-neighbors.html#cb353-2"></a><span class="co">##  [1] &quot;id&quot;                     </span></span>
-<span id="cb353-3"><a href="k-nearest-neighbors.html#cb353-3"></a><span class="co">##  [2] &quot;diagnosis&quot;              </span></span>
-<span id="cb353-4"><a href="k-nearest-neighbors.html#cb353-4"></a><span class="co">##  [3] &quot;radius_mean&quot;            </span></span>
-<span id="cb353-5"><a href="k-nearest-neighbors.html#cb353-5"></a><span class="co">##  [4] &quot;texture_mean&quot;           </span></span>
-<span id="cb353-6"><a href="k-nearest-neighbors.html#cb353-6"></a><span class="co">##  [5] &quot;perimeter_mean&quot;         </span></span>
-<span id="cb353-7"><a href="k-nearest-neighbors.html#cb353-7"></a><span class="co">##  [6] &quot;area_mean&quot;              </span></span>
-<span id="cb353-8"><a href="k-nearest-neighbors.html#cb353-8"></a><span class="co">##  [7] &quot;smoothness_mean&quot;        </span></span>
-<span id="cb353-9"><a href="k-nearest-neighbors.html#cb353-9"></a><span class="co">##  [8] &quot;compactness_mean&quot;       </span></span>
-<span id="cb353-10"><a href="k-nearest-neighbors.html#cb353-10"></a><span class="co">##  [9] &quot;concavity_mean&quot;         </span></span>
-<span id="cb353-11"><a href="k-nearest-neighbors.html#cb353-11"></a><span class="co">## [10] &quot;concave.points_mean&quot;    </span></span>
-<span id="cb353-12"><a href="k-nearest-neighbors.html#cb353-12"></a><span class="co">## [11] &quot;symmetry_mean&quot;          </span></span>
-<span id="cb353-13"><a href="k-nearest-neighbors.html#cb353-13"></a><span class="co">## [12] &quot;fractal_dimension_mean&quot; </span></span>
-<span id="cb353-14"><a href="k-nearest-neighbors.html#cb353-14"></a><span class="co">## [13] &quot;radius_se&quot;              </span></span>
-<span id="cb353-15"><a href="k-nearest-neighbors.html#cb353-15"></a><span class="co">## [14] &quot;texture_se&quot;             </span></span>
-<span id="cb353-16"><a href="k-nearest-neighbors.html#cb353-16"></a><span class="co">## [15] &quot;perimeter_se&quot;           </span></span>
-<span id="cb353-17"><a href="k-nearest-neighbors.html#cb353-17"></a><span class="co">## [16] &quot;area_se&quot;                </span></span>
-<span id="cb353-18"><a href="k-nearest-neighbors.html#cb353-18"></a><span class="co">## [17] &quot;smoothness_se&quot;          </span></span>
-<span id="cb353-19"><a href="k-nearest-neighbors.html#cb353-19"></a><span class="co">## [18] &quot;compactness_se&quot;         </span></span>
-<span id="cb353-20"><a href="k-nearest-neighbors.html#cb353-20"></a><span class="co">## [19] &quot;concavity_se&quot;           </span></span>
-<span id="cb353-21"><a href="k-nearest-neighbors.html#cb353-21"></a><span class="co">## [20] &quot;concave.points_se&quot;      </span></span>
-<span id="cb353-22"><a href="k-nearest-neighbors.html#cb353-22"></a><span class="co">## [21] &quot;symmetry_se&quot;            </span></span>
-<span id="cb353-23"><a href="k-nearest-neighbors.html#cb353-23"></a><span class="co">## [22] &quot;fractal_dimension_se&quot;   </span></span>
-<span id="cb353-24"><a href="k-nearest-neighbors.html#cb353-24"></a><span class="co">## [23] &quot;radius_worst&quot;           </span></span>
-<span id="cb353-25"><a href="k-nearest-neighbors.html#cb353-25"></a><span class="co">## [24] &quot;texture_worst&quot;          </span></span>
-<span id="cb353-26"><a href="k-nearest-neighbors.html#cb353-26"></a><span class="co">## [25] &quot;perimeter_worst&quot;        </span></span>
-<span id="cb353-27"><a href="k-nearest-neighbors.html#cb353-27"></a><span class="co">## [26] &quot;area_worst&quot;             </span></span>
-<span id="cb353-28"><a href="k-nearest-neighbors.html#cb353-28"></a><span class="co">## [27] &quot;smoothness_worst&quot;       </span></span>
-<span id="cb353-29"><a href="k-nearest-neighbors.html#cb353-29"></a><span class="co">## [28] &quot;compactness_worst&quot;      </span></span>
-<span id="cb353-30"><a href="k-nearest-neighbors.html#cb353-30"></a><span class="co">## [29] &quot;concavity_worst&quot;        </span></span>
-<span id="cb353-31"><a href="k-nearest-neighbors.html#cb353-31"></a><span class="co">## [30] &quot;concave.points_worst&quot;   </span></span>
-<span id="cb353-32"><a href="k-nearest-neighbors.html#cb353-32"></a><span class="co">## [31] &quot;symmetry_worst&quot;         </span></span>
-<span id="cb353-33"><a href="k-nearest-neighbors.html#cb353-33"></a><span class="co">## [32] &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
+<span id="cb353-2"><a href="k-nearest-neighbors.html#cb353-2"></a><span class="co">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;              </span></span>
+<span id="cb353-3"><a href="k-nearest-neighbors.html#cb353-3"></a><span class="co">##  [3] &quot;radius_mean&quot;             &quot;texture_mean&quot;           </span></span>
+<span id="cb353-4"><a href="k-nearest-neighbors.html#cb353-4"></a><span class="co">##  [5] &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
+<span id="cb353-5"><a href="k-nearest-neighbors.html#cb353-5"></a><span class="co">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;       </span></span>
+<span id="cb353-6"><a href="k-nearest-neighbors.html#cb353-6"></a><span class="co">##  [9] &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;    </span></span>
+<span id="cb353-7"><a href="k-nearest-neighbors.html#cb353-7"></a><span class="co">## [11] &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
+<span id="cb353-8"><a href="k-nearest-neighbors.html#cb353-8"></a><span class="co">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;             </span></span>
+<span id="cb353-9"><a href="k-nearest-neighbors.html#cb353-9"></a><span class="co">## [15] &quot;perimeter_se&quot;            &quot;area_se&quot;                </span></span>
+<span id="cb353-10"><a href="k-nearest-neighbors.html#cb353-10"></a><span class="co">## [17] &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
+<span id="cb353-11"><a href="k-nearest-neighbors.html#cb353-11"></a><span class="co">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;      </span></span>
+<span id="cb353-12"><a href="k-nearest-neighbors.html#cb353-12"></a><span class="co">## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;   </span></span>
+<span id="cb353-13"><a href="k-nearest-neighbors.html#cb353-13"></a><span class="co">## [23] &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
+<span id="cb353-14"><a href="k-nearest-neighbors.html#cb353-14"></a><span class="co">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;             </span></span>
+<span id="cb353-15"><a href="k-nearest-neighbors.html#cb353-15"></a><span class="co">## [27] &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      </span></span>
+<span id="cb353-16"><a href="k-nearest-neighbors.html#cb353-16"></a><span class="co">## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
+<span id="cb353-17"><a href="k-nearest-neighbors.html#cb353-17"></a><span class="co">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
 <p><strong>Creating Training and Testing Datasets</strong></p>
 <p>The first column is <code>id</code>, which should not be included in the classification. The second column is <code>diagnosis</code>. <code>B</code> means benign and <code>M</code> means malignant. In short, the meaning of malignant is cancerous and the meaning of benign is non-cancerous. We will separate the labels from the features. To evaluate the model performance, we always split our full dataset into a training dataset and a testing daatset.</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="k-nearest-neighbors.html#cb354-1"></a><span class="kw">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>
@@ -602,20 +586,13 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <span id="cb361-14"><a href="k-nearest-neighbors.html#cb361-14"></a>}</span>
 <span id="cb361-15"><a href="k-nearest-neighbors.html#cb361-15"></a></span>
 <span id="cb361-16"><a href="k-nearest-neighbors.html#cb361-16"></a>result</span>
-<span id="cb361-17"><a href="k-nearest-neighbors.html#cb361-17"></a><span class="co">##      k value False Negatives False Positives</span></span>
-<span id="cb361-18"><a href="k-nearest-neighbors.html#cb361-18"></a><span class="co">## [1,]       1               4               3</span></span>
-<span id="cb361-19"><a href="k-nearest-neighbors.html#cb361-19"></a><span class="co">## [2,]       5               4               1</span></span>
-<span id="cb361-20"><a href="k-nearest-neighbors.html#cb361-20"></a><span class="co">## [3,]      11               3               1</span></span>
-<span id="cb361-21"><a href="k-nearest-neighbors.html#cb361-21"></a><span class="co">## [4,]      15               3               2</span></span>
-<span id="cb361-22"><a href="k-nearest-neighbors.html#cb361-22"></a><span class="co">## [5,]      21               4               2</span></span>
-<span id="cb361-23"><a href="k-nearest-neighbors.html#cb361-23"></a><span class="co">## [6,]      27               3               2</span></span>
-<span id="cb361-24"><a href="k-nearest-neighbors.html#cb361-24"></a><span class="co">##      Percent Classified Correctly</span></span>
-<span id="cb361-25"><a href="k-nearest-neighbors.html#cb361-25"></a><span class="co">## [1,]                         0.93</span></span>
-<span id="cb361-26"><a href="k-nearest-neighbors.html#cb361-26"></a><span class="co">## [2,]                         0.95</span></span>
-<span id="cb361-27"><a href="k-nearest-neighbors.html#cb361-27"></a><span class="co">## [3,]                         0.96</span></span>
-<span id="cb361-28"><a href="k-nearest-neighbors.html#cb361-28"></a><span class="co">## [4,]                         0.95</span></span>
-<span id="cb361-29"><a href="k-nearest-neighbors.html#cb361-29"></a><span class="co">## [5,]                         0.94</span></span>
-<span id="cb361-30"><a href="k-nearest-neighbors.html#cb361-30"></a><span class="co">## [6,]                         0.95</span></span></code></pre></div>
+<span id="cb361-17"><a href="k-nearest-neighbors.html#cb361-17"></a><span class="co">##      k value False Negatives False Positives Percent Classified Correctly</span></span>
+<span id="cb361-18"><a href="k-nearest-neighbors.html#cb361-18"></a><span class="co">## [1,]       1               4               3                         0.93</span></span>
+<span id="cb361-19"><a href="k-nearest-neighbors.html#cb361-19"></a><span class="co">## [2,]       5               4               1                         0.95</span></span>
+<span id="cb361-20"><a href="k-nearest-neighbors.html#cb361-20"></a><span class="co">## [3,]      11               3               1                         0.96</span></span>
+<span id="cb361-21"><a href="k-nearest-neighbors.html#cb361-21"></a><span class="co">## [4,]      15               3               2                         0.95</span></span>
+<span id="cb361-22"><a href="k-nearest-neighbors.html#cb361-22"></a><span class="co">## [5,]      21               4               2                         0.94</span></span>
+<span id="cb361-23"><a href="k-nearest-neighbors.html#cb361-23"></a><span class="co">## [6,]      27               3               2                         0.95</span></span></code></pre></div>
 <p><strong>Important remark</strong>: while the accuracy is the highest when <span class="math inline">\(k = 11\)</span>, it does not mean the model is the best for this data. Note that</p>
 <ol style="list-style-type: decimal">
 <li><p>We split the dataset into a training dataset and a testing dataset using <strong>one particular random partition</strong>. With another random partition, the results would be <strong>different</strong>. The more appropriate way to assess the accuracy is to use repeated <span class="math inline">\(k\)</span>-fold cross validation (the <span class="math inline">\(k\)</span> here is different from the <span class="math inline">\(k\)</span> in our <span class="math inline">\(k\)</span>-NN algorithm). We shall discuss this later.</p></li>
