@@ -73,10 +73,10 @@ select
 exercises-4
 mutate
 exercises-5
-summarize
+summarize-group_by
+combining-multiple-operations-with-pipe
 summary
 data-visualization-with-ggplot2
-combining-multiple-operations-with-pipe
 bar-charts
 line-graph-1
 scatter-plots
