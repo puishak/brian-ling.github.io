@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-01" />
+<meta name="date" content="2022-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -463,12 +463,12 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="linear-regression-models.html#cb395-1"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span></span>
 <span id="cb395-2"><a href="linear-regression-models.html#cb395-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb395-3"><a href="linear-regression-models.html#cb395-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-446-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-434-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To remove the confidence interval, set <code>se = FALSE</code> in <code>geom_smooth()</code>.</p>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="linear-regression-models.html#cb396-1"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span></span>
 <span id="cb396-2"><a href="linear-regression-models.html#cb396-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb396-3"><a href="linear-regression-models.html#cb396-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-447-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-435-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Remark: You have seen <code>geom_smooth()</code> in Assignment 3.</p>
 </div>
 <div id="smoothed-conditional-means" class="section level2">
@@ -478,7 +478,7 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <span id="cb397-2"><a href="linear-regression-models.html#cb397-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist)) <span class="op">+</span></span>
 <span id="cb397-3"><a href="linear-regression-models.html#cb397-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb397-4"><a href="linear-regression-models.html#cb397-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-448-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-436-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>You can see the message saying <code>geom_smooth()</code> is using <code>method = "loess"</code>. loess stands for locally estimated scatterplot smoothing. You may also see “lowess”, which stands for
 locally weighted scatterplot smoothing. Basically, a locally weighted regression solves a separate weighted least squares problem at each target point <span class="math inline">\(x_0\)</span>:
 <span class="math display">\[\begin{equation*}
@@ -589,8 +589,8 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="linear-regression-models.html#cb401-1"></a><span class="kw">names</span>(fit)</span>
-<span id="cb401-2"><a href="linear-regression-models.html#cb401-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;           </span></span>
-<span id="cb401-3"><a href="linear-regression-models.html#cb401-3"></a><span class="co">##  [8] &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb401-2"><a href="linear-regression-models.html#cb401-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;       </span></span>
+<span id="cb401-3"><a href="linear-regression-models.html#cb401-3"></a><span class="co">##  [7] &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="linear-regression-models.html#cb402-1"></a>fit<span class="op">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb402-2"><a href="linear-regression-models.html#cb402-2"></a><span class="co">## (Intercept)          x1          x2 </span></span>
@@ -877,7 +877,7 @@ is a special case of the genearl linear regression model because we can define <
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-models.html#cb419-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb419-2"><a href="linear-regression-models.html#cb419-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
 <span id="cb419-3"><a href="linear-regression-models.html#cb419-3"></a>y &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x  <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-471-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-459-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To perform regression for the transformed variable:</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="linear-regression-models.html#cb420-1"></a><span class="kw">lm</span>(<span class="kw">log</span>(y) <span class="op">~</span><span class="st"> </span>x)</span>
 <span id="cb420-2"><a href="linear-regression-models.html#cb420-2"></a><span class="co">## </span></span>
@@ -910,8 +910,10 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 <span id="cb421-9"><a href="linear-regression-models.html#cb421-9"></a><span class="co">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
 <span id="cb421-10"><a href="linear-regression-models.html#cb421-10"></a><span class="co">## </span></span>
 <span id="cb421-11"><a href="linear-regression-models.html#cb421-11"></a><span class="co">## Coefficients:</span></span>
-<span id="cb421-12"><a href="linear-regression-models.html#cb421-12"></a><span class="co">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2                        x2  </span></span>
-<span id="cb421-13"><a href="linear-regression-models.html#cb421-13"></a><span class="co">##                    1.044                     2.025                     2.976                    -2.058</span></span></code></pre></div>
+<span id="cb421-12"><a href="linear-regression-models.html#cb421-12"></a><span class="co">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
+<span id="cb421-13"><a href="linear-regression-models.html#cb421-13"></a><span class="co">##                    1.044                     2.025                     2.976  </span></span>
+<span id="cb421-14"><a href="linear-regression-models.html#cb421-14"></a><span class="co">##                       x2  </span></span>
+<span id="cb421-15"><a href="linear-regression-models.html#cb421-15"></a><span class="co">##                   -2.058</span></span></code></pre></div>
 <p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
 <p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
 <div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-models.html#cb422-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>

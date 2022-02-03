@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-01" />
+<meta name="date" content="2022-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -423,21 +423,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
 <p><strong>Scatterplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-4-1.png" width="50%" /></p>
 <p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-17-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-5-1.png" width="50%" /></p>
 <p><strong>Scatterplots</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-18-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-6-1.png" width="50%" /></p>
 <p><strong>Line Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-19-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-7-1.png" width="50%" /></p>
 <p><strong>Bar chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-20-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-8-1.png" width="50%" /></p>
 <p><strong>Another Bar Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-21-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-9-1.png" width="50%" /></p>
 <p><strong>Boxplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-22-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="50%" /></p>
 <p><strong>Histogram</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-23-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-11-1.png" width="50%" /></p>
 </div>
 <div id="statistical-inference" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> Statistical Inference</h3>
@@ -459,7 +459,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Employ Naive Bayes to build an SMS junk message filter (text data)</p></li>
 </ul>
 <p>A wordcloud of text data</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-24-1.png" width="70%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-12-1.png" width="70%" /></p>
 <ul>
 <li>Use neural network to predict the compressive strength of concrete</li>
 </ul>
@@ -1263,10 +1263,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb40-14"><a href="introduction.html#cb40-14"></a></span>
 <span id="cb40-15"><a href="introduction.html#cb40-15"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb40-16"><a href="introduction.html#cb40-16"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb40-18"><a href="introduction.html#cb40-18"></a></span>
-<span id="cb40-19"><a href="introduction.html#cb40-19"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
-<span id="cb40-20"><a href="introduction.html#cb40-20"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb40-17"><a href="introduction.html#cb40-17"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0</span></span>
+<span id="cb40-18"><a href="introduction.html#cb40-18"></a><span class="co">## [20]  9.5 10.0</span></span>
+<span id="cb40-19"><a href="introduction.html#cb40-19"></a></span>
+<span id="cb40-20"><a href="introduction.html#cb40-20"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">21</span>)</span>
+<span id="cb40-21"><a href="introduction.html#cb40-21"></a><span class="co">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0</span></span>
+<span id="cb40-22"><a href="introduction.html#cb40-22"></a><span class="co">## [20]  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> <code>rep()</code></h3>
