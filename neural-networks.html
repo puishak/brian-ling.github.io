@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-14" />
+<meta name="date" content="2022-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,9 +372,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 16</span> Neural Networks</h1>
 <p>Optional Reading: Chapter 7 in Machine Learning with R by Brett Lantz</p>
 <p>Packages used:</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="neural-networks.html#cb460-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb460-2"><a href="neural-networks.html#cb460-2"></a><span class="kw">library</span>(neuralnet)</span>
-<span id="cb460-3"><a href="neural-networks.html#cb460-3"></a><span class="kw">library</span>(ggpubr)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="neural-networks.html#cb461-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb461-2"><a href="neural-networks.html#cb461-2"></a><span class="kw">library</span>(neuralnet)</span>
+<span id="cb461-3"><a href="neural-networks.html#cb461-3"></a><span class="kw">library</span>(ggpubr)</span></code></pre></div>
 <div id="introduction-5" class="section level2">
 <h2><span class="header-section-number">16.1</span> Introduction</h2>
 <ul>
@@ -439,15 +439,15 @@ the neural network would be linear, no matter how many layers it has.</p></li>
 <li>Logistic sigmoid <span class="math inline">\(f(x) = \frac{1}{1+e^{-x}}\)</span>. Range = <span class="math inline">\((0, 1)\)</span></li>
 </ul></li>
 </ul>
-<p><img src="Book_files/figure-html/unnamed-chunk-515-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>tanh <span class="math inline">\(f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\)</span>. Range = <span class="math inline">\((-1, 1)\)</span>.</li>
 </ul>
-<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-517-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Rectified Linear Unit (ReLU) <span class="math inline">\(f(x) = x I(x \geq 0)\)</span>. Range = <span class="math inline">\([0, \infty)\)</span>.</li>
 </ul>
-<p><img src="Book_files/figure-html/unnamed-chunk-517-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-518-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p><strong>Network typology</strong></p>
 <p><span class="math inline">\(3\)</span> key characteristics:</p>
 <ul>
@@ -497,73 +497,73 @@ concrete compressive strength is a highly nonlinear function of age and
 ingredients. These ingredients include cement, blast furnace slag, fly ash, water, superplasticizer, coarse aggregate, and fine aggregate.</p>
 <p>The actual concrete compressive strength (MPa) for a given mixture under a specific age (days) was determined from laboratory. Data is in raw form (not scaled).</p>
 <p><strong>Import the Data</strong></p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="neural-networks.html#cb461-1"></a>concrete &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/concrete.csv&quot;</span>)</span>
-<span id="cb461-2"><a href="neural-networks.html#cb461-2"></a></span>
-<span id="cb461-3"><a href="neural-networks.html#cb461-3"></a>concrete</span>
-<span id="cb461-4"><a href="neural-networks.html#cb461-4"></a><span class="co">## # A tibble: 1,030 x 9</span></span>
-<span id="cb461-5"><a href="neural-networks.html#cb461-5"></a><span class="co">##    cement  slag   ash water superplastic coarseagg fineagg   age strength</span></span>
-<span id="cb461-6"><a href="neural-networks.html#cb461-6"></a><span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb461-7"><a href="neural-networks.html#cb461-7"></a><span class="co">##  1   540     0      0   162          2.5     1040     676     28     80.0</span></span>
-<span id="cb461-8"><a href="neural-networks.html#cb461-8"></a><span class="co">##  2   540     0      0   162          2.5     1055     676     28     61.9</span></span>
-<span id="cb461-9"><a href="neural-networks.html#cb461-9"></a><span class="co">##  3   332.  142.     0   228          0        932     594    270     40.3</span></span>
-<span id="cb461-10"><a href="neural-networks.html#cb461-10"></a><span class="co">##  4   332.  142.     0   228          0        932     594    365     41.0</span></span>
-<span id="cb461-11"><a href="neural-networks.html#cb461-11"></a><span class="co">##  5   199.  132.     0   192          0        978.    826.   360     44.3</span></span>
-<span id="cb461-12"><a href="neural-networks.html#cb461-12"></a><span class="co">##  6   266   114      0   228          0        932     670     90     47.0</span></span>
-<span id="cb461-13"><a href="neural-networks.html#cb461-13"></a><span class="co">##  7   380    95      0   228          0        932     594    365     43.7</span></span>
-<span id="cb461-14"><a href="neural-networks.html#cb461-14"></a><span class="co">##  8   380    95      0   228          0        932     594     28     36.4</span></span>
-<span id="cb461-15"><a href="neural-networks.html#cb461-15"></a><span class="co">##  9   266   114      0   228          0        932     670     28     45.8</span></span>
-<span id="cb461-16"><a href="neural-networks.html#cb461-16"></a><span class="co">## 10   475     0      0   228          0        932     594     28     39.3</span></span>
-<span id="cb461-17"><a href="neural-networks.html#cb461-17"></a><span class="co">## # ... with 1,020 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="neural-networks.html#cb462-1"></a>concrete &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/concrete.csv&quot;</span>)</span>
+<span id="cb462-2"><a href="neural-networks.html#cb462-2"></a></span>
+<span id="cb462-3"><a href="neural-networks.html#cb462-3"></a>concrete</span>
+<span id="cb462-4"><a href="neural-networks.html#cb462-4"></a><span class="co">## # A tibble: 1,030 x 9</span></span>
+<span id="cb462-5"><a href="neural-networks.html#cb462-5"></a><span class="co">##    cement  slag   ash water superplastic coarseagg fineagg   age strength</span></span>
+<span id="cb462-6"><a href="neural-networks.html#cb462-6"></a><span class="co">##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb462-7"><a href="neural-networks.html#cb462-7"></a><span class="co">##  1   540     0      0   162          2.5     1040     676     28     80.0</span></span>
+<span id="cb462-8"><a href="neural-networks.html#cb462-8"></a><span class="co">##  2   540     0      0   162          2.5     1055     676     28     61.9</span></span>
+<span id="cb462-9"><a href="neural-networks.html#cb462-9"></a><span class="co">##  3   332.  142.     0   228          0        932     594    270     40.3</span></span>
+<span id="cb462-10"><a href="neural-networks.html#cb462-10"></a><span class="co">##  4   332.  142.     0   228          0        932     594    365     41.0</span></span>
+<span id="cb462-11"><a href="neural-networks.html#cb462-11"></a><span class="co">##  5   199.  132.     0   192          0        978.    826.   360     44.3</span></span>
+<span id="cb462-12"><a href="neural-networks.html#cb462-12"></a><span class="co">##  6   266   114      0   228          0        932     670     90     47.0</span></span>
+<span id="cb462-13"><a href="neural-networks.html#cb462-13"></a><span class="co">##  7   380    95      0   228          0        932     594    365     43.7</span></span>
+<span id="cb462-14"><a href="neural-networks.html#cb462-14"></a><span class="co">##  8   380    95      0   228          0        932     594     28     36.4</span></span>
+<span id="cb462-15"><a href="neural-networks.html#cb462-15"></a><span class="co">##  9   266   114      0   228          0        932     670     28     45.8</span></span>
+<span id="cb462-16"><a href="neural-networks.html#cb462-16"></a><span class="co">## 10   475     0      0   228          0        932     594     28     39.3</span></span>
+<span id="cb462-17"><a href="neural-networks.html#cb462-17"></a><span class="co">## # ... with 1,020 more rows</span></span></code></pre></div>
 <ul>
 <li><p>We have <span class="math inline">\(8\)</span> features and <span class="math inline">\(1\)</span> outcome.</p></li>
 <li><p>Neural networks work best when the input data are scaled to a narrow range around zero. We discussed feature scaling when we discuss <span class="math inline">\(k\)</span>-NN. Here, we will normalize the data.</p></li>
 <li><p>Before we normalize the data, we will separate the our data into a training dataset and a testing dataset. We will use <span class="math inline">\(75\%\)</span> of the data to form our training dataset and the rest to form our testing dataset.</p></li>
 </ul>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="neural-networks.html#cb462-1"></a><span class="kw">set.seed</span>(<span class="dv">362</span>)</span>
-<span id="cb462-2"><a href="neural-networks.html#cb462-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(concrete), <span class="dt">size =</span> <span class="kw">nrow</span>(concrete) <span class="op">*</span><span class="st"> </span><span class="fl">0.75</span>)</span>
-<span id="cb462-3"><a href="neural-networks.html#cb462-3"></a>concrete_train &lt;-<span class="st"> </span>concrete[random_index, ] </span>
-<span id="cb462-4"><a href="neural-networks.html#cb462-4"></a>concrete_test &lt;-<span class="st"> </span>concrete[<span class="op">-</span>random_index, ]</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="neural-networks.html#cb463-1"></a><span class="kw">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb463-2"><a href="neural-networks.html#cb463-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(concrete), <span class="dt">size =</span> <span class="kw">nrow</span>(concrete) <span class="op">*</span><span class="st"> </span><span class="fl">0.75</span>)</span>
+<span id="cb463-3"><a href="neural-networks.html#cb463-3"></a>concrete_train &lt;-<span class="st"> </span>concrete[random_index, ] </span>
+<span id="cb463-4"><a href="neural-networks.html#cb463-4"></a>concrete_test &lt;-<span class="st"> </span>concrete[<span class="op">-</span>random_index, ]</span></code></pre></div>
 <p><strong>Normalize the data</strong></p>
 <p>Define a function to normalize our training data and testing data.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="neural-networks.html#cb463-1"></a>normalize &lt;-<span class="st"> </span><span class="cf">function</span>(train, test) {</span>
-<span id="cb463-2"><a href="neural-networks.html#cb463-2"></a>  train_n &lt;-<span class="st"> </span>train</span>
-<span id="cb463-3"><a href="neural-networks.html#cb463-3"></a>  test_n &lt;-<span class="st"> </span>test</span>
-<span id="cb463-4"><a href="neural-networks.html#cb463-4"></a>  </span>
-<span id="cb463-5"><a href="neural-networks.html#cb463-5"></a>  train_min &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, min)</span>
-<span id="cb463-6"><a href="neural-networks.html#cb463-6"></a>  train_max &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, max)</span>
-<span id="cb463-7"><a href="neural-networks.html#cb463-7"></a>  </span>
-<span id="cb463-8"><a href="neural-networks.html#cb463-8"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(train)) {</span>
-<span id="cb463-9"><a href="neural-networks.html#cb463-9"></a>    train_n[, i] &lt;-<span class="st"> </span>(train[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i])</span>
-<span id="cb463-10"><a href="neural-networks.html#cb463-10"></a>  </span>
-<span id="cb463-11"><a href="neural-networks.html#cb463-11"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
-<span id="cb463-12"><a href="neural-networks.html#cb463-12"></a>    test_n[, i] &lt;-<span class="st"> </span>(test_n[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
-<span id="cb463-13"><a href="neural-networks.html#cb463-13"></a>  }  </span>
-<span id="cb463-14"><a href="neural-networks.html#cb463-14"></a>  </span>
-<span id="cb463-15"><a href="neural-networks.html#cb463-15"></a>  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">train =</span> train_n, <span class="dt">test =</span> test_n))</span>
-<span id="cb463-16"><a href="neural-networks.html#cb463-16"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="neural-networks.html#cb464-1"></a>normalize &lt;-<span class="st"> </span><span class="cf">function</span>(train, test) {</span>
+<span id="cb464-2"><a href="neural-networks.html#cb464-2"></a>  train_n &lt;-<span class="st"> </span>train</span>
+<span id="cb464-3"><a href="neural-networks.html#cb464-3"></a>  test_n &lt;-<span class="st"> </span>test</span>
+<span id="cb464-4"><a href="neural-networks.html#cb464-4"></a>  </span>
+<span id="cb464-5"><a href="neural-networks.html#cb464-5"></a>  train_min &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, min)</span>
+<span id="cb464-6"><a href="neural-networks.html#cb464-6"></a>  train_max &lt;-<span class="st"> </span><span class="kw">apply</span>(train, <span class="dv">2</span>, max)</span>
+<span id="cb464-7"><a href="neural-networks.html#cb464-7"></a>  </span>
+<span id="cb464-8"><a href="neural-networks.html#cb464-8"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(train)) {</span>
+<span id="cb464-9"><a href="neural-networks.html#cb464-9"></a>    train_n[, i] &lt;-<span class="st"> </span>(train[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i])</span>
+<span id="cb464-10"><a href="neural-networks.html#cb464-10"></a>  </span>
+<span id="cb464-11"><a href="neural-networks.html#cb464-11"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
+<span id="cb464-12"><a href="neural-networks.html#cb464-12"></a>    test_n[, i] &lt;-<span class="st"> </span>(test_n[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
+<span id="cb464-13"><a href="neural-networks.html#cb464-13"></a>  }  </span>
+<span id="cb464-14"><a href="neural-networks.html#cb464-14"></a>  </span>
+<span id="cb464-15"><a href="neural-networks.html#cb464-15"></a>  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">train =</span> train_n, <span class="dt">test =</span> test_n))</span>
+<span id="cb464-16"><a href="neural-networks.html#cb464-16"></a>}</span></code></pre></div>
 <p>Apply the <code>normalize</code> function:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="neural-networks.html#cb464-1"></a>train_test_n &lt;-<span class="st"> </span><span class="kw">normalize</span>(concrete_train, concrete_test)</span>
-<span id="cb464-2"><a href="neural-networks.html#cb464-2"></a>concrete_train_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>train</span>
-<span id="cb464-3"><a href="neural-networks.html#cb464-3"></a>concrete_test_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>test</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="neural-networks.html#cb465-1"></a>train_test_n &lt;-<span class="st"> </span><span class="kw">normalize</span>(concrete_train, concrete_test)</span>
+<span id="cb465-2"><a href="neural-networks.html#cb465-2"></a>concrete_train_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>train</span>
+<span id="cb465-3"><a href="neural-networks.html#cb465-3"></a>concrete_test_n &lt;-<span class="st"> </span>train_test_n<span class="op">$</span>test</span></code></pre></div>
 </div>
 <div id="training-a-model" class="section level3">
 <h3><span class="header-section-number">16.2.2</span> Training a model</h3>
 <p>We will train a multilayer feedforward neural network using the function <code>neuralnet()</code> in the package <code>neuralnet</code>.</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="neural-networks.html#cb465-1"></a><span class="kw">library</span>(neuralnet)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="neural-networks.html#cb466-1"></a><span class="kw">library</span>(neuralnet)</span></code></pre></div>
 <p>Usage of the function:</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="neural-networks.html#cb466-1"></a><span class="kw">neuralnet</span>(formula, data, <span class="dt">hidden =</span> <span class="dv">1</span>, <span class="dt">act.fct =</span> <span class="st">&quot;logistic&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="neural-networks.html#cb467-1"></a><span class="kw">neuralnet</span>(formula, data, <span class="dt">hidden =</span> <span class="dv">1</span>, <span class="dt">act.fct =</span> <span class="st">&quot;logistic&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p><code>formula</code>: same as the formula used in <code>lm()</code>, e.g., <code>strength ~ .</code> and <code>strange ~ cement + slag</code>.</p></li>
 <li><p><code>hidden</code>: the number of neurons in the hidden layer (by default, <span class="math inline">\(1\)</span> hidden layer with <span class="math inline">\(1\)</span> neuron). To use <span class="math inline">\(2\)</span> hidden layers with <span class="math inline">\(3\)</span> and <span class="math inline">\(4\)</span> neurons, set <code>hidden = c(3, 4)</code>.</p></li>
 <li><p><code>act.fct</code>: the activation function. The default is to use the logistic function.</p></li>
 </ul>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="neural-networks.html#cb467-1"></a><span class="co"># The default is to use one hidden layer with one unit</span></span>
-<span id="cb467-2"><a href="neural-networks.html#cb467-2"></a><span class="co"># you get slightly different results each time because of the random initial values</span></span>
-<span id="cb467-3"><a href="neural-networks.html#cb467-3"></a><span class="co"># set the seed to reproduce the result</span></span>
-<span id="cb467-4"><a href="neural-networks.html#cb467-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) </span>
-<span id="cb467-5"><a href="neural-networks.html#cb467-5"></a>concrete_ANN &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="neural-networks.html#cb468-1"></a><span class="co"># The default is to use one hidden layer with one unit</span></span>
+<span id="cb468-2"><a href="neural-networks.html#cb468-2"></a><span class="co"># you get slightly different results each time because of the random initial values</span></span>
+<span id="cb468-3"><a href="neural-networks.html#cb468-3"></a><span class="co"># set the seed to reproduce the result</span></span>
+<span id="cb468-4"><a href="neural-networks.html#cb468-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) </span>
+<span id="cb468-5"><a href="neural-networks.html#cb468-5"></a>concrete_ANN &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n)</span></code></pre></div>
 <p>Visualize the network (for learning and teaching purpose):</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="neural-networks.html#cb468-1"></a><span class="kw">plot</span>(concrete_ANN)</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="neural-networks.html#cb469-1"></a><span class="kw">plot</span>(concrete_ANN)</span></code></pre></div>
 <p><img src="image/concrete_ANN.jpeg" width="40%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>The numbers on the arrows are the weights.</p></li>
@@ -573,131 +573,131 @@ ingredients. These ingredients include cement, blast furnace slag, fly ash, wate
 <div id="understanding-the-model" class="section level3">
 <h3><span class="header-section-number">16.2.3</span> Understanding the model</h3>
 <p>Now, let’s understand the model by computing the prediction manually. We will first define the logistic function.</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="neural-networks.html#cb469-1"></a>logistic &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb469-2"><a href="neural-networks.html#cb469-2"></a>  <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x))</span>
-<span id="cb469-3"><a href="neural-networks.html#cb469-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="neural-networks.html#cb470-1"></a>logistic &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb470-2"><a href="neural-networks.html#cb470-2"></a>  <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x))</span>
+<span id="cb470-3"><a href="neural-networks.html#cb470-3"></a>}</span></code></pre></div>
 <p>Predicted values:</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="neural-networks.html#cb470-1"></a>fitted_values &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>net.result[[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
-<span id="cb470-2"><a href="neural-networks.html#cb470-2"></a></span>
-<span id="cb470-3"><a href="neural-networks.html#cb470-3"></a>fitted_values[<span class="dv">1</span>]</span>
-<span id="cb470-4"><a href="neural-networks.html#cb470-4"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="neural-networks.html#cb471-1"></a>fitted_values &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>net.result[[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
+<span id="cb471-2"><a href="neural-networks.html#cb471-2"></a></span>
+<span id="cb471-3"><a href="neural-networks.html#cb471-3"></a>fitted_values[<span class="dv">1</span>]</span>
+<span id="cb471-4"><a href="neural-networks.html#cb471-4"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
 <p>Step-by-step calculation:</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="neural-networks.html#cb471-1"></a><span class="co"># Extract the weights v_{ji}</span></span>
-<span id="cb471-2"><a href="neural-networks.html#cb471-2"></a>weights &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
-<span id="cb471-3"><a href="neural-networks.html#cb471-3"></a></span>
-<span id="cb471-4"><a href="neural-networks.html#cb471-4"></a><span class="co"># (1, X_1, X_2, ..., X_p)</span></span>
-<span id="cb471-5"><a href="neural-networks.html#cb471-5"></a>features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">as.numeric</span>(concrete_train_n[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]))</span>
-<span id="cb471-6"><a href="neural-networks.html#cb471-6"></a></span>
-<span id="cb471-7"><a href="neural-networks.html#cb471-7"></a><span class="co"># v_{j0} + sum v_{ji} X_i </span></span>
-<span id="cb471-8"><a href="neural-networks.html#cb471-8"></a>linear_combination &lt;-<span class="st"> </span><span class="kw">sum</span>(weights <span class="op">*</span><span class="st"> </span>features)</span>
-<span id="cb471-9"><a href="neural-networks.html#cb471-9"></a></span>
-<span id="cb471-10"><a href="neural-networks.html#cb471-10"></a><span class="co"># h_j(X) = f(v_{j0} + sum v_{ji} X_i) (J = 1 as we only have 1 hidden unit)</span></span>
-<span id="cb471-11"><a href="neural-networks.html#cb471-11"></a>h_X &lt;-<span class="st"> </span><span class="kw">logistic</span>(linear_combination)</span>
-<span id="cb471-12"><a href="neural-networks.html#cb471-12"></a></span>
-<span id="cb471-13"><a href="neural-networks.html#cb471-13"></a><span class="co"># Extract the weights w_{kj}</span></span>
-<span id="cb471-14"><a href="neural-networks.html#cb471-14"></a>weights2 &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">2</span>]][, <span class="dv">1</span>]</span>
-<span id="cb471-15"><a href="neural-networks.html#cb471-15"></a></span>
-<span id="cb471-16"><a href="neural-networks.html#cb471-16"></a><span class="co"># o_K(X) = g(w_{k0} + sum w_{kj} h_j(X)), with g(x) = x</span></span>
-<span id="cb471-17"><a href="neural-networks.html#cb471-17"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">1</span>, h_X) <span class="op">*</span><span class="st"> </span>weights2) </span>
-<span id="cb471-18"><a href="neural-networks.html#cb471-18"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="neural-networks.html#cb472-1"></a><span class="co"># Extract the weights v_{ji}</span></span>
+<span id="cb472-2"><a href="neural-networks.html#cb472-2"></a>weights &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">1</span>]][, <span class="dv">1</span>]</span>
+<span id="cb472-3"><a href="neural-networks.html#cb472-3"></a></span>
+<span id="cb472-4"><a href="neural-networks.html#cb472-4"></a><span class="co"># (1, X_1, X_2, ..., X_p)</span></span>
+<span id="cb472-5"><a href="neural-networks.html#cb472-5"></a>features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">as.numeric</span>(concrete_train_n[<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]))</span>
+<span id="cb472-6"><a href="neural-networks.html#cb472-6"></a></span>
+<span id="cb472-7"><a href="neural-networks.html#cb472-7"></a><span class="co"># v_{j0} + sum v_{ji} X_i </span></span>
+<span id="cb472-8"><a href="neural-networks.html#cb472-8"></a>linear_combination &lt;-<span class="st"> </span><span class="kw">sum</span>(weights <span class="op">*</span><span class="st"> </span>features)</span>
+<span id="cb472-9"><a href="neural-networks.html#cb472-9"></a></span>
+<span id="cb472-10"><a href="neural-networks.html#cb472-10"></a><span class="co"># h_j(X) = f(v_{j0} + sum v_{ji} X_i) (J = 1 as we only have 1 hidden unit)</span></span>
+<span id="cb472-11"><a href="neural-networks.html#cb472-11"></a>h_X &lt;-<span class="st"> </span><span class="kw">logistic</span>(linear_combination)</span>
+<span id="cb472-12"><a href="neural-networks.html#cb472-12"></a></span>
+<span id="cb472-13"><a href="neural-networks.html#cb472-13"></a><span class="co"># Extract the weights w_{kj}</span></span>
+<span id="cb472-14"><a href="neural-networks.html#cb472-14"></a>weights2 &lt;-<span class="st"> </span>concrete_ANN<span class="op">$</span>weights[[<span class="dv">1</span>]][[<span class="dv">2</span>]][, <span class="dv">1</span>]</span>
+<span id="cb472-15"><a href="neural-networks.html#cb472-15"></a></span>
+<span id="cb472-16"><a href="neural-networks.html#cb472-16"></a><span class="co"># o_K(X) = g(w_{k0} + sum w_{kj} h_j(X)), with g(x) = x</span></span>
+<span id="cb472-17"><a href="neural-networks.html#cb472-17"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">1</span>, h_X) <span class="op">*</span><span class="st"> </span>weights2) </span>
+<span id="cb472-18"><a href="neural-networks.html#cb472-18"></a><span class="co">## [1] 0.658175</span></span></code></pre></div>
 </div>
 <div id="evaluating-the-performance" class="section level3">
 <h3><span class="header-section-number">16.2.4</span> Evaluating the Performance</h3>
 <p><strong>Prediction</strong></p>
 <p>Use the <code>compute</code> function:</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="neural-networks.html#cb472-1"></a><span class="co"># I used neuralnet::compute instead of compute because dplyr also contains a function called compute</span></span>
-<span id="cb472-2"><a href="neural-networks.html#cb472-2"></a>prediction &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
-<span id="cb472-3"><a href="neural-networks.html#cb472-3"></a>predicted_strength &lt;-<span class="st"> </span>prediction<span class="op">$</span>net.result[, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="neural-networks.html#cb473-1"></a><span class="co"># I used neuralnet::compute instead of compute because dplyr also contains a function called compute</span></span>
+<span id="cb473-2"><a href="neural-networks.html#cb473-2"></a>prediction &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb473-3"><a href="neural-networks.html#cb473-3"></a>predicted_strength &lt;-<span class="st"> </span>prediction<span class="op">$</span>net.result[, <span class="dv">1</span>]</span></code></pre></div>
 <p>Scatterplot of predictions versus the true values.</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="neural-networks.html#cb473-1"></a>plot_predict_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength)) <span class="op">+</span></span>
-<span id="cb473-2"><a href="neural-networks.html#cb473-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb473-3"><a href="neural-networks.html#cb473-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Single Hidden Layer with 1 unit&quot;</span>)</span>
-<span id="cb473-4"><a href="neural-networks.html#cb473-4"></a>plot_predict_<span class="dv">1</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-532-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="neural-networks.html#cb474-1"></a>plot_predict_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength)) <span class="op">+</span></span>
+<span id="cb474-2"><a href="neural-networks.html#cb474-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb474-3"><a href="neural-networks.html#cb474-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Single Hidden Layer with 1 unit&quot;</span>)</span>
+<span id="cb474-4"><a href="neural-networks.html#cb474-4"></a>plot_predict_<span class="dv">1</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-533-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Since this is a numeric prediction problem rather than a classification problem, we cannot use a confusion matrix to examine model accuracy. Instead, we can use correlation to measure the performance of the prediction. The higher the correlation, the better the prediction is.</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="neural-networks.html#cb474-1"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength)</span>
-<span id="cb474-2"><a href="neural-networks.html#cb474-2"></a><span class="co">## [1] 0.8222051</span></span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="neural-networks.html#cb475-1"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength)</span>
+<span id="cb475-2"><a href="neural-networks.html#cb475-2"></a><span class="co">## [1] 0.8222051</span></span></code></pre></div>
 </div>
 <div id="improving-the-model" class="section level3">
 <h3><span class="header-section-number">16.2.5</span> Improving the Model</h3>
 <p>One hidden layer with <span class="math inline">\(5\)</span> units:</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="neural-networks.html#cb475-1"></a>concrete_ANN_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="dv">5</span>)</span>
-<span id="cb475-2"><a href="neural-networks.html#cb475-2"></a></span>
-<span id="cb475-3"><a href="neural-networks.html#cb475-3"></a>prediction_<span class="dv">5</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">5</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
-<span id="cb475-4"><a href="neural-networks.html#cb475-4"></a>predicted_strength_<span class="dv">5</span> &lt;-<span class="st"> </span>prediction_<span class="dv">5</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
-<span id="cb475-5"><a href="neural-networks.html#cb475-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">5</span>)</span>
-<span id="cb475-6"><a href="neural-networks.html#cb475-6"></a><span class="co">## [1] 0.9092216</span></span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="neural-networks.html#cb476-1"></a>concrete_ANN_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="dv">5</span>)</span>
+<span id="cb476-2"><a href="neural-networks.html#cb476-2"></a></span>
+<span id="cb476-3"><a href="neural-networks.html#cb476-3"></a>prediction_<span class="dv">5</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">5</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb476-4"><a href="neural-networks.html#cb476-4"></a>predicted_strength_<span class="dv">5</span> &lt;-<span class="st"> </span>prediction_<span class="dv">5</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
+<span id="cb476-5"><a href="neural-networks.html#cb476-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">5</span>)</span>
+<span id="cb476-6"><a href="neural-networks.html#cb476-6"></a><span class="co">## [1] 0.9092216</span></span></code></pre></div>
 <p><img src="image/concrete_ANN_5.jpeg" width="80%" style="display: block; margin: auto;" /></p>
 <p>Two hidden layers, each with <span class="math inline">\(5\)</span> units:</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="neural-networks.html#cb476-1"></a>concrete_ANN_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb476-2"><a href="neural-networks.html#cb476-2"></a></span>
-<span id="cb476-3"><a href="neural-networks.html#cb476-3"></a>prediction_<span class="dv">55</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">55</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
-<span id="cb476-4"><a href="neural-networks.html#cb476-4"></a>predicted_strength_<span class="dv">55</span> &lt;-<span class="st"> </span>prediction_<span class="dv">55</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
-<span id="cb476-5"><a href="neural-networks.html#cb476-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">55</span>)</span>
-<span id="cb476-6"><a href="neural-networks.html#cb476-6"></a><span class="co">## [1] 0.9274489</span></span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="neural-networks.html#cb477-1"></a>concrete_ANN_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(strength <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> concrete_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb477-2"><a href="neural-networks.html#cb477-2"></a></span>
+<span id="cb477-3"><a href="neural-networks.html#cb477-3"></a>prediction_<span class="dv">55</span> &lt;-<span class="st"> </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(concrete_ANN_<span class="dv">55</span>, concrete_test_n[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])</span>
+<span id="cb477-4"><a href="neural-networks.html#cb477-4"></a>predicted_strength_<span class="dv">55</span> &lt;-<span class="st"> </span>prediction_<span class="dv">55</span><span class="op">$</span>net.result[, <span class="dv">1</span>]</span>
+<span id="cb477-5"><a href="neural-networks.html#cb477-5"></a><span class="kw">cor</span>(concrete_test_n<span class="op">$</span>strength, predicted_strength_<span class="dv">55</span>)</span>
+<span id="cb477-6"><a href="neural-networks.html#cb477-6"></a><span class="co">## [1] 0.9274489</span></span></code></pre></div>
 <p><img src="image/concrete_ANN_55.png" width="80%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="neural-networks.html#cb477-1"></a>plot_predict_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength_<span class="dv">55</span>)) <span class="op">+</span></span>
-<span id="cb477-2"><a href="neural-networks.html#cb477-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb477-3"><a href="neural-networks.html#cb477-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Two Hidden Layers, each with 5 units&quot;</span>)</span>
-<span id="cb477-4"><a href="neural-networks.html#cb477-4"></a><span class="kw">ggarrange</span>(plot_predict_<span class="dv">1</span>, plot_predict_<span class="dv">55</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-538-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="neural-networks.html#cb478-1"></a>plot_predict_<span class="dv">55</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> concrete_test_n<span class="op">$</span>strength, <span class="dt">y =</span> predicted_strength_<span class="dv">55</span>)) <span class="op">+</span></span>
+<span id="cb478-2"><a href="neural-networks.html#cb478-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb478-3"><a href="neural-networks.html#cb478-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Two Hidden Layers, each with 5 units&quot;</span>)</span>
+<span id="cb478-4"><a href="neural-networks.html#cb478-4"></a><span class="kw">ggarrange</span>(plot_predict_<span class="dv">1</span>, plot_predict_<span class="dv">55</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-539-1.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="classification" class="section level2">
 <h2><span class="header-section-number">16.3</span> Classification</h2>
 <p>We will use the breast cancer dataset to illustrate how to perform classification using neural networks.</p>
 <p>The following datasets are normalized already with the output being (B, M). Download them in onQ.</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="neural-networks.html#cb478-1"></a>wbcd_train_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_train_normalize_01.csv&quot;</span>)</span>
-<span id="cb478-2"><a href="neural-networks.html#cb478-2"></a></span>
-<span id="cb478-3"><a href="neural-networks.html#cb478-3"></a>wbcd_test_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_test_normalize_01.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="neural-networks.html#cb479-1"></a>wbcd_train_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_train_normalize_01.csv&quot;</span>)</span>
+<span id="cb479-2"><a href="neural-networks.html#cb479-2"></a></span>
+<span id="cb479-3"><a href="neural-networks.html#cb479-3"></a>wbcd_test_n &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_test_normalize_01.csv&quot;</span>)</span></code></pre></div>
 <p>Train the model:</p>
 <p>Set <code>linear.output = FALSE</code> to use the logistic function to get a predicted number between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="neural-networks.html#cb479-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb479-2"><a href="neural-networks.html#cb479-2"></a>fit &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(B <span class="op">+</span><span class="st"> </span>M <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> wbcd_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
-<span id="cb479-3"><a href="neural-networks.html#cb479-3"></a>                 <span class="dt">linear.output =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="neural-networks.html#cb480-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb480-2"><a href="neural-networks.html#cb480-2"></a>fit &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(B <span class="op">+</span><span class="st"> </span>M <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> wbcd_train_n, <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb480-3"><a href="neural-networks.html#cb480-3"></a>                 <span class="dt">linear.output =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>3-layer feedforward neural network:</p>
 <p><img src="image/wbcd_ann_44.jpeg" width="80%" style="display: block; margin: auto;" /></p>
 <p><strong>Evaluate the performance</strong></p>
 <p>Training Data:</p>
 <p>Use <code>max.col</code> to find the column correspond to the maximum number.</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="neural-networks.html#cb480-1"></a><span class="co"># Training Data</span></span>
-<span id="cb480-2"><a href="neural-networks.html#cb480-2"></a></span>
-<span id="cb480-3"><a href="neural-networks.html#cb480-3"></a><span class="co"># result</span></span>
-<span id="cb480-4"><a href="neural-networks.html#cb480-4"></a><span class="kw">head</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result) </span>
-<span id="cb480-5"><a href="neural-networks.html#cb480-5"></a><span class="co">##              [,1]         [,2]</span></span>
-<span id="cb480-6"><a href="neural-networks.html#cb480-6"></a><span class="co">## [1,] 5.310829e-14 1.000000e+00</span></span>
-<span id="cb480-7"><a href="neural-networks.html#cb480-7"></a><span class="co">## [2,] 1.000000e+00 3.221476e-12</span></span>
-<span id="cb480-8"><a href="neural-networks.html#cb480-8"></a><span class="co">## [3,] 1.000000e+00 2.943722e-12</span></span>
-<span id="cb480-9"><a href="neural-networks.html#cb480-9"></a><span class="co">## [4,] 4.879723e-15 1.000000e+00</span></span>
-<span id="cb480-10"><a href="neural-networks.html#cb480-10"></a><span class="co">## [5,] 2.869652e-07 9.999998e-01</span></span>
-<span id="cb480-11"><a href="neural-networks.html#cb480-11"></a><span class="co">## [6,] 1.000000e+00 1.947128e-12</span></span>
-<span id="cb480-12"><a href="neural-networks.html#cb480-12"></a></span>
-<span id="cb480-13"><a href="neural-networks.html#cb480-13"></a><span class="co"># assign the class label according to the one with a larger number</span></span>
-<span id="cb480-14"><a href="neural-networks.html#cb480-14"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result)</span>
-<span id="cb480-15"><a href="neural-networks.html#cb480-15"></a></span>
-<span id="cb480-16"><a href="neural-networks.html#cb480-16"></a><span class="co"># first column is for B, second column is for M</span></span>
-<span id="cb480-17"><a href="neural-networks.html#cb480-17"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
-<span id="cb480-18"><a href="neural-networks.html#cb480-18"></a></span>
-<span id="cb480-19"><a href="neural-networks.html#cb480-19"></a>train_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_train_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
-<span id="cb480-20"><a href="neural-networks.html#cb480-20"></a></span>
-<span id="cb480-21"><a href="neural-networks.html#cb480-21"></a><span class="co"># Confusion Matrix for Training Data</span></span>
-<span id="cb480-22"><a href="neural-networks.html#cb480-22"></a><span class="kw">table</span>(train_diagnosis, predict)</span>
-<span id="cb480-23"><a href="neural-networks.html#cb480-23"></a><span class="co">##                predict</span></span>
-<span id="cb480-24"><a href="neural-networks.html#cb480-24"></a><span class="co">## train_diagnosis   B   M</span></span>
-<span id="cb480-25"><a href="neural-networks.html#cb480-25"></a><span class="co">##               B 298   0</span></span>
-<span id="cb480-26"><a href="neural-networks.html#cb480-26"></a><span class="co">##               M   4 167</span></span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="neural-networks.html#cb481-1"></a><span class="co"># Training Data</span></span>
+<span id="cb481-2"><a href="neural-networks.html#cb481-2"></a></span>
+<span id="cb481-3"><a href="neural-networks.html#cb481-3"></a><span class="co"># result</span></span>
+<span id="cb481-4"><a href="neural-networks.html#cb481-4"></a><span class="kw">head</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result) </span>
+<span id="cb481-5"><a href="neural-networks.html#cb481-5"></a><span class="co">##              [,1]         [,2]</span></span>
+<span id="cb481-6"><a href="neural-networks.html#cb481-6"></a><span class="co">## [1,] 5.310829e-14 1.000000e+00</span></span>
+<span id="cb481-7"><a href="neural-networks.html#cb481-7"></a><span class="co">## [2,] 1.000000e+00 3.221476e-12</span></span>
+<span id="cb481-8"><a href="neural-networks.html#cb481-8"></a><span class="co">## [3,] 1.000000e+00 2.943722e-12</span></span>
+<span id="cb481-9"><a href="neural-networks.html#cb481-9"></a><span class="co">## [4,] 4.879723e-15 1.000000e+00</span></span>
+<span id="cb481-10"><a href="neural-networks.html#cb481-10"></a><span class="co">## [5,] 2.869652e-07 9.999998e-01</span></span>
+<span id="cb481-11"><a href="neural-networks.html#cb481-11"></a><span class="co">## [6,] 1.000000e+00 1.947128e-12</span></span>
+<span id="cb481-12"><a href="neural-networks.html#cb481-12"></a></span>
+<span id="cb481-13"><a href="neural-networks.html#cb481-13"></a><span class="co"># assign the class label according to the one with a larger number</span></span>
+<span id="cb481-14"><a href="neural-networks.html#cb481-14"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_train_n)<span class="op">$</span>net.result)</span>
+<span id="cb481-15"><a href="neural-networks.html#cb481-15"></a></span>
+<span id="cb481-16"><a href="neural-networks.html#cb481-16"></a><span class="co"># first column is for B, second column is for M</span></span>
+<span id="cb481-17"><a href="neural-networks.html#cb481-17"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
+<span id="cb481-18"><a href="neural-networks.html#cb481-18"></a></span>
+<span id="cb481-19"><a href="neural-networks.html#cb481-19"></a>train_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_train_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
+<span id="cb481-20"><a href="neural-networks.html#cb481-20"></a></span>
+<span id="cb481-21"><a href="neural-networks.html#cb481-21"></a><span class="co"># Confusion Matrix for Training Data</span></span>
+<span id="cb481-22"><a href="neural-networks.html#cb481-22"></a><span class="kw">table</span>(train_diagnosis, predict)</span>
+<span id="cb481-23"><a href="neural-networks.html#cb481-23"></a><span class="co">##                predict</span></span>
+<span id="cb481-24"><a href="neural-networks.html#cb481-24"></a><span class="co">## train_diagnosis   B   M</span></span>
+<span id="cb481-25"><a href="neural-networks.html#cb481-25"></a><span class="co">##               B 298   0</span></span>
+<span id="cb481-26"><a href="neural-networks.html#cb481-26"></a><span class="co">##               M   4 167</span></span></code></pre></div>
 <p>Testing Data:</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="neural-networks.html#cb481-1"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_test_n)<span class="op">$</span>net.result)</span>
-<span id="cb481-2"><a href="neural-networks.html#cb481-2"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
-<span id="cb481-3"><a href="neural-networks.html#cb481-3"></a></span>
-<span id="cb481-4"><a href="neural-networks.html#cb481-4"></a>test_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_test_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
-<span id="cb481-5"><a href="neural-networks.html#cb481-5"></a></span>
-<span id="cb481-6"><a href="neural-networks.html#cb481-6"></a><span class="co"># Confusion Matrix for Testing Data</span></span>
-<span id="cb481-7"><a href="neural-networks.html#cb481-7"></a><span class="kw">table</span>(test_diagnosis, predict)</span>
-<span id="cb481-8"><a href="neural-networks.html#cb481-8"></a><span class="co">##               predict</span></span>
-<span id="cb481-9"><a href="neural-networks.html#cb481-9"></a><span class="co">## test_diagnosis  B  M</span></span>
-<span id="cb481-10"><a href="neural-networks.html#cb481-10"></a><span class="co">##              B 57  2</span></span>
-<span id="cb481-11"><a href="neural-networks.html#cb481-11"></a><span class="co">##              M  1 40</span></span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="neural-networks.html#cb482-1"></a>predict &lt;-<span class="st"> </span><span class="kw">max.col</span>(neuralnet<span class="op">::</span><span class="kw">compute</span>(fit, wbcd_test_n)<span class="op">$</span>net.result)</span>
+<span id="cb482-2"><a href="neural-networks.html#cb482-2"></a>predict &lt;-<span class="st"> </span><span class="kw">recode</span>(predict, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;M&quot;</span>)</span>
+<span id="cb482-3"><a href="neural-networks.html#cb482-3"></a></span>
+<span id="cb482-4"><a href="neural-networks.html#cb482-4"></a>test_diagnosis &lt;-<span class="st"> </span><span class="kw">recode</span>(wbcd_test_n<span class="op">$</span>B, <span class="st">&quot;0&quot;</span> =<span class="st"> &quot;M&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;B&quot;</span>) </span>
+<span id="cb482-5"><a href="neural-networks.html#cb482-5"></a></span>
+<span id="cb482-6"><a href="neural-networks.html#cb482-6"></a><span class="co"># Confusion Matrix for Testing Data</span></span>
+<span id="cb482-7"><a href="neural-networks.html#cb482-7"></a><span class="kw">table</span>(test_diagnosis, predict)</span>
+<span id="cb482-8"><a href="neural-networks.html#cb482-8"></a><span class="co">##               predict</span></span>
+<span id="cb482-9"><a href="neural-networks.html#cb482-9"></a><span class="co">## test_diagnosis  B  M</span></span>
+<span id="cb482-10"><a href="neural-networks.html#cb482-10"></a><span class="co">##              B 57  2</span></span>
+<span id="cb482-11"><a href="neural-networks.html#cb482-11"></a><span class="co">##              M  1 40</span></span></code></pre></div>
 
 </div>
 </div>

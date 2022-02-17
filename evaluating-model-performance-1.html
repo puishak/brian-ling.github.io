@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-14" />
+<meta name="date" content="2022-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,10 +372,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 17</span> Evaluating Model Performance</h1>
 <p>Reference: Chapter 10 in Machine Learning with R by Brett Lantz</p>
 <p>Packages used in this chapter:</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="evaluating-model-performance-1.html#cb482-1"></a><span class="kw">library</span>(caret)</span>
-<span id="cb482-2"><a href="evaluating-model-performance-1.html#cb482-2"></a><span class="kw">library</span>(gmodels)</span>
-<span id="cb482-3"><a href="evaluating-model-performance-1.html#cb482-3"></a><span class="kw">library</span>(pROC)</span>
-<span id="cb482-4"><a href="evaluating-model-performance-1.html#cb482-4"></a><span class="kw">library</span>(mlbench)</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="evaluating-model-performance-1.html#cb483-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb483-2"><a href="evaluating-model-performance-1.html#cb483-2"></a><span class="kw">library</span>(gmodels)</span>
+<span id="cb483-3"><a href="evaluating-model-performance-1.html#cb483-3"></a><span class="kw">library</span>(pROC)</span>
+<span id="cb483-4"><a href="evaluating-model-performance-1.html#cb483-4"></a><span class="kw">library</span>(mlbench)</span></code></pre></div>
 <div id="accuracy-and-confusion-matrix" class="section level2">
 <h2><span class="header-section-number">17.1</span> Accuracy and Confusion Matrix</h2>
 <p>We have defined Accuracy as</p>
@@ -402,57 +402,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Correct predictions fall on the diagonal in the confusion matrix</p></li>
 </ul>
 <p>Recall the logistic regression example:</p>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="evaluating-model-performance-1.html#cb483-1"></a><span class="kw">library</span>(mlbench)</span>
-<span id="cb483-2"><a href="evaluating-model-performance-1.html#cb483-2"></a></span>
-<span id="cb483-3"><a href="evaluating-model-performance-1.html#cb483-3"></a><span class="kw">data</span>(PimaIndiansDiabetes2)</span>
-<span id="cb483-4"><a href="evaluating-model-performance-1.html#cb483-4"></a>PimaIndiansDiabetes2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(PimaIndiansDiabetes2)</span>
-<span id="cb483-5"><a href="evaluating-model-performance-1.html#cb483-5"></a></span>
-<span id="cb483-6"><a href="evaluating-model-performance-1.html#cb483-6"></a><span class="co"># Split the data into training and test set</span></span>
-<span id="cb483-7"><a href="evaluating-model-performance-1.html#cb483-7"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb483-8"><a href="evaluating-model-performance-1.html#cb483-8"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
-<span id="cb483-9"><a href="evaluating-model-performance-1.html#cb483-9"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
-<span id="cb483-10"><a href="evaluating-model-performance-1.html#cb483-10"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
-<span id="cb483-11"><a href="evaluating-model-performance-1.html#cb483-11"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
-<span id="cb483-12"><a href="evaluating-model-performance-1.html#cb483-12"></a>fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
-<span id="cb483-13"><a href="evaluating-model-performance-1.html#cb483-13"></a></span>
-<span id="cb483-14"><a href="evaluating-model-performance-1.html#cb483-14"></a><span class="co"># Prediction</span></span>
-<span id="cb483-15"><a href="evaluating-model-performance-1.html#cb483-15"></a>prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb483-16"><a href="evaluating-model-performance-1.html#cb483-16"></a>predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="evaluating-model-performance-1.html#cb484-1"></a><span class="kw">library</span>(mlbench)</span>
+<span id="cb484-2"><a href="evaluating-model-performance-1.html#cb484-2"></a></span>
+<span id="cb484-3"><a href="evaluating-model-performance-1.html#cb484-3"></a><span class="kw">data</span>(PimaIndiansDiabetes2)</span>
+<span id="cb484-4"><a href="evaluating-model-performance-1.html#cb484-4"></a>PimaIndiansDiabetes2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(PimaIndiansDiabetes2)</span>
+<span id="cb484-5"><a href="evaluating-model-performance-1.html#cb484-5"></a></span>
+<span id="cb484-6"><a href="evaluating-model-performance-1.html#cb484-6"></a><span class="co"># Split the data into training and test set</span></span>
+<span id="cb484-7"><a href="evaluating-model-performance-1.html#cb484-7"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb484-8"><a href="evaluating-model-performance-1.html#cb484-8"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb484-9"><a href="evaluating-model-performance-1.html#cb484-9"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
+<span id="cb484-10"><a href="evaluating-model-performance-1.html#cb484-10"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb484-11"><a href="evaluating-model-performance-1.html#cb484-11"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
+<span id="cb484-12"><a href="evaluating-model-performance-1.html#cb484-12"></a>fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb484-13"><a href="evaluating-model-performance-1.html#cb484-13"></a></span>
+<span id="cb484-14"><a href="evaluating-model-performance-1.html#cb484-14"></a><span class="co"># Prediction</span></span>
+<span id="cb484-15"><a href="evaluating-model-performance-1.html#cb484-15"></a>prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb484-16"><a href="evaluating-model-performance-1.html#cb484-16"></a>predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span></code></pre></div>
 <p>We can use the function <code>CrossTable()</code> from the package <code>gmodels</code> to create a confusion matrix with some additional information.</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="evaluating-model-performance-1.html#cb484-1"></a><span class="kw">library</span>(gmodels)</span>
-<span id="cb484-2"><a href="evaluating-model-performance-1.html#cb484-2"></a><span class="kw">CrossTable</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">prop.chisq =</span> <span class="ot">FALSE</span>) </span>
-<span id="cb484-3"><a href="evaluating-model-performance-1.html#cb484-3"></a><span class="co">## </span></span>
-<span id="cb484-4"><a href="evaluating-model-performance-1.html#cb484-4"></a><span class="co">##  </span></span>
-<span id="cb484-5"><a href="evaluating-model-performance-1.html#cb484-5"></a><span class="co">##    Cell Contents</span></span>
-<span id="cb484-6"><a href="evaluating-model-performance-1.html#cb484-6"></a><span class="co">## |-------------------------|</span></span>
-<span id="cb484-7"><a href="evaluating-model-performance-1.html#cb484-7"></a><span class="co">## |                       N |</span></span>
-<span id="cb484-8"><a href="evaluating-model-performance-1.html#cb484-8"></a><span class="co">## |           N / Row Total |</span></span>
-<span id="cb484-9"><a href="evaluating-model-performance-1.html#cb484-9"></a><span class="co">## |           N / Col Total |</span></span>
-<span id="cb484-10"><a href="evaluating-model-performance-1.html#cb484-10"></a><span class="co">## |         N / Table Total |</span></span>
-<span id="cb484-11"><a href="evaluating-model-performance-1.html#cb484-11"></a><span class="co">## |-------------------------|</span></span>
-<span id="cb484-12"><a href="evaluating-model-performance-1.html#cb484-12"></a><span class="co">## </span></span>
-<span id="cb484-13"><a href="evaluating-model-performance-1.html#cb484-13"></a><span class="co">##  </span></span>
-<span id="cb484-14"><a href="evaluating-model-performance-1.html#cb484-14"></a><span class="co">## Total Observations in Table:  118 </span></span>
-<span id="cb484-15"><a href="evaluating-model-performance-1.html#cb484-15"></a><span class="co">## </span></span>
-<span id="cb484-16"><a href="evaluating-model-performance-1.html#cb484-16"></a><span class="co">##  </span></span>
-<span id="cb484-17"><a href="evaluating-model-performance-1.html#cb484-17"></a><span class="co">##                 | test_data$diabetes </span></span>
-<span id="cb484-18"><a href="evaluating-model-performance-1.html#cb484-18"></a><span class="co">## predicted_class |       neg |       pos | Row Total | </span></span>
-<span id="cb484-19"><a href="evaluating-model-performance-1.html#cb484-19"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb484-20"><a href="evaluating-model-performance-1.html#cb484-20"></a><span class="co">##             neg |        71 |        23 |        94 | </span></span>
-<span id="cb484-21"><a href="evaluating-model-performance-1.html#cb484-21"></a><span class="co">##                 |     0.755 |     0.245 |     0.797 | </span></span>
-<span id="cb484-22"><a href="evaluating-model-performance-1.html#cb484-22"></a><span class="co">##                 |     0.899 |     0.590 |           | </span></span>
-<span id="cb484-23"><a href="evaluating-model-performance-1.html#cb484-23"></a><span class="co">##                 |     0.602 |     0.195 |           | </span></span>
-<span id="cb484-24"><a href="evaluating-model-performance-1.html#cb484-24"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb484-25"><a href="evaluating-model-performance-1.html#cb484-25"></a><span class="co">##             pos |         8 |        16 |        24 | </span></span>
-<span id="cb484-26"><a href="evaluating-model-performance-1.html#cb484-26"></a><span class="co">##                 |     0.333 |     0.667 |     0.203 | </span></span>
-<span id="cb484-27"><a href="evaluating-model-performance-1.html#cb484-27"></a><span class="co">##                 |     0.101 |     0.410 |           | </span></span>
-<span id="cb484-28"><a href="evaluating-model-performance-1.html#cb484-28"></a><span class="co">##                 |     0.068 |     0.136 |           | </span></span>
-<span id="cb484-29"><a href="evaluating-model-performance-1.html#cb484-29"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb484-30"><a href="evaluating-model-performance-1.html#cb484-30"></a><span class="co">##    Column Total |        79 |        39 |       118 | </span></span>
-<span id="cb484-31"><a href="evaluating-model-performance-1.html#cb484-31"></a><span class="co">##                 |     0.669 |     0.331 |           | </span></span>
-<span id="cb484-32"><a href="evaluating-model-performance-1.html#cb484-32"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb484-33"><a href="evaluating-model-performance-1.html#cb484-33"></a><span class="co">## </span></span>
-<span id="cb484-34"><a href="evaluating-model-performance-1.html#cb484-34"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="evaluating-model-performance-1.html#cb485-1"></a><span class="kw">library</span>(gmodels)</span>
+<span id="cb485-2"><a href="evaluating-model-performance-1.html#cb485-2"></a><span class="kw">CrossTable</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">prop.chisq =</span> <span class="ot">FALSE</span>) </span>
+<span id="cb485-3"><a href="evaluating-model-performance-1.html#cb485-3"></a><span class="co">## </span></span>
+<span id="cb485-4"><a href="evaluating-model-performance-1.html#cb485-4"></a><span class="co">##  </span></span>
+<span id="cb485-5"><a href="evaluating-model-performance-1.html#cb485-5"></a><span class="co">##    Cell Contents</span></span>
+<span id="cb485-6"><a href="evaluating-model-performance-1.html#cb485-6"></a><span class="co">## |-------------------------|</span></span>
+<span id="cb485-7"><a href="evaluating-model-performance-1.html#cb485-7"></a><span class="co">## |                       N |</span></span>
+<span id="cb485-8"><a href="evaluating-model-performance-1.html#cb485-8"></a><span class="co">## |           N / Row Total |</span></span>
+<span id="cb485-9"><a href="evaluating-model-performance-1.html#cb485-9"></a><span class="co">## |           N / Col Total |</span></span>
+<span id="cb485-10"><a href="evaluating-model-performance-1.html#cb485-10"></a><span class="co">## |         N / Table Total |</span></span>
+<span id="cb485-11"><a href="evaluating-model-performance-1.html#cb485-11"></a><span class="co">## |-------------------------|</span></span>
+<span id="cb485-12"><a href="evaluating-model-performance-1.html#cb485-12"></a><span class="co">## </span></span>
+<span id="cb485-13"><a href="evaluating-model-performance-1.html#cb485-13"></a><span class="co">##  </span></span>
+<span id="cb485-14"><a href="evaluating-model-performance-1.html#cb485-14"></a><span class="co">## Total Observations in Table:  118 </span></span>
+<span id="cb485-15"><a href="evaluating-model-performance-1.html#cb485-15"></a><span class="co">## </span></span>
+<span id="cb485-16"><a href="evaluating-model-performance-1.html#cb485-16"></a><span class="co">##  </span></span>
+<span id="cb485-17"><a href="evaluating-model-performance-1.html#cb485-17"></a><span class="co">##                 | test_data$diabetes </span></span>
+<span id="cb485-18"><a href="evaluating-model-performance-1.html#cb485-18"></a><span class="co">## predicted_class |       neg |       pos | Row Total | </span></span>
+<span id="cb485-19"><a href="evaluating-model-performance-1.html#cb485-19"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb485-20"><a href="evaluating-model-performance-1.html#cb485-20"></a><span class="co">##             neg |        71 |        23 |        94 | </span></span>
+<span id="cb485-21"><a href="evaluating-model-performance-1.html#cb485-21"></a><span class="co">##                 |     0.755 |     0.245 |     0.797 | </span></span>
+<span id="cb485-22"><a href="evaluating-model-performance-1.html#cb485-22"></a><span class="co">##                 |     0.899 |     0.590 |           | </span></span>
+<span id="cb485-23"><a href="evaluating-model-performance-1.html#cb485-23"></a><span class="co">##                 |     0.602 |     0.195 |           | </span></span>
+<span id="cb485-24"><a href="evaluating-model-performance-1.html#cb485-24"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb485-25"><a href="evaluating-model-performance-1.html#cb485-25"></a><span class="co">##             pos |         8 |        16 |        24 | </span></span>
+<span id="cb485-26"><a href="evaluating-model-performance-1.html#cb485-26"></a><span class="co">##                 |     0.333 |     0.667 |     0.203 | </span></span>
+<span id="cb485-27"><a href="evaluating-model-performance-1.html#cb485-27"></a><span class="co">##                 |     0.101 |     0.410 |           | </span></span>
+<span id="cb485-28"><a href="evaluating-model-performance-1.html#cb485-28"></a><span class="co">##                 |     0.068 |     0.136 |           | </span></span>
+<span id="cb485-29"><a href="evaluating-model-performance-1.html#cb485-29"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb485-30"><a href="evaluating-model-performance-1.html#cb485-30"></a><span class="co">##    Column Total |        79 |        39 |       118 | </span></span>
+<span id="cb485-31"><a href="evaluating-model-performance-1.html#cb485-31"></a><span class="co">##                 |     0.669 |     0.331 |           | </span></span>
+<span id="cb485-32"><a href="evaluating-model-performance-1.html#cb485-32"></a><span class="co">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb485-33"><a href="evaluating-model-performance-1.html#cb485-33"></a><span class="co">## </span></span>
+<span id="cb485-34"><a href="evaluating-model-performance-1.html#cb485-34"></a><span class="co">## </span></span></code></pre></div>
 <p>The <span class="math inline">\(3\)</span> proportions are</p>
 <ul>
 <li>N / Row Total (e.g. <span class="math inline">\(71/94 = 0.755\)</span>)</li>
@@ -479,37 +479,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="other-measures-of-performance" class="section level2">
 <h2><span class="header-section-number">17.2</span> Other Measures of Performance</h2>
 <p>The package <code>caret</code> contains a function <code>confusionMatrix()</code> to output several useful measures of classification performance. We will talk about some of them in the next section.</p>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="evaluating-model-performance-1.html#cb485-1"></a><span class="kw">library</span>(caret)</span>
-<span id="cb485-2"><a href="evaluating-model-performance-1.html#cb485-2"></a><span class="co"># requires factor inputs</span></span>
-<span id="cb485-3"><a href="evaluating-model-performance-1.html#cb485-3"></a><span class="kw">confusionMatrix</span>(<span class="dt">data =</span> <span class="kw">factor</span>(predicted_class), <span class="dt">reference =</span>  <span class="kw">factor</span>(test_data<span class="op">$</span>diabetes),</span>
-<span id="cb485-4"><a href="evaluating-model-performance-1.html#cb485-4"></a>                <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
-<span id="cb485-5"><a href="evaluating-model-performance-1.html#cb485-5"></a><span class="co">## Confusion Matrix and Statistics</span></span>
-<span id="cb485-6"><a href="evaluating-model-performance-1.html#cb485-6"></a><span class="co">## </span></span>
-<span id="cb485-7"><a href="evaluating-model-performance-1.html#cb485-7"></a><span class="co">##           Reference</span></span>
-<span id="cb485-8"><a href="evaluating-model-performance-1.html#cb485-8"></a><span class="co">## Prediction neg pos</span></span>
-<span id="cb485-9"><a href="evaluating-model-performance-1.html#cb485-9"></a><span class="co">##        neg  71  23</span></span>
-<span id="cb485-10"><a href="evaluating-model-performance-1.html#cb485-10"></a><span class="co">##        pos   8  16</span></span>
-<span id="cb485-11"><a href="evaluating-model-performance-1.html#cb485-11"></a><span class="co">##                                          </span></span>
-<span id="cb485-12"><a href="evaluating-model-performance-1.html#cb485-12"></a><span class="co">##                Accuracy : 0.7373         </span></span>
-<span id="cb485-13"><a href="evaluating-model-performance-1.html#cb485-13"></a><span class="co">##                  95% CI : (0.6483, 0.814)</span></span>
-<span id="cb485-14"><a href="evaluating-model-performance-1.html#cb485-14"></a><span class="co">##     No Information Rate : 0.6695         </span></span>
-<span id="cb485-15"><a href="evaluating-model-performance-1.html#cb485-15"></a><span class="co">##     P-Value [Acc &gt; NIR] : 0.06908        </span></span>
-<span id="cb485-16"><a href="evaluating-model-performance-1.html#cb485-16"></a><span class="co">##                                          </span></span>
-<span id="cb485-17"><a href="evaluating-model-performance-1.html#cb485-17"></a><span class="co">##                   Kappa : 0.3423         </span></span>
-<span id="cb485-18"><a href="evaluating-model-performance-1.html#cb485-18"></a><span class="co">##                                          </span></span>
-<span id="cb485-19"><a href="evaluating-model-performance-1.html#cb485-19"></a><span class="co">##  Mcnemar&#39;s Test P-Value : 0.01192        </span></span>
-<span id="cb485-20"><a href="evaluating-model-performance-1.html#cb485-20"></a><span class="co">##                                          </span></span>
-<span id="cb485-21"><a href="evaluating-model-performance-1.html#cb485-21"></a><span class="co">##             Sensitivity : 0.4103         </span></span>
-<span id="cb485-22"><a href="evaluating-model-performance-1.html#cb485-22"></a><span class="co">##             Specificity : 0.8987         </span></span>
-<span id="cb485-23"><a href="evaluating-model-performance-1.html#cb485-23"></a><span class="co">##          Pos Pred Value : 0.6667         </span></span>
-<span id="cb485-24"><a href="evaluating-model-performance-1.html#cb485-24"></a><span class="co">##          Neg Pred Value : 0.7553         </span></span>
-<span id="cb485-25"><a href="evaluating-model-performance-1.html#cb485-25"></a><span class="co">##              Prevalence : 0.3305         </span></span>
-<span id="cb485-26"><a href="evaluating-model-performance-1.html#cb485-26"></a><span class="co">##          Detection Rate : 0.1356         </span></span>
-<span id="cb485-27"><a href="evaluating-model-performance-1.html#cb485-27"></a><span class="co">##    Detection Prevalence : 0.2034         </span></span>
-<span id="cb485-28"><a href="evaluating-model-performance-1.html#cb485-28"></a><span class="co">##       Balanced Accuracy : 0.6545         </span></span>
-<span id="cb485-29"><a href="evaluating-model-performance-1.html#cb485-29"></a><span class="co">##                                          </span></span>
-<span id="cb485-30"><a href="evaluating-model-performance-1.html#cb485-30"></a><span class="co">##        &#39;Positive&#39; Class : pos            </span></span>
-<span id="cb485-31"><a href="evaluating-model-performance-1.html#cb485-31"></a><span class="co">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="evaluating-model-performance-1.html#cb486-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb486-2"><a href="evaluating-model-performance-1.html#cb486-2"></a><span class="co"># requires factor inputs</span></span>
+<span id="cb486-3"><a href="evaluating-model-performance-1.html#cb486-3"></a><span class="kw">confusionMatrix</span>(<span class="dt">data =</span> <span class="kw">factor</span>(predicted_class), <span class="dt">reference =</span>  <span class="kw">factor</span>(test_data<span class="op">$</span>diabetes),</span>
+<span id="cb486-4"><a href="evaluating-model-performance-1.html#cb486-4"></a>                <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb486-5"><a href="evaluating-model-performance-1.html#cb486-5"></a><span class="co">## Confusion Matrix and Statistics</span></span>
+<span id="cb486-6"><a href="evaluating-model-performance-1.html#cb486-6"></a><span class="co">## </span></span>
+<span id="cb486-7"><a href="evaluating-model-performance-1.html#cb486-7"></a><span class="co">##           Reference</span></span>
+<span id="cb486-8"><a href="evaluating-model-performance-1.html#cb486-8"></a><span class="co">## Prediction neg pos</span></span>
+<span id="cb486-9"><a href="evaluating-model-performance-1.html#cb486-9"></a><span class="co">##        neg  71  23</span></span>
+<span id="cb486-10"><a href="evaluating-model-performance-1.html#cb486-10"></a><span class="co">##        pos   8  16</span></span>
+<span id="cb486-11"><a href="evaluating-model-performance-1.html#cb486-11"></a><span class="co">##                                          </span></span>
+<span id="cb486-12"><a href="evaluating-model-performance-1.html#cb486-12"></a><span class="co">##                Accuracy : 0.7373         </span></span>
+<span id="cb486-13"><a href="evaluating-model-performance-1.html#cb486-13"></a><span class="co">##                  95% CI : (0.6483, 0.814)</span></span>
+<span id="cb486-14"><a href="evaluating-model-performance-1.html#cb486-14"></a><span class="co">##     No Information Rate : 0.6695         </span></span>
+<span id="cb486-15"><a href="evaluating-model-performance-1.html#cb486-15"></a><span class="co">##     P-Value [Acc &gt; NIR] : 0.06908        </span></span>
+<span id="cb486-16"><a href="evaluating-model-performance-1.html#cb486-16"></a><span class="co">##                                          </span></span>
+<span id="cb486-17"><a href="evaluating-model-performance-1.html#cb486-17"></a><span class="co">##                   Kappa : 0.3423         </span></span>
+<span id="cb486-18"><a href="evaluating-model-performance-1.html#cb486-18"></a><span class="co">##                                          </span></span>
+<span id="cb486-19"><a href="evaluating-model-performance-1.html#cb486-19"></a><span class="co">##  Mcnemar&#39;s Test P-Value : 0.01192        </span></span>
+<span id="cb486-20"><a href="evaluating-model-performance-1.html#cb486-20"></a><span class="co">##                                          </span></span>
+<span id="cb486-21"><a href="evaluating-model-performance-1.html#cb486-21"></a><span class="co">##             Sensitivity : 0.4103         </span></span>
+<span id="cb486-22"><a href="evaluating-model-performance-1.html#cb486-22"></a><span class="co">##             Specificity : 0.8987         </span></span>
+<span id="cb486-23"><a href="evaluating-model-performance-1.html#cb486-23"></a><span class="co">##          Pos Pred Value : 0.6667         </span></span>
+<span id="cb486-24"><a href="evaluating-model-performance-1.html#cb486-24"></a><span class="co">##          Neg Pred Value : 0.7553         </span></span>
+<span id="cb486-25"><a href="evaluating-model-performance-1.html#cb486-25"></a><span class="co">##              Prevalence : 0.3305         </span></span>
+<span id="cb486-26"><a href="evaluating-model-performance-1.html#cb486-26"></a><span class="co">##          Detection Rate : 0.1356         </span></span>
+<span id="cb486-27"><a href="evaluating-model-performance-1.html#cb486-27"></a><span class="co">##    Detection Prevalence : 0.2034         </span></span>
+<span id="cb486-28"><a href="evaluating-model-performance-1.html#cb486-28"></a><span class="co">##       Balanced Accuracy : 0.6545         </span></span>
+<span id="cb486-29"><a href="evaluating-model-performance-1.html#cb486-29"></a><span class="co">##                                          </span></span>
+<span id="cb486-30"><a href="evaluating-model-performance-1.html#cb486-30"></a><span class="co">##        &#39;Positive&#39; Class : pos            </span></span>
+<span id="cb486-31"><a href="evaluating-model-performance-1.html#cb486-31"></a><span class="co">## </span></span></code></pre></div>
 <div id="the-kappa-statistic" class="section level3">
 <h3><span class="header-section-number">17.2.1</span> The kappa statistic</h3>
 <p>Idea: we want to adjust accuracy by accounting for the possibility of a correct prediction by chance alone. For example, if the disease is found <span class="math inline">\(11\)</span> out of every <span class="math inline">\(1000\)</span> people, we can predict each case randomly by assigning the positive case with probability <span class="math inline">\(0.989\)</span>. In this way, our accuracy will be <span class="math inline">\(98.9\%\)</span> on average.</p>
@@ -589,36 +589,36 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 <li>A classifier that results in a higher AUC is considered to be better</li>
 <li>The diagonal line from the bottom-left to the top-right corner of the diagram represents a classifier with no predictive value.</li>
 </ul>
-<p><img src="Book_files/figure-html/unnamed-chunk-552-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-553-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>To understand how ROC is constructed, we use our logistic regression example. The package <code>caret</code> contains the two functions <code>sensitivity</code> and <code>specificity</code> to compute the sensitivity and specificity, respectively.</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="evaluating-model-performance-1.html#cb486-1"></a><span class="kw">library</span>(caret)</span>
-<span id="cb486-2"><a href="evaluating-model-performance-1.html#cb486-2"></a>threshold &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
-<span id="cb486-3"><a href="evaluating-model-performance-1.html#cb486-3"></a>roc_sensitivity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
-<span id="cb486-4"><a href="evaluating-model-performance-1.html#cb486-4"></a>roc_specificity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
-<span id="cb486-5"><a href="evaluating-model-performance-1.html#cb486-5"></a></span>
-<span id="cb486-6"><a href="evaluating-model-performance-1.html#cb486-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(threshold)) {</span>
-<span id="cb486-7"><a href="evaluating-model-performance-1.html#cb486-7"></a>  <span class="co"># for each value of threshold, find our predictions</span></span>
-<span id="cb486-8"><a href="evaluating-model-performance-1.html#cb486-8"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span>threshold[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>))</span>
-<span id="cb486-9"><a href="evaluating-model-performance-1.html#cb486-9"></a>  <span class="co"># compute the corresponding sensitivity and specificity</span></span>
-<span id="cb486-10"><a href="evaluating-model-performance-1.html#cb486-10"></a>  roc_sensitivity[i] &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
-<span id="cb486-11"><a href="evaluating-model-performance-1.html#cb486-11"></a>  roc_specificity[i]  &lt;-<span class="st"> </span><span class="kw">specificity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">negative =</span> <span class="st">&quot;neg&quot;</span>)</span>
-<span id="cb486-12"><a href="evaluating-model-performance-1.html#cb486-12"></a>}</span>
-<span id="cb486-13"><a href="evaluating-model-performance-1.html#cb486-13"></a></span>
-<span id="cb486-14"><a href="evaluating-model-performance-1.html#cb486-14"></a><span class="co"># ROC, use geom_path instead of geom_line to retain the order when joining the points</span></span>
-<span id="cb486-15"><a href="evaluating-model-performance-1.html#cb486-15"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>roc_specificity, <span class="dt">y =</span> roc_sensitivity)) <span class="op">+</span></span>
-<span id="cb486-16"><a href="evaluating-model-performance-1.html#cb486-16"></a><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></span>
-<span id="cb486-17"><a href="evaluating-model-performance-1.html#cb486-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="evaluating-model-performance-1.html#cb487-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb487-2"><a href="evaluating-model-performance-1.html#cb487-2"></a>threshold &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb487-3"><a href="evaluating-model-performance-1.html#cb487-3"></a>roc_sensitivity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
+<span id="cb487-4"><a href="evaluating-model-performance-1.html#cb487-4"></a>roc_specificity &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(threshold))</span>
+<span id="cb487-5"><a href="evaluating-model-performance-1.html#cb487-5"></a></span>
+<span id="cb487-6"><a href="evaluating-model-performance-1.html#cb487-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(threshold)) {</span>
+<span id="cb487-7"><a href="evaluating-model-performance-1.html#cb487-7"></a>  <span class="co"># for each value of threshold, find our predictions</span></span>
+<span id="cb487-8"><a href="evaluating-model-performance-1.html#cb487-8"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span>threshold[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>))</span>
+<span id="cb487-9"><a href="evaluating-model-performance-1.html#cb487-9"></a>  <span class="co"># compute the corresponding sensitivity and specificity</span></span>
+<span id="cb487-10"><a href="evaluating-model-performance-1.html#cb487-10"></a>  roc_sensitivity[i] &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb487-11"><a href="evaluating-model-performance-1.html#cb487-11"></a>  roc_specificity[i]  &lt;-<span class="st"> </span><span class="kw">specificity</span>(predicted_class, test_data<span class="op">$</span>diabetes, <span class="dt">negative =</span> <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb487-12"><a href="evaluating-model-performance-1.html#cb487-12"></a>}</span>
+<span id="cb487-13"><a href="evaluating-model-performance-1.html#cb487-13"></a></span>
+<span id="cb487-14"><a href="evaluating-model-performance-1.html#cb487-14"></a><span class="co"># ROC, use geom_path instead of geom_line to retain the order when joining the points</span></span>
+<span id="cb487-15"><a href="evaluating-model-performance-1.html#cb487-15"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>roc_specificity, <span class="dt">y =</span> roc_sensitivity)) <span class="op">+</span></span>
+<span id="cb487-16"><a href="evaluating-model-performance-1.html#cb487-16"></a><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></span>
+<span id="cb487-17"><a href="evaluating-model-performance-1.html#cb487-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
 <p>There is a function called <code>roc()</code> in the package <code>pROC</code> to construct the ROC.</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="evaluating-model-performance-1.html#cb487-1"></a><span class="kw">library</span>(pROC)</span>
-<span id="cb487-2"><a href="evaluating-model-performance-1.html#cb487-2"></a></span>
-<span id="cb487-3"><a href="evaluating-model-performance-1.html#cb487-3"></a>roc_logistic &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes)</span>
-<span id="cb487-4"><a href="evaluating-model-performance-1.html#cb487-4"></a></span>
-<span id="cb487-5"><a href="evaluating-model-performance-1.html#cb487-5"></a><span class="kw">plot</span>(roc_logistic)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-554-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="evaluating-model-performance-1.html#cb488-1"></a></span>
-<span id="cb488-2"><a href="evaluating-model-performance-1.html#cb488-2"></a><span class="co"># find the AUC</span></span>
-<span id="cb488-3"><a href="evaluating-model-performance-1.html#cb488-3"></a><span class="kw">auc</span>(roc_logistic)</span>
-<span id="cb488-4"><a href="evaluating-model-performance-1.html#cb488-4"></a><span class="co">## Area under the curve: 0.7592</span></span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="evaluating-model-performance-1.html#cb488-1"></a><span class="kw">library</span>(pROC)</span>
+<span id="cb488-2"><a href="evaluating-model-performance-1.html#cb488-2"></a></span>
+<span id="cb488-3"><a href="evaluating-model-performance-1.html#cb488-3"></a>roc_logistic &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes)</span>
+<span id="cb488-4"><a href="evaluating-model-performance-1.html#cb488-4"></a></span>
+<span id="cb488-5"><a href="evaluating-model-performance-1.html#cb488-5"></a><span class="kw">plot</span>(roc_logistic)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-555-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="evaluating-model-performance-1.html#cb489-1"></a></span>
+<span id="cb489-2"><a href="evaluating-model-performance-1.html#cb489-2"></a><span class="co"># find the AUC</span></span>
+<span id="cb489-3"><a href="evaluating-model-performance-1.html#cb489-3"></a><span class="kw">auc</span>(roc_logistic)</span>
+<span id="cb489-4"><a href="evaluating-model-performance-1.html#cb489-4"></a><span class="co">## Area under the curve: 0.7592</span></span></code></pre></div>
 <p>Note that the x-axis label from this function is Specificity starting from 1.</p>
 </div>
 </div>
@@ -630,44 +630,44 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 </ul>
 <p>One problem with the above random partition is that the proportions of the class of interest are very different in the training dataset and testing datase even if we have randomly selected our observations.</p>
 <p><strong>Example</strong></p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="evaluating-model-performance-1.html#cb489-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb489-2"><a href="evaluating-model-performance-1.html#cb489-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
-<span id="cb489-3"><a href="evaluating-model-performance-1.html#cb489-3"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
-<span id="cb489-4"><a href="evaluating-model-performance-1.html#cb489-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
-<span id="cb489-5"><a href="evaluating-model-performance-1.html#cb489-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
-<span id="cb489-6"><a href="evaluating-model-performance-1.html#cb489-6"></a></span>
-<span id="cb489-7"><a href="evaluating-model-performance-1.html#cb489-7"></a><span class="kw">table</span>(train_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_data)</span>
-<span id="cb489-8"><a href="evaluating-model-performance-1.html#cb489-8"></a><span class="co">## </span></span>
-<span id="cb489-9"><a href="evaluating-model-performance-1.html#cb489-9"></a><span class="co">##      neg      pos </span></span>
-<span id="cb489-10"><a href="evaluating-model-performance-1.html#cb489-10"></a><span class="co">## 0.649635 0.350365</span></span>
-<span id="cb489-11"><a href="evaluating-model-performance-1.html#cb489-11"></a></span>
-<span id="cb489-12"><a href="evaluating-model-performance-1.html#cb489-12"></a><span class="kw">table</span>(test_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(test_data)</span>
-<span id="cb489-13"><a href="evaluating-model-performance-1.html#cb489-13"></a><span class="co">## </span></span>
-<span id="cb489-14"><a href="evaluating-model-performance-1.html#cb489-14"></a><span class="co">##       neg       pos </span></span>
-<span id="cb489-15"><a href="evaluating-model-performance-1.html#cb489-15"></a><span class="co">## 0.7118644 0.2881356</span></span></code></pre></div>
-<p>You can see that the proportion of <code>pos</code> in the training dataset is <span class="math inline">\(0.350\)</span> while that in the testing dataset is <span class="math inline">\(0.288\)</span>. This may affect the estimation of the model performance.</p>
-<p>To avoid this issue, we can use <strong>stratified random sampling</strong> to ensure the training dataset and testing dataset have nearly the same proportion in the class of interest.</p>
-<p>To do that in R, we can use the function <code>createDataPartition</code> from the package <code>caret</code>.</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="evaluating-model-performance-1.html#cb490-1"></a>stratified_random_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes,</span>
-<span id="cb490-2"><a href="evaluating-model-performance-1.html#cb490-2"></a>                                               <span class="dt">p =</span> <span class="fl">0.7</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb490-3"><a href="evaluating-model-performance-1.html#cb490-3"></a></span>
-<span id="cb490-4"><a href="evaluating-model-performance-1.html#cb490-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[stratified_random_index, ]</span>
-<span id="cb490-5"><a href="evaluating-model-performance-1.html#cb490-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>stratified_random_index, ]</span>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="evaluating-model-performance-1.html#cb490-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb490-2"><a href="evaluating-model-performance-1.html#cb490-2"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb490-3"><a href="evaluating-model-performance-1.html#cb490-3"></a>                       <span class="dt">size =</span> <span class="kw">nrow</span>(PimaIndiansDiabetes2) <span class="op">*</span><span class="st"> </span><span class="fl">0.7</span>)</span>
+<span id="cb490-4"><a href="evaluating-model-performance-1.html#cb490-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb490-5"><a href="evaluating-model-performance-1.html#cb490-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>random_index, ]</span>
 <span id="cb490-6"><a href="evaluating-model-performance-1.html#cb490-6"></a></span>
 <span id="cb490-7"><a href="evaluating-model-performance-1.html#cb490-7"></a><span class="kw">table</span>(train_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_data)</span>
 <span id="cb490-8"><a href="evaluating-model-performance-1.html#cb490-8"></a><span class="co">## </span></span>
-<span id="cb490-9"><a href="evaluating-model-performance-1.html#cb490-9"></a><span class="co">##       neg       pos </span></span>
-<span id="cb490-10"><a href="evaluating-model-performance-1.html#cb490-10"></a><span class="co">## 0.6690909 0.3309091</span></span>
+<span id="cb490-9"><a href="evaluating-model-performance-1.html#cb490-9"></a><span class="co">##      neg      pos </span></span>
+<span id="cb490-10"><a href="evaluating-model-performance-1.html#cb490-10"></a><span class="co">## 0.649635 0.350365</span></span>
 <span id="cb490-11"><a href="evaluating-model-performance-1.html#cb490-11"></a></span>
 <span id="cb490-12"><a href="evaluating-model-performance-1.html#cb490-12"></a><span class="kw">table</span>(test_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(test_data)</span>
 <span id="cb490-13"><a href="evaluating-model-performance-1.html#cb490-13"></a><span class="co">## </span></span>
 <span id="cb490-14"><a href="evaluating-model-performance-1.html#cb490-14"></a><span class="co">##       neg       pos </span></span>
-<span id="cb490-15"><a href="evaluating-model-performance-1.html#cb490-15"></a><span class="co">## 0.6666667 0.3333333</span></span>
-<span id="cb490-16"><a href="evaluating-model-performance-1.html#cb490-16"></a></span>
-<span id="cb490-17"><a href="evaluating-model-performance-1.html#cb490-17"></a><span class="kw">table</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(PimaIndiansDiabetes2)</span>
-<span id="cb490-18"><a href="evaluating-model-performance-1.html#cb490-18"></a><span class="co">## </span></span>
-<span id="cb490-19"><a href="evaluating-model-performance-1.html#cb490-19"></a><span class="co">##       neg       pos </span></span>
-<span id="cb490-20"><a href="evaluating-model-performance-1.html#cb490-20"></a><span class="co">## 0.6683673 0.3316327</span></span></code></pre></div>
+<span id="cb490-15"><a href="evaluating-model-performance-1.html#cb490-15"></a><span class="co">## 0.7118644 0.2881356</span></span></code></pre></div>
+<p>You can see that the proportion of <code>pos</code> in the training dataset is <span class="math inline">\(0.350\)</span> while that in the testing dataset is <span class="math inline">\(0.288\)</span>. This may affect the estimation of the model performance.</p>
+<p>To avoid this issue, we can use <strong>stratified random sampling</strong> to ensure the training dataset and testing dataset have nearly the same proportion in the class of interest.</p>
+<p>To do that in R, we can use the function <code>createDataPartition</code> from the package <code>caret</code>.</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="evaluating-model-performance-1.html#cb491-1"></a>stratified_random_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes,</span>
+<span id="cb491-2"><a href="evaluating-model-performance-1.html#cb491-2"></a>                                               <span class="dt">p =</span> <span class="fl">0.7</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb491-3"><a href="evaluating-model-performance-1.html#cb491-3"></a></span>
+<span id="cb491-4"><a href="evaluating-model-performance-1.html#cb491-4"></a>train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[stratified_random_index, ]</span>
+<span id="cb491-5"><a href="evaluating-model-performance-1.html#cb491-5"></a>test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>stratified_random_index, ]</span>
+<span id="cb491-6"><a href="evaluating-model-performance-1.html#cb491-6"></a></span>
+<span id="cb491-7"><a href="evaluating-model-performance-1.html#cb491-7"></a><span class="kw">table</span>(train_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_data)</span>
+<span id="cb491-8"><a href="evaluating-model-performance-1.html#cb491-8"></a><span class="co">## </span></span>
+<span id="cb491-9"><a href="evaluating-model-performance-1.html#cb491-9"></a><span class="co">##       neg       pos </span></span>
+<span id="cb491-10"><a href="evaluating-model-performance-1.html#cb491-10"></a><span class="co">## 0.6690909 0.3309091</span></span>
+<span id="cb491-11"><a href="evaluating-model-performance-1.html#cb491-11"></a></span>
+<span id="cb491-12"><a href="evaluating-model-performance-1.html#cb491-12"></a><span class="kw">table</span>(test_data<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(test_data)</span>
+<span id="cb491-13"><a href="evaluating-model-performance-1.html#cb491-13"></a><span class="co">## </span></span>
+<span id="cb491-14"><a href="evaluating-model-performance-1.html#cb491-14"></a><span class="co">##       neg       pos </span></span>
+<span id="cb491-15"><a href="evaluating-model-performance-1.html#cb491-15"></a><span class="co">## 0.6666667 0.3333333</span></span>
+<span id="cb491-16"><a href="evaluating-model-performance-1.html#cb491-16"></a></span>
+<span id="cb491-17"><a href="evaluating-model-performance-1.html#cb491-17"></a><span class="kw">table</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(PimaIndiansDiabetes2)</span>
+<span id="cb491-18"><a href="evaluating-model-performance-1.html#cb491-18"></a><span class="co">## </span></span>
+<span id="cb491-19"><a href="evaluating-model-performance-1.html#cb491-19"></a><span class="co">##       neg       pos </span></span>
+<span id="cb491-20"><a href="evaluating-model-performance-1.html#cb491-20"></a><span class="co">## 0.6683673 0.3316327</span></span></code></pre></div>
 <p>Now, both proportions are similar to the one in the whole dataset.</p>
 <p>While stratified sampling distribute the classes evenly, it does not guarantee other variables are distributed evenly.</p>
 <ul>
@@ -686,40 +686,40 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 </ol>
 <p>See <a href="https://en.wikipedia.org/wiki/File:KfoldCV.gif" class="uri">https://en.wikipedia.org/wiki/File:KfoldCV.gif</a> for a gif animation showing the <span class="math inline">\(k\)</span>-fold CV.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="evaluating-model-performance-1.html#cb491-1"></a>k &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb491-2"><a href="evaluating-model-performance-1.html#cb491-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb491-3"><a href="evaluating-model-performance-1.html#cb491-3"></a><span class="co"># the result is a list</span></span>
-<span id="cb491-4"><a href="evaluating-model-performance-1.html#cb491-4"></a>folds &lt;-<span class="st"> </span><span class="kw">createFolds</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes, <span class="dt">k =</span> k)</span>
-<span id="cb491-5"><a href="evaluating-model-performance-1.html#cb491-5"></a>accuracy &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
-<span id="cb491-6"><a href="evaluating-model-performance-1.html#cb491-6"></a>AUC &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
-<span id="cb491-7"><a href="evaluating-model-performance-1.html#cb491-7"></a></span>
-<span id="cb491-8"><a href="evaluating-model-performance-1.html#cb491-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>k) {</span>
-<span id="cb491-9"><a href="evaluating-model-performance-1.html#cb491-9"></a>  train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[folds[[i]], ]</span>
-<span id="cb491-10"><a href="evaluating-model-performance-1.html#cb491-10"></a>  test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>folds[[i]], ]</span>
-<span id="cb491-11"><a href="evaluating-model-performance-1.html#cb491-11"></a>  fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
-<span id="cb491-12"><a href="evaluating-model-performance-1.html#cb491-12"></a></span>
-<span id="cb491-13"><a href="evaluating-model-performance-1.html#cb491-13"></a>  <span class="co"># Prediction</span></span>
-<span id="cb491-14"><a href="evaluating-model-performance-1.html#cb491-14"></a>  prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb491-15"><a href="evaluating-model-performance-1.html#cb491-15"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
-<span id="cb491-16"><a href="evaluating-model-performance-1.html#cb491-16"></a>  </span>
-<span id="cb491-17"><a href="evaluating-model-performance-1.html#cb491-17"></a>  <span class="co"># Compute accuracy and AUC</span></span>
-<span id="cb491-18"><a href="evaluating-model-performance-1.html#cb491-18"></a>  accuracy[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(predicted_class <span class="op">==</span><span class="st"> </span>test_data<span class="op">$</span>diabetes)</span>
-<span id="cb491-19"><a href="evaluating-model-performance-1.html#cb491-19"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">auc</span>(<span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes))</span>
-<span id="cb491-20"><a href="evaluating-model-performance-1.html#cb491-20"></a>}</span></code></pre></div>
-<p>Results:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="evaluating-model-performance-1.html#cb492-1"></a>accuracy</span>
-<span id="cb492-2"><a href="evaluating-model-performance-1.html#cb492-2"></a><span class="co">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411 0.7563739 0.7620397</span></span>
-<span id="cb492-3"><a href="evaluating-model-performance-1.html#cb492-3"></a><span class="co">##  [9] 0.7443182 0.7705382</span></span>
-<span id="cb492-4"><a href="evaluating-model-performance-1.html#cb492-4"></a></span>
-<span id="cb492-5"><a href="evaluating-model-performance-1.html#cb492-5"></a><span class="kw">mean</span>(accuracy)</span>
-<span id="cb492-6"><a href="evaluating-model-performance-1.html#cb492-6"></a><span class="co">## [1] 0.7607689</span></span>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="evaluating-model-performance-1.html#cb492-1"></a>k &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb492-2"><a href="evaluating-model-performance-1.html#cb492-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb492-3"><a href="evaluating-model-performance-1.html#cb492-3"></a><span class="co"># the result is a list</span></span>
+<span id="cb492-4"><a href="evaluating-model-performance-1.html#cb492-4"></a>folds &lt;-<span class="st"> </span><span class="kw">createFolds</span>(PimaIndiansDiabetes2<span class="op">$</span>diabetes, <span class="dt">k =</span> k)</span>
+<span id="cb492-5"><a href="evaluating-model-performance-1.html#cb492-5"></a>accuracy &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
+<span id="cb492-6"><a href="evaluating-model-performance-1.html#cb492-6"></a>AUC &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, k)</span>
 <span id="cb492-7"><a href="evaluating-model-performance-1.html#cb492-7"></a></span>
-<span id="cb492-8"><a href="evaluating-model-performance-1.html#cb492-8"></a>AUC</span>
-<span id="cb492-9"><a href="evaluating-model-performance-1.html#cb492-9"></a><span class="co">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021 0.8012821 0.8102455</span></span>
-<span id="cb492-10"><a href="evaluating-model-performance-1.html#cb492-10"></a><span class="co">##  [9] 0.7917803 0.8177061</span></span>
-<span id="cb492-11"><a href="evaluating-model-performance-1.html#cb492-11"></a></span>
-<span id="cb492-12"><a href="evaluating-model-performance-1.html#cb492-12"></a><span class="kw">mean</span>(AUC)</span>
-<span id="cb492-13"><a href="evaluating-model-performance-1.html#cb492-13"></a><span class="co">## [1] 0.8057514</span></span></code></pre></div>
+<span id="cb492-8"><a href="evaluating-model-performance-1.html#cb492-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>k) {</span>
+<span id="cb492-9"><a href="evaluating-model-performance-1.html#cb492-9"></a>  train_data  &lt;-<span class="st"> </span>PimaIndiansDiabetes2[folds[[i]], ]</span>
+<span id="cb492-10"><a href="evaluating-model-performance-1.html#cb492-10"></a>  test_data &lt;-<span class="st"> </span>PimaIndiansDiabetes2[<span class="op">-</span>folds[[i]], ]</span>
+<span id="cb492-11"><a href="evaluating-model-performance-1.html#cb492-11"></a>  fit_simple &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetes <span class="op">~</span><span class="st"> </span>glucose, <span class="dt">data =</span> train_data, <span class="dt">family =</span> binomial)</span>
+<span id="cb492-12"><a href="evaluating-model-performance-1.html#cb492-12"></a></span>
+<span id="cb492-13"><a href="evaluating-model-performance-1.html#cb492-13"></a>  <span class="co"># Prediction</span></span>
+<span id="cb492-14"><a href="evaluating-model-performance-1.html#cb492-14"></a>  prob &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_simple, test_data, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb492-15"><a href="evaluating-model-performance-1.html#cb492-15"></a>  predicted_class &lt;-<span class="st"> </span><span class="kw">ifelse</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb492-16"><a href="evaluating-model-performance-1.html#cb492-16"></a>  </span>
+<span id="cb492-17"><a href="evaluating-model-performance-1.html#cb492-17"></a>  <span class="co"># Compute accuracy and AUC</span></span>
+<span id="cb492-18"><a href="evaluating-model-performance-1.html#cb492-18"></a>  accuracy[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(predicted_class <span class="op">==</span><span class="st"> </span>test_data<span class="op">$</span>diabetes)</span>
+<span id="cb492-19"><a href="evaluating-model-performance-1.html#cb492-19"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">auc</span>(<span class="kw">roc</span>(<span class="dt">predictor =</span> <span class="kw">as.numeric</span>(prob), <span class="dt">response =</span> test_data<span class="op">$</span>diabetes))</span>
+<span id="cb492-20"><a href="evaluating-model-performance-1.html#cb492-20"></a>}</span></code></pre></div>
+<p>Results:</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="evaluating-model-performance-1.html#cb493-1"></a>accuracy</span>
+<span id="cb493-2"><a href="evaluating-model-performance-1.html#cb493-2"></a><span class="co">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411 0.7563739 0.7620397 0.7443182</span></span>
+<span id="cb493-3"><a href="evaluating-model-performance-1.html#cb493-3"></a><span class="co">## [10] 0.7705382</span></span>
+<span id="cb493-4"><a href="evaluating-model-performance-1.html#cb493-4"></a></span>
+<span id="cb493-5"><a href="evaluating-model-performance-1.html#cb493-5"></a><span class="kw">mean</span>(accuracy)</span>
+<span id="cb493-6"><a href="evaluating-model-performance-1.html#cb493-6"></a><span class="co">## [1] 0.7607689</span></span>
+<span id="cb493-7"><a href="evaluating-model-performance-1.html#cb493-7"></a></span>
+<span id="cb493-8"><a href="evaluating-model-performance-1.html#cb493-8"></a>AUC</span>
+<span id="cb493-9"><a href="evaluating-model-performance-1.html#cb493-9"></a><span class="co">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021 0.8012821 0.8102455 0.7917803</span></span>
+<span id="cb493-10"><a href="evaluating-model-performance-1.html#cb493-10"></a><span class="co">## [10] 0.8177061</span></span>
+<span id="cb493-11"><a href="evaluating-model-performance-1.html#cb493-11"></a></span>
+<span id="cb493-12"><a href="evaluating-model-performance-1.html#cb493-12"></a><span class="kw">mean</span>(AUC)</span>
+<span id="cb493-13"><a href="evaluating-model-performance-1.html#cb493-13"></a><span class="co">## [1] 0.8057514</span></span></code></pre></div>
 
 </div>
 </div>
