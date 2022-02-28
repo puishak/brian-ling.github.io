@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1017,12 +1017,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="data-transformation-with-dplyr.html#cb235-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb235-2"><a href="data-transformation-with-dplyr.html#cb235-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb235-3"><a href="data-transformation-with-dplyr.html#cb235-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb235-4"><a href="data-transformation-with-dplyr.html#cb235-4"></a><span class="co">##    0.08    0.00    0.08</span></span>
+<span id="cb235-4"><a href="data-transformation-with-dplyr.html#cb235-4"></a><span class="co">##    0.05    0.00    0.04</span></span>
 <span id="cb235-5"><a href="data-transformation-with-dplyr.html#cb235-5"></a></span>
 <span id="cb235-6"><a href="data-transformation-with-dplyr.html#cb235-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb235-7"><a href="data-transformation-with-dplyr.html#cb235-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb235-8"><a href="data-transformation-with-dplyr.html#cb235-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb235-9"><a href="data-transformation-with-dplyr.html#cb235-9"></a><span class="co">##    0.58    0.00    0.58</span></span></code></pre></div>
+<span id="cb235-9"><a href="data-transformation-with-dplyr.html#cb235-9"></a><span class="co">##    0.45    0.00    0.46</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->

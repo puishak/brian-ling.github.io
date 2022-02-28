@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -451,8 +451,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb356-5"><a href="root-finding-and-optimization.html#cb356-5"></a><span class="co">## [1] 1</span></span></code></pre></div>
 <p>To change <code>max_iter</code>:</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="root-finding-and-optimization.html#cb357-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.000000000001</span>, <span class="dt">max_iter =</span> <span class="dv">10</span>)</span>
-<span id="cb357-2"><a href="root-finding-and-optimization.html#cb357-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of iterations reached</span></span>
-<span id="cb357-3"><a href="root-finding-and-optimization.html#cb357-3"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
+<span id="cb357-2"><a href="root-finding-and-optimization.html#cb357-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of iterations</span></span>
+<span id="cb357-3"><a href="root-finding-and-optimization.html#cb357-3"></a><span class="co">## reached</span></span>
+<span id="cb357-4"><a href="root-finding-and-optimization.html#cb357-4"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
 </div>
 </div>
 <div id="newton-raphson-method" class="section level2">
@@ -594,40 +595,27 @@ where <span class="math inline">\(W\)</span> is a <span class="math inline">\(n 
 <span id="cb361-13"><a href="root-finding-and-optimization.html#cb361-13"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x1, x2)</span>
 <span id="cb361-14"><a href="root-finding-and-optimization.html#cb361-14"></a>beta &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb361-15"><a href="root-finding-and-optimization.html#cb361-15"></a></span>
-<span id="cb361-16"><a href="root-finding-and-optimization.html#cb361-16"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</span>
+<span id="cb361-16"><a href="root-finding-and-optimization.html#cb361-16"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) {</span>
 <span id="cb361-17"><a href="root-finding-and-optimization.html#cb361-17"></a>  num &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">exp</span>(X <span class="op">%*%</span><span class="st"> </span>beta))</span>
 <span id="cb361-18"><a href="root-finding-and-optimization.html#cb361-18"></a>  p_beta &lt;-<span class="st"> </span>num <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>num)</span>
 <span id="cb361-19"><a href="root-finding-and-optimization.html#cb361-19"></a>  grad &lt;-<span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>(y <span class="op">-</span><span class="st"> </span>p_beta)</span>
-<span id="cb361-20"><a href="root-finding-and-optimization.html#cb361-20"></a>  W &lt;-<span class="st"> </span><span class="kw">diag</span>(p_beta)</span>
+<span id="cb361-20"><a href="root-finding-and-optimization.html#cb361-20"></a>  W &lt;-<span class="st"> </span><span class="kw">diag</span>(p_beta <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_beta))</span>
 <span id="cb361-21"><a href="root-finding-and-optimization.html#cb361-21"></a>  Hess &lt;-<span class="st"> </span><span class="op">-</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>W <span class="op">%*%</span><span class="st"> </span>X </span>
 <span id="cb361-22"><a href="root-finding-and-optimization.html#cb361-22"></a>  beta &lt;-<span class="st"> </span>beta <span class="op">-</span><span class="st"> </span><span class="kw">solve</span>(Hess) <span class="op">%*%</span><span class="st"> </span>grad</span>
 <span id="cb361-23"><a href="root-finding-and-optimization.html#cb361-23"></a>  <span class="kw">print</span>(<span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;Iteration: &quot;</span>, i), <span class="kw">round</span>(<span class="kw">as.vector</span>(beta), <span class="dv">4</span>)))</span>
 <span id="cb361-24"><a href="root-finding-and-optimization.html#cb361-24"></a>}</span>
-<span id="cb361-25"><a href="root-finding-and-optimization.html#cb361-25"></a><span class="co">## [1] &quot;Iteration: 1&quot; &quot;0.6021&quot;       &quot;0.6988&quot;       &quot;-0.2567&quot;     </span></span>
-<span id="cb361-26"><a href="root-finding-and-optimization.html#cb361-26"></a><span class="co">## [1] &quot;Iteration: 2&quot; &quot;0.6377&quot;       &quot;0.8311&quot;       &quot;-0.6686&quot;     </span></span>
-<span id="cb361-27"><a href="root-finding-and-optimization.html#cb361-27"></a><span class="co">## [1] &quot;Iteration: 3&quot; &quot;0.6708&quot;       &quot;0.9157&quot;       &quot;-0.9675&quot;     </span></span>
-<span id="cb361-28"><a href="root-finding-and-optimization.html#cb361-28"></a><span class="co">## [1] &quot;Iteration: 4&quot; &quot;0.6997&quot;       &quot;0.964&quot;        &quot;-1.1689&quot;     </span></span>
-<span id="cb361-29"><a href="root-finding-and-optimization.html#cb361-29"></a><span class="co">## [1] &quot;Iteration: 5&quot; &quot;0.723&quot;        &quot;0.9887&quot;       &quot;-1.2964&quot;     </span></span>
-<span id="cb361-30"><a href="root-finding-and-optimization.html#cb361-30"></a><span class="co">## [1] &quot;Iteration: 6&quot; &quot;0.7407&quot;       &quot;0.9999&quot;       &quot;-1.374&quot;      </span></span>
-<span id="cb361-31"><a href="root-finding-and-optimization.html#cb361-31"></a><span class="co">## [1] &quot;Iteration: 7&quot; &quot;0.7536&quot;       &quot;1.0045&quot;       &quot;-1.4203&quot;     </span></span>
-<span id="cb361-32"><a href="root-finding-and-optimization.html#cb361-32"></a><span class="co">## [1] &quot;Iteration: 8&quot; &quot;0.7628&quot;       &quot;1.006&quot;        &quot;-1.4477&quot;     </span></span>
-<span id="cb361-33"><a href="root-finding-and-optimization.html#cb361-33"></a><span class="co">## [1] &quot;Iteration: 9&quot; &quot;0.7691&quot;       &quot;1.0063&quot;       &quot;-1.4642&quot;     </span></span>
-<span id="cb361-34"><a href="root-finding-and-optimization.html#cb361-34"></a><span class="co">## [1] &quot;Iteration: 10&quot; &quot;0.7735&quot;        &quot;1.0062&quot;        &quot;-1.4741&quot;      </span></span>
-<span id="cb361-35"><a href="root-finding-and-optimization.html#cb361-35"></a><span class="co">## [1] &quot;Iteration: 11&quot; &quot;0.7765&quot;        &quot;1.0061&quot;        &quot;-1.4803&quot;      </span></span>
-<span id="cb361-36"><a href="root-finding-and-optimization.html#cb361-36"></a><span class="co">## [1] &quot;Iteration: 12&quot; &quot;0.7786&quot;        &quot;1.006&quot;         &quot;-1.4842&quot;      </span></span>
-<span id="cb361-37"><a href="root-finding-and-optimization.html#cb361-37"></a><span class="co">## [1] &quot;Iteration: 13&quot; &quot;0.78&quot;          &quot;1.006&quot;         &quot;-1.4867&quot;      </span></span>
-<span id="cb361-38"><a href="root-finding-and-optimization.html#cb361-38"></a><span class="co">## [1] &quot;Iteration: 14&quot; &quot;0.7809&quot;        &quot;1.0061&quot;        &quot;-1.4884&quot;      </span></span>
-<span id="cb361-39"><a href="root-finding-and-optimization.html#cb361-39"></a><span class="co">## [1] &quot;Iteration: 15&quot; &quot;0.7816&quot;        &quot;1.0061&quot;        &quot;-1.4895&quot;      </span></span>
-<span id="cb361-40"><a href="root-finding-and-optimization.html#cb361-40"></a><span class="co">## [1] &quot;Iteration: 16&quot; &quot;0.782&quot;         &quot;1.0062&quot;        &quot;-1.4902&quot;      </span></span>
-<span id="cb361-41"><a href="root-finding-and-optimization.html#cb361-41"></a><span class="co">## [1] &quot;Iteration: 17&quot; &quot;0.7823&quot;        &quot;1.0063&quot;        &quot;-1.4907&quot;      </span></span>
-<span id="cb361-42"><a href="root-finding-and-optimization.html#cb361-42"></a><span class="co">## [1] &quot;Iteration: 18&quot; &quot;0.7825&quot;        &quot;1.0064&quot;        &quot;-1.4911&quot;      </span></span>
-<span id="cb361-43"><a href="root-finding-and-optimization.html#cb361-43"></a><span class="co">## [1] &quot;Iteration: 19&quot; &quot;0.7827&quot;        &quot;1.0065&quot;        &quot;-1.4914&quot;      </span></span>
-<span id="cb361-44"><a href="root-finding-and-optimization.html#cb361-44"></a><span class="co">## [1] &quot;Iteration: 20&quot; &quot;0.7828&quot;        &quot;1.0065&quot;        &quot;-1.4915&quot;</span></span>
-<span id="cb361-45"><a href="root-finding-and-optimization.html#cb361-45"></a></span>
-<span id="cb361-46"><a href="root-finding-and-optimization.html#cb361-46"></a><span class="co"># compared with the glm function</span></span>
-<span id="cb361-47"><a href="root-finding-and-optimization.html#cb361-47"></a><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)<span class="op">$</span>coef</span>
-<span id="cb361-48"><a href="root-finding-and-optimization.html#cb361-48"></a><span class="co">## (Intercept)          x1          x2 </span></span>
-<span id="cb361-49"><a href="root-finding-and-optimization.html#cb361-49"></a><span class="co">##   0.7830729   1.0067405  -1.4920333</span></span></code></pre></div>
+<span id="cb361-25"><a href="root-finding-and-optimization.html#cb361-25"></a><span class="co">## [1] &quot;Iteration: 1&quot; &quot;0.8283&quot;       &quot;0.9995&quot;       &quot;-1.7345&quot;     </span></span>
+<span id="cb361-26"><a href="root-finding-and-optimization.html#cb361-26"></a><span class="co">## [1] &quot;Iteration: 2&quot; &quot;0.7835&quot;       &quot;1.0039&quot;       &quot;-1.4903&quot;     </span></span>
+<span id="cb361-27"><a href="root-finding-and-optimization.html#cb361-27"></a><span class="co">## [1] &quot;Iteration: 3&quot; &quot;0.7831&quot;       &quot;1.0067&quot;       &quot;-1.492&quot;      </span></span>
+<span id="cb361-28"><a href="root-finding-and-optimization.html#cb361-28"></a><span class="co">## [1] &quot;Iteration: 4&quot; &quot;0.7831&quot;       &quot;1.0067&quot;       &quot;-1.492&quot;      </span></span>
+<span id="cb361-29"><a href="root-finding-and-optimization.html#cb361-29"></a><span class="co">## [1] &quot;Iteration: 5&quot; &quot;0.7831&quot;       &quot;1.0067&quot;       &quot;-1.492&quot;      </span></span>
+<span id="cb361-30"><a href="root-finding-and-optimization.html#cb361-30"></a><span class="co">## [1] &quot;Iteration: 6&quot; &quot;0.7831&quot;       &quot;1.0067&quot;       &quot;-1.492&quot;      </span></span>
+<span id="cb361-31"><a href="root-finding-and-optimization.html#cb361-31"></a><span class="co">## [1] &quot;Iteration: 7&quot; &quot;0.7831&quot;       &quot;1.0067&quot;       &quot;-1.492&quot;</span></span>
+<span id="cb361-32"><a href="root-finding-and-optimization.html#cb361-32"></a></span>
+<span id="cb361-33"><a href="root-finding-and-optimization.html#cb361-33"></a><span class="co"># compared with the glm function</span></span>
+<span id="cb361-34"><a href="root-finding-and-optimization.html#cb361-34"></a><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)<span class="op">$</span>coef</span>
+<span id="cb361-35"><a href="root-finding-and-optimization.html#cb361-35"></a><span class="co">## (Intercept)          x1          x2 </span></span>
+<span id="cb361-36"><a href="root-finding-and-optimization.html#cb361-36"></a><span class="co">##   0.7830729   1.0067405  -1.4920333</span></span></code></pre></div>
 </div>
 <div id="gradient-descent" class="section level3">
 <h3><span class="header-section-number">10.3.2</span> Gradient Descent</h3>

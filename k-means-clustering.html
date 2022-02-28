@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -461,11 +461,11 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="k-means-clustering.html#cb449-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="k-means-clustering.html#cb450-1"></a><span class="co"># To view the cluster</span></span>
 <span id="cb450-2"><a href="k-means-clustering.html#cb450-2"></a>mall_kmeans<span class="op">$</span>cluster</span>
-<span id="cb450-3"><a href="k-means-clustering.html#cb450-3"></a><span class="co">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb450-4"><a href="k-means-clustering.html#cb450-4"></a><span class="co">##  [48] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb450-5"><a href="k-means-clustering.html#cb450-5"></a><span class="co">##  [95] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
-<span id="cb450-6"><a href="k-means-clustering.html#cb450-6"></a><span class="co">## [142] 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
-<span id="cb450-7"><a href="k-means-clustering.html#cb450-7"></a><span class="co">## [189] 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
+<span id="cb450-3"><a href="k-means-clustering.html#cb450-3"></a><span class="co">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb450-4"><a href="k-means-clustering.html#cb450-4"></a><span class="co">##  [47] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb450-5"><a href="k-means-clustering.html#cb450-5"></a><span class="co">##  [93] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
+<span id="cb450-6"><a href="k-means-clustering.html#cb450-6"></a><span class="co">## [139] 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
+<span id="cb450-7"><a href="k-means-clustering.html#cb450-7"></a><span class="co">## [185] 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
 <span id="cb450-8"><a href="k-means-clustering.html#cb450-8"></a></span>
 <span id="cb450-9"><a href="k-means-clustering.html#cb450-9"></a><span class="co"># To view the centers</span></span>
 <span id="cb450-10"><a href="k-means-clustering.html#cb450-10"></a>mall_kmeans<span class="op">$</span>centers</span>
