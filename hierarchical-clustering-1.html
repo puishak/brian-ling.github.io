@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Probability | STAT 362 R for Data Science</title>
+  <title>Chapter 16 Hierarchical Clustering | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Probability | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 16 Hierarchical Clustering | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Probability | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 16 Hierarchical Clustering | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction.html"/>
-<link rel="next" href="programming-in-r.html"/>
+<link rel="prev" href="hierarchical-clustering.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -316,12 +316,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>14.2.1</b> Cluster Analysis<span></span></a></li>
 <li class="chapter" data-level="14.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>14.2.2</b> Image Segementation and Image Compression<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="14.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#implementation"><i class="fa fa-check"></i><b>14.3</b> Implementation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>15</b> Hierarchical Clustering<span></span></a><ul>
-<li class="chapter" data-level="15.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>15.1</b> Dissimilarity measure and Linkage<span></span></a></li>
-<li class="chapter" data-level="15.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>15.2</b> Alogrithm<span></span></a></li>
-<li class="chapter" data-level="15.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>15.3</b> Applications<span></span></a><ul>
-<li class="chapter" data-level="15.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>15.3.1</b> NCI60 Data<span></span></a></li>
+<li class="chapter" data-level="15" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>15</b> Hierarchical Clustering<span></span></a></li>
+<li class="chapter" data-level="16" data-path="hierarchical-clustering-1.html"><a href="hierarchical-clustering-1.html"><i class="fa fa-check"></i><b>16</b> Hierarchical Clustering<span></span></a><ul>
+<li class="chapter" data-level="16.1" data-path="hierarchical-clustering-1.html"><a href="hierarchical-clustering-1.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>16.1</b> Dissimilarity measure and Linkage<span></span></a></li>
+<li class="chapter" data-level="16.2" data-path="hierarchical-clustering-1.html"><a href="hierarchical-clustering-1.html#alogrithm"><i class="fa fa-check"></i><b>16.2</b> Alogrithm<span></span></a></li>
+<li class="chapter" data-level="16.3" data-path="hierarchical-clustering-1.html"><a href="hierarchical-clustering-1.html#applications-1"><i class="fa fa-check"></i><b>16.3</b> Applications<span></span></a><ul>
+<li class="chapter" data-level="16.3.1" data-path="hierarchical-clustering-1.html"><a href="hierarchical-clustering-1.html#nci60-data"><i class="fa fa-check"></i><b>16.3.1</b> NCI60 Data<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -344,341 +346,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 2</span> Probability<a href="probability.html#probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Optional Reading: R Cookbook Ch8</p>
-<div id="probability-distributions" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.1</span> Probability Distributions<a href="probability.html#probability-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Using the normal distribution as an example:</p>
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>dnorm</code></td>
-<td>Normal density</td>
-</tr>
-<tr class="even">
-<td><code>pnorm</code></td>
-<td>Normal CDF</td>
-</tr>
-<tr class="odd">
-<td><code>qnorm</code></td>
-<td>Normal quantile function</td>
-</tr>
-<tr class="even">
-<td><code>rnorm</code></td>
-<td>Normal random variables</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<p>Density of <span class="math inline">\(N(2, 3^2)\)</span> at <span class="math inline">\(5\)</span>.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="probability.html#cb53-1"></a><span class="kw">dnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb53-2"><a href="probability.html#cb53-2"></a><span class="co">## [1] 0.08065691</span></span></code></pre></div>
-<p><span class="math inline">\(P(X \leq 3)\)</span>, where <span class="math inline">\(X \sim N(2, 3^2)\)</span></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="probability.html#cb54-1"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb54-2"><a href="probability.html#cb54-2"></a><span class="co">## [1] 0.6305587</span></span>
-<span id="cb54-3"><a href="probability.html#cb54-3"></a><span class="co"># &quot;mean =&quot; and &quot;sd =&quot; are optional</span></span>
-<span id="cb54-4"><a href="probability.html#cb54-4"></a><span class="kw">pnorm</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb54-5"><a href="probability.html#cb54-5"></a><span class="co">## [1] 0.6305587</span></span></code></pre></div>
-<p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="probability.html#cb55-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb55-2"><a href="probability.html#cb55-2"></a><span class="co">##  [1] 2.351072 4.347381 7.326709 7.120773 1.586283 7.301527 2.138710 3.734236 6.802271 7.334204</span></span></code></pre></div>
-<p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="probability.html#cb56-1"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb56-2"><a href="probability.html#cb56-2"></a><span class="co">## [1] 1.644854</span></span></code></pre></div>
-<p>Plotting the normal density</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="probability.html#cb57-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb57-2"><a href="probability.html#cb57-2"></a><span class="kw">plot</span>(x, <span class="kw">dnorm</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Density of N(0,1)&quot;</span>) <span class="co"># &quot;l&quot; for lines</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-68-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div id="common-distributions" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.1.1</span> Common Distributions<a href="probability.html#common-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<table>
-<caption>Common discrete distributions</caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Discrete distribution</th>
-<th>R name</th>
-<th>Parameters</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Binomial</td>
-<td><code>binom</code></td>
-<td><code>n</code> = number of trials; <code>p</code> = probability of success for one trial</td>
-</tr>
-<tr class="even">
-<td>Geometric</td>
-<td><code>geom</code></td>
-<td><code>p</code> = probability of success for one trial</td>
-</tr>
-<tr class="odd">
-<td>Negative binomial (NegBinomial)</td>
-<td><code>nbinom</code></td>
-<td><code>size</code> = number of successful trials; either <code>prob</code> = probability of successful trial or <code>mu</code> = mean</td>
-</tr>
-<tr class="even">
-<td>Poisson</td>
-<td><code>pois</code></td>
-<td><code>lambda</code> = mean</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>Common continuous distributions</caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Continuous distribution</th>
-<th>R name</th>
-<th>Parameters</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Beta</td>
-<td><code>beta</code></td>
-<td><code>shape1</code>; <code>shape2</code></td>
-</tr>
-<tr class="even">
-<td>Cauchy</td>
-<td><code>cauchy</code></td>
-<td><code>location</code>; <code>scale</code></td>
-</tr>
-<tr class="odd">
-<td>Chi-squared (Chisquare)</td>
-<td><code>chisq</code></td>
-<td><code>df</code> = degrees of freedom</td>
-</tr>
-<tr class="even">
-<td>Exponential</td>
-<td><code>exp</code></td>
-<td><code>rate</code></td>
-</tr>
-<tr class="odd">
-<td>F</td>
-<td><code>f</code></td>
-<td><code>df1</code> and <code>df2</code> = degrees of freedom</td>
-</tr>
-<tr class="even">
-<td>Gamma</td>
-<td><code>gamma</code></td>
-<td><code>rate</code>; either <code>rate</code> or <code>scale</code></td>
-</tr>
-<tr class="odd">
-<td>Log-normal (Lognormal)</td>
-<td><code>lnorm</code></td>
-<td><code>meanlog</code> = mean on logarithmic scale; <code>sdlog</code> = standard deviation on logarithmic scale</td>
-</tr>
-<tr class="even">
-<td>Logistic</td>
-<td><code>logis</code></td>
-<td><code>location</code>; <code>scale</code></td>
-</tr>
-<tr class="odd">
-<td>Normal</td>
-<td><code>norm</code></td>
-<td><code>mean</code>; <code>sd</code> = standard deviation</td>
-</tr>
-<tr class="even">
-<td>Student’s <em>t</em> (TDist)</td>
-<td><code>t</code></td>
-<td><code>df</code> = degrees of freedom</td>
-</tr>
-<tr class="odd">
-<td>Uniform</td>
-<td><code>unif</code></td>
-<td><code>min</code> = lower limit; <code>max</code> = upper limit</td>
-</tr>
-</tbody>
-</table>
-<p>To get help on the distributions:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="probability.html#cb58-1"></a>?dnorm</span>
-<span id="cb58-2"><a href="probability.html#cb58-2"></a>?dbeta</span>
-<span id="cb58-3"><a href="probability.html#cb58-3"></a>?dcauchy</span>
-<span id="cb58-4"><a href="probability.html#cb58-4"></a></span>
-<span id="cb58-5"><a href="probability.html#cb58-5"></a><span class="co"># the following distributions need to use different code</span></span>
-<span id="cb58-6"><a href="probability.html#cb58-6"></a>?TDist</span>
-<span id="cb58-7"><a href="probability.html#cb58-7"></a>?Chisquare</span>
-<span id="cb58-8"><a href="probability.html#cb58-8"></a>?Lognormal</span></code></pre></div>
-<p><strong>Examples (Using Binomial as an Example)</strong></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="probability.html#cb59-1"></a><span class="kw">dbinom</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># p_X(2), p_X is the pmf of X, X ~ Bin(n=10, p=0.6)</span></span>
-<span id="cb59-2"><a href="probability.html#cb59-2"></a><span class="co">## [1] 0.01061683</span></span>
-<span id="cb59-3"><a href="probability.html#cb59-3"></a></span>
-<span id="cb59-4"><a href="probability.html#cb59-4"></a><span class="kw">pbinom</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># F_X(2), F_X is the CDF of X, X ~ Bin(n=10, p=0.6)</span></span>
-<span id="cb59-5"><a href="probability.html#cb59-5"></a><span class="co">## [1] 0.01229455</span></span>
-<span id="cb59-6"><a href="probability.html#cb59-6"></a></span>
-<span id="cb59-7"><a href="probability.html#cb59-7"></a><span class="kw">qbinom</span>(<span class="fl">0.5</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># 50th percentile of X</span></span>
-<span id="cb59-8"><a href="probability.html#cb59-8"></a><span class="co">## [1] 6</span></span>
-<span id="cb59-9"><a href="probability.html#cb59-9"></a></span>
-<span id="cb59-10"><a href="probability.html#cb59-10"></a><span class="kw">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb59-11"><a href="probability.html#cb59-11"></a><span class="co">## [1] 8 6 7 6</span></span>
-<span id="cb59-12"><a href="probability.html#cb59-12"></a></span>
-<span id="cb59-13"><a href="probability.html#cb59-13"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb59-14"><a href="probability.html#cb59-14"></a><span class="kw">plot</span>(x, <span class="kw">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-70-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div id="hierarchical-clustering-1" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 16</span> Hierarchical Clustering<a href="hierarchical-clustering-1.html#hierarchical-clustering-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Reference: Ch12.4 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani.</p>
+<p>One potential disadvantage of <span class="math inline">\(k\)</span>-means clustering: need to pre-sepcify the number of clusters <span class="math inline">\(k\)</span>.</p>
+<p>Hierarchical clustering is a method to perform cluster analysis that seeks to build a hierarchy of clusters.</p>
+<p>Two features:</p>
+<ul>
+<li><p>Does not require us to pre-specify the number of clusters (but see the height of the cut below)</p></li>
+<li><p>Results in an attractive tree-based representation of the observations, called <strong>dendrogram</strong></p></li>
+</ul>
+<p>Example of dendrogram:</p>
+<p><img src="image/12_11.PNG" width="80%" style="display: block; margin: auto;" /></p>
+<p><strong>Two types</strong>: bottom-up (agglomerative) and top-down (divisive)</p>
+<p>We will describe bottom-up clustering (the most common type), where each observation starts in its own cluster, and pairs of clusters are merged as one moves up the hierarchy.</p>
+<p><strong>Interpreting a Dendrogram</strong></p>
+<p>The left figure shows the dendrogram (genearlly depicted as an upside-down tree) obtained from hierarchical clustering of <span class="math inline">\(45\)</span> observations.</p>
+<ul>
+<li><p>Each leaf of the dendrogram represents one of the <span class="math inline">\(45\)</span> observations</p></li>
+<li><p>As we move up the tree, some leaves begin to fuse into branches. These correspond to observations that are similar to each other.</p></li>
+<li><p>As we move higher up the tree, the branches fuse, either with leaves or other branches.</p></li>
+<li><p>The earlier fusions occur, the more similar the groups of observations are to each other.</p></li>
+<li><p>For any two observations, we can look for the point in the tree where branches containing those two observations are first fused. The height of the fusion, as measured on the vertical axis, indicates how different the two observations are.</p></li>
+<li><p>Note: The colors in the figure do not represent the true class labels. In fact, hierarchial clustering does not make use of class labels for the clustering.</p></li>
+</ul>
+<p><strong>Finding Clusters from a Dendrogram</strong></p>
+<ul>
+<li><p>To identify clusters from a dendrogram, make a horizontal cut across the dendrogram, as shown in the center and right-hand panels of the above figure</p></li>
+<li><p>In the center panel of the above figure, cutting the dendrogram at a height of nine results in two clusters, as shown in distinct colors</p></li>
+<li><p>In the right-hand panel, cutting the dendrogram at a height of five results in three clusters</p></li>
+<li><p>The height of the cut plays the same role as the <span class="math inline">\(k\)</span> in <span class="math inline">\(k\)</span>-means clustering: it controls the number of clusters obtained</p></li>
+</ul>
+<p>Now, we can understand the term hierarchical in this method. It refers to the fact that clusters obtained by cutting dendrogram at a given height are necessarily nested within the clusters obtained by cutting the dendrogram at any greater height. This also leads to one potential problem of hierarchical clustering:</p>
+<p><strong>The resulting hierarchical structure may be unrealistic for some datasets</strong></p>
+<div id="dissimilarity-measure-and-linkage" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.1</span> Dissimilarity measure and Linkage<a href="hierarchical-clustering-1.html#dissimilarity-measure-and-linkage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Just like <span class="math inline">\(k\)</span>-means clustering, we have to define some sort of dissimilarity measure between each pair of observations. Usually, Euclidean distance is used.</p></li>
+<li><p>In addition, how do we measure the dissimilarity between groups of observations? Linkage is a notion to define the dissimilarity between two groups of observations.</p></li>
+<li><p>Given two groups of observations <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> and a dissimilarity measure <span class="math inline">\(d\)</span> between two observations. Four commonly-used types of linkage:</p>
+<ul>
+<li>Complete: <span class="math inline">\(d_l(A, B) = \max_{x_i \in A, y_j \in B} d(x_i, y_j)\)</span>.</li>
+<li>Single: <span class="math inline">\(d_l(A, B) = \min_{x_i \in A, y_j \in B} d(x_i, y_j)\)</span>.</li>
+<li>Average: <span class="math inline">\(d_l(A, B) = \frac{1}{|A| \cdot |B|} \sum_{x_i \in A} \sum_{y_j \in B} d(x_i, y_j)\)</span>.</li>
+<li>Centroid: <span class="math inline">\(d_l(A, B) = d(A_c, B_c)\)</span>, where <span class="math inline">\(A_c = \frac{1}{|A|} \sum_{x_i \in A} x_i\)</span> and <span class="math inline">\(B_c = \frac{1}{|B|} \sum_{y_j \in B} y_j\)</span>.</li>
+</ul></li>
+<li><p><span class="math inline">\(|A|\)</span> denotes the cardinality of <span class="math inline">\(A\)</span>, the number of elements in <span class="math inline">\(A\)</span>.</p></li>
+</ul>
 </div>
-<div id="exercises-1" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.1.2</span> Exercises<a href="probability.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="alogrithm" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.2</span> Alogrithm<a href="hierarchical-clustering-1.html#alogrithm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>The average number of trucks arriving on any one day at a truck depot in a certain city is known to be 12. Assuming the number of trucks arriving on any one day has a Poisson distribution, what is the probability that on a given day fewer than 9 (strictly less than 9) trucks will arrive at this depot?</li>
-</ol>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability.html#cb60-1"></a><span class="kw">ppois</span>(<span class="dv">8</span>, <span class="dv">12</span>)</span>
-<span id="cb60-2"><a href="probability.html#cb60-2"></a><span class="co">## [1] 0.1550278</span></span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Let <span class="math inline">\(Z \sim N(0, 1)\)</span>. Find <span class="math inline">\(c\)</span> such that</li>
+<li><p>Begin with <span class="math inline">\(n\)</span> observations and a measure of all the <span class="math inline">\(C^n_2\)</span> pairwise dissimilarities. Treat each observation as its own cluster.</p></li>
+<li><p>For <span class="math inline">\(i=n,n-1,\ldots,2\)</span>:</p></li>
 </ol>
 <ol style="list-style-type: lower-alpha">
-<li><span class="math inline">\(P(Z \leq c) = 0.1151\)</span></li>
+<li><p>Examine all pairwise inter-cluster dissimilarities among the <span class="math inline">\(i\)</span> clusters and identify the pair of clusters that are least dissimilar. Fuse these two clusters. The dissimilarity between these two clusters indicates the height in the dendrogram at which the fusion should be placed.</p></li>
+<li><p>Compute the new pairwise inter-cluster dissimilarities among the <span class="math inline">\(i-1\)</span> remaining clusters.</p></li>
 </ol>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="probability.html#cb61-1"></a><span class="kw">qnorm</span>(<span class="fl">0.1151</span>)</span>
-<span id="cb61-2"><a href="probability.html#cb61-2"></a><span class="co">## [1] -1.199844</span></span></code></pre></div>
-<ol start="2" style="list-style-type: lower-alpha">
-<li><span class="math inline">\(P(1\leq Z \leq c) = 0.1525\)</span></li>
-</ol>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="probability.html#cb62-1"></a>c &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1525</span>) <span class="co"># draw a graph</span></span>
-<span id="cb62-2"><a href="probability.html#cb62-2"></a></span>
-<span id="cb62-3"><a href="probability.html#cb62-3"></a><span class="co"># test the answer</span></span>
-<span id="cb62-4"><a href="probability.html#cb62-4"></a><span class="kw">pnorm</span>(c) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb62-5"><a href="probability.html#cb62-5"></a><span class="co">## [1] 0.1525</span></span></code></pre></div>
-<ol start="3" style="list-style-type: lower-alpha">
-<li><span class="math inline">\(P(-c \leq Z \leq c) = 0.8164\)</span>.</li>
-</ol>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="probability.html#cb63-1"></a><span class="co"># P(0 &lt;= Z &lt;= c) = 0.8164/2</span></span>
-<span id="cb63-2"><a href="probability.html#cb63-2"></a><span class="co"># P(Z &lt;= c) = 0.8164/2 + 0.5</span></span>
-<span id="cb63-3"><a href="probability.html#cb63-3"></a>c &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.8164</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>)</span>
-<span id="cb63-4"><a href="probability.html#cb63-4"></a></span>
-<span id="cb63-5"><a href="probability.html#cb63-5"></a><span class="co"># test our answer</span></span>
-<span id="cb63-6"><a href="probability.html#cb63-6"></a><span class="kw">pnorm</span>(c)<span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>c)</span>
-<span id="cb63-7"><a href="probability.html#cb63-7"></a><span class="co">## [1] 0.8164</span></span></code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>Plot the density of a chi-squared distribution with degrees of freedom <span class="math inline">\(4\)</span>, from <span class="math inline">\(x=0\)</span> to <span class="math inline">\(x=10\)</span>.</li>
-<li>Find the 95th percentile of this distribution.</li>
-</ol>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="probability.html#cb64-1"></a><span class="co"># note that a chi-squared r.v. is nonnegative</span></span>
-<span id="cb64-2"><a href="probability.html#cb64-2"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb64-3"><a href="probability.html#cb64-3"></a><span class="kw">plot</span>(x, <span class="kw">dchisq</span>(x, <span class="dt">df =</span> <span class="dv">4</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-75-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="probability.html#cb65-1"></a><span class="kw">qchisq</span>(<span class="fl">0.95</span>, <span class="dt">df =</span> <span class="dv">4</span>)</span>
-<span id="cb65-2"><a href="probability.html#cb65-2"></a><span class="co">## [1] 9.487729</span></span></code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Simulate <span class="math inline">\(10\)</span> Bernoulli random variables with parameter <span class="math inline">\(0.6\)</span>.</li>
-</ol>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="probability.html#cb66-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
-<span id="cb66-2"><a href="probability.html#cb66-2"></a><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb66-3"><a href="probability.html#cb66-3"></a><span class="co">##  [1] 0 1 1 0 1 0 1 0 1 1</span></span></code></pre></div>
-<ol start="5" style="list-style-type: decimal">
-<li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
-</ol>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="probability.html#cb67-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb67-2"><a href="probability.html#cb67-2"></a><span class="kw">plot</span>(x, <span class="kw">dpois</span>(x, <span class="dv">2</span>), <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-77-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Draw a plot to illustrate that the 97.5th percentile of the t distribution will be getting closer to that of the standard normal distribution when the degrees of freedom increases.</li>
-</ol>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="probability.html#cb68-1"></a>x &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">:</span><span class="dv">200</span></span>
-<span id="cb68-2"><a href="probability.html#cb68-2"></a><span class="kw">plot</span>(x, <span class="kw">qt</span>(<span class="fl">0.975</span>, <span class="dt">df =</span> x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">1.9</span>,<span class="fl">2.3</span>))</span>
-<span id="cb68-3"><a href="probability.html#cb68-3"></a><span class="co"># add a horizontal line with value at qnorm(0.975)</span></span>
-<span id="cb68-4"><a href="probability.html#cb68-4"></a><span class="co"># lty = 2 for dashed line, check ?par</span></span>
-<span id="cb68-5"><a href="probability.html#cb68-5"></a><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">qnorm</span>(<span class="fl">0.975</span>), <span class="dt">lty =</span> <span class="dv">2</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-78-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="probability.html#cb69-1"></a></span>
-<span id="cb69-2"><a href="probability.html#cb69-2"></a><span class="co"># Therefore, for a large sample, t-test and z-test will give you similar result.</span></span></code></pre></div>
 </div>
-</div>
-<div id="simulation" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.2</span> Simulation<a href="probability.html#simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="applications-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.3</span> Applications<a href="hierarchical-clustering-1.html#applications-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In R, use <code>hclust()</code> to implement hierarchical clustering.</p>
+<p>We begin with some simulated data.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="hierarchical-clustering-1.html#cb434-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb434-2"><a href="hierarchical-clustering-1.html#cb434-2"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">50</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">nrow =</span> <span class="dv">50</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb434-3"><a href="hierarchical-clustering-1.html#cb434-3"></a>X[<span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, ] &lt;-<span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, ] <span class="op">+</span><span class="st"> </span><span class="dv">3</span> <span class="co"># some mean shift for the first 25 observations</span></span></code></pre></div>
+<p>To compute the distances between all the observations, use <code>dist()</code>. This will give you a <span class="math inline">\(50 \times 50\)</span> matrix containing the distance between each pair of observations.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="hierarchical-clustering-1.html#cb435-1"></a><span class="kw">dist</span>(X)</span></code></pre></div>
+<p>Perform hierarchical clustering with complete linkage:</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="hierarchical-clustering-1.html#cb436-1"></a>hc_complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(X), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span></code></pre></div>
+<p>Plot the dendrogram:</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="hierarchical-clustering-1.html#cb437-1"></a><span class="kw">plot</span>(hc_complete, <span class="dt">main =</span> <span class="st">&quot;Complete Linkage&quot;</span>, <span class="dt">xlab =</span><span class="st">&quot;&quot;</span>, <span class="dt">sub =</span> <span class="st">&quot;&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-484-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Use <code>cutree()</code> to determine the cluster labels for each observation associated with a given number of clusters:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="hierarchical-clustering-1.html#cb438-1"></a><span class="kw">cutree</span>(hc_complete, <span class="dt">k =</span> <span class="dv">2</span>)  <span class="co"># given number of clusters = 2</span></span>
+<span id="cb438-2"><a href="hierarchical-clustering-1.html#cb438-2"></a><span class="co">##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></span></code></pre></div>
+<p>Use <code>cutree()</code> to determine the cluster labels for each observation associated with a given cut of the dendrogram:</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="hierarchical-clustering-1.html#cb439-1"></a><span class="kw">cutree</span>(hc_complete, <span class="dt">h =</span> <span class="dv">3</span>)  <span class="co"># cut at 3</span></span>
+<span id="cb439-2"><a href="hierarchical-clustering-1.html#cb439-2"></a><span class="co">##  [1] 1 2 3 2 1 1 3 2 3 2 1 2 1 2 3 4 1 1 3 1 3 2 3 3 1 5 4 5 4 6 4 6 6 6 6 4 5 5 5 5 4 5 6 6 6 6 4 5 6 5</span></span></code></pre></div>
+<p>To perform hierarchical clustering with average linkage:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="hierarchical-clustering-1.html#cb440-1"></a>hc_average &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(X), <span class="dt">method =</span> <span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<p>To perform hierarchical clustering with single linkage:</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="hierarchical-clustering-1.html#cb441-1"></a>hc_single &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(X), <span class="dt">method =</span> <span class="st">&quot;single&quot;</span>)</span></code></pre></div>
+<p>To scale the variables before performing hierarchical clustering:</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="hierarchical-clustering-1.html#cb442-1"></a>hc_complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(<span class="kw">scale</span>(X)), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span></code></pre></div>
+<div id="nci60-data" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.1</span> NCI60 Data<a href="hierarchical-clustering-1.html#nci60-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Install and load the package <code>ISLRT2</code>. It contains <code>NCI60</code> dataset.</p>
+<p><code>NCI60</code>: a cancer cell line microarray data, which consists of <span class="math inline">\(6,830\)</span> gene expression measurements on <span class="math inline">\(64\)</span> cancer cell lines.</p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="hierarchical-clustering-1.html#cb443-1"></a><span class="kw">library</span>(ISLR2)</span>
+<span id="cb443-2"><a href="hierarchical-clustering-1.html#cb443-2"></a></span>
+<span id="cb443-3"><a href="hierarchical-clustering-1.html#cb443-3"></a>nci_data &lt;-<span class="st"> </span>NCI60<span class="op">$</span>data</span>
+<span id="cb443-4"><a href="hierarchical-clustering-1.html#cb443-4"></a>nci_labs &lt;-<span class="st"> </span>NCI60<span class="op">$</span>labs</span></code></pre></div>
+<p>Cancer types for the cell lines:</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="hierarchical-clustering-1.html#cb444-1"></a><span class="kw">table</span>(nci_labs)</span>
+<span id="cb444-2"><a href="hierarchical-clustering-1.html#cb444-2"></a><span class="co">## nci_labs</span></span>
+<span id="cb444-3"><a href="hierarchical-clustering-1.html#cb444-3"></a><span class="co">##      BREAST         CNS       COLON K562A-repro K562B-repro    LEUKEMIA MCF7A-repro MCF7D-repro    MELANOMA </span></span>
+<span id="cb444-4"><a href="hierarchical-clustering-1.html#cb444-4"></a><span class="co">##           7           5           7           1           1           6           1           1           8 </span></span>
+<span id="cb444-5"><a href="hierarchical-clustering-1.html#cb444-5"></a><span class="co">##       NSCLC     OVARIAN    PROSTATE       RENAL     UNKNOWN </span></span>
+<span id="cb444-6"><a href="hierarchical-clustering-1.html#cb444-6"></a><span class="co">##           9           6           2           9           1</span></span></code></pre></div>
+<p>Suppose we perform hierarchical clustering on this data with the goal of finding out whether or not the observation cluster into distinct types of cancer.</p>
+<p>We first scale the data (this step may be optional):</p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="hierarchical-clustering-1.html#cb445-1"></a>nci_data_scale &lt;-<span class="st"> </span><span class="kw">scale</span>(nci_data)</span></code></pre></div>
+<p>Dendrogram:</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="hierarchical-clustering-1.html#cb446-1"></a>hc_complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(nci_data_scale), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb446-2"><a href="hierarchical-clustering-1.html#cb446-2"></a><span class="kw">plot</span>(hc_complete, <span class="dt">labels =</span> nci_labs, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sub =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-493-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Clearly, cell lines within a single cancer type do tend to cluster together.</p>
+<p>Now, let’s cut the dendrogram to obtain, say, <span class="math inline">\(4\)</span> clusters and compare with the true cancer types:</p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="hierarchical-clustering-1.html#cb447-1"></a>hc_cluster &lt;-<span class="st"> </span><span class="kw">cutree</span>(hc_complete, <span class="dt">k =</span> <span class="dv">4</span>)</span>
+<span id="cb447-2"><a href="hierarchical-clustering-1.html#cb447-2"></a><span class="kw">table</span>(hc_cluster, nci_labs)</span>
+<span id="cb447-3"><a href="hierarchical-clustering-1.html#cb447-3"></a><span class="co">##           nci_labs</span></span>
+<span id="cb447-4"><a href="hierarchical-clustering-1.html#cb447-4"></a><span class="co">## hc_cluster BREAST CNS COLON K562A-repro K562B-repro LEUKEMIA MCF7A-repro MCF7D-repro MELANOMA NSCLC OVARIAN</span></span>
+<span id="cb447-5"><a href="hierarchical-clustering-1.html#cb447-5"></a><span class="co">##          1      2   3     2           0           0        0           0           0        8     8       6</span></span>
+<span id="cb447-6"><a href="hierarchical-clustering-1.html#cb447-6"></a><span class="co">##          2      3   2     0           0           0        0           0           0        0     1       0</span></span>
+<span id="cb447-7"><a href="hierarchical-clustering-1.html#cb447-7"></a><span class="co">##          3      0   0     0           1           1        6           0           0        0     0       0</span></span>
+<span id="cb447-8"><a href="hierarchical-clustering-1.html#cb447-8"></a><span class="co">##          4      2   0     5           0           0        0           1           1        0     0       0</span></span>
+<span id="cb447-9"><a href="hierarchical-clustering-1.html#cb447-9"></a><span class="co">##           nci_labs</span></span>
+<span id="cb447-10"><a href="hierarchical-clustering-1.html#cb447-10"></a><span class="co">## hc_cluster PROSTATE RENAL UNKNOWN</span></span>
+<span id="cb447-11"><a href="hierarchical-clustering-1.html#cb447-11"></a><span class="co">##          1        2     8       1</span></span>
+<span id="cb447-12"><a href="hierarchical-clustering-1.html#cb447-12"></a><span class="co">##          2        0     1       0</span></span>
+<span id="cb447-13"><a href="hierarchical-clustering-1.html#cb447-13"></a><span class="co">##          3        0     0       0</span></span>
+<span id="cb447-14"><a href="hierarchical-clustering-1.html#cb447-14"></a><span class="co">##          4        0     0       0</span></span></code></pre></div>
+<p>Some patterns:</p>
 <ul>
-<li><p>We have already seen how to use functions like <code>runif</code>, <code>rnorm</code>, <code>rbinom</code> to generate random variables.</p></li>
-<li><p>R actually generates pseudo-random number sequence (deterministic sequence of numbers that approximates the properties of random numbers)</p></li>
-<li><p>The pseduo-random number sequence will be the same if it is initialized by the same seed (can be used to reproduce the same simulation results or used to debug).</p></li>
+<li><p>All the leukemia cell lines fall in cluster 3</p></li>
+<li><p>Breast cancer cell lines are spread out over <span class="math inline">\(3\)</span> different clusters</p></li>
 </ul>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability.html#cb70-1"></a><span class="co"># every time you run the first two lines, you get the same result</span></span>
-<span id="cb70-2"><a href="probability.html#cb70-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb70-3"><a href="probability.html#cb70-3"></a><span class="kw">runif</span>(<span class="dv">5</span>) </span>
-<span id="cb70-4"><a href="probability.html#cb70-4"></a><span class="co">## [1] 0.2655087 0.3721239 0.5728534 0.9082078 0.2016819</span></span>
-<span id="cb70-5"><a href="probability.html#cb70-5"></a></span>
-<span id="cb70-6"><a href="probability.html#cb70-6"></a><span class="co"># every time you run the following code, you get a different result</span></span>
-<span id="cb70-7"><a href="probability.html#cb70-7"></a><span class="kw">runif</span>(<span class="dv">5</span>)</span>
-<span id="cb70-8"><a href="probability.html#cb70-8"></a><span class="co">## [1] 0.89838968 0.94467527 0.66079779 0.62911404 0.06178627</span></span></code></pre></div>
-<p><strong>Sampling from discrete distributions</strong></p>
-<p>Usage of <code>sample</code>:</p>
-<p><code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
-<p>See also <code>?sample</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="probability.html#cb71-1"></a><span class="kw">sample</span>(<span class="dv">10</span>) <span class="co"># random permutation of integers from 1 to 10</span></span>
-<span id="cb71-2"><a href="probability.html#cb71-2"></a><span class="co">##  [1]  3  1  5  8  2  6 10  9  4  7</span></span>
-<span id="cb71-3"><a href="probability.html#cb71-3"></a></span>
-<span id="cb71-4"><a href="probability.html#cb71-4"></a><span class="kw">sample</span>(<span class="dv">10</span>, <span class="dt">replace =</span> T) <span class="co"># sample with replacement</span></span>
-<span id="cb71-5"><a href="probability.html#cb71-5"></a><span class="co">##  [1]  5  9  9  5  5  2 10  9  1  4</span></span>
-<span id="cb71-6"><a href="probability.html#cb71-6"></a></span>
-<span id="cb71-7"><a href="probability.html#cb71-7"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="dt">replace =</span> T) </span>
-<span id="cb71-8"><a href="probability.html#cb71-8"></a><span class="co">## [1] 5 3 3 3 3</span></span>
-<span id="cb71-9"><a href="probability.html#cb71-9"></a></span>
-<span id="cb71-10"><a href="probability.html#cb71-10"></a><span class="co"># simulate 20 random variables from a discrete distribution</span></span>
-<span id="cb71-11"><a href="probability.html#cb71-11"></a><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), <span class="dt">replace =</span> T)</span>
-<span id="cb71-12"><a href="probability.html#cb71-12"></a><span class="co">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0  1  1  0 -1  0</span></span></code></pre></div>
-<p><strong>Example</strong>: Suppose we have a fair coin and we play a game. We flip the coin. We win $1 if the result is head and lose $1 if the result is tail. You play the game 100 times. You are interested in the cumulative profit.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="probability.html#cb72-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># R actually generates pseudo random numbers</span></span>
-<span id="cb72-2"><a href="probability.html#cb72-2"></a><span class="co"># setting the seed ensure that each time you will get the same result</span></span>
-<span id="cb72-3"><a href="probability.html#cb72-3"></a><span class="co"># for illustration, code debugging, reproducibility</span></span>
-<span id="cb72-4"><a href="probability.html#cb72-4"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T)  </span>
-<span id="cb72-5"><a href="probability.html#cb72-5"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-81-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="probability.html#cb73-1"></a></span>
-<span id="cb73-2"><a href="probability.html#cb73-2"></a><span class="kw">set.seed</span>(<span class="dv">2</span>) </span>
-<span id="cb73-3"><a href="probability.html#cb73-3"></a>profit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> T) </span>
-<span id="cb73-4"><a href="probability.html#cb73-4"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(profit), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-81-2.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Example</strong>: You have two dice <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. For die <span class="math inline">\(A\)</span>, there are <span class="math inline">\(6\)</span> sides with numbers <span class="math inline">\(1,2,3,4,5,6\)</span> and the corresponding probability of getting these values are <span class="math inline">\(0.1,0.1,0.1,0.1,0.1,0.5\)</span>. For die <span class="math inline">\(B\)</span>, there are <span class="math inline">\(4\)</span> sides with numbers <span class="math inline">\(1,2,3,7\)</span> and the corresponding probability of getting these values are <span class="math inline">\(0.3,0.2,0.3,0.2\)</span>. You roll the two dice independently. Estimate <span class="math inline">\(P(X &gt; Y)\)</span> using simulation, where <span class="math inline">\(X\)</span> is the result from die <span class="math inline">\(A\)</span> and <span class="math inline">\(Y\)</span> is the result from die <span class="math inline">\(B\)</span>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability.html#cb74-1"></a>n &lt;-<span class="st"> </span><span class="dv">10000</span> <span class="co"># number of simulations</span></span>
-<span id="cb74-2"><a href="probability.html#cb74-2"></a>X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>))</span>
-<span id="cb74-3"><a href="probability.html#cb74-3"></a>Y &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>))</span>
-<span id="cb74-4"><a href="probability.html#cb74-4"></a><span class="kw">mean</span>(X <span class="op">&gt;</span><span class="st"> </span>Y)</span>
-<span id="cb74-5"><a href="probability.html#cb74-5"></a><span class="co">## [1] 0.6408</span></span></code></pre></div>
-<p>Why the sample mean approximates the required probability? Recall the strong law of large numbers (SLLN). Let <span class="math inline">\(X_1,\ldots,X_n\)</span> be independent and identically distributed random variables with mean <span class="math inline">\(\mu:=E(X)\)</span>. Let <span class="math inline">\(\overline{X}_n:= \frac{1}{n} \sum^n_{i=1}X_i\)</span>. Then
-<span class="math display">\[\overline{X}_n \stackrel{a.s.}{\rightarrow} \mu.\]</span>
-Note: a.s. means almost surely. The above convergence means <span class="math inline">\(P(\lim_{n\rightarrow \infty} \overline{X}_n = \mu) = 1\)</span>. Note that (the expectation of an indicator random variable is the probability that the corresponding event will happen)
-<span class="math display">\[ P(X&gt;Y) = E(I(X&gt;Y)).\]</span>
-To apply SLLN, we just need to recognize the underlying random variable is <span class="math inline">\(I(X&gt;Y)\)</span>. Then, with probability <span class="math inline">\(1\)</span>, the sample mean
-<span class="math display">\[ \frac{1}{n} \sum^n_{i=1} I(X_i &gt; Y_i) \rightarrow P(X&gt;Y).\]</span>
-The quantity on the LHS is what we compute in <code>mean(X&gt;Y)</code> (note that we are using vectorized comparison).</p>
-<p><strong><em>We will see additional simulation examples after we talk about some programming in R</em></strong></p>
-<p>There are many important topics that we will not discuss</p>
-<ol style="list-style-type: decimal">
-<li>algorithms for simulating random variables</li>
-</ol>
+<p>Comparing with <span class="math inline">\(k\)</span>-means:</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="hierarchical-clustering-1.html#cb448-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb448-2"><a href="hierarchical-clustering-1.html#cb448-2"></a>km_cluster &lt;-<span class="st"> </span><span class="kw">kmeans</span>(nci_data_scale, <span class="dv">4</span>, <span class="dt">nstart =</span> <span class="dv">50</span>)<span class="op">$</span>cluster</span>
+<span id="cb448-3"><a href="hierarchical-clustering-1.html#cb448-3"></a><span class="kw">table</span>(km_cluster, hc_cluster)</span>
+<span id="cb448-4"><a href="hierarchical-clustering-1.html#cb448-4"></a><span class="co">##           hc_cluster</span></span>
+<span id="cb448-5"><a href="hierarchical-clustering-1.html#cb448-5"></a><span class="co">## km_cluster  1  2  3  4</span></span>
+<span id="cb448-6"><a href="hierarchical-clustering-1.html#cb448-6"></a><span class="co">##          1  9  0  0  0</span></span>
+<span id="cb448-7"><a href="hierarchical-clustering-1.html#cb448-7"></a><span class="co">##          2 20  7  0  0</span></span>
+<span id="cb448-8"><a href="hierarchical-clustering-1.html#cb448-8"></a><span class="co">##          3  0  0  8  0</span></span>
+<span id="cb448-9"><a href="hierarchical-clustering-1.html#cb448-9"></a><span class="co">##          4 11  0  0  9</span></span></code></pre></div>
+<p>Some observations:</p>
 <ul>
-<li>inverse transform</li>
-<li>acceptance rejection</li>
-<li>Markov Chain Monte Carlo</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>methods to reduce variance in simulation</li>
-</ol>
-<ul>
-<li>Control variates</li>
-<li>Antithetic variates</li>
-<li>Importance sampling</li>
+<li><p>The <span class="math inline">\(4\)</span> clusters obtained using the two methods are different</p></li>
+<li><p>Cluster 3 in <span class="math inline">\(k\)</span>-means clustering is the same as Cluster 3 in hierarchical clustering</p></li>
+<li><p>Cluster 1 in <span class="math inline">\(k\)</span>-means is a subset of Cluster 1 in hierarchical clustering</p></li>
 </ul>
 
+</div>
 </div>
 </div>
             </section>
@@ -686,8 +499,8 @@ The quantity on the LHS is what we compute in <code>mean(X&gt;Y)</code> (note th
           </div>
         </div>
       </div>
-<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="programming-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hierarchical-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
