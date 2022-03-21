@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -324,6 +324,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>15.3.1</b> NCI60 Data<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>16</b> Resampling Methods<span></span></a><ul>
+<li class="chapter" data-level="16.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>16.1</b> Cross-validation<span></span></a><ul>
+<li class="chapter" data-level="16.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cv-in-glm"><i class="fa fa-check"></i><b>16.1.1</b> CV in GLM<span></span></a></li>
+<li class="chapter" data-level="16.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#general-implementation"><i class="fa fa-check"></i><b>16.1.2</b> General Implementation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap"><i class="fa fa-check"></i><b>16.2</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>17</b> Regularization<span></span></a><ul>
+<li class="chapter" data-level="17.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>17.1</b> Ridge Regression<span></span></a></li>
+<li class="chapter" data-level="17.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>17.2</b> LASSO<span></span></a></li>
+<li class="chapter" data-level="17.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>17.3</b> Selecting the tuning parameter<span></span></a></li>
+<li class="chapter" data-level="17.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>17.4</b> <code>glmnet</code><span></span></a><ul>
+<li class="chapter" data-level="17.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>17.4.1</b> Ridge Regression<span></span></a></li>
+<li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="decision-tree.html"><a href="decision-tree.html"><i class="fa fa-check"></i><b>18</b> Decision Tree<span></span></a></li>
+<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
+<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>19.3</b> Boosting<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -389,14 +412,14 @@ which can be maximized numerically in computer.</p>
 <span class="math display">\[\begin{equation*}
 \text{logit}(p) = \log \frac{p}{1-p}.
 \end{equation*}\]</span></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-445-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-459-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>logistic function</strong></p>
 <p>The standard logistic function is defined as
 <span class="math display">\[\begin{equation*}
 f(x) = \frac{1}{1+e^{-x}} = \frac{e^x}{1+e^x}.
 \end{equation*}\]</span>
 It is the inverse of the logit function.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-446-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-460-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Example</strong></p>
 <p>The package <code>mlbench</code> contains some artificial and real-world machine learning benchmark problems (datasets). See <a href="https://cran.r-project.org/web/packages/mlbench/mlbench.pdf" class="uri">https://cran.r-project.org/web/packages/mlbench/mlbench.pdf</a></p>
 <p>We will use the dataset <code>PimaIndiansDiabetes2</code> from <code>mlbench</code>.</p>

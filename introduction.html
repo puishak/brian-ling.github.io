@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -324,6 +324,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>15.3.1</b> NCI60 Data<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>16</b> Resampling Methods<span></span></a><ul>
+<li class="chapter" data-level="16.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>16.1</b> Cross-validation<span></span></a><ul>
+<li class="chapter" data-level="16.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cv-in-glm"><i class="fa fa-check"></i><b>16.1.1</b> CV in GLM<span></span></a></li>
+<li class="chapter" data-level="16.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#general-implementation"><i class="fa fa-check"></i><b>16.1.2</b> General Implementation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap"><i class="fa fa-check"></i><b>16.2</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>17</b> Regularization<span></span></a><ul>
+<li class="chapter" data-level="17.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>17.1</b> Ridge Regression<span></span></a></li>
+<li class="chapter" data-level="17.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>17.2</b> LASSO<span></span></a></li>
+<li class="chapter" data-level="17.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>17.3</b> Selecting the tuning parameter<span></span></a></li>
+<li class="chapter" data-level="17.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>17.4</b> <code>glmnet</code><span></span></a><ul>
+<li class="chapter" data-level="17.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>17.4.1</b> Ridge Regression<span></span></a></li>
+<li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="decision-tree.html"><a href="decision-tree.html"><i class="fa fa-check"></i><b>18</b> Decision Tree<span></span></a></li>
+<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
+<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>19.3</b> Boosting<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -399,21 +422,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
 <p><strong>Scatterplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-2-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-16-1.png" width="50%" /></p>
 <p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-3-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-17-1.png" width="50%" /></p>
 <p><strong>Scatterplots</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-4-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-18-1.png" width="50%" /></p>
 <p><strong>Line Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-5-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-19-1.png" width="50%" /></p>
 <p><strong>Bar chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-6-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-20-1.png" width="50%" /></p>
 <p><strong>Another Bar Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-7-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-21-1.png" width="50%" /></p>
 <p><strong>Boxplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-8-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-22-1.png" width="50%" /></p>
 <p><strong>Histogram</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-9-1.png" width="50%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-23-1.png" width="50%" /></p>
 </div>
 <div id="statistical-inference" class="section level3 hasAnchor">
 <h3><span class="header-section-number">1.2.4</span> Statistical Inference<a href="introduction.html#statistical-inference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -435,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Employ Naive Bayes to build an SMS junk message filter (text data)</p></li>
 </ul>
 <p>A wordcloud of text data</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="70%" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-24-1.png" width="70%" /></p>
 <ul>
 <li>Use neural network to predict the compressive strength of concrete</li>
 </ul>
@@ -483,132 +506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-5"><a href="introduction.html#cb6-5"></a><span class="co">## [1] 1 3 5</span></span></code></pre></div>
 <p>R is case-sensitive. When you type <code>Y</code>, you will see an error message: object ‘Y’ not found</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction.html#cb7-1"></a>Y</span>
-<span id="cb7-2"><a href="introduction.html#cb7-2"></a><span class="co">##    [1] 0.114305988 0.486971860 1.014030007 0.331295674 0.780460508 0.584427028 0.232725628 0.273408411</span></span>
-<span id="cb7-3"><a href="introduction.html#cb7-3"></a><span class="co">##    [9] 0.498773347 0.033237986 0.009634090 0.767343555 0.392361431 0.085237052 1.025748554 0.258635081</span></span>
-<span id="cb7-4"><a href="introduction.html#cb7-4"></a><span class="co">##   [17] 1.117215580 0.115149787 0.020453922 0.460819192 0.855482244 0.795669517 0.321032185 0.086982945</span></span>
-<span id="cb7-5"><a href="introduction.html#cb7-5"></a><span class="co">##   [25] 0.677297958 0.820099395 0.036188328 0.092014409 0.521903102 0.050377275 0.116055059 0.020241100</span></span>
-<span id="cb7-6"><a href="introduction.html#cb7-6"></a><span class="co">##   [33] 0.892788827 0.208686769 0.075167513 0.315202201 0.226350231 1.150664191 0.207206264 1.394964494</span></span>
-<span id="cb7-7"><a href="introduction.html#cb7-7"></a><span class="co">##   [41] 0.048981157 0.581247779 0.206729957 0.001518602 0.109802860 0.002397081 0.317459047 0.360006579</span></span>
-<span id="cb7-8"><a href="introduction.html#cb7-8"></a><span class="co">##   [49] 0.010927155 0.362469076 0.175205326 0.110263387 0.003701054 0.002662251 0.401809896 0.992305070</span></span>
-<span id="cb7-9"><a href="introduction.html#cb7-9"></a><span class="co">##   [57] 0.206800305 0.596601761 0.135900203 0.433446454 0.542227333 0.106618057 0.756509970 2.175904119</span></span>
-<span id="cb7-10"><a href="introduction.html#cb7-10"></a><span class="co">##   [65] 1.174091813 0.313000944 0.272968603 1.207022970 0.066223388 1.008554895 0.313663758 0.104149820</span></span>
-<span id="cb7-11"><a href="introduction.html#cb7-11"></a><span class="co">##   [73] 2.262375126 0.410971100 0.559304906 0.256424120 0.656786556 0.020051719 0.454555284 0.405154956</span></span>
-<span id="cb7-12"><a href="introduction.html#cb7-12"></a><span class="co">##   [81] 1.029767433 0.759887177 0.130771258 0.101638528 1.582234587 0.251345998 0.448476134 1.034402105</span></span>
-<span id="cb7-13"><a href="introduction.html#cb7-13"></a><span class="co">##   [89] 0.102742671 0.503615533 0.051636175 0.667929185 1.343903371 0.869391883 0.447776220 0.860782029</span></span>
-<span id="cb7-14"><a href="introduction.html#cb7-14"></a><span class="co">##   [97] 0.201062721 0.105670575 0.273751424 0.405010797 0.353995353 0.076387702 0.743366132 1.617695581</span></span>
-<span id="cb7-15"><a href="introduction.html#cb7-15"></a><span class="co">##  [105] 1.032095372 0.250277958 1.173932319 0.603893176 0.101576940 0.365096157 1.502377584 0.682086725</span></span>
-<span id="cb7-16"><a href="introduction.html#cb7-16"></a><span class="co">##  [113] 0.316928274 0.019247589 0.365168370 0.087114525 0.943174735 0.300021803 0.987939996 0.189258872</span></span>
-<span id="cb7-17"><a href="introduction.html#cb7-17"></a><span class="co">##  [121] 0.220623464 0.143499199 0.706814156 0.403205899 0.283293154 0.033458683 0.997361333 0.402062385</span></span>
-<span id="cb7-18"><a href="introduction.html#cb7-18"></a><span class="co">##  [129] 0.937893072 0.234753546 0.927977253 0.112884727 0.097848499 0.137427134 0.302750747 0.723676180</span></span>
-<span id="cb7-19"><a href="introduction.html#cb7-19"></a><span class="co">##  [137] 0.221458586 0.054052875 0.271607734 1.584587373 0.156866252 0.190232053 0.627744752 0.596899876</span></span>
-<span id="cb7-20"><a href="introduction.html#cb7-20"></a><span class="co">##  [145] 0.631270086 0.157599649 0.149713283 0.320102528 0.338203163 0.715251351 0.057067506 0.688149798</span></span>
-<span id="cb7-21"><a href="introduction.html#cb7-21"></a><span class="co">##  [153] 0.055206182 0.038350971 0.317018815 0.221506572 0.107634028 0.192607970 0.471084716 0.332242277</span></span>
-<span id="cb7-22"><a href="introduction.html#cb7-22"></a><span class="co">##  [161] 1.138934403 0.264706248 0.341095922 1.235168086 0.113844021 0.081067188 0.158115612 0.328635416</span></span>
-<span id="cb7-23"><a href="introduction.html#cb7-23"></a><span class="co">##  [169] 0.984423414 0.266048033 0.526487505 0.032671309 1.589303639 0.527397077 0.146868787 0.413781535</span></span>
-<span id="cb7-24"><a href="introduction.html#cb7-24"></a><span class="co">##  [177] 0.192172087 0.870620330 1.497370556 0.264431546 0.290465569 0.409592229 1.001080188 0.800269758</span></span>
-<span id="cb7-25"><a href="introduction.html#cb7-25"></a><span class="co">##  [185] 0.316087815 0.555713537 0.218085976 0.116094398 0.598580974 0.506726755 0.083989617 0.468120805</span></span>
-<span id="cb7-26"><a href="introduction.html#cb7-26"></a><span class="co">##  [193] 0.144062695 2.190196374 0.658057418 0.713855372 0.095027973 0.003542766 0.032813905 0.323298841</span></span>
-<span id="cb7-27"><a href="introduction.html#cb7-27"></a><span class="co">##  [201] 0.037881962 1.044188249 0.509173056 0.540627410 0.907198684 0.342145491 0.916385842 1.043278961</span></span>
-<span id="cb7-28"><a href="introduction.html#cb7-28"></a><span class="co">##  [209] 0.362624578 0.464406061 0.252545177 0.231379010 0.186521973 1.721121162 0.701010525 0.116970367</span></span>
-<span id="cb7-29"><a href="introduction.html#cb7-29"></a><span class="co">##  [217] 0.347518745 0.136763565 0.208588448 0.037706998 0.089114935 0.609575820 0.765762515 0.044106536</span></span>
-<span id="cb7-30"><a href="introduction.html#cb7-30"></a><span class="co">##  [225] 0.377070141 1.612166340 1.329647875 0.764209700 0.818383303 0.065847166 0.234157664 0.264909827</span></span>
-<span id="cb7-31"><a href="introduction.html#cb7-31"></a><span class="co">##  [233] 1.339857723 0.377166394 0.057357478 0.206230454 0.603219380 0.921458551 0.212939940 0.179995547</span></span>
-<span id="cb7-32"><a href="introduction.html#cb7-32"></a><span class="co">##  [241] 0.507923770 0.102414213 0.253283086 0.436617990 0.639887432 0.313781449 0.697707924 0.583950124</span></span>
-<span id="cb7-33"><a href="introduction.html#cb7-33"></a><span class="co">##  [249] 0.814076815 0.310568905 0.170468003 0.369421517 0.143040084 0.916152514 0.940161515 0.862329037</span></span>
-<span id="cb7-34"><a href="introduction.html#cb7-34"></a><span class="co">##  [257] 2.174442077 0.541052988 0.468395051 0.119013933 0.230042307 0.781605464 0.628909620 1.888750086</span></span>
-<span id="cb7-35"><a href="introduction.html#cb7-35"></a><span class="co">##  [265] 2.534774356 0.580441425 0.164316293 0.174264794 0.339682089 0.037718475 1.546334808 0.311142375</span></span>
-<span id="cb7-36"><a href="introduction.html#cb7-36"></a><span class="co">##  [273] 0.765260855 0.839232773 0.143639112 0.378402124 0.582662110 0.458921853 0.517066843 0.603250031</span></span>
-<span id="cb7-37"><a href="introduction.html#cb7-37"></a><span class="co">##  [281] 0.029215608 0.812865035 0.334156212 0.893139350 0.018132696 0.707666597 0.184064932 0.768589338</span></span>
-<span id="cb7-38"><a href="introduction.html#cb7-38"></a><span class="co">##  [289] 0.874276770 1.120859601 0.199044462 0.229718079 0.430525001 0.586947476 1.575488735 0.450734677</span></span>
-<span id="cb7-39"><a href="introduction.html#cb7-39"></a><span class="co">##  [297] 0.110648763 0.024415308 0.087488637 0.255548427 1.440568758 0.011017731 0.206952971 1.345980559</span></span>
-<span id="cb7-40"><a href="introduction.html#cb7-40"></a><span class="co">##  [305] 0.667624221 0.394569380 0.434092598 0.507009864 0.499754793 0.006170296 0.540210927 0.405622980</span></span>
-<span id="cb7-41"><a href="introduction.html#cb7-41"></a><span class="co">##  [313] 0.409429111 0.721661720 1.321607235 0.172141821 1.050492501 0.023709765 0.125234695 1.740760495</span></span>
-<span id="cb7-42"><a href="introduction.html#cb7-42"></a><span class="co">##  [321] 1.091960496 0.072843902 0.332962817 0.068260924 0.473832466 1.524203826 0.040062807 0.169020683</span></span>
-<span id="cb7-43"><a href="introduction.html#cb7-43"></a><span class="co">##  [329] 0.447388773 0.768890228 1.988177339 0.552910194 0.695069783 0.051537391 0.317338370 0.200365924</span></span>
-<span id="cb7-44"><a href="introduction.html#cb7-44"></a><span class="co">##  [337] 1.853254790 0.113382990 0.377544865 0.055296064 0.047436869 1.521327898 0.519627368 0.403729430</span></span>
-<span id="cb7-45"><a href="introduction.html#cb7-45"></a><span class="co">##  [345] 0.060989899 0.208657463 0.255813022 0.367842091 0.339372812 1.184326821 0.524748922 0.022438671</span></span>
-<span id="cb7-46"><a href="introduction.html#cb7-46"></a><span class="co">##  [353] 0.061435700 0.094387687 0.012586010 0.390819404 0.304075087 0.519143131 0.860828988 0.997139501</span></span>
-<span id="cb7-47"><a href="introduction.html#cb7-47"></a><span class="co">##  [361] 0.889586265 0.365231046 0.549936220 0.345593471 0.895686957 0.082741297 0.564249888 1.511104427</span></span>
-<span id="cb7-48"><a href="introduction.html#cb7-48"></a><span class="co">##  [369] 0.102626102 0.676578902 0.285274687 0.334938495 0.596994464 0.320167650 0.058982335 0.399138277</span></span>
-<span id="cb7-49"><a href="introduction.html#cb7-49"></a><span class="co">##  [377] 0.843593545 0.496713981 1.478438381 0.054324137 0.456168833 1.290335449 0.192601522 0.950018787</span></span>
-<span id="cb7-50"><a href="introduction.html#cb7-50"></a><span class="co">##  [385] 0.208820475 0.067761859 0.602739125 0.074097911 0.039682662 0.042094670 0.607718180 0.385255742</span></span>
-<span id="cb7-51"><a href="introduction.html#cb7-51"></a><span class="co">##  [393] 0.363399979 0.580866248 0.205526357 0.057042715 0.126505695 0.096821250 0.024134657 0.291733709</span></span>
-<span id="cb7-52"><a href="introduction.html#cb7-52"></a><span class="co">##  [401] 0.648647628 0.696083107 1.901157739 0.180338953 0.026043881 0.331625087 0.990849312 0.212152718</span></span>
-<span id="cb7-53"><a href="introduction.html#cb7-53"></a><span class="co">##  [409] 0.519140227 2.899762020 0.791500930 1.118349400 0.284658107 0.362926274 0.046372122 0.030650604</span></span>
-<span id="cb7-54"><a href="introduction.html#cb7-54"></a><span class="co">##  [417] 0.047728980 0.134951993 1.315891889 0.952189876 0.619790128 0.338789787 0.170225051 1.099273288</span></span>
-<span id="cb7-55"><a href="introduction.html#cb7-55"></a><span class="co">##  [425] 0.356401492 0.244739159 0.393758667 0.956607319 0.134327111 0.484807384 0.196246542 0.731926407</span></span>
-<span id="cb7-56"><a href="introduction.html#cb7-56"></a><span class="co">##  [433] 0.088965355 0.532506766 0.089145668 1.374714726 0.441018388 0.424136223 0.342329822 0.526120115</span></span>
-<span id="cb7-57"><a href="introduction.html#cb7-57"></a><span class="co">##  [441] 0.818244549 1.036297466 0.171423663 0.065418955 0.006882296 0.586921757 0.414848103 0.331126488</span></span>
-<span id="cb7-58"><a href="introduction.html#cb7-58"></a><span class="co">##  [449] 0.321655616 0.138970539 0.820265052 0.015393489 1.136307568 1.827539043 0.864947176 0.291201256</span></span>
-<span id="cb7-59"><a href="introduction.html#cb7-59"></a><span class="co">##  [457] 0.001109250 0.918366573 0.180220499 0.014598554 0.048288112 1.205323930 0.748056937 0.575982844</span></span>
-<span id="cb7-60"><a href="introduction.html#cb7-60"></a><span class="co">##  [465] 0.437934244 0.112955767 1.764430011 0.261323123 1.434081433 0.600247446 1.156804877 0.061347813</span></span>
-<span id="cb7-61"><a href="introduction.html#cb7-61"></a><span class="co">##  [473] 0.401826886 0.013326896 1.632836956 0.287556428 0.534878690 1.109766443 0.192561213 0.454715490</span></span>
-<span id="cb7-62"><a href="introduction.html#cb7-62"></a><span class="co">##  [481] 0.997662184 0.170184148 0.444690336 0.648253102 0.255192148 0.200572000 0.577619117 0.385337827</span></span>
-<span id="cb7-63"><a href="introduction.html#cb7-63"></a><span class="co">##  [489] 0.022020845 0.697385910 0.822696903 0.334266646 0.664587884 0.648833686 1.617470317 0.028509523</span></span>
-<span id="cb7-64"><a href="introduction.html#cb7-64"></a><span class="co">##  [497] 0.062271706 0.650037626 0.356808429 0.492447017 0.454638648 0.068881335 0.373350979 0.384444969</span></span>
-<span id="cb7-65"><a href="introduction.html#cb7-65"></a><span class="co">##  [505] 0.241745650 0.516748310 1.124715972 0.018127596 0.082439690 0.765819847 0.768021732 1.356838346</span></span>
-<span id="cb7-66"><a href="introduction.html#cb7-66"></a><span class="co">##  [513] 0.116308966 0.231189313 0.112094942 0.010181062 0.432329645 0.120124937 0.199257264 0.226648113</span></span>
-<span id="cb7-67"><a href="introduction.html#cb7-67"></a><span class="co">##  [521] 0.041924753 1.551741490 0.113104238 0.453805173 0.037788922 0.259932387 0.021147107 0.068636304</span></span>
-<span id="cb7-68"><a href="introduction.html#cb7-68"></a><span class="co">##  [529] 0.612618572 0.561174252 0.266654158 0.825298362 0.678942707 0.176698674 0.240868614 0.089515051</span></span>
-<span id="cb7-69"><a href="introduction.html#cb7-69"></a><span class="co">##  [537] 0.741530160 0.622373953 0.005131401 1.384113257 0.162997008 1.042657047 0.033369070 2.201446587</span></span>
-<span id="cb7-70"><a href="introduction.html#cb7-70"></a><span class="co">##  [545] 0.084484149 0.310895825 0.226171783 0.030282784 0.057646846 1.041281622 0.882011955 0.721504766</span></span>
-<span id="cb7-71"><a href="introduction.html#cb7-71"></a><span class="co">##  [553] 0.673939917 0.392909055 0.812837077 1.364714003 0.039379520 0.108436156 2.043176590 0.049020504</span></span>
-<span id="cb7-72"><a href="introduction.html#cb7-72"></a><span class="co">##  [561] 0.601452555 0.155245326 0.913161870 0.494422246 0.190492859 0.355696744 0.055005760 0.818657120</span></span>
-<span id="cb7-73"><a href="introduction.html#cb7-73"></a><span class="co">##  [569] 0.128250783 0.091548511 0.671022481 0.987314491 0.278980718 0.409849194 0.504812922 0.080796026</span></span>
-<span id="cb7-74"><a href="introduction.html#cb7-74"></a><span class="co">##  [577] 0.306793286 0.249139092 0.667604531 0.559511592 0.498997039 0.448712231 0.424421485 0.826728827</span></span>
-<span id="cb7-75"><a href="introduction.html#cb7-75"></a><span class="co">##  [585] 0.498075531 0.415289640 0.339868641 0.823204584 0.467931331 1.264274317 0.043063191 0.904281078</span></span>
-<span id="cb7-76"><a href="introduction.html#cb7-76"></a><span class="co">##  [593] 0.802636784 0.357202326 0.635983052 1.548991479 0.209813123 1.031978491 1.031561547 0.039725058</span></span>
-<span id="cb7-77"><a href="introduction.html#cb7-77"></a><span class="co">##  [601] 0.089648475 1.508504216 1.171300714 0.621866920 0.526089647 0.084254707 0.246071049 0.301043131</span></span>
-<span id="cb7-78"><a href="introduction.html#cb7-78"></a><span class="co">##  [609] 0.533906033 0.547873073 0.532609912 0.071552686 0.921035063 0.211121772 0.260621753 0.772846683</span></span>
-<span id="cb7-79"><a href="introduction.html#cb7-79"></a><span class="co">##  [617] 0.075419413 0.930738036 0.491323693 0.493525875 0.289468923 0.803938577 0.473665907 0.256219900</span></span>
-<span id="cb7-80"><a href="introduction.html#cb7-80"></a><span class="co">##  [625] 0.070710957 0.324922291 0.337590885 0.191657171 1.253374101 0.272172487 0.139014124 0.069076065</span></span>
-<span id="cb7-81"><a href="introduction.html#cb7-81"></a><span class="co">##  [633] 0.753837273 0.552765918 0.079432619 1.051731022 0.858738832 0.096546267 0.734090762 0.266721670</span></span>
-<span id="cb7-82"><a href="introduction.html#cb7-82"></a><span class="co">##  [641] 0.146120129 0.117429775 0.176978193 0.408641680 0.001630022 0.028182602 0.146544379 0.060395583</span></span>
-<span id="cb7-83"><a href="introduction.html#cb7-83"></a><span class="co">##  [649] 0.492136737 0.168835149 0.593778450 0.277633042 0.185936376 0.411072076 0.296935074 0.356447967</span></span>
-<span id="cb7-84"><a href="introduction.html#cb7-84"></a><span class="co">##  [657] 0.203177091 0.346533650 1.762874159 0.118832150 0.223342329 0.737081655 1.148893671 0.864336227</span></span>
-<span id="cb7-85"><a href="introduction.html#cb7-85"></a><span class="co">##  [665] 0.437699466 0.170718352 0.453033334 0.284686619 0.220664163 1.270076190 0.159175233 0.985991335</span></span>
-<span id="cb7-86"><a href="introduction.html#cb7-86"></a><span class="co">##  [673] 0.355393307 0.029068875 0.729858551 1.192362318 1.228492474 0.618226990 0.258127426 0.994683053</span></span>
-<span id="cb7-87"><a href="introduction.html#cb7-87"></a><span class="co">##  [681] 0.622921309 0.286508049 0.313194664 0.101023336 0.050432791 0.994842797 0.401375517 0.195938303</span></span>
-<span id="cb7-88"><a href="introduction.html#cb7-88"></a><span class="co">##  [689] 0.188628324 0.454393757 0.352803155 0.279566123 0.901496702 0.460887553 0.075552129 0.351821536</span></span>
-<span id="cb7-89"><a href="introduction.html#cb7-89"></a><span class="co">##  [697] 0.315558587 0.269195604 0.052841050 0.344008449 0.506264741 0.242800298 0.228570326 0.128708044</span></span>
-<span id="cb7-90"><a href="introduction.html#cb7-90"></a><span class="co">##  [705] 1.019939650 0.221918903 0.435252097 0.897294571 0.146910850 0.238745095 0.129419207 0.430012817</span></span>
-<span id="cb7-91"><a href="introduction.html#cb7-91"></a><span class="co">##  [713] 0.617225470 0.250176708 0.112356332 1.211477407 1.474098589 1.982732813 0.018066104 0.427273062</span></span>
-<span id="cb7-92"><a href="introduction.html#cb7-92"></a><span class="co">##  [721] 0.009232481 0.477778847 1.128154167 0.092666285 0.433171838 0.074400972 0.841435024 0.251317355</span></span>
-<span id="cb7-93"><a href="introduction.html#cb7-93"></a><span class="co">##  [729] 0.541455199 0.193974684 0.618515766 0.179186255 1.502764431 0.547125198 0.289621415 0.799203753</span></span>
-<span id="cb7-94"><a href="introduction.html#cb7-94"></a><span class="co">##  [737] 0.022803527 0.471033177 0.052174684 1.037569742 0.185001681 1.185447137 0.078579151 0.045157256</span></span>
-<span id="cb7-95"><a href="introduction.html#cb7-95"></a><span class="co">##  [745] 0.046316527 0.553438011 0.121114951 0.450341409 0.181195629 0.084452273 0.796326219 0.173316319</span></span>
-<span id="cb7-96"><a href="introduction.html#cb7-96"></a><span class="co">##  [753] 0.803480546 0.022918319 0.793654830 0.335047148 0.265222968 0.141398187 1.101651413 0.294136508</span></span>
-<span id="cb7-97"><a href="introduction.html#cb7-97"></a><span class="co">##  [761] 0.021626998 0.032978077 0.995229506 1.414827309 0.497906272 0.655626042 0.642986060 0.072982345</span></span>
-<span id="cb7-98"><a href="introduction.html#cb7-98"></a><span class="co">##  [769] 1.407518778 0.164534279 0.806604142 0.024238264 1.283695050 0.154971001 0.012891663 0.501994214</span></span>
-<span id="cb7-99"><a href="introduction.html#cb7-99"></a><span class="co">##  [777] 0.270027704 0.027776621 0.358837495 0.484911255 0.204886571 0.139495552 0.195229138 0.026874175</span></span>
-<span id="cb7-100"><a href="introduction.html#cb7-100"></a><span class="co">##  [785] 0.304000215 0.074696255 0.194862565 0.439471007 1.451284464 0.195583041 0.138769553 0.139342928</span></span>
-<span id="cb7-101"><a href="introduction.html#cb7-101"></a><span class="co">##  [793] 0.031609945 0.029500088 0.035554840 0.206713657 3.366952411 0.009377497 0.276773972 0.099330204</span></span>
-<span id="cb7-102"><a href="introduction.html#cb7-102"></a><span class="co">##  [801] 1.637314189 0.530101417 0.803167904 1.050967670 0.692287825 0.137782557 0.246405107 0.404624542</span></span>
-<span id="cb7-103"><a href="introduction.html#cb7-103"></a><span class="co">##  [809] 0.350396352 0.796928341 0.446560640 1.723842248 1.076454880 0.409882272 0.103717124 0.156647405</span></span>
-<span id="cb7-104"><a href="introduction.html#cb7-104"></a><span class="co">##  [817] 0.213177088 0.053153932 0.033289510 0.301272004 0.036639550 0.852190749 0.147093994 1.290224709</span></span>
-<span id="cb7-105"><a href="introduction.html#cb7-105"></a><span class="co">##  [825] 0.018083671 1.257474658 0.039238167 0.068097631 0.034724634 0.703086638 0.214568190 0.237077258</span></span>
-<span id="cb7-106"><a href="introduction.html#cb7-106"></a><span class="co">##  [833] 0.116071925 0.016400442 0.130404300 0.586118123 0.728925783 0.074947637 0.196644112 0.042671078</span></span>
-<span id="cb7-107"><a href="introduction.html#cb7-107"></a><span class="co">##  [841] 0.237886993 0.534602394 0.646552752 0.050660982 2.010122555 0.626543230 1.126897858 0.419781275</span></span>
-<span id="cb7-108"><a href="introduction.html#cb7-108"></a><span class="co">##  [849] 0.023896212 0.705951755 0.562956772 1.328329020 0.169302088 0.835206813 0.277542274 1.697271161</span></span>
-<span id="cb7-109"><a href="introduction.html#cb7-109"></a><span class="co">##  [857] 0.186081092 0.209499781 1.816792357 0.357757377 0.370632947 0.606682359 0.767872353 0.504081775</span></span>
-<span id="cb7-110"><a href="introduction.html#cb7-110"></a><span class="co">##  [865] 0.001247507 0.374714445 1.260728429 0.548030595 0.051366394 0.669499010 0.204565098 0.357138523</span></span>
-<span id="cb7-111"><a href="introduction.html#cb7-111"></a><span class="co">##  [873] 0.325922715 0.173138955 0.194792269 0.261868417 0.442155302 0.543873114 0.348234492 0.440612675</span></span>
-<span id="cb7-112"><a href="introduction.html#cb7-112"></a><span class="co">##  [881] 0.353307406 0.173264065 0.220092329 0.798013205 0.503934160 0.254727222 0.132962129 0.035786185</span></span>
-<span id="cb7-113"><a href="introduction.html#cb7-113"></a><span class="co">##  [889] 1.123864970 0.032491306 0.341407514 2.650059455 0.150015373 2.011432568 0.300456046 0.026849726</span></span>
-<span id="cb7-114"><a href="introduction.html#cb7-114"></a><span class="co">##  [897] 0.042129711 0.238689675 0.543583132 0.742656440 1.812237861 0.358463121 0.236546929 0.002406647</span></span>
-<span id="cb7-115"><a href="introduction.html#cb7-115"></a><span class="co">##  [905] 0.176971153 1.063445113 0.030157944 0.024307241 0.163734285 0.199360676 0.912160062 0.355351432</span></span>
-<span id="cb7-116"><a href="introduction.html#cb7-116"></a><span class="co">##  [913] 0.189718243 0.296674911 0.697464872 0.708444965 0.368647130 0.060187919 0.549456722 0.021641581</span></span>
-<span id="cb7-117"><a href="introduction.html#cb7-117"></a><span class="co">##  [921] 0.290603287 0.798261852 0.314019459 0.724568625 0.941018307 0.293596455 1.223980258 0.039571142</span></span>
-<span id="cb7-118"><a href="introduction.html#cb7-118"></a><span class="co">##  [929] 1.158070871 0.460868258 0.247997364 0.263236532 0.139143773 0.140968290 0.761795888 0.148662237</span></span>
-<span id="cb7-119"><a href="introduction.html#cb7-119"></a><span class="co">##  [937] 0.421526592 0.300876187 0.243498721 0.112615235 0.471772086 0.405499176 0.214608951 0.858494705</span></span>
-<span id="cb7-120"><a href="introduction.html#cb7-120"></a><span class="co">##  [945] 0.671296073 0.577190732 0.626394997 1.441889776 0.826892055 0.219829575 0.236749843 0.422409285</span></span>
-<span id="cb7-121"><a href="introduction.html#cb7-121"></a><span class="co">##  [953] 0.513638322 0.948081072 0.087779378 0.310692295 0.182598396 0.094122408 0.104511606 0.958150160</span></span>
-<span id="cb7-122"><a href="introduction.html#cb7-122"></a><span class="co">##  [961] 0.009967102 0.573083842 0.589041397 0.007254992 0.674541067 0.128007672 0.221526028 0.506869351</span></span>
-<span id="cb7-123"><a href="introduction.html#cb7-123"></a><span class="co">##  [969] 1.241580902 0.350246169 0.482062772 0.509659327 0.491551620 0.216713121 0.531841479 0.812028819</span></span>
-<span id="cb7-124"><a href="introduction.html#cb7-124"></a><span class="co">##  [977] 0.722980367 0.219843920 0.123427497 0.704556302 0.673024458 0.334282570 0.250186152 0.209072944</span></span>
-<span id="cb7-125"><a href="introduction.html#cb7-125"></a><span class="co">##  [985] 0.755435145 0.198548994 0.595404624 0.062569472 0.087195339 0.214494597 0.377236614 0.006950117</span></span>
-<span id="cb7-126"><a href="introduction.html#cb7-126"></a><span class="co">##  [993] 0.479850746 0.235103038 0.944594361 0.076321719 0.052428768 0.541751376 0.225168060 0.703976140</span></span>
-<span id="cb7-127"><a href="introduction.html#cb7-127"></a><span class="co">##  [ reached getOption(&quot;max.print&quot;) -- omitted 999000 entries ]</span></span></code></pre></div>
+<span id="cb7-2"><a href="introduction.html#cb7-2"></a><span class="co">## Error in eval(expr, envir, enclos): object &#39;Y&#39; not found</span></span></code></pre></div>
 </div>
 <div id="r-data-structures" class="section level2 hasAnchor">
 <h2><span class="header-section-number">1.4</span> R Data Structures<a href="introduction.html#r-data-structures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
