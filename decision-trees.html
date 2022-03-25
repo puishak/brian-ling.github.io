@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="regularization.html"/>
-
+<link rel="next" href="ensemble-methods.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -349,6 +349,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
+<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -417,11 +422,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="decision-trees.html#cb469-1"></a><span class="co"># we only want to plot the numeric features</span></span>
 <span id="cb469-2"><a href="decision-trees.html#cb469-2"></a><span class="co"># the 5th column is the species of the flowers</span></span>
 <span id="cb469-3"><a href="decision-trees.html#cb469-3"></a><span class="kw">pairs</span>(iris_train[, <span class="dv">-5</span>])</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-522-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-565-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>With <code>ggpairs()</code>, you can also visualize an additional category by specifying <code>color =</code> with your variable describing the category.</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="decision-trees.html#cb470-1"></a><span class="kw">library</span>(GGally) <span class="co"># to use ggpairs, install it first if you haven&#39;t done so</span></span>
 <span id="cb470-2"><a href="decision-trees.html#cb470-2"></a><span class="kw">ggpairs</span>(<span class="dt">data =</span> iris_train, <span class="kw">aes</span>(<span class="dt">color =</span> Species, <span class="dt">alpha =</span> <span class="fl">0.8</span>), <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-523-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-566-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>In the above code:</p>
 <ul>
 <li><code>columns = 1:4</code> tells the function only uses the first <span class="math inline">\(4\)</span> columns of the dataset for plotting.</li>
@@ -431,14 +436,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From the plots, it seems that the variable <code>Petal.Width</code> and <code>Petal.Length</code> will be useful in classifying the flowers. Let’s focus on the scatterplot of these two variables.</p>
 <div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="decision-trees.html#cb471-1"></a><span class="kw">ggplot</span>(iris_train, <span class="kw">aes</span>(<span class="dt">x =</span> Petal.Width, <span class="dt">y =</span> Petal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span></span>
 <span id="cb471-2"><a href="decision-trees.html#cb471-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-524-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-567-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>From the above plot, we see that we can easily classify the flowers with high accuracy using these two features. For example, if we draw the horizontal line <span class="math inline">\(y = 1.9\)</span>, we could classify any iris lying on or below this line as setosa with <span class="math inline">\(100\%\)</span> accuracy.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-525-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-568-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Next, we draw the vertical line <span class="math inline">\(x = 1.7\)</span>. We could classify any iris lying on or to the left of this line as versicolor.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-526-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-569-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We get a pretty good classification with only 3 mistakes.</p>
 <p>The above classification is an example of classification trees (because the outcome is categorical) and can be visualized as</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-528-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-571-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="introduction-to-regression-tree" class="section level2 hasAnchor">
 <h2><span class="header-section-number">18.2</span> Introduction to regression tree<a href="decision-trees.html#introduction-to-regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -553,7 +558,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Plot the tree:</p>
 <div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="decision-trees.html#cb475-1"></a><span class="kw">plot</span>(tree_iris)</span>
 <span id="cb475-2"><a href="decision-trees.html#cb475-2"></a><span class="kw">text</span>(tree_iris, <span class="dt">pretty =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-534-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-577-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prediction and accuracy:</p>
 <div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="decision-trees.html#cb476-1"></a><span class="co"># prediction</span></span>
 <span id="cb476-2"><a href="decision-trees.html#cb476-2"></a>predict_iris &lt;-<span class="st"> </span><span class="kw">predict</span>(tree_iris, iris[<span class="op">-</span>index, ], <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)</span>
@@ -604,7 +609,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Visualize the classification rules using tree:</p>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="decision-trees.html#cb479-1"></a><span class="kw">plot</span>(fit)</span>
 <span id="cb479-2"><a href="decision-trees.html#cb479-2"></a><span class="kw">text</span>(fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-538-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-581-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Let’s try to see if pruning the tree will improve the testing accuracy. Set <code>FUN = prune.misclass</code> to tell the function to use misclassification error as the evaluation metric in CV.</p>
 <div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="decision-trees.html#cb480-1"></a>cv_fit &lt;-<span class="st"> </span><span class="kw">cv.tree</span>(fit, <span class="dt">FUN =</span> prune.misclass) </span>
 <span id="cb480-2"><a href="decision-trees.html#cb480-2"></a>cv_fit</span>
@@ -623,7 +628,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <span id="cb480-15"><a href="decision-trees.html#cb480-15"></a><span class="co">## attr(,&quot;class&quot;)</span></span>
 <span id="cb480-16"><a href="decision-trees.html#cb480-16"></a><span class="co">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
 <span id="cb480-17"><a href="decision-trees.html#cb480-17"></a><span class="kw">plot</span>(cv_fit<span class="op">$</span>size, cv_fit<span class="op">$</span>dev, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-539-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-582-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><code>size</code>: number of terminal nodes of the tree</p>
 <p><code>dev</code>: cross-validation errors</p>
 <p>We will choose the <code>size</code> with the minimum <code>dev</code>.</p>
@@ -638,7 +643,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>For this particular example, the classification accuracy actually becomes lower when we prune the tree. However, the pruned tree has only <span class="math inline">\(3\)</span> terminal nodes, which can be easier for interpretation.</p>
 <div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="decision-trees.html#cb482-1"></a><span class="kw">plot</span>(prune_fit)</span>
 <span id="cb482-2"><a href="decision-trees.html#cb482-2"></a><span class="kw">text</span>(prune_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-541-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-584-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regression-tree" class="section level3 hasAnchor">
 <h3><span class="header-section-number">18.4.2</span> Regression Tree<a href="decision-trees.html#regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -652,12 +657,12 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Tree without pruning</p>
 <div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="decision-trees.html#cb484-1"></a><span class="kw">plot</span>(reg_tree)</span>
 <span id="cb484-2"><a href="decision-trees.html#cb484-2"></a><span class="kw">text</span>(reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-543-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-586-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Use cross validation to determine the optimal choice of size (the number of terminal nodes)</p>
 <div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="decision-trees.html#cb485-1"></a><span class="kw">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
 <span id="cb485-2"><a href="decision-trees.html#cb485-2"></a>cv &lt;-<span class="st"> </span><span class="kw">cv.tree</span>(reg_tree)</span>
 <span id="cb485-3"><a href="decision-trees.html#cb485-3"></a><span class="kw">plot</span>(cv<span class="op">$</span>size, cv<span class="op">$</span>dev, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-544-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-587-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prune the tree:</p>
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="decision-trees.html#cb486-1"></a><span class="co"># best size</span></span>
 <span id="cb486-2"><a href="decision-trees.html#cb486-2"></a>cv<span class="op">$</span>size[<span class="kw">which.min</span>(cv<span class="op">$</span>dev)] </span>
@@ -671,7 +676,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Pruned tree:</p>
 <div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="decision-trees.html#cb487-1"></a><span class="kw">plot</span>(prune_reg_tree)</span>
 <span id="cb487-2"><a href="decision-trees.html#cb487-2"></a><span class="kw">text</span>(prune_reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-546-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-589-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The performance (in terms of MSE) of the pruned tree in test data is similar to the tree without pruning.</p>
 
 </div>
@@ -682,8 +687,8 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
           </div>
         </div>
       </div>
-<a href="regularization.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="regularization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ensemble-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -349,6 +349,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
+<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -416,18 +421,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="creating-some-basic-plots.html#cb111-1"></a><span class="co"># x-axis: mtcars$wt</span></span>
 <span id="cb111-2"><a href="creating-some-basic-plots.html#cb111-2"></a><span class="co"># y-axis: mtcars$mpg</span></span>
 <span id="cb111-3"><a href="creating-some-basic-plots.html#cb111-3"></a><span class="kw">plot</span>(<span class="dt">x =</span> mtcars<span class="op">$</span>wt, <span class="dt">y =</span> mtcars<span class="op">$</span>mpg) <span class="co"># &quot;x =&quot;, &quot;y =&quot; are optional</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-122-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-165-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>You can produce the same plot with <code>plot(mtcars$wt, mtcars$mpg)</code></p>
 <p><strong>Scatter plot with <code>ggplot2</code></strong></p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="creating-some-basic-plots.html#cb112-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
 <span id="cb112-2"><a href="creating-some-basic-plots.html#cb112-2"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-123-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-166-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Scatter plot with base graphics (when you only have <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> but not a dataset)</strong></p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="creating-some-basic-plots.html#cb113-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb113-2"><a href="creating-some-basic-plots.html#cb113-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb113-3"><a href="creating-some-basic-plots.html#cb113-3"></a>y &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb113-4"><a href="creating-some-basic-plots.html#cb113-4"></a><span class="kw">plot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-124-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-167-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <!-- # abline(lsfit(x,y)) # add the least squares line -->
 <p><strong>Scatter plot with ggplot2 (when you only have <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> but not a dataset)</strong></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="creating-some-basic-plots.html#cb114-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
@@ -435,7 +440,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-3"><a href="creating-some-basic-plots.html#cb114-3"></a>y &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb114-4"><a href="creating-some-basic-plots.html#cb114-4"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="co"># by default, data = NULL</span></span>
 <span id="cb114-5"><a href="creating-some-basic-plots.html#cb114-5"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-125-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-168-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-graph" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.2</span> Line Graph<a href="creating-some-basic-plots.html#line-graph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -443,11 +448,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Line graph with base graphics</strong></p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="creating-some-basic-plots.html#cb115-1"></a><span class="co"># the only difference from a scatter plot is that we add type=&quot;l&quot;</span></span>
 <span id="cb115-2"><a href="creating-some-basic-plots.html#cb115-2"></a><span class="kw">plot</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)  <span class="co">#l = line</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-126-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-169-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with base graphics with points</strong></p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="creating-some-basic-plots.html#cb116-1"></a><span class="kw">plot</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span>
 <span id="cb116-2"><a href="creating-some-basic-plots.html#cb116-2"></a><span class="kw">points</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure) <span class="co"># add some points</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-127-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-170-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with base graphics with another line and points (with color)</strong></p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="creating-some-basic-plots.html#cb117-1"></a><span class="kw">plot</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span>
 <span id="cb117-2"><a href="creating-some-basic-plots.html#cb117-2"></a><span class="kw">points</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure)</span>
@@ -455,7 +460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb117-4"><a href="creating-some-basic-plots.html#cb117-4"></a><span class="co"># just an illustration on how to add a line with base graphics</span></span>
 <span id="cb117-5"><a href="creating-some-basic-plots.html#cb117-5"></a><span class="kw">lines</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) </span>
 <span id="cb117-6"><a href="creating-some-basic-plots.html#cb117-6"></a><span class="kw">points</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-128-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-171-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Colors in R</strong>
 You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class="uri">https://www.r-graph-gallery.com/ggplot2-color.html</a> and read more about colors in R.</p>
 <p>For example, you can specify the color by name, rgb, number and hex code.</p>
@@ -463,23 +468,23 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <span id="cb118-2"><a href="creating-some-basic-plots.html#cb118-2"></a><span class="kw">lines</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="dv">2</span>)</span>
 <span id="cb118-3"><a href="creating-some-basic-plots.html#cb118-3"></a><span class="kw">lines</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure <span class="op">*</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;#8B2813&quot;</span>)</span>
 <span id="cb118-4"><a href="creating-some-basic-plots.html#cb118-4"></a><span class="kw">lines</span>(pressure<span class="op">$</span>temperature, pressure<span class="op">$</span>pressure <span class="op">*</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;cornflowerblue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-129-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-172-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with ggplot2</strong></p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="creating-some-basic-plots.html#cb119-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> pressure, <span class="kw">aes</span>(<span class="dt">x =</span> temperature, <span class="dt">y =</span> pressure)) <span class="op">+</span></span>
 <span id="cb119-2"><a href="creating-some-basic-plots.html#cb119-2"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-130-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-173-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with ggplot2 with points</strong></p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="creating-some-basic-plots.html#cb120-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> pressure, <span class="kw">aes</span>(<span class="dt">x =</span> temperature, <span class="dt">y =</span> pressure)) <span class="op">+</span></span>
 <span id="cb120-2"><a href="creating-some-basic-plots.html#cb120-2"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb120-3"><a href="creating-some-basic-plots.html#cb120-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-131-1.png" width="75%" style="display: block; margin: auto;" />
+<p><img src="Book_files/figure-html/unnamed-chunk-174-1.png" width="75%" style="display: block; margin: auto;" />
 <strong>Line graph with ggplot2 with another line and points (with color)</strong></p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="creating-some-basic-plots.html#cb121-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> pressure, <span class="kw">aes</span>(<span class="dt">x =</span> temperature, <span class="dt">y =</span> pressure)) <span class="op">+</span></span>
 <span id="cb121-2"><a href="creating-some-basic-plots.html#cb121-2"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb121-3"><a href="creating-some-basic-plots.html#cb121-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb121-4"><a href="creating-some-basic-plots.html#cb121-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> temperature, <span class="dt">y =</span> pressure <span class="op">/</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
 <span id="cb121-5"><a href="creating-some-basic-plots.html#cb121-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> temperature, <span class="dt">y =</span> pressure <span class="op">/</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">color =</span> <span class="st">&quot;#8B2813&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-132-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-175-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Remark</strong>: it is common with <code>ggplot()</code> to split the command on multiple lines, ending each line with a <code>+</code> so that R knows that the command will continue on the next line.</p>
 </div>
 <div id="bar-chart" class="section level2 hasAnchor">
@@ -506,7 +511,7 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <p><strong>Bar chart of values with base graphics</strong></p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="creating-some-basic-plots.html#cb123-1"></a><span class="co"># names.arg = a vector of names to be plotted below each bar or group of bars.</span></span>
 <span id="cb123-2"><a href="creating-some-basic-plots.html#cb123-2"></a><span class="kw">barplot</span>(BOD<span class="op">$</span>demand, <span class="dt">names.arg =</span> BOD<span class="op">$</span>Time) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-134-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-177-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Bar chart of counts with base graphics</strong></p>
 <p>In the dateset <code>mtcars</code>, <code>cyl</code>is the number of cylinders in the car. The possible values are <span class="math inline">\(4, 6\)</span>, and <span class="math inline">\(8\)</span>. We first find the count of each unique value in <code>mtcars$cyl</code>:</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="creating-some-basic-plots.html#cb124-1"></a><span class="kw">table</span>(mtcars<span class="op">$</span>cyl)</span>
@@ -515,42 +520,42 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <span id="cb124-4"><a href="creating-some-basic-plots.html#cb124-4"></a><span class="co">## 11  7 14</span></span></code></pre></div>
 <p>To plot the bar chart, we use</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="creating-some-basic-plots.html#cb125-1"></a><span class="kw">barplot</span>(<span class="kw">table</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-136-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-179-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Bar chart with values with ggplot2</strong></p>
 <p>We first make the <code>Time</code> variable to a factor:</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="creating-some-basic-plots.html#cb126-1"></a>BOD2 &lt;-<span class="st"> </span>BOD</span>
 <span id="cb126-2"><a href="creating-some-basic-plots.html#cb126-2"></a>BOD2<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">as.factor</span>(BOD2<span class="op">$</span>Time)</span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="creating-some-basic-plots.html#cb127-1"></a><span class="kw">ggplot</span>(BOD2, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> demand)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb127-2"><a href="creating-some-basic-plots.html#cb127-2"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-138-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-181-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>What will happen if we do not make <code>Time</code> as a factor:</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="creating-some-basic-plots.html#cb128-1"></a><span class="kw">ggplot</span>(BOD, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> demand)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb128-2"><a href="creating-some-basic-plots.html#cb128-2"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-139-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-182-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Bar chart of counts with ggplot2</strong></p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="creating-some-basic-plots.html#cb129-1"></a><span class="co"># the y position is calculated by counting the number of rows for each value of cyl</span></span>
 <span id="cb129-2"><a href="creating-some-basic-plots.html#cb129-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> cyl)) <span class="op">+</span></span>
 <span id="cb129-3"><a href="creating-some-basic-plots.html#cb129-3"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-140-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-183-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histogram" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.4</span> Histogram<a href="creating-some-basic-plots.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>mpg</code> in <code>mtcars</code> is the miles/gallon of the car. It is a continuous variable.</p>
 <p><strong>Histogram with base graphics</strong></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="creating-some-basic-plots.html#cb130-1"></a><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-141-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-184-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Histogram with base graphics</strong></p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="creating-some-basic-plots.html#cb131-1"></a><span class="co"># Specify approximate number of bins with &quot;breaks&quot;</span></span>
 <span id="cb131-2"><a href="creating-some-basic-plots.html#cb131-2"></a><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-142-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-185-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Histogram with ggplo2</strong></p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="creating-some-basic-plots.html#cb132-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span></span>
 <span id="cb132-2"><a href="creating-some-basic-plots.html#cb132-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span>
 <span id="cb132-3"><a href="creating-some-basic-plots.html#cb132-3"></a><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-143-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-186-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="creating-some-basic-plots.html#cb133-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> mpg)) <span class="op">+</span></span>
 <span id="cb133-2"><a href="creating-some-basic-plots.html#cb133-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">2.5</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-144-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-187-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Remark: different bin widths will give you histograms with different looks.</p>
 </div>
 <div id="box-plot" class="section level2 hasAnchor">
@@ -574,48 +579,48 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <p><strong>Box plot with basic graphics (using <code>plot</code>)</strong></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="creating-some-basic-plots.html#cb135-1"></a><span class="co"># if x is a factor, use the following code</span></span>
 <span id="cb135-2"><a href="creating-some-basic-plots.html#cb135-2"></a><span class="kw">plot</span>(<span class="dt">x =</span> ToothGrowth<span class="op">$</span>supp, <span class="dt">y =</span> ToothGrowth<span class="op">$</span>len)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-146-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-189-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with basic graphics (using <code>boxplot</code>)</strong></p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="creating-some-basic-plots.html#cb136-1"></a><span class="co"># len ~ supp is an example of a &quot;formula&quot; (y ~ x)</span></span>
 <span id="cb136-2"><a href="creating-some-basic-plots.html#cb136-2"></a><span class="kw">boxplot</span>(len <span class="op">~</span><span class="st"> </span>supp, <span class="dt">data =</span> ToothGrowth)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-147-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with basic graphics + interaction of two variables on x-axis (using <code>boxplot</code>)</strong></p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="creating-some-basic-plots.html#cb137-1"></a><span class="kw">boxplot</span>(len <span class="op">~</span><span class="st"> </span>supp <span class="op">+</span><span class="st"> </span>dose, <span class="dt">data =</span> ToothGrowth)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-148-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-191-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with ggplot2</strong></p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="creating-some-basic-plots.html#cb138-1"></a><span class="kw">ggplot</span>(ToothGrowth, <span class="kw">aes</span>(<span class="dt">x =</span> supp, <span class="dt">y =</span> len)) <span class="op">+</span></span>
 <span id="cb138-2"><a href="creating-some-basic-plots.html#cb138-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-149-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-192-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with ggplot2 + interaction of two variables on x-axis</strong></p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="creating-some-basic-plots.html#cb139-1"></a><span class="kw">ggplot</span>(ToothGrowth, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">interaction</span>(supp, dose), <span class="dt">y =</span> len)) <span class="op">+</span></span>
 <span id="cb139-2"><a href="creating-some-basic-plots.html#cb139-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-150-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-193-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>What will happen if <code>dose</code> take a lot more values?</strong></p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="creating-some-basic-plots.html#cb140-1"></a><span class="kw">ggplot</span>(ToothGrowth, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">interaction</span>(supp, dose <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">y =</span> len)) <span class="op">+</span></span>
 <span id="cb140-2"><a href="creating-some-basic-plots.html#cb140-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-151-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-194-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plotting-a-function-curve" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.6</span> Plotting a function curve<a href="creating-some-basic-plots.html#plotting-a-function-curve" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="creating-some-basic-plots.html#cb141-1"></a><span class="kw">curve</span>(x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>x, <span class="dt">from =</span> <span class="dv">-4</span>, <span class="dt">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-152-1.png" width="75%" style="display: block; margin: auto;" />
+<p><img src="Book_files/figure-html/unnamed-chunk-195-1.png" width="75%" style="display: block; margin: auto;" />
 Alternatively:</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="creating-some-basic-plots.html#cb142-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">len =</span> <span class="dv">1000</span>)</span>
 <span id="cb142-2"><a href="creating-some-basic-plots.html#cb142-2"></a><span class="kw">plot</span>(x, x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>x, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-153-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-196-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a built-in function</strong></p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="creating-some-basic-plots.html#cb143-1"></a><span class="kw">curve</span>(<span class="kw">dnorm</span>(x), <span class="dt">from =</span> <span class="dv">-4</span>, <span class="dt">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-154-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-197-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a self-defined function</strong></p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="creating-some-basic-plots.html#cb144-1"></a>my_function &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
 <span id="cb144-2"><a href="creating-some-basic-plots.html#cb144-2"></a>  <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</span>
 <span id="cb144-3"><a href="creating-some-basic-plots.html#cb144-3"></a>}</span>
 <span id="cb144-4"><a href="creating-some-basic-plots.html#cb144-4"></a></span>
 <span id="cb144-5"><a href="creating-some-basic-plots.html#cb144-5"></a><span class="kw">curve</span>(my_function, <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-155-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-198-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a function with additional arguments</strong></p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="creating-some-basic-plots.html#cb145-1"></a><span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">3</span>), <span class="dt">from =</span> <span class="dv">-4</span>, <span class="dt">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-156-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-199-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="more-on-plots-with-base-r" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.7</span> More on plots with base R<a href="creating-some-basic-plots.html#more-on-plots-with-base-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -632,7 +637,7 @@ Alternatively:</p>
 <span id="cb146-8"><a href="creating-some-basic-plots.html#cb146-8"></a><span class="kw">hist</span>(y,<span class="dt">breaks =</span> <span class="dv">10</span>)</span>
 <span id="cb146-9"><a href="creating-some-basic-plots.html#cb146-9"></a><span class="kw">plot</span>(x, y)</span>
 <span id="cb146-10"><a href="creating-some-basic-plots.html#cb146-10"></a><span class="kw">boxplot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-157-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-200-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="subsubsec:type_of_plot" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.2</span> Type of Plot<a href="creating-some-basic-plots.html#subsubsec:type_of_plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -675,7 +680,7 @@ Alternatively:</p>
 <span id="cb147-7"><a href="creating-some-basic-plots.html#cb147-7"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</span>
 <span id="cb147-8"><a href="creating-some-basic-plots.html#cb147-8"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>)</span>
 <span id="cb147-9"><a href="creating-some-basic-plots.html#cb147-9"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-158-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-201-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parameters-of-a-plot" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.3</span> Parameters of a plot<a href="creating-some-basic-plots.html#parameters-of-a-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -736,7 +741,7 @@ Alternatively:</p>
 <span id="cb148-4"><a href="creating-some-basic-plots.html#cb148-4"></a></span>
 <span id="cb148-5"><a href="creating-some-basic-plots.html#cb148-5"></a><span class="kw">plot</span>(x, y, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">15</span>, <span class="dt">main =</span> <span class="st">&quot;This is the title&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
 <span id="cb148-6"><a href="creating-some-basic-plots.html#cb148-6"></a>     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="dt">xlab =</span> <span class="st">&quot;name of x-axis&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;name of y-axis&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-159-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-202-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="elements-on-plot" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.4</span> Elements on plot<a href="creating-some-basic-plots.html#elements-on-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -773,7 +778,7 @@ Alternatively:</p>
 <span id="cb149-5"><a href="creating-some-basic-plots.html#cb149-5"></a><span class="co"># connect the points (20, 20), (30, 80), (40, 40) with a line</span></span>
 <span id="cb149-6"><a href="creating-some-basic-plots.html#cb149-6"></a><span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>),<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dv">40</span>), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb149-7"><a href="creating-some-basic-plots.html#cb149-7"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">60</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-160-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-203-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="summary-of-ggplot" class="section level2 hasAnchor">

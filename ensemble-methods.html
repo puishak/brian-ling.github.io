@@ -24,15 +24,15 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="decision-tree.html"/>
-<link rel="next" href="deep-learning.html"/>
+<link rel="prev" href="decision-trees.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -340,13 +340,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="decision-tree.html"><a href="decision-tree.html"><i class="fa fa-check"></i><b>18</b> Decision Tree<span></span></a></li>
+<li class="chapter" data-level="18" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>18</b> Decision Trees<span></span></a><ul>
+<li class="chapter" data-level="18.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>18.1</b> Introduction to Classification Tree<span></span></a></li>
+<li class="chapter" data-level="18.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>18.2</b> Introduction to regression tree<span></span></a></li>
+<li class="chapter" data-level="18.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>18.3</b> Mathematical Formulation<span></span></a></li>
+<li class="chapter" data-level="18.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>18.4</b> Examples<span></span></a><ul>
+<li class="chapter" data-level="18.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>18.4.1</b> Classification Tree<span></span></a></li>
+<li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
 <li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
 <li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>19.3</b> Boosting<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -369,14 +376,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ensemble-methods" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 19</span> Ensemble Methods<a href="ensemble-methods.html#ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Reference: Ch8 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani. For more details, study STAT457/ 462.</p>
+<p>Package used:</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="ensemble-methods.html#cb488-1"></a><span class="kw">library</span>(ISLR2)</span>
+<span id="cb488-2"><a href="ensemble-methods.html#cb488-2"></a><span class="kw">library</span>(randomForest)</span>
+<span id="cb488-3"><a href="ensemble-methods.html#cb488-3"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb488-4"><a href="ensemble-methods.html#cb488-4"></a><span class="kw">library</span>(tree)</span></code></pre></div>
+<ul>
+<li><p>Ensemble methods involve pooling together the predictions of a set of many models.</p></li>
+<li><p>In this chapter, we illustrate this idea by pooling together many decision trees, resulting in a method called <strong>random forest</strong>.</p></li>
+<li><p>However, it is important to note that ensemble method is a generally method that can be applied not only to tree-based methods but virtually any models. For example, you can combine the predictions from a neural network and a random forest. In fact, many of the winners of the machine-learning competitions on Kaggle use very large ensembles of models.</p></li>
+</ul>
+<p><strong>Remark</strong>: of course, to get a good performance, the weights used to combine the models should be optimized on the validation data.</p>
+<p>The main idea of ensemble methods is to combine models that are as good as possible while being as <strong>different</strong> as possible.</p>
+<p>Analogy: combining experts from different fields to solve a difficult problem is usually more effective than one single expert or a group of experts in the same field.</p>
 <div id="bagging" class="section level2 hasAnchor">
 <h2><span class="header-section-number">19.1</span> Bagging<a href="ensemble-methods.html#bagging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bagging = Bootstrap aggregation</p>
+<ul>
+<li>a general-purpose procedure for reducing the variance of a statistical learning method</li>
+</ul>
+<p>Suppose we can compute a prediction <span class="math inline">\(\hat{f}(x)\)</span> given data <span class="math inline">\(\{(x_i, y_i)\}^n_{i=1}\)</span>.</p>
+<p>Bagging steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Sample with replacement <span class="math inline">\(n\)</span> data from <span class="math inline">\(\{(x_i, y_i)\}^n_{i=1}\)</span>. Denote the resampled data to be <span class="math inline">\(\{(x^{(b)}_i, y^{(b)}_i)\}^n_{i=1}\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(\hat{f}^{(b)}(x)\)</span> using <span class="math inline">\(\{(x^{(b)}_i, y^{(b)}_i)\}^n_{i=1}\)</span>.</p></li>
+<li><p>Repeat Step 1-2 <span class="math inline">\(B\)</span> times to obtain <span class="math inline">\(\hat{f}^{(b)}(x)\)</span> for <span class="math inline">\(b =1,\ldots,B\)</span>.</p></li>
+<li><p>Final model is
+<span class="math display">\[\begin{equation*}
+\hat{f}_{Bagging}(x) = \frac{1}{B} \sum^B_{i=1} \hat{f}^{(b)}(x).
+\end{equation*}\]</span></p></li>
+</ol>
 </div>
 <div id="random-forest" class="section level2 hasAnchor">
 <h2><span class="header-section-number">19.2</span> Random Forest<a href="ensemble-methods.html#random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bagging decision trees uses the same model and variables repeatedly. Thus, the models lack diversity. In fact, the bagged trees are highly correlated. To improve the prediction accuracy, we want to combine trees that are “different”.</p>
+<p>Random forest includes a small tweak that decorrelates the trees used in the ensemble.</p>
+<p>Ideas of random forest:</p>
+<ol style="list-style-type: decimal">
+<li><p>As in bagging, a number of decision trees are build on boostrapped training samples.</p></li>
+<li><p>But when building these decision trees, each time a split in a tree is considered, only a random sample of <span class="math inline">\(m\)</span> predictors is chosen as split candidates from the full set of <span class="math inline">\(p\)</span> predictors.</p></li>
+<li><p>A fresh sample of <span class="math inline">\(m\)</span> predictors is taken each split.</p></li>
+</ol>
+<p>In this way, the correlation between the predictions from the trees will be reduced because each tree is built using only a subset of predictors at each split.</p>
+<p>Remark: when <span class="math inline">\(m = p\)</span>, random forest is the same as bagging decision tree.</p>
 </div>
-<div id="boosting" class="section level2 hasAnchor">
-<h2><span class="header-section-number">19.3</span> Boosting<a href="ensemble-methods.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example" class="section level2 hasAnchor">
+<h2><span class="header-section-number">19.3</span> Example<a href="ensemble-methods.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will use the <code>Hitters</code> dataset from <code>ISLR2</code> to illustrate how to perform random forest with the function <code>randomForest()</code> in the package <code>randomForest</code>.</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="ensemble-methods.html#cb489-1"></a>Hitters &lt;-<span class="st"> </span><span class="kw">na.omit</span>(Hitters)</span>
+<span id="cb489-2"><a href="ensemble-methods.html#cb489-2"></a></span>
+<span id="cb489-3"><a href="ensemble-methods.html#cb489-3"></a><span class="co"># split the dataset</span></span>
+<span id="cb489-4"><a href="ensemble-methods.html#cb489-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb489-5"><a href="ensemble-methods.html#cb489-5"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(Hitters), <span class="kw">nrow</span>(Hitters) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)</span>
+<span id="cb489-6"><a href="ensemble-methods.html#cb489-6"></a>Hitters_train &lt;-<span class="st"> </span>Hitters[index, ]</span>
+<span id="cb489-7"><a href="ensemble-methods.html#cb489-7"></a>Hitters_test &lt;-<span class="st"> </span>Hitters[<span class="op">-</span>index, ]</span></code></pre></div>
+<p>Fitting a random forest:</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="ensemble-methods.html#cb490-1"></a>rf_fit &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Salary <span class="op">~</span>., <span class="dt">data =</span> Hitters_train, </span>
+<span id="cb490-2"><a href="ensemble-methods.html#cb490-2"></a>                       <span class="dt">mtry =</span> (<span class="kw">ncol</span>(Hitters_train) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">ntree =</span> <span class="dv">1000</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Two important parameters:</p>
+<p><code>mtry</code>: Number of variables randomly sampled as candidates at each split. The default values for classification and regression are <span class="math inline">\(\sqrt{p}\)</span> and <span class="math inline">\(p/3\)</span>, respectively.</p>
+<p><code>ntree</code>: Number of trees to grow. The default is <span class="math inline">\(500\)</span>. More trees will require more time.</p>
+<p>Prediction:</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="ensemble-methods.html#cb491-1"></a>rf_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rf_fit, Hitters_test)</span>
+<span id="cb491-2"><a href="ensemble-methods.html#cb491-2"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>rf_pred)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb491-3"><a href="ensemble-methods.html#cb491-3"></a><span class="co">## [1] 62219.41</span></span></code></pre></div>
+<p>Compared with least squares:</p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="ensemble-methods.html#cb492-1"></a>ls_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Salary <span class="op">~</span>., <span class="dt">data =</span> Hitters_train)</span>
+<span id="cb492-2"><a href="ensemble-methods.html#cb492-2"></a>ls_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ls_fit, Hitters_test)</span>
+<span id="cb492-3"><a href="ensemble-methods.html#cb492-3"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>ls_pred)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb492-4"><a href="ensemble-methods.html#cb492-4"></a><span class="co">## [1] 93373.95</span></span></code></pre></div>
+<p>Compared with one tree:</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="ensemble-methods.html#cb493-1"></a><span class="co"># Fit regression tree</span></span>
+<span id="cb493-2"><a href="ensemble-methods.html#cb493-2"></a>tree_fit &lt;-<span class="st"> </span><span class="kw">tree</span>(Salary <span class="op">~</span>., Hitters_train)</span>
+<span id="cb493-3"><a href="ensemble-methods.html#cb493-3"></a></span>
+<span id="cb493-4"><a href="ensemble-methods.html#cb493-4"></a><span class="co"># MSE in test data</span></span>
+<span id="cb493-5"><a href="ensemble-methods.html#cb493-5"></a>tree_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(tree_fit, Hitters_test)</span>
+<span id="cb493-6"><a href="ensemble-methods.html#cb493-6"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>tree_pred)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb493-7"><a href="ensemble-methods.html#cb493-7"></a><span class="co">## [1] 83073.2</span></span></code></pre></div>
+<p>A plot showing the predictions by different methods and the corresponding observed values.</p>
+<pre><code>## [1] FALSE</code></pre>
+<p><img src="Book_files/figure-html/unnamed-chunk-597-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Several observations:</p>
+<ul>
+<li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
+<li><p>Linear regression can produce predictions with values depending on the features. Thus, the points will not lie on several vertical lines.</p></li>
+<li><p>The closer the points are to the diagonal line, the better the predictions are. For observed values that are small, random forest is doing a much better job than linear regression.</p></li>
+</ul>
+<p><strong>Variable Importance Plot</strong></p>
+<p>Random forest typically improves the accuracy over predictions using a single tree. However, it can be difficult to interpret the resulting model, losing the advantage of using a decision tree.</p>
+<p>On the other hand, one can still obtain an overall summary of the importance of each feature using the RSS (for regression problems) or the Gini index (for classification problems). Basically, we can record the total amount that the measure (RSS or Gini index) decreases due to splits over a given predictor, averaged over all <span class="math inline">\(B\)</span> trees. A large value indicates an important predictor. This importance measure is given in the second column of <code>importance(rf_fit)</code>.</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="ensemble-methods.html#cb495-1"></a><span class="kw">importance</span>(rf_fit)</span>
+<span id="cb495-2"><a href="ensemble-methods.html#cb495-2"></a><span class="co">##               %IncMSE IncNodePurity</span></span>
+<span id="cb495-3"><a href="ensemble-methods.html#cb495-3"></a><span class="co">## AtBat      3.35182212     524974.45</span></span>
+<span id="cb495-4"><a href="ensemble-methods.html#cb495-4"></a><span class="co">## Hits       1.13094383     611669.31</span></span>
+<span id="cb495-5"><a href="ensemble-methods.html#cb495-5"></a><span class="co">## HmRun      2.85844392     631697.80</span></span>
+<span id="cb495-6"><a href="ensemble-methods.html#cb495-6"></a><span class="co">## Runs       2.65375662     712993.07</span></span>
+<span id="cb495-7"><a href="ensemble-methods.html#cb495-7"></a><span class="co">## RBI        0.91376847     858711.10</span></span>
+<span id="cb495-8"><a href="ensemble-methods.html#cb495-8"></a><span class="co">## Walks      5.10158070     938898.67</span></span>
+<span id="cb495-9"><a href="ensemble-methods.html#cb495-9"></a><span class="co">## Years      5.38718804     295859.22</span></span>
+<span id="cb495-10"><a href="ensemble-methods.html#cb495-10"></a><span class="co">## CAtBat    12.34565397    1501003.50</span></span>
+<span id="cb495-11"><a href="ensemble-methods.html#cb495-11"></a><span class="co">## CHits     12.66787049    1861108.04</span></span>
+<span id="cb495-12"><a href="ensemble-methods.html#cb495-12"></a><span class="co">## CHmRun     4.50720662    1086255.87</span></span>
+<span id="cb495-13"><a href="ensemble-methods.html#cb495-13"></a><span class="co">## CRuns     13.31276946    2103022.87</span></span>
+<span id="cb495-14"><a href="ensemble-methods.html#cb495-14"></a><span class="co">## CRBI      11.11503712    2101151.04</span></span>
+<span id="cb495-15"><a href="ensemble-methods.html#cb495-15"></a><span class="co">## CWalks     9.40813964    1447656.21</span></span>
+<span id="cb495-16"><a href="ensemble-methods.html#cb495-16"></a><span class="co">## League     0.57926429      20002.08</span></span>
+<span id="cb495-17"><a href="ensemble-methods.html#cb495-17"></a><span class="co">## Division   2.04714437      45064.15</span></span>
+<span id="cb495-18"><a href="ensemble-methods.html#cb495-18"></a><span class="co">## PutOuts    3.67103105     296237.51</span></span>
+<span id="cb495-19"><a href="ensemble-methods.html#cb495-19"></a><span class="co">## Assists   -0.26947886     152545.23</span></span>
+<span id="cb495-20"><a href="ensemble-methods.html#cb495-20"></a><span class="co">## Errors    -0.07960768     142009.27</span></span>
+<span id="cb495-21"><a href="ensemble-methods.html#cb495-21"></a><span class="co">## NewLeague  0.11678271      23564.81</span></span>
+<span id="cb495-22"><a href="ensemble-methods.html#cb495-22"></a><span class="co">## High      29.37244111    7814171.92</span></span></code></pre></div>
+<p>Visualizing the importance of the features:</p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="ensemble-methods.html#cb496-1"></a><span class="kw">varImpPlot</span>(rf_fit)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-599-1.png" width="75%" style="display: block; margin: auto;" /></p>
+
 </div>
 </div>
             </section>
@@ -384,8 +499,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="decision-tree.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="deep-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="decision-trees.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

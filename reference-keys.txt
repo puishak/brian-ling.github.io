@@ -166,3 +166,7 @@ mathematical-formulation
 examples
 classification-tree
 regression-tree
+ensemble-methods
+bagging
+random-forest
+example

@@ -349,6 +349,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
+<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -414,14 +419,14 @@ which can be maximized numerically in computer.</p>
 <span class="math display">\[\begin{equation*}
 \text{logit}(p) = \log \frac{p}{1-p}.
 \end{equation*}\]</span></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-445-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-488-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>logistic function</strong></p>
 <p>The standard logistic function is defined as
 <span class="math display">\[\begin{equation*}
 f(x) = \frac{1}{1+e^{-x}} = \frac{e^x}{1+e^x}.
 \end{equation*}\]</span>
 It is the inverse of the logit function.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-446-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-489-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Example</strong></p>
 <p>The package <code>mlbench</code> contains some artificial and real-world machine learning benchmark problems (datasets). See <a href="https://cran.r-project.org/web/packages/mlbench/mlbench.pdf" class="uri">https://cran.r-project.org/web/packages/mlbench/mlbench.pdf</a></p>
 <p>We will use the dataset <code>PimaIndiansDiabetes2</code> from <code>mlbench</code>.</p>
