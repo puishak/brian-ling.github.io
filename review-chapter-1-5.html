@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -340,13 +340,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="decision-tree.html"><a href="decision-tree.html"><i class="fa fa-check"></i><b>18</b> Decision Tree<span></span></a></li>
-<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
-<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
-<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>19.3</b> Boosting<span></span></a></li>
+<li class="chapter" data-level="18" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>18</b> Decision Trees<span></span></a><ul>
+<li class="chapter" data-level="18.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>18.1</b> Introduction to Classification Tree<span></span></a></li>
+<li class="chapter" data-level="18.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>18.2</b> Introduction to regression tree<span></span></a></li>
+<li class="chapter" data-level="18.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>18.3</b> Mathematical Formulation<span></span></a></li>
+<li class="chapter" data-level="18.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>18.4</b> Examples<span></span></a><ul>
+<li class="chapter" data-level="18.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>18.4.1</b> Classification Tree<span></span></a></li>
+<li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -563,8 +565,8 @@ which approximates <span class="math inline">\(E(\min(X,Y))\)</span> by the SLLN
 <span id="cb173-2"><a href="review-chapter-1-5.html#cb173-2"></a>v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
 <span id="cb173-3"><a href="review-chapter-1-5.html#cb173-3"></a><span class="co">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
 <span id="cb173-4"><a href="review-chapter-1-5.html#cb173-4"></a>v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
-<span id="cb173-5"><a href="review-chapter-1-5.html#cb173-5"></a><span class="co">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
-<span id="cb173-6"><a href="review-chapter-1-5.html#cb173-6"></a><span class="co">## [20] FALSE  TRUE</span></span>
+<span id="cb173-5"><a href="review-chapter-1-5.html#cb173-5"></a><span class="co">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb173-6"><a href="review-chapter-1-5.html#cb173-6"></a><span class="co">## [14] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
 <span id="cb173-7"><a href="review-chapter-1-5.html#cb173-7"></a>v[v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
 <span id="cb173-8"><a href="review-chapter-1-5.html#cb173-8"></a><span class="co">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
 <span id="cb173-9"><a href="review-chapter-1-5.html#cb173-9"></a><span class="kw">prod</span>(v[v <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]) <span class="co"># find the product</span></span>
@@ -609,7 +611,7 @@ Write a function called <code>my_summary_plot</code> with input being two numeri
 <span id="cb176-6"><a href="review-chapter-1-5.html#cb176-6"></a><span class="kw">hist</span>(y)</span>
 <span id="cb176-7"><a href="review-chapter-1-5.html#cb176-7"></a><span class="kw">plot</span>(x, y)</span>
 <span id="cb176-8"><a href="review-chapter-1-5.html#cb176-8"></a><span class="kw">boxplot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-204-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="review-chapter-1-5.html#cb177-1"></a></span>
 <span id="cb177-2"><a href="review-chapter-1-5.html#cb177-2"></a><span class="co"># after that, you wrap the code into a function without defining x, y</span></span>
 <span id="cb177-3"><a href="review-chapter-1-5.html#cb177-3"></a>my_summary_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
@@ -633,13 +635,13 @@ Write a function called <code>my_summary_plot</code> with input being two numeri
 <span id="cb177-21"><a href="review-chapter-1-5.html#cb177-21"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb177-22"><a href="review-chapter-1-5.html#cb177-22"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb177-23"><a href="review-chapter-1-5.html#cb177-23"></a><span class="kw">my_summary_plot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-204-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="review-chapter-1-5.html#cb178-1"></a></span>
 <span id="cb178-2"><a href="review-chapter-1-5.html#cb178-2"></a><span class="co"># try another example</span></span>
 <span id="cb178-3"><a href="review-chapter-1-5.html#cb178-3"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb178-4"><a href="review-chapter-1-5.html#cb178-4"></a>y &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb178-5"><a href="review-chapter-1-5.html#cb178-5"></a><span class="kw">my_summary_plot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-204-3.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-190-3.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

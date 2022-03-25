@@ -159,9 +159,10 @@ selecting-the-tuning-parameter
 glmnet
 ridge-regression-1
 lasso-1
-decision-tree
-ensemble-methods
-bagging
-random-forest
-boosting
-deep-learning
+decision-trees
+introduction-to-classification-tree
+introduction-to-regression-tree
+mathematical-formulation
+examples
+classification-tree
+regression-tree
