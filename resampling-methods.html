@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -400,14 +400,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb447-5"><a href="resampling-methods.html#cb447-5"></a><span class="co"># Split 1</span></span>
 <span id="cb447-6"><a href="resampling-methods.html#cb447-6"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>] <span class="op">~</span><span class="st"> </span>x[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>])</span>
 <span id="cb447-7"><a href="resampling-methods.html#cb447-7"></a><span class="co"># test error:</span></span>
-<span id="cb447-8"><a href="resampling-methods.html#cb447-8"></a><span class="kw">sum</span>((y[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>] <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(fit, <span class="kw">data.frame</span>(x[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>])))<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb447-9"><a href="resampling-methods.html#cb447-9"></a><span class="co">## [1] 64.65385</span></span>
+<span id="cb447-8"><a href="resampling-methods.html#cb447-8"></a><span class="kw">mean</span>((y[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>] <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(fit, <span class="kw">data.frame</span>(x[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>])))<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb447-9"><a href="resampling-methods.html#cb447-9"></a><span class="co">## [1] 1.293077</span></span>
 <span id="cb447-10"><a href="resampling-methods.html#cb447-10"></a></span>
 <span id="cb447-11"><a href="resampling-methods.html#cb447-11"></a><span class="co"># Split 2</span></span>
 <span id="cb447-12"><a href="resampling-methods.html#cb447-12"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>] <span class="op">~</span><span class="st"> </span>x[<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>])</span>
 <span id="cb447-13"><a href="resampling-methods.html#cb447-13"></a><span class="co"># test error:</span></span>
-<span id="cb447-14"><a href="resampling-methods.html#cb447-14"></a><span class="kw">sum</span>((y[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>] <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(fit, <span class="kw">data.frame</span>(x[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>])))<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb447-15"><a href="resampling-methods.html#cb447-15"></a><span class="co">## [1] 60.45979</span></span></code></pre></div>
+<span id="cb447-14"><a href="resampling-methods.html#cb447-14"></a><span class="kw">mean</span>((y[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>] <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(fit, <span class="kw">data.frame</span>(x[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>])))<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb447-15"><a href="resampling-methods.html#cb447-15"></a><span class="co">## [1] 1.209196</span></span></code></pre></div>
 <p>To get a better test error estimate, we can use <strong>repeated holdout</strong>. That is, we repeat the whole splitting process several times with several random holdout samples and take the average of the performance measures to evaluate the model performance.</p>
 <p>A standard practice now is to use <strong><span class="math inline">\(k\)</span>-fold cross-validation</strong> (<span class="math inline">\(k\)</span>-fold CV). It is a procedure in which instead of randomly partition the data many times, we divide the data into <span class="math inline">\(k\)</span> random non-overlapping partitions. Then, we combine <span class="math inline">\(k-1\)</span> partitions to form a training dataset and the remaining one to form the testing dataset. We repeat this procedure <span class="math inline">\(k\)</span> times using different partitions and obtain <span class="math inline">\(k\)</span> evaluations. It is common to use <span class="math inline">\(10\)</span>-fold CV.</p>
 <p>For example, when <span class="math inline">\(k=3\)</span>:</p>

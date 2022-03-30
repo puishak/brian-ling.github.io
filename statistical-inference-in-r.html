@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -524,7 +524,7 @@ The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing 
 <span id="cb328-12"><a href="statistical-inference-in-r.html#cb328-12"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
 <span id="cb328-13"><a href="statistical-inference-in-r.html#cb328-13"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>beta, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></span>
 <span id="cb328-14"><a href="statistical-inference-in-r.html#cb328-14"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">data =</span> vline_data, <span class="kw">aes</span>(<span class="dt">xintercept =</span> mean), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-388-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-345-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>From the above plots, you can see the distributions of your estimators. The true parameters lie in the middle of the distributions. You can also add lines to visualize the mean of the distributions. In this case, the lines actually overlap with lines for the true parameters. Thus, the estimators are essentially unbiased. You can also see that there are times that <span class="math inline">\(\hat{\beta}_0\)</span> can be as large as <span class="math inline">\(1\)</span> or as small as <span class="math inline">\(0.1\)</span> while the true value is <span class="math inline">\(0.5\)</span>.</p>
 <p>You can also use a larger sample size.</p>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="statistical-inference-in-r.html#cb329-1"></a><span class="co"># setting</span></span>
@@ -1040,7 +1040,7 @@ and
 <p>The <span class="math inline">\(p\)</span>-value is very small. We will reject the null hypothesis that the two distributions are the same.</p>
 <p><strong>Example</strong></p>
 <p>Recall the dataset <code>birthwt</code> from the package MASS. We created the following histograms to visualize the distributions of birth weights for the two groups (smoke and no smoke).</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-415-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-372-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We may want to ask if the two distributions are different</p>
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="statistical-inference-in-r.html#cb351-1"></a><span class="kw">ks.test</span>(birthwt<span class="op">$</span>bwt[birthwt<span class="op">$</span>smoke <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], birthwt<span class="op">$</span>bwt[birthwt<span class="op">$</span>smoke <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])</span>
 <span id="cb351-2"><a href="statistical-inference-in-r.html#cb351-2"></a><span class="co">## </span></span>

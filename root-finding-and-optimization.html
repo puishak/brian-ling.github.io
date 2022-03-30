@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -457,8 +457,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb356-5"><a href="root-finding-and-optimization.html#cb356-5"></a><span class="co">## [1] 1</span></span></code></pre></div>
 <p>To change <code>max_iter</code>:</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="root-finding-and-optimization.html#cb357-1"></a><span class="kw">bisection</span>(f, <span class="fl">0.5</span>, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">0.000000000001</span>, <span class="dt">max_iter =</span> <span class="dv">10</span>)</span>
-<span id="cb357-2"><a href="root-finding-and-optimization.html#cb357-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of iterations reached</span></span>
-<span id="cb357-3"><a href="root-finding-and-optimization.html#cb357-3"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
+<span id="cb357-2"><a href="root-finding-and-optimization.html#cb357-2"></a><span class="co">## Warning in bisection(f, 0.5, 1.25, tol = 1e-12, max_iter = 10): Maximum number of iterations</span></span>
+<span id="cb357-3"><a href="root-finding-and-optimization.html#cb357-3"></a><span class="co">## reached</span></span>
+<span id="cb357-4"><a href="root-finding-and-optimization.html#cb357-4"></a><span class="co">## [1] 0.9998779</span></span></code></pre></div>
 </div>
 </div>
 <div id="newton-raphson-method" class="section level2 hasAnchor">
@@ -526,7 +527,7 @@ x_n = x_{n-1} - \frac{f(x_{n-1})}{f&#39;(x_{n-1})}.
 <span id="cb359-10"><a href="root-finding-and-optimization.html#cb359-10"></a><span class="co">## 2 * x - 2</span></span></code></pre></div>
 <p><strong>Apply our NR function</strong></p>
 <p>Let’s plot the function first.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-426-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-383-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Using our function:</p>
 <div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="root-finding-and-optimization.html#cb360-1"></a><span class="kw">NR</span>(f, fp, <span class="fl">1.25</span>, <span class="dt">tol =</span> <span class="fl">1e-3</span>)</span>
 <span id="cb360-2"><a href="root-finding-and-optimization.html#cb360-2"></a><span class="co">## [1] 1.000508</span></span></code></pre></div>
@@ -661,7 +662,7 @@ x_{n+1} = x_{n} - h f&#39;(x_{n}).
 <span id="cb362-14"><a href="root-finding-and-optimization.html#cb362-14"></a>}</span></code></pre></div>
 <p><strong>Example:</strong> Find the local minima of <span class="math inline">\(f(x) = \frac{1}{4} x^4 + x^3 - x - 1\)</span>.</p>
 <p>Plot:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-430-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-387-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Gradient descent:</p>
 <div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="root-finding-and-optimization.html#cb363-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="dv">1</span><span class="op">/</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>}</span>
 <span id="cb363-2"><a href="root-finding-and-optimization.html#cb363-2"></a>fp &lt;-<span class="st"> </span><span class="kw">Deriv</span>(f)</span>
