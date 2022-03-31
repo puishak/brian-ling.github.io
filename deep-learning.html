@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -357,13 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a><ul>
 <li class="chapter" data-level="20.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-4"><i class="fa fa-check"></i><b>20.1</b> Introduction<span></span></a></li>
 <li class="chapter" data-level="20.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>20.2</b> Single Layer Neural Netowrks<span></span></a></li>
-<li class="chapter" data-level="20.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neurla-networks"><i class="fa fa-check"></i><b>20.3</b> Multilayer Neurla Networks<span></span></a></li>
-<li class="chapter" data-level="20.4" data-path="deep-learning.html"><a href="deep-learning.html#keras"><i class="fa fa-check"></i><b>20.4</b> Keras<span></span></a></li>
-<li class="chapter" data-level="20.5" data-path="deep-learning.html"><a href="deep-learning.html#two-class-classification-binary-classification"><i class="fa fa-check"></i><b>20.5</b> Two-class classification (binary classification)<span></span></a></li>
-<li class="chapter" data-level="20.6" data-path="deep-learning.html"><a href="deep-learning.html#binary-classification"><i class="fa fa-check"></i><b>20.6</b> Binary Classification<span></span></a></li>
-<li class="chapter" data-level="20.7" data-path="deep-learning.html"><a href="deep-learning.html#multiclass-classification"><i class="fa fa-check"></i><b>20.7</b> Multiclass Classification<span></span></a></li>
-<li class="chapter" data-level="20.8" data-path="deep-learning.html"><a href="deep-learning.html#regression"><i class="fa fa-check"></i><b>20.8</b> Regression<span></span></a></li>
-<li class="chapter" data-level="20.9" data-path="deep-learning.html"><a href="deep-learning.html#appendix"><i class="fa fa-check"></i><b>20.9</b> Appendix<span></span></a></li>
+<li class="chapter" data-level="20.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>20.3</b> Multilayer Neural Networks<span></span></a></li>
+<li class="chapter" data-level="20.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>20.4</b> Examples<span></span></a><ul>
+<li class="chapter" data-level="20.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>20.4.1</b> MNIST<span></span></a></li>
+<li class="chapter" data-level="20.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>20.4.2</b> Encoding the data<span></span></a></li>
+<li class="chapter" data-level="20.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>20.4.3</b> Implementation<span></span></a></li>
+<li class="chapter" data-level="20.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>20.4.4</b> Multilayer Neural Network<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -387,273 +387,410 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="deep-learning" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 20</span> Deep Learning<a href="deep-learning.html#deep-learning" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Reference: Deep Learning with R by Francois Chollet with J.J. Allaire</p>
-<p><a href="https://tensorflow.rstudio.com/tutorials/beginners/" class="uri">https://tensorflow.rstudio.com/tutorials/beginners/</a></p>
-<p>Ch10 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani.</p>
+<p>References:</p>
+<ul>
+<li><p>Ch10: in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani (some basic introduction with some math equations)</p></li>
+<li><p>Deep Learning with R by Francois Chollet with J.J. Allaire. (no math equations but offer practical guildlines in implementation)</p></li>
+<li><p><a href="https://tensorflow.rstudio.com/tutorials/beginners/" class="uri">https://tensorflow.rstudio.com/tutorials/beginners/</a></p></li>
+</ul>
 <div id="introduction-4" class="section level2 hasAnchor">
 <h2><span class="header-section-number">20.1</span> Introduction<a href="deep-learning.html#introduction-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the past few years, artificial intelligence (AI), machine learning, deep learning have been subjects of intense media hype.</p>
 <p>One may define AI as the study to automate intellectual tasks normally performed by humans. AI encompasses machine learning but also includes other approaches that don’t involve any learning. For example, early chess programs only involved hardcoded rules crafted by programmers. For a fairly long time, many experts believed that human-level AI could be achieved by having programmers handcraft a sufficiently large set of explicit rules for manipulating knowledge. This approach is known as symbolic AI.</p>
 <p>It turns out it is intractable to figure out explicit rules for solving more complex problems, such as image classification, speech recognition, and language translation. A new appraoch is to use machine learning.</p>
 <p>You have already studied various machine learning methods and how to apply them with R: <span class="math inline">\(k\)</span>-NN, linear regression, logistic regression, <span class="math inline">\(k\)</span>-means clustering, hierarchical clustering, ridge regression, LASSO, decision trees, random forest. These approaches are also examples of shallow learning.</p>
-<p>What is deep learning?</p>
+<p>So, what is deep learning?</p>
 <ul>
 <li><p>Deep learning is a subset of machine learning</p></li>
-<li><p>The deep in deep learning refers to the idea of successive layers of representations.</p></li>
-<li><p>These layered representations are learned via neural networks.</p></li>
-<li><p>Deep learning took off after 2012. Three factors drive the advances in machine learning</p>
+<li><p>The deep in deep learning refers to the idea of successive layers of representations (see next section)</p></li>
+<li><p>These layered representations are learned via neural networks, which is the cornerstone of deep learning</p></li>
+<li><p>Some important factors that drive the advances in machine learning</p>
 <ul>
-<li>Hardware (CPU, GPU, TPU)</li>
-<li>Datasets and benchmarks (the rise of internet allows people to collect many data, competitions (e.g. Kaggle) allow people to have benchmarks that researchers compete to beat)</li>
+<li>Hardware: faster CPU (central processing units) and GPU (graphics processing unit), TPU (tensor processing unit)</li>
+<li>Datasets: the rise of internet allows people to collect many data</li>
+<li>Benchmarks: competitions such as Kaggle allow people to have benchmarks that researchers compete to beat</li>
 <li>Algorithmic advances</li>
 </ul></li>
-<li><p>The cornerstone of deep learning is neural network.</p></li>
 </ul>
 </div>
 <div id="single-layer-neural-netowrks" class="section level2 hasAnchor">
 <h2><span class="header-section-number">20.2</span> Single Layer Neural Netowrks<a href="deep-learning.html#single-layer-neural-netowrks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A neural network takes an input vector of <span class="math inline">\(p\)</span> variables <span class="math inline">\(X = (X_1,\ldots,X_p)\)</span> and builds a nonlinear function <span class="math inline">\(f(x)\)</span> to predict the repsonse <span class="math inline">\(Y\)</span>.</p>
+<p>A <strong>neural network</strong> takes an input vector of <span class="math inline">\(p\)</span> variables <span class="math inline">\(X = (X_1,\ldots,X_p)\)</span> and builds a nonlinear function <span class="math inline">\(f(X)\)</span> to predict the response <span class="math inline">\(Y\)</span>. A linear function is a function of the form <span class="math display">\[f(X) = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p.\]</span> In general, a linear function is not enough to describe the complex relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>Graphical illustration of a single layer neural network:</p>
+<p><img src="image/single_layer_NN.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <ul>
-<li>Input layer: consists of the <span class="math inline">\(p\)</span> variables</li>
+<li>Input layer: consists of <span class="math inline">\(p\)</span> input variables (the picture shows <span class="math inline">\(4\)</span> but we can have many more)</li>
 <li>Hidden layer: consists of <span class="math inline">\(K\)</span> hidden units (the picture shows <span class="math inline">\(5\)</span> but we can have many more)</li>
+<li>Output layer: prediction of the response (we can have more than one output variable)</li>
 </ul>
 <p>Activations <span class="math inline">\(A_k\)</span>, <span class="math inline">\(k=1,\ldots,K\)</span> are computed as functions of the input features
 <span class="math display">\[\begin{equation*}
-A_k = h_k(X) = g(w_{k0} + \sum^p_{j=1} w_{kj}X_j),
+A_k = g\left(w_{k0} + \sum^p_{j=1} w_{kj}X_j \right),
 \end{equation*}\]</span>
-where <span class="math inline">\(g\)</span> is a nonlinear activation function that is specified in advance. For example, it is common to use ReLU (rectified linear unit), which takes the form
+where <span class="math inline">\(g\)</span> is a nonlinear activation function that is specified in advance and the weights <span class="math inline">\(w_{k0},\ldots,w_{kp}\)</span> have to be estimated from the data. For the function <span class="math inline">\(g\)</span>, it is common to use ReLU (rectified linear unit), which takes the form
 <span class="math display">\[\begin{equation*}
 g(z) = z I(z \geq 0).
 \end{equation*}\]</span>
 With nonlinear activation functions, it is possible for the model to capture complex nonlinearities and interaction effects (e.g. <span class="math inline">\(X_1 X_2\)</span>).</p>
-<p>We can think of each <span class="math inline">\(A_k\)</span> as a different transformation <span class="math inline">\(h_k(X)\)</span> of the original features.</p>
+<p>Representation: We can think of each <span class="math inline">\(A_k\)</span> as a different transformation <span class="math inline">\(h_k(X) = g\left(w_{k0} + \sum^p_{j=1} w_{kj}X_j \right)\)</span> of the original features.</p>
 <p>For regression problem, the output is
 <span class="math display">\[\begin{equation*}
 f(X) = \beta_0 + \sum^K_{k=1} \beta_k A_k.
 \end{equation*}\]</span></p>
+<p>If you want to write in terms of the original <span class="math inline">\(X\)</span>:
+<span class="math display">\[\begin{equation*}
+f(X) = \beta_0 + \sum^K_{k=1} \beta_k g\left(w_{k0} + \sum^p_{j=1} w_{kj}X_j \right).
+\end{equation*}\]</span></p>
+<p><strong>Estimation</strong></p>
 <p>Parameters in the model: <span class="math inline">\(\beta_0,\ldots,\beta_K, w_{10},\ldots,w_{Kp}\)</span>.</p>
-<p>To estimate these parameters, the squared-error loss is typically used. That is, we wish to find parameters to minimize
+<p>Suppose we have <span class="math inline">\(n\)</span> data <span class="math inline">\(\{ (x_i, y_i)\}^n_{i=1}\)</span>. To estimate these parameters, the squared-error loss is typically used. That is, we wish to find parameters to minimize
 <span class="math display">\[\begin{equation*}
 \sum^n_{i=1} (y_i - f(x_i))^2.
 \end{equation*}\]</span></p>
+<p>We will describe how to use neural network in classification problems in the next section.</p>
+<p><strong>Remark</strong></p>
 <p>The name neural network originally derived from thinking of the model as analogous to neurons in the brain. But there is no need to think in that way.</p>
 </div>
-<div id="multilayer-neurla-networks" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.3</span> Multilayer Neurla Networks<a href="deep-learning.html#multilayer-neurla-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="multilayer-neural-networks" class="section level2 hasAnchor">
+<h2><span class="header-section-number">20.3</span> Multilayer Neural Networks<a href="deep-learning.html#multilayer-neural-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Modern neural networks typically have more than one hidden layer, and many units per layer. In general, you can also have more than one output variable. In particular, if you have a classification problem at hand with <span class="math inline">\(M\)</span> classes. You will need <span class="math inline">\(M\)</span> output variables to model the probabilities of the response being in the <span class="math inline">\(M\)</span> classes.</p>
+<p>A graphical illustration of a neural network with <span class="math inline">\(2\)</span> hidden layers:</p>
+<p><img src="image/multilayer_NN.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <ul>
-<li><p>Modern neural networks typically have more than one hidden layer, and many units per layer.</p></li>
-<li><p>In general, you can have more than one output variable. In particular, if you have a classification problem at hand with <span class="math inline">\(M\)</span> classes. You will need <span class="math inline">\(M\)</span> output variables.</p></li>
+<li>Input layer: consists of <span class="math inline">\(p\)</span> input variables</li>
+<li><span class="math inline">\(1\)</span>st Hidden layer: consists of <span class="math inline">\(K_1\)</span> hidden units</li>
+<li><span class="math inline">\(2\)</span>st Hidden layer: consists of <span class="math inline">\(K_2\)</span> hidden units</li>
+<li>Output layer: prediction of the responses</li>
 </ul>
-<p>An example of a neural network with two hidden layers:</p>
 <p>The activations in the first hidden layer:
 <span class="math display">\[\begin{equation*}
-A^{(1)}_k = g(w^{(1)}_{k0} + \sum^p_{j=1} w^{(1)}_{kj} X_j)
+A^{(1)}_k = g\left(w^{(1)}_{k0} + \sum^p_{j=1} w^{(1)}_{kj} X_j\right)
 \end{equation*}\]</span>
 for <span class="math inline">\(k=1,\ldots,K_1\)</span>.</p>
 <p>The activations in the second hidden layer treats the activations <span class="math inline">\(A^{(1)}_k\)</span> of the first hidden layer as inputs and computes new activations:</p>
 <p><span class="math display">\[\begin{equation*}
-A^{(2)}_k = g(w^{(2)}_{k0} + \sum^{K_1}_{k=1} w^{(2)}_{kj} A_k^{(1)})
+A^{(2)}_k = g\left(w^{(2)}_{k0} + \sum^{K_1}_{k=1} w^{(2)}_{kj} A_k^{(1)}\right)
 \end{equation*}\]</span></p>
-<p>The name neural network originally derived from thinking of the model as analogous to neurons in the brain. But there is no need to think in that way.</p>
+<p>Output layer:</p>
+<p>For regression problem:
+<span class="math display">\[\begin{equation*}
+f_m(X) = \beta_{m0} + \sum^{K_2}_{l=1} \beta_{ml} A^{(2)}_l,\quad \text{for } m = 1,\ldots,M.
+\end{equation*}\]</span>
+In terms of the original <span class="math inline">\(X\)</span>, we have
+<span class="math display">\[\begin{equation*}
+f_m(X)= \beta_{m0} + \sum^{K_2}_{l=1} \beta_{ml} g\left(w^{(2)}_{k0} + \sum^{K_1}_{k=1} w^{(2)}_{kj} g\left(w^{(1)}_{k0} + \sum^p_{j=1} w^{(1)}_{kj} X_j\right)\right).
+\end{equation*}\]</span></p>
+<p>For classification problem, we do not directly output the predicted class but we try to predict the probability <span class="math inline">\(P(Y=m|X)\)</span>. Hence, we use
+<span class="math display">\[\begin{equation*}
+Z_m = \beta_{m0} + \sum^{K_2}_{l=1} \beta_{ml} A^{(2)}_l,\quad \text{for } m = 1,\ldots,M
+\end{equation*}\]</span>
+and set
+<span class="math display">\[\begin{equation*}
+f_m(Z) =  \frac{e^{Z_m}}{\sum^M_{m=1} e^{Z_m}}, \text{for } m=1,\ldots,M.
+\end{equation*}\]</span>
+The function in the last displayed equation is called the softmax activation function. This ensures all the outputs behave like probabilities (non-negative and sum to one).</p>
+<p>For classification problem, we use the one-hot encoding for <span class="math inline">\(y_i\)</span> so that <span class="math inline">\(y_{im} = 1\)</span> if <span class="math inline">\(y_i = m\)</span> and <span class="math inline">\(y_{il} = 0\)</span> for <span class="math inline">\(l \neq m\)</span>. Then we estimate the parameters using the cross-entropy:
+<span class="math display">\[\begin{equation*}
+- \sum^n_{i=1} \sum^M_{m=1} y_{im} \log (f_m(x_i)),
+\end{equation*}\]</span>
+which is the negative of the likelihood of a multinomial distribution.</p>
+<p><strong>Remark</strong></p>
+<p>The multinomial distribution is a generalization of the binomial distribution. Recall that a binomial distribution models the number of successes in <span class="math inline">\(n\)</span> independent Bernoulli trials. In a Bernoulli trial, there are only two possible outcomes, success and failure. When we have <span class="math inline">\(M\)</span> classes and <span class="math inline">\(n\)</span> independent trials, we obtain a multinomial distribution. A special case is when we only have one trial. In that case, it is called a categorical distribution and the probability mass function is
+<span class="math display">\[\begin{equation*}
+P(Y = m) = p_m, \quad m =1,\ldots,M,
+\end{equation*}\]</span>
+where <span class="math inline">\(p_m \geq 0, \sum^M_{m=1} p_m = 1\)</span>. When you observe <span class="math inline">\(y_i\)</span>, the likelihood becomes
+<span class="math display">\[\begin{equation*}
+\prod^M_{m=1} p_m^{I(y_i = m)}.
+\end{equation*}\]</span>
+The log-likelihood is
+<span class="math display">\[\begin{equation*}
+\sum^M_{m=1} I(y_i = m ) \log p_m = \sum^M_{m=1} y_{im} \log p_m.
+\end{equation*}\]</span></p>
 </div>
-<div id="keras" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.4</span> Keras<a href="deep-learning.html#keras" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Keras is a deep-learning framework that provides a convenient way to define and train deep-learning models.</p>
+<div id="examples-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">20.4</span> Examples<a href="deep-learning.html#examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mnist" class="section level3 hasAnchor">
+<h3><span class="header-section-number">20.4.1</span> MNIST<a href="deep-learning.html#mnist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will use Keras, a deep-learning framework that provides a convenient way to define and train deep-learning models. One of the backend implementations in Keras is TensorFlow, which is one of the primary platforms for deep learning today. Almost every recent deep-learning competition has been won using Keras models. For serious deep learning users, need to train deep learning models with GPUs.</p>
+<p>To install Keras, follow the installation guide on <a href="https://tensorflow.rstudio.com/guide/keras/" class="uri">https://tensorflow.rstudio.com/guide/keras/</a></p>
+<p>We will fit a neural network to recognize handwritten digits from the MNIST dataset. MNIST consists of <span class="math inline">\(28 \times 28\)</span> greayscale images of handwritten digits like these:</p>
+<p><img src="image/MNIST.PNG" width="60%" style="display: block; margin: auto;" /></p>
+<p>The MNIST dataset is a classic dataset in the machine-learning community which has been around almost as long as the field itself and has been intensively studied. It’s a set of 60,000 training images, plus 10,000 test images, assembled by the National Institute of Standards and Technology (the NIST in MNIST) in the 1980s. You can think of “solving” MNIST as the “Hello World” of deep learning—it’s what you do to verify that your algorithms are working as expected.</p>
+<p>Load the data:</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="deep-learning.html#cb497-1"></a><span class="kw">library</span>(keras)</span>
+<span id="cb497-2"><a href="deep-learning.html#cb497-2"></a></span>
+<span id="cb497-3"><a href="deep-learning.html#cb497-3"></a>mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</span>
+<span id="cb497-4"><a href="deep-learning.html#cb497-4"></a>train_images &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x</span>
+<span id="cb497-5"><a href="deep-learning.html#cb497-5"></a>train_labels &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</span>
+<span id="cb497-6"><a href="deep-learning.html#cb497-6"></a>test_images &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x</span>
+<span id="cb497-7"><a href="deep-learning.html#cb497-7"></a>test_labels &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</span></code></pre></div>
+<p>The images are encoded as 3D arrays, and the labels are a 1D array of digits, ranging from <span class="math inline">\(0\)</span> to <span class="math inline">\(9\)</span>. There is a one-to-one correspondence between the images and the labels.</p>
+<p>To view the data of the first image (which is a <span class="math inline">\(28 \times 28\)</span> matrix of integers in <span class="math inline">\([0, 255]\)</span>):</p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="deep-learning.html#cb498-1"></a><span class="co"># this is how we access the 1st element in the 1st dimension of an 3D array</span></span>
+<span id="cb498-2"><a href="deep-learning.html#cb498-2"></a>train_images[<span class="dv">1</span>, , ] </span></code></pre></div>
+</div>
+<div id="encoding-the-data" class="section level3 hasAnchor">
+<h3><span class="header-section-number">20.4.2</span> Encoding the data<a href="deep-learning.html#encoding-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For each image, we first turn the matrix of values into a vector of values. We also rescale the data to have values in <span class="math inline">\([0, 1]\)</span>. The data originally take integer values in <span class="math inline">\([0, 255]\)</span>.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="deep-learning.html#cb499-1"></a>train_images &lt;-<span class="st"> </span><span class="kw">array_reshape</span>(train_images, <span class="kw">c</span>(<span class="dv">60000</span>, <span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>))</span>
+<span id="cb499-2"><a href="deep-learning.html#cb499-2"></a>train_images &lt;-<span class="st"> </span>train_images <span class="op">/</span><span class="st"> </span><span class="dv">255</span></span>
+<span id="cb499-3"><a href="deep-learning.html#cb499-3"></a></span>
+<span id="cb499-4"><a href="deep-learning.html#cb499-4"></a>test_images &lt;-<span class="st"> </span><span class="kw">array_reshape</span>(test_images, <span class="kw">c</span>(<span class="dv">10000</span>, <span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>))</span>
+<span id="cb499-5"><a href="deep-learning.html#cb499-5"></a>test_images &lt;-<span class="st"> </span>test_images <span class="op">/</span><span class="st"> </span><span class="dv">255</span></span></code></pre></div>
+<p>The original labels take integer values from <span class="math inline">\(0\)</span> to <span class="math inline">\(9\)</span>. We will apply one-hot encoding to the labels:</p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="deep-learning.html#cb500-1"></a>train_labels &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(train_labels)</span>
+<span id="cb500-2"><a href="deep-learning.html#cb500-2"></a>test_labels &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(test_labels)</span></code></pre></div>
+<p>For example, if there are only <span class="math inline">\(3\)</span> classes labeled as <span class="math inline">\(1,2,3\)</span> and <span class="math inline">\(y = 2\)</span>. Then we want to turn <span class="math inline">\(y\)</span> into <span class="math inline">\((0, 1, 0)\)</span>. If <span class="math inline">\(y = 1\)</span>, we want to turn it into <span class="math inline">\((1, 0, 0)\)</span>.</p>
+</div>
+<div id="implementation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">20.4.3</span> Implementation<a href="deep-learning.html#implementation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Model specification</strong></p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="deep-learning.html#cb501-1"></a>model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb501-2"><a href="deep-learning.html#cb501-2"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">512</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb501-3"><a href="deep-learning.html#cb501-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">10</span>, <span class="dt">activation =</span> <span class="st">&quot;softmax&quot;</span>)</span></code></pre></div>
+<p>The above code means we specify a model with</p>
 <ul>
-<li>allow the code to run on CPU or GPU</li>
+<li>One hidden layer with <span class="math inline">\(512\)</span> units, the activation function is ReLU (rectified linear unit)</li>
+<li>The output layer has <span class="math inline">\(10\)</span> units, the activation is the softmax function because we are dealing with a multiclass classification problem.</li>
 </ul>
-<p>almost every recent deep-learning competition has been won using Keras models</p>
-<p>One of the backend implementations in Keras is TensorFlow, which is one of the primary platforms for deep learning today.</p>
-<p>Installation:</p>
-<p>For serious deep learning users, need to train deep learning using GPUs.</p>
+<p><strong>Compiling the model</strong></p>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="deep-learning.html#cb502-1"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb502-2"><a href="deep-learning.html#cb502-2"></a>  <span class="dt">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
+<span id="cb502-3"><a href="deep-learning.html#cb502-3"></a>  <span class="dt">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</span>
+<span id="cb502-4"><a href="deep-learning.html#cb502-4"></a>  <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb502-5"><a href="deep-learning.html#cb502-5"></a>)</span></code></pre></div>
+<p>For multiclass classification, the above setting is in general ok.</p>
+<p><strong>Setting aside a validation set</strong></p>
+<p>Setting aside a validation set to choose the number of epochs (each iteration over all the training data is called an <strong>epoch</strong>). The number of epochs is an important tunning parameter that one has to decide in order not to overfit the training data.</p>
+<p>Note: since we have a lot of data, we use a simple validation approach instead of the cross-validation.</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="deep-learning.html#cb503-1"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">dim</span>(train_images)[<span class="dv">1</span>], <span class="dv">10000</span>)</span>
+<span id="cb503-2"><a href="deep-learning.html#cb503-2"></a>partial_train_images &lt;-<span class="st"> </span>train_images[<span class="op">-</span>index, ]</span>
+<span id="cb503-3"><a href="deep-learning.html#cb503-3"></a>partial_train_labels &lt;-<span class="st"> </span>train_labels[<span class="op">-</span>index, ]</span>
+<span id="cb503-4"><a href="deep-learning.html#cb503-4"></a>validation_images &lt;-<span class="st"> </span>train_images[index, ]</span>
+<span id="cb503-5"><a href="deep-learning.html#cb503-5"></a>validation_labels &lt;-<span class="st"> </span>train_labels[index, ]</span></code></pre></div>
+<p>Train the model with <span class="math inline">\(15\)</span> epochs and evaluate the loss using the validation data:</p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="deep-learning.html#cb504-1"></a>history &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb504-2"><a href="deep-learning.html#cb504-2"></a>  partial_train_images,</span>
+<span id="cb504-3"><a href="deep-learning.html#cb504-3"></a>  partial_train_labels,</span>
+<span id="cb504-4"><a href="deep-learning.html#cb504-4"></a>  <span class="dt">epochs =</span> <span class="dv">15</span>,</span>
+<span id="cb504-5"><a href="deep-learning.html#cb504-5"></a>  <span class="dt">bitch_size =</span> <span class="dv">128</span>,</span>
+<span id="cb504-6"><a href="deep-learning.html#cb504-6"></a>  <span class="dt">validation_data =</span> <span class="kw">list</span>(validation_images, validation_labels)</span>
+<span id="cb504-7"><a href="deep-learning.html#cb504-7"></a>)</span></code></pre></div>
+<p>Create a plot to visualize the relationship between the number of epoch and loss as well as accuracy in the validation data (and training data).</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="deep-learning.html#cb505-1"></a><span class="kw">plot</span>(history)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-589-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>From the above plot, we can see that the training error keeps on decreasing when we train the model with more epochs. However, it seems that after <span class="math inline">\(4\)</span> epochs, the model starts to overfit the data as the validation loss starts to increase. Therefore, we shall only train the model with <span class="math inline">\(4\)</span> epochs. Now, we will retrain our model using all the training data but set <code>epochs = 4</code>.</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="deep-learning.html#cb506-1"></a><span class="co"># same as before</span></span>
+<span id="cb506-2"><a href="deep-learning.html#cb506-2"></a>model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb506-3"><a href="deep-learning.html#cb506-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">512</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb506-4"><a href="deep-learning.html#cb506-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">10</span>, <span class="dt">activation =</span> <span class="st">&quot;softmax&quot;</span>)</span>
+<span id="cb506-5"><a href="deep-learning.html#cb506-5"></a></span>
+<span id="cb506-6"><a href="deep-learning.html#cb506-6"></a><span class="co"># same as before</span></span>
+<span id="cb506-7"><a href="deep-learning.html#cb506-7"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb506-8"><a href="deep-learning.html#cb506-8"></a>  <span class="dt">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
+<span id="cb506-9"><a href="deep-learning.html#cb506-9"></a>  <span class="dt">loss =</span> <span class="st">&quot;categorical_crossentropy&quot;</span>,</span>
+<span id="cb506-10"><a href="deep-learning.html#cb506-10"></a>  <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb506-11"><a href="deep-learning.html#cb506-11"></a>)</span>
+<span id="cb506-12"><a href="deep-learning.html#cb506-12"></a></span>
+<span id="cb506-13"><a href="deep-learning.html#cb506-13"></a><span class="co"># no need to use validation data now</span></span>
+<span id="cb506-14"><a href="deep-learning.html#cb506-14"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb506-15"><a href="deep-learning.html#cb506-15"></a>  partial_train_images,</span>
+<span id="cb506-16"><a href="deep-learning.html#cb506-16"></a>  partial_train_labels,</span>
+<span id="cb506-17"><a href="deep-learning.html#cb506-17"></a>  <span class="dt">epochs =</span> <span class="dv">4</span>,</span>
+<span id="cb506-18"><a href="deep-learning.html#cb506-18"></a>  <span class="dt">bitch_size =</span> <span class="dv">128</span></span>
+<span id="cb506-19"><a href="deep-learning.html#cb506-19"></a>)</span></code></pre></div>
+<p>To form the predictions:</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="deep-learning.html#cb507-1"></a><span class="co"># prediction</span></span>
+<span id="cb507-2"><a href="deep-learning.html#cb507-2"></a>prediction &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">predict</span>(test_images)</span>
+<span id="cb507-3"><a href="deep-learning.html#cb507-3"></a></span>
+<span id="cb507-4"><a href="deep-learning.html#cb507-4"></a><span class="co"># these are the predicted probabilities of each class for the 1st observation</span></span>
+<span id="cb507-5"><a href="deep-learning.html#cb507-5"></a>prediction[<span class="dv">1</span>, ] </span>
+<span id="cb507-6"><a href="deep-learning.html#cb507-6"></a><span class="co">##  [1] 5.935057e-14 3.829296e-17 7.510276e-10 2.582575e-09 4.891600e-17 1.275439e-14</span></span>
+<span id="cb507-7"><a href="deep-learning.html#cb507-7"></a><span class="co">##  [7] 1.665955e-23 1.000000e+00 1.632768e-14 2.574293e-09</span></span></code></pre></div>
+<p>Evaluate the performance:</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="deep-learning.html#cb508-1"></a>result &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(test_images, test_labels)</span>
+<span id="cb508-2"><a href="deep-learning.html#cb508-2"></a>result</span>
+<span id="cb508-3"><a href="deep-learning.html#cb508-3"></a><span class="co">##       loss   accuracy </span></span>
+<span id="cb508-4"><a href="deep-learning.html#cb508-4"></a><span class="co">## 0.08298111 0.97899997</span></span></code></pre></div>
+<p>We see that our basic neural network model is able to achieve more than <span class="math inline">\(97\%\)</span> accuracy in a <span class="math inline">\(10\)</span>-class classification problem.</p>
 </div>
-<div id="two-class-classification-binary-classification" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.5</span> Two-class classification (binary classification)<a href="deep-learning.html#two-class-classification-binary-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The IMDB dataset</p>
-<p>We’ll be working with “IMDB dataset”, a set of 50,000 highly-polarized reviews from the Internet Movie Database. They are split into 25,000 reviews for training and 25,000 reviews for testing, each set consisting in 50% negative and 50% positive reviews.</p>
-<p>the IMDB dataset comes packaged with Keras. It has already been preprocessed: the reviews (sequences of words) have been turned into sequences of integers, where each integer stands for a specific word in a dictionary.</p>
-<p>The following code will load the dataset (when you run it for the first time, about 80MB of data will be downloaded to your machine):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="deep-learning.html#cb1-1"></a><span class="kw">library</span>(keras)</span>
-<span id="cb1-2"><a href="deep-learning.html#cb1-2"></a></span>
-<span id="cb1-3"><a href="deep-learning.html#cb1-3"></a>imdb &lt;-<span class="st"> </span><span class="kw">dataset_imdb</span>(<span class="dt">num_words =</span> <span class="dv">10000</span>)</span>
-<span id="cb1-4"><a href="deep-learning.html#cb1-4"></a><span class="kw">c</span>(<span class="kw">c</span>(train_data, train_labels), <span class="kw">c</span>(test_data, test_labels)) <span class="op">%&lt;-%</span><span class="st"> </span>imdb</span></code></pre></div>
-<p>The argument <code>num_words = 10000</code> means that we will only keep the top 10,000 most frequently occurring words in the training data. Rare words will be discarded. This allows us to work with vector data of manageable size.</p>
-<p>The variables <code>train_data</code> and <code>test_data</code> are lists of reviews, each review being a list of word indices (encoding a sequence of words). <code>train_labels</code> and <code>test_labels</code> are lists of 0s and 1s, where 0 stands for “negative” and 1 stands for “positive”:</p>
-<p>Layers</p>
-<p>Input data</p>
-<p>Loss function</p>
-</div>
-<div id="binary-classification" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.6</span> Binary Classification<a href="deep-learning.html#binary-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The goal is to classify movie reviews as positive or negative.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="deep-learning.html#cb2-1"></a><span class="kw">library</span>(keras)</span>
-<span id="cb2-2"><a href="deep-learning.html#cb2-2"></a></span>
-<span id="cb2-3"><a href="deep-learning.html#cb2-3"></a>imdb &lt;-<span class="st"> </span><span class="kw">dataset_imdb</span>(<span class="dt">num_words =</span> <span class="dv">10000</span>)</span>
-<span id="cb2-4"><a href="deep-learning.html#cb2-4"></a></span>
-<span id="cb2-5"><a href="deep-learning.html#cb2-5"></a>train_data &lt;-<span class="st"> </span>imdb<span class="op">$</span>train<span class="op">$</span>x</span>
-<span id="cb2-6"><a href="deep-learning.html#cb2-6"></a>train_labels &lt;-<span class="st"> </span>imdb<span class="op">$</span>train<span class="op">$</span>y</span>
-<span id="cb2-7"><a href="deep-learning.html#cb2-7"></a></span>
-<span id="cb2-8"><a href="deep-learning.html#cb2-8"></a>test_data &lt;-<span class="st"> </span>imdb<span class="op">$</span>test<span class="op">$</span>x</span>
-<span id="cb2-9"><a href="deep-learning.html#cb2-9"></a>test_labels &lt;-<span class="st"> </span>imdb<span class="op">$</span>test<span class="op">$</span>y</span></code></pre></div>
-<p>The argument <code>num_words = 10000</code> means that we will only keep the top <span class="math inline">\(10,000\)</span> most frequently occurring words in the training data. Rare words will be discarded. This allows us to work with vector data of manageable size.</p>
-<p>The variables <code>train_data</code> and <code>test_data</code> are lists of reviews, each review being a vector of word indices (encoding a sequence of words).</p>
-<p>For example,</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="deep-learning.html#cb3-1"></a><span class="kw">str</span>(train_data[[<span class="dv">1</span>]]) </span>
-<span id="cb3-2"><a href="deep-learning.html#cb3-2"></a><span class="co">##  int [1:218] 1 14 22 16 43 530 973 1622 1385 65 ...</span></span></code></pre></div>
-<p>The idea is to use an integer to represent a word. For example, <code>14</code> corresponds to <code>this</code>, <code>22</code> corresponds to <code>film</code>, <code>16</code> corresponds to <code>was</code>, etc.</p>
-<p><code>train_labels</code> and <code>test_labels</code> are vectors of <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s, where <span class="math inline">\(0\)</span> stands for “negative” and <span class="math inline">\(1\)</span> stands for “positive”:</p>
-<p><strong>Encoding the data</strong></p>
-<p>As a basic illustration, we will not make use of the order of the words (the order of the words in a text can be meaningful). Each review now is a vector of integers. Since we do not make use of the order of the words, we only need to record which words appear for each review. We assign each appeared word by <span class="math inline">\(1\)</span>.</p>
-<p>For example, suppose you have two reviews and there are only <span class="math inline">\(5\)</span> possible words. Suppose that the first review is <code>c(1, 5, 3)</code> and the second review is <code>c(2, 5, 4)</code>. Then we want to encode the two reviews into a binary matrix</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="deep-learning.html#cb4-1"></a><span class="co"># the data </span></span>
-<span id="cb4-2"><a href="deep-learning.html#cb4-2"></a>reviews &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb4-3"><a href="deep-learning.html#cb4-3"></a><span class="co"># e.g. 1 = not, 2 = is, 3 = good, 4 = bad, 5 = very </span></span>
-<span id="cb4-4"><a href="deep-learning.html#cb4-4"></a>reviews[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span>)</span>
-<span id="cb4-5"><a href="deep-learning.html#cb4-5"></a>reviews[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb4-6"><a href="deep-learning.html#cb4-6"></a><span class="kw">vectorize_sequences</span>(reviews, <span class="dt">dimension =</span> <span class="dv">5</span>)</span>
-<span id="cb4-7"><a href="deep-learning.html#cb4-7"></a><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span id="cb4-8"><a href="deep-learning.html#cb4-8"></a><span class="co">## [1,]    1    0    1    0    1</span></span>
-<span id="cb4-9"><a href="deep-learning.html#cb4-9"></a><span class="co">## [2,]    0    1    0    1    1</span></span></code></pre></div>
-<p>The function <code>vecctorize_sequences</code> can be written as:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="deep-learning.html#cb5-1"></a>vectorize_sequences &lt;-<span class="st"> </span><span class="cf">function</span>(sequences, <span class="dt">dimension =</span> <span class="dv">10000</span>) {</span>
-<span id="cb5-2"><a href="deep-learning.html#cb5-2"></a>  results &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(sequences), <span class="dt">ncol =</span> dimension)</span>
-<span id="cb5-3"><a href="deep-learning.html#cb5-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(sequences)) {</span>
-<span id="cb5-4"><a href="deep-learning.html#cb5-4"></a>    results[i, sequences[[i]]] &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb5-5"><a href="deep-learning.html#cb5-5"></a>  }</span>
-<span id="cb5-6"><a href="deep-learning.html#cb5-6"></a>  <span class="kw">return</span>(results)</span>
-<span id="cb5-7"><a href="deep-learning.html#cb5-7"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="deep-learning.html#cb6-1"></a><span class="co"># Our vectorized training data</span></span>
-<span id="cb6-2"><a href="deep-learning.html#cb6-2"></a>x_train &lt;-<span class="st"> </span><span class="kw">vectorize_sequences</span>(train_data)</span>
-<span id="cb6-3"><a href="deep-learning.html#cb6-3"></a><span class="co"># Our vectorized test data</span></span>
-<span id="cb6-4"><a href="deep-learning.html#cb6-4"></a>x_test &lt;-<span class="st"> </span><span class="kw">vectorize_sequences</span>(test_data)</span>
-<span id="cb6-5"><a href="deep-learning.html#cb6-5"></a></span>
-<span id="cb6-6"><a href="deep-learning.html#cb6-6"></a>y_train &lt;-<span class="st"> </span>train_labels</span>
-<span id="cb6-7"><a href="deep-learning.html#cb6-7"></a>y_test &lt;-<span class="st"> </span>test_labels</span>
-<span id="cb6-8"><a href="deep-learning.html#cb6-8"></a></span>
-<span id="cb6-9"><a href="deep-learning.html#cb6-9"></a>y_train &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(train_labels)</span>
-<span id="cb6-10"><a href="deep-learning.html#cb6-10"></a>y_test &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(test_labels)</span></code></pre></div>
-<p>Define your model:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="deep-learning.html#cb7-1"></a>model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-2"><a href="deep-learning.html#cb7-2"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">16</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">10000</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-3"><a href="deep-learning.html#cb7-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">16</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="deep-learning.html#cb7-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>, <span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="deep-learning.html#cb8-1"></a>model</span>
-<span id="cb8-2"><a href="deep-learning.html#cb8-2"></a><span class="co">## Model: &quot;sequential&quot;</span></span>
-<span id="cb8-3"><a href="deep-learning.html#cb8-3"></a><span class="co">## ________________________________________________________________________________</span></span>
-<span id="cb8-4"><a href="deep-learning.html#cb8-4"></a><span class="co">##  Layer (type)                       Output Shape                    Param #     </span></span>
-<span id="cb8-5"><a href="deep-learning.html#cb8-5"></a><span class="co">## ================================================================================</span></span>
-<span id="cb8-6"><a href="deep-learning.html#cb8-6"></a><span class="co">##  dense_2 (Dense)                    (None, 16)                      160016      </span></span>
-<span id="cb8-7"><a href="deep-learning.html#cb8-7"></a><span class="co">##                                                                                 </span></span>
-<span id="cb8-8"><a href="deep-learning.html#cb8-8"></a><span class="co">##  dense_1 (Dense)                    (None, 16)                      272         </span></span>
-<span id="cb8-9"><a href="deep-learning.html#cb8-9"></a><span class="co">##                                                                                 </span></span>
-<span id="cb8-10"><a href="deep-learning.html#cb8-10"></a><span class="co">##  dense (Dense)                      (None, 1)                       17          </span></span>
-<span id="cb8-11"><a href="deep-learning.html#cb8-11"></a><span class="co">##                                                                                 </span></span>
-<span id="cb8-12"><a href="deep-learning.html#cb8-12"></a><span class="co">## ================================================================================</span></span>
-<span id="cb8-13"><a href="deep-learning.html#cb8-13"></a><span class="co">## Total params: 160,305</span></span>
-<span id="cb8-14"><a href="deep-learning.html#cb8-14"></a><span class="co">## Trainable params: 160,305</span></span>
-<span id="cb8-15"><a href="deep-learning.html#cb8-15"></a><span class="co">## Non-trainable params: 0</span></span>
-<span id="cb8-16"><a href="deep-learning.html#cb8-16"></a><span class="co">## ________________________________________________________________________________</span></span></code></pre></div>
-<p>There are <span class="math inline">\(160,305\)</span> parameters in the model!</p>
-<p>Compile the model.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="deep-learning.html#cb9-1"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb9-2"><a href="deep-learning.html#cb9-2"></a>  <span class="dt">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
-<span id="cb9-3"><a href="deep-learning.html#cb9-3"></a>  <span class="dt">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb9-4"><a href="deep-learning.html#cb9-4"></a>  <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
-<span id="cb9-5"><a href="deep-learning.html#cb9-5"></a>)</span></code></pre></div>
-<p>Setting aside a validation set</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="deep-learning.html#cb10-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb10-2"><a href="deep-learning.html#cb10-2"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(x_train), <span class="dv">10000</span>)</span>
-<span id="cb10-3"><a href="deep-learning.html#cb10-3"></a></span>
-<span id="cb10-4"><a href="deep-learning.html#cb10-4"></a>x_val &lt;-<span class="st"> </span>x_train[index,]</span>
-<span id="cb10-5"><a href="deep-learning.html#cb10-5"></a>partial_x_train &lt;-<span class="st"> </span>x_train[<span class="op">-</span>index,]</span>
-<span id="cb10-6"><a href="deep-learning.html#cb10-6"></a></span>
-<span id="cb10-7"><a href="deep-learning.html#cb10-7"></a>y_val &lt;-<span class="st"> </span>y_train[index]</span>
-<span id="cb10-8"><a href="deep-learning.html#cb10-8"></a>partial_y_train &lt;-<span class="st"> </span>y_train[<span class="op">-</span>index]</span></code></pre></div>
-<p>Train the model</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="deep-learning.html#cb11-1"></a>history &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb11-2"><a href="deep-learning.html#cb11-2"></a>  partial_x_train,</span>
-<span id="cb11-3"><a href="deep-learning.html#cb11-3"></a>  partial_y_train,</span>
-<span id="cb11-4"><a href="deep-learning.html#cb11-4"></a>  <span class="dt">epochs =</span> <span class="dv">20</span>,</span>
-<span id="cb11-5"><a href="deep-learning.html#cb11-5"></a>  <span class="dt">batch_size =</span> <span class="dv">512</span>,</span>
-<span id="cb11-6"><a href="deep-learning.html#cb11-6"></a>  <span class="dt">validation_data =</span> <span class="kw">list</span>(x_val, y_val)</span>
-<span id="cb11-7"><a href="deep-learning.html#cb11-7"></a>)</span></code></pre></div>
-<p>Epoch: 1 epoch =</p>
-<div class="figure">
-<img src="https://s3.amazonaws.com/book.keras.io/img/ch3/3_layer_network.png" alt="" />
-<p class="caption">3-layer network</p>
-</div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="deep-learning.html#cb12-1"></a><span class="kw">str</span>(history)</span>
-<span id="cb12-2"><a href="deep-learning.html#cb12-2"></a><span class="co">## List of 2</span></span>
-<span id="cb12-3"><a href="deep-learning.html#cb12-3"></a><span class="co">##  $ params :List of 3</span></span>
-<span id="cb12-4"><a href="deep-learning.html#cb12-4"></a><span class="co">##   ..$ verbose: int 1</span></span>
-<span id="cb12-5"><a href="deep-learning.html#cb12-5"></a><span class="co">##   ..$ epochs : int 20</span></span>
-<span id="cb12-6"><a href="deep-learning.html#cb12-6"></a><span class="co">##   ..$ steps  : int 30</span></span>
-<span id="cb12-7"><a href="deep-learning.html#cb12-7"></a><span class="co">##  $ metrics:List of 4</span></span>
-<span id="cb12-8"><a href="deep-learning.html#cb12-8"></a><span class="co">##   ..$ loss        : num [1:20] 0.538 0.326 0.238 0.185 0.151 ...</span></span>
-<span id="cb12-9"><a href="deep-learning.html#cb12-9"></a><span class="co">##   ..$ accuracy    : num [1:20] 0.766 0.898 0.926 0.941 0.953 ...</span></span>
-<span id="cb12-10"><a href="deep-learning.html#cb12-10"></a><span class="co">##   ..$ val_loss    : num [1:20] 0.404 0.335 0.28 0.276 0.302 ...</span></span>
-<span id="cb12-11"><a href="deep-learning.html#cb12-11"></a><span class="co">##   ..$ val_accuracy: num [1:20] 0.871 0.871 0.891 0.889 0.88 ...</span></span>
-<span id="cb12-12"><a href="deep-learning.html#cb12-12"></a><span class="co">##  - attr(*, &quot;class&quot;)= chr &quot;keras_training_history&quot;</span></span>
-<span id="cb12-13"><a href="deep-learning.html#cb12-13"></a><span class="kw">plot</span>(history)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Since the validation error starts to increase at <span class="math inline">\(5\)</span> epoch, we shall only train our model with <span class="math inline">\(4\)</span> epoch.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="deep-learning.html#cb13-1"></a>model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="deep-learning.html#cb13-2"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">16</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">10000</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-3"><a href="deep-learning.html#cb13-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">16</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-4"><a href="deep-learning.html#cb13-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>, <span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span>
-<span id="cb13-5"><a href="deep-learning.html#cb13-5"></a></span>
-<span id="cb13-6"><a href="deep-learning.html#cb13-6"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb13-7"><a href="deep-learning.html#cb13-7"></a>  <span class="dt">optimizer =</span> <span class="st">&quot;rmsprop&quot;</span>,</span>
-<span id="cb13-8"><a href="deep-learning.html#cb13-8"></a>  <span class="dt">loss =</span> <span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb13-9"><a href="deep-learning.html#cb13-9"></a>  <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
-<span id="cb13-10"><a href="deep-learning.html#cb13-10"></a>)</span>
-<span id="cb13-11"><a href="deep-learning.html#cb13-11"></a></span>
-<span id="cb13-12"><a href="deep-learning.html#cb13-12"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(x_train, y_train, <span class="dt">epochs =</span> <span class="dv">4</span>, <span class="dt">batch_size =</span> <span class="dv">512</span>)</span></code></pre></div>
-<p><strong>Prediction Accuracy in test data</strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="deep-learning.html#cb14-1"></a>(results &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(x_test, y_test))</span>
-<span id="cb14-2"><a href="deep-learning.html#cb14-2"></a><span class="co">##     loss accuracy </span></span>
-<span id="cb14-3"><a href="deep-learning.html#cb14-3"></a><span class="co">## 0.299382 0.881520</span></span></code></pre></div>
-<p><strong>Predicted probability of “positive” for the first <span class="math inline">\(10\)</span> test data</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="deep-learning.html#cb15-1"></a>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">predict</span>(x_test[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])</span>
-<span id="cb15-2"><a href="deep-learning.html#cb15-2"></a><span class="co">##              [,1]</span></span>
-<span id="cb15-3"><a href="deep-learning.html#cb15-3"></a><span class="co">##  [1,] 0.145351708</span></span>
-<span id="cb15-4"><a href="deep-learning.html#cb15-4"></a><span class="co">##  [2,] 0.998798728</span></span>
-<span id="cb15-5"><a href="deep-learning.html#cb15-5"></a><span class="co">##  [3,] 0.757797539</span></span>
-<span id="cb15-6"><a href="deep-learning.html#cb15-6"></a><span class="co">##  [4,] 0.753620028</span></span>
-<span id="cb15-7"><a href="deep-learning.html#cb15-7"></a><span class="co">##  [5,] 0.943060100</span></span>
-<span id="cb15-8"><a href="deep-learning.html#cb15-8"></a><span class="co">##  [6,] 0.715207398</span></span>
-<span id="cb15-9"><a href="deep-learning.html#cb15-9"></a><span class="co">##  [7,] 0.999003470</span></span>
-<span id="cb15-10"><a href="deep-learning.html#cb15-10"></a><span class="co">##  [8,] 0.005008941</span></span>
-<span id="cb15-11"><a href="deep-learning.html#cb15-11"></a><span class="co">##  [9,] 0.956825435</span></span>
-<span id="cb15-12"><a href="deep-learning.html#cb15-12"></a><span class="co">## [10,] 0.986143529</span></span></code></pre></div>
-</div>
-<div id="multiclass-classification" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.7</span> Multiclass Classification<a href="deep-learning.html#multiclass-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Classifying news wires by topic</p>
-</div>
-<div id="regression" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.8</span> Regression<a href="deep-learning.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Estimating the price of a house, given real-estate data</p>
-</div>
-<div id="appendix" class="section level2 hasAnchor">
-<h2><span class="header-section-number">20.9</span> Appendix<a href="deep-learning.html#appendix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To decode the text in <code>imdb</code>:</p>
-<p>You can decode the data using the following code:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="deep-learning.html#cb16-1"></a><span class="co"># word_index is a dictionary mapping words to an integer index</span></span>
-<span id="cb16-2"><a href="deep-learning.html#cb16-2"></a>word_index &lt;-<span class="st"> </span><span class="kw">dataset_imdb_word_index</span>()</span>
-<span id="cb16-3"><a href="deep-learning.html#cb16-3"></a><span class="co"># We reverse it, mapping integer indices to words</span></span>
-<span id="cb16-4"><a href="deep-learning.html#cb16-4"></a>reverse_word_index &lt;-<span class="st"> </span><span class="kw">names</span>(word_index)</span>
-<span id="cb16-5"><a href="deep-learning.html#cb16-5"></a><span class="kw">names</span>(reverse_word_index) &lt;-<span class="st"> </span>word_index</span>
-<span id="cb16-6"><a href="deep-learning.html#cb16-6"></a><span class="co"># We decode the review; note that our indices were offset by 3</span></span>
-<span id="cb16-7"><a href="deep-learning.html#cb16-7"></a><span class="co"># because 0, 1 and 2 are reserved indices for &quot;padding&quot;, &quot;start of sequence&quot;, and &quot;unknown&quot;.</span></span>
-<span id="cb16-8"><a href="deep-learning.html#cb16-8"></a>decoded_review &lt;-<span class="st"> </span><span class="kw">sapply</span>(train_data[[<span class="dv">1</span>]], <span class="cf">function</span>(index) {</span>
-<span id="cb16-9"><a href="deep-learning.html#cb16-9"></a>  word &lt;-<span class="st"> </span><span class="cf">if</span> (index <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>) reverse_word_index[[<span class="kw">as.character</span>(index <span class="op">-</span><span class="st"> </span><span class="dv">3</span>)]]</span>
-<span id="cb16-10"><a href="deep-learning.html#cb16-10"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(word)) word <span class="cf">else</span> <span class="st">&quot;?&quot;</span></span>
-<span id="cb16-11"><a href="deep-learning.html#cb16-11"></a>})</span>
-<span id="cb16-12"><a href="deep-learning.html#cb16-12"></a></span>
-<span id="cb16-13"><a href="deep-learning.html#cb16-13"></a><span class="kw">cat</span>(decoded_review)</span>
-<span id="cb16-14"><a href="deep-learning.html#cb16-14"></a><span class="co">## ? this film was just brilliant casting location scenery story direction everyone&#39;s really suited the part they played and you could just imagine being there robert ? is an amazing actor and now the same being director ? father came from the same scottish island as myself so i loved the fact there was a real connection with this film the witty remarks throughout the film were great it was just brilliant so much that i bought the film as soon as it was released for ? and would recommend it to everyone to watch and the fly fishing was amazing really cried at the end it was so sad and you know what they say if you cry at a film it must have been good and this definitely was also ? to the two little boy&#39;s that played the ? of norman and paul they were just brilliant children are often left out of the ? list i think because the stars that play them all grown up are such a big profile for the whole film but these children are amazing and should be praised for what they have done don&#39;t you think the whole story was so lovely because it was true and was someone&#39;s life after all that was shared with us all</span></span></code></pre></div>
+<div id="multilayer-neural-network" class="section level3 hasAnchor">
+<h3><span class="header-section-number">20.4.4</span> Multilayer Neural Network<a href="deep-learning.html#multilayer-neural-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you want to fit a model with two hidden layers, where the first hidden layer has <span class="math inline">\(512\)</span> units and the second layer has <span class="math inline">\(128\)</span> units:</p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="deep-learning.html#cb509-1"></a>model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb509-2"><a href="deep-learning.html#cb509-2"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">512</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb509-3"><a href="deep-learning.html#cb509-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">128</span>, <span class="dt">activation =</span> <span class="st">&quot;relu&quot;</span>, <span class="dt">input_shape =</span> <span class="kw">c</span>(<span class="dv">28</span> <span class="op">*</span><span class="st"> </span><span class="dv">28</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb509-4"><a href="deep-learning.html#cb509-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">10</span>, <span class="dt">activation =</span> <span class="st">&quot;softmax&quot;</span>)</span></code></pre></div>
+<p>Now, you should understand how to include more layers and change the number of units.</p>
+<!-- ## Keras -->
+<!-- Keras is a deep-learning framework that provides a convenient way to define and train deep-learning models. -->
+<!-- - allow the code to run on CPU or GPU -->
+<!-- almost every recent deep-learning competition has been won using Keras models -->
+<!-- One of the backend implementations in Keras is TensorFlow, which is one of the primary platforms for deep learning today. -->
+<!-- Installation: -->
+<!-- For serious deep learning users, need to train deep learning using GPUs. -->
+<!-- ## Two-class classification (binary classification) -->
+<!-- The IMDB dataset -->
+<!-- We'll be working with "IMDB dataset", a set of 50,000 highly-polarized reviews from the Internet Movie Database. They are split into 25,000 reviews for training and 25,000 reviews for testing, each set consisting in 50% negative and 50% positive reviews. -->
+<!-- the IMDB dataset comes packaged with Keras. It has already been preprocessed: the reviews (sequences of words) have been turned into sequences of integers, where each integer stands for a specific word in a dictionary. -->
+<!-- The following code will load the dataset (when you run it for the first time, about 80MB of data will be downloaded to your machine): -->
+<!-- ```{r, results='hide'} -->
+<!-- library(keras) -->
+<!-- imdb <- dataset_imdb(num_words = 10000) -->
+<!-- c(c(train_data, train_labels), c(test_data, test_labels)) %<-% imdb -->
+<!-- ``` -->
+<!-- The argument `num_words = 10000` means that we will only keep the top 10,000 most frequently occurring words in the training data. Rare words will be discarded. This allows us to work with vector data of manageable size. -->
+<!-- The variables `train_data` and `test_data` are lists of reviews, each review being a list of word indices (encoding a sequence of words). `train_labels` and `test_labels` are lists of 0s and 1s, where 0 stands for "negative" and 1 stands for "positive": -->
+<!-- Layers -->
+<!-- Input data -->
+<!-- Loss function -->
+<!-- ## Binary Classification -->
+<!-- The goal is to classify movie reviews as positive or negative. -->
+<!-- ```{r} -->
+<!-- library(keras) -->
+<!-- imdb <- dataset_imdb(num_words = 10000) -->
+<!-- train_data <- imdb$train$x -->
+<!-- train_labels <- imdb$train$y -->
+<!-- test_data <- imdb$test$x -->
+<!-- test_labels <- imdb$test$y -->
+<!-- ``` -->
+<!-- The argument `num_words = 10000` means that we will only keep the top $10,000$ most frequently occurring words in the training data. Rare words will be discarded. This allows us to work with vector data of manageable size. -->
+<!-- The variables `train_data` and `test_data` are lists of reviews, each review being a vector of word indices (encoding a sequence of words).  -->
+<!-- For example, -->
+<!-- ```{r} -->
+<!-- str(train_data[[1]])  -->
+<!-- ``` -->
+<!-- The idea is to use an integer to represent a word. For example, `14` corresponds to `this`, `22` corresponds to `film`, `16` corresponds to `was`, etc.  -->
+<!-- `train_labels` and `test_labels` are vectors of $0$s and $1$s, where $0$ stands for "negative" and $1$ stands for "positive": -->
+<!-- **Encoding the data** -->
+<!-- As a basic illustration, we will not make use of the order of the words (the order of the words in a text can be meaningful). Each review now is a vector of integers. Since we do not make use of the order of the words, we only need to record which words appear for each review. We assign each appeared word by $1$. -->
+<!-- For example, suppose you have two reviews and there are only $5$ possible words. Suppose that the first review is `c(1, 5, 3)` and the second review is `c(2, 5, 4)`. Then we want to encode the two reviews into a binary matrix -->
+<!-- ```{r echo =FALSE} -->
+<!-- vectorize_sequences <- function(sequences, dimension = 10000) { -->
+<!--   results <- matrix(0, nrow = length(sequences), ncol = dimension) -->
+<!--   for (i in 1:length(sequences)) { -->
+<!--     results[i, sequences[[i]]] <- 1 -->
+<!--   } -->
+<!--   return(results) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # the data  -->
+<!-- reviews <- list() -->
+<!-- # e.g. 1 = not, 2 = is, 3 = good, 4 = bad, 5 = very  -->
+<!-- reviews[[1]] <- c(1, 5, 3) -->
+<!-- reviews[[2]] <- c(2, 5, 4) -->
+<!-- vectorize_sequences(reviews, dimension = 5) -->
+<!-- ``` -->
+<!-- The function `vecctorize_sequences` can be written as: -->
+<!-- ```{r} -->
+<!-- vectorize_sequences <- function(sequences, dimension = 10000) { -->
+<!--   results <- matrix(0, nrow = length(sequences), ncol = dimension) -->
+<!--   for (i in 1:length(sequences)) { -->
+<!--     results[i, sequences[[i]]] <- 1 -->
+<!--   } -->
+<!--   return(results) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Our vectorized training data -->
+<!-- x_train <- vectorize_sequences(train_data) -->
+<!-- # Our vectorized test data -->
+<!-- x_test <- vectorize_sequences(test_data) -->
+<!-- y_train <- train_labels -->
+<!-- y_test <- test_labels -->
+<!-- y_train <- as.numeric(train_labels) -->
+<!-- y_test <- as.numeric(test_labels) -->
+<!-- ``` -->
+<!-- Define your model: -->
+<!-- ```{r} -->
+<!-- model <- keras_model_sequential() %>%  -->
+<!--   layer_dense(units = 16, activation = "relu", input_shape = c(10000)) %>%  -->
+<!--   layer_dense(units = 16, activation = "relu") %>%  -->
+<!--   layer_dense(units = 1, activation = "sigmoid") -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- model -->
+<!-- ``` -->
+<!-- There are $160,305$ parameters in the model! -->
+<!-- Compile the model. -->
+<!-- ```{r} -->
+<!-- model %>% compile( -->
+<!--   optimizer = "rmsprop", -->
+<!--   loss = "binary_crossentropy", -->
+<!--   metrics = c("accuracy") -->
+<!-- ) -->
+<!-- ``` -->
+<!-- Setting aside a validation set -->
+<!-- ```{r} -->
+<!-- set.seed(1) -->
+<!-- index <- sample(nrow(x_train), 10000) -->
+<!-- x_val <- x_train[index,] -->
+<!-- partial_x_train <- x_train[-index,] -->
+<!-- y_val <- y_train[index] -->
+<!-- partial_y_train <- y_train[-index] -->
+<!-- ``` -->
+<!-- Train the model -->
+<!-- ```{r} -->
+<!-- history <- model %>% fit( -->
+<!--   partial_x_train, -->
+<!--   partial_y_train, -->
+<!--   epochs = 20, -->
+<!--   batch_size = 512, -->
+<!--   validation_data = list(x_val, y_val) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- Epoch: 1 epoch =  -->
+<!-- ![3-layer network](https://s3.amazonaws.com/book.keras.io/img/ch3/3_layer_network.png) -->
+<!-- ```{r} -->
+<!-- str(history) -->
+<!-- plot(history) -->
+<!-- ``` -->
+<!-- Since the validation error starts to increase at $5$ epoch, we shall only train our model with $4$ epoch. -->
+<!-- ```{r} -->
+<!-- model <- keras_model_sequential() %>%  -->
+<!--   layer_dense(units = 16, activation = "relu", input_shape = c(10000)) %>%  -->
+<!--   layer_dense(units = 16, activation = "relu") %>%  -->
+<!--   layer_dense(units = 1, activation = "sigmoid") -->
+<!-- model %>% compile( -->
+<!--   optimizer = "rmsprop", -->
+<!--   loss = "binary_crossentropy", -->
+<!--   metrics = c("accuracy") -->
+<!-- ) -->
+<!-- model %>% fit(x_train, y_train, epochs = 4, batch_size = 512) -->
+<!-- ``` -->
+<!-- **Prediction Accuracy in test data** -->
+<!-- ```{r} -->
+<!-- (results <- model %>% evaluate(x_test, y_test)) -->
+<!-- ``` -->
+<!-- **Predicted probability of "positive" for the first $10$ test data** -->
+<!-- ```{r} -->
+<!-- model %>% predict(x_test[1:10,]) -->
+<!-- ``` -->
+<!-- ## Multiclass Classification -->
+<!-- Classifying news wires by topic -->
+<!-- ## Regression -->
+<!-- Estimating the price of a house, given real-estate data -->
+<!-- ## Appendix -->
+<!-- To decode the text in `imdb`: -->
+<!-- You can decode the data using the following code: -->
+<!-- ```{r} -->
+<!-- # word_index is a dictionary mapping words to an integer index -->
+<!-- word_index <- dataset_imdb_word_index() -->
+<!-- # We reverse it, mapping integer indices to words -->
+<!-- reverse_word_index <- names(word_index) -->
+<!-- names(reverse_word_index) <- word_index -->
+<!-- # We decode the review; note that our indices were offset by 3 -->
+<!-- # because 0, 1 and 2 are reserved indices for "padding", "start of sequence", and "unknown". -->
+<!-- decoded_review <- sapply(train_data[[1]], function(index) { -->
+<!--   word <- if (index >= 3) reverse_word_index[[as.character(index - 3)]] -->
+<!--   if (!is.null(word)) word else "?" -->
+<!-- }) -->
+<!-- cat(decoded_review) -->
+<!-- ``` -->
 
+</div>
 </div>
 </div>
             </section>

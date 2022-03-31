@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-29" />
+<meta name="date" content="2022-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -354,6 +354,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
 <li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a><ul>
+<li class="chapter" data-level="20.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-4"><i class="fa fa-check"></i><b>20.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="20.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>20.2</b> Single Layer Neural Netowrks<span></span></a></li>
+<li class="chapter" data-level="20.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>20.3</b> Multilayer Neural Networks<span></span></a></li>
+<li class="chapter" data-level="20.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>20.4</b> Examples<span></span></a><ul>
+<li class="chapter" data-level="20.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>20.4.1</b> MNIST<span></span></a></li>
+<li class="chapter" data-level="20.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>20.4.2</b> Encoding the data<span></span></a></li>
+<li class="chapter" data-level="20.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>20.4.3</b> Implementation<span></span></a></li>
+<li class="chapter" data-level="20.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>20.4.4</b> Multilayer Neural Network<span></span></a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -469,12 +480,12 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="linear-regression-models.html#cb381-1"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span></span>
 <span id="cb381-2"><a href="linear-regression-models.html#cb381-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb381-3"><a href="linear-regression-models.html#cb381-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-410-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-430-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To remove the confidence interval, set <code>se = FALSE</code> in <code>geom_smooth()</code>.</p>
 <div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="linear-regression-models.html#cb382-1"></a><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span></span>
 <span id="cb382-2"><a href="linear-regression-models.html#cb382-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb382-3"><a href="linear-regression-models.html#cb382-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-411-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-431-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Remark: You have seen <code>geom_smooth()</code> in Assignment 3.</p>
 </div>
 <div id="smoothed-conditional-means" class="section level2 hasAnchor">
@@ -484,7 +495,7 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <span id="cb383-2"><a href="linear-regression-models.html#cb383-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist)) <span class="op">+</span></span>
 <span id="cb383-3"><a href="linear-regression-models.html#cb383-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb383-4"><a href="linear-regression-models.html#cb383-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-412-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-432-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>You can see the message saying <code>geom_smooth()</code> is using <code>method = "loess"</code>. loess stands for locally estimated scatterplot smoothing. You may also see “lowess”, which stands for
 locally weighted scatterplot smoothing. Basically, a locally weighted regression solves a separate weighted least squares problem at each target point <span class="math inline">\(x_0\)</span>:
 <span class="math display">\[\begin{equation*}
@@ -595,9 +606,9 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="linear-regression-models.html#cb387-1"></a><span class="kw">names</span>(fit)</span>
-<span id="cb387-2"><a href="linear-regression-models.html#cb387-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;</span></span>
-<span id="cb387-3"><a href="linear-regression-models.html#cb387-3"></a><span class="co">##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         </span></span>
-<span id="cb387-4"><a href="linear-regression-models.html#cb387-4"></a><span class="co">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb387-2"><a href="linear-regression-models.html#cb387-2"></a><span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span></span>
+<span id="cb387-3"><a href="linear-regression-models.html#cb387-3"></a><span class="co">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span></span>
+<span id="cb387-4"><a href="linear-regression-models.html#cb387-4"></a><span class="co">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="linear-regression-models.html#cb388-1"></a>fit<span class="op">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb388-2"><a href="linear-regression-models.html#cb388-2"></a><span class="co">## (Intercept)          x1          x2 </span></span>
@@ -884,7 +895,7 @@ is a special case of the genearl linear regression model because we can define <
 <div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="linear-regression-models.html#cb405-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb405-2"><a href="linear-regression-models.html#cb405-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
 <span id="cb405-3"><a href="linear-regression-models.html#cb405-3"></a>y &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x  <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-435-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-455-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To perform regression for the transformed variable:</p>
 <div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="linear-regression-models.html#cb406-1"></a><span class="kw">lm</span>(<span class="kw">log</span>(y) <span class="op">~</span><span class="st"> </span>x)</span>
 <span id="cb406-2"><a href="linear-regression-models.html#cb406-2"></a><span class="co">## </span></span>
