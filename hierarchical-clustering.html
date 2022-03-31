@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-30" />
+<meta name="date" content="2022-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="hierarchical-clustering.html#cb434-1"></a>hc_complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(X), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span></code></pre></div>
 <p>Plot the dendrogram:</p>
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="hierarchical-clustering.html#cb435-1"></a><span class="kw">plot</span>(hc_complete, <span class="dt">main =</span> <span class="st">&quot;Complete Linkage&quot;</span>, <span class="dt">xlab =</span><span class="st">&quot;&quot;</span>, <span class="dt">sub =</span> <span class="st">&quot;&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-502-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-495-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Use <code>cutree()</code> to determine the cluster labels for each observation associated with a given number of clusters:</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="hierarchical-clustering.html#cb436-1"></a><span class="kw">cutree</span>(hc_complete, <span class="dt">k =</span> <span class="dv">2</span>)  <span class="co"># given number of clusters = 2</span></span>
 <span id="cb436-2"><a href="hierarchical-clustering.html#cb436-2"></a><span class="co">##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></span>
@@ -495,7 +495,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Dendrogram:</p>
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="hierarchical-clustering.html#cb444-1"></a>hc_complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(nci_data_scale), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
 <span id="cb444-2"><a href="hierarchical-clustering.html#cb444-2"></a><span class="kw">plot</span>(hc_complete, <span class="dt">labels =</span> nci_labs, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sub =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-511-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-504-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Clearly, cell lines within a single cancer type do tend to cluster together.</p>
 <p>Now, let’s cut the dendrogram to obtain, say, <span class="math inline">\(4\)</span> clusters and compare with the true cancer types:</p>
 <div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="hierarchical-clustering.html#cb445-1"></a>hc_cluster &lt;-<span class="st"> </span><span class="kw">cutree</span>(hc_complete, <span class="dt">k =</span> <span class="dv">4</span>)</span>

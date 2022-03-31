@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-30" />
+<meta name="date" content="2022-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1039,12 +1039,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="data-transformation-with-dplyr.html#cb235-1"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes</span>(dep_time),</span>
 <span id="cb235-2"><a href="data-transformation-with-dplyr.html#cb235-2"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb235-3"><a href="data-transformation-with-dplyr.html#cb235-3"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb235-4"><a href="data-transformation-with-dplyr.html#cb235-4"></a><span class="co">##    0.17    0.02    0.19</span></span>
+<span id="cb235-4"><a href="data-transformation-with-dplyr.html#cb235-4"></a><span class="co">##    0.04    0.00    0.04</span></span>
 <span id="cb235-5"><a href="data-transformation-with-dplyr.html#cb235-5"></a></span>
 <span id="cb235-6"><a href="data-transformation-with-dplyr.html#cb235-6"></a><span class="kw">system.time</span>(<span class="kw">mutate</span>(flights, <span class="dt">min_dep_time =</span> <span class="kw">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb235-7"><a href="data-transformation-with-dplyr.html#cb235-7"></a>                <span class="dt">min_sched_dep_time =</span> <span class="kw">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb235-8"><a href="data-transformation-with-dplyr.html#cb235-8"></a><span class="co">##    user  system elapsed </span></span>
-<span id="cb235-9"><a href="data-transformation-with-dplyr.html#cb235-9"></a><span class="co">##    1.34    0.00    1.38</span></span></code></pre></div>
+<span id="cb235-9"><a href="data-transformation-with-dplyr.html#cb235-9"></a><span class="co">##    0.35    0.00    0.35</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->
@@ -1119,7 +1119,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb242-4"><a href="data-transformation-with-dplyr.html#cb242-4"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb242-5"><a href="data-transformation-with-dplyr.html#cb242-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> mean_dep_delay)) <span class="op">+</span></span>
 <span id="cb242-6"><a href="data-transformation-with-dplyr.html#cb242-6"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="co"># notice the spacing for good indentation</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-276-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-269-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Notice the difference between <code>%&gt;%</code> and <code>+</code> in the above code.</p>
 <p>E.g. Create new columns for the average departure delay by date and average departure delay by destination using <code>mutate</code></p>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="data-transformation-with-dplyr.html#cb243-1"></a>group_date &lt;-<span class="st"> </span><span class="kw">group_by</span>(<span class="kw">select</span>(flights, year<span class="op">:</span>day, dep_delay, dest), month, day)</span>

@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-30" />
+<meta name="date" content="2022-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -439,19 +439,19 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <li><p>Set <span class="math inline">\(k=2\)</span>.</p></li>
 <li><p>Randomly select 2 data points as the initial centroids (Brown crosses).</p></li>
 </ol>
-<p><img src="Book_files/figure-html/unnamed-chunk-472-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-465-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>For each observation, find the nearest centroid.</li>
 </ol>
-<p><img src="Book_files/figure-html/unnamed-chunk-473-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-466-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Compute the mean of all the points assigned to the two cluster to find the new centroids.</li>
 </ol>
-<p><img src="Book_files/figure-html/unnamed-chunk-474-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-467-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Repeat Step 3:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-475-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-468-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Repeat Step 4:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-476-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-469-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Remarks</strong></p>
 <ol style="list-style-type: decimal">
 <li><p><span class="math inline">\(\text{argmin}\)</span> is the argument of the minimum. <span class="math inline">\(\text{argmin}_j ||x_i - \mu_j||^2\)</span> means the value of <span class="math inline">\(j\)</span> such that <span class="math inline">\(||x_i - \mu_j||^2\)</span> is minimum.</p></li>
@@ -513,7 +513,7 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <p>Visualize the clusters:</p>
 <div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="k-means-clustering.html#cb422-1"></a><span class="kw">library</span>(factoextra)</span>
 <span id="cb422-2"><a href="k-means-clustering.html#cb422-2"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-482-1.png" width="75%" style="display: block; margin: auto;" />
+<p><img src="Book_files/figure-html/unnamed-chunk-475-1.png" width="75%" style="display: block; margin: auto;" />
 By looking at the plot, we see the 3 clusters are</p>
 <ul>
 <li>high annual income + low spending score</li>
@@ -524,7 +524,7 @@ By looking at the plot, we see the 3 clusters are</p>
 <div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="k-means-clustering.html#cb423-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">5</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
 <p>Visualizing the clusters:</p>
 <div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="k-means-clustering.html#cb424-1"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-484-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-477-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The <span class="math inline">\(5\)</span> clusters are</p>
 <ul>
 <li>high annual income + low spending score</li>
@@ -537,7 +537,7 @@ By looking at the plot, we see the 3 clusters are</p>
 <div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="k-means-clustering.html#cb425-1"></a>mall_kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(<span class="dt">x =</span> <span class="kw">scale</span>(mall[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]), <span class="dt">centers =</span> <span class="dv">5</span>, <span class="dt">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
 <p>To visualize more than 2 variables, we can use a dimension reduction technique called principal component analysis. The function <code>fviz_cluster</code> will automatically perform that and give you a <span class="math inline">\(2D\)</span>-plot using the first two principal comonents.</p>
 <div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="k-means-clustering.html#cb426-1"></a><span class="kw">fviz_cluster</span>(mall_kmeans,  <span class="dt">data =</span> mall[, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-486-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-479-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>To understand more about the clusters, we should take a look at some plots and some summary statistics. An example is to use violin plots.</p>
 <p><strong>Violin Plots</strong></p>
 <p>A violin plot is a kernel density estimate, mirrored so that it forms a symmetrical shape. It is a helpful tool to compare multiple data distributions when we put several plots side by side. To provide additional information, we can also have box plots overlaid, with a white dot at the median.</p>
@@ -550,10 +550,10 @@ By looking at the plot, we see the 3 clusters are</p>
 <span id="cb428-3"><a href="k-means-clustering.html#cb428-3"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">trim =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb428-4"><a href="k-means-clustering.html#cb428-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">outlier.colour =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
 <span id="cb428-5"><a href="k-means-clustering.html#cb428-5"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun =</span> median, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">size =</span> <span class="fl">2.5</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-488-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-481-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The other two variables:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-489-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-490-1.png" width="75%" style="display: block; margin: auto;" />
+<p><img src="Book_files/figure-html/unnamed-chunk-482-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-483-1.png" width="75%" style="display: block; margin: auto;" />
 <strong>Determine the optimal <span class="math inline">\(k\)</span></strong></p>
 <p>The elbow method is a heuristic method to determine the number of clusters. We plot the total within-group sum of squared errors against the number of clusters. We pick the elbow of the curve as the number of clusters to use. The elbow (or knee) of a curve is a point where the curve visibly bends.</p>
 <div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="k-means-clustering.html#cb429-1"></a>WSS &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -568,7 +568,7 @@ By looking at the plot, we see the 3 clusters are</p>
 <span id="cb429-10"><a href="k-means-clustering.html#cb429-10"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">4</span>) <span class="op">+</span></span>
 <span id="cb429-11"><a href="k-means-clustering.html#cb429-11"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;k&quot;</span>, <span class="dt">limits =</span> <span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">+</span></span>
 <span id="cb429-12"><a href="k-means-clustering.html#cb429-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Elbow Method&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-491-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-484-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>It seems to me that the curve bends at <span class="math inline">\(k=4\)</span>.</p>
 </div>
 <div id="image-segementation-and-image-compression" class="section level3 hasAnchor">

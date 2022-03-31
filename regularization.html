@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-30" />
+<meta name="date" content="2022-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -494,7 +494,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="regularization.html#cb457-1"></a><span class="kw">library</span>(glmnet)</span>
 <span id="cb457-2"><a href="regularization.html#cb457-2"></a>ridge_cv &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[index, ], y[index], <span class="dt">alpha =</span> <span class="dv">0</span>)</span>
 <span id="cb457-3"><a href="regularization.html#cb457-3"></a><span class="kw">plot</span>(ridge_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-528-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-521-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The above plot shows the cross-validation error (the mean squared error computed using the CV approach) with different values of <span class="math inline">\(\lambda\)</span> in the <span class="math inline">\(\ln\)</span> scale. We can pick the <span class="math inline">\(\lambda\)</span> that results in the smallest cross-validation error using the following code:</p>
 <div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="regularization.html#cb458-1"></a>best_lambda &lt;-<span class="st"> </span>ridge_cv<span class="op">$</span>lambda.min</span></code></pre></div>
 <p>Fit the ridge regression for the training data set with the “best” lambda and evaluate the test error.</p>
@@ -530,7 +530,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="regularization.html#cb462-1"></a>lasso_cv &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[index, ], y[index], <span class="dt">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb462-2"><a href="regularization.html#cb462-2"></a></span>
 <span id="cb462-3"><a href="regularization.html#cb462-3"></a><span class="kw">plot</span>(lasso_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-533-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-526-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="regularization.html#cb463-1"></a><span class="co"># find the best lambda</span></span>
 <span id="cb463-2"><a href="regularization.html#cb463-2"></a>best_lambda &lt;-<span class="st"> </span>lasso_cv<span class="op">$</span>lambda.min</span>
 <span id="cb463-3"><a href="regularization.html#cb463-3"></a></span>
