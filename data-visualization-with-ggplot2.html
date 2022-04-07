@@ -24,7 +24,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-03-31" />
+<meta name="date" content="2022-04-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -723,14 +723,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In the following example, we use the dataset <code>ChickWeight</code>, where <code>Time</code> is a discrete variable.</p>
 <div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="data-visualization-with-ggplot2.html#cb295-1"></a><span class="kw">head</span>(ChickWeight)</span>
-<span id="cb295-2"><a href="data-visualization-with-ggplot2.html#cb295-2"></a><span class="co">## Grouped Data: weight ~ Time | Chick</span></span>
-<span id="cb295-3"><a href="data-visualization-with-ggplot2.html#cb295-3"></a><span class="co">##   weight Time Chick Diet</span></span>
-<span id="cb295-4"><a href="data-visualization-with-ggplot2.html#cb295-4"></a><span class="co">## 1     42    0     1    1</span></span>
-<span id="cb295-5"><a href="data-visualization-with-ggplot2.html#cb295-5"></a><span class="co">## 2     51    2     1    1</span></span>
-<span id="cb295-6"><a href="data-visualization-with-ggplot2.html#cb295-6"></a><span class="co">## 3     59    4     1    1</span></span>
-<span id="cb295-7"><a href="data-visualization-with-ggplot2.html#cb295-7"></a><span class="co">## 4     64    6     1    1</span></span>
-<span id="cb295-8"><a href="data-visualization-with-ggplot2.html#cb295-8"></a><span class="co">## 5     76    8     1    1</span></span>
-<span id="cb295-9"><a href="data-visualization-with-ggplot2.html#cb295-9"></a><span class="co">## 6     93   10     1    1</span></span></code></pre></div>
+<span id="cb295-2"><a href="data-visualization-with-ggplot2.html#cb295-2"></a><span class="co">##   weight Time Chick Diet</span></span>
+<span id="cb295-3"><a href="data-visualization-with-ggplot2.html#cb295-3"></a><span class="co">## 1     42    0     1    1</span></span>
+<span id="cb295-4"><a href="data-visualization-with-ggplot2.html#cb295-4"></a><span class="co">## 2     51    2     1    1</span></span>
+<span id="cb295-5"><a href="data-visualization-with-ggplot2.html#cb295-5"></a><span class="co">## 3     59    4     1    1</span></span>
+<span id="cb295-6"><a href="data-visualization-with-ggplot2.html#cb295-6"></a><span class="co">## 4     64    6     1    1</span></span>
+<span id="cb295-7"><a href="data-visualization-with-ggplot2.html#cb295-7"></a><span class="co">## 5     76    8     1    1</span></span>
+<span id="cb295-8"><a href="data-visualization-with-ggplot2.html#cb295-8"></a><span class="co">## 6     93   10     1    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="data-visualization-with-ggplot2.html#cb296-1"></a><span class="co"># create a base plot</span></span>
 <span id="cb296-2"><a href="data-visualization-with-ggplot2.html#cb296-2"></a>cw_ggplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ChickWeight, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> weight))</span>
 <span id="cb296-3"><a href="data-visualization-with-ggplot2.html#cb296-3"></a>cw_ggplot <span class="op">+</span></span>
