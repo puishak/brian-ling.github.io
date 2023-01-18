@@ -1,5 +1,6 @@
 introduction
 what-is-r-and-rstudio
+why-r
 what-will-you-learn-in-this-course
 r-and-r-as-a-programming-language
 data-wrangling
@@ -32,12 +33,19 @@ exercises-1
 simulation
 programming-in-r
 writing-functions-in-r
+argument-matching
 control-flow
 for-loop
+nested-for-loop
 while-loop
 if-cond
 if-cond-else-expr
 if-else-ladder
+switch
+next-break
+loop-functions
+apply
+lapply
 automatically-reindent-code
 speed-consideration
 another-simulation-example
