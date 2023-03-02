@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-02-11" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -324,6 +324,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>8.4</b> <code>optim</code></a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>9</b> k-nearest neighbors</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>9.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="9.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>9.3</b> Example: Classifying Breast Cancers</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>9.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>9.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -388,7 +399,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-5"><a href="probability-and-simulation.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="probability-and-simulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  3.9482377  0.1151053  2.0070930  3.2651827 11.0344095 -2.2832325  4.4176193 -2.6013656  5.8579585 -6.1388674</span></span></code></pre></div>
+<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  9.8226583 -1.8709252  8.9368700  7.1921214  8.4555580  0.3730246</span></span>
+<span id="cb59-3"><a href="probability-and-simulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7]  2.1207495 -1.2302692  6.7528121 -3.1657416</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability-and-simulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb60-2"><a href="probability-and-simulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.644854</span></span></code></pre></div>
@@ -527,7 +539,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-8"><a href="probability-and-simulation.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span>
 <span id="cb63-9"><a href="probability-and-simulation.html#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-10"><a href="probability-and-simulation.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5 7 7 6</span></span>
+<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6 5 5 6</span></span>
 <span id="cb63-12"><a href="probability-and-simulation.html#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-13"><a href="probability-and-simulation.html#cb63-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
 <span id="cb63-14"><a href="probability-and-simulation.html#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -584,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability-and-simulation.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb70-2"><a href="probability-and-simulation.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 1 1 1 1 1 1 1 1 0 1</span></span></code></pre></div>
+<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 1 1 1 0 1 1 0 1 1 1</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>

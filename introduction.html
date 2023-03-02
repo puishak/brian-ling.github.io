@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-02-11" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -324,6 +324,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>8.4</b> <code>optim</code></a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>9</b> k-nearest neighbors</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>9.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="9.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>9.3</b> Example: Classifying Breast Cancers</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>9.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>9.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -392,21 +403,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Graphs are powerful to illustrate features of the data. You will learn how to create some basic plots as well as using the package <code>ggplot2</code> to create more elegant plots.</p>
 <p>Consider a dataset about cars.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2" aria-hidden="true" tabindex="-1"></a>mpg</span>
-<span id="cb1-3"><a href="introduction.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 234 × 11</span></span>
-<span id="cb1-4"><a href="introduction.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     compact</span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     compact</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     compact</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     compact</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     compact</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     compact</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     compact</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     compact</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     compact</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     compact</span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 224 more rows</span></span></code></pre></div>
+<span id="cb1-2"><a href="introduction.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;ggplot2&#39; was built under R version 4.2.2</span></span>
+<span id="cb1-3"><a href="introduction.html#cb1-3" aria-hidden="true" tabindex="-1"></a>mpg</span>
+<span id="cb1-4"><a href="introduction.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 234 × 11</span></span>
+<span id="cb1-5"><a href="introduction.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class</span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…</span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 audi         a4           2    2008     4 manu… f        20    31 p     comp…</span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 audi         a4           2    2008     4 auto… f        21    30 p     comp…</span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 audi         a4           2.8  1999     6 auto… f        16    26 p     comp…</span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 audi         a4           2.8  1999     6 manu… f        18    26 p     comp…</span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 audi         a4           3.1  2008     6 auto… f        18    27 p     comp…</span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…</span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…</span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…</span></span>
+<span id="cb1-17"><a href="introduction.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 224 more rows</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
@@ -1075,22 +1087,23 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb37-2"><a href="introduction.html#cb37-2" aria-hidden="true" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
 <span id="cb37-3"><a href="introduction.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
 <span id="cb37-4"><a href="introduction.html#cb37-4" aria-hidden="true" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
-<span id="cb37-5"><a href="introduction.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
-<span id="cb37-6"><a href="introduction.html#cb37-6" aria-hidden="true" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
-<span id="cb37-7"><a href="introduction.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
-<span id="cb37-8"><a href="introduction.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
-<span id="cb37-9"><a href="introduction.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span>
-<span id="cb37-10"><a href="introduction.html#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="introduction.html#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
-<span id="cb37-12"><a href="introduction.html#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
-<span id="cb37-13"><a href="introduction.html#cb37-13" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb37-14"><a href="introduction.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb37-15"><a href="introduction.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb37-16"><a href="introduction.html#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="introduction.html#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
-<span id="cb37-18"><a href="introduction.html#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb37-19"><a href="introduction.html#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-20"><a href="introduction.html#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
+<span id="cb37-5"><a href="introduction.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span>
+<span id="cb37-6"><a href="introduction.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [13]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb37-7"><a href="introduction.html#cb37-7" aria-hidden="true" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
+<span id="cb37-8"><a href="introduction.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
+<span id="cb37-9"><a href="introduction.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
+<span id="cb37-10"><a href="introduction.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span>
+<span id="cb37-11"><a href="introduction.html#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="introduction.html#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
+<span id="cb37-13"><a href="introduction.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
+<span id="cb37-14"><a href="introduction.html#cb37-14" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb37-15"><a href="introduction.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb37-16"><a href="introduction.html#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb37-17"><a href="introduction.html#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="introduction.html#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
+<span id="cb37-19"><a href="introduction.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb37-20"><a href="introduction.html#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="introduction.html#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
 <div id="vectorized-operators" class="section level3 hasAnchor" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> Vectorized Operators<a href="introduction.html#vectorized-operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An important property of many of the operators is that they are “vectorized”. This means that the operation will be performed elementwise.</p>
@@ -1321,10 +1334,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb44-14"><a href="introduction.html#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-15"><a href="introduction.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb44-16"><a href="introduction.html#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-17"><a href="introduction.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb44-18"><a href="introduction.html#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-19"><a href="introduction.html#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-20"><a href="introduction.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb44-17"><a href="introduction.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb44-18"><a href="introduction.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
+<span id="cb44-19"><a href="introduction.html#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="introduction.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
+<span id="cb44-21"><a href="introduction.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb44-22"><a href="introduction.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3 hasAnchor" number="1.7.3">
 <h3><span class="header-section-number">1.7.3</span> <code>rep()</code><a href="introduction.html#rep" class="anchor-section" aria-label="Anchor link to header"></a></h3>

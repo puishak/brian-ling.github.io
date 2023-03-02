@@ -125,3 +125,10 @@ minimization-and-maximization
 newton-raphson-method-1
 gradient-descent
 optim
+k-nearest-neighbors
+introduction-1
+feature-scaling
+example-classifying-breast-cancers
+evaluating-model-performance
+using-z-score-standardization
+testing-alternative-values-of-k

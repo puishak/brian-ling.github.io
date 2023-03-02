@@ -4,19 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 k-nearest neighbors | STAT 362 R for Data Science</title>
+  <title>Chapter 9 k-nearest neighbors | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 k-nearest neighbors | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 9 k-nearest neighbors | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Notes for STAT 362" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 k-nearest neighbors | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 9 k-nearest neighbors | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-04-05" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +31,7 @@
   
   
 <link rel="prev" href="root-finding-and-optimization.html"/>
-<link rel="next" href="linear-regression-models.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,25 +49,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -138,231 +136,203 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R for Data Science</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#syllabus">Syllabus<span></span></a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?<span></span></a><ul>
-<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling<span></span></a></li>
-<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization<span></span></a></li>
-<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference<span></span></a></li>
-<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning<span></span></a></li>
-<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods<span></span></a></li>
-<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly<span></span></a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.3</b> What will you learn in this course?</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.3.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started<span></span></a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures<span></span></a><ul>
-<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors<span></span></a></li>
-<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors<span></span></a></li>
-<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix<span></span></a></li>
-<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists<span></span></a></li>
-<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.5</b> R Data Structures</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.5.2</b> Factors</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.5.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.5.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.5.4</b> Lists</a></li>
+<li class="chapter" data-level="1.5.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.5.5</b> Data frames</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators<span></span></a><ul>
-<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.6</b> Operators</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.6.1</b> Vectorized Operators</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions<span></span></a><ul>
-<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code><span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.7</b> Built-in Functions</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.7.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.7.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.7.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.7.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.7.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.7.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.7.4</b> <code>pmax</code>, <code>pmin</code></a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts<span></span></a></li>
-<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises<span></span></a></li>
-<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.8</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+<li class="chapter" data-level="1.10" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.10</b> Comments to Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability<span></span></a><ul>
-<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions<span></span></a><ul>
-<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html"><i class="fa fa-check"></i><b>2</b> Probability and Simulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R<span></span></a><ul>
-<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow<span></span></a><ul>
-<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop<span></span></a></li>
-<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop<span></span></a></li>
-<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)<span></span></a></li>
-<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr<span></span></a></li>
-<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder<span></span></a></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="programming-in-r.html"><a href="programming-in-r.html#argument-matching"><i class="fa fa-check"></i><b>3.1.1</b> Argument Matching</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration<span></span></a></li>
-<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#nested-for-loop"><i class="fa fa-check"></i><b>3.2.2</b> nested for loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.3</b> while loop</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.4</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.5</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.6" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.6</b> If else ladder</a></li>
+<li class="chapter" data-level="3.2.7" data-path="programming-in-r.html"><a href="programming-in-r.html#switch"><i class="fa fa-check"></i><b>3.2.7</b> <code>switch</code></a></li>
+<li class="chapter" data-level="3.2.8" data-path="programming-in-r.html"><a href="programming-in-r.html#next-break"><i class="fa fa-check"></i><b>3.2.8</b> <code>next</code>, <code>break</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>4</b> Creating Some Basic Plots<span></span></a><ul>
-<li class="chapter" data-level="4.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>4.1</b> Scatter Plot<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>4.2</b> Line Graph<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>4.3</b> Bar Chart<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>4.4</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>4.5</b> Box Plot<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>4.6</b> Plotting a function curve<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>4.7</b> More on plots with base R<span></span></a><ul>
-<li class="chapter" data-level="4.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>4.7.1</b> Multi-frame plot<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>4.7.2</b> Type of Plot<span></span></a></li>
-<li class="chapter" data-level="4.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>4.7.3</b> Parameters of a plot<span></span></a></li>
-<li class="chapter" data-level="4.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>4.7.4</b> Elements on plot<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#loop-functions"><i class="fa fa-check"></i><b>3.3</b> Loop functions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#apply"><i class="fa fa-check"></i><b>3.3.1</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#lapply"><i class="fa fa-check"></i><b>3.3.2</b> <code>lapply()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#summary-of-ggplot"><i class="fa fa-check"></i><b>4.8</b> Summary of <code>ggplot</code><span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>5</b> Managing Data with R<span></span></a><ul>
-<li class="chapter" data-level="5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>5.1</b> Missing Values<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files<span></span></a></li>
+<li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>4.1</b> Missing Values</a></li>
+<li class="chapter" data-level="4.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>4.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="4.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>4.3</b> Importing and saving data from CSV files</a></li>
+<li class="chapter" data-level="4.4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#data-transformation-with-dplyr"><i class="fa fa-check"></i><b>4.4</b> Data Transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="4.5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#arrange"><i class="fa fa-check"></i><b>4.5</b> <code>arrange()</code></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-2"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html"><i class="fa fa-check"></i><b>6</b> Review (Chapter 1-5)<span></span></a><ul>
-<li class="chapter" data-level="6.1" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-3"><i class="fa fa-check"></i><b>4.6.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code><span></span></a><ul>
-<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code><span></span></a><ul>
-<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#select"><i class="fa fa-check"></i><b>4.7</b> <code>select()</code></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-4"><i class="fa fa-check"></i><b>4.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code><span></span></a><ul>
-<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#mutate"><i class="fa fa-check"></i><b>4.8</b> <code>mutate()</code></a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-5"><i class="fa fa-check"></i><b>4.8.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#select"><i class="fa fa-check"></i><b>7.4</b> <code>select()</code><span></span></a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-4"><i class="fa fa-check"></i><b>7.4.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.9" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summarize-group_by"><i class="fa fa-check"></i><b>4.9</b> <code>summarize(), group_by()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>4.10</b> Combining Multiple Operations with Pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.11" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summary"><i class="fa fa-check"></i><b>4.11</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5</b> <code>mutate()</code><span></span></a><ul>
-<li class="chapter" data-level="7.5.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-5"><i class="fa fa-check"></i><b>7.5.1</b> Exercises<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summarize-group_by"><i class="fa fa-check"></i><b>7.6</b> <code>summarize(), group_by()</code><span></span></a></li>
-<li class="chapter" data-level="7.7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>7.7</b> Combining Multiple Operations with Pipe <code>%&gt;%</code><span></span></a></li>
-<li class="chapter" data-level="7.8" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summary"><i class="fa fa-check"></i><b>7.8</b> Summary<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2<span></span></a><ul>
-<li class="chapter" data-level="8.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>8.1</b> Bar charts<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>8.2</b> Line Graph<span></span></a></li>
-<li class="chapter" data-level="8.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>8.3</b> Scatter Plots<span></span></a><ul>
-<li class="chapter" data-level="8.3.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>8.3.1</b> Overplotting<span></span></a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>8.3.2</b> Labelling points in a scatter plot<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>8.4</b> Summarizing Data Distributions<span></span></a><ul>
-<li class="chapter" data-level="8.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>8.4.1</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>8.4.2</b> Kernel Density Estimate<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>8.5</b> Saving your plots<span></span></a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>8.5.1</b> Outputting to pdf vector files<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>8.5.2</b> Outputting to bitmap files<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>8.6</b> Summary<span></span></a><ul>
-<li class="chapter" data-level="8.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe-1"><i class="fa fa-check"></i><b>8.6.1</b> Combining multiple operations with pipe <code>%&gt;%</code><span></span></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>8.6.2</b> Bar charts<span></span></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>8.6.3</b> Line graphs<span></span></a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>8.6.4</b> Scatter plot<span></span></a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>8.6.5</b> Summarizing data distributions<span></span></a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.6.6</b> Saving your plots<span></span></a></li>
+<li class="chapter" data-level="5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>5</b> Creating Some Basic Plots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>5.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>5.2</b> Line Graph</a></li>
+<li class="chapter" data-level="5.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>5.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="5.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>5.4</b> Histogram</a></li>
+<li class="chapter" data-level="5.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>5.5</b> Box Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>5.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="5.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>5.7</b> More on plots with base R</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>5.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="5.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>5.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="5.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>5.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="5.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>5.7.4</b> Elements on plot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R<span></span></a><ul>
-<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation<span></span></a><ul>
-<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE<span></span></a></li>
-<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary<span></span></a></li>
+<li class="chapter" data-level="6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data Visualization with ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>6.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>6.2</b> Line Graph</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.3</b> Scatter Plots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>6.3.1</b> Overplotting</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>6.3.2</b> Labelling points in a scatter plot</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing<span></span></a><ul>
-<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values<span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error<span></span></a></li>
-<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample<span></span></a></li>
-<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples<span></span></a></li>
-<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion<span></span></a></li>
-<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions<span></span></a></li>
-<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>6.4</b> Summarizing Data Distributions</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>6.4.1</b> Histogram</a></li>
+<li class="chapter" data-level="6.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>6.4.2</b> Kernel Density Estimate</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>6.5</b> Saving your plots</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>6.5.1</b> Outputting to pdf vector files</a></li>
+<li class="chapter" data-level="6.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>6.5.2</b> Outputting to bitmap files</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>10</b> Root finding and optimization<span></span></a><ul>
-<li class="chapter" data-level="10.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>10.1</b> Root Finding<span></span></a><ul>
-<li class="chapter" data-level="10.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>10.1.1</b> Bisection Method<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance"><i class="fa fa-check"></i><b>6.6</b> Axes, appearance</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#swapping-x--and-y-axes"><i class="fa fa-check"></i><b>6.6.1</b> Swapping X- and Y-axes</a></li>
+<li class="chapter" data-level="6.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#setting-the-range-of-a-continuous-axis"><i class="fa fa-check"></i><b>6.6.2</b> Setting the range of a continuous axis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#changing-the-text-of-axis-labels"><i class="fa fa-check"></i><b>6.6.3</b> Changing the text of axis labels</a></li>
+<li class="chapter" data-level="6.6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-title"><i class="fa fa-check"></i><b>6.6.4</b> Adding Title</a></li>
+<li class="chapter" data-level="6.6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-subtitle"><i class="fa fa-check"></i><b>6.6.5</b> Adding Subtitle</a></li>
+<li class="chapter" data-level="6.6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#using-themes"><i class="fa fa-check"></i><b>6.6.6</b> Using Themes</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>10.2</b> Newton-Raphson Method<span></span></a></li>
-<li class="chapter" data-level="10.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>10.3</b> Minimization and Maximization<span></span></a><ul>
-<li class="chapter" data-level="10.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>10.3.1</b> Newton-Raphson Method<span></span></a></li>
-<li class="chapter" data-level="10.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>10.3.2</b> Gradient Descent<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>10.4</b> <code>optim</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>11</b> k-nearest neighbors<span></span></a><ul>
-<li class="chapter" data-level="11.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-2"><i class="fa fa-check"></i><b>11.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>11.2</b> Feature Scaling<span></span></a></li>
-<li class="chapter" data-level="11.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>11.3</b> Example: Classifying Breast Cancers<span></span></a><ul>
-<li class="chapter" data-level="11.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>11.3.1</b> Evaluating Model Performance<span></span></a></li>
-<li class="chapter" data-level="11.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>11.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization<span></span></a></li>
-<li class="chapter" data-level="11.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>11.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span><span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models<span></span></a><ul>
-<li class="chapter" data-level="12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.1</b> Simple Linear Regression<span></span></a></li>
-<li class="chapter" data-level="12.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>12.2</b> Smoothed Conditional Means<span></span></a></li>
-<li class="chapter" data-level="12.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>12.3</b> Multiple Linear Regression<span></span></a></li>
-<li class="chapter" data-level="12.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>12.4</b> Example: <code>diamonds</code><span></span></a></li>
-<li class="chapter" data-level="12.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>12.5</b> Categorical Predictors<span></span></a></li>
-<li class="chapter" data-level="12.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>12.6</b> Compare models using ANOVA<span></span></a></li>
-<li class="chapter" data-level="12.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>12.7</b> Prediction<span></span></a></li>
-<li class="chapter" data-level="12.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>12.8</b> Interaction Terms<span></span></a></li>
-<li class="chapter" data-level="12.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>12.9</b> Variable Transformation<span></span></a></li>
-<li class="chapter" data-level="12.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>12.10</b> Polynomial Regression<span></span></a></li>
-<li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression<span></span></a></li>
-<li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression Model<span></span></a></li>
-<li class="chapter" data-level="14" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>14</b> k-means Clustering<span></span></a><ul>
-<li class="chapter" data-level="14.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-3"><i class="fa fa-check"></i><b>14.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="14.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>14.2</b> Applications<span></span></a><ul>
-<li class="chapter" data-level="14.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>14.2.1</b> Cluster Analysis<span></span></a></li>
-<li class="chapter" data-level="14.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>14.2.2</b> Image Segementation and Image Compression<span></span></a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>6.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>6.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.7.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>6.7.2</b> Line graphs</a></li>
+<li class="chapter" data-level="6.7.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>6.7.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="6.7.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>6.7.4</b> Summarizing data distributions</a></li>
+<li class="chapter" data-level="6.7.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>6.7.5</b> Saving your plots</a></li>
+<li class="chapter" data-level="6.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance-1"><i class="fa fa-check"></i><b>6.7.6</b> Axes, appearance</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>15</b> Hierarchical Clustering<span></span></a><ul>
-<li class="chapter" data-level="15.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>15.1</b> Dissimilarity measure and Linkage<span></span></a></li>
-<li class="chapter" data-level="15.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>15.2</b> Alogrithm<span></span></a></li>
-<li class="chapter" data-level="15.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>15.3</b> Applications<span></span></a><ul>
-<li class="chapter" data-level="15.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>15.3.1</b> NCI60 Data<span></span></a></li>
+<li class="chapter" data-level="7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>7</b> Statistical Inference in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>7.1</b> Maximum Likelihood Estimation</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>7.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>7.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>7.2</b> Interval Estimation and Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>7.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>7.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>7.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="7.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>7.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="7.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>7.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="7.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>7.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="7.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>7.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="7.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>7.2.8</b> Testing if two samples have the same underlying distribution</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>16</b> Resampling Methods<span></span></a><ul>
-<li class="chapter" data-level="16.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>16.1</b> Cross-validation<span></span></a><ul>
-<li class="chapter" data-level="16.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cv-in-glm"><i class="fa fa-check"></i><b>16.1.1</b> CV in GLM<span></span></a></li>
-<li class="chapter" data-level="16.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#general-implementation"><i class="fa fa-check"></i><b>16.1.2</b> General Implementation<span></span></a></li>
+<li class="chapter" data-level="8" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>8</b> Root finding and optimization</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>8.1</b> Root Finding</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>8.1.1</b> Bisection Method</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap"><i class="fa fa-check"></i><b>16.2</b> Bootstrap<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>8.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>8.3</b> Minimization and Maximization</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>8.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>8.3.2</b> Gradient Descent</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>17</b> Regularization<span></span></a><ul>
-<li class="chapter" data-level="17.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>17.1</b> Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="17.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>17.2</b> LASSO<span></span></a></li>
-<li class="chapter" data-level="17.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>17.3</b> Selecting the tuning parameter<span></span></a></li>
-<li class="chapter" data-level="17.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>17.4</b> <code>glmnet</code><span></span></a><ul>
-<li class="chapter" data-level="17.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>17.4.1</b> Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>8.4</b> <code>optim</code></a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>18</b> Decision Trees<span></span></a><ul>
-<li class="chapter" data-level="18.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>18.1</b> Introduction to Classification Tree<span></span></a></li>
-<li class="chapter" data-level="18.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>18.2</b> Introduction to regression tree<span></span></a></li>
-<li class="chapter" data-level="18.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>18.3</b> Mathematical Formulation<span></span></a></li>
-<li class="chapter" data-level="18.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>18.4</b> Examples<span></span></a><ul>
-<li class="chapter" data-level="18.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>18.4.1</b> Classification Tree<span></span></a></li>
-<li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
-<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
-<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a><ul>
-<li class="chapter" data-level="20.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-4"><i class="fa fa-check"></i><b>20.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="20.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>20.2</b> Single Layer Neural Netowrks<span></span></a></li>
-<li class="chapter" data-level="20.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>20.3</b> Multilayer Neural Networks<span></span></a></li>
-<li class="chapter" data-level="20.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>20.4</b> Examples<span></span></a><ul>
-<li class="chapter" data-level="20.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>20.4.1</b> MNIST<span></span></a></li>
-<li class="chapter" data-level="20.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>20.4.2</b> Encoding the data<span></span></a></li>
-<li class="chapter" data-level="20.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>20.4.3</b> Implementation<span></span></a></li>
-<li class="chapter" data-level="20.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>20.4.4</b> Multilayer Neural Network<span></span></a></li>
+<li class="chapter" data-level="9" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>9</b> k-nearest neighbors</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>9.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="9.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>9.3</b> Example: Classifying Breast Cancers</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>9.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>9.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -385,11 +355,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="k-nearest-neighbors" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 11</span> k-nearest neighbors<a href="k-nearest-neighbors.html#k-nearest-neighbors" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="k-nearest-neighbors" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> k-nearest neighbors<a href="k-nearest-neighbors.html#k-nearest-neighbors" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Optional Reading: Chapter 3 in Machine Learning with R by Brett Lantz</p>
-<div id="introduction-2" class="section level2 hasAnchor">
-<h2><span class="header-section-number">11.1</span> Introduction<a href="k-nearest-neighbors.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-1" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction<a href="k-nearest-neighbors.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Setting:</strong> We have data <span class="math inline">\(\{(x_i, y_i) : i=1,\ldots,n \}\)</span>, where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are the vector of the features the class label for the <span class="math inline">\(i\)</span>th observation respectively. For example, in breast cancer diagnosis, <span class="math inline">\(x_i\)</span> could be some summary statistics of the radius, texture, perimeter, area of the cell nuclei from a digitized image of a fine needle aspirate of a breast mass; <span class="math inline">\(y_i\)</span> is the diagnosis (malignant or benign).</p>
 <p>We now have a new data point <span class="math inline">\(x^*\)</span> (of course we do not have the class label <span class="math inline">\(y^*\)</span>) and we want to assign a class label to it. For example, after a subject has a breast fine needle aspiration, can we use existing data to predict if the subject has breast cancer?</p>
 <p>In this chapter, we will study the <span class="math inline">\(k\)</span>-nearest neighbors (<span class="math inline">\(k\)</span>-NN) algorithm for classification. <span class="math inline">\(k\)</span>-NN algorithm uses information about an example’s <span class="math inline">\(k\)</span> nearest neighbors to classify unlabeled examples. To measure how close the examples are, we need a <strong>distance measure</strong>. Traditionally, the <span class="math inline">\(k\)</span>-NN algorithm uses Euclidean distance. Given two points <span class="math inline">\(u = (u_1,\ldots,u_p)\)</span> and <span class="math inline">\(w = (w_1,\ldots,w_p)\)</span>, the Euclidean distance between them is
@@ -437,8 +407,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Extreme case: <span class="math inline">\(k = n\)</span>, the most common class will always be the prediction</p>
 <p>Some people suggest using <span class="math inline">\(\sqrt{n}\)</span> as <span class="math inline">\(k\)</span>. One may also use a validation set or cross-validation to choose the appropriate <span class="math inline">\(k\)</span> (will discuss these later).</p>
 </div>
-<div id="feature-scaling" class="section level2 hasAnchor">
-<h2><span class="header-section-number">11.2</span> Feature Scaling<a href="k-nearest-neighbors.html#feature-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="feature-scaling" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Feature Scaling<a href="k-nearest-neighbors.html#feature-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Clearly, if the features are in different scales, the distance measure computed will be dominated by some of the features and will not take into account of the importance of other features. Let’s assume we have <span class="math inline">\(n\)</span> data and <span class="math inline">\(p\)</span> features.</p>
 <p>Two common methods for feature scaling:</p>
 <ol style="list-style-type: decimal">
@@ -457,7 +427,7 @@ where <span class="math inline">\(\overline{x}_j\)</span> and <span class="math 
 </ol>
 <p>For nominal features, we can convert them into a numeric feature using dummy coding (also known as one-hot encoding). For example, if a nominal feature called temperature takes three values: hot, medium and cold. You can define two additional binary indicator variables:
 <span class="math display">\[\begin{equation*}
-\text{hot} = \left\{ 
+\text{hot} = \left\{
 \begin{array}{ll}
 1 &amp; \text{if temperature = hot} \\
 0 &amp; \text{otherwise}
@@ -466,7 +436,7 @@ where <span class="math inline">\(\overline{x}_j\)</span> and <span class="math 
 \end{equation*}\]</span>
 and
 <span class="math display">\[\begin{equation*}
-\text{medium} = \left\{ 
+\text{medium} = \left\{
 \begin{array}{ll}
 1 &amp; \text{if temperature = medium} \\
 0 &amp; \text{otherwise.}
@@ -475,37 +445,42 @@ and
 \end{equation*}\]</span>
 When both hot and medium are <span class="math inline">\(0\)</span>, we know the temperature is cold. In general, if we have <span class="math inline">\(n\)</span> categories, we only need to create <span class="math inline">\(n-1\)</span> additional binary indicators.</p>
 </div>
-<div id="example-classifying-breast-cancers" class="section level2 hasAnchor">
-<h2><span class="header-section-number">11.3</span> Example: Classifying Breast Cancers<a href="k-nearest-neighbors.html#example-classifying-breast-cancers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-classifying-breast-cancers" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Example: Classifying Breast Cancers<a href="k-nearest-neighbors.html#example-classifying-breast-cancers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will use the breast cancecr from UC Irvine Machine Learning Repository <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29" class="uri">https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29</a></p>
 <p>Download the dataset from onQ. Read the data (change the path to where you save your data):</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="k-nearest-neighbors.html#cb367-1"></a>wbcd &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362/08_datasets/wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="k-nearest-neighbors.html#cb379-1" aria-hidden="true" tabindex="-1"></a>wbcd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;C:/Queens Teaching/Teaching/STAT 362 W23 R for data science/datasets/wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
 <p>Variables:</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="k-nearest-neighbors.html#cb368-1"></a><span class="kw">names</span>(wbcd)</span>
-<span id="cb368-2"><a href="k-nearest-neighbors.html#cb368-2"></a><span class="co">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;               &quot;radius_mean&quot;            </span></span>
-<span id="cb368-3"><a href="k-nearest-neighbors.html#cb368-3"></a><span class="co">##  [4] &quot;texture_mean&quot;            &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
-<span id="cb368-4"><a href="k-nearest-neighbors.html#cb368-4"></a><span class="co">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;        &quot;concavity_mean&quot;         </span></span>
-<span id="cb368-5"><a href="k-nearest-neighbors.html#cb368-5"></a><span class="co">## [10] &quot;concave.points_mean&quot;     &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
-<span id="cb368-6"><a href="k-nearest-neighbors.html#cb368-6"></a><span class="co">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;              &quot;perimeter_se&quot;           </span></span>
-<span id="cb368-7"><a href="k-nearest-neighbors.html#cb368-7"></a><span class="co">## [16] &quot;area_se&quot;                 &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
-<span id="cb368-8"><a href="k-nearest-neighbors.html#cb368-8"></a><span class="co">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;       &quot;symmetry_se&quot;            </span></span>
-<span id="cb368-9"><a href="k-nearest-neighbors.html#cb368-9"></a><span class="co">## [22] &quot;fractal_dimension_se&quot;    &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
-<span id="cb368-10"><a href="k-nearest-neighbors.html#cb368-10"></a><span class="co">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;              &quot;smoothness_worst&quot;       </span></span>
-<span id="cb368-11"><a href="k-nearest-neighbors.html#cb368-11"></a><span class="co">## [28] &quot;compactness_worst&quot;       &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
-<span id="cb368-12"><a href="k-nearest-neighbors.html#cb368-12"></a><span class="co">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="k-nearest-neighbors.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(wbcd)</span>
+<span id="cb380-2"><a href="k-nearest-neighbors.html#cb380-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;              </span></span>
+<span id="cb380-3"><a href="k-nearest-neighbors.html#cb380-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3] &quot;radius_mean&quot;             &quot;texture_mean&quot;           </span></span>
+<span id="cb380-4"><a href="k-nearest-neighbors.html#cb380-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
+<span id="cb380-5"><a href="k-nearest-neighbors.html#cb380-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;       </span></span>
+<span id="cb380-6"><a href="k-nearest-neighbors.html#cb380-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;    </span></span>
+<span id="cb380-7"><a href="k-nearest-neighbors.html#cb380-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
+<span id="cb380-8"><a href="k-nearest-neighbors.html#cb380-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;             </span></span>
+<span id="cb380-9"><a href="k-nearest-neighbors.html#cb380-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [15] &quot;perimeter_se&quot;            &quot;area_se&quot;                </span></span>
+<span id="cb380-10"><a href="k-nearest-neighbors.html#cb380-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
+<span id="cb380-11"><a href="k-nearest-neighbors.html#cb380-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;      </span></span>
+<span id="cb380-12"><a href="k-nearest-neighbors.html#cb380-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;   </span></span>
+<span id="cb380-13"><a href="k-nearest-neighbors.html#cb380-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [23] &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
+<span id="cb380-14"><a href="k-nearest-neighbors.html#cb380-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;             </span></span>
+<span id="cb380-15"><a href="k-nearest-neighbors.html#cb380-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [27] &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      </span></span>
+<span id="cb380-16"><a href="k-nearest-neighbors.html#cb380-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
+<span id="cb380-17"><a href="k-nearest-neighbors.html#cb380-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
 <p><strong>Creating Training and Testing Datasets</strong></p>
 <p>The first column is <code>id</code>, which should not be included in the classification. The second column is <code>diagnosis</code>. <code>B</code> means benign and <code>M</code> means malignant. In short, the meaning of malignant is cancerous and the meaning of benign is non-cancerous. We will separate the labels from the features. To evaluate the model performance, we always split our full dataset into a training dataset and a testing daatset.</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="k-nearest-neighbors.html#cb369-1"></a><span class="kw">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>
-<span id="cb369-2"><a href="k-nearest-neighbors.html#cb369-2"></a><span class="co"># create the random numbers for selecting the rows in the dataset</span></span>
-<span id="cb369-3"><a href="k-nearest-neighbors.html#cb369-3"></a>random_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(wbcd), <span class="dv">469</span>) </span>
-<span id="cb369-4"><a href="k-nearest-neighbors.html#cb369-4"></a></span>
-<span id="cb369-5"><a href="k-nearest-neighbors.html#cb369-5"></a><span class="co"># our &quot;x&quot;</span></span>
-<span id="cb369-6"><a href="k-nearest-neighbors.html#cb369-6"></a>wbcd_train &lt;-<span class="st"> </span>wbcd[random_index, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</span>
-<span id="cb369-7"><a href="k-nearest-neighbors.html#cb369-7"></a>wbcd_test &lt;-<span class="st"> </span>wbcd[<span class="op">-</span>random_index, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</span>
-<span id="cb369-8"><a href="k-nearest-neighbors.html#cb369-8"></a></span>
-<span id="cb369-9"><a href="k-nearest-neighbors.html#cb369-9"></a><span class="co"># our &quot;y&quot;</span></span>
-<span id="cb369-10"><a href="k-nearest-neighbors.html#cb369-10"></a>wbcd_train_labels &lt;-<span class="st"> </span>wbcd[random_index, ]<span class="op">$</span>diagnosis</span>
-<span id="cb369-11"><a href="k-nearest-neighbors.html#cb369-11"></a>wbcd_test_labels &lt;-<span class="st"> </span>wbcd[<span class="op">-</span>random_index, ]<span class="op">$</span>diagnosis</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="k-nearest-neighbors.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>
+<span id="cb381-2"><a href="k-nearest-neighbors.html#cb381-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create the random numbers for selecting the rows in the dataset</span></span>
+<span id="cb381-3"><a href="k-nearest-neighbors.html#cb381-3" aria-hidden="true" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(wbcd), <span class="dv">469</span>) </span>
+<span id="cb381-4"><a href="k-nearest-neighbors.html#cb381-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb381-5"><a href="k-nearest-neighbors.html#cb381-5" aria-hidden="true" tabindex="-1"></a><span class="co"># our &quot;x&quot;</span></span>
+<span id="cb381-6"><a href="k-nearest-neighbors.html#cb381-6" aria-hidden="true" tabindex="-1"></a>wbcd_train <span class="ot">&lt;-</span> wbcd[random_index, <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span>
+<span id="cb381-7"><a href="k-nearest-neighbors.html#cb381-7" aria-hidden="true" tabindex="-1"></a>wbcd_test <span class="ot">&lt;-</span> wbcd[<span class="sc">-</span>random_index, <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span>
+<span id="cb381-8"><a href="k-nearest-neighbors.html#cb381-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb381-9"><a href="k-nearest-neighbors.html#cb381-9" aria-hidden="true" tabindex="-1"></a><span class="co"># our &quot;y&quot;</span></span>
+<span id="cb381-10"><a href="k-nearest-neighbors.html#cb381-10" aria-hidden="true" tabindex="-1"></a>wbcd_train_labels <span class="ot">&lt;-</span> wbcd[random_index, ]<span class="sc">$</span>diagnosis</span>
+<span id="cb381-11"><a href="k-nearest-neighbors.html#cb381-11" aria-hidden="true" tabindex="-1"></a>wbcd_test_labels <span class="ot">&lt;-</span> wbcd[<span class="sc">-</span>random_index, ]<span class="sc">$</span>diagnosis</span></code></pre></div>
 <p>Note: In forming a training dataset and a testing dataset, you should not select the first <span class="math inline">\(469\)</span> rows (unless you know the data have been randomly organized).</p>
 <p><strong>Normalizing the data</strong></p>
 <ol style="list-style-type: decimal">
@@ -513,34 +488,34 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <li>We have to use the same normalizing methods for these two datasets</li>
 <li>Compute the min and max (or mean and sd) using only the training datasets</li>
 </ol>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="k-nearest-neighbors.html#cb370-1"></a>wbcd_train_n &lt;-<span class="st"> </span>wbcd_train</span>
-<span id="cb370-2"><a href="k-nearest-neighbors.html#cb370-2"></a>wbcd_test_n &lt;-<span class="st"> </span>wbcd_test</span>
-<span id="cb370-3"><a href="k-nearest-neighbors.html#cb370-3"></a></span>
-<span id="cb370-4"><a href="k-nearest-neighbors.html#cb370-4"></a>train_min &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, min)</span>
-<span id="cb370-5"><a href="k-nearest-neighbors.html#cb370-5"></a>train_max &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, max)</span>
-<span id="cb370-6"><a href="k-nearest-neighbors.html#cb370-6"></a></span>
-<span id="cb370-7"><a href="k-nearest-neighbors.html#cb370-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(wbcd_train)) {</span>
-<span id="cb370-8"><a href="k-nearest-neighbors.html#cb370-8"></a>  wbcd_train_n[, i] &lt;-<span class="st"> </span>(wbcd_train[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
-<span id="cb370-9"><a href="k-nearest-neighbors.html#cb370-9"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
-<span id="cb370-10"><a href="k-nearest-neighbors.html#cb370-10"></a>  wbcd_test_n[, i] &lt;-<span class="st"> </span>(wbcd_test[, i] <span class="op">-</span><span class="st"> </span>train_min[i]) <span class="op">/</span><span class="st"> </span>(train_max[i] <span class="op">-</span><span class="st"> </span>train_min[i]) </span>
-<span id="cb370-11"><a href="k-nearest-neighbors.html#cb370-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="k-nearest-neighbors.html#cb382-1" aria-hidden="true" tabindex="-1"></a>wbcd_train_n <span class="ot">&lt;-</span> wbcd_train</span>
+<span id="cb382-2"><a href="k-nearest-neighbors.html#cb382-2" aria-hidden="true" tabindex="-1"></a>wbcd_test_n <span class="ot">&lt;-</span> wbcd_test</span>
+<span id="cb382-3"><a href="k-nearest-neighbors.html#cb382-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb382-4"><a href="k-nearest-neighbors.html#cb382-4" aria-hidden="true" tabindex="-1"></a>train_min <span class="ot">&lt;-</span> <span class="fu">apply</span>(wbcd_train, <span class="dv">2</span>, min)</span>
+<span id="cb382-5"><a href="k-nearest-neighbors.html#cb382-5" aria-hidden="true" tabindex="-1"></a>train_max <span class="ot">&lt;-</span> <span class="fu">apply</span>(wbcd_train, <span class="dv">2</span>, max)</span>
+<span id="cb382-6"><a href="k-nearest-neighbors.html#cb382-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb382-7"><a href="k-nearest-neighbors.html#cb382-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(wbcd_train)) {</span>
+<span id="cb382-8"><a href="k-nearest-neighbors.html#cb382-8" aria-hidden="true" tabindex="-1"></a>  wbcd_train_n[, i] <span class="ot">&lt;-</span> (wbcd_train[, i] <span class="sc">-</span> train_min[i]) <span class="sc">/</span> (train_max[i] <span class="sc">-</span> train_min[i]) </span>
+<span id="cb382-9"><a href="k-nearest-neighbors.html#cb382-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the min and max from training data to normalize the testing data</span></span>
+<span id="cb382-10"><a href="k-nearest-neighbors.html#cb382-10" aria-hidden="true" tabindex="-1"></a>  wbcd_test_n[, i] <span class="ot">&lt;-</span> (wbcd_test[, i] <span class="sc">-</span> train_min[i]) <span class="sc">/</span> (train_max[i] <span class="sc">-</span> train_min[i]) </span>
+<span id="cb382-11"><a href="k-nearest-neighbors.html#cb382-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>We will use <code>knn()</code> in the package <code>class</code> to perform <span class="math inline">\(k\)</span>-NN classification. <code>knn()</code> will return a factor of classifications of testing dataset.</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="k-nearest-neighbors.html#cb371-1"></a><span class="kw">library</span>(class) <span class="co"># install it if you haven&#39;t done so</span></span>
-<span id="cb371-2"><a href="k-nearest-neighbors.html#cb371-2"></a>knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_n, <span class="dt">test =</span> wbcd_test_n, </span>
-<span id="cb371-3"><a href="k-nearest-neighbors.html#cb371-3"></a>                     <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> <span class="dv">21</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="k-nearest-neighbors.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(class) <span class="co"># install it if you haven&#39;t done so</span></span>
+<span id="cb383-2"><a href="k-nearest-neighbors.html#cb383-2" aria-hidden="true" tabindex="-1"></a>knn_predicted <span class="ot">&lt;-</span> <span class="fu">knn</span>(<span class="at">train =</span> wbcd_train_n, <span class="at">test =</span> wbcd_test_n, </span>
+<span id="cb383-3"><a href="k-nearest-neighbors.html#cb383-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cl =</span> wbcd_train_labels, <span class="at">k =</span> <span class="dv">21</span>)</span></code></pre></div>
 <ul>
 <li><code>train</code> : training dataset</li>
 <li><code>test</code>: testing dataset</li>
 <li><code>cl</code>: training labels</li>
 <li><code>k</code>: <span class="math inline">\(k\)</span>-nearest neighbors will be used</li>
 </ul>
-<div id="evaluating-model-performance" class="section level3 hasAnchor">
-<h3><span class="header-section-number">11.3.1</span> Evaluating Model Performance<a href="k-nearest-neighbors.html#evaluating-model-performance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="k-nearest-neighbors.html#cb372-1"></a><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb372-2"><a href="k-nearest-neighbors.html#cb372-2"></a><span class="co">##                 knn_predicted</span></span>
-<span id="cb372-3"><a href="k-nearest-neighbors.html#cb372-3"></a><span class="co">## wbcd_test_labels  B  M</span></span>
-<span id="cb372-4"><a href="k-nearest-neighbors.html#cb372-4"></a><span class="co">##                B 57  2</span></span>
-<span id="cb372-5"><a href="k-nearest-neighbors.html#cb372-5"></a><span class="co">##                M  4 37</span></span></code></pre></div>
+<div id="evaluating-model-performance" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Evaluating Model Performance<a href="k-nearest-neighbors.html#evaluating-model-performance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="k-nearest-neighbors.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wbcd_test_labels, knn_predicted)</span>
+<span id="cb384-2"><a href="k-nearest-neighbors.html#cb384-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                 knn_predicted</span></span>
+<span id="cb384-3"><a href="k-nearest-neighbors.html#cb384-3" aria-hidden="true" tabindex="-1"></a><span class="do">## wbcd_test_labels  B  M</span></span>
+<span id="cb384-4"><a href="k-nearest-neighbors.html#cb384-4" aria-hidden="true" tabindex="-1"></a><span class="do">##                B 57  2</span></span>
+<span id="cb384-5"><a href="k-nearest-neighbors.html#cb384-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                M  4 37</span></span></code></pre></div>
 <p><strong>False positive</strong>: an error where the test result incorrectly indicates the presence of a condition such as a disease when the disease is not present. In this example, we have <span class="math inline">\(2\)</span> false positives.</p>
 <p><strong>False Negative</strong>: an error where the test result incorrectly fails to indicate the presence of a condition when it is present. In this example, we have <span class="math inline">\(4\)</span> false negatives.</p>
 <p>Here the “test result” means our prediction.</p>
@@ -553,56 +528,56 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 \text{error rate} = \frac{2 + 4}{57+2+4+37} = 0.06 = 1- \text{accuracy}.
 \end{equation*}\]</span></p>
 </div>
-<div id="using-z-score-standardization" class="section level3 hasAnchor">
-<h3><span class="header-section-number">11.3.2</span> Using <span class="math inline">\(z\)</span>-score standardization<a href="k-nearest-neighbors.html#using-z-score-standardization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="using-z-score-standardization" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Using <span class="math inline">\(z\)</span>-score standardization<a href="k-nearest-neighbors.html#using-z-score-standardization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s try the <span class="math inline">\(z\)</span>-score standardization.</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="k-nearest-neighbors.html#cb373-1"></a>wbcd_train_s &lt;-<span class="st"> </span>wbcd_train</span>
-<span id="cb373-2"><a href="k-nearest-neighbors.html#cb373-2"></a>wbcd_test_s &lt;-<span class="st"> </span>wbcd_test</span>
-<span id="cb373-3"><a href="k-nearest-neighbors.html#cb373-3"></a></span>
-<span id="cb373-4"><a href="k-nearest-neighbors.html#cb373-4"></a>train_mean &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, mean)</span>
-<span id="cb373-5"><a href="k-nearest-neighbors.html#cb373-5"></a>train_sd &lt;-<span class="st"> </span><span class="kw">apply</span>(wbcd_train, <span class="dv">2</span>, sd)</span>
-<span id="cb373-6"><a href="k-nearest-neighbors.html#cb373-6"></a></span>
-<span id="cb373-7"><a href="k-nearest-neighbors.html#cb373-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(wbcd_train)) {</span>
-<span id="cb373-8"><a href="k-nearest-neighbors.html#cb373-8"></a>  wbcd_train_s[, i] &lt;-<span class="st"> </span>(wbcd_train[, i] <span class="op">-</span><span class="st"> </span>train_mean[i]) <span class="op">/</span><span class="st"> </span>train_sd[i]</span>
-<span id="cb373-9"><a href="k-nearest-neighbors.html#cb373-9"></a>  <span class="co"># use the mean and sd from training data to normalize the testing data</span></span>
-<span id="cb373-10"><a href="k-nearest-neighbors.html#cb373-10"></a>  wbcd_test_s[, i] &lt;-<span class="st"> </span>(wbcd_test[, i] <span class="op">-</span><span class="st"> </span>train_mean[i]) <span class="op">/</span><span class="st"> </span>train_sd[i]</span>
-<span id="cb373-11"><a href="k-nearest-neighbors.html#cb373-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="k-nearest-neighbors.html#cb385-1" aria-hidden="true" tabindex="-1"></a>wbcd_train_s <span class="ot">&lt;-</span> wbcd_train</span>
+<span id="cb385-2"><a href="k-nearest-neighbors.html#cb385-2" aria-hidden="true" tabindex="-1"></a>wbcd_test_s <span class="ot">&lt;-</span> wbcd_test</span>
+<span id="cb385-3"><a href="k-nearest-neighbors.html#cb385-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb385-4"><a href="k-nearest-neighbors.html#cb385-4" aria-hidden="true" tabindex="-1"></a>train_mean <span class="ot">&lt;-</span> <span class="fu">apply</span>(wbcd_train, <span class="dv">2</span>, mean)</span>
+<span id="cb385-5"><a href="k-nearest-neighbors.html#cb385-5" aria-hidden="true" tabindex="-1"></a>train_sd <span class="ot">&lt;-</span> <span class="fu">apply</span>(wbcd_train, <span class="dv">2</span>, sd)</span>
+<span id="cb385-6"><a href="k-nearest-neighbors.html#cb385-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb385-7"><a href="k-nearest-neighbors.html#cb385-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(wbcd_train)) {</span>
+<span id="cb385-8"><a href="k-nearest-neighbors.html#cb385-8" aria-hidden="true" tabindex="-1"></a>  wbcd_train_s[, i] <span class="ot">&lt;-</span> (wbcd_train[, i] <span class="sc">-</span> train_mean[i]) <span class="sc">/</span> train_sd[i]</span>
+<span id="cb385-9"><a href="k-nearest-neighbors.html#cb385-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the mean and sd from training data to normalize the testing data</span></span>
+<span id="cb385-10"><a href="k-nearest-neighbors.html#cb385-10" aria-hidden="true" tabindex="-1"></a>  wbcd_test_s[, i] <span class="ot">&lt;-</span> (wbcd_test[, i] <span class="sc">-</span> train_mean[i]) <span class="sc">/</span> train_sd[i]</span>
+<span id="cb385-11"><a href="k-nearest-neighbors.html#cb385-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Perform <span class="math inline">\(k\)</span>-NN:</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="k-nearest-neighbors.html#cb374-1"></a>knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_s, <span class="dt">test =</span> wbcd_test_s, </span>
-<span id="cb374-2"><a href="k-nearest-neighbors.html#cb374-2"></a>                     <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> <span class="dv">21</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="k-nearest-neighbors.html#cb386-1" aria-hidden="true" tabindex="-1"></a>knn_predicted <span class="ot">&lt;-</span> <span class="fu">knn</span>(<span class="at">train =</span> wbcd_train_s, <span class="at">test =</span> wbcd_test_s, </span>
+<span id="cb386-2"><a href="k-nearest-neighbors.html#cb386-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cl =</span> wbcd_train_labels, <span class="at">k =</span> <span class="dv">21</span>)</span></code></pre></div>
 <p>Evaluate the performance:</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="k-nearest-neighbors.html#cb375-1"></a><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb375-2"><a href="k-nearest-neighbors.html#cb375-2"></a><span class="co">##                 knn_predicted</span></span>
-<span id="cb375-3"><a href="k-nearest-neighbors.html#cb375-3"></a><span class="co">## wbcd_test_labels  B  M</span></span>
-<span id="cb375-4"><a href="k-nearest-neighbors.html#cb375-4"></a><span class="co">##                B 58  1</span></span>
-<span id="cb375-5"><a href="k-nearest-neighbors.html#cb375-5"></a><span class="co">##                M  5 36</span></span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="k-nearest-neighbors.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wbcd_test_labels, knn_predicted)</span>
+<span id="cb387-2"><a href="k-nearest-neighbors.html#cb387-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                 knn_predicted</span></span>
+<span id="cb387-3"><a href="k-nearest-neighbors.html#cb387-3" aria-hidden="true" tabindex="-1"></a><span class="do">## wbcd_test_labels  B  M</span></span>
+<span id="cb387-4"><a href="k-nearest-neighbors.html#cb387-4" aria-hidden="true" tabindex="-1"></a><span class="do">##                B 58  1</span></span>
+<span id="cb387-5"><a href="k-nearest-neighbors.html#cb387-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                M  5 36</span></span></code></pre></div>
 <p>The performance using <span class="math inline">\(z\)</span>-score standardization and min-max normalization is similar.</p>
 </div>
-<div id="testing-alternative-values-of-k" class="section level3 hasAnchor">
-<h3><span class="header-section-number">11.3.3</span> Testing alternative values of <span class="math inline">\(k\)</span><a href="k-nearest-neighbors.html#testing-alternative-values-of-k" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="k-nearest-neighbors.html#cb376-1"></a>k &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">27</span>)</span>
-<span id="cb376-2"><a href="k-nearest-neighbors.html#cb376-2"></a>result &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(k), <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb376-3"><a href="k-nearest-neighbors.html#cb376-3"></a>result[, <span class="dv">1</span>] &lt;-<span class="st"> </span>k</span>
-<span id="cb376-4"><a href="k-nearest-neighbors.html#cb376-4"></a><span class="kw">colnames</span>(result) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;k value&quot;</span>, <span class="st">&quot;False Negatives&quot;</span>, <span class="st">&quot;False Positives&quot;</span>, </span>
-<span id="cb376-5"><a href="k-nearest-neighbors.html#cb376-5"></a>                     <span class="st">&quot;Percent Classified Correctly&quot;</span>)</span>
-<span id="cb376-6"><a href="k-nearest-neighbors.html#cb376-6"></a></span>
-<span id="cb376-7"><a href="k-nearest-neighbors.html#cb376-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(k)) {</span>
-<span id="cb376-8"><a href="k-nearest-neighbors.html#cb376-8"></a>  knn_predicted &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> wbcd_train_n, <span class="dt">test =</span> wbcd_test_n,</span>
-<span id="cb376-9"><a href="k-nearest-neighbors.html#cb376-9"></a>                       <span class="dt">cl =</span> wbcd_train_labels, <span class="dt">k =</span> k[i])</span>
-<span id="cb376-10"><a href="k-nearest-neighbors.html#cb376-10"></a>  confusion_matrix &lt;-<span class="st"> </span><span class="kw">table</span>(wbcd_test_labels, knn_predicted)</span>
-<span id="cb376-11"><a href="k-nearest-neighbors.html#cb376-11"></a>  result[i, <span class="dv">2</span>] &lt;-<span class="st"> </span>confusion_matrix[<span class="dv">2</span>, <span class="dv">1</span>]</span>
-<span id="cb376-12"><a href="k-nearest-neighbors.html#cb376-12"></a>  result[i, <span class="dv">3</span>] &lt;-<span class="st"> </span>confusion_matrix[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb376-13"><a href="k-nearest-neighbors.html#cb376-13"></a>  result[i, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion_matrix)) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(wbcd_test_labels)</span>
-<span id="cb376-14"><a href="k-nearest-neighbors.html#cb376-14"></a>}</span>
-<span id="cb376-15"><a href="k-nearest-neighbors.html#cb376-15"></a></span>
-<span id="cb376-16"><a href="k-nearest-neighbors.html#cb376-16"></a>result</span>
-<span id="cb376-17"><a href="k-nearest-neighbors.html#cb376-17"></a><span class="co">##      k value False Negatives False Positives Percent Classified Correctly</span></span>
-<span id="cb376-18"><a href="k-nearest-neighbors.html#cb376-18"></a><span class="co">## [1,]       1               4               3                         0.93</span></span>
-<span id="cb376-19"><a href="k-nearest-neighbors.html#cb376-19"></a><span class="co">## [2,]       5               4               1                         0.95</span></span>
-<span id="cb376-20"><a href="k-nearest-neighbors.html#cb376-20"></a><span class="co">## [3,]      11               3               1                         0.96</span></span>
-<span id="cb376-21"><a href="k-nearest-neighbors.html#cb376-21"></a><span class="co">## [4,]      15               3               2                         0.95</span></span>
-<span id="cb376-22"><a href="k-nearest-neighbors.html#cb376-22"></a><span class="co">## [5,]      21               4               2                         0.94</span></span>
-<span id="cb376-23"><a href="k-nearest-neighbors.html#cb376-23"></a><span class="co">## [6,]      27               3               2                         0.95</span></span></code></pre></div>
+<div id="testing-alternative-values-of-k" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Testing alternative values of <span class="math inline">\(k\)</span><a href="k-nearest-neighbors.html#testing-alternative-values-of-k" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="k-nearest-neighbors.html#cb388-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">27</span>)</span>
+<span id="cb388-2"><a href="k-nearest-neighbors.html#cb388-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">length</span>(k), <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb388-3"><a href="k-nearest-neighbors.html#cb388-3" aria-hidden="true" tabindex="-1"></a>result[, <span class="dv">1</span>] <span class="ot">&lt;-</span> k</span>
+<span id="cb388-4"><a href="k-nearest-neighbors.html#cb388-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(result) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;k&quot;</span>, <span class="st">&quot;False Neg&quot;</span>, <span class="st">&quot;False Pos&quot;</span>, </span>
+<span id="cb388-5"><a href="k-nearest-neighbors.html#cb388-5" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;% Classified Correctly&quot;</span>)</span>
+<span id="cb388-6"><a href="k-nearest-neighbors.html#cb388-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb388-7"><a href="k-nearest-neighbors.html#cb388-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(k)) {</span>
+<span id="cb388-8"><a href="k-nearest-neighbors.html#cb388-8" aria-hidden="true" tabindex="-1"></a>  knn_predicted <span class="ot">&lt;-</span> <span class="fu">knn</span>(<span class="at">train =</span> wbcd_train_n, <span class="at">test =</span> wbcd_test_n,</span>
+<span id="cb388-9"><a href="k-nearest-neighbors.html#cb388-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">cl =</span> wbcd_train_labels, <span class="at">k =</span> k[i])</span>
+<span id="cb388-10"><a href="k-nearest-neighbors.html#cb388-10" aria-hidden="true" tabindex="-1"></a>  confusion_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(wbcd_test_labels, knn_predicted)</span>
+<span id="cb388-11"><a href="k-nearest-neighbors.html#cb388-11" aria-hidden="true" tabindex="-1"></a>  result[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> confusion_matrix[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb388-12"><a href="k-nearest-neighbors.html#cb388-12" aria-hidden="true" tabindex="-1"></a>  result[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> confusion_matrix[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb388-13"><a href="k-nearest-neighbors.html#cb388-13" aria-hidden="true" tabindex="-1"></a>  result[i, <span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(confusion_matrix)) <span class="sc">/</span> <span class="fu">length</span>(wbcd_test_labels) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb388-14"><a href="k-nearest-neighbors.html#cb388-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb388-15"><a href="k-nearest-neighbors.html#cb388-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb388-16"><a href="k-nearest-neighbors.html#cb388-16" aria-hidden="true" tabindex="-1"></a>result</span>
+<span id="cb388-17"><a href="k-nearest-neighbors.html#cb388-17" aria-hidden="true" tabindex="-1"></a><span class="do">##       k False Neg False Pos % Classified Correctly</span></span>
+<span id="cb388-18"><a href="k-nearest-neighbors.html#cb388-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  1         4         3                     93</span></span>
+<span id="cb388-19"><a href="k-nearest-neighbors.html#cb388-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]  5         4         1                     95</span></span>
+<span id="cb388-20"><a href="k-nearest-neighbors.html#cb388-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 11         3         1                     96</span></span>
+<span id="cb388-21"><a href="k-nearest-neighbors.html#cb388-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 15         3         2                     95</span></span>
+<span id="cb388-22"><a href="k-nearest-neighbors.html#cb388-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] 21         4         2                     94</span></span>
+<span id="cb388-23"><a href="k-nearest-neighbors.html#cb388-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,] 27         3         2                     95</span></span></code></pre></div>
 <p><strong>Important remark</strong>: while the accuracy is the highest when <span class="math inline">\(k = 11\)</span>, it does not mean the model is the best for this data. Note that</p>
 <ol style="list-style-type: decimal">
 <li><p>We split the dataset into a training dataset and a testing dataset using <strong>one particular random partition</strong>. With another random partition, the results would be <strong>different</strong>. The more appropriate way to assess the accuracy is to use repeated <span class="math inline">\(k\)</span>-fold cross validation (the <span class="math inline">\(k\)</span> here is different from the <span class="math inline">\(k\)</span> in our <span class="math inline">\(k\)</span>-NN algorithm). We shall discuss this later.</p></li>
@@ -617,8 +592,8 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
           </div>
         </div>
       </div>
-<a href="root-finding-and-optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linear-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="root-finding-and-optimization.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -678,7 +653,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
