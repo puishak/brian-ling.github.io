@@ -132,3 +132,17 @@ example-classifying-breast-cancers
 evaluating-model-performance
 using-z-score-standardization
 testing-alternative-values-of-k
+linear-regression-models
+simple-linear-regression
+smoothed-conditional-means
+multiple-linear-regression
+example-diamonds
+categorical-predictors
+compare-models-using-anova
+prediction
+interaction-terms
+variable-transformation
+polynomial-regression
+stepwise-regression
+best-subset
+logistic-regression-model

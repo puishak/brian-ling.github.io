@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-02" />
+<meta name="date" content="2023-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -335,6 +335,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>10.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="10.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>10.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="10.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>10.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="10.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>10.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="10.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>10.7</b> Prediction</a></li>
+<li class="chapter" data-level="10.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>10.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="10.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>10.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="10.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>10.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="10.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>10.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -947,7 +963,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb126-7"><a href="programming-in-r.html#cb126-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb126-8"><a href="programming-in-r.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb126-9"><a href="programming-in-r.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.67    0.00    0.97</span></span></code></pre></div>
+<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.05    0.00    0.22</span></span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="programming-in-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb127-2"><a href="programming-in-r.html#cb127-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb127-3"><a href="programming-in-r.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -957,7 +973,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.53    0.00    0.89</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.22</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -965,7 +981,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb128-3"><a href="programming-in-r.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
 <span id="cb128-4"><a href="programming-in-r.html#cb128-4" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb128-5"><a href="programming-in-r.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb128-6"><a href="programming-in-r.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.03</span></span></code></pre></div>
+<span id="cb128-6"><a href="programming-in-r.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="programming-in-r.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb129-2"><a href="programming-in-r.html#cb129-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -978,11 +994,11 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-9"><a href="programming-in-r.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb129-10"><a href="programming-in-r.html#cb129-10" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb129-11"><a href="programming-in-r.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.17    0.00    0.32</span></span>
+<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.08</span></span>
 <span id="cb129-13"><a href="programming-in-r.html#cb129-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb129-14"><a href="programming-in-r.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb129-15"><a href="programming-in-r.html#cb129-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-16"><a href="programming-in-r.html#cb129-16" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.02</span></span></code></pre></div>
+<span id="cb129-16"><a href="programming-in-r.html#cb129-16" aria-hidden="true" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
 <p>The general rule is to use vectorized operations whenever possible and to avoid using for loops. We use a for loop when the code is not time-consuming or when the code is hard to write without using a for loop. A more advanced option is to combine C++ with R using the package <code>rcpp</code>. That is, we can write the most time-consuming part of the R code in C++, which could run many times faster (will not be discussed in this course).</p>
 <p>See also <a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/" class="uri">http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/</a></p>
 </div>
