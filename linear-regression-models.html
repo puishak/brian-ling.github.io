@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-09" />
+<meta name="date" content="2023-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -351,6 +351,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="12" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>12</b> k-means Clustering</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>12.2</b> Applications</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>12.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="12.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>12.2.2</b> Image Segementation and Image Compression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>13</b> Decision Trees</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>13.1</b> Introduction to Classification Tree</a></li>
+<li class="chapter" data-level="13.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>13.2</b> Introduction to regression tree</a></li>
+<li class="chapter" data-level="13.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>13.3</b> Mathematical Formulation</a></li>
+<li class="chapter" data-level="13.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>13.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>13.4.1</b> Classification Tree</a></li>
+<li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -592,9 +612,9 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="linear-regression-models.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fit)</span>
-<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span></span>
-<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span></span>
-<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;</span></span>
+<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         </span></span>
+<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="linear-regression-models.html#cb400-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb400-2"><a href="linear-regression-models.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          x1          x2 </span></span>
@@ -914,10 +934,10 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 <span id="cb419-9"><a href="linear-regression-models.html#cb419-9" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
 <span id="cb419-10"><a href="linear-regression-models.html#cb419-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb419-11"><a href="linear-regression-models.html#cb419-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  </span></span>
-<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044                     2.025  </span></span>
-<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">## poly(x1, 2, raw = TRUE)2                        x2  </span></span>
-<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.976                    -2.058</span></span></code></pre></div>
+<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
+<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976  </span></span>
+<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                       x2  </span></span>
+<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
 <p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
 <p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="linear-regression-models.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -1022,10 +1042,8 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb422-56"><a href="linear-regression-models.html#cb422-56" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb422-57"><a href="linear-regression-models.html#cb422-57" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb422-58"><a href="linear-regression-models.html#cb422-58" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph  </span></span>
-<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469  </span></span>
-<span id="cb422-61"><a href="linear-regression-models.html#cb422-61" aria-hidden="true" tabindex="-1"></a><span class="do">##         svi  </span></span>
-<span id="cb422-62"><a href="linear-regression-models.html#cb422-62" aria-hidden="true" tabindex="-1"></a><span class="do">##      0.2960</span></span></code></pre></div>
+<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph          svi  </span></span>
+<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469       0.2960</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>From the full model, removing <code>gleason</code> results in a model with the smallest AIC. Therefore, the algorithm first removes <code>gleason</code>.</p></li>
 <li><p>Next, removing <code>lcp</code> results in a model with the smallest AIC. Therefore, <code>lcp</code> is removed in the next step.</p></li>
@@ -1109,10 +1127,8 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb423-74"><a href="linear-regression-models.html#cb423-74" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb423-75"><a href="linear-regression-models.html#cb423-75" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb423-76"><a href="linear-regression-models.html#cb423-76" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph  </span></span>
-<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469  </span></span>
-<span id="cb423-79"><a href="linear-regression-models.html#cb423-79" aria-hidden="true" tabindex="-1"></a><span class="do">##         age  </span></span>
-<span id="cb423-80"><a href="linear-regression-models.html#cb423-80" aria-hidden="true" tabindex="-1"></a><span class="do">##     -0.1224</span></span></code></pre></div>
+<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph          age  </span></span>
+<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469      -0.1224</span></span></code></pre></div>
 <p>Remark: there is also an option <code>direction = "both"</code>.</p>
 </div>
 <div id="best-subset" class="section level2 hasAnchor" number="10.12">

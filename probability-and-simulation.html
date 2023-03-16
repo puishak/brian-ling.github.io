@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-09" />
+<meta name="date" content="2023-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -351,6 +351,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="12" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>12</b> k-means Clustering</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>12.2</b> Applications</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>12.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="12.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>12.2.2</b> Image Segementation and Image Compression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>13</b> Decision Trees</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>13.1</b> Introduction to Classification Tree</a></li>
+<li class="chapter" data-level="13.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>13.2</b> Introduction to regression tree</a></li>
+<li class="chapter" data-level="13.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>13.3</b> Mathematical Formulation</a></li>
+<li class="chapter" data-level="13.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>13.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>13.4.1</b> Classification Tree</a></li>
+<li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -415,8 +435,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-5"><a href="probability-and-simulation.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="probability-and-simulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  3.4590951  1.1200572 -1.3101915  5.7956468  0.9805411  0.6284083</span></span>
-<span id="cb59-3"><a href="probability-and-simulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] -0.8013249  2.3367862  3.8279633 -0.9596268</span></span></code></pre></div>
+<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  2.395465  1.555400  4.342523  2.157440 -1.099364  4.058365  2.736791 -5.685586</span></span>
+<span id="cb59-3"><a href="probability-and-simulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9]  2.599648 -3.669649</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability-and-simulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb60-2"><a href="probability-and-simulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.644854</span></span></code></pre></div>
@@ -555,7 +575,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-8"><a href="probability-and-simulation.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span>
 <span id="cb63-9"><a href="probability-and-simulation.html#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-10"><a href="probability-and-simulation.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7 7 5 5</span></span>
+<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7 8 6 6</span></span>
 <span id="cb63-12"><a href="probability-and-simulation.html#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-13"><a href="probability-and-simulation.html#cb63-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
 <span id="cb63-14"><a href="probability-and-simulation.html#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -612,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability-and-simulation.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb70-2"><a href="probability-and-simulation.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 1 1 0 1 0 1 1 1 1 1</span></span></code></pre></div>
+<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 1 0 0 0 1 1 1 0 0 0</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>

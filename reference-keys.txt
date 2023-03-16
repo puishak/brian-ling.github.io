@@ -146,3 +146,15 @@ polynomial-regression
 stepwise-regression
 best-subset
 logistic-regression-model
+k-means-clustering
+introduction-2
+applications
+cluster-analysis
+image-segementation-and-image-compression
+decision-trees
+introduction-to-classification-tree
+introduction-to-regression-tree
+mathematical-formulation
+examples
+classification-tree
+regression-tree
