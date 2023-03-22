@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -586,15 +595,18 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <p>Example:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="programming-in-r.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb99-2"><a href="programming-in-r.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># generate 5 rv from N(0, 2^2)</span></span>
-<span id="cb99-3"><a href="programming-in-r.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616  1.6590155</span></span>
-<span id="cb99-4"><a href="programming-in-r.html#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-5"><a href="programming-in-r.html#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb99-6"><a href="programming-in-r.html#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># this is the same as above</span></span>
-<span id="cb99-7"><a href="programming-in-r.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616  1.6590155</span></span></code></pre></div>
+<span id="cb99-3"><a href="programming-in-r.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616</span></span>
+<span id="cb99-4"><a href="programming-in-r.html#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [5]  1.6590155</span></span>
+<span id="cb99-5"><a href="programming-in-r.html#cb99-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-6"><a href="programming-in-r.html#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb99-7"><a href="programming-in-r.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># this is the same as above</span></span>
+<span id="cb99-8"><a href="programming-in-r.html#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616</span></span>
+<span id="cb99-9"><a href="programming-in-r.html#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [5]  1.6590155</span></span></code></pre></div>
 <p>When you call the function by specifiying the name of the argument, the order does not matter:</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="programming-in-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb100-2"><a href="programming-in-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">mean =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
-<span id="cb100-3"><a href="programming-in-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616  1.6590155</span></span></code></pre></div>
+<span id="cb100-3"><a href="programming-in-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616</span></span>
+<span id="cb100-4"><a href="programming-in-r.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [5]  1.6590155</span></span></code></pre></div>
 <p>But of course, one should not change the order in generally.</p>
 </div>
 </div>
@@ -883,7 +895,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb120-14"><a href="programming-in-r.html#cb120-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-15"><a href="programming-in-r.html#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co"># column mean</span></span>
 <span id="cb120-16"><a href="programming-in-r.html#cb120-16" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(X, <span class="dv">2</span>, mean)</span>
-<span id="cb120-17"><a href="programming-in-r.html#cb120-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3634145 0.7442663 0.5760820 0.3576409 0.4014545</span></span></code></pre></div>
+<span id="cb120-17"><a href="programming-in-r.html#cb120-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3634145 0.7442663 0.5760820 0.3576409</span></span>
+<span id="cb120-18"><a href="programming-in-r.html#cb120-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] 0.4014545</span></span></code></pre></div>
 <p>For the special cases of finding row/column sums and means of matrices, there are specific functions:</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="programming-in-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">20</span>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
 <span id="cb121-2"><a href="programming-in-r.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(X)</span>
@@ -893,7 +906,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb121-6"><a href="programming-in-r.html#cb121-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(X)</span>
 <span id="cb121-7"><a href="programming-in-r.html#cb121-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.761405 2.398024 2.602992 2.655045 1.925607</span></span>
 <span id="cb121-8"><a href="programming-in-r.html#cb121-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(X)</span>
-<span id="cb121-9"><a href="programming-in-r.html#cb121-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4403512 0.5995059 0.6507480 0.6637612 0.4814016</span></span></code></pre></div>
+<span id="cb121-9"><a href="programming-in-r.html#cb121-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4403512 0.5995059 0.6507480 0.6637612</span></span>
+<span id="cb121-10"><a href="programming-in-r.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] 0.4814016</span></span></code></pre></div>
 <p>They are faster and their names are easier to understand when reading the code.</p>
 </div>
 <div id="lapply" class="section level3 hasAnchor" number="3.3.2">
@@ -917,7 +931,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb122-14"><a href="programming-in-r.html#cb122-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  0.4874291  0.7383247  0.5757814 -0.3053884</span></span>
 <span id="cb122-15"><a href="programming-in-r.html#cb122-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb122-16"><a href="programming-in-r.html#cb122-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [[5]]</span></span>
-<span id="cb122-17"><a href="programming-in-r.html#cb122-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  1.5117812  0.3898432 -0.6212406 -2.2146999  1.1249309</span></span></code></pre></div>
+<span id="cb122-17"><a href="programming-in-r.html#cb122-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  1.5117812  0.3898432 -0.6212406 -2.2146999</span></span>
+<span id="cb122-18"><a href="programming-in-r.html#cb122-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [5]  1.1249309</span></span></code></pre></div>
 <p>The following for loop will give the same result</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="programming-in-r.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb123-2"><a href="programming-in-r.html#cb123-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
@@ -938,7 +953,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb123-17"><a href="programming-in-r.html#cb123-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  0.4874291  0.7383247  0.5757814 -0.3053884</span></span>
 <span id="cb123-18"><a href="programming-in-r.html#cb123-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb123-19"><a href="programming-in-r.html#cb123-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [[5]]</span></span>
-<span id="cb123-20"><a href="programming-in-r.html#cb123-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  1.5117812  0.3898432 -0.6212406 -2.2146999  1.1249309</span></span></code></pre></div>
+<span id="cb123-20"><a href="programming-in-r.html#cb123-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  1.5117812  0.3898432 -0.6212406 -2.2146999</span></span>
+<span id="cb123-21"><a href="programming-in-r.html#cb123-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [5]  1.1249309</span></span></code></pre></div>
 </div>
 </div>
 <div id="automatically-reindent-code" class="section level2 hasAnchor" number="3.4">
@@ -983,7 +999,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb126-7"><a href="programming-in-r.html#cb126-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb126-8"><a href="programming-in-r.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb126-9"><a href="programming-in-r.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.03    0.00    0.19</span></span></code></pre></div>
+<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.08    0.00    0.28</span></span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="programming-in-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb127-2"><a href="programming-in-r.html#cb127-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb127-3"><a href="programming-in-r.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -993,7 +1009,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.03    0.00    0.17</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.25</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1014,7 +1030,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-9"><a href="programming-in-r.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb129-10"><a href="programming-in-r.html#cb129-10" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb129-11"><a href="programming-in-r.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.06    0.00    0.06</span></span>
+<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.07</span></span>
 <span id="cb129-13"><a href="programming-in-r.html#cb129-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb129-14"><a href="programming-in-r.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb129-15"><a href="programming-in-r.html#cb129-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
@@ -1126,7 +1142,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <li>Generate some random integers from 1 to 1 million</li>
 </ol>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="programming-in-r.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb137-2"><a href="programming-in-r.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 561439 127167 780154 220509 719167 764255 396230 217832 690367 751599</span></span></code></pre></div>
+<span id="cb137-2"><a href="programming-in-r.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 561439 127167 780154 220509 719167 764255</span></span>
+<span id="cb137-3"><a href="programming-in-r.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] 396230 217832 690367 751599</span></span></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
 <li>Write an if statement that checks if a variable <code>x</code> is equal to 5, and if so print “x is equal to 5”.</li>
 </ol>

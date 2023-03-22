@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -594,16 +603,21 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb398-12"><a href="linear-regression-models.html#cb398-12" aria-hidden="true" tabindex="-1"></a><span class="do">## -2.94359 -0.43645  0.00202  0.63692  2.63941 </span></span>
 <span id="cb398-13"><a href="linear-regression-models.html#cb398-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb398-14"><a href="linear-regression-models.html#cb398-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb398-15"><a href="linear-regression-models.html#cb398-15" aria-hidden="true" tabindex="-1"></a><span class="do">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb398-16"><a href="linear-regression-models.html#cb398-16" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   1.0254     0.1052   9.747 4.71e-16 ***</span></span>
-<span id="cb398-17"><a href="linear-regression-models.html#cb398-17" aria-hidden="true" tabindex="-1"></a><span class="do">## x1            2.0211     0.1168  17.311  &lt; 2e-16 ***</span></span>
-<span id="cb398-18"><a href="linear-regression-models.html#cb398-18" aria-hidden="true" tabindex="-1"></a><span class="do">## x2            2.9465     0.1095  26.914  &lt; 2e-16 ***</span></span>
-<span id="cb398-19"><a href="linear-regression-models.html#cb398-19" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb398-20"><a href="linear-regression-models.html#cb398-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb398-21"><a href="linear-regression-models.html#cb398-21" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb398-22"><a href="linear-regression-models.html#cb398-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1.043 on 97 degrees of freedom</span></span>
-<span id="cb398-23"><a href="linear-regression-models.html#cb398-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9134, Adjusted R-squared:  0.9116 </span></span>
-<span id="cb398-24"><a href="linear-regression-models.html#cb398-24" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 511.6 on 2 and 97 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb398-15"><a href="linear-regression-models.html#cb398-15" aria-hidden="true" tabindex="-1"></a><span class="do">##             Estimate Std. Error t value Pr(&gt;|t|)</span></span>
+<span id="cb398-16"><a href="linear-regression-models.html#cb398-16" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   1.0254     0.1052   9.747 4.71e-16</span></span>
+<span id="cb398-17"><a href="linear-regression-models.html#cb398-17" aria-hidden="true" tabindex="-1"></a><span class="do">## x1            2.0211     0.1168  17.311  &lt; 2e-16</span></span>
+<span id="cb398-18"><a href="linear-regression-models.html#cb398-18" aria-hidden="true" tabindex="-1"></a><span class="do">## x2            2.9465     0.1095  26.914  &lt; 2e-16</span></span>
+<span id="cb398-19"><a href="linear-regression-models.html#cb398-19" aria-hidden="true" tabindex="-1"></a><span class="do">##                </span></span>
+<span id="cb398-20"><a href="linear-regression-models.html#cb398-20" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) ***</span></span>
+<span id="cb398-21"><a href="linear-regression-models.html#cb398-21" aria-hidden="true" tabindex="-1"></a><span class="do">## x1          ***</span></span>
+<span id="cb398-22"><a href="linear-regression-models.html#cb398-22" aria-hidden="true" tabindex="-1"></a><span class="do">## x2          ***</span></span>
+<span id="cb398-23"><a href="linear-regression-models.html#cb398-23" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb398-24"><a href="linear-regression-models.html#cb398-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb398-25"><a href="linear-regression-models.html#cb398-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb398-26"><a href="linear-regression-models.html#cb398-26" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb398-27"><a href="linear-regression-models.html#cb398-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1.043 on 97 degrees of freedom</span></span>
+<span id="cb398-28"><a href="linear-regression-models.html#cb398-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9134, Adjusted R-squared:  0.9116 </span></span>
+<span id="cb398-29"><a href="linear-regression-models.html#cb398-29" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 511.6 on 2 and 97 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>From the summary, you can find</p>
 <ol style="list-style-type: decimal">
 <li><p>Estimates of the regression coefficients. The <span class="math inline">\(p\)</span>-value indicates if the regression coefficient is significantly different from <span class="math inline">\(0\)</span>. If the <span class="math inline">\(p\)</span>-value is smaller than <span class="math inline">\(0.05\)</span>, then we reject the null hypothesis that the regression coefficient is equal to <span class="math inline">\(0\)</span> at <span class="math inline">\(0.05\)</span> significance level.</p></li>
@@ -612,9 +626,12 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="linear-regression-models.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fit)</span>
-<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;</span></span>
-<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         </span></span>
-<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;    </span></span>
+<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3] &quot;effects&quot;       &quot;rank&quot;         </span></span>
+<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] &quot;fitted.values&quot; &quot;assign&quot;       </span></span>
+<span id="cb399-5"><a href="linear-regression-models.html#cb399-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;qr&quot;            &quot;df.residual&quot;  </span></span>
+<span id="cb399-6"><a href="linear-regression-models.html#cb399-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] &quot;xlevels&quot;       &quot;call&quot;         </span></span>
+<span id="cb399-7"><a href="linear-regression-models.html#cb399-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="linear-regression-models.html#cb400-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb400-2"><a href="linear-regression-models.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          x1          x2 </span></span>
@@ -649,18 +666,25 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb404-9"><a href="linear-regression-models.html#cb404-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  -4258  -2741  -1494   1360  15348 </span></span>
 <span id="cb404-10"><a href="linear-regression-models.html#cb404-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb404-11"><a href="linear-regression-models.html#cb404-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb404-12"><a href="linear-regression-models.html#cb404-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb404-13"><a href="linear-regression-models.html#cb404-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   4358.76      98.79  44.122  &lt; 2e-16 ***</span></span>
-<span id="cb404-14"><a href="linear-regression-models.html#cb404-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood       -429.89     113.85  -3.776 0.000160 ***</span></span>
-<span id="cb404-15"><a href="linear-regression-models.html#cb404-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good  -377.00     105.16  -3.585 0.000338 ***</span></span>
-<span id="cb404-16"><a href="linear-regression-models.html#cb404-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     225.50     104.40   2.160 0.030772 *  </span></span>
-<span id="cb404-17"><a href="linear-regression-models.html#cb404-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal      -901.22     102.41  -8.800  &lt; 2e-16 ***</span></span>
-<span id="cb404-18"><a href="linear-regression-models.html#cb404-18" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb404-19"><a href="linear-regression-models.html#cb404-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb404-20"><a href="linear-regression-models.html#cb404-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb404-21"><a href="linear-regression-models.html#cb404-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 3964 on 53935 degrees of freedom</span></span>
-<span id="cb404-22"><a href="linear-regression-models.html#cb404-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.01286,    Adjusted R-squared:  0.01279 </span></span>
-<span id="cb404-23"><a href="linear-regression-models.html#cb404-23" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 175.7 on 4 and 53935 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb404-12"><a href="linear-regression-models.html#cb404-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value</span></span>
+<span id="cb404-13"><a href="linear-regression-models.html#cb404-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   4358.76      98.79  44.122</span></span>
+<span id="cb404-14"><a href="linear-regression-models.html#cb404-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood       -429.89     113.85  -3.776</span></span>
+<span id="cb404-15"><a href="linear-regression-models.html#cb404-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good  -377.00     105.16  -3.585</span></span>
+<span id="cb404-16"><a href="linear-regression-models.html#cb404-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     225.50     104.40   2.160</span></span>
+<span id="cb404-17"><a href="linear-regression-models.html#cb404-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal      -901.22     102.41  -8.800</span></span>
+<span id="cb404-18"><a href="linear-regression-models.html#cb404-18" aria-hidden="true" tabindex="-1"></a><span class="do">##              Pr(&gt;|t|)    </span></span>
+<span id="cb404-19"><a href="linear-regression-models.html#cb404-19" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   &lt; 2e-16 ***</span></span>
+<span id="cb404-20"><a href="linear-regression-models.html#cb404-20" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood      0.000160 ***</span></span>
+<span id="cb404-21"><a href="linear-regression-models.html#cb404-21" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good 0.000338 ***</span></span>
+<span id="cb404-22"><a href="linear-regression-models.html#cb404-22" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium   0.030772 *  </span></span>
+<span id="cb404-23"><a href="linear-regression-models.html#cb404-23" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal      &lt; 2e-16 ***</span></span>
+<span id="cb404-24"><a href="linear-regression-models.html#cb404-24" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb404-25"><a href="linear-regression-models.html#cb404-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb404-26"><a href="linear-regression-models.html#cb404-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb404-27"><a href="linear-regression-models.html#cb404-27" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb404-28"><a href="linear-regression-models.html#cb404-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 3964 on 53935 degrees of freedom</span></span>
+<span id="cb404-29"><a href="linear-regression-models.html#cb404-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.01286,    Adjusted R-squared:  0.01279 </span></span>
+<span id="cb404-30"><a href="linear-regression-models.html#cb404-30" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 175.7 on 4 and 53935 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>From the output, we see that we have <span class="math inline">\(4\)</span> additional predictors named <code>cutGood</code>, <code>cutVery Good</code>, <code>cutPremium</code> and <code>cutIdeal</code> corresponding to the values <code>cut</code> can take. We do not see <code>cutFair</code> because the value fair has been used as the baseline for the regression model. That means if <code>cut</code> is fair, then the mean price is just the intercept value. If <code>cut</code> is Good, then the mean price is <span class="math inline">\(4358.76-429.89.\)</span></p>
 <p>The results for the regression coefficients do not make sense because they imply that diamonds with ideal cut are the cheapest on average. The problem is that we have not “controlled for other variables”. The meaning of “control for other variables” is that we should also put in other relevant variables so that the interpretation of the regression coefficients will make sense. For example, if we include <code>carat</code>, then the interpretation of the regression coefficient for <code>cutGood</code> is that fixing the weight of the diamond, diamonds with good cut is how much more expensive than diamonds with fair cut on average (because the baseline value is fair).</p>
 <p>Now, let’s try to add <code>carat</code>.</p>
@@ -675,19 +699,27 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb405-9"><a href="linear-regression-models.html#cb405-9" aria-hidden="true" tabindex="-1"></a><span class="do">## -17540.7   -791.6    -37.6    522.1  12721.4 </span></span>
 <span id="cb405-10"><a href="linear-regression-models.html#cb405-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb405-11"><a href="linear-regression-models.html#cb405-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb405-12"><a href="linear-regression-models.html#cb405-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb405-13"><a href="linear-regression-models.html#cb405-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -3875.47      40.41  -95.91   &lt;2e-16 ***</span></span>
-<span id="cb405-14"><a href="linear-regression-models.html#cb405-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood       1120.33      43.50   25.75   &lt;2e-16 ***</span></span>
-<span id="cb405-15"><a href="linear-regression-models.html#cb405-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good  1510.14      40.24   37.53   &lt;2e-16 ***</span></span>
-<span id="cb405-16"><a href="linear-regression-models.html#cb405-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium    1439.08      39.87   36.10   &lt;2e-16 ***</span></span>
-<span id="cb405-17"><a href="linear-regression-models.html#cb405-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal      1800.92      39.34   45.77   &lt;2e-16 ***</span></span>
-<span id="cb405-18"><a href="linear-regression-models.html#cb405-18" aria-hidden="true" tabindex="-1"></a><span class="do">## carat         7871.08      13.98  563.04   &lt;2e-16 ***</span></span>
-<span id="cb405-19"><a href="linear-regression-models.html#cb405-19" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb405-20"><a href="linear-regression-models.html#cb405-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb405-21"><a href="linear-regression-models.html#cb405-21" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb405-22"><a href="linear-regression-models.html#cb405-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1511 on 53934 degrees of freedom</span></span>
-<span id="cb405-23"><a href="linear-regression-models.html#cb405-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.8565, Adjusted R-squared:  0.8565 </span></span>
-<span id="cb405-24"><a href="linear-regression-models.html#cb405-24" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 6.437e+04 on 5 and 53934 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb405-12"><a href="linear-regression-models.html#cb405-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value</span></span>
+<span id="cb405-13"><a href="linear-regression-models.html#cb405-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -3875.47      40.41  -95.91</span></span>
+<span id="cb405-14"><a href="linear-regression-models.html#cb405-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood       1120.33      43.50   25.75</span></span>
+<span id="cb405-15"><a href="linear-regression-models.html#cb405-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good  1510.14      40.24   37.53</span></span>
+<span id="cb405-16"><a href="linear-regression-models.html#cb405-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium    1439.08      39.87   36.10</span></span>
+<span id="cb405-17"><a href="linear-regression-models.html#cb405-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal      1800.92      39.34   45.77</span></span>
+<span id="cb405-18"><a href="linear-regression-models.html#cb405-18" aria-hidden="true" tabindex="-1"></a><span class="do">## carat         7871.08      13.98  563.04</span></span>
+<span id="cb405-19"><a href="linear-regression-models.html#cb405-19" aria-hidden="true" tabindex="-1"></a><span class="do">##              Pr(&gt;|t|)    </span></span>
+<span id="cb405-20"><a href="linear-regression-models.html#cb405-20" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)    &lt;2e-16 ***</span></span>
+<span id="cb405-21"><a href="linear-regression-models.html#cb405-21" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood        &lt;2e-16 ***</span></span>
+<span id="cb405-22"><a href="linear-regression-models.html#cb405-22" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good   &lt;2e-16 ***</span></span>
+<span id="cb405-23"><a href="linear-regression-models.html#cb405-23" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     &lt;2e-16 ***</span></span>
+<span id="cb405-24"><a href="linear-regression-models.html#cb405-24" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal       &lt;2e-16 ***</span></span>
+<span id="cb405-25"><a href="linear-regression-models.html#cb405-25" aria-hidden="true" tabindex="-1"></a><span class="do">## carat          &lt;2e-16 ***</span></span>
+<span id="cb405-26"><a href="linear-regression-models.html#cb405-26" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb405-27"><a href="linear-regression-models.html#cb405-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb405-28"><a href="linear-regression-models.html#cb405-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb405-29"><a href="linear-regression-models.html#cb405-29" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb405-30"><a href="linear-regression-models.html#cb405-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1511 on 53934 degrees of freedom</span></span>
+<span id="cb405-31"><a href="linear-regression-models.html#cb405-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.8565, Adjusted R-squared:  0.8565 </span></span>
+<span id="cb405-32"><a href="linear-regression-models.html#cb405-32" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 6.437e+04 on 5 and 53934 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>It makes more sense now although the coefficient of <code>cutVery good</code> is still higher than that of <code>cutPremium</code>.</p>
 <p>We now add <code>clarity</code> and <code>color</code>.</p>
 <div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="linear-regression-models.html#cb406-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> carat <span class="sc">+</span> clarity <span class="sc">+</span> color, <span class="at">data =</span> diamonds2)</span>
@@ -701,32 +733,53 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb406-9"><a href="linear-regression-models.html#cb406-9" aria-hidden="true" tabindex="-1"></a><span class="do">## -16813.5   -680.4   -197.6    466.4  10394.9 </span></span>
 <span id="cb406-10"><a href="linear-regression-models.html#cb406-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb406-11"><a href="linear-regression-models.html#cb406-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb406-12"><a href="linear-regression-models.html#cb406-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb406-13"><a href="linear-regression-models.html#cb406-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -7362.80      51.68 -142.46   &lt;2e-16 ***</span></span>
-<span id="cb406-14"><a href="linear-regression-models.html#cb406-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood        655.77      33.63   19.50   &lt;2e-16 ***</span></span>
-<span id="cb406-15"><a href="linear-regression-models.html#cb406-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good   848.72      31.28   27.14   &lt;2e-16 ***</span></span>
-<span id="cb406-16"><a href="linear-regression-models.html#cb406-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     869.40      30.93   28.11   &lt;2e-16 ***</span></span>
-<span id="cb406-17"><a href="linear-regression-models.html#cb406-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal       998.25      30.66   32.56   &lt;2e-16 ***</span></span>
-<span id="cb406-18"><a href="linear-regression-models.html#cb406-18" aria-hidden="true" tabindex="-1"></a><span class="do">## carat         8886.13      12.03  738.44   &lt;2e-16 ***</span></span>
-<span id="cb406-19"><a href="linear-regression-models.html#cb406-19" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI2    2625.95      44.79   58.63   &lt;2e-16 ***</span></span>
-<span id="cb406-20"><a href="linear-regression-models.html#cb406-20" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI1    3573.69      44.60   80.13   &lt;2e-16 ***</span></span>
-<span id="cb406-21"><a href="linear-regression-models.html#cb406-21" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS2    4217.83      44.84   94.06   &lt;2e-16 ***</span></span>
-<span id="cb406-22"><a href="linear-regression-models.html#cb406-22" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS1    4534.88      45.54   99.59   &lt;2e-16 ***</span></span>
-<span id="cb406-23"><a href="linear-regression-models.html#cb406-23" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS2   4967.20      46.89  105.93   &lt;2e-16 ***</span></span>
-<span id="cb406-24"><a href="linear-regression-models.html#cb406-24" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS1   5072.03      48.21  105.20   &lt;2e-16 ***</span></span>
-<span id="cb406-25"><a href="linear-regression-models.html#cb406-25" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityIF     5419.65      52.14  103.95   &lt;2e-16 ***</span></span>
-<span id="cb406-26"><a href="linear-regression-models.html#cb406-26" aria-hidden="true" tabindex="-1"></a><span class="do">## colorE        -211.68      18.32  -11.56   &lt;2e-16 ***</span></span>
-<span id="cb406-27"><a href="linear-regression-models.html#cb406-27" aria-hidden="true" tabindex="-1"></a><span class="do">## colorF        -303.31      18.51  -16.39   &lt;2e-16 ***</span></span>
-<span id="cb406-28"><a href="linear-regression-models.html#cb406-28" aria-hidden="true" tabindex="-1"></a><span class="do">## colorG        -506.20      18.12  -27.93   &lt;2e-16 ***</span></span>
-<span id="cb406-29"><a href="linear-regression-models.html#cb406-29" aria-hidden="true" tabindex="-1"></a><span class="do">## colorH        -978.70      19.27  -50.78   &lt;2e-16 ***</span></span>
-<span id="cb406-30"><a href="linear-regression-models.html#cb406-30" aria-hidden="true" tabindex="-1"></a><span class="do">## colorI       -1440.30      21.65  -66.54   &lt;2e-16 ***</span></span>
-<span id="cb406-31"><a href="linear-regression-models.html#cb406-31" aria-hidden="true" tabindex="-1"></a><span class="do">## colorJ       -2325.22      26.72  -87.01   &lt;2e-16 ***</span></span>
-<span id="cb406-32"><a href="linear-regression-models.html#cb406-32" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb406-33"><a href="linear-regression-models.html#cb406-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb406-34"><a href="linear-regression-models.html#cb406-34" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb406-35"><a href="linear-regression-models.html#cb406-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1157 on 53921 degrees of freedom</span></span>
-<span id="cb406-36"><a href="linear-regression-models.html#cb406-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9159, Adjusted R-squared:  0.9159 </span></span>
-<span id="cb406-37"><a href="linear-regression-models.html#cb406-37" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 3.264e+04 on 18 and 53921 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb406-12"><a href="linear-regression-models.html#cb406-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value</span></span>
+<span id="cb406-13"><a href="linear-regression-models.html#cb406-13" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -7362.80      51.68 -142.46</span></span>
+<span id="cb406-14"><a href="linear-regression-models.html#cb406-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood        655.77      33.63   19.50</span></span>
+<span id="cb406-15"><a href="linear-regression-models.html#cb406-15" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good   848.72      31.28   27.14</span></span>
+<span id="cb406-16"><a href="linear-regression-models.html#cb406-16" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     869.40      30.93   28.11</span></span>
+<span id="cb406-17"><a href="linear-regression-models.html#cb406-17" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal       998.25      30.66   32.56</span></span>
+<span id="cb406-18"><a href="linear-regression-models.html#cb406-18" aria-hidden="true" tabindex="-1"></a><span class="do">## carat         8886.13      12.03  738.44</span></span>
+<span id="cb406-19"><a href="linear-regression-models.html#cb406-19" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI2    2625.95      44.79   58.63</span></span>
+<span id="cb406-20"><a href="linear-regression-models.html#cb406-20" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI1    3573.69      44.60   80.13</span></span>
+<span id="cb406-21"><a href="linear-regression-models.html#cb406-21" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS2    4217.83      44.84   94.06</span></span>
+<span id="cb406-22"><a href="linear-regression-models.html#cb406-22" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS1    4534.88      45.54   99.59</span></span>
+<span id="cb406-23"><a href="linear-regression-models.html#cb406-23" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS2   4967.20      46.89  105.93</span></span>
+<span id="cb406-24"><a href="linear-regression-models.html#cb406-24" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS1   5072.03      48.21  105.20</span></span>
+<span id="cb406-25"><a href="linear-regression-models.html#cb406-25" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityIF     5419.65      52.14  103.95</span></span>
+<span id="cb406-26"><a href="linear-regression-models.html#cb406-26" aria-hidden="true" tabindex="-1"></a><span class="do">## colorE        -211.68      18.32  -11.56</span></span>
+<span id="cb406-27"><a href="linear-regression-models.html#cb406-27" aria-hidden="true" tabindex="-1"></a><span class="do">## colorF        -303.31      18.51  -16.39</span></span>
+<span id="cb406-28"><a href="linear-regression-models.html#cb406-28" aria-hidden="true" tabindex="-1"></a><span class="do">## colorG        -506.20      18.12  -27.93</span></span>
+<span id="cb406-29"><a href="linear-regression-models.html#cb406-29" aria-hidden="true" tabindex="-1"></a><span class="do">## colorH        -978.70      19.27  -50.78</span></span>
+<span id="cb406-30"><a href="linear-regression-models.html#cb406-30" aria-hidden="true" tabindex="-1"></a><span class="do">## colorI       -1440.30      21.65  -66.54</span></span>
+<span id="cb406-31"><a href="linear-regression-models.html#cb406-31" aria-hidden="true" tabindex="-1"></a><span class="do">## colorJ       -2325.22      26.72  -87.01</span></span>
+<span id="cb406-32"><a href="linear-regression-models.html#cb406-32" aria-hidden="true" tabindex="-1"></a><span class="do">##              Pr(&gt;|t|)    </span></span>
+<span id="cb406-33"><a href="linear-regression-models.html#cb406-33" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)    &lt;2e-16 ***</span></span>
+<span id="cb406-34"><a href="linear-regression-models.html#cb406-34" aria-hidden="true" tabindex="-1"></a><span class="do">## cutGood        &lt;2e-16 ***</span></span>
+<span id="cb406-35"><a href="linear-regression-models.html#cb406-35" aria-hidden="true" tabindex="-1"></a><span class="do">## cutVery Good   &lt;2e-16 ***</span></span>
+<span id="cb406-36"><a href="linear-regression-models.html#cb406-36" aria-hidden="true" tabindex="-1"></a><span class="do">## cutPremium     &lt;2e-16 ***</span></span>
+<span id="cb406-37"><a href="linear-regression-models.html#cb406-37" aria-hidden="true" tabindex="-1"></a><span class="do">## cutIdeal       &lt;2e-16 ***</span></span>
+<span id="cb406-38"><a href="linear-regression-models.html#cb406-38" aria-hidden="true" tabindex="-1"></a><span class="do">## carat          &lt;2e-16 ***</span></span>
+<span id="cb406-39"><a href="linear-regression-models.html#cb406-39" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI2     &lt;2e-16 ***</span></span>
+<span id="cb406-40"><a href="linear-regression-models.html#cb406-40" aria-hidden="true" tabindex="-1"></a><span class="do">## claritySI1     &lt;2e-16 ***</span></span>
+<span id="cb406-41"><a href="linear-regression-models.html#cb406-41" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS2     &lt;2e-16 ***</span></span>
+<span id="cb406-42"><a href="linear-regression-models.html#cb406-42" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVS1     &lt;2e-16 ***</span></span>
+<span id="cb406-43"><a href="linear-regression-models.html#cb406-43" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS2    &lt;2e-16 ***</span></span>
+<span id="cb406-44"><a href="linear-regression-models.html#cb406-44" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityVVS1    &lt;2e-16 ***</span></span>
+<span id="cb406-45"><a href="linear-regression-models.html#cb406-45" aria-hidden="true" tabindex="-1"></a><span class="do">## clarityIF      &lt;2e-16 ***</span></span>
+<span id="cb406-46"><a href="linear-regression-models.html#cb406-46" aria-hidden="true" tabindex="-1"></a><span class="do">## colorE         &lt;2e-16 ***</span></span>
+<span id="cb406-47"><a href="linear-regression-models.html#cb406-47" aria-hidden="true" tabindex="-1"></a><span class="do">## colorF         &lt;2e-16 ***</span></span>
+<span id="cb406-48"><a href="linear-regression-models.html#cb406-48" aria-hidden="true" tabindex="-1"></a><span class="do">## colorG         &lt;2e-16 ***</span></span>
+<span id="cb406-49"><a href="linear-regression-models.html#cb406-49" aria-hidden="true" tabindex="-1"></a><span class="do">## colorH         &lt;2e-16 ***</span></span>
+<span id="cb406-50"><a href="linear-regression-models.html#cb406-50" aria-hidden="true" tabindex="-1"></a><span class="do">## colorI         &lt;2e-16 ***</span></span>
+<span id="cb406-51"><a href="linear-regression-models.html#cb406-51" aria-hidden="true" tabindex="-1"></a><span class="do">## colorJ         &lt;2e-16 ***</span></span>
+<span id="cb406-52"><a href="linear-regression-models.html#cb406-52" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb406-53"><a href="linear-regression-models.html#cb406-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb406-54"><a href="linear-regression-models.html#cb406-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb406-55"><a href="linear-regression-models.html#cb406-55" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb406-56"><a href="linear-regression-models.html#cb406-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1157 on 53921 degrees of freedom</span></span>
+<span id="cb406-57"><a href="linear-regression-models.html#cb406-57" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9159, Adjusted R-squared:  0.9159 </span></span>
+<span id="cb406-58"><a href="linear-regression-models.html#cb406-58" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 3.264e+04 on 18 and 53921 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>Now, in terms of the relative magnitude, all the regression coefficients make sense. Note that the baseline value of <code>color</code> is D (which is the best) so that any other colors should have negative coefficients. For <code>cut</code> and <code>clarity</code>, the baseline values are the worst so that the other variables should have positive coefficients.</p>
 </div>
 <div id="categorical-predictors" class="section level2 hasAnchor" number="10.5">
@@ -755,11 +808,15 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb408-3"><a href="linear-regression-models.html#cb408-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb408-4"><a href="linear-regression-models.html#cb408-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Model 1: y ~ x1</span></span>
 <span id="cb408-5"><a href="linear-regression-models.html#cb408-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2</span></span>
-<span id="cb408-6"><a href="linear-regression-models.html#cb408-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    </span></span>
-<span id="cb408-7"><a href="linear-regression-models.html#cb408-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     98 618.26                                  </span></span>
-<span id="cb408-8"><a href="linear-regression-models.html#cb408-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     97 112.56  1     505.7 435.79 &lt; 2.2e-16 ***</span></span>
-<span id="cb408-9"><a href="linear-regression-models.html#cb408-9" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb408-10"><a href="linear-regression-models.html#cb408-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<span id="cb408-6"><a href="linear-regression-models.html#cb408-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)</span></span>
+<span id="cb408-7"><a href="linear-regression-models.html#cb408-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     98 618.26                              </span></span>
+<span id="cb408-8"><a href="linear-regression-models.html#cb408-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     97 112.56  1     505.7 435.79 &lt; 2.2e-16</span></span>
+<span id="cb408-9"><a href="linear-regression-models.html#cb408-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      </span></span>
+<span id="cb408-10"><a href="linear-regression-models.html#cb408-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    </span></span>
+<span id="cb408-11"><a href="linear-regression-models.html#cb408-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 ***</span></span>
+<span id="cb408-12"><a href="linear-regression-models.html#cb408-12" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb408-13"><a href="linear-regression-models.html#cb408-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb408-14"><a href="linear-regression-models.html#cb408-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p>The difference is statistically significant, implying <code>x2</code> should be necessary.</p>
 <p>Compare <code>m2</code> and <code>m4</code>:</p>
 <div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-models.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m4)</span>
@@ -824,8 +881,10 @@ use <code>lm(y ~ x1 * x2)</code>.</p>
 <span id="cb414-11"><a href="linear-regression-models.html#cb414-11" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 * x2)</span></span>
 <span id="cb414-12"><a href="linear-regression-models.html#cb414-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb414-13"><a href="linear-regression-models.html#cb414-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb414-14"><a href="linear-regression-models.html#cb414-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2  </span></span>
-<span id="cb414-15"><a href="linear-regression-models.html#cb414-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.031        1.966        2.972        3.760</span></span></code></pre></div>
+<span id="cb414-14"><a href="linear-regression-models.html#cb414-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2  </span></span>
+<span id="cb414-15"><a href="linear-regression-models.html#cb414-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.031        1.966        2.972  </span></span>
+<span id="cb414-16"><a href="linear-regression-models.html#cb414-16" aria-hidden="true" tabindex="-1"></a><span class="do">##       x1:x2  </span></span>
+<span id="cb414-17"><a href="linear-regression-models.html#cb414-17" aria-hidden="true" tabindex="-1"></a><span class="do">##       3.760</span></span></code></pre></div>
 <p>To perform the following regression
 <span class="math display">\[\begin{equation*}
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3}  + \beta_4 X_{i1} X_{i2} + \beta_5 X_{i1}X_{i3} + \beta_6 X_{i2} X_{i3} + \beta_7 X_{i1} X_{i2} X_{i3} + \varepsilon_i,
@@ -851,21 +910,31 @@ use <code>lm(y ~ x1 * x2 * x3)</code>.</p>
 <span id="cb415-17"><a href="linear-regression-models.html#cb415-17" aria-hidden="true" tabindex="-1"></a><span class="do">## -2.31655 -0.51032 -0.00288  0.76844  2.01342 </span></span>
 <span id="cb415-18"><a href="linear-regression-models.html#cb415-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb415-19"><a href="linear-regression-models.html#cb415-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb415-20"><a href="linear-regression-models.html#cb415-20" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb415-21"><a href="linear-regression-models.html#cb415-21" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  1.050754   0.098109  10.710   &lt;2e-16 ***</span></span>
-<span id="cb415-22"><a href="linear-regression-models.html#cb415-22" aria-hidden="true" tabindex="-1"></a><span class="do">## x1           1.862611   0.113359  16.431   &lt;2e-16 ***</span></span>
-<span id="cb415-23"><a href="linear-regression-models.html#cb415-23" aria-hidden="true" tabindex="-1"></a><span class="do">## x2           2.942130   0.104931  28.039   &lt;2e-16 ***</span></span>
-<span id="cb415-24"><a href="linear-regression-models.html#cb415-24" aria-hidden="true" tabindex="-1"></a><span class="do">## x3           0.034585   0.096500   0.358   0.7209    </span></span>
-<span id="cb415-25"><a href="linear-regression-models.html#cb415-25" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2        3.636972   0.143910  25.272   &lt;2e-16 ***</span></span>
-<span id="cb415-26"><a href="linear-regression-models.html#cb415-26" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x3       -0.246646   0.118356  -2.084   0.0399 *  </span></span>
-<span id="cb415-27"><a href="linear-regression-models.html#cb415-27" aria-hidden="true" tabindex="-1"></a><span class="do">## x2:x3        0.002958   0.113553   0.026   0.9793    </span></span>
-<span id="cb415-28"><a href="linear-regression-models.html#cb415-28" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2:x3     1.873330   0.140592  13.325   &lt;2e-16 ***</span></span>
-<span id="cb415-29"><a href="linear-regression-models.html#cb415-29" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb415-30"><a href="linear-regression-models.html#cb415-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb415-31"><a href="linear-regression-models.html#cb415-31" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb415-32"><a href="linear-regression-models.html#cb415-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 0.9552 on 92 degrees of freedom</span></span>
-<span id="cb415-33"><a href="linear-regression-models.html#cb415-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9625, Adjusted R-squared:  0.9597 </span></span>
-<span id="cb415-34"><a href="linear-regression-models.html#cb415-34" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 337.6 on 7 and 92 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb415-20"><a href="linear-regression-models.html#cb415-20" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value</span></span>
+<span id="cb415-21"><a href="linear-regression-models.html#cb415-21" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  1.050754   0.098109  10.710</span></span>
+<span id="cb415-22"><a href="linear-regression-models.html#cb415-22" aria-hidden="true" tabindex="-1"></a><span class="do">## x1           1.862611   0.113359  16.431</span></span>
+<span id="cb415-23"><a href="linear-regression-models.html#cb415-23" aria-hidden="true" tabindex="-1"></a><span class="do">## x2           2.942130   0.104931  28.039</span></span>
+<span id="cb415-24"><a href="linear-regression-models.html#cb415-24" aria-hidden="true" tabindex="-1"></a><span class="do">## x3           0.034585   0.096500   0.358</span></span>
+<span id="cb415-25"><a href="linear-regression-models.html#cb415-25" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2        3.636972   0.143910  25.272</span></span>
+<span id="cb415-26"><a href="linear-regression-models.html#cb415-26" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x3       -0.246646   0.118356  -2.084</span></span>
+<span id="cb415-27"><a href="linear-regression-models.html#cb415-27" aria-hidden="true" tabindex="-1"></a><span class="do">## x2:x3        0.002958   0.113553   0.026</span></span>
+<span id="cb415-28"><a href="linear-regression-models.html#cb415-28" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2:x3     1.873330   0.140592  13.325</span></span>
+<span id="cb415-29"><a href="linear-regression-models.html#cb415-29" aria-hidden="true" tabindex="-1"></a><span class="do">##             Pr(&gt;|t|)    </span></span>
+<span id="cb415-30"><a href="linear-regression-models.html#cb415-30" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   &lt;2e-16 ***</span></span>
+<span id="cb415-31"><a href="linear-regression-models.html#cb415-31" aria-hidden="true" tabindex="-1"></a><span class="do">## x1            &lt;2e-16 ***</span></span>
+<span id="cb415-32"><a href="linear-regression-models.html#cb415-32" aria-hidden="true" tabindex="-1"></a><span class="do">## x2            &lt;2e-16 ***</span></span>
+<span id="cb415-33"><a href="linear-regression-models.html#cb415-33" aria-hidden="true" tabindex="-1"></a><span class="do">## x3            0.7209    </span></span>
+<span id="cb415-34"><a href="linear-regression-models.html#cb415-34" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2         &lt;2e-16 ***</span></span>
+<span id="cb415-35"><a href="linear-regression-models.html#cb415-35" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x3         0.0399 *  </span></span>
+<span id="cb415-36"><a href="linear-regression-models.html#cb415-36" aria-hidden="true" tabindex="-1"></a><span class="do">## x2:x3         0.9793    </span></span>
+<span id="cb415-37"><a href="linear-regression-models.html#cb415-37" aria-hidden="true" tabindex="-1"></a><span class="do">## x1:x2:x3      &lt;2e-16 ***</span></span>
+<span id="cb415-38"><a href="linear-regression-models.html#cb415-38" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb415-39"><a href="linear-regression-models.html#cb415-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  </span></span>
+<span id="cb415-40"><a href="linear-regression-models.html#cb415-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb415-41"><a href="linear-regression-models.html#cb415-41" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb415-42"><a href="linear-regression-models.html#cb415-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 0.9552 on 92 degrees of freedom</span></span>
+<span id="cb415-43"><a href="linear-regression-models.html#cb415-43" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9625, Adjusted R-squared:  0.9597 </span></span>
+<span id="cb415-44"><a href="linear-regression-models.html#cb415-44" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 337.6 on 7 and 92 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>We notice that the coefficients of <code>x3</code> and <code>x2:x3</code> are not significantly different from <span class="math inline">\(0\)</span>. This makes sense because our simulation model does not include these two predictors. However, we see that <code>x1:x3</code> is significantly different from <span class="math inline">\(0\)</span> (at the <span class="math inline">\(0.05\)</span> level) even though we did not include this predictor in the simulation model. This is because we will commit Type I error.</p>
 <p>We can also include a specific interaction by using <code>:</code> instead of <code>*</code>. For example, to fit
 <span class="math display">\[\begin{equation*}
@@ -884,8 +953,10 @@ we can use <code>lm(y ~ x1 + x2 + x1:x2 + x1:x2:x3)</code>.</p>
 <span id="cb416-9"><a href="linear-regression-models.html#cb416-9" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + x2 + x1:x2 + x1:x2:x3)</span></span>
 <span id="cb416-10"><a href="linear-regression-models.html#cb416-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb416-11"><a href="linear-regression-models.html#cb416-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb416-12"><a href="linear-regression-models.html#cb416-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2     x1:x2:x3  </span></span>
-<span id="cb416-13"><a href="linear-regression-models.html#cb416-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.061        1.853        2.981        3.598        1.967</span></span></code></pre></div>
+<span id="cb416-12"><a href="linear-regression-models.html#cb416-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2  </span></span>
+<span id="cb416-13"><a href="linear-regression-models.html#cb416-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.061        1.853        2.981  </span></span>
+<span id="cb416-14"><a href="linear-regression-models.html#cb416-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       x1:x2     x1:x2:x3  </span></span>
+<span id="cb416-15"><a href="linear-regression-models.html#cb416-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       3.598        1.967</span></span></code></pre></div>
 </div>
 <div id="variable-transformation" class="section level2 hasAnchor" number="10.9">
 <h2><span class="header-section-number">10.9</span> Variable Transformation<a href="linear-regression-models.html#variable-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -934,10 +1005,14 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 <span id="cb419-9"><a href="linear-regression-models.html#cb419-9" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
 <span id="cb419-10"><a href="linear-regression-models.html#cb419-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb419-11"><a href="linear-regression-models.html#cb419-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
-<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976  </span></span>
-<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                       x2  </span></span>
-<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
+<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  </span></span>
+<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044  </span></span>
+<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">## poly(x1, 2, raw = TRUE)1  </span></span>
+<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.025  </span></span>
+<span id="cb419-16"><a href="linear-regression-models.html#cb419-16" aria-hidden="true" tabindex="-1"></a><span class="do">## poly(x1, 2, raw = TRUE)2  </span></span>
+<span id="cb419-17"><a href="linear-regression-models.html#cb419-17" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.976  </span></span>
+<span id="cb419-18"><a href="linear-regression-models.html#cb419-18" aria-hidden="true" tabindex="-1"></a><span class="do">##                       x2  </span></span>
+<span id="cb419-19"><a href="linear-regression-models.html#cb419-19" aria-hidden="true" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
 <p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
 <p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="linear-regression-models.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -951,8 +1026,10 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 <span id="cb420-9"><a href="linear-regression-models.html#cb420-9" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^2) + x2)</span></span>
 <span id="cb420-10"><a href="linear-regression-models.html#cb420-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb420-11"><a href="linear-regression-models.html#cb420-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb420-12"><a href="linear-regression-models.html#cb420-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)           x2  </span></span>
-<span id="cb420-13"><a href="linear-regression-models.html#cb420-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976       -2.058</span></span></code></pre></div>
+<span id="cb420-12"><a href="linear-regression-models.html#cb420-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)  </span></span>
+<span id="cb420-13"><a href="linear-regression-models.html#cb420-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976  </span></span>
+<span id="cb420-14"><a href="linear-regression-models.html#cb420-14" aria-hidden="true" tabindex="-1"></a><span class="do">##          x2  </span></span>
+<span id="cb420-15"><a href="linear-regression-models.html#cb420-15" aria-hidden="true" tabindex="-1"></a><span class="do">##      -2.058</span></span></code></pre></div>
 <p>Note that <code>lm(y ~ x1 + x1^2 + x2)</code> does not do what you think.</p>
 <p>If you want to perform
 <span class="math display">\[\begin{equation*}
@@ -1042,8 +1119,10 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb422-56"><a href="linear-regression-models.html#cb422-56" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb422-57"><a href="linear-regression-models.html#cb422-57" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb422-58"><a href="linear-regression-models.html#cb422-58" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph          svi  </span></span>
-<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469       0.2960</span></span></code></pre></div>
+<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight  </span></span>
+<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520  </span></span>
+<span id="cb422-61"><a href="linear-regression-models.html#cb422-61" aria-hidden="true" tabindex="-1"></a><span class="do">##         age         lbph          svi  </span></span>
+<span id="cb422-62"><a href="linear-regression-models.html#cb422-62" aria-hidden="true" tabindex="-1"></a><span class="do">##     -0.1224       0.1469       0.2960</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>From the full model, removing <code>gleason</code> results in a model with the smallest AIC. Therefore, the algorithm first removes <code>gleason</code>.</p></li>
 <li><p>Next, removing <code>lcp</code> results in a model with the smallest AIC. Therefore, <code>lcp</code> is removed in the next step.</p></li>
@@ -1127,8 +1206,10 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb423-74"><a href="linear-regression-models.html#cb423-74" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb423-75"><a href="linear-regression-models.html#cb423-75" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb423-76"><a href="linear-regression-models.html#cb423-76" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph          age  </span></span>
-<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469      -0.1224</span></span></code></pre></div>
+<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight  </span></span>
+<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520  </span></span>
+<span id="cb423-79"><a href="linear-regression-models.html#cb423-79" aria-hidden="true" tabindex="-1"></a><span class="do">##         svi         lbph          age  </span></span>
+<span id="cb423-80"><a href="linear-regression-models.html#cb423-80" aria-hidden="true" tabindex="-1"></a><span class="do">##      0.2960       0.1469      -0.1224</span></span></code></pre></div>
 <p>Remark: there is also an option <code>direction = "both"</code>.</p>
 </div>
 <div id="best-subset" class="section level2 hasAnchor" number="10.12">
@@ -1146,11 +1227,16 @@ where <span class="math inline">\(k\)</span> is the number of parameters, <span 
 <span id="cb424-5"><a href="linear-regression-models.html#cb424-5" aria-hidden="true" tabindex="-1"></a><span class="do">## BIC</span></span>
 <span id="cb424-6"><a href="linear-regression-models.html#cb424-6" aria-hidden="true" tabindex="-1"></a><span class="do">## BICq equivalent for q in (0.0561398731346802, 0.759703855996616)</span></span>
 <span id="cb424-7"><a href="linear-regression-models.html#cb424-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Best Model:</span></span>
-<span id="cb424-8"><a href="linear-regression-models.html#cb424-8" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
-<span id="cb424-9"><a href="linear-regression-models.html#cb424-9" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 2.4783869 0.07184863 34.494560 8.637858e-55</span></span>
-<span id="cb424-10"><a href="linear-regression-models.html#cb424-10" aria-hidden="true" tabindex="-1"></a><span class="do">## lcavol      0.6197821 0.08823567  7.024168 3.493564e-10</span></span>
-<span id="cb424-11"><a href="linear-regression-models.html#cb424-11" aria-hidden="true" tabindex="-1"></a><span class="do">## lweight     0.2835097 0.07524408  3.767867 2.887126e-04</span></span>
-<span id="cb424-12"><a href="linear-regression-models.html#cb424-12" aria-hidden="true" tabindex="-1"></a><span class="do">## svi         0.2755825 0.08573414  3.214385 1.797619e-03</span></span></code></pre></div>
+<span id="cb424-8"><a href="linear-regression-models.html#cb424-8" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error   t value</span></span>
+<span id="cb424-9"><a href="linear-regression-models.html#cb424-9" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 2.4783869 0.07184863 34.494560</span></span>
+<span id="cb424-10"><a href="linear-regression-models.html#cb424-10" aria-hidden="true" tabindex="-1"></a><span class="do">## lcavol      0.6197821 0.08823567  7.024168</span></span>
+<span id="cb424-11"><a href="linear-regression-models.html#cb424-11" aria-hidden="true" tabindex="-1"></a><span class="do">## lweight     0.2835097 0.07524408  3.767867</span></span>
+<span id="cb424-12"><a href="linear-regression-models.html#cb424-12" aria-hidden="true" tabindex="-1"></a><span class="do">## svi         0.2755825 0.08573414  3.214385</span></span>
+<span id="cb424-13"><a href="linear-regression-models.html#cb424-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                 Pr(&gt;|t|)</span></span>
+<span id="cb424-14"><a href="linear-regression-models.html#cb424-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 8.637858e-55</span></span>
+<span id="cb424-15"><a href="linear-regression-models.html#cb424-15" aria-hidden="true" tabindex="-1"></a><span class="do">## lcavol      3.493564e-10</span></span>
+<span id="cb424-16"><a href="linear-regression-models.html#cb424-16" aria-hidden="true" tabindex="-1"></a><span class="do">## lweight     2.887126e-04</span></span>
+<span id="cb424-17"><a href="linear-regression-models.html#cb424-17" aria-hidden="true" tabindex="-1"></a><span class="do">## svi         1.797619e-03</span></span></code></pre></div>
 
 </div>
 </div>

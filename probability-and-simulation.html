@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -435,8 +444,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-5"><a href="probability-and-simulation.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="probability-and-simulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  2.395465  1.555400  4.342523  2.157440 -1.099364  4.058365  2.736791 -5.685586</span></span>
-<span id="cb59-3"><a href="probability-and-simulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9]  2.599648 -3.669649</span></span></code></pre></div>
+<span id="cb59-2"><a href="probability-and-simulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -4.7744634  1.9207553 -1.0134657  5.9126999</span></span>
+<span id="cb59-3"><a href="probability-and-simulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5]  8.7401226  5.2648328  7.3135463  5.7467028</span></span>
+<span id="cb59-4"><a href="probability-and-simulation.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9]  3.5569237 -0.7496653</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability-and-simulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb60-2"><a href="probability-and-simulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.644854</span></span></code></pre></div>
@@ -575,7 +585,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-8"><a href="probability-and-simulation.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span>
 <span id="cb63-9"><a href="probability-and-simulation.html#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-10"><a href="probability-and-simulation.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7 8 6 6</span></span>
+<span id="cb63-11"><a href="probability-and-simulation.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6 8 6 9</span></span>
 <span id="cb63-12"><a href="probability-and-simulation.html#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-13"><a href="probability-and-simulation.html#cb63-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
 <span id="cb63-14"><a href="probability-and-simulation.html#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -632,7 +642,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="probability-and-simulation.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb70-2"><a href="probability-and-simulation.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 1 0 0 0 1 1 1 0 0 0</span></span></code></pre></div>
+<span id="cb70-3"><a href="probability-and-simulation.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 0 0 0 0 0 0 1 1 1 1</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>
@@ -662,11 +672,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability-and-simulation.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># every time you run the first two lines, you get the same result</span></span>
 <span id="cb74-2"><a href="probability-and-simulation.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb74-3"><a href="probability-and-simulation.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>) </span>
-<span id="cb74-4"><a href="probability-and-simulation.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2655087 0.3721239 0.5728534 0.9082078 0.2016819</span></span>
-<span id="cb74-5"><a href="probability-and-simulation.html#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-6"><a href="probability-and-simulation.html#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="co"># every time you run the following code, you get a different result</span></span>
-<span id="cb74-7"><a href="probability-and-simulation.html#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>)</span>
-<span id="cb74-8"><a href="probability-and-simulation.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.89838968 0.94467527 0.66079779 0.62911404 0.06178627</span></span></code></pre></div>
+<span id="cb74-4"><a href="probability-and-simulation.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2655087 0.3721239 0.5728534 0.9082078</span></span>
+<span id="cb74-5"><a href="probability-and-simulation.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] 0.2016819</span></span>
+<span id="cb74-6"><a href="probability-and-simulation.html#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="probability-and-simulation.html#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="co"># every time you run the following code, you get a different result</span></span>
+<span id="cb74-8"><a href="probability-and-simulation.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>)</span>
+<span id="cb74-9"><a href="probability-and-simulation.html#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.89838968 0.94467527 0.66079779 0.62911404</span></span>
+<span id="cb74-10"><a href="probability-and-simulation.html#cb74-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] 0.06178627</span></span></code></pre></div>
 <p><strong>Sampling from discrete distributions</strong></p>
 <p>Usage of <code>sample</code>:</p>
 <p><code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
@@ -682,7 +694,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb75-9"><a href="probability-and-simulation.html#cb75-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-10"><a href="probability-and-simulation.html#cb75-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate 20 random variables from a discrete distribution</span></span>
 <span id="cb75-11"><a href="probability-and-simulation.html#cb75-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), <span class="at">replace =</span> T)</span>
-<span id="cb75-12"><a href="probability-and-simulation.html#cb75-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0  1  1  0 -1  0</span></span></code></pre></div>
+<span id="cb75-12"><a href="probability-and-simulation.html#cb75-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -1  1  1 -1  0  0  1  1  0 -1  0  0  0  0  0</span></span>
+<span id="cb75-13"><a href="probability-and-simulation.html#cb75-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [16]  1  1  0 -1  0</span></span></code></pre></div>
 <p><strong>Example</strong>: Suppose we have a fair coin and we play a game. We flip the coin. We win $1 if the result is head and lose $1 if the result is tail. You play the game 100 times. You are interested in the cumulative profit.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="probability-and-simulation.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># R actually generates pseudo random numbers</span></span>
 <span id="cb76-2"><a href="probability-and-simulation.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="co"># setting the seed ensure that each time you will get the same result</span></span>

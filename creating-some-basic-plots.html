@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -403,13 +412,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Scatter Plot<a href="creating-some-basic-plots.html#scatter-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take a look at the <code>mtcars</code> dataset. This dataset comes with base R.</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="creating-some-basic-plots.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars) <span class="co"># this is a data frame</span></span>
-<span id="cb220-2"><a href="creating-some-basic-plots.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
-<span id="cb220-3"><a href="creating-some-basic-plots.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
-<span id="cb220-4"><a href="creating-some-basic-plots.html#cb220-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
-<span id="cb220-5"><a href="creating-some-basic-plots.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
-<span id="cb220-6"><a href="creating-some-basic-plots.html#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
-<span id="cb220-7"><a href="creating-some-basic-plots.html#cb220-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
-<span id="cb220-8"><a href="creating-some-basic-plots.html#cb220-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code></pre></div>
+<span id="cb220-2"><a href="creating-some-basic-plots.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt</span></span>
+<span id="cb220-3"><a href="creating-some-basic-plots.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620</span></span>
+<span id="cb220-4"><a href="creating-some-basic-plots.html#cb220-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875</span></span>
+<span id="cb220-5"><a href="creating-some-basic-plots.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320</span></span>
+<span id="cb220-6"><a href="creating-some-basic-plots.html#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215</span></span>
+<span id="cb220-7"><a href="creating-some-basic-plots.html#cb220-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440</span></span>
+<span id="cb220-8"><a href="creating-some-basic-plots.html#cb220-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460</span></span>
+<span id="cb220-9"><a href="creating-some-basic-plots.html#cb220-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                    qsec vs am gear carb</span></span>
+<span id="cb220-10"><a href="creating-some-basic-plots.html#cb220-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4         16.46  0  1    4    4</span></span>
+<span id="cb220-11"><a href="creating-some-basic-plots.html#cb220-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     17.02  0  1    4    4</span></span>
+<span id="cb220-12"><a href="creating-some-basic-plots.html#cb220-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710        18.61  1  1    4    1</span></span>
+<span id="cb220-13"><a href="creating-some-basic-plots.html#cb220-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive    19.44  1  0    3    1</span></span>
+<span id="cb220-14"><a href="creating-some-basic-plots.html#cb220-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout 17.02  0  0    3    2</span></span>
+<span id="cb220-15"><a href="creating-some-basic-plots.html#cb220-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant           20.22  1  0    3    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="creating-some-basic-plots.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars) <span class="co"># display the structure of the data frame</span></span>
 <span id="cb221-2"><a href="creating-some-basic-plots.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    32 obs. of  11 variables:</span></span>
 <span id="cb221-3"><a href="creating-some-basic-plots.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>

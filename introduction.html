@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -439,22 +448,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Graphs are powerful to illustrate features of the data. You will learn how to create some basic plots as well as using the package <code>ggplot2</code> to create more elegant plots.</p>
 <p>Consider a dataset about cars.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;ggplot2&#39; was built under R version 4.2.2</span></span>
-<span id="cb1-3"><a href="introduction.html#cb1-3" aria-hidden="true" tabindex="-1"></a>mpg</span>
-<span id="cb1-4"><a href="introduction.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 234 × 11</span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class</span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 audi         a4           1.8  1999     4 auto(l5)   f        18    29 p     comp…</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 audi         a4           1.8  1999     4 manual(m5) f        21    29 p     comp…</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 audi         a4           2    2008     4 manual(m6) f        20    31 p     comp…</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 audi         a4           2    2008     4 auto(av)   f        21    30 p     comp…</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 audi         a4           2.8  1999     6 auto(l5)   f        16    26 p     comp…</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 audi         a4           2.8  1999     6 manual(m5) f        18    26 p     comp…</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 audi         a4           3.1  2008     6 auto(av)   f        18    27 p     comp…</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 audi         a4 quattro   1.8  1999     4 manual(m5) 4        18    26 p     comp…</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 audi         a4 quattro   1.8  1999     4 auto(l5)   4        16    25 p     comp…</span></span>
-<span id="cb1-16"><a href="introduction.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 audi         a4 quattro   2    2008     4 manual(m6) 4        20    28 p     comp…</span></span>
-<span id="cb1-17"><a href="introduction.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 224 more rows</span></span></code></pre></div>
+<span id="cb1-2"><a href="introduction.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;ggplot2&#39; was built under R</span></span>
+<span id="cb1-3"><a href="introduction.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## version 4.2.2</span></span>
+<span id="cb1-4"><a href="introduction.html#cb1-4" aria-hidden="true" tabindex="-1"></a>mpg</span>
+<span id="cb1-5"><a href="introduction.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 234 × 11</span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    manufact…¹ model displ  year   cyl trans drv  </span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 audi       a4      1.8  1999     4 auto… f    </span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 audi       a4      1.8  1999     4 manu… f    </span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 audi       a4      2    2008     4 manu… f    </span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 audi       a4      2    2008     4 auto… f    </span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 audi       a4      2.8  1999     6 auto… f    </span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 audi       a4      2.8  1999     6 manu… f    </span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 audi       a4      3.1  2008     6 auto… f    </span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 audi       a4 q…   1.8  1999     4 manu… 4    </span></span>
+<span id="cb1-16"><a href="introduction.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 audi       a4 q…   1.8  1999     4 auto… 4    </span></span>
+<span id="cb1-17"><a href="introduction.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 audi       a4 q…   2    2008     4 manu… 4    </span></span>
+<span id="cb1-18"><a href="introduction.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 224 more rows, 4 more variables:</span></span>
+<span id="cb1-19"><a href="introduction.html#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   cty &lt;int&gt;, hwy &lt;int&gt;, fl &lt;chr&gt;, class &lt;chr&gt;,</span></span>
+<span id="cb1-20"><a href="introduction.html#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   and abbreviated variable name ¹​manufacturer</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
@@ -585,7 +597,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-4"><a href="introduction.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.1 1.2 2.0 4.0 6.0</span></span>
 <span id="cb9-5"><a href="introduction.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="introduction.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(y, subject_name) <span class="co"># 2, 4, 6 become characters &quot;2&quot;, &quot;4&quot;, &quot;6&quot;</span></span>
-<span id="cb9-7"><a href="introduction.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;2&quot;     &quot;4&quot;     &quot;6&quot;     &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span></code></pre></div>
+<span id="cb9-7"><a href="introduction.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;2&quot;     &quot;4&quot;     &quot;6&quot;     &quot;John&quot;  &quot;Jane&quot; </span></span>
+<span id="cb9-8"><a href="introduction.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [6] &quot;Steve&quot;</span></span></code></pre></div>
 <p><strong>Assessing elements in the vectors</strong></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction.html#cb10-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
 <span id="cb10-2"><a href="introduction.html#cb10-2" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">2</span>] <span class="co"># second element</span></span>
@@ -881,47 +894,62 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb25-4"><a href="introduction.html#cb25-4" aria-hidden="true" tabindex="-1"></a>pt_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(subject_name, temperature, flu_status, gender, blood)</span>
 <span id="cb25-5"><a href="introduction.html#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-6"><a href="introduction.html#cb25-6" aria-hidden="true" tabindex="-1"></a>pt_data</span>
-<span id="cb25-7"><a href="introduction.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender blood</span></span>
-<span id="cb25-8"><a href="introduction.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE     O</span></span>
-<span id="cb25-9"><a href="introduction.html#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE    AB</span></span>
-<span id="cb25-10"><a href="introduction.html#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE     A</span></span></code></pre></div>
+<span id="cb25-7"><a href="introduction.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender</span></span>
+<span id="cb25-8"><a href="introduction.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE</span></span>
+<span id="cb25-9"><a href="introduction.html#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE</span></span>
+<span id="cb25-10"><a href="introduction.html#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE</span></span>
+<span id="cb25-11"><a href="introduction.html#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   blood</span></span>
+<span id="cb25-12"><a href="introduction.html#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     O</span></span>
+<span id="cb25-13"><a href="introduction.html#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    AB</span></span>
+<span id="cb25-14"><a href="introduction.html#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     A</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(pt_data)</span>
-<span id="cb26-2"><a href="introduction.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;   &quot;gender&quot;       &quot;blood&quot;</span></span>
-<span id="cb26-3"><a href="introduction.html#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="introduction.html#cb26-4" aria-hidden="true" tabindex="-1"></a>pt_data<span class="sc">$</span>subject_name</span>
-<span id="cb26-5"><a href="introduction.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
-<span id="cb26-6"><a href="introduction.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="introduction.html#cb26-7" aria-hidden="true" tabindex="-1"></a>pt_data[<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
-<span id="cb26-8"><a href="introduction.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   temperature flu_status</span></span>
-<span id="cb26-9"><a href="introduction.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        98.1      FALSE</span></span>
-<span id="cb26-10"><a href="introduction.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        98.6      FALSE</span></span>
-<span id="cb26-11"><a href="introduction.html#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       101.4       TRUE</span></span>
-<span id="cb26-12"><a href="introduction.html#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="introduction.html#cb26-13" aria-hidden="true" tabindex="-1"></a>pt_data[<span class="dv">1</span>, ] <span class="co"># like a matrix</span></span>
-<span id="cb26-14"><a href="introduction.html#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender blood</span></span>
-<span id="cb26-15"><a href="introduction.html#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE     O</span></span>
-<span id="cb26-16"><a href="introduction.html#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-17"><a href="introduction.html#cb26-17" aria-hidden="true" tabindex="-1"></a>pt_data[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] </span>
-<span id="cb26-18"><a href="introduction.html#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   temperature flu_status</span></span>
-<span id="cb26-19"><a href="introduction.html#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        98.1      FALSE</span></span>
-<span id="cb26-20"><a href="introduction.html#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        98.6      FALSE</span></span>
-<span id="cb26-21"><a href="introduction.html#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       101.4       TRUE</span></span></code></pre></div>
+<span id="cb26-2"><a href="introduction.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subject_name&quot; &quot;temperature&quot;  &quot;flu_status&quot;  </span></span>
+<span id="cb26-3"><a href="introduction.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [4] &quot;gender&quot;       &quot;blood&quot;</span></span>
+<span id="cb26-4"><a href="introduction.html#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="introduction.html#cb26-5" aria-hidden="true" tabindex="-1"></a>pt_data<span class="sc">$</span>subject_name</span>
+<span id="cb26-6"><a href="introduction.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;John&quot;  &quot;Jane&quot;  &quot;Steve&quot;</span></span>
+<span id="cb26-7"><a href="introduction.html#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="introduction.html#cb26-8" aria-hidden="true" tabindex="-1"></a>pt_data[<span class="fu">c</span>(<span class="st">&quot;temperature&quot;</span>, <span class="st">&quot;flu_status&quot;</span>)]</span>
+<span id="cb26-9"><a href="introduction.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   temperature flu_status</span></span>
+<span id="cb26-10"><a href="introduction.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        98.1      FALSE</span></span>
+<span id="cb26-11"><a href="introduction.html#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        98.6      FALSE</span></span>
+<span id="cb26-12"><a href="introduction.html#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       101.4       TRUE</span></span>
+<span id="cb26-13"><a href="introduction.html#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="introduction.html#cb26-14" aria-hidden="true" tabindex="-1"></a>pt_data[<span class="dv">1</span>, ] <span class="co"># like a matrix</span></span>
+<span id="cb26-15"><a href="introduction.html#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender</span></span>
+<span id="cb26-16"><a href="introduction.html#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE</span></span>
+<span id="cb26-17"><a href="introduction.html#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   blood</span></span>
+<span id="cb26-18"><a href="introduction.html#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     O</span></span>
+<span id="cb26-19"><a href="introduction.html#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="introduction.html#cb26-20" aria-hidden="true" tabindex="-1"></a>pt_data[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] </span>
+<span id="cb26-21"><a href="introduction.html#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   temperature flu_status</span></span>
+<span id="cb26-22"><a href="introduction.html#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        98.1      FALSE</span></span>
+<span id="cb26-23"><a href="introduction.html#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        98.6      FALSE</span></span>
+<span id="cb26-24"><a href="introduction.html#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       101.4       TRUE</span></span></code></pre></div>
 <p>Create a new column</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction.html#cb27-1" aria-hidden="true" tabindex="-1"></a>pt_data<span class="sc">$</span>temp_c <span class="ot">&lt;-</span> (pt_data<span class="sc">$</span>temperature <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span></span>
 <span id="cb27-2"><a href="introduction.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="introduction.html#cb27-3" aria-hidden="true" tabindex="-1"></a>pt_data</span>
-<span id="cb27-4"><a href="introduction.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender blood   temp_c</span></span>
-<span id="cb27-5"><a href="introduction.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE     O 36.72222</span></span>
-<span id="cb27-6"><a href="introduction.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000</span></span>
-<span id="cb27-7"><a href="introduction.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE     A 38.55556</span></span>
-<span id="cb27-8"><a href="introduction.html#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="introduction.html#cb27-9" aria-hidden="true" tabindex="-1"></a>pt_data<span class="sc">$</span>fever <span class="ot">&lt;-</span> (pt_data<span class="sc">$</span>temp_c <span class="sc">&gt;</span> <span class="fl">37.6</span>)</span>
-<span id="cb27-10"><a href="introduction.html#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="introduction.html#cb27-11" aria-hidden="true" tabindex="-1"></a>pt_data</span>
-<span id="cb27-12"><a href="introduction.html#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender blood   temp_c fever</span></span>
-<span id="cb27-13"><a href="introduction.html#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE     O 36.72222 FALSE</span></span>
-<span id="cb27-14"><a href="introduction.html#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE    AB 37.00000 FALSE</span></span>
-<span id="cb27-15"><a href="introduction.html#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE     A 38.55556  TRUE</span></span></code></pre></div>
+<span id="cb27-4"><a href="introduction.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender</span></span>
+<span id="cb27-5"><a href="introduction.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE</span></span>
+<span id="cb27-6"><a href="introduction.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE</span></span>
+<span id="cb27-7"><a href="introduction.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE</span></span>
+<span id="cb27-8"><a href="introduction.html#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   blood   temp_c</span></span>
+<span id="cb27-9"><a href="introduction.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     O 36.72222</span></span>
+<span id="cb27-10"><a href="introduction.html#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    AB 37.00000</span></span>
+<span id="cb27-11"><a href="introduction.html#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     A 38.55556</span></span>
+<span id="cb27-12"><a href="introduction.html#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="introduction.html#cb27-13" aria-hidden="true" tabindex="-1"></a>pt_data<span class="sc">$</span>fever <span class="ot">&lt;-</span> (pt_data<span class="sc">$</span>temp_c <span class="sc">&gt;</span> <span class="fl">37.6</span>)</span>
+<span id="cb27-14"><a href="introduction.html#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="introduction.html#cb27-15" aria-hidden="true" tabindex="-1"></a>pt_data</span>
+<span id="cb27-16"><a href="introduction.html#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   subject_name temperature flu_status gender</span></span>
+<span id="cb27-17"><a href="introduction.html#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         John        98.1      FALSE   MALE</span></span>
+<span id="cb27-18"><a href="introduction.html#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         Jane        98.6      FALSE FEMALE</span></span>
+<span id="cb27-19"><a href="introduction.html#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Steve       101.4       TRUE   MALE</span></span>
+<span id="cb27-20"><a href="introduction.html#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="do">##   blood   temp_c fever</span></span>
+<span id="cb27-21"><a href="introduction.html#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     O 36.72222 FALSE</span></span>
+<span id="cb27-22"><a href="introduction.html#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    AB 37.00000 FALSE</span></span>
+<span id="cb27-23"><a href="introduction.html#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     A 38.55556  TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div id="operators" class="section level2 hasAnchor" number="1.6">
@@ -1079,16 +1107,19 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb34-5"><a href="introduction.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE FALSE  TRUE</span></span>
 <span id="cb34-6"><a href="introduction.html#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-7"><a href="introduction.html#cb34-7" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> y</span>
-<span id="cb34-8"><a href="introduction.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-9"><a href="introduction.html#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="introduction.html#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-11"><a href="introduction.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
-<span id="cb34-12"><a href="introduction.html#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="introduction.html#cb34-13" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb34-8"><a href="introduction.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in</span></span>
+<span id="cb34-9"><a href="introduction.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="do">## coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb34-10"><a href="introduction.html#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="introduction.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in</span></span>
+<span id="cb34-12"><a href="introduction.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="do">## coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb34-13"><a href="introduction.html#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
 <span id="cb34-14"><a href="introduction.html#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-15"><a href="introduction.html#cb34-15" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
-<span id="cb34-16"><a href="introduction.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-17"><a href="introduction.html#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb34-15"><a href="introduction.html#cb34-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb34-16"><a href="introduction.html#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="introduction.html#cb34-17" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
+<span id="cb34-18"><a href="introduction.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; z: &#39;length(x) = 3 &gt; 1&#39; in</span></span>
+<span id="cb34-19"><a href="introduction.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="do">## coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb34-20"><a href="introduction.html#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><code>|</code> and <code>||</code> indicate logical OR. The shorter form performs elementwise comparisons. The longer form examine only the first element of each vector.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction.html#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb35-2"><a href="introduction.html#cb35-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
@@ -1097,14 +1128,16 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb35-5"><a href="introduction.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  TRUE FALSE  TRUE</span></span>
 <span id="cb35-6"><a href="introduction.html#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-7"><a href="introduction.html#cb35-7" aria-hidden="true" tabindex="-1"></a>x <span class="sc">||</span> y</span>
-<span id="cb35-8"><a href="introduction.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x || y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-9"><a href="introduction.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
-<span id="cb35-10"><a href="introduction.html#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="introduction.html#cb35-11" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb35-12"><a href="introduction.html#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="introduction.html#cb35-13" aria-hidden="true" tabindex="-1"></a>x <span class="sc">||</span> z</span>
-<span id="cb35-14"><a href="introduction.html#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x || z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-15"><a href="introduction.html#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb35-8"><a href="introduction.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x || y: &#39;length(x) = 3 &gt; 1&#39; in</span></span>
+<span id="cb35-9"><a href="introduction.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="do">## coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb35-10"><a href="introduction.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb35-11"><a href="introduction.html#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="introduction.html#cb35-12" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb35-13"><a href="introduction.html#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="introduction.html#cb35-14" aria-hidden="true" tabindex="-1"></a>x <span class="sc">||</span> z</span>
+<span id="cb35-15"><a href="introduction.html#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in x || z: &#39;length(x) = 3 &gt; 1&#39; in</span></span>
+<span id="cb35-16"><a href="introduction.html#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="do">## coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb35-17"><a href="introduction.html#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><strong>Assignment</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># these assignments are the same, it is recommended to use &lt;-</span></span>
 <span id="cb36-2"><a href="introduction.html#cb36-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
@@ -1123,23 +1156,24 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb37-2"><a href="introduction.html#cb37-2" aria-hidden="true" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
 <span id="cb37-3"><a href="introduction.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
 <span id="cb37-4"><a href="introduction.html#cb37-4" aria-hidden="true" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
-<span id="cb37-5"><a href="introduction.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
-<span id="cb37-6"><a href="introduction.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [14] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
-<span id="cb37-7"><a href="introduction.html#cb37-7" aria-hidden="true" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
-<span id="cb37-8"><a href="introduction.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
-<span id="cb37-9"><a href="introduction.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
-<span id="cb37-10"><a href="introduction.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span>
-<span id="cb37-11"><a href="introduction.html#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="introduction.html#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
-<span id="cb37-13"><a href="introduction.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
-<span id="cb37-14"><a href="introduction.html#cb37-14" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb37-15"><a href="introduction.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb37-16"><a href="introduction.html#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb37-17"><a href="introduction.html#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-18"><a href="introduction.html#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
-<span id="cb37-19"><a href="introduction.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb37-20"><a href="introduction.html#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-21"><a href="introduction.html#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
+<span id="cb37-5"><a href="introduction.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb37-6"><a href="introduction.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span>
+<span id="cb37-7"><a href="introduction.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [15]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb37-8"><a href="introduction.html#cb37-8" aria-hidden="true" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
+<span id="cb37-9"><a href="introduction.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
+<span id="cb37-10"><a href="introduction.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
+<span id="cb37-11"><a href="introduction.html#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0</span></span>
+<span id="cb37-12"><a href="introduction.html#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="introduction.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
+<span id="cb37-14"><a href="introduction.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
+<span id="cb37-15"><a href="introduction.html#cb37-15" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb37-16"><a href="introduction.html#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb37-17"><a href="introduction.html#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb37-18"><a href="introduction.html#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="introduction.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
+<span id="cb37-20"><a href="introduction.html#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb37-21"><a href="introduction.html#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="introduction.html#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
 <div id="vectorized-operators" class="section level3 hasAnchor" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> Vectorized Operators<a href="introduction.html#vectorized-operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An important property of many of the operators is that they are “vectorized”. This means that the operation will be performed elementwise.</p>
@@ -1213,13 +1247,18 @@ where <span class="math inline">\(I(\cdot)\)</span> is the indicator function, t
 <span id="cb41-11"><a href="introduction.html#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    3    3    3    3</span></span>
 <span id="cb41-12"><a href="introduction.html#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    4    4    4    4</span></span>
 <span id="cb41-13"><a href="introduction.html#cb41-13" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> (x <span class="sc">+</span> y) <span class="co"># vectorized operation</span></span>
-<span id="cb41-14"><a href="introduction.html#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]      [,2]      [,3]      [,4]      [,5]</span></span>
-<span id="cb41-15"><a href="introduction.html#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.5000000 0.6666667 0.7500000 0.8000000 0.8333333</span></span>
-<span id="cb41-16"><a href="introduction.html#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.3333333 0.5000000 0.6000000 0.6666667 0.7142857</span></span>
-<span id="cb41-17"><a href="introduction.html#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 0.2500000 0.4000000 0.5000000 0.5714286 0.6250000</span></span>
-<span id="cb41-18"><a href="introduction.html#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 0.2000000 0.3333333 0.4285714 0.5000000 0.5555556</span></span>
-<span id="cb41-19"><a href="introduction.html#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">/</span> (x <span class="sc">+</span> y))</span>
-<span id="cb41-20"><a href="introduction.html#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10.72817</span></span></code></pre></div>
+<span id="cb41-14"><a href="introduction.html#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]      [,2]      [,3]      [,4]</span></span>
+<span id="cb41-15"><a href="introduction.html#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.5000000 0.6666667 0.7500000 0.8000000</span></span>
+<span id="cb41-16"><a href="introduction.html#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.3333333 0.5000000 0.6000000 0.6666667</span></span>
+<span id="cb41-17"><a href="introduction.html#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 0.2500000 0.4000000 0.5000000 0.5714286</span></span>
+<span id="cb41-18"><a href="introduction.html#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 0.2000000 0.3333333 0.4285714 0.5000000</span></span>
+<span id="cb41-19"><a href="introduction.html#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,5]</span></span>
+<span id="cb41-20"><a href="introduction.html#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8333333</span></span>
+<span id="cb41-21"><a href="introduction.html#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.7142857</span></span>
+<span id="cb41-22"><a href="introduction.html#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 0.6250000</span></span>
+<span id="cb41-23"><a href="introduction.html#cb41-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 0.5555556</span></span>
+<span id="cb41-24"><a href="introduction.html#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">/</span> (x <span class="sc">+</span> y))</span>
+<span id="cb41-25"><a href="introduction.html#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10.72817</span></span></code></pre></div>
 </div>
 </div>
 <div id="built-in-functions" class="section level2 hasAnchor" number="1.7">
@@ -1370,12 +1409,14 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb44-14"><a href="introduction.html#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-15"><a href="introduction.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb44-16"><a href="introduction.html#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-17"><a href="introduction.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5</span></span>
-<span id="cb44-18"><a href="introduction.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [17]  8.0  8.5  9.0  9.5 10.0</span></span>
-<span id="cb44-19"><a href="introduction.html#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="introduction.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-21"><a href="introduction.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5</span></span>
-<span id="cb44-22"><a href="introduction.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [17]  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb44-17"><a href="introduction.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0</span></span>
+<span id="cb44-18"><a href="introduction.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10]  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5</span></span>
+<span id="cb44-19"><a href="introduction.html#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [19]  9.0  9.5 10.0</span></span>
+<span id="cb44-20"><a href="introduction.html#cb44-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="introduction.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
+<span id="cb44-22"><a href="introduction.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0</span></span>
+<span id="cb44-23"><a href="introduction.html#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [10]  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0  8.5</span></span>
+<span id="cb44-24"><a href="introduction.html#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [19]  9.0  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3 hasAnchor" number="1.7.3">
 <h3><span class="header-section-number">1.7.3</span> <code>rep()</code><a href="introduction.html#rep" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1484,11 +1525,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 </ol>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction.html#cb53-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">3</span> <span class="sc">+</span> <span class="dv">3</span>, <span class="st">&quot;sta&quot;</span>, <span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span>)</span>
 <span id="cb53-2"><a href="introduction.html#cb53-2" aria-hidden="true" tabindex="-1"></a>a <span class="co"># when you combine numeric, characters and logical values, the results become character</span></span>
-<span id="cb53-3"><a href="introduction.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;1&quot;     &quot;2&quot;     &quot;3&quot;     &quot;6&quot;     &quot;6&quot;     &quot;sta&quot;   &quot;FALSE&quot;</span></span>
-<span id="cb53-4"><a href="introduction.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(a) <span class="co"># character</span></span>
-<span id="cb53-5"><a href="introduction.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
-<span id="cb53-6"><a href="introduction.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a) <span class="co"># </span></span>
-<span id="cb53-7"><a href="introduction.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7</span></span></code></pre></div>
+<span id="cb53-3"><a href="introduction.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;1&quot;     &quot;2&quot;     &quot;3&quot;     &quot;6&quot;     &quot;6&quot;    </span></span>
+<span id="cb53-4"><a href="introduction.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [6] &quot;sta&quot;   &quot;FALSE&quot;</span></span>
+<span id="cb53-5"><a href="introduction.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(a) <span class="co"># character</span></span>
+<span id="cb53-6"><a href="introduction.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
+<span id="cb53-7"><a href="introduction.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a) <span class="co"># </span></span>
+<span id="cb53-8"><a href="introduction.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7</span></span></code></pre></div>
 <ol start="3" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
@@ -1504,11 +1546,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb54-10"><a href="introduction.html#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 is repeated 3 times</span></span>
 <span id="cb54-11"><a href="introduction.html#cb54-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-12"><a href="introduction.html#cb54-12" aria-hidden="true" tabindex="-1"></a>x<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span> <span class="co"># check if the modulus is 0 when x is divided by 2</span></span>
-<span id="cb54-13"><a href="introduction.html#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE</span></span>
-<span id="cb54-14"><a href="introduction.html#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co"># this is equivalent to ask if the elements are even</span></span>
-<span id="cb54-15"><a href="introduction.html#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-16"><a href="introduction.html#cb54-16" aria-hidden="true" tabindex="-1"></a>x[x<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># find out all the even elements</span></span>
-<span id="cb54-17"><a href="introduction.html#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2 2 4 6 6 6</span></span></code></pre></div>
+<span id="cb54-13"><a href="introduction.html#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb54-14"><a href="introduction.html#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8] FALSE FALSE  TRUE  TRUE  TRUE</span></span>
+<span id="cb54-15"><a href="introduction.html#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="co"># this is equivalent to ask if the elements are even</span></span>
+<span id="cb54-16"><a href="introduction.html#cb54-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-17"><a href="introduction.html#cb54-17" aria-hidden="true" tabindex="-1"></a>x[x<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># find out all the even elements</span></span>
+<span id="cb54-18"><a href="introduction.html#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2 2 4 6 6 6</span></span></code></pre></div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
@@ -1547,9 +1590,10 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb56-9"><a href="introduction.html#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x) <span class="sc">+</span> <span class="fu">prod</span>(x) </span>
 <span id="cb56-10"><a href="introduction.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 40356</span></span>
 <span id="cb56-11"><a href="introduction.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(x) <span class="sc">+</span> <span class="fu">cumprod</span>(x) </span>
-<span id="cb56-12"><a href="introduction.html#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]     8    19   111   694  3387 20193 40355 40356</span></span>
-<span id="cb56-13"><a href="introduction.html#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(x) <span class="sc">+</span> <span class="fu">min</span>(x) </span>
-<span id="cb56-14"><a href="introduction.html#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 9</span></span></code></pre></div>
+<span id="cb56-12"><a href="introduction.html#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]     8    19   111   694  3387 20193 40355</span></span>
+<span id="cb56-13"><a href="introduction.html#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [8] 40356</span></span>
+<span id="cb56-14"><a href="introduction.html#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(x) <span class="sc">+</span> <span class="fu">min</span>(x) </span>
+<span id="cb56-15"><a href="introduction.html#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 9</span></span></code></pre></div>
 
 </div>
 </div>

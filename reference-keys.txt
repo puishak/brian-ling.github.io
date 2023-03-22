@@ -158,3 +158,8 @@ mathematical-formulation
 examples
 classification-tree
 regression-tree
+resampling-methods
+cross-validation
+estimate-test-errors
+model-selection
+bootstrap-optional

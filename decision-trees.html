@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-16" />
+<meta name="date" content="2023-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="k-means-clustering.html"/>
-
+<link rel="next" href="resampling-methods.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -371,6 +371,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -611,90 +620,37 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <span id="cb458-5"><a href="decision-trees.html#cb458-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
 <span id="cb458-6"><a href="decision-trees.html#cb458-6" aria-hidden="true" tabindex="-1"></a><span class="do">## tree(formula = High ~ . - Salary, data = Hitters_train)</span></span>
 <span id="cb458-7"><a href="decision-trees.html#cb458-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
-<span id="cb458-8"><a href="decision-trees.html#cb458-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;CAtBat&quot;  &quot;CWalks&quot;  &quot;AtBat&quot;   &quot;Hits&quot;    &quot;CRuns&quot;   &quot;PutOuts&quot; &quot;Assists&quot;</span></span>
-<span id="cb458-9"><a href="decision-trees.html#cb458-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of terminal nodes:  8 </span></span>
-<span id="cb458-10"><a href="decision-trees.html#cb458-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.3054 = 37.56 / 123 </span></span>
-<span id="cb458-11"><a href="decision-trees.html#cb458-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.08397 = 11 / 131</span></span>
-<span id="cb458-12"><a href="decision-trees.html#cb458-12" aria-hidden="true" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
-<span id="cb458-13"><a href="decision-trees.html#cb458-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       </span></span>
-<span id="cb458-14"><a href="decision-trees.html#cb458-14" aria-hidden="true" tabindex="-1"></a><span class="do">##        High Low</span></span>
-<span id="cb458-15"><a href="decision-trees.html#cb458-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   High   20  12</span></span>
-<span id="cb458-16"><a href="decision-trees.html#cb458-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   Low    13  87</span></span>
-<span id="cb458-17"><a href="decision-trees.html#cb458-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
-<span id="cb458-18"><a href="decision-trees.html#cb458-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8106061</span></span></code></pre></div>
+<span id="cb458-8"><a href="decision-trees.html#cb458-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;CAtBat&quot;  &quot;CWalks&quot;  &quot;AtBat&quot;   &quot;Hits&quot;   </span></span>
+<span id="cb458-9"><a href="decision-trees.html#cb458-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] &quot;CRuns&quot;   &quot;PutOuts&quot; &quot;Assists&quot;</span></span>
+<span id="cb458-10"><a href="decision-trees.html#cb458-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of terminal nodes:  8 </span></span>
+<span id="cb458-11"><a href="decision-trees.html#cb458-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.3054 = 37.56 / 123 </span></span>
+<span id="cb458-12"><a href="decision-trees.html#cb458-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.08397 = 11 / 131</span></span>
+<span id="cb458-13"><a href="decision-trees.html#cb458-13" aria-hidden="true" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
+<span id="cb458-14"><a href="decision-trees.html#cb458-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       </span></span>
+<span id="cb458-15"><a href="decision-trees.html#cb458-15" aria-hidden="true" tabindex="-1"></a><span class="do">##        High Low</span></span>
+<span id="cb458-16"><a href="decision-trees.html#cb458-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   High   20  12</span></span>
+<span id="cb458-17"><a href="decision-trees.html#cb458-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   Low    13  87</span></span>
+<span id="cb458-18"><a href="decision-trees.html#cb458-18" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
+<span id="cb458-19"><a href="decision-trees.html#cb458-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8106061</span></span></code></pre></div>
 <p>The classification accuracy in the training data is <span class="math inline">\((131 - 11)/131 = 0.916\)</span>. The classification accuracy in the testing data is <span class="math inline">\(0.811\)</span>.</p>
 <p>Visualize the classification rules using tree:</p>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="decision-trees.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span>
 <span id="cb459-2"><a href="decision-trees.html#cb459-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(fit)</span></code></pre></div>
 <p><img src="Book_files/figure-html/unnamed-chunk-514-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Let’s try to see if pruning the tree will improve the testing accuracy. Set <code>FUN = prune.misclass</code> to tell the function to use misclassification error as the evaluation metric in CV.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="decision-trees.html#cb460-1" aria-hidden="true" tabindex="-1"></a>cv_fit <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(fit, <span class="at">FUN =</span> prune.misclass) </span>
-<span id="cb460-2"><a href="decision-trees.html#cb460-2" aria-hidden="true" tabindex="-1"></a>cv_fit</span>
-<span id="cb460-3"><a href="decision-trees.html#cb460-3" aria-hidden="true" tabindex="-1"></a><span class="do">## $size</span></span>
-<span id="cb460-4"><a href="decision-trees.html#cb460-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 8 4 3 1</span></span>
-<span id="cb460-5"><a href="decision-trees.html#cb460-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb460-6"><a href="decision-trees.html#cb460-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $dev</span></span>
-<span id="cb460-7"><a href="decision-trees.html#cb460-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 27 27 20 40</span></span>
-<span id="cb460-8"><a href="decision-trees.html#cb460-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb460-9"><a href="decision-trees.html#cb460-9" aria-hidden="true" tabindex="-1"></a><span class="do">## $k</span></span>
-<span id="cb460-10"><a href="decision-trees.html#cb460-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -Inf    0    1   13</span></span>
-<span id="cb460-11"><a href="decision-trees.html#cb460-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb460-12"><a href="decision-trees.html#cb460-12" aria-hidden="true" tabindex="-1"></a><span class="do">## $method</span></span>
-<span id="cb460-13"><a href="decision-trees.html#cb460-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;misclass&quot;</span></span>
-<span id="cb460-14"><a href="decision-trees.html#cb460-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb460-15"><a href="decision-trees.html#cb460-15" aria-hidden="true" tabindex="-1"></a><span class="do">## attr(,&quot;class&quot;)</span></span>
-<span id="cb460-16"><a href="decision-trees.html#cb460-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
-<span id="cb460-17"><a href="decision-trees.html#cb460-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_fit<span class="sc">$</span>size, cv_fit<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-515-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><code>size</code>: number of terminal nodes of the tree</p>
-<p><code>dev</code>: cross-validation errors</p>
-<p>We will choose the <code>size</code> with the minimum <code>dev</code>.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="decision-trees.html#cb461-1" aria-hidden="true" tabindex="-1"></a>prune_fit <span class="ot">&lt;-</span> <span class="fu">prune.misclass</span>(fit, <span class="at">best =</span> <span class="dv">3</span>)</span>
-<span id="cb461-2"><a href="decision-trees.html#cb461-2" aria-hidden="true" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(prune_fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
-<span id="cb461-3"><a href="decision-trees.html#cb461-3" aria-hidden="true" tabindex="-1"></a><span class="do">##       </span></span>
-<span id="cb461-4"><a href="decision-trees.html#cb461-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        High Low</span></span>
-<span id="cb461-5"><a href="decision-trees.html#cb461-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   High   21  11</span></span>
-<span id="cb461-6"><a href="decision-trees.html#cb461-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   Low    16  84</span></span>
-<span id="cb461-7"><a href="decision-trees.html#cb461-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
-<span id="cb461-8"><a href="decision-trees.html#cb461-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7954545</span></span></code></pre></div>
-<p>For this particular example, the classification accuracy actually becomes lower when we prune the tree. However, the pruned tree has only <span class="math inline">\(3\)</span> terminal nodes, which can be easier for interpretation.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="decision-trees.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prune_fit)</span>
-<span id="cb462-2"><a href="decision-trees.html#cb462-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(prune_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-517-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regression-tree" class="section level3 hasAnchor" number="13.4.2">
 <h3><span class="header-section-number">13.4.2</span> Regression Tree<a href="decision-trees.html#regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Fitting regression tree and finding the MSE in test data</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="decision-trees.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
-<span id="cb463-2"><a href="decision-trees.html#cb463-2" aria-hidden="true" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span>
-<span id="cb463-3"><a href="decision-trees.html#cb463-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb463-4"><a href="decision-trees.html#cb463-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
-<span id="cb463-5"><a href="decision-trees.html#cb463-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb463-6"><a href="decision-trees.html#cb463-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="decision-trees.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
+<span id="cb460-2"><a href="decision-trees.html#cb460-2" aria-hidden="true" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span>
+<span id="cb460-3"><a href="decision-trees.html#cb460-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-4"><a href="decision-trees.html#cb460-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
+<span id="cb460-5"><a href="decision-trees.html#cb460-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb460-6"><a href="decision-trees.html#cb460-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
 <p>Tree without pruning</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="decision-trees.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg_tree)</span>
-<span id="cb464-2"><a href="decision-trees.html#cb464-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-519-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Use cross validation to determine the optimal choice of size (the number of terminal nodes)</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="decision-trees.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
-<span id="cb465-2"><a href="decision-trees.html#cb465-2" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(reg_tree)</span>
-<span id="cb465-3"><a href="decision-trees.html#cb465-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv<span class="sc">$</span>size, cv<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-520-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Prune the tree:</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="decision-trees.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best size</span></span>
-<span id="cb466-2"><a href="decision-trees.html#cb466-2" aria-hidden="true" tabindex="-1"></a>cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)] </span>
-<span id="cb466-3"><a href="decision-trees.html#cb466-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5</span></span>
-<span id="cb466-4"><a href="decision-trees.html#cb466-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb466-5"><a href="decision-trees.html#cb466-5" aria-hidden="true" tabindex="-1"></a>prune_reg_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(reg_tree, <span class="at">best =</span> cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)])</span>
-<span id="cb466-6"><a href="decision-trees.html#cb466-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb466-7"><a href="decision-trees.html#cb466-7" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
-<span id="cb466-8"><a href="decision-trees.html#cb466-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(prune_reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb466-9"><a href="decision-trees.html#cb466-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 122267.2</span></span></code></pre></div>
-<p>Pruned tree:</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="decision-trees.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prune_reg_tree)</span>
-<span id="cb467-2"><a href="decision-trees.html#cb467-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(prune_reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-522-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>The performance (in terms of MSE) of the pruned tree in test data is similar to the tree without pruning.</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="decision-trees.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg_tree)</span>
+<span id="cb461-2"><a href="decision-trees.html#cb461-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(reg_tree)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -704,8 +660,8 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
           </div>
         </div>
       </div>
-<a href="k-means-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="k-means-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resampling-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
