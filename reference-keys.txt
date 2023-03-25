@@ -163,3 +163,7 @@ cross-validation
 estimate-test-errors
 model-selection
 bootstrap-optional
+ensemble-methods-and-random-forest
+bagging
+random-forest
+example

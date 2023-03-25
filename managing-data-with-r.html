@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-21" />
+<meta name="date" content="2023-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -380,6 +380,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -509,25 +515,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="managing-data-with-r.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s view the dataset</span></span>
 <span id="cb155-2"><a href="managing-data-with-r.html#cb155-2" aria-hidden="true" tabindex="-1"></a>flights</span>
 <span id="cb155-3"><a href="managing-data-with-r.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 19</span></span>
-<span id="cb155-4"><a href="managing-data-with-r.html#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_time sched_dep…¹ dep_d…²</span></span>
-<span id="cb155-5"><a href="managing-data-with-r.html#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb155-6"><a href="managing-data-with-r.html#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1      517         515       2</span></span>
-<span id="cb155-7"><a href="managing-data-with-r.html#cb155-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1      533         529       4</span></span>
-<span id="cb155-8"><a href="managing-data-with-r.html#cb155-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1      542         540       2</span></span>
-<span id="cb155-9"><a href="managing-data-with-r.html#cb155-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1      544         545      -1</span></span>
-<span id="cb155-10"><a href="managing-data-with-r.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1      554         600      -6</span></span>
-<span id="cb155-11"><a href="managing-data-with-r.html#cb155-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1      554         558      -4</span></span>
-<span id="cb155-12"><a href="managing-data-with-r.html#cb155-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1      555         600      -5</span></span>
-<span id="cb155-13"><a href="managing-data-with-r.html#cb155-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1      557         600      -3</span></span>
-<span id="cb155-14"><a href="managing-data-with-r.html#cb155-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1      557         600      -3</span></span>
-<span id="cb155-15"><a href="managing-data-with-r.html#cb155-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1      558         600      -2</span></span>
-<span id="cb155-16"><a href="managing-data-with-r.html#cb155-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 13 more variables:</span></span>
-<span id="cb155-17"><a href="managing-data-with-r.html#cb155-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
-<span id="cb155-18"><a href="managing-data-with-r.html#cb155-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb155-19"><a href="managing-data-with-r.html#cb155-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
-<span id="cb155-20"><a href="managing-data-with-r.html#cb155-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,</span></span>
-<span id="cb155-21"><a href="managing-data-with-r.html#cb155-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
-<span id="cb155-22"><a href="managing-data-with-r.html#cb155-22" aria-hidden="true" tabindex="-1"></a><span class="do">## #   and abbreviated variable names …</span></span></code></pre></div>
+<span id="cb155-4"><a href="managing-data-with-r.html#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶</span></span>
+<span id="cb155-5"><a href="managing-data-with-r.html#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb155-6"><a href="managing-data-with-r.html#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1     517     515       2     830     819      11</span></span>
+<span id="cb155-7"><a href="managing-data-with-r.html#cb155-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1     533     529       4     850     830      20</span></span>
+<span id="cb155-8"><a href="managing-data-with-r.html#cb155-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1     542     540       2     923     850      33</span></span>
+<span id="cb155-9"><a href="managing-data-with-r.html#cb155-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1     544     545      -1    1004    1022     -18</span></span>
+<span id="cb155-10"><a href="managing-data-with-r.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1     554     600      -6     812     837     -25</span></span>
+<span id="cb155-11"><a href="managing-data-with-r.html#cb155-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1     554     558      -4     740     728      12</span></span>
+<span id="cb155-12"><a href="managing-data-with-r.html#cb155-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1     555     600      -5     913     854      19</span></span>
+<span id="cb155-13"><a href="managing-data-with-r.html#cb155-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1     557     600      -3     709     723     -14</span></span>
+<span id="cb155-14"><a href="managing-data-with-r.html#cb155-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1     557     600      -3     838     846      -8</span></span>
+<span id="cb155-15"><a href="managing-data-with-r.html#cb155-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1     558     600      -2     753     745       8</span></span>
+<span id="cb155-16"><a href="managing-data-with-r.html#cb155-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 10 more variables: carrier &lt;chr&gt;,</span></span>
+<span id="cb155-17"><a href="managing-data-with-r.html#cb155-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb155-18"><a href="managing-data-with-r.html#cb155-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb155-19"><a href="managing-data-with-r.html#cb155-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​dep_time,</span></span>
+<span id="cb155-20"><a href="managing-data-with-r.html#cb155-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​sched_dep_time, ³​dep_delay, ⁴​arr_time, ⁵​sched_arr_time,</span></span>
+<span id="cb155-21"><a href="managing-data-with-r.html#cb155-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​arr_delay</span></span></code></pre></div>
 <p><code>flights</code> is a tibble. Tibbles are data frames with better properties.</p>
 <p><strong>Optional</strong>: If you are interested in the differences between a <code>data frame</code> and a <code>tibble</code>, you can go to
 <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></p>
@@ -629,25 +634,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb162-2"><a href="managing-data-with-r.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co"># month == 1, day == 1 is the condition</span></span>
 <span id="cb162-3"><a href="managing-data-with-r.html#cb162-3" aria-hidden="true" tabindex="-1"></a>(jan1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(flights, month <span class="sc">==</span> <span class="dv">1</span>, day <span class="sc">==</span> <span class="dv">1</span>))</span>
 <span id="cb162-4"><a href="managing-data-with-r.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 842 × 19</span></span>
-<span id="cb162-5"><a href="managing-data-with-r.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_time sched_dep…¹ dep_d…²</span></span>
-<span id="cb162-6"><a href="managing-data-with-r.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb162-7"><a href="managing-data-with-r.html#cb162-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1      517         515       2</span></span>
-<span id="cb162-8"><a href="managing-data-with-r.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1      533         529       4</span></span>
-<span id="cb162-9"><a href="managing-data-with-r.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1      542         540       2</span></span>
-<span id="cb162-10"><a href="managing-data-with-r.html#cb162-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1      544         545      -1</span></span>
-<span id="cb162-11"><a href="managing-data-with-r.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1      554         600      -6</span></span>
-<span id="cb162-12"><a href="managing-data-with-r.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1      554         558      -4</span></span>
-<span id="cb162-13"><a href="managing-data-with-r.html#cb162-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1      555         600      -5</span></span>
-<span id="cb162-14"><a href="managing-data-with-r.html#cb162-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1      557         600      -3</span></span>
-<span id="cb162-15"><a href="managing-data-with-r.html#cb162-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1      557         600      -3</span></span>
-<span id="cb162-16"><a href="managing-data-with-r.html#cb162-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1      558         600      -2</span></span>
-<span id="cb162-17"><a href="managing-data-with-r.html#cb162-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 832 more rows, 13 more variables:</span></span>
-<span id="cb162-18"><a href="managing-data-with-r.html#cb162-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
-<span id="cb162-19"><a href="managing-data-with-r.html#cb162-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb162-20"><a href="managing-data-with-r.html#cb162-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
-<span id="cb162-21"><a href="managing-data-with-r.html#cb162-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,</span></span>
-<span id="cb162-22"><a href="managing-data-with-r.html#cb162-22" aria-hidden="true" tabindex="-1"></a><span class="do">## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
-<span id="cb162-23"><a href="managing-data-with-r.html#cb162-23" aria-hidden="true" tabindex="-1"></a><span class="do">## #   and abbreviated variable names …</span></span></code></pre></div>
+<span id="cb162-5"><a href="managing-data-with-r.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶</span></span>
+<span id="cb162-6"><a href="managing-data-with-r.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb162-7"><a href="managing-data-with-r.html#cb162-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1     517     515       2     830     819      11</span></span>
+<span id="cb162-8"><a href="managing-data-with-r.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1     533     529       4     850     830      20</span></span>
+<span id="cb162-9"><a href="managing-data-with-r.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1     542     540       2     923     850      33</span></span>
+<span id="cb162-10"><a href="managing-data-with-r.html#cb162-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1     544     545      -1    1004    1022     -18</span></span>
+<span id="cb162-11"><a href="managing-data-with-r.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1     554     600      -6     812     837     -25</span></span>
+<span id="cb162-12"><a href="managing-data-with-r.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1     554     558      -4     740     728      12</span></span>
+<span id="cb162-13"><a href="managing-data-with-r.html#cb162-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1     555     600      -5     913     854      19</span></span>
+<span id="cb162-14"><a href="managing-data-with-r.html#cb162-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1     557     600      -3     709     723     -14</span></span>
+<span id="cb162-15"><a href="managing-data-with-r.html#cb162-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1     557     600      -3     838     846      -8</span></span>
+<span id="cb162-16"><a href="managing-data-with-r.html#cb162-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1     558     600      -2     753     745       8</span></span>
+<span id="cb162-17"><a href="managing-data-with-r.html#cb162-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 832 more rows, 10 more variables: carrier &lt;chr&gt;,</span></span>
+<span id="cb162-18"><a href="managing-data-with-r.html#cb162-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb162-19"><a href="managing-data-with-r.html#cb162-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb162-20"><a href="managing-data-with-r.html#cb162-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​dep_time,</span></span>
+<span id="cb162-21"><a href="managing-data-with-r.html#cb162-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​sched_dep_time, ³​dep_delay, ⁴​arr_time, ⁵​sched_arr_time,</span></span>
+<span id="cb162-22"><a href="managing-data-with-r.html#cb162-22" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​arr_delay</span></span></code></pre></div>
 <p>Let’s use a simple dataset to see how to perform the same task without <code>filter</code>:</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="managing-data-with-r.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># just a simple dataset</span></span>
 <span id="cb163-2"><a href="managing-data-with-r.html#cb163-2" aria-hidden="true" tabindex="-1"></a>(data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>), <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
@@ -789,8 +793,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>1c. Find all flights that were operated by United, American, or Delta</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="managing-data-with-r.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find all the sorted carrier codes in the dataset</span></span>
 <span id="cb178-2"><a href="managing-data-with-r.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(flights<span class="sc">$</span>carrier)) </span>
-<span id="cb178-3"><a href="managing-data-with-r.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot;</span></span>
-<span id="cb178-4"><a href="managing-data-with-r.html#cb178-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot; &quot;US&quot; &quot;VX&quot; &quot;WN&quot; &quot;YV&quot;</span></span>
+<span id="cb178-3"><a href="managing-data-with-r.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;9E&quot; &quot;AA&quot; &quot;AS&quot; &quot;B6&quot; &quot;DL&quot; &quot;EV&quot; &quot;F9&quot; &quot;FL&quot; &quot;HA&quot; &quot;MQ&quot; &quot;OO&quot; &quot;UA&quot;</span></span>
+<span id="cb178-4"><a href="managing-data-with-r.html#cb178-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] &quot;US&quot; &quot;VX&quot; &quot;WN&quot; &quot;YV&quot;</span></span>
 <span id="cb178-5"><a href="managing-data-with-r.html#cb178-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb178-6"><a href="managing-data-with-r.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="co"># look up airline names from their carrier codes</span></span>
 <span id="cb178-7"><a href="managing-data-with-r.html#cb178-7" aria-hidden="true" tabindex="-1"></a>airlines </span>
@@ -817,25 +821,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb178-28"><a href="managing-data-with-r.html#cb178-28" aria-hidden="true" tabindex="-1"></a><span class="co"># after looking up the names, we know UA = United, AA = American, DL = Delta</span></span>
 <span id="cb178-29"><a href="managing-data-with-r.html#cb178-29" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, carrier <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;UA&quot;</span>, <span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>))</span>
 <span id="cb178-30"><a href="managing-data-with-r.html#cb178-30" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 139,504 × 19</span></span>
-<span id="cb178-31"><a href="managing-data-with-r.html#cb178-31" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_time sched_dep…¹ dep_d…²</span></span>
-<span id="cb178-32"><a href="managing-data-with-r.html#cb178-32" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb178-33"><a href="managing-data-with-r.html#cb178-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1      517         515       2</span></span>
-<span id="cb178-34"><a href="managing-data-with-r.html#cb178-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1      533         529       4</span></span>
-<span id="cb178-35"><a href="managing-data-with-r.html#cb178-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1      542         540       2</span></span>
-<span id="cb178-36"><a href="managing-data-with-r.html#cb178-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1      554         600      -6</span></span>
-<span id="cb178-37"><a href="managing-data-with-r.html#cb178-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1      554         558      -4</span></span>
-<span id="cb178-38"><a href="managing-data-with-r.html#cb178-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1      558         600      -2</span></span>
-<span id="cb178-39"><a href="managing-data-with-r.html#cb178-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1      558         600      -2</span></span>
-<span id="cb178-40"><a href="managing-data-with-r.html#cb178-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1      558         600      -2</span></span>
-<span id="cb178-41"><a href="managing-data-with-r.html#cb178-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1      559         600      -1</span></span>
-<span id="cb178-42"><a href="managing-data-with-r.html#cb178-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1      559         600      -1</span></span>
-<span id="cb178-43"><a href="managing-data-with-r.html#cb178-43" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 139,494 more rows, 13 more variables:</span></span>
-<span id="cb178-44"><a href="managing-data-with-r.html#cb178-44" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
-<span id="cb178-45"><a href="managing-data-with-r.html#cb178-45" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb178-46"><a href="managing-data-with-r.html#cb178-46" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
-<span id="cb178-47"><a href="managing-data-with-r.html#cb178-47" aria-hidden="true" tabindex="-1"></a><span class="do">## #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,</span></span>
-<span id="cb178-48"><a href="managing-data-with-r.html#cb178-48" aria-hidden="true" tabindex="-1"></a><span class="do">## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
-<span id="cb178-49"><a href="managing-data-with-r.html#cb178-49" aria-hidden="true" tabindex="-1"></a><span class="do">## #   and abbreviated variable names …</span></span></code></pre></div>
+<span id="cb178-31"><a href="managing-data-with-r.html#cb178-31" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶</span></span>
+<span id="cb178-32"><a href="managing-data-with-r.html#cb178-32" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb178-33"><a href="managing-data-with-r.html#cb178-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1     517     515       2     830     819      11</span></span>
+<span id="cb178-34"><a href="managing-data-with-r.html#cb178-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1     533     529       4     850     830      20</span></span>
+<span id="cb178-35"><a href="managing-data-with-r.html#cb178-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1     542     540       2     923     850      33</span></span>
+<span id="cb178-36"><a href="managing-data-with-r.html#cb178-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1     554     600      -6     812     837     -25</span></span>
+<span id="cb178-37"><a href="managing-data-with-r.html#cb178-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1     554     558      -4     740     728      12</span></span>
+<span id="cb178-38"><a href="managing-data-with-r.html#cb178-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1     558     600      -2     753     745       8</span></span>
+<span id="cb178-39"><a href="managing-data-with-r.html#cb178-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1     558     600      -2     924     917       7</span></span>
+<span id="cb178-40"><a href="managing-data-with-r.html#cb178-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1     558     600      -2     923     937     -14</span></span>
+<span id="cb178-41"><a href="managing-data-with-r.html#cb178-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1     559     600      -1     941     910      31</span></span>
+<span id="cb178-42"><a href="managing-data-with-r.html#cb178-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1     559     600      -1     854     902      -8</span></span>
+<span id="cb178-43"><a href="managing-data-with-r.html#cb178-43" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 139,494 more rows, 10 more variables: carrier &lt;chr&gt;,</span></span>
+<span id="cb178-44"><a href="managing-data-with-r.html#cb178-44" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb178-45"><a href="managing-data-with-r.html#cb178-45" aria-hidden="true" tabindex="-1"></a><span class="do">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb178-46"><a href="managing-data-with-r.html#cb178-46" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​dep_time,</span></span>
+<span id="cb178-47"><a href="managing-data-with-r.html#cb178-47" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​sched_dep_time, ³​dep_delay, ⁴​arr_time, ⁵​sched_arr_time,</span></span>
+<span id="cb178-48"><a href="managing-data-with-r.html#cb178-48" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​arr_delay</span></span></code></pre></div>
 <p>1d. Find all flights that departed in summer (July, August, and September)</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="managing-data-with-r.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>))</span>
 <span id="cb179-2"><a href="managing-data-with-r.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -849,10 +852,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>1g</strong>. Find all flights that departed between midnight and 6 a.m. (inclusive).
 The first question that should come to your mind is how is <strong>midnight</strong> represented in the dataset? Let’s take a look at <code>summary(flights$dep_time)</code>.</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="managing-data-with-r.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(flights<span class="sc">$</span>dep_time)</span>
-<span id="cb182-2"><a href="managing-data-with-r.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb182-3"><a href="managing-data-with-r.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="do">##       1     907    1401    1349    1744    2400 </span></span>
-<span id="cb182-4"><a href="managing-data-with-r.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    NA&#39;s </span></span>
-<span id="cb182-5"><a href="managing-data-with-r.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    8255</span></span></code></pre></div>
+<span id="cb182-2"><a href="managing-data-with-r.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></span>
+<span id="cb182-3"><a href="managing-data-with-r.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="do">##       1     907    1401    1349    1744    2400    8255</span></span></code></pre></div>
 <p>The minimum is <code>1</code> and the maximum is <code>2400</code>. Therefore, you know <strong>midnight</strong> is represented by <code>2400</code> instead of <code>0</code> in this dataset. The answer to the question would be</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="managing-data-with-r.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, dep_time <span class="sc">&lt;=</span> <span class="dv">600</span> <span class="sc">|</span> dep_time <span class="sc">==</span> <span class="dv">2400</span>)</span></code></pre></div>
 </div>
@@ -959,44 +960,40 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>Does the result of running the following code surprise you?</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="managing-data-with-r.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="fu">contains</span>(<span class="st">&quot;TIME&quot;</span>))</span>
 <span id="cb191-2"><a href="managing-data-with-r.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 6</span></span>
-<span id="cb191-3"><a href="managing-data-with-r.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_t…¹ arr_t…² sched…³ air_t…⁴</span></span>
-<span id="cb191-4"><a href="managing-data-with-r.html#cb191-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb191-5"><a href="managing-data-with-r.html#cb191-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517           515     830     819     227</span></span>
-<span id="cb191-6"><a href="managing-data-with-r.html#cb191-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533           529     850     830     227</span></span>
-<span id="cb191-7"><a href="managing-data-with-r.html#cb191-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542           540     923     850     160</span></span>
-<span id="cb191-8"><a href="managing-data-with-r.html#cb191-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544           545    1004    1022     183</span></span>
-<span id="cb191-9"><a href="managing-data-with-r.html#cb191-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554           600     812     837     116</span></span>
-<span id="cb191-10"><a href="managing-data-with-r.html#cb191-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554           558     740     728     150</span></span>
-<span id="cb191-11"><a href="managing-data-with-r.html#cb191-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555           600     913     854     158</span></span>
-<span id="cb191-12"><a href="managing-data-with-r.html#cb191-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557           600     709     723      53</span></span>
-<span id="cb191-13"><a href="managing-data-with-r.html#cb191-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557           600     838     846     140</span></span>
-<span id="cb191-14"><a href="managing-data-with-r.html#cb191-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558           600     753     745     138</span></span>
-<span id="cb191-15"><a href="managing-data-with-r.html#cb191-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 1 more variable:</span></span>
-<span id="cb191-16"><a href="managing-data-with-r.html#cb191-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, and abbreviated variable</span></span>
-<span id="cb191-17"><a href="managing-data-with-r.html#cb191-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   names ¹​sched_dep_time, ²​arr_time,</span></span>
-<span id="cb191-18"><a href="managing-data-with-r.html#cb191-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ³​sched_arr_time, ⁴​air_time</span></span></code></pre></div>
+<span id="cb191-3"><a href="managing-data-with-r.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_…¹ arr_t…² sched…³ air_t…⁴ time_hour          </span></span>
+<span id="cb191-4"><a href="managing-data-with-r.html#cb191-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dttm&gt;             </span></span>
+<span id="cb191-5"><a href="managing-data-with-r.html#cb191-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517          515     830     819     227 2013-01-01 05:00:00</span></span>
+<span id="cb191-6"><a href="managing-data-with-r.html#cb191-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533          529     850     830     227 2013-01-01 05:00:00</span></span>
+<span id="cb191-7"><a href="managing-data-with-r.html#cb191-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542          540     923     850     160 2013-01-01 05:00:00</span></span>
+<span id="cb191-8"><a href="managing-data-with-r.html#cb191-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544          545    1004    1022     183 2013-01-01 05:00:00</span></span>
+<span id="cb191-9"><a href="managing-data-with-r.html#cb191-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554          600     812     837     116 2013-01-01 06:00:00</span></span>
+<span id="cb191-10"><a href="managing-data-with-r.html#cb191-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554          558     740     728     150 2013-01-01 05:00:00</span></span>
+<span id="cb191-11"><a href="managing-data-with-r.html#cb191-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555          600     913     854     158 2013-01-01 06:00:00</span></span>
+<span id="cb191-12"><a href="managing-data-with-r.html#cb191-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557          600     709     723      53 2013-01-01 06:00:00</span></span>
+<span id="cb191-13"><a href="managing-data-with-r.html#cb191-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557          600     838     846     140 2013-01-01 06:00:00</span></span>
+<span id="cb191-14"><a href="managing-data-with-r.html#cb191-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558          600     753     745     138 2013-01-01 06:00:00</span></span>
+<span id="cb191-15"><a href="managing-data-with-r.html#cb191-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated variable names</span></span>
+<span id="cb191-16"><a href="managing-data-with-r.html#cb191-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ¹​sched_dep_time, ²​arr_time, ³​sched_arr_time, ⁴​air_time</span></span></code></pre></div>
 <p>Yes, because we used “TIME” but not “time” and still get the selected columns. If you check <code>?contains</code>, you can see that the default is to ignore the case. To change the default:</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="managing-data-with-r.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(flights, <span class="fu">contains</span>(<span class="st">&quot;TIME&quot;</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>))</span>
 <span id="cb192-2"><a href="managing-data-with-r.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 0</span></span></code></pre></div>
 <p>Ex: without using <code>select()</code>, select all the columns that contain “time”.</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="managing-data-with-r.html#cb193-1" aria-hidden="true" tabindex="-1"></a>flights[<span class="fu">grep</span>(<span class="st">&quot;time&quot;</span>, <span class="fu">names</span>(flights))]</span>
 <span id="cb193-2"><a href="managing-data-with-r.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 6</span></span>
-<span id="cb193-3"><a href="managing-data-with-r.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_t…¹ arr_t…² sched…³ air_t…⁴</span></span>
-<span id="cb193-4"><a href="managing-data-with-r.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb193-5"><a href="managing-data-with-r.html#cb193-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517           515     830     819     227</span></span>
-<span id="cb193-6"><a href="managing-data-with-r.html#cb193-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533           529     850     830     227</span></span>
-<span id="cb193-7"><a href="managing-data-with-r.html#cb193-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542           540     923     850     160</span></span>
-<span id="cb193-8"><a href="managing-data-with-r.html#cb193-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544           545    1004    1022     183</span></span>
-<span id="cb193-9"><a href="managing-data-with-r.html#cb193-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554           600     812     837     116</span></span>
-<span id="cb193-10"><a href="managing-data-with-r.html#cb193-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554           558     740     728     150</span></span>
-<span id="cb193-11"><a href="managing-data-with-r.html#cb193-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555           600     913     854     158</span></span>
-<span id="cb193-12"><a href="managing-data-with-r.html#cb193-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557           600     709     723      53</span></span>
-<span id="cb193-13"><a href="managing-data-with-r.html#cb193-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557           600     838     846     140</span></span>
-<span id="cb193-14"><a href="managing-data-with-r.html#cb193-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558           600     753     745     138</span></span>
-<span id="cb193-15"><a href="managing-data-with-r.html#cb193-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 1 more variable:</span></span>
-<span id="cb193-16"><a href="managing-data-with-r.html#cb193-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, and abbreviated variable</span></span>
-<span id="cb193-17"><a href="managing-data-with-r.html#cb193-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   names ¹​sched_dep_time, ²​arr_time,</span></span>
-<span id="cb193-18"><a href="managing-data-with-r.html#cb193-18" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ³​sched_arr_time, ⁴​air_time</span></span></code></pre></div>
+<span id="cb193-3"><a href="managing-data-with-r.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_…¹ arr_t…² sched…³ air_t…⁴ time_hour          </span></span>
+<span id="cb193-4"><a href="managing-data-with-r.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dttm&gt;             </span></span>
+<span id="cb193-5"><a href="managing-data-with-r.html#cb193-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517          515     830     819     227 2013-01-01 05:00:00</span></span>
+<span id="cb193-6"><a href="managing-data-with-r.html#cb193-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533          529     850     830     227 2013-01-01 05:00:00</span></span>
+<span id="cb193-7"><a href="managing-data-with-r.html#cb193-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542          540     923     850     160 2013-01-01 05:00:00</span></span>
+<span id="cb193-8"><a href="managing-data-with-r.html#cb193-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544          545    1004    1022     183 2013-01-01 05:00:00</span></span>
+<span id="cb193-9"><a href="managing-data-with-r.html#cb193-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554          600     812     837     116 2013-01-01 06:00:00</span></span>
+<span id="cb193-10"><a href="managing-data-with-r.html#cb193-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554          558     740     728     150 2013-01-01 05:00:00</span></span>
+<span id="cb193-11"><a href="managing-data-with-r.html#cb193-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555          600     913     854     158 2013-01-01 06:00:00</span></span>
+<span id="cb193-12"><a href="managing-data-with-r.html#cb193-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557          600     709     723      53 2013-01-01 06:00:00</span></span>
+<span id="cb193-13"><a href="managing-data-with-r.html#cb193-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557          600     838     846     140 2013-01-01 06:00:00</span></span>
+<span id="cb193-14"><a href="managing-data-with-r.html#cb193-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558          600     753     745     138 2013-01-01 06:00:00</span></span>
+<span id="cb193-15"><a href="managing-data-with-r.html#cb193-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated variable names</span></span>
+<span id="cb193-16"><a href="managing-data-with-r.html#cb193-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ¹​sched_dep_time, ²​arr_time, ³​sched_arr_time, ⁴​air_time</span></span></code></pre></div>
 <p>Basic Usage of <code>grep</code>: <code>grep(pattern, x)</code>.</p>
 <ul>
 <li><code>pattern</code>: character string. e.g., “time”, “delay”, “air”</li>
@@ -1022,21 +1019,20 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>Now, let’s use <code>mutate()</code> to create a variable called <code>gain</code> (how much time we gain in flight) defined as <code>arr_delay - dep_delay</code> and a variable called <code>speed</code> (miles/hour) defined as <code>distance</code>/<code>air_time * 60</code>.</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="managing-data-with-r.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(flights_sml, <span class="at">gain =</span> arr_delay <span class="sc">-</span> dep_delay, <span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>)</span>
 <span id="cb196-2"><a href="managing-data-with-r.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 9</span></span>
-<span id="cb196-3"><a href="managing-data-with-r.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day arr_delay dep_delay distance</span></span>
-<span id="cb196-4"><a href="managing-data-with-r.html#cb196-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb196-5"><a href="managing-data-with-r.html#cb196-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1        11         2     1400</span></span>
-<span id="cb196-6"><a href="managing-data-with-r.html#cb196-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1        20         4     1416</span></span>
-<span id="cb196-7"><a href="managing-data-with-r.html#cb196-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1        33         2     1089</span></span>
-<span id="cb196-8"><a href="managing-data-with-r.html#cb196-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1       -18        -1     1576</span></span>
-<span id="cb196-9"><a href="managing-data-with-r.html#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1       -25        -6      762</span></span>
-<span id="cb196-10"><a href="managing-data-with-r.html#cb196-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        12        -4      719</span></span>
-<span id="cb196-11"><a href="managing-data-with-r.html#cb196-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        19        -5     1065</span></span>
-<span id="cb196-12"><a href="managing-data-with-r.html#cb196-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1       -14        -3      229</span></span>
-<span id="cb196-13"><a href="managing-data-with-r.html#cb196-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -8        -3      944</span></span>
-<span id="cb196-14"><a href="managing-data-with-r.html#cb196-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1         8        -2      733</span></span>
-<span id="cb196-15"><a href="managing-data-with-r.html#cb196-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and 3 more</span></span>
-<span id="cb196-16"><a href="managing-data-with-r.html#cb196-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   variables: air_time &lt;dbl&gt;, gain &lt;dbl&gt;,</span></span>
-<span id="cb196-17"><a href="managing-data-with-r.html#cb196-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   speed &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb196-3"><a href="managing-data-with-r.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day arr_delay dep_delay dista…¹ air_t…²  gain speed</span></span>
+<span id="cb196-4"><a href="managing-data-with-r.html#cb196-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb196-5"><a href="managing-data-with-r.html#cb196-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1        11         2    1400     227     9  370.</span></span>
+<span id="cb196-6"><a href="managing-data-with-r.html#cb196-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1        20         4    1416     227    16  374.</span></span>
+<span id="cb196-7"><a href="managing-data-with-r.html#cb196-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1        33         2    1089     160    31  408.</span></span>
+<span id="cb196-8"><a href="managing-data-with-r.html#cb196-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1       -18        -1    1576     183   -17  517.</span></span>
+<span id="cb196-9"><a href="managing-data-with-r.html#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1       -25        -6     762     116   -19  394.</span></span>
+<span id="cb196-10"><a href="managing-data-with-r.html#cb196-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        12        -4     719     150    16  288.</span></span>
+<span id="cb196-11"><a href="managing-data-with-r.html#cb196-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        19        -5    1065     158    24  404.</span></span>
+<span id="cb196-12"><a href="managing-data-with-r.html#cb196-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1       -14        -3     229      53   -11  259.</span></span>
+<span id="cb196-13"><a href="managing-data-with-r.html#cb196-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -8        -3     944     140    -5  405.</span></span>
+<span id="cb196-14"><a href="managing-data-with-r.html#cb196-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1         8        -2     733     138    10  319.</span></span>
+<span id="cb196-15"><a href="managing-data-with-r.html#cb196-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated variable names</span></span>
+<span id="cb196-16"><a href="managing-data-with-r.html#cb196-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ¹​distance, ²​air_time</span></span></code></pre></div>
 <p>To keep the new variables only, use <code>transmute()</code>:</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="managing-data-with-r.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transmute</span>(flights_sml, <span class="at">gain =</span> arr_delay <span class="sc">-</span> dep_delay, <span class="at">speed =</span> distance <span class="sc">/</span>  air_time <span class="sc">*</span> <span class="dv">60</span>)</span>
 <span id="cb197-2"><a href="managing-data-with-r.html#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 2</span></span>
@@ -1087,20 +1083,19 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb202-4"><a href="managing-data-with-r.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(flights_time, <span class="at">min_dep_time =</span> (dep_time <span class="sc">%/%</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">60</span> <span class="sc">+</span> dep_time <span class="sc">%%</span> <span class="dv">100</span>) <span class="sc">%%</span> <span class="dv">1440</span>, </span>
 <span id="cb202-5"><a href="managing-data-with-r.html#cb202-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">min_sched_dep_time =</span> (sched_dep_time <span class="sc">%/%</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">60</span> <span class="sc">+</span> sched_dep_time <span class="sc">%%</span> <span class="dv">100</span>) <span class="sc">%%</span> <span class="dv">1440</span>)</span>
 <span id="cb202-6"><a href="managing-data-with-r.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 4</span></span>
-<span id="cb202-7"><a href="managing-data-with-r.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_time min_dep_time min_sch…¹</span></span>
-<span id="cb202-8"><a href="managing-data-with-r.html#cb202-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb202-9"><a href="managing-data-with-r.html#cb202-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517            515          317       315</span></span>
-<span id="cb202-10"><a href="managing-data-with-r.html#cb202-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533            529          333       329</span></span>
-<span id="cb202-11"><a href="managing-data-with-r.html#cb202-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542            540          342       340</span></span>
-<span id="cb202-12"><a href="managing-data-with-r.html#cb202-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544            545          344       345</span></span>
-<span id="cb202-13"><a href="managing-data-with-r.html#cb202-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554            600          354       360</span></span>
-<span id="cb202-14"><a href="managing-data-with-r.html#cb202-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554            558          354       358</span></span>
-<span id="cb202-15"><a href="managing-data-with-r.html#cb202-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555            600          355       360</span></span>
-<span id="cb202-16"><a href="managing-data-with-r.html#cb202-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557            600          357       360</span></span>
-<span id="cb202-17"><a href="managing-data-with-r.html#cb202-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557            600          357       360</span></span>
-<span id="cb202-18"><a href="managing-data-with-r.html#cb202-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558            600          358       360</span></span>
-<span id="cb202-19"><a href="managing-data-with-r.html#cb202-19" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated</span></span>
-<span id="cb202-20"><a href="managing-data-with-r.html#cb202-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   variable name ¹​min_sched_dep_time</span></span></code></pre></div>
+<span id="cb202-7"><a href="managing-data-with-r.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    dep_time sched_dep_time min_dep_time min_sched_dep_time</span></span>
+<span id="cb202-8"><a href="managing-data-with-r.html#cb202-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       &lt;int&gt;          &lt;int&gt;        &lt;dbl&gt;              &lt;dbl&gt;</span></span>
+<span id="cb202-9"><a href="managing-data-with-r.html#cb202-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  1      517            515          317                315</span></span>
+<span id="cb202-10"><a href="managing-data-with-r.html#cb202-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  2      533            529          333                329</span></span>
+<span id="cb202-11"><a href="managing-data-with-r.html#cb202-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  3      542            540          342                340</span></span>
+<span id="cb202-12"><a href="managing-data-with-r.html#cb202-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  4      544            545          344                345</span></span>
+<span id="cb202-13"><a href="managing-data-with-r.html#cb202-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  5      554            600          354                360</span></span>
+<span id="cb202-14"><a href="managing-data-with-r.html#cb202-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  6      554            558          354                358</span></span>
+<span id="cb202-15"><a href="managing-data-with-r.html#cb202-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  7      555            600          355                360</span></span>
+<span id="cb202-16"><a href="managing-data-with-r.html#cb202-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  8      557            600          357                360</span></span>
+<span id="cb202-17"><a href="managing-data-with-r.html#cb202-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  9      557            600          357                360</span></span>
+<span id="cb202-18"><a href="managing-data-with-r.html#cb202-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      558            600          358                360</span></span>
+<span id="cb202-19"><a href="managing-data-with-r.html#cb202-19" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows</span></span></code></pre></div>
 <p>The above code doesn’t look good because we have written the formula to complete the same task twice. We can define a function to do this:</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="managing-data-with-r.html#cb203-1" aria-hidden="true" tabindex="-1"></a>time_to_minutes <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb203-2"><a href="managing-data-with-r.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">%/%</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">60</span> <span class="sc">+</span> x <span class="sc">%%</span> <span class="dv">100</span>) <span class="sc">%%</span> <span class="dv">1440</span></span>
@@ -1130,25 +1125,24 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb206-5"><a href="managing-data-with-r.html#cb206-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(flights, <span class="at">min_dep_time =</span> <span class="fu">time_to_minutes_ifelse</span>(dep_time),</span>
 <span id="cb206-6"><a href="managing-data-with-r.html#cb206-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">min_sched_dep_time =</span> <span class="fu">time_to_minutes_ifelse</span>(sched_dep_time))</span>
 <span id="cb206-7"><a href="managing-data-with-r.html#cb206-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 21</span></span>
-<span id="cb206-8"><a href="managing-data-with-r.html#cb206-8" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_time sched_dep…¹ dep_d…²</span></span>
-<span id="cb206-9"><a href="managing-data-with-r.html#cb206-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb206-10"><a href="managing-data-with-r.html#cb206-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1      517         515       2</span></span>
-<span id="cb206-11"><a href="managing-data-with-r.html#cb206-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1      533         529       4</span></span>
-<span id="cb206-12"><a href="managing-data-with-r.html#cb206-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1      542         540       2</span></span>
-<span id="cb206-13"><a href="managing-data-with-r.html#cb206-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1      544         545      -1</span></span>
-<span id="cb206-14"><a href="managing-data-with-r.html#cb206-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1      554         600      -6</span></span>
-<span id="cb206-15"><a href="managing-data-with-r.html#cb206-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1      554         558      -4</span></span>
-<span id="cb206-16"><a href="managing-data-with-r.html#cb206-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1      555         600      -5</span></span>
-<span id="cb206-17"><a href="managing-data-with-r.html#cb206-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1      557         600      -3</span></span>
-<span id="cb206-18"><a href="managing-data-with-r.html#cb206-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1      557         600      -3</span></span>
-<span id="cb206-19"><a href="managing-data-with-r.html#cb206-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1      558         600      -2</span></span>
-<span id="cb206-20"><a href="managing-data-with-r.html#cb206-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 15 more variables:</span></span>
-<span id="cb206-21"><a href="managing-data-with-r.html#cb206-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;,</span></span>
-<span id="cb206-22"><a href="managing-data-with-r.html#cb206-22" aria-hidden="true" tabindex="-1"></a><span class="do">## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,</span></span>
-<span id="cb206-23"><a href="managing-data-with-r.html#cb206-23" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,</span></span>
-<span id="cb206-24"><a href="managing-data-with-r.html#cb206-24" aria-hidden="true" tabindex="-1"></a><span class="do">## #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,</span></span>
-<span id="cb206-25"><a href="managing-data-with-r.html#cb206-25" aria-hidden="true" tabindex="-1"></a><span class="do">## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></span>
-<span id="cb206-26"><a href="managing-data-with-r.html#cb206-26" aria-hidden="true" tabindex="-1"></a><span class="do">## #   min_dep_time &lt;dbl&gt;, …</span></span></code></pre></div>
+<span id="cb206-8"><a href="managing-data-with-r.html#cb206-8" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶</span></span>
+<span id="cb206-9"><a href="managing-data-with-r.html#cb206-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb206-10"><a href="managing-data-with-r.html#cb206-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1     517     515       2     830     819      11</span></span>
+<span id="cb206-11"><a href="managing-data-with-r.html#cb206-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1     533     529       4     850     830      20</span></span>
+<span id="cb206-12"><a href="managing-data-with-r.html#cb206-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1     542     540       2     923     850      33</span></span>
+<span id="cb206-13"><a href="managing-data-with-r.html#cb206-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1     544     545      -1    1004    1022     -18</span></span>
+<span id="cb206-14"><a href="managing-data-with-r.html#cb206-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1     554     600      -6     812     837     -25</span></span>
+<span id="cb206-15"><a href="managing-data-with-r.html#cb206-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1     554     558      -4     740     728      12</span></span>
+<span id="cb206-16"><a href="managing-data-with-r.html#cb206-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1     555     600      -5     913     854      19</span></span>
+<span id="cb206-17"><a href="managing-data-with-r.html#cb206-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1     557     600      -3     709     723     -14</span></span>
+<span id="cb206-18"><a href="managing-data-with-r.html#cb206-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1     557     600      -3     838     846      -8</span></span>
+<span id="cb206-19"><a href="managing-data-with-r.html#cb206-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1     558     600      -2     753     745       8</span></span>
+<span id="cb206-20"><a href="managing-data-with-r.html#cb206-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 12 more variables: carrier &lt;chr&gt;,</span></span>
+<span id="cb206-21"><a href="managing-data-with-r.html#cb206-21" aria-hidden="true" tabindex="-1"></a><span class="do">## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb206-22"><a href="managing-data-with-r.html#cb206-22" aria-hidden="true" tabindex="-1"></a><span class="do">## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb206-23"><a href="managing-data-with-r.html#cb206-23" aria-hidden="true" tabindex="-1"></a><span class="do">## #   time_hour &lt;dttm&gt;, min_dep_time &lt;dbl&gt;, min_sched_dep_time &lt;dbl&gt;,</span></span>
+<span id="cb206-24"><a href="managing-data-with-r.html#cb206-24" aria-hidden="true" tabindex="-1"></a><span class="do">## #   and abbreviated variable names ¹​dep_time, ²​sched_dep_time,</span></span>
+<span id="cb206-25"><a href="managing-data-with-r.html#cb206-25" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ³​dep_delay, ⁴​arr_time, ⁵​sched_arr_time, ⁶​arr_delay</span></span></code></pre></div>
 <p>A less efficient way with for loop and if-else:</p>
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="managing-data-with-r.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if for if-else approach</span></span>
 <span id="cb207-2"><a href="managing-data-with-r.html#cb207-2" aria-hidden="true" tabindex="-1"></a>time_to_minutes_if <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -1172,12 +1166,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="managing-data-with-r.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mutate</span>(flights, <span class="at">min_dep_time =</span> <span class="fu">time_to_minutes</span>(dep_time),</span>
 <span id="cb208-2"><a href="managing-data-with-r.html#cb208-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">min_sched_dep_time =</span> <span class="fu">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb208-3"><a href="managing-data-with-r.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb208-4"><a href="managing-data-with-r.html#cb208-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.05</span></span>
+<span id="cb208-4"><a href="managing-data-with-r.html#cb208-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.23    0.00    0.26</span></span>
 <span id="cb208-5"><a href="managing-data-with-r.html#cb208-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb208-6"><a href="managing-data-with-r.html#cb208-6" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mutate</span>(flights, <span class="at">min_dep_time =</span> <span class="fu">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb208-7"><a href="managing-data-with-r.html#cb208-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">min_sched_dep_time =</span> <span class="fu">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb208-8"><a href="managing-data-with-r.html#cb208-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb208-9"><a href="managing-data-with-r.html#cb208-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.03    0.00    0.20</span></span></code></pre></div>
+<span id="cb208-9"><a href="managing-data-with-r.html#cb208-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.56    0.02    1.08</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->
@@ -1211,24 +1205,23 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>E.g.: Average departure delay per date (more useful):</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="managing-data-with-r.html#cb210-1" aria-hidden="true" tabindex="-1"></a>by_day <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, year, month, day)</span>
 <span id="cb210-2"><a href="managing-data-with-r.html#cb210-2" aria-hidden="true" tabindex="-1"></a>mean_delay <span class="ot">&lt;-</span> <span class="fu">summarize</span>(by_day, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb210-3"><a href="managing-data-with-r.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by &#39;year&#39;,</span></span>
-<span id="cb210-4"><a href="managing-data-with-r.html#cb210-4" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;month&#39;. You can override using the `.groups`</span></span>
-<span id="cb210-5"><a href="managing-data-with-r.html#cb210-5" aria-hidden="true" tabindex="-1"></a><span class="do">## argument.</span></span>
-<span id="cb210-6"><a href="managing-data-with-r.html#cb210-6" aria-hidden="true" tabindex="-1"></a>(mean_delay <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(mean_delay)) <span class="co"># use ungroup() after gropu_by()</span></span>
-<span id="cb210-7"><a href="managing-data-with-r.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 365 × 4</span></span>
-<span id="cb210-8"><a href="managing-data-with-r.html#cb210-8" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day delay</span></span>
-<span id="cb210-9"><a href="managing-data-with-r.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
-<span id="cb210-10"><a href="managing-data-with-r.html#cb210-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1 11.5 </span></span>
-<span id="cb210-11"><a href="managing-data-with-r.html#cb210-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     2 13.9 </span></span>
-<span id="cb210-12"><a href="managing-data-with-r.html#cb210-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     3 11.0 </span></span>
-<span id="cb210-13"><a href="managing-data-with-r.html#cb210-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     4  8.95</span></span>
-<span id="cb210-14"><a href="managing-data-with-r.html#cb210-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     5  5.73</span></span>
-<span id="cb210-15"><a href="managing-data-with-r.html#cb210-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     6  7.15</span></span>
-<span id="cb210-16"><a href="managing-data-with-r.html#cb210-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     7  5.42</span></span>
-<span id="cb210-17"><a href="managing-data-with-r.html#cb210-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     8  2.55</span></span>
-<span id="cb210-18"><a href="managing-data-with-r.html#cb210-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     9  2.28</span></span>
-<span id="cb210-19"><a href="managing-data-with-r.html#cb210-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1    10  2.84</span></span>
-<span id="cb210-20"><a href="managing-data-with-r.html#cb210-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 355 more rows</span></span></code></pre></div>
+<span id="cb210-3"><a href="managing-data-with-r.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can</span></span>
+<span id="cb210-4"><a href="managing-data-with-r.html#cb210-4" aria-hidden="true" tabindex="-1"></a><span class="do">## override using the `.groups` argument.</span></span>
+<span id="cb210-5"><a href="managing-data-with-r.html#cb210-5" aria-hidden="true" tabindex="-1"></a>(mean_delay <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(mean_delay)) <span class="co"># use ungroup() after gropu_by()</span></span>
+<span id="cb210-6"><a href="managing-data-with-r.html#cb210-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 365 × 4</span></span>
+<span id="cb210-7"><a href="managing-data-with-r.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day delay</span></span>
+<span id="cb210-8"><a href="managing-data-with-r.html#cb210-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb210-9"><a href="managing-data-with-r.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1 11.5 </span></span>
+<span id="cb210-10"><a href="managing-data-with-r.html#cb210-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     2 13.9 </span></span>
+<span id="cb210-11"><a href="managing-data-with-r.html#cb210-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     3 11.0 </span></span>
+<span id="cb210-12"><a href="managing-data-with-r.html#cb210-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     4  8.95</span></span>
+<span id="cb210-13"><a href="managing-data-with-r.html#cb210-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     5  5.73</span></span>
+<span id="cb210-14"><a href="managing-data-with-r.html#cb210-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     6  7.15</span></span>
+<span id="cb210-15"><a href="managing-data-with-r.html#cb210-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     7  5.42</span></span>
+<span id="cb210-16"><a href="managing-data-with-r.html#cb210-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     8  2.55</span></span>
+<span id="cb210-17"><a href="managing-data-with-r.html#cb210-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     9  2.28</span></span>
+<span id="cb210-18"><a href="managing-data-with-r.html#cb210-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1    10  2.84</span></span>
+<span id="cb210-19"><a href="managing-data-with-r.html#cb210-19" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 355 more rows</span></span></code></pre></div>
 </div>
 <div id="combining-multiple-operations-with-pipe" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Combining Multiple Operations with Pipe <code>%&gt;%</code><a href="managing-data-with-r.html#combining-multiple-operations-with-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1255,7 +1248,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb215-4"><a href="managing-data-with-r.html#cb215-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb215-5"><a href="managing-data-with-r.html#cb215-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(month), <span class="at">y =</span> mean_dep_delay)) <span class="sc">+</span></span>
 <span id="cb215-6"><a href="managing-data-with-r.html#cb215-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="co"># notice the spacing for good indentation</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-229-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-285-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Notice the difference between <code>%&gt;%</code> and <code>+</code> in the above code.</p>
 <p>E.g. Create new columns for the average departure delay by date and average departure delay by destination using <code>mutate</code></p>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="managing-data-with-r.html#cb216-1" aria-hidden="true" tabindex="-1"></a>group_date <span class="ot">&lt;-</span> <span class="fu">group_by</span>(<span class="fu">select</span>(flights, year<span class="sc">:</span>day, dep_delay, dest), month, day)</span>
@@ -1263,45 +1256,43 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb216-3"><a href="managing-data-with-r.html#cb216-3" aria-hidden="true" tabindex="-1"></a>group_dest <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights2, dest)</span>
 <span id="cb216-4"><a href="managing-data-with-r.html#cb216-4" aria-hidden="true" tabindex="-1"></a>(flights3 <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(<span class="fu">mutate</span>(group_dest, <span class="at">avg_dest_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))))</span>
 <span id="cb216-5"><a href="managing-data-with-r.html#cb216-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 7</span></span>
-<span id="cb216-6"><a href="managing-data-with-r.html#cb216-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_delay dest  avg_date_d…¹</span></span>
-<span id="cb216-7"><a href="managing-data-with-r.html#cb216-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
-<span id="cb216-8"><a href="managing-data-with-r.html#cb216-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1         2 IAH           11.5</span></span>
-<span id="cb216-9"><a href="managing-data-with-r.html#cb216-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1         4 IAH           11.5</span></span>
-<span id="cb216-10"><a href="managing-data-with-r.html#cb216-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1         2 MIA           11.5</span></span>
-<span id="cb216-11"><a href="managing-data-with-r.html#cb216-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1        -1 BQN           11.5</span></span>
-<span id="cb216-12"><a href="managing-data-with-r.html#cb216-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1        -6 ATL           11.5</span></span>
-<span id="cb216-13"><a href="managing-data-with-r.html#cb216-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        -4 ORD           11.5</span></span>
-<span id="cb216-14"><a href="managing-data-with-r.html#cb216-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        -5 FLL           11.5</span></span>
-<span id="cb216-15"><a href="managing-data-with-r.html#cb216-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1        -3 IAD           11.5</span></span>
-<span id="cb216-16"><a href="managing-data-with-r.html#cb216-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -3 MCO           11.5</span></span>
-<span id="cb216-17"><a href="managing-data-with-r.html#cb216-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1        -2 ORD           11.5</span></span>
-<span id="cb216-18"><a href="managing-data-with-r.html#cb216-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 1 more variable:</span></span>
-<span id="cb216-19"><a href="managing-data-with-r.html#cb216-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   avg_dest_dep_delay &lt;dbl&gt;, and abbreviated</span></span>
-<span id="cb216-20"><a href="managing-data-with-r.html#cb216-20" aria-hidden="true" tabindex="-1"></a><span class="do">## #   variable name ¹​avg_date_dep_delay</span></span>
-<span id="cb216-21"><a href="managing-data-with-r.html#cb216-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb216-22"><a href="managing-data-with-r.html#cb216-22" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb216-23"><a href="managing-data-with-r.html#cb216-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year<span class="sc">:</span>day, dep_delay, dest) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-24"><a href="managing-data-with-r.html#cb216-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month, day) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-25"><a href="managing-data-with-r.html#cb216-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_date_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-26"><a href="managing-data-with-r.html#cb216-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span> <span class="co"># By default, group_by() overrides existing grouping</span></span>
-<span id="cb216-27"><a href="managing-data-with-r.html#cb216-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_dest_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb216-28"><a href="managing-data-with-r.html#cb216-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb216-29"><a href="managing-data-with-r.html#cb216-29" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 7</span></span>
-<span id="cb216-30"><a href="managing-data-with-r.html#cb216-30" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_delay dest  avg_date_d…¹</span></span>
-<span id="cb216-31"><a href="managing-data-with-r.html#cb216-31" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
-<span id="cb216-32"><a href="managing-data-with-r.html#cb216-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1         2 IAH           11.5</span></span>
-<span id="cb216-33"><a href="managing-data-with-r.html#cb216-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1         4 IAH           11.5</span></span>
-<span id="cb216-34"><a href="managing-data-with-r.html#cb216-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1         2 MIA           11.5</span></span>
-<span id="cb216-35"><a href="managing-data-with-r.html#cb216-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1        -1 BQN           11.5</span></span>
-<span id="cb216-36"><a href="managing-data-with-r.html#cb216-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1        -6 ATL           11.5</span></span>
-<span id="cb216-37"><a href="managing-data-with-r.html#cb216-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        -4 ORD           11.5</span></span>
-<span id="cb216-38"><a href="managing-data-with-r.html#cb216-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        -5 FLL           11.5</span></span>
-<span id="cb216-39"><a href="managing-data-with-r.html#cb216-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1        -3 IAD           11.5</span></span>
-<span id="cb216-40"><a href="managing-data-with-r.html#cb216-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -3 MCO           11.5</span></span>
-<span id="cb216-41"><a href="managing-data-with-r.html#cb216-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1        -2 ORD           11.5</span></span>
-<span id="cb216-42"><a href="managing-data-with-r.html#cb216-42" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, 1 more variable:</span></span>
-<span id="cb216-43"><a href="managing-data-with-r.html#cb216-43" aria-hidden="true" tabindex="-1"></a><span class="do">## #   avg_dest_dep_delay &lt;dbl&gt;, and abbreviated</span></span>
-<span id="cb216-44"><a href="managing-data-with-r.html#cb216-44" aria-hidden="true" tabindex="-1"></a><span class="do">## #   variable name ¹​avg_date_dep_delay</span></span></code></pre></div>
+<span id="cb216-6"><a href="managing-data-with-r.html#cb216-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_delay dest  avg_date_dep_delay avg_dest_d…¹</span></span>
+<span id="cb216-7"><a href="managing-data-with-r.html#cb216-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb216-8"><a href="managing-data-with-r.html#cb216-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1         2 IAH                 11.5        10.8 </span></span>
+<span id="cb216-9"><a href="managing-data-with-r.html#cb216-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1         4 IAH                 11.5        10.8 </span></span>
+<span id="cb216-10"><a href="managing-data-with-r.html#cb216-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1         2 MIA                 11.5         8.88</span></span>
+<span id="cb216-11"><a href="managing-data-with-r.html#cb216-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1        -1 BQN                 11.5        12.4 </span></span>
+<span id="cb216-12"><a href="managing-data-with-r.html#cb216-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1        -6 ATL                 11.5        12.5 </span></span>
+<span id="cb216-13"><a href="managing-data-with-r.html#cb216-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        -4 ORD                 11.5        13.6 </span></span>
+<span id="cb216-14"><a href="managing-data-with-r.html#cb216-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        -5 FLL                 11.5        12.7 </span></span>
+<span id="cb216-15"><a href="managing-data-with-r.html#cb216-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1        -3 IAD                 11.5        17.0 </span></span>
+<span id="cb216-16"><a href="managing-data-with-r.html#cb216-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -3 MCO                 11.5        11.3 </span></span>
+<span id="cb216-17"><a href="managing-data-with-r.html#cb216-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1        -2 ORD                 11.5        13.6 </span></span>
+<span id="cb216-18"><a href="managing-data-with-r.html#cb216-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated variable name</span></span>
+<span id="cb216-19"><a href="managing-data-with-r.html#cb216-19" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ¹​avg_dest_dep_delay</span></span>
+<span id="cb216-20"><a href="managing-data-with-r.html#cb216-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-21"><a href="managing-data-with-r.html#cb216-21" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb216-22"><a href="managing-data-with-r.html#cb216-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year<span class="sc">:</span>day, dep_delay, dest) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-23"><a href="managing-data-with-r.html#cb216-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month, day) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-24"><a href="managing-data-with-r.html#cb216-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_date_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-25"><a href="managing-data-with-r.html#cb216-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span> <span class="co"># By default, group_by() overrides existing grouping</span></span>
+<span id="cb216-26"><a href="managing-data-with-r.html#cb216-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_dest_dep_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-27"><a href="managing-data-with-r.html#cb216-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb216-28"><a href="managing-data-with-r.html#cb216-28" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 336,776 × 7</span></span>
+<span id="cb216-29"><a href="managing-data-with-r.html#cb216-29" aria-hidden="true" tabindex="-1"></a><span class="do">##     year month   day dep_delay dest  avg_date_dep_delay avg_dest_d…¹</span></span>
+<span id="cb216-30"><a href="managing-data-with-r.html#cb216-30" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb216-31"><a href="managing-data-with-r.html#cb216-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  2013     1     1         2 IAH                 11.5        10.8 </span></span>
+<span id="cb216-32"><a href="managing-data-with-r.html#cb216-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  2013     1     1         4 IAH                 11.5        10.8 </span></span>
+<span id="cb216-33"><a href="managing-data-with-r.html#cb216-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  2013     1     1         2 MIA                 11.5         8.88</span></span>
+<span id="cb216-34"><a href="managing-data-with-r.html#cb216-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  2013     1     1        -1 BQN                 11.5        12.4 </span></span>
+<span id="cb216-35"><a href="managing-data-with-r.html#cb216-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  2013     1     1        -6 ATL                 11.5        12.5 </span></span>
+<span id="cb216-36"><a href="managing-data-with-r.html#cb216-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  2013     1     1        -4 ORD                 11.5        13.6 </span></span>
+<span id="cb216-37"><a href="managing-data-with-r.html#cb216-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  2013     1     1        -5 FLL                 11.5        12.7 </span></span>
+<span id="cb216-38"><a href="managing-data-with-r.html#cb216-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  2013     1     1        -3 IAD                 11.5        17.0 </span></span>
+<span id="cb216-39"><a href="managing-data-with-r.html#cb216-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  2013     1     1        -3 MCO                 11.5        11.3 </span></span>
+<span id="cb216-40"><a href="managing-data-with-r.html#cb216-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2013     1     1        -2 ORD                 11.5        13.6 </span></span>
+<span id="cb216-41"><a href="managing-data-with-r.html#cb216-41" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 336,766 more rows, and abbreviated variable name</span></span>
+<span id="cb216-42"><a href="managing-data-with-r.html#cb216-42" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ¹​avg_dest_dep_delay</span></span></code></pre></div>
 <p>Note: if you have to manipulate some intermediate objects, it may make sense not to use the pipe operator in that situation.</p>
 <p><strong>More examples:</strong></p>
 <p>Average delay per month:</p>

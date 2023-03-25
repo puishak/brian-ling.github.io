@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-21" />
+<meta name="date" content="2023-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -380,6 +380,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -550,7 +556,7 @@ The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing 
 <span id="cb334-12"><a href="statistical-inference-in-r.html#cb334-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-13"><a href="statistical-inference-in-r.html#cb334-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> beta, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-14"><a href="statistical-inference-in-r.html#cb334-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> vline_data, <span class="fu">aes</span>(<span class="at">xintercept =</span> mean), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-352-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-408-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>From the above plots, you can see the distributions of your estimators. The true parameters lie in the middle of the distributions. You can also add lines to visualize the mean of the distributions. In this case, the lines actually overlap with lines for the true parameters. Thus, the estimators are essentially unbiased. You can also see that there are times that <span class="math inline">\(\hat{\beta}_0\)</span> can be as large as <span class="math inline">\(1\)</span> or as small as <span class="math inline">\(0.1\)</span> while the true value is <span class="math inline">\(0.5\)</span>.</p>
 <p>You can also use a larger sample size.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="statistical-inference-in-r.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setting</span></span>
@@ -953,47 +959,44 @@ From the above formula, you could determine the minimum number of simulations re
 <span id="cb351-5"><a href="statistical-inference-in-r.html#cb351-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Test, p_0 = 0.5</span></span>
 <span id="cb351-6"><a href="statistical-inference-in-r.html#cb351-6" aria-hidden="true" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>))</span>
 <span id="cb351-7"><a href="statistical-inference-in-r.html#cb351-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb351-8"><a href="statistical-inference-in-r.html#cb351-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity</span></span>
-<span id="cb351-9"><a href="statistical-inference-in-r.html#cb351-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  correction</span></span>
-<span id="cb351-10"><a href="statistical-inference-in-r.html#cb351-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb351-11"><a href="statistical-inference-in-r.html#cb351-11" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
-<span id="cb351-12"><a href="statistical-inference-in-r.html#cb351-12" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.1336</span></span>
-<span id="cb351-13"><a href="statistical-inference-in-r.html#cb351-13" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is not equal to 0.5</span></span>
-<span id="cb351-14"><a href="statistical-inference-in-r.html#cb351-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
-<span id="cb351-15"><a href="statistical-inference-in-r.html#cb351-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3233236 0.5228954</span></span>
-<span id="cb351-16"><a href="statistical-inference-in-r.html#cb351-16" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb351-17"><a href="statistical-inference-in-r.html#cb351-17" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
-<span id="cb351-18"><a href="statistical-inference-in-r.html#cb351-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
+<span id="cb351-8"><a href="statistical-inference-in-r.html#cb351-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb351-9"><a href="statistical-inference-in-r.html#cb351-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb351-10"><a href="statistical-inference-in-r.html#cb351-10" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb351-11"><a href="statistical-inference-in-r.html#cb351-11" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.1336</span></span>
+<span id="cb351-12"><a href="statistical-inference-in-r.html#cb351-12" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is not equal to 0.5</span></span>
+<span id="cb351-13"><a href="statistical-inference-in-r.html#cb351-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb351-14"><a href="statistical-inference-in-r.html#cb351-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3233236 0.5228954</span></span>
+<span id="cb351-15"><a href="statistical-inference-in-r.html#cb351-15" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb351-16"><a href="statistical-inference-in-r.html#cb351-16" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb351-17"><a href="statistical-inference-in-r.html#cb351-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
 <p>The point estimate is 0.42. Although the true probability of success used in the simulation is
 <span class="math inline">\(0.4\)</span>, for this particular data, we do not reject to null hypothesis that the true probability of success is <span class="math inline">\(0.5\)</span> as the <span class="math inline">\(p\)</span>-value equals 0.134, which is larger than <span class="math inline">\(0.05\)</span>. The 95% confidence interval is equal to (0.323, 0.523).</p>
 <p>You can change the alternative hypothesis to <span class="math inline">\(p &gt; p_0\)</span> or <span class="math inline">\(p &lt; p_0\)</span>:</p>
 <div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="statistical-inference-in-r.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
 <span id="cb352-2"><a href="statistical-inference-in-r.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb352-3"><a href="statistical-inference-in-r.html#cb352-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity</span></span>
-<span id="cb352-4"><a href="statistical-inference-in-r.html#cb352-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  correction</span></span>
-<span id="cb352-5"><a href="statistical-inference-in-r.html#cb352-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb352-6"><a href="statistical-inference-in-r.html#cb352-6" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
-<span id="cb352-7"><a href="statistical-inference-in-r.html#cb352-7" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.9332</span></span>
-<span id="cb352-8"><a href="statistical-inference-in-r.html#cb352-8" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is greater than 0.5</span></span>
-<span id="cb352-9"><a href="statistical-inference-in-r.html#cb352-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
-<span id="cb352-10"><a href="statistical-inference-in-r.html#cb352-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3372368 1.0000000</span></span>
-<span id="cb352-11"><a href="statistical-inference-in-r.html#cb352-11" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb352-12"><a href="statistical-inference-in-r.html#cb352-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
-<span id="cb352-13"><a href="statistical-inference-in-r.html#cb352-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span>
-<span id="cb352-14"><a href="statistical-inference-in-r.html#cb352-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb352-15"><a href="statistical-inference-in-r.html#cb352-15" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>)</span>
-<span id="cb352-16"><a href="statistical-inference-in-r.html#cb352-16" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb352-17"><a href="statistical-inference-in-r.html#cb352-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity</span></span>
-<span id="cb352-18"><a href="statistical-inference-in-r.html#cb352-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  correction</span></span>
-<span id="cb352-19"><a href="statistical-inference-in-r.html#cb352-19" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb352-20"><a href="statistical-inference-in-r.html#cb352-20" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
-<span id="cb352-21"><a href="statistical-inference-in-r.html#cb352-21" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.06681</span></span>
-<span id="cb352-22"><a href="statistical-inference-in-r.html#cb352-22" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is less than 0.5</span></span>
-<span id="cb352-23"><a href="statistical-inference-in-r.html#cb352-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
-<span id="cb352-24"><a href="statistical-inference-in-r.html#cb352-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.0000000 0.5072341</span></span>
-<span id="cb352-25"><a href="statistical-inference-in-r.html#cb352-25" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb352-26"><a href="statistical-inference-in-r.html#cb352-26" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
-<span id="cb352-27"><a href="statistical-inference-in-r.html#cb352-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
+<span id="cb352-3"><a href="statistical-inference-in-r.html#cb352-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb352-4"><a href="statistical-inference-in-r.html#cb352-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-5"><a href="statistical-inference-in-r.html#cb352-5" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb352-6"><a href="statistical-inference-in-r.html#cb352-6" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.9332</span></span>
+<span id="cb352-7"><a href="statistical-inference-in-r.html#cb352-7" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is greater than 0.5</span></span>
+<span id="cb352-8"><a href="statistical-inference-in-r.html#cb352-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb352-9"><a href="statistical-inference-in-r.html#cb352-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3372368 1.0000000</span></span>
+<span id="cb352-10"><a href="statistical-inference-in-r.html#cb352-10" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb352-11"><a href="statistical-inference-in-r.html#cb352-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb352-12"><a href="statistical-inference-in-r.html#cb352-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span>
+<span id="cb352-13"><a href="statistical-inference-in-r.html#cb352-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb352-14"><a href="statistical-inference-in-r.html#cb352-14" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>)</span>
+<span id="cb352-15"><a href="statistical-inference-in-r.html#cb352-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-16"><a href="statistical-inference-in-r.html#cb352-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb352-17"><a href="statistical-inference-in-r.html#cb352-17" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-18"><a href="statistical-inference-in-r.html#cb352-18" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb352-19"><a href="statistical-inference-in-r.html#cb352-19" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.06681</span></span>
+<span id="cb352-20"><a href="statistical-inference-in-r.html#cb352-20" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is less than 0.5</span></span>
+<span id="cb352-21"><a href="statistical-inference-in-r.html#cb352-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb352-22"><a href="statistical-inference-in-r.html#cb352-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.0000000 0.5072341</span></span>
+<span id="cb352-23"><a href="statistical-inference-in-r.html#cb352-23" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb352-24"><a href="statistical-inference-in-r.html#cb352-24" aria-hidden="true" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb352-25"><a href="statistical-inference-in-r.html#cb352-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
 </div>
 <div id="testing-groups-for-equal-proportions" class="section level3 hasAnchor" number="7.2.7">
 <h3><span class="header-section-number">7.2.7</span> Testing groups for equal proportions<a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1004,33 +1007,31 @@ From the above formula, you could determine the minimum number of simulations re
 <span id="cb353-3"><a href="statistical-inference-in-r.html#cb353-3" aria-hidden="true" tabindex="-1"></a>no_trial <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>) <span class="co"># corresponding no. of trails in the 3 groups</span></span>
 <span id="cb353-4"><a href="statistical-inference-in-r.html#cb353-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(no_success, no_trial)</span>
 <span id="cb353-5"><a href="statistical-inference-in-r.html#cb353-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb353-6"><a href="statistical-inference-in-r.html#cb353-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3-sample test for equality of proportions</span></span>
-<span id="cb353-7"><a href="statistical-inference-in-r.html#cb353-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  without continuity correction</span></span>
+<span id="cb353-6"><a href="statistical-inference-in-r.html#cb353-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3-sample test for equality of proportions without continuity</span></span>
+<span id="cb353-7"><a href="statistical-inference-in-r.html#cb353-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  correction</span></span>
 <span id="cb353-8"><a href="statistical-inference-in-r.html#cb353-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb353-9"><a href="statistical-inference-in-r.html#cb353-9" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  no_success out of no_trial</span></span>
-<span id="cb353-10"><a href="statistical-inference-in-r.html#cb353-10" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 3.3161, df = 2, p-value =</span></span>
-<span id="cb353-11"><a href="statistical-inference-in-r.html#cb353-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.1905</span></span>
-<span id="cb353-12"><a href="statistical-inference-in-r.html#cb353-12" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
-<span id="cb353-13"><a href="statistical-inference-in-r.html#cb353-13" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb353-14"><a href="statistical-inference-in-r.html#cb353-14" aria-hidden="true" tabindex="-1"></a><span class="do">## prop 1 prop 2 prop 3 </span></span>
-<span id="cb353-15"><a href="statistical-inference-in-r.html#cb353-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.48   0.60   0.50</span></span></code></pre></div>
+<span id="cb353-10"><a href="statistical-inference-in-r.html#cb353-10" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
+<span id="cb353-11"><a href="statistical-inference-in-r.html#cb353-11" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
+<span id="cb353-12"><a href="statistical-inference-in-r.html#cb353-12" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb353-13"><a href="statistical-inference-in-r.html#cb353-13" aria-hidden="true" tabindex="-1"></a><span class="do">## prop 1 prop 2 prop 3 </span></span>
+<span id="cb353-14"><a href="statistical-inference-in-r.html#cb353-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.48   0.60   0.50</span></span></code></pre></div>
 <p><span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the three groups have the same proportion of success.</p>
 <p><strong>Example</strong></p>
 <p>In a class of <span class="math inline">\(38\)</span> students, <span class="math inline">\(14\)</span> of them got <span class="math inline">\(A\)</span>. In another class of <span class="math inline">\(40\)</span> students, only <span class="math inline">\(10\)</span> got <span class="math inline">\(A\)</span>. We want to know if the difference between the two proportions is statistically significant.</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="statistical-inference-in-r.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">40</span>))</span>
 <span id="cb354-2"><a href="statistical-inference-in-r.html#cb354-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb354-3"><a href="statistical-inference-in-r.html#cb354-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  2-sample test for equality of proportions</span></span>
-<span id="cb354-4"><a href="statistical-inference-in-r.html#cb354-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  with continuity correction</span></span>
+<span id="cb354-3"><a href="statistical-inference-in-r.html#cb354-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  2-sample test for equality of proportions with continuity</span></span>
+<span id="cb354-4"><a href="statistical-inference-in-r.html#cb354-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  correction</span></span>
 <span id="cb354-5"><a href="statistical-inference-in-r.html#cb354-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb354-6"><a href="statistical-inference-in-r.html#cb354-6" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  c(14, 10) out of c(38, 40)</span></span>
-<span id="cb354-7"><a href="statistical-inference-in-r.html#cb354-7" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 0.7872, df = 1, p-value =</span></span>
-<span id="cb354-8"><a href="statistical-inference-in-r.html#cb354-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.3749</span></span>
-<span id="cb354-9"><a href="statistical-inference-in-r.html#cb354-9" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
-<span id="cb354-10"><a href="statistical-inference-in-r.html#cb354-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
-<span id="cb354-11"><a href="statistical-inference-in-r.html#cb354-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  -0.1110245  0.3478666</span></span>
-<span id="cb354-12"><a href="statistical-inference-in-r.html#cb354-12" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb354-13"><a href="statistical-inference-in-r.html#cb354-13" aria-hidden="true" tabindex="-1"></a><span class="do">##    prop 1    prop 2 </span></span>
-<span id="cb354-14"><a href="statistical-inference-in-r.html#cb354-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.3684211 0.2500000</span></span></code></pre></div>
+<span id="cb354-7"><a href="statistical-inference-in-r.html#cb354-7" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared = 0.7872, df = 1, p-value = 0.3749</span></span>
+<span id="cb354-8"><a href="statistical-inference-in-r.html#cb354-8" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
+<span id="cb354-9"><a href="statistical-inference-in-r.html#cb354-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb354-10"><a href="statistical-inference-in-r.html#cb354-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  -0.1110245  0.3478666</span></span>
+<span id="cb354-11"><a href="statistical-inference-in-r.html#cb354-11" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb354-12"><a href="statistical-inference-in-r.html#cb354-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    prop 1    prop 2 </span></span>
+<span id="cb354-13"><a href="statistical-inference-in-r.html#cb354-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.3684211 0.2500000</span></span></code></pre></div>
 <p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the students in the two groups have the same proportion of getting an A.</p>
 </div>
 <div id="testing-if-two-samples-have-the-same-underlying-distribution" class="section level3 hasAnchor" number="7.2.8">
@@ -1055,27 +1056,25 @@ and
 <span id="cb355-3"><a href="statistical-inference-in-r.html#cb355-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb355-4"><a href="statistical-inference-in-r.html#cb355-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(x, y)</span>
 <span id="cb355-5"><a href="statistical-inference-in-r.html#cb355-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb355-6"><a href="statistical-inference-in-r.html#cb355-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov</span></span>
-<span id="cb355-7"><a href="statistical-inference-in-r.html#cb355-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  test</span></span>
-<span id="cb355-8"><a href="statistical-inference-in-r.html#cb355-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb355-9"><a href="statistical-inference-in-r.html#cb355-9" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  x and y</span></span>
-<span id="cb355-10"><a href="statistical-inference-in-r.html#cb355-10" aria-hidden="true" tabindex="-1"></a><span class="do">## D = 0.07, p-value = 0.9671</span></span>
-<span id="cb355-11"><a href="statistical-inference-in-r.html#cb355-11" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
+<span id="cb355-6"><a href="statistical-inference-in-r.html#cb355-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov test</span></span>
+<span id="cb355-7"><a href="statistical-inference-in-r.html#cb355-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb355-8"><a href="statistical-inference-in-r.html#cb355-8" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  x and y</span></span>
+<span id="cb355-9"><a href="statistical-inference-in-r.html#cb355-9" aria-hidden="true" tabindex="-1"></a><span class="do">## D = 0.07, p-value = 0.9671</span></span>
+<span id="cb355-10"><a href="statistical-inference-in-r.html#cb355-10" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
 <p>The <span class="math inline">\(p\)</span>-value is not small. We do not have enough evidence to reject the null hypothesis that the two distributions are the same.</p>
 <p><strong>Example</strong></p>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="statistical-inference-in-r.html#cb356-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
 <span id="cb356-2"><a href="statistical-inference-in-r.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(y, z)</span>
 <span id="cb356-3"><a href="statistical-inference-in-r.html#cb356-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb356-4"><a href="statistical-inference-in-r.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov</span></span>
-<span id="cb356-5"><a href="statistical-inference-in-r.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  test</span></span>
-<span id="cb356-6"><a href="statistical-inference-in-r.html#cb356-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb356-7"><a href="statistical-inference-in-r.html#cb356-7" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  y and z</span></span>
-<span id="cb356-8"><a href="statistical-inference-in-r.html#cb356-8" aria-hidden="true" tabindex="-1"></a><span class="do">## D = 0.77, p-value &lt; 2.2e-16</span></span>
-<span id="cb356-9"><a href="statistical-inference-in-r.html#cb356-9" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
+<span id="cb356-4"><a href="statistical-inference-in-r.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov test</span></span>
+<span id="cb356-5"><a href="statistical-inference-in-r.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb356-6"><a href="statistical-inference-in-r.html#cb356-6" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  y and z</span></span>
+<span id="cb356-7"><a href="statistical-inference-in-r.html#cb356-7" aria-hidden="true" tabindex="-1"></a><span class="do">## D = 0.77, p-value &lt; 2.2e-16</span></span>
+<span id="cb356-8"><a href="statistical-inference-in-r.html#cb356-8" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
 <p>The <span class="math inline">\(p\)</span>-value is very small. We will reject the null hypothesis that the two distributions are the same.</p>
 <p><strong>Example</strong></p>
 <p>Recall the dataset <code>birthwt</code> from the package MASS. We created the following histograms to visualize the distributions of birth weights for the two groups (smoke and no smoke).</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-379-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-435-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We may want to ask if the two distributions are different</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="statistical-inference-in-r.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">0</span>], birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">1</span>])</span>
 <span id="cb357-2"><a href="statistical-inference-in-r.html#cb357-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
