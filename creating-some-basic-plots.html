@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-25" />
+<meta name="date" content="2023-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -386,6 +386,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
 <li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a></li>
+<li class="chapter" data-level="17" data-path="basic-formatting.html"><a href="basic-formatting.html"><i class="fa fa-check"></i><b>17</b> Basic formatting</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="basic-formatting.html"><a href="basic-formatting.html#this-is-a-subsection"><i class="fa fa-check"></i><b>17.1</b> This is a subsection</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="basic-formatting.html"><a href="basic-formatting.html#this-is-a-subsubsection"><i class="fa fa-check"></i><b>17.1.1</b> This is a subsubsection</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="basic-formatting.html"><a href="basic-formatting.html#formatting-text"><i class="fa fa-check"></i><b>17.2</b> Formatting Text</a></li>
+<li class="chapter" data-level="17.3" data-path="basic-formatting.html"><a href="basic-formatting.html#list"><i class="fa fa-check"></i><b>17.3</b> List</a></li>
+<li class="chapter" data-level="17.4" data-path="basic-formatting.html"><a href="basic-formatting.html#table"><i class="fa fa-check"></i><b>17.4</b> Table</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="r-code.html"><a href="r-code.html"><i class="fa fa-check"></i><b>18</b> R code</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="r-code.html"><a href="r-code.html#controlling-which-code-and-results-are-shown"><i class="fa fa-check"></i><b>18.1</b> Controlling Which Code and Results Are Shown</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>19</b> Graphics</a></li>
+<li class="chapter" data-level="20" data-path="latex-equation.html"><a href="latex-equation.html"><i class="fa fa-check"></i><b>20</b> Latex Equation</a></li>
+<li class="chapter" data-level="21" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>21</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>21.1</b> Dissimilarity measure and Linkage</a></li>
+<li class="chapter" data-level="21.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>21.2</b> Alogrithm</a></li>
+<li class="chapter" data-level="21.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>21.3</b> Applications</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>21.3.1</b> NCI60 Data</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -418,20 +444,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Scatter Plot<a href="creating-some-basic-plots.html#scatter-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take a look at the <code>mtcars</code> dataset. This dataset comes with base R.</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="creating-some-basic-plots.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars) <span class="co"># this is a data frame</span></span>
-<span id="cb220-2"><a href="creating-some-basic-plots.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt  qsec vs am gear</span></span>
-<span id="cb220-3"><a href="creating-some-basic-plots.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4</span></span>
-<span id="cb220-4"><a href="creating-some-basic-plots.html#cb220-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4</span></span>
-<span id="cb220-5"><a href="creating-some-basic-plots.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4</span></span>
-<span id="cb220-6"><a href="creating-some-basic-plots.html#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3</span></span>
-<span id="cb220-7"><a href="creating-some-basic-plots.html#cb220-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3</span></span>
-<span id="cb220-8"><a href="creating-some-basic-plots.html#cb220-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3</span></span>
-<span id="cb220-9"><a href="creating-some-basic-plots.html#cb220-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                   carb</span></span>
-<span id="cb220-10"><a href="creating-some-basic-plots.html#cb220-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4            4</span></span>
-<span id="cb220-11"><a href="creating-some-basic-plots.html#cb220-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag        4</span></span>
-<span id="cb220-12"><a href="creating-some-basic-plots.html#cb220-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710           1</span></span>
-<span id="cb220-13"><a href="creating-some-basic-plots.html#cb220-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive       1</span></span>
-<span id="cb220-14"><a href="creating-some-basic-plots.html#cb220-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout    2</span></span>
-<span id="cb220-15"><a href="creating-some-basic-plots.html#cb220-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant              1</span></span></code></pre></div>
+<span id="cb220-2"><a href="creating-some-basic-plots.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb220-3"><a href="creating-some-basic-plots.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb220-4"><a href="creating-some-basic-plots.html#cb220-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb220-5"><a href="creating-some-basic-plots.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb220-6"><a href="creating-some-basic-plots.html#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb220-7"><a href="creating-some-basic-plots.html#cb220-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb220-8"><a href="creating-some-basic-plots.html#cb220-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="creating-some-basic-plots.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars) <span class="co"># display the structure of the data frame</span></span>
 <span id="cb221-2"><a href="creating-some-basic-plots.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    32 obs. of  11 variables:</span></span>
 <span id="cb221-3"><a href="creating-some-basic-plots.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
@@ -451,14 +470,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="creating-some-basic-plots.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x-axis: mtcars$wt</span></span>
 <span id="cb222-2"><a href="creating-some-basic-plots.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="co"># y-axis: mtcars$mpg</span></span>
 <span id="cb222-3"><a href="creating-some-basic-plots.html#cb222-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt, <span class="at">y =</span> mtcars<span class="sc">$</span>mpg) <span class="co"># &quot;x =&quot;, &quot;y =&quot; are optional</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-293-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-237-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>You can produce the same plot with <code>plot(mtcars$wt, mtcars$mpg)</code></p>
 <p><strong>Scatter plot with base graphics (when you only have <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> but not a dataset)</strong></p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="creating-some-basic-plots.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb223-2"><a href="creating-some-basic-plots.html#cb223-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb223-3"><a href="creating-some-basic-plots.html#cb223-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb223-4"><a href="creating-some-basic-plots.html#cb223-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-294-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-238-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-graph" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Line Graph<a href="creating-some-basic-plots.html#line-graph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -466,11 +485,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Line graph with base graphics</strong></p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="creating-some-basic-plots.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the only difference from a scatter plot is that we add type=&quot;l&quot;</span></span>
 <span id="cb224-2"><a href="creating-some-basic-plots.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)  <span class="co">#l = line</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-295-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-239-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with base graphics with points</strong></p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="creating-some-basic-plots.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
 <span id="cb225-2"><a href="creating-some-basic-plots.html#cb225-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure) <span class="co"># add some points</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-296-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-240-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Line graph with base graphics with another line and points (with color)</strong></p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="creating-some-basic-plots.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
 <span id="cb226-2"><a href="creating-some-basic-plots.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure)</span>
@@ -478,7 +497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb226-4"><a href="creating-some-basic-plots.html#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="co"># just an illustration on how to add a line with base graphics</span></span>
 <span id="cb226-5"><a href="creating-some-basic-plots.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure <span class="sc">/</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) </span>
 <span id="cb226-6"><a href="creating-some-basic-plots.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure <span class="sc">/</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-297-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-241-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Colors in R</strong>
 You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class="uri">https://www.r-graph-gallery.com/ggplot2-color.html</a> and read more about colors in R.</p>
 <p>For example, you can specify the color by name, rgb, number and hex code.</p>
@@ -486,7 +505,7 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <span id="cb227-2"><a href="creating-some-basic-plots.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure <span class="sc">/</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb227-3"><a href="creating-some-basic-plots.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure <span class="sc">*</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;#8B2813&quot;</span>)</span>
 <span id="cb227-4"><a href="creating-some-basic-plots.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure <span class="sc">*</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;cornflowerblue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-298-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-242-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="bar-chart" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Bar Chart<a href="creating-some-basic-plots.html#bar-chart" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -505,7 +524,7 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <p><strong>Bar chart of values with base graphics</strong></p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="creating-some-basic-plots.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="co"># names.arg = a vector of names to be plotted below each bar or group of bars.</span></span>
 <span id="cb229-2"><a href="creating-some-basic-plots.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(BOD<span class="sc">$</span>demand, <span class="at">names.arg =</span> BOD<span class="sc">$</span>Time) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-300-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-244-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Bar chart of counts with base graphics</strong></p>
 <p>In the dateset <code>mtcars</code>, <code>cyl</code>is the number of cylinders in the car. The possible values are <span class="math inline">\(4, 6\)</span>, and <span class="math inline">\(8\)</span>. We first find the count of each unique value in <code>mtcars$cyl</code>:</p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="creating-some-basic-plots.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mtcars<span class="sc">$</span>cyl)</span>
@@ -514,18 +533,18 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <span id="cb230-4"><a href="creating-some-basic-plots.html#cb230-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 11  7 14</span></span></code></pre></div>
 <p>To plot the bar chart, we use</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="creating-some-basic-plots.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-302-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-246-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histogram" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Histogram<a href="creating-some-basic-plots.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>mpg</code> in <code>mtcars</code> is the miles/gallon of the car. It is a continuous variable.</p>
 <p><strong>Histogram with base graphics</strong></p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="creating-some-basic-plots.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-303-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-247-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Histogram with base graphics</strong></p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="creating-some-basic-plots.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify approximate number of bins with &quot;breaks&quot;</span></span>
 <span id="cb233-2"><a href="creating-some-basic-plots.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-304-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-248-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Remark: different bin widths will give you histograms with different looks.</p>
 </div>
 <div id="box-plot" class="section level2 hasAnchor" number="5.5">
@@ -542,36 +561,36 @@ You can go to <a href="https://www.r-graph-gallery.com/ggplot2-color.html" class
 <p><strong>Box plot with basic graphics (using <code>plot</code>)</strong></p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="creating-some-basic-plots.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if x is a factor, use the following code</span></span>
 <span id="cb235-2"><a href="creating-some-basic-plots.html#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> ToothGrowth<span class="sc">$</span>supp, <span class="at">y =</span> ToothGrowth<span class="sc">$</span>len)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-306-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-250-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with basic graphics (using <code>boxplot</code>)</strong></p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="creating-some-basic-plots.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="co"># len ~ supp is an example of a &quot;formula&quot; (y ~ x)</span></span>
 <span id="cb236-2"><a href="creating-some-basic-plots.html#cb236-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-307-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-251-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Box plot with basic graphics + interaction of two variables on x-axis (using <code>boxplot</code>)</strong></p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="creating-some-basic-plots.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp <span class="sc">+</span> dose, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-308-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-252-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plotting-a-function-curve" class="section level2 hasAnchor" number="5.6">
 <h2><span class="header-section-number">5.6</span> Plotting a function curve<a href="creating-some-basic-plots.html#plotting-a-function-curve" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="creating-some-basic-plots.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">5</span> <span class="sc">*</span> x, <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-309-1.png" width="60%" style="display: block; margin: auto;" />
+<p><img src="Book_files/figure-html/unnamed-chunk-253-1.png" width="60%" style="display: block; margin: auto;" />
 Alternatively:</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="creating-some-basic-plots.html#cb239-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">len =</span> <span class="dv">1000</span>)</span>
 <span id="cb239-2"><a href="creating-some-basic-plots.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">5</span> <span class="sc">*</span> x, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-310-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-254-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a built-in function</strong></p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="creating-some-basic-plots.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-311-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-255-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a self-defined function</strong></p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="creating-some-basic-plots.html#cb241-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb241-2"><a href="creating-some-basic-plots.html#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>x <span class="sc">+</span> <span class="dv">10</span>))</span>
 <span id="cb241-3"><a href="creating-some-basic-plots.html#cb241-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb241-4"><a href="creating-some-basic-plots.html#cb241-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb241-5"><a href="creating-some-basic-plots.html#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(my_function, <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-312-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-256-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Plotting a function with additional arguments</strong></p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="creating-some-basic-plots.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-313-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-257-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="more-on-plots-with-base-r" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> More on plots with base R<a href="creating-some-basic-plots.html#more-on-plots-with-base-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -588,7 +607,7 @@ Alternatively:</p>
 <span id="cb243-8"><a href="creating-some-basic-plots.html#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(y,<span class="at">breaks =</span> <span class="dv">10</span>)</span>
 <span id="cb243-9"><a href="creating-some-basic-plots.html#cb243-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
 <span id="cb243-10"><a href="creating-some-basic-plots.html#cb243-10" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, y)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-314-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-258-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="subsubsec:type_of_plot" class="section level3 hasAnchor" number="5.7.2">
 <h3><span class="header-section-number">5.7.2</span> Type of Plot<a href="creating-some-basic-plots.html#subsubsec:type_of_plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -631,7 +650,7 @@ Alternatively:</p>
 <span id="cb244-7"><a href="creating-some-basic-plots.html#cb244-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span>
 <span id="cb244-8"><a href="creating-some-basic-plots.html#cb244-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>)</span>
 <span id="cb244-9"><a href="creating-some-basic-plots.html#cb244-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-315-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-259-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parameters-of-a-plot" class="section level3 hasAnchor" number="5.7.3">
 <h3><span class="header-section-number">5.7.3</span> Parameters of a plot<a href="creating-some-basic-plots.html#parameters-of-a-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -692,7 +711,7 @@ Alternatively:</p>
 <span id="cb245-4"><a href="creating-some-basic-plots.html#cb245-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb245-5"><a href="creating-some-basic-plots.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">15</span>, <span class="at">main =</span> <span class="st">&quot;This is the title&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
 <span id="cb245-6"><a href="creating-some-basic-plots.html#cb245-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;name of x-axis&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;name of y-axis&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-316-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-260-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="elements-on-plot" class="section level3 hasAnchor" number="5.7.4">
 <h3><span class="header-section-number">5.7.4</span> Elements on plot<a href="creating-some-basic-plots.html#elements-on-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -729,7 +748,7 @@ Alternatively:</p>
 <span id="cb246-5"><a href="creating-some-basic-plots.html#cb246-5" aria-hidden="true" tabindex="-1"></a><span class="co"># connect the points (20, 20), (30, 80), (40, 40) with a line</span></span>
 <span id="cb246-6"><a href="creating-some-basic-plots.html#cb246-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>),<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dv">40</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb246-7"><a href="creating-some-basic-plots.html#cb246-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">60</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-317-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-261-1.png" width="60%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

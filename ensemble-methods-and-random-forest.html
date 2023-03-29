@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-25" />
+<meta name="date" content="2023-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="resampling-methods.html"/>
-
+<link rel="next" href="r-markdown.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,6 +386,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
 <li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a></li>
+<li class="chapter" data-level="17" data-path="basic-formatting.html"><a href="basic-formatting.html"><i class="fa fa-check"></i><b>17</b> Basic formatting</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="basic-formatting.html"><a href="basic-formatting.html#this-is-a-subsection"><i class="fa fa-check"></i><b>17.1</b> This is a subsection</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="basic-formatting.html"><a href="basic-formatting.html#this-is-a-subsubsection"><i class="fa fa-check"></i><b>17.1.1</b> This is a subsubsection</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="basic-formatting.html"><a href="basic-formatting.html#formatting-text"><i class="fa fa-check"></i><b>17.2</b> Formatting Text</a></li>
+<li class="chapter" data-level="17.3" data-path="basic-formatting.html"><a href="basic-formatting.html#list"><i class="fa fa-check"></i><b>17.3</b> List</a></li>
+<li class="chapter" data-level="17.4" data-path="basic-formatting.html"><a href="basic-formatting.html#table"><i class="fa fa-check"></i><b>17.4</b> Table</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="r-code.html"><a href="r-code.html"><i class="fa fa-check"></i><b>18</b> R code</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="r-code.html"><a href="r-code.html#controlling-which-code-and-results-are-shown"><i class="fa fa-check"></i><b>18.1</b> Controlling Which Code and Results Are Shown</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>19</b> Graphics</a></li>
+<li class="chapter" data-level="20" data-path="latex-equation.html"><a href="latex-equation.html"><i class="fa fa-check"></i><b>20</b> Latex Equation</a></li>
+<li class="chapter" data-level="21" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>21</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>21.1</b> Dissimilarity measure and Linkage</a></li>
+<li class="chapter" data-level="21.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>21.2</b> Alogrithm</a></li>
+<li class="chapter" data-level="21.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>21.3</b> Applications</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>21.3.1</b> NCI60 Data</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -498,7 +524,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb483-9"><a href="ensemble-methods-and-random-forest.html#cb483-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 83073.2</span></span></code></pre></div>
 <p>A plot showing the predictions by different methods and the corresponding observed values.</p>
 <pre><code>## [1] FALSE</code></pre>
-<p><img src="Book_files/figure-html/unnamed-chunk-599-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-543-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Several observations:</p>
 <ul>
 <li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
@@ -532,7 +558,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb485-22"><a href="ensemble-methods-and-random-forest.html#cb485-22" aria-hidden="true" tabindex="-1"></a><span class="do">## High      29.37244111    7814171.92</span></span></code></pre></div>
 <p>Visualizing the importance of the features:</p>
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="ensemble-methods-and-random-forest.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-601-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-545-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -541,8 +567,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="resampling-methods.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="resampling-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
