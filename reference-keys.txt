@@ -175,7 +175,6 @@ formatting-text
 list
 table
 r-code
-controlling-which-code-and-results-are-shown
 graphics
 latex-equation
 hierarchical-clustering
@@ -183,3 +182,10 @@ dissimilarity-measure-and-linkage
 alogrithm
 applications-1
 nci60-data
+regularization
+ridge-regression
+lasso
+selecting-the-tuning-parameter
+glmnet
+ridge-regression-1
+lasso-1
