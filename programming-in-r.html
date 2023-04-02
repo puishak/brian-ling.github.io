@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-30" />
+<meta name="date" content="2023-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -419,6 +419,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>18.4.1</b> Ridge Regression</a></li>
 <li class="chapter" data-level="18.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>18.4.2</b> LASSO</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>19</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>19.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="19.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>19.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>19.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="19.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>19.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="19.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>19.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="19.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>19.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>19.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>19.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>19.4</b> Class Imbalance in Classification</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1032,7 +1048,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb126-7"><a href="programming-in-r.html#cb126-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb126-8"><a href="programming-in-r.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb126-9"><a href="programming-in-r.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.03    0.00    0.31</span></span></code></pre></div>
+<span id="cb126-10"><a href="programming-in-r.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.12    0.11    0.29</span></span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="programming-in-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb127-2"><a href="programming-in-r.html#cb127-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb127-3"><a href="programming-in-r.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -1042,7 +1058,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.07    0.00    0.23</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.01    0.00    0.16</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1050,7 +1066,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb128-3"><a href="programming-in-r.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
 <span id="cb128-4"><a href="programming-in-r.html#cb128-4" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb128-5"><a href="programming-in-r.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb128-6"><a href="programming-in-r.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.02    0.00    0.01</span></span></code></pre></div>
+<span id="cb128-6"><a href="programming-in-r.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.00    0.00    0.01</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="programming-in-r.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb129-2"><a href="programming-in-r.html#cb129-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -1063,7 +1079,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-9"><a href="programming-in-r.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb129-10"><a href="programming-in-r.html#cb129-10" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb129-11"><a href="programming-in-r.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.02    0.00    0.07</span></span>
+<span id="cb129-12"><a href="programming-in-r.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.05    0.00    0.07</span></span>
 <span id="cb129-13"><a href="programming-in-r.html#cb129-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb129-14"><a href="programming-in-r.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb129-15"><a href="programming-in-r.html#cb129-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>

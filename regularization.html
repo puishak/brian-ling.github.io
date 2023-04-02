@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-30" />
+<meta name="date" content="2023-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="hierarchical-clustering.html"/>
-
+<link rel="next" href="evaluating-model-performance-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -420,6 +420,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>18.4.2</b> LASSO</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>19</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>19.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="19.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>19.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>19.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="19.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>19.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="19.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>19.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="19.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>19.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>19.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>19.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>19.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -549,7 +565,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="regularization.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
 <span id="cb511-2"><a href="regularization.html#cb511-2" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
 <span id="cb511-3"><a href="regularization.html#cb511-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-569-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-594-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The above plot shows the cross-validation error (the mean squared error computed using the CV approach) with different values of <span class="math inline">\(\lambda\)</span> in the <span class="math inline">\(\ln\)</span> scale. We can pick the <span class="math inline">\(\lambda\)</span> that results in the smallest cross-validation error using the following code:</p>
 <div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="regularization.html#cb512-1" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> ridge_cv<span class="sc">$</span>lambda.min</span></code></pre></div>
 <p>Fit the ridge regression for the training data set with the “best” lambda and evaluate the test error.</p>
@@ -564,14 +580,14 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <span id="cb513-9"><a href="regularization.html#cb513-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 82978.09</span></span></code></pre></div>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="regularization.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb514-2"><a href="regularization.html#cb514-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs </span></span>
-<span id="cb514-3"><a href="regularization.html#cb514-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 734.98187060  -0.39771682   0.09856678   1.90816636   1.12520209 </span></span>
-<span id="cb514-4"><a href="regularization.html#cb514-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          RBI        Walks        Years       CAtBat        CHits </span></span>
-<span id="cb514-5"><a href="regularization.html#cb514-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.12817707   1.84214466  -1.07801226  -0.01043714   0.04680252 </span></span>
-<span id="cb514-6"><a href="regularization.html#cb514-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       CHmRun        CRuns         CRBI       CWalks      LeagueN </span></span>
-<span id="cb514-7"><a href="regularization.html#cb514-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.29728579   0.06784558   0.10195270   0.22099398  52.85489693 </span></span>
-<span id="cb514-8"><a href="regularization.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    DivisionW      PutOuts      Assists       Errors   NewLeagueN </span></span>
-<span id="cb514-9"><a href="regularization.html#cb514-9" aria-hidden="true" tabindex="-1"></a><span class="do">## -87.77696817   0.02659380   0.25831844  -2.60678334 -21.39048354</span></span></code></pre></div>
+<span id="cb514-2"><a href="regularization.html#cb514-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI </span></span>
+<span id="cb514-3"><a href="regularization.html#cb514-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 734.98187060  -0.39771682   0.09856678   1.90816636   1.12520209   1.12817707 </span></span>
+<span id="cb514-4"><a href="regularization.html#cb514-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        Walks        Years       CAtBat        CHits       CHmRun        CRuns </span></span>
+<span id="cb514-5"><a href="regularization.html#cb514-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.84214466  -1.07801226  -0.01043714   0.04680252   0.29728579   0.06784558 </span></span>
+<span id="cb514-6"><a href="regularization.html#cb514-6" aria-hidden="true" tabindex="-1"></a><span class="do">##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists </span></span>
+<span id="cb514-7"><a href="regularization.html#cb514-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.10195270   0.22099398  52.85489693 -87.77696817   0.02659380   0.25831844 </span></span>
+<span id="cb514-8"><a href="regularization.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       Errors   NewLeagueN </span></span>
+<span id="cb514-9"><a href="regularization.html#cb514-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  -2.60678334 -21.39048354</span></span></code></pre></div>
 <p><strong>Compare with the least squares approach</strong></p>
 <div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="regularization.html#cb515-1" aria-hidden="true" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters[index, ])</span>
 <span id="cb515-2"><a href="regularization.html#cb515-2" aria-hidden="true" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters[<span class="sc">-</span>index, ])</span>
@@ -585,7 +601,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="regularization.html#cb516-1" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb516-2"><a href="regularization.html#cb516-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb516-3"><a href="regularization.html#cb516-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-574-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-599-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="regularization.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the best lambda</span></span>
 <span id="cb517-2"><a href="regularization.html#cb517-2" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
 <span id="cb517-3"><a href="regularization.html#cb517-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -600,14 +616,12 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <p>The test error obtained from lasso is also smaller than that obtained from the least squares approach.</p>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="regularization.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb518-2"><a href="regularization.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       AtBat        Hits       HmRun        Runs         RBI </span></span>
-<span id="cb518-3"><a href="regularization.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 820.2506544   0.0000000   0.0000000   0.0000000   0.0000000   0.8252274 </span></span>
-<span id="cb518-4"><a href="regularization.html#cb518-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       Walks       Years      CAtBat       CHits      CHmRun       CRuns </span></span>
-<span id="cb518-5"><a href="regularization.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.7905141   0.0000000   0.0000000   0.0000000   0.1572202   0.0000000 </span></span>
-<span id="cb518-6"><a href="regularization.html#cb518-6" aria-hidden="true" tabindex="-1"></a><span class="do">##        CRBI      CWalks     LeagueN   DivisionW     PutOuts     Assists </span></span>
-<span id="cb518-7"><a href="regularization.html#cb518-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000   0.3894920   0.0000000 -59.0032158   0.0000000   0.0000000 </span></span>
-<span id="cb518-8"><a href="regularization.html#cb518-8" aria-hidden="true" tabindex="-1"></a><span class="do">##      Errors  NewLeagueN </span></span>
-<span id="cb518-9"><a href="regularization.html#cb518-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000   0.0000000</span></span></code></pre></div>
+<span id="cb518-2"><a href="regularization.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       AtBat        Hits       HmRun        Runs         RBI       Walks </span></span>
+<span id="cb518-3"><a href="regularization.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 820.2506544   0.0000000   0.0000000   0.0000000   0.0000000   0.8252274   0.7905141 </span></span>
+<span id="cb518-4"><a href="regularization.html#cb518-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       Years      CAtBat       CHits      CHmRun       CRuns        CRBI      CWalks </span></span>
+<span id="cb518-5"><a href="regularization.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000   0.0000000   0.0000000   0.1572202   0.0000000   0.0000000   0.3894920 </span></span>
+<span id="cb518-6"><a href="regularization.html#cb518-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     LeagueN   DivisionW     PutOuts     Assists      Errors  NewLeagueN </span></span>
+<span id="cb518-7"><a href="regularization.html#cb518-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000 -59.0032158   0.0000000   0.0000000   0.0000000   0.0000000</span></span></code></pre></div>
 <p>We can see that the lasso results in a model where the coefficient estimates are sparse: <span class="math inline">\(7\)</span> of the estimates are exactly <span class="math inline">\(0\)</span>.</p>
 <p><strong>Variable selection property of LASSO</strong></p>
 <p>In the following toy example, the response is only related to the first five features <span class="math inline">\(X_1,\ldots,X_5\)</span>:
@@ -628,14 +642,12 @@ We apply LASSO and see that LASSO can select the true model, that is, a linear m
 <span id="cb519-11"><a href="regularization.html#cb519-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb519-12"><a href="regularization.html#cb519-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated regression coefficients</span></span>
 <span id="cb519-13"><a href="regularization.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[, <span class="dv">1</span>]</span>
-<span id="cb519-14"><a href="regularization.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5 </span></span>
-<span id="cb519-15"><a href="regularization.html#cb519-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180 </span></span>
-<span id="cb519-16"><a href="regularization.html#cb519-16" aria-hidden="true" tabindex="-1"></a><span class="do">##          V6          V7          V8          V9         V10         V11 </span></span>
-<span id="cb519-17"><a href="regularization.html#cb519-17" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
-<span id="cb519-18"><a href="regularization.html#cb519-18" aria-hidden="true" tabindex="-1"></a><span class="do">##         V12         V13         V14         V15         V16         V17 </span></span>
-<span id="cb519-19"><a href="regularization.html#cb519-19" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
-<span id="cb519-20"><a href="regularization.html#cb519-20" aria-hidden="true" tabindex="-1"></a><span class="do">##         V18         V19         V20 </span></span>
-<span id="cb519-21"><a href="regularization.html#cb519-21" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000</span></span></code></pre></div>
+<span id="cb519-14"><a href="regularization.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5          V6 </span></span>
+<span id="cb519-15"><a href="regularization.html#cb519-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180    0.000000 </span></span>
+<span id="cb519-16"><a href="regularization.html#cb519-16" aria-hidden="true" tabindex="-1"></a><span class="do">##          V7          V8          V9         V10         V11         V12         V13 </span></span>
+<span id="cb519-17"><a href="regularization.html#cb519-17" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
+<span id="cb519-18"><a href="regularization.html#cb519-18" aria-hidden="true" tabindex="-1"></a><span class="do">##         V14         V15         V16         V17         V18         V19         V20 </span></span>
+<span id="cb519-19"><a href="regularization.html#cb519-19" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000</span></span></code></pre></div>
 
 </div>
 </div>
@@ -645,8 +657,8 @@ We apply LASSO and see that LASSO can select the true model, that is, a linear m
           </div>
         </div>
       </div>
-<a href="hierarchical-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="hierarchical-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaluating-model-performance-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -189,3 +189,13 @@ selecting-the-tuning-parameter
 glmnet
 ridge-regression-1
 lasso-1
+evaluating-model-performance-1
+accuracy-and-confusion-matrix
+other-measures-of-performance
+the-kappa-statistic
+sensitivity-and-specificity
+precision-and-recall
+roc-and-auc
+estimating-future-performances
+cross-validation-1
+class-imbalance-in-classification

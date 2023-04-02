@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-30" />
+<meta name="date" content="2023-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -420,6 +420,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>18.4.2</b> LASSO</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>19</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>19.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="19.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>19.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>19.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="19.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>19.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="19.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>19.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="19.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>19.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>19.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>19.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>19.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -532,7 +548,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb483-9"><a href="ensemble-methods-and-random-forest.html#cb483-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 83073.2</span></span></code></pre></div>
 <p>A plot showing the predictions by different methods and the corresponding observed values.</p>
 <pre><code>## [1] FALSE</code></pre>
-<p><img src="Book_files/figure-html/unnamed-chunk-543-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-568-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Several observations:</p>
 <ul>
 <li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
@@ -566,7 +582,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb485-22"><a href="ensemble-methods-and-random-forest.html#cb485-22" aria-hidden="true" tabindex="-1"></a><span class="do">## High      29.37244111    7814171.92</span></span></code></pre></div>
 <p>Visualizing the importance of the features:</p>
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="ensemble-methods-and-random-forest.html#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-545-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-570-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

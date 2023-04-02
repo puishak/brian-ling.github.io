@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-03-30" />
+<meta name="date" content="2023-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -420,6 +420,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>18.4.2</b> LASSO</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="19" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>19</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>19.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="19.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>19.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>19.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="19.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>19.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="19.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>19.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="19.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>19.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>19.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>19.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>19.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -535,12 +551,12 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="linear-regression-models.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span></span>
 <span id="cb393-2"><a href="linear-regression-models.html#cb393-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb393-3"><a href="linear-regression-models.html#cb393-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-423-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-448-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To remove the confidence interval, set <code>se = FALSE</code> in <code>geom_smooth()</code>.</p>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="linear-regression-models.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span></span>
 <span id="cb394-2"><a href="linear-regression-models.html#cb394-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb394-3"><a href="linear-regression-models.html#cb394-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-424-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-449-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Remark: You have seen <code>geom_smooth()</code> in Assignment 3.</p>
 </div>
 <div id="smoothed-conditional-means" class="section level2 hasAnchor" number="10.2">
@@ -550,7 +566,7 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <span id="cb395-2"><a href="linear-regression-models.html#cb395-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> speed, <span class="at">y =</span> dist)) <span class="sc">+</span></span>
 <span id="cb395-3"><a href="linear-regression-models.html#cb395-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb395-4"><a href="linear-regression-models.html#cb395-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-425-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-450-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>You can see the message saying <code>geom_smooth()</code> is using <code>method = "loess"</code>. loess stands for locally estimated scatterplot smoothing. You may also see “lowess”, which stands for
 locally weighted scatterplot smoothing. Basically, a locally weighted regression solves a separate weighted least squares problem at each target point <span class="math inline">\(x_0\)</span>:
 <span class="math display">\[\begin{equation*}
@@ -661,9 +677,9 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="linear-regression-models.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fit)</span>
-<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span></span>
-<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span></span>
-<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb399-2"><a href="linear-regression-models.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;</span></span>
+<span id="cb399-3"><a href="linear-regression-models.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         </span></span>
+<span id="cb399-4"><a href="linear-regression-models.html#cb399-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="linear-regression-models.html#cb400-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb400-2"><a href="linear-regression-models.html#cb400-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          x1          x2 </span></span>
@@ -950,7 +966,7 @@ Y_i&#39; = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \varepsi
 <div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="linear-regression-models.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb417-2"><a href="linear-regression-models.html#cb417-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
 <span id="cb417-3"><a href="linear-regression-models.html#cb417-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x  <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-448-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-473-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To perform regression for the transformed variable:</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="linear-regression-models.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> x)</span>
 <span id="cb418-2"><a href="linear-regression-models.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
@@ -983,10 +999,10 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 <span id="cb419-9"><a href="linear-regression-models.html#cb419-9" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
 <span id="cb419-10"><a href="linear-regression-models.html#cb419-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb419-11"><a href="linear-regression-models.html#cb419-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  </span></span>
-<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044                     2.025  </span></span>
-<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">## poly(x1, 2, raw = TRUE)2                        x2  </span></span>
-<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.976                    -2.058</span></span></code></pre></div>
+<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
+<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976  </span></span>
+<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                       x2  </span></span>
+<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
 <p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
 <p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="linear-regression-models.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -1091,10 +1107,8 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb422-56"><a href="linear-regression-models.html#cb422-56" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb422-57"><a href="linear-regression-models.html#cb422-57" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb422-58"><a href="linear-regression-models.html#cb422-58" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph  </span></span>
-<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469  </span></span>
-<span id="cb422-61"><a href="linear-regression-models.html#cb422-61" aria-hidden="true" tabindex="-1"></a><span class="do">##         svi  </span></span>
-<span id="cb422-62"><a href="linear-regression-models.html#cb422-62" aria-hidden="true" tabindex="-1"></a><span class="do">##      0.2960</span></span></code></pre></div>
+<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph          svi  </span></span>
+<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469       0.2960</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>From the full model, removing <code>gleason</code> results in a model with the smallest AIC. Therefore, the algorithm first removes <code>gleason</code>.</p></li>
 <li><p>Next, removing <code>lcp</code> results in a model with the smallest AIC. Therefore, <code>lcp</code> is removed in the next step.</p></li>
@@ -1178,10 +1192,8 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <span id="cb423-74"><a href="linear-regression-models.html#cb423-74" aria-hidden="true" tabindex="-1"></a><span class="do">##     -10])</span></span>
 <span id="cb423-75"><a href="linear-regression-models.html#cb423-75" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb423-76"><a href="linear-regression-models.html#cb423-76" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph  </span></span>
-<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469  </span></span>
-<span id="cb423-79"><a href="linear-regression-models.html#cb423-79" aria-hidden="true" tabindex="-1"></a><span class="do">##         age  </span></span>
-<span id="cb423-80"><a href="linear-regression-models.html#cb423-80" aria-hidden="true" tabindex="-1"></a><span class="do">##     -0.1224</span></span></code></pre></div>
+<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph          age  </span></span>
+<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" aria-hidden="true" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469      -0.1224</span></span></code></pre></div>
 <p>Remark: there is also an option <code>direction = "both"</code>.</p>
 </div>
 <div id="best-subset" class="section level2 hasAnchor" number="10.12">
