@@ -420,6 +420,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
 <li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -552,12 +554,12 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="linear-regression-models.html#cb393-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span></span>
 <span id="cb393-2"><a href="linear-regression-models.html#cb393-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb393-3"><a href="linear-regression-models.html#cb393-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-424-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-429-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To remove the confidence interval, set <code>se = FALSE</code> in <code>geom_smooth()</code>.</p>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="linear-regression-models.html#cb394-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span></span>
 <span id="cb394-2"><a href="linear-regression-models.html#cb394-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb394-3"><a href="linear-regression-models.html#cb394-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-425-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-430-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Remark: You have seen <code>geom_smooth()</code> in Assignment 3.</p>
 </div>
 <div id="smoothed-conditional-means" class="section level2 hasAnchor" number="10.2">
@@ -567,7 +569,7 @@ The least square estimator for <span class="math inline">\((\beta_0, \beta_1)\)<
 <span id="cb395-2"><a href="linear-regression-models.html#cb395-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> speed, <span class="at">y =</span> dist)) <span class="sc">+</span></span>
 <span id="cb395-3"><a href="linear-regression-models.html#cb395-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb395-4"><a href="linear-regression-models.html#cb395-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-426-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-431-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>You can see the message saying <code>geom_smooth()</code> is using <code>method = "loess"</code>. loess stands for locally estimated scatterplot smoothing. You may also see “lowess”, which stands for
 locally weighted scatterplot smoothing. Basically, a locally weighted regression solves a separate weighted least squares problem at each target point <span class="math inline">\(x_0\)</span>:
 <span class="math display">\[\begin{equation*}
@@ -693,106 +695,112 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <span id="cb402-3"><a href="linear-regression-models.html#cb402-3" tabindex="-1"></a><span class="do">## (Intercept) 0.8165723 1.234135</span></span>
 <span id="cb402-4"><a href="linear-regression-models.html#cb402-4" tabindex="-1"></a><span class="do">## x1          1.7893884 2.252832</span></span>
 <span id="cb402-5"><a href="linear-regression-models.html#cb402-5" tabindex="-1"></a><span class="do">## x2          2.7292486 3.163818</span></span></code></pre></div>
+<p>Extract all the coefficients table:</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="linear-regression-models.html#cb403-1" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients</span>
+<span id="cb403-2"><a href="linear-regression-models.html#cb403-2" tabindex="-1"></a><span class="do">##             Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span id="cb403-3"><a href="linear-regression-models.html#cb403-3" tabindex="-1"></a><span class="do">## (Intercept) 1.025353  0.1051941  9.747254 4.711720e-16</span></span>
+<span id="cb403-4"><a href="linear-regression-models.html#cb403-4" tabindex="-1"></a><span class="do">## x1          2.021110  0.1167527 17.311034 2.001810e-31</span></span>
+<span id="cb403-5"><a href="linear-regression-models.html#cb403-5" tabindex="-1"></a><span class="do">## x2          2.946533  0.1094785 26.914252 8.654779e-47</span></span></code></pre></div>
 </div>
 <div id="example-diamonds" class="section level2 hasAnchor" number="10.4">
 <h2><span class="header-section-number">10.4</span> Example: <code>diamonds</code><a href="linear-regression-models.html#example-diamonds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider the <code>diamonds</code> dataset in <code>ggplot2</code>. Let’s try to predict the price of an diamond based on its characteristics. In <code>diamonds</code>, <code>cut</code>, <code>color</code> and <code>clarity</code> are categorical features. To use them in regression, a standard way is to use the dummy coding discussed in the kNN chapter. The <code>lm()</code> function can handle this automatically as long as the variable is of a factor type.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="linear-regression-models.html#cb403-1" tabindex="-1"></a><span class="co"># When the variable is an ordered factor, the names in the output of </span></span>
-<span id="cb403-2"><a href="linear-regression-models.html#cb403-2" tabindex="-1"></a><span class="co"># lm() are weird. So I turn them into an unordered factor first.</span></span>
-<span id="cb403-3"><a href="linear-regression-models.html#cb403-3" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds</span>
-<span id="cb403-4"><a href="linear-regression-models.html#cb403-4" tabindex="-1"></a>diamonds2<span class="sc">$</span>cut <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>cut, <span class="at">order =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb403-5"><a href="linear-regression-models.html#cb403-5" tabindex="-1"></a>diamonds2<span class="sc">$</span>clarity <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>clarity, <span class="at">order =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb403-6"><a href="linear-regression-models.html#cb403-6" tabindex="-1"></a>diamonds2<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>color, <span class="at">order =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="linear-regression-models.html#cb404-1" tabindex="-1"></a><span class="co"># When the variable is an ordered factor, the names in the output of </span></span>
+<span id="cb404-2"><a href="linear-regression-models.html#cb404-2" tabindex="-1"></a><span class="co"># lm() are weird. So I turn them into an unordered factor first.</span></span>
+<span id="cb404-3"><a href="linear-regression-models.html#cb404-3" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds</span>
+<span id="cb404-4"><a href="linear-regression-models.html#cb404-4" tabindex="-1"></a>diamonds2<span class="sc">$</span>cut <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>cut, <span class="at">order =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb404-5"><a href="linear-regression-models.html#cb404-5" tabindex="-1"></a>diamonds2<span class="sc">$</span>clarity <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>clarity, <span class="at">order =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb404-6"><a href="linear-regression-models.html#cb404-6" tabindex="-1"></a>diamonds2<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">factor</span>(diamonds2<span class="sc">$</span>color, <span class="at">order =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Let’s try <code>price ~ cut</code>. The variable <code>cut</code> takes <span class="math inline">\(5\)</span> values: Fair, Good, Very Good, Premium and Ideal. Therefore, we expect to have 5 regresion coefficients (1 for intercept, 4 for <code>cut</code>).</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="linear-regression-models.html#cb404-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds2)</span>
-<span id="cb404-2"><a href="linear-regression-models.html#cb404-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb404-3"><a href="linear-regression-models.html#cb404-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb404-4"><a href="linear-regression-models.html#cb404-4" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb404-5"><a href="linear-regression-models.html#cb404-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut, data = diamonds2)</span></span>
-<span id="cb404-6"><a href="linear-regression-models.html#cb404-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb404-7"><a href="linear-regression-models.html#cb404-7" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb404-8"><a href="linear-regression-models.html#cb404-8" tabindex="-1"></a><span class="do">##    Min     1Q Median     3Q    Max </span></span>
-<span id="cb404-9"><a href="linear-regression-models.html#cb404-9" tabindex="-1"></a><span class="do">##  -4258  -2741  -1494   1360  15348 </span></span>
-<span id="cb404-10"><a href="linear-regression-models.html#cb404-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb404-11"><a href="linear-regression-models.html#cb404-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb404-12"><a href="linear-regression-models.html#cb404-12" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb404-13"><a href="linear-regression-models.html#cb404-13" tabindex="-1"></a><span class="do">## (Intercept)   4358.76      98.79  44.122  &lt; 2e-16 ***</span></span>
-<span id="cb404-14"><a href="linear-regression-models.html#cb404-14" tabindex="-1"></a><span class="do">## cutGood       -429.89     113.85  -3.776 0.000160 ***</span></span>
-<span id="cb404-15"><a href="linear-regression-models.html#cb404-15" tabindex="-1"></a><span class="do">## cutVery Good  -377.00     105.16  -3.585 0.000338 ***</span></span>
-<span id="cb404-16"><a href="linear-regression-models.html#cb404-16" tabindex="-1"></a><span class="do">## cutPremium     225.50     104.40   2.160 0.030772 *  </span></span>
-<span id="cb404-17"><a href="linear-regression-models.html#cb404-17" tabindex="-1"></a><span class="do">## cutIdeal      -901.22     102.41  -8.800  &lt; 2e-16 ***</span></span>
-<span id="cb404-18"><a href="linear-regression-models.html#cb404-18" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb404-19"><a href="linear-regression-models.html#cb404-19" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb404-20"><a href="linear-regression-models.html#cb404-20" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb404-21"><a href="linear-regression-models.html#cb404-21" tabindex="-1"></a><span class="do">## Residual standard error: 3964 on 53935 degrees of freedom</span></span>
-<span id="cb404-22"><a href="linear-regression-models.html#cb404-22" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.01286,    Adjusted R-squared:  0.01279 </span></span>
-<span id="cb404-23"><a href="linear-regression-models.html#cb404-23" tabindex="-1"></a><span class="do">## F-statistic: 175.7 on 4 and 53935 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
-<p>From the output, we see that we have <span class="math inline">\(4\)</span> additional predictors named <code>cutGood</code>, <code>cutVery Good</code>, <code>cutPremium</code> and <code>cutIdeal</code> corresponding to the values <code>cut</code> can take. We do not see <code>cutFair</code> because the value fair has been used as the baseline for the regression model. That means if <code>cut</code> is fair, then the mean price is just the intercept value. If <code>cut</code> is Good, then the mean price is <span class="math inline">\(4358.76-429.89.\)</span></p>
-<p>The results for the regression coefficients do not make sense because they imply that diamonds with ideal cut are the cheapest on average. The problem is that we have not “controlled for other variables”. The meaning of “control for other variables” is that we should also put in other relevant variables so that the interpretation of the regression coefficients will make sense. For example, if we include <code>carat</code>, then the interpretation of the regression coefficient for <code>cutGood</code> is that fixing the weight of the diamond, diamonds with good cut is how much more expensive than diamonds with fair cut on average (because the baseline value is fair).</p>
-<p>Now, let’s try to add <code>carat</code>.</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="linear-regression-models.html#cb405-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> carat, <span class="at">data =</span> diamonds2)</span>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="linear-regression-models.html#cb405-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds2)</span>
 <span id="cb405-2"><a href="linear-regression-models.html#cb405-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
 <span id="cb405-3"><a href="linear-regression-models.html#cb405-3" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb405-4"><a href="linear-regression-models.html#cb405-4" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb405-5"><a href="linear-regression-models.html#cb405-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut + carat, data = diamonds2)</span></span>
+<span id="cb405-5"><a href="linear-regression-models.html#cb405-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut, data = diamonds2)</span></span>
 <span id="cb405-6"><a href="linear-regression-models.html#cb405-6" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb405-7"><a href="linear-regression-models.html#cb405-7" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb405-8"><a href="linear-regression-models.html#cb405-8" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb405-9"><a href="linear-regression-models.html#cb405-9" tabindex="-1"></a><span class="do">## -17540.7   -791.6    -37.6    522.1  12721.4 </span></span>
+<span id="cb405-8"><a href="linear-regression-models.html#cb405-8" tabindex="-1"></a><span class="do">##    Min     1Q Median     3Q    Max </span></span>
+<span id="cb405-9"><a href="linear-regression-models.html#cb405-9" tabindex="-1"></a><span class="do">##  -4258  -2741  -1494   1360  15348 </span></span>
 <span id="cb405-10"><a href="linear-regression-models.html#cb405-10" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb405-11"><a href="linear-regression-models.html#cb405-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb405-12"><a href="linear-regression-models.html#cb405-12" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb405-13"><a href="linear-regression-models.html#cb405-13" tabindex="-1"></a><span class="do">## (Intercept)  -3875.47      40.41  -95.91   &lt;2e-16 ***</span></span>
-<span id="cb405-14"><a href="linear-regression-models.html#cb405-14" tabindex="-1"></a><span class="do">## cutGood       1120.33      43.50   25.75   &lt;2e-16 ***</span></span>
-<span id="cb405-15"><a href="linear-regression-models.html#cb405-15" tabindex="-1"></a><span class="do">## cutVery Good  1510.14      40.24   37.53   &lt;2e-16 ***</span></span>
-<span id="cb405-16"><a href="linear-regression-models.html#cb405-16" tabindex="-1"></a><span class="do">## cutPremium    1439.08      39.87   36.10   &lt;2e-16 ***</span></span>
-<span id="cb405-17"><a href="linear-regression-models.html#cb405-17" tabindex="-1"></a><span class="do">## cutIdeal      1800.92      39.34   45.77   &lt;2e-16 ***</span></span>
-<span id="cb405-18"><a href="linear-regression-models.html#cb405-18" tabindex="-1"></a><span class="do">## carat         7871.08      13.98  563.04   &lt;2e-16 ***</span></span>
-<span id="cb405-19"><a href="linear-regression-models.html#cb405-19" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb405-20"><a href="linear-regression-models.html#cb405-20" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb405-21"><a href="linear-regression-models.html#cb405-21" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb405-22"><a href="linear-regression-models.html#cb405-22" tabindex="-1"></a><span class="do">## Residual standard error: 1511 on 53934 degrees of freedom</span></span>
-<span id="cb405-23"><a href="linear-regression-models.html#cb405-23" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.8565, Adjusted R-squared:  0.8565 </span></span>
-<span id="cb405-24"><a href="linear-regression-models.html#cb405-24" tabindex="-1"></a><span class="do">## F-statistic: 6.437e+04 on 5 and 53934 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
-<p>It makes more sense now although the coefficient of <code>cutVery good</code> is still higher than that of <code>cutPremium</code>.</p>
-<p>We now add <code>clarity</code> and <code>color</code>.</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="linear-regression-models.html#cb406-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> carat <span class="sc">+</span> clarity <span class="sc">+</span> color, <span class="at">data =</span> diamonds2)</span>
+<span id="cb405-13"><a href="linear-regression-models.html#cb405-13" tabindex="-1"></a><span class="do">## (Intercept)   4358.76      98.79  44.122  &lt; 2e-16 ***</span></span>
+<span id="cb405-14"><a href="linear-regression-models.html#cb405-14" tabindex="-1"></a><span class="do">## cutGood       -429.89     113.85  -3.776 0.000160 ***</span></span>
+<span id="cb405-15"><a href="linear-regression-models.html#cb405-15" tabindex="-1"></a><span class="do">## cutVery Good  -377.00     105.16  -3.585 0.000338 ***</span></span>
+<span id="cb405-16"><a href="linear-regression-models.html#cb405-16" tabindex="-1"></a><span class="do">## cutPremium     225.50     104.40   2.160 0.030772 *  </span></span>
+<span id="cb405-17"><a href="linear-regression-models.html#cb405-17" tabindex="-1"></a><span class="do">## cutIdeal      -901.22     102.41  -8.800  &lt; 2e-16 ***</span></span>
+<span id="cb405-18"><a href="linear-regression-models.html#cb405-18" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb405-19"><a href="linear-regression-models.html#cb405-19" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb405-20"><a href="linear-regression-models.html#cb405-20" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb405-21"><a href="linear-regression-models.html#cb405-21" tabindex="-1"></a><span class="do">## Residual standard error: 3964 on 53935 degrees of freedom</span></span>
+<span id="cb405-22"><a href="linear-regression-models.html#cb405-22" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.01286,    Adjusted R-squared:  0.01279 </span></span>
+<span id="cb405-23"><a href="linear-regression-models.html#cb405-23" tabindex="-1"></a><span class="do">## F-statistic: 175.7 on 4 and 53935 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>From the output, we see that we have <span class="math inline">\(4\)</span> additional predictors named <code>cutGood</code>, <code>cutVery Good</code>, <code>cutPremium</code> and <code>cutIdeal</code> corresponding to the values <code>cut</code> can take. We do not see <code>cutFair</code> because the value fair has been used as the baseline for the regression model. That means if <code>cut</code> is fair, then the mean price is just the intercept value. If <code>cut</code> is Good, then the mean price is <span class="math inline">\(4358.76-429.89.\)</span></p>
+<p>The results for the regression coefficients do not make sense because they imply that diamonds with ideal cut are the cheapest on average. The problem is that we have not “controlled for other variables”. The meaning of “control for other variables” is that we should also put in other relevant variables so that the interpretation of the regression coefficients will make sense. For example, if we include <code>carat</code>, then the interpretation of the regression coefficient for <code>cutGood</code> is that fixing the weight of the diamond, diamonds with good cut is how much more expensive than diamonds with fair cut on average (because the baseline value is fair).</p>
+<p>Now, let’s try to add <code>carat</code>.</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="linear-regression-models.html#cb406-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> carat, <span class="at">data =</span> diamonds2)</span>
 <span id="cb406-2"><a href="linear-regression-models.html#cb406-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
 <span id="cb406-3"><a href="linear-regression-models.html#cb406-3" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb406-4"><a href="linear-regression-models.html#cb406-4" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb406-5"><a href="linear-regression-models.html#cb406-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut + carat + clarity + color, data = diamonds2)</span></span>
+<span id="cb406-5"><a href="linear-regression-models.html#cb406-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut + carat, data = diamonds2)</span></span>
 <span id="cb406-6"><a href="linear-regression-models.html#cb406-6" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb406-7"><a href="linear-regression-models.html#cb406-7" tabindex="-1"></a><span class="do">## Residuals:</span></span>
 <span id="cb406-8"><a href="linear-regression-models.html#cb406-8" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb406-9"><a href="linear-regression-models.html#cb406-9" tabindex="-1"></a><span class="do">## -16813.5   -680.4   -197.6    466.4  10394.9 </span></span>
+<span id="cb406-9"><a href="linear-regression-models.html#cb406-9" tabindex="-1"></a><span class="do">## -17540.7   -791.6    -37.6    522.1  12721.4 </span></span>
 <span id="cb406-10"><a href="linear-regression-models.html#cb406-10" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb406-11"><a href="linear-regression-models.html#cb406-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
 <span id="cb406-12"><a href="linear-regression-models.html#cb406-12" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb406-13"><a href="linear-regression-models.html#cb406-13" tabindex="-1"></a><span class="do">## (Intercept)  -7362.80      51.68 -142.46   &lt;2e-16 ***</span></span>
-<span id="cb406-14"><a href="linear-regression-models.html#cb406-14" tabindex="-1"></a><span class="do">## cutGood        655.77      33.63   19.50   &lt;2e-16 ***</span></span>
-<span id="cb406-15"><a href="linear-regression-models.html#cb406-15" tabindex="-1"></a><span class="do">## cutVery Good   848.72      31.28   27.14   &lt;2e-16 ***</span></span>
-<span id="cb406-16"><a href="linear-regression-models.html#cb406-16" tabindex="-1"></a><span class="do">## cutPremium     869.40      30.93   28.11   &lt;2e-16 ***</span></span>
-<span id="cb406-17"><a href="linear-regression-models.html#cb406-17" tabindex="-1"></a><span class="do">## cutIdeal       998.25      30.66   32.56   &lt;2e-16 ***</span></span>
-<span id="cb406-18"><a href="linear-regression-models.html#cb406-18" tabindex="-1"></a><span class="do">## carat         8886.13      12.03  738.44   &lt;2e-16 ***</span></span>
-<span id="cb406-19"><a href="linear-regression-models.html#cb406-19" tabindex="-1"></a><span class="do">## claritySI2    2625.95      44.79   58.63   &lt;2e-16 ***</span></span>
-<span id="cb406-20"><a href="linear-regression-models.html#cb406-20" tabindex="-1"></a><span class="do">## claritySI1    3573.69      44.60   80.13   &lt;2e-16 ***</span></span>
-<span id="cb406-21"><a href="linear-regression-models.html#cb406-21" tabindex="-1"></a><span class="do">## clarityVS2    4217.83      44.84   94.06   &lt;2e-16 ***</span></span>
-<span id="cb406-22"><a href="linear-regression-models.html#cb406-22" tabindex="-1"></a><span class="do">## clarityVS1    4534.88      45.54   99.59   &lt;2e-16 ***</span></span>
-<span id="cb406-23"><a href="linear-regression-models.html#cb406-23" tabindex="-1"></a><span class="do">## clarityVVS2   4967.20      46.89  105.93   &lt;2e-16 ***</span></span>
-<span id="cb406-24"><a href="linear-regression-models.html#cb406-24" tabindex="-1"></a><span class="do">## clarityVVS1   5072.03      48.21  105.20   &lt;2e-16 ***</span></span>
-<span id="cb406-25"><a href="linear-regression-models.html#cb406-25" tabindex="-1"></a><span class="do">## clarityIF     5419.65      52.14  103.95   &lt;2e-16 ***</span></span>
-<span id="cb406-26"><a href="linear-regression-models.html#cb406-26" tabindex="-1"></a><span class="do">## colorE        -211.68      18.32  -11.56   &lt;2e-16 ***</span></span>
-<span id="cb406-27"><a href="linear-regression-models.html#cb406-27" tabindex="-1"></a><span class="do">## colorF        -303.31      18.51  -16.39   &lt;2e-16 ***</span></span>
-<span id="cb406-28"><a href="linear-regression-models.html#cb406-28" tabindex="-1"></a><span class="do">## colorG        -506.20      18.12  -27.93   &lt;2e-16 ***</span></span>
-<span id="cb406-29"><a href="linear-regression-models.html#cb406-29" tabindex="-1"></a><span class="do">## colorH        -978.70      19.27  -50.78   &lt;2e-16 ***</span></span>
-<span id="cb406-30"><a href="linear-regression-models.html#cb406-30" tabindex="-1"></a><span class="do">## colorI       -1440.30      21.65  -66.54   &lt;2e-16 ***</span></span>
-<span id="cb406-31"><a href="linear-regression-models.html#cb406-31" tabindex="-1"></a><span class="do">## colorJ       -2325.22      26.72  -87.01   &lt;2e-16 ***</span></span>
-<span id="cb406-32"><a href="linear-regression-models.html#cb406-32" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb406-33"><a href="linear-regression-models.html#cb406-33" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb406-34"><a href="linear-regression-models.html#cb406-34" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb406-35"><a href="linear-regression-models.html#cb406-35" tabindex="-1"></a><span class="do">## Residual standard error: 1157 on 53921 degrees of freedom</span></span>
-<span id="cb406-36"><a href="linear-regression-models.html#cb406-36" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9159, Adjusted R-squared:  0.9159 </span></span>
-<span id="cb406-37"><a href="linear-regression-models.html#cb406-37" tabindex="-1"></a><span class="do">## F-statistic: 3.264e+04 on 18 and 53921 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb406-13"><a href="linear-regression-models.html#cb406-13" tabindex="-1"></a><span class="do">## (Intercept)  -3875.47      40.41  -95.91   &lt;2e-16 ***</span></span>
+<span id="cb406-14"><a href="linear-regression-models.html#cb406-14" tabindex="-1"></a><span class="do">## cutGood       1120.33      43.50   25.75   &lt;2e-16 ***</span></span>
+<span id="cb406-15"><a href="linear-regression-models.html#cb406-15" tabindex="-1"></a><span class="do">## cutVery Good  1510.14      40.24   37.53   &lt;2e-16 ***</span></span>
+<span id="cb406-16"><a href="linear-regression-models.html#cb406-16" tabindex="-1"></a><span class="do">## cutPremium    1439.08      39.87   36.10   &lt;2e-16 ***</span></span>
+<span id="cb406-17"><a href="linear-regression-models.html#cb406-17" tabindex="-1"></a><span class="do">## cutIdeal      1800.92      39.34   45.77   &lt;2e-16 ***</span></span>
+<span id="cb406-18"><a href="linear-regression-models.html#cb406-18" tabindex="-1"></a><span class="do">## carat         7871.08      13.98  563.04   &lt;2e-16 ***</span></span>
+<span id="cb406-19"><a href="linear-regression-models.html#cb406-19" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb406-20"><a href="linear-regression-models.html#cb406-20" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb406-21"><a href="linear-regression-models.html#cb406-21" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb406-22"><a href="linear-regression-models.html#cb406-22" tabindex="-1"></a><span class="do">## Residual standard error: 1511 on 53934 degrees of freedom</span></span>
+<span id="cb406-23"><a href="linear-regression-models.html#cb406-23" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.8565, Adjusted R-squared:  0.8565 </span></span>
+<span id="cb406-24"><a href="linear-regression-models.html#cb406-24" tabindex="-1"></a><span class="do">## F-statistic: 6.437e+04 on 5 and 53934 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>It makes more sense now although the coefficient of <code>cutVery good</code> is still higher than that of <code>cutPremium</code>.</p>
+<p>We now add <code>clarity</code> and <code>color</code>.</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="linear-regression-models.html#cb407-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> carat <span class="sc">+</span> clarity <span class="sc">+</span> color, <span class="at">data =</span> diamonds2)</span>
+<span id="cb407-2"><a href="linear-regression-models.html#cb407-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb407-3"><a href="linear-regression-models.html#cb407-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb407-4"><a href="linear-regression-models.html#cb407-4" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb407-5"><a href="linear-regression-models.html#cb407-5" tabindex="-1"></a><span class="do">## lm(formula = price ~ cut + carat + clarity + color, data = diamonds2)</span></span>
+<span id="cb407-6"><a href="linear-regression-models.html#cb407-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb407-7"><a href="linear-regression-models.html#cb407-7" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb407-8"><a href="linear-regression-models.html#cb407-8" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb407-9"><a href="linear-regression-models.html#cb407-9" tabindex="-1"></a><span class="do">## -16813.5   -680.4   -197.6    466.4  10394.9 </span></span>
+<span id="cb407-10"><a href="linear-regression-models.html#cb407-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb407-11"><a href="linear-regression-models.html#cb407-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb407-12"><a href="linear-regression-models.html#cb407-12" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb407-13"><a href="linear-regression-models.html#cb407-13" tabindex="-1"></a><span class="do">## (Intercept)  -7362.80      51.68 -142.46   &lt;2e-16 ***</span></span>
+<span id="cb407-14"><a href="linear-regression-models.html#cb407-14" tabindex="-1"></a><span class="do">## cutGood        655.77      33.63   19.50   &lt;2e-16 ***</span></span>
+<span id="cb407-15"><a href="linear-regression-models.html#cb407-15" tabindex="-1"></a><span class="do">## cutVery Good   848.72      31.28   27.14   &lt;2e-16 ***</span></span>
+<span id="cb407-16"><a href="linear-regression-models.html#cb407-16" tabindex="-1"></a><span class="do">## cutPremium     869.40      30.93   28.11   &lt;2e-16 ***</span></span>
+<span id="cb407-17"><a href="linear-regression-models.html#cb407-17" tabindex="-1"></a><span class="do">## cutIdeal       998.25      30.66   32.56   &lt;2e-16 ***</span></span>
+<span id="cb407-18"><a href="linear-regression-models.html#cb407-18" tabindex="-1"></a><span class="do">## carat         8886.13      12.03  738.44   &lt;2e-16 ***</span></span>
+<span id="cb407-19"><a href="linear-regression-models.html#cb407-19" tabindex="-1"></a><span class="do">## claritySI2    2625.95      44.79   58.63   &lt;2e-16 ***</span></span>
+<span id="cb407-20"><a href="linear-regression-models.html#cb407-20" tabindex="-1"></a><span class="do">## claritySI1    3573.69      44.60   80.13   &lt;2e-16 ***</span></span>
+<span id="cb407-21"><a href="linear-regression-models.html#cb407-21" tabindex="-1"></a><span class="do">## clarityVS2    4217.83      44.84   94.06   &lt;2e-16 ***</span></span>
+<span id="cb407-22"><a href="linear-regression-models.html#cb407-22" tabindex="-1"></a><span class="do">## clarityVS1    4534.88      45.54   99.59   &lt;2e-16 ***</span></span>
+<span id="cb407-23"><a href="linear-regression-models.html#cb407-23" tabindex="-1"></a><span class="do">## clarityVVS2   4967.20      46.89  105.93   &lt;2e-16 ***</span></span>
+<span id="cb407-24"><a href="linear-regression-models.html#cb407-24" tabindex="-1"></a><span class="do">## clarityVVS1   5072.03      48.21  105.20   &lt;2e-16 ***</span></span>
+<span id="cb407-25"><a href="linear-regression-models.html#cb407-25" tabindex="-1"></a><span class="do">## clarityIF     5419.65      52.14  103.95   &lt;2e-16 ***</span></span>
+<span id="cb407-26"><a href="linear-regression-models.html#cb407-26" tabindex="-1"></a><span class="do">## colorE        -211.68      18.32  -11.56   &lt;2e-16 ***</span></span>
+<span id="cb407-27"><a href="linear-regression-models.html#cb407-27" tabindex="-1"></a><span class="do">## colorF        -303.31      18.51  -16.39   &lt;2e-16 ***</span></span>
+<span id="cb407-28"><a href="linear-regression-models.html#cb407-28" tabindex="-1"></a><span class="do">## colorG        -506.20      18.12  -27.93   &lt;2e-16 ***</span></span>
+<span id="cb407-29"><a href="linear-regression-models.html#cb407-29" tabindex="-1"></a><span class="do">## colorH        -978.70      19.27  -50.78   &lt;2e-16 ***</span></span>
+<span id="cb407-30"><a href="linear-regression-models.html#cb407-30" tabindex="-1"></a><span class="do">## colorI       -1440.30      21.65  -66.54   &lt;2e-16 ***</span></span>
+<span id="cb407-31"><a href="linear-regression-models.html#cb407-31" tabindex="-1"></a><span class="do">## colorJ       -2325.22      26.72  -87.01   &lt;2e-16 ***</span></span>
+<span id="cb407-32"><a href="linear-regression-models.html#cb407-32" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb407-33"><a href="linear-regression-models.html#cb407-33" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb407-34"><a href="linear-regression-models.html#cb407-34" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb407-35"><a href="linear-regression-models.html#cb407-35" tabindex="-1"></a><span class="do">## Residual standard error: 1157 on 53921 degrees of freedom</span></span>
+<span id="cb407-36"><a href="linear-regression-models.html#cb407-36" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9159, Adjusted R-squared:  0.9159 </span></span>
+<span id="cb407-37"><a href="linear-regression-models.html#cb407-37" tabindex="-1"></a><span class="do">## F-statistic: 3.264e+04 on 18 and 53921 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>Now, in terms of the relative magnitude, all the regression coefficients make sense. Note that the baseline value of <code>color</code> is D (which is the best) so that any other colors should have negative coefficients. For <code>cut</code> and <code>clarity</code>, the baseline values are the worst so that the other variables should have positive coefficients.</p>
 </div>
 <div id="categorical-predictors" class="section level2 hasAnchor" number="10.5">
@@ -802,67 +810,67 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 <div id="compare-models-using-anova" class="section level2 hasAnchor" number="10.6">
 <h2><span class="header-section-number">10.6</span> Compare models using ANOVA<a href="linear-regression-models.html#compare-models-using-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you want to compare if the difference between two models are statistically significant or not, you can use <code>anova()</code>. When you compare two models using <code>anova()</code>, <strong>one model must be contained within the other</strong>.</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="linear-regression-models.html#cb407-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb407-2"><a href="linear-regression-models.html#cb407-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb407-3"><a href="linear-regression-models.html#cb407-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb407-4"><a href="linear-regression-models.html#cb407-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb407-5"><a href="linear-regression-models.html#cb407-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb407-6"><a href="linear-regression-models.html#cb407-6" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb407-7"><a href="linear-regression-models.html#cb407-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb407-8"><a href="linear-regression-models.html#cb407-8" tabindex="-1"></a></span>
-<span id="cb407-9"><a href="linear-regression-models.html#cb407-9" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1)</span>
-<span id="cb407-10"><a href="linear-regression-models.html#cb407-10" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb407-11"><a href="linear-regression-models.html#cb407-11" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3)</span>
-<span id="cb407-12"><a href="linear-regression-models.html#cb407-12" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="linear-regression-models.html#cb408-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb408-2"><a href="linear-regression-models.html#cb408-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb408-3"><a href="linear-regression-models.html#cb408-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb408-4"><a href="linear-regression-models.html#cb408-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb408-5"><a href="linear-regression-models.html#cb408-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb408-6"><a href="linear-regression-models.html#cb408-6" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb408-7"><a href="linear-regression-models.html#cb408-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb408-8"><a href="linear-regression-models.html#cb408-8" tabindex="-1"></a></span>
+<span id="cb408-9"><a href="linear-regression-models.html#cb408-9" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1)</span>
+<span id="cb408-10"><a href="linear-regression-models.html#cb408-10" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb408-11"><a href="linear-regression-models.html#cb408-11" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3)</span>
+<span id="cb408-12"><a href="linear-regression-models.html#cb408-12" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4)</span></code></pre></div>
 <p><code>m1</code> is contained within <code>m2</code>, <code>m2</code> is contained within <code>m3</code>, and <code>m3</code> is contained within <code>m4</code>.</p>
 <p>Compare <code>m1</code> and <code>m2</code>:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="linear-regression-models.html#cb408-1" tabindex="-1"></a><span class="fu">anova</span>(m1, m2)</span>
-<span id="cb408-2"><a href="linear-regression-models.html#cb408-2" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
-<span id="cb408-3"><a href="linear-regression-models.html#cb408-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb408-4"><a href="linear-regression-models.html#cb408-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1</span></span>
-<span id="cb408-5"><a href="linear-regression-models.html#cb408-5" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2</span></span>
-<span id="cb408-6"><a href="linear-regression-models.html#cb408-6" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    </span></span>
-<span id="cb408-7"><a href="linear-regression-models.html#cb408-7" tabindex="-1"></a><span class="do">## 1     98 618.26                                  </span></span>
-<span id="cb408-8"><a href="linear-regression-models.html#cb408-8" tabindex="-1"></a><span class="do">## 2     97 112.56  1     505.7 435.79 &lt; 2.2e-16 ***</span></span>
-<span id="cb408-9"><a href="linear-regression-models.html#cb408-9" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb408-10"><a href="linear-regression-models.html#cb408-10" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
-<p>The difference is statistically significant, implying <code>x2</code> should be necessary.</p>
-<p>Compare <code>m2</code> and <code>m4</code>:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-models.html#cb409-1" tabindex="-1"></a><span class="fu">anova</span>(m2, m4)</span>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="linear-regression-models.html#cb409-1" tabindex="-1"></a><span class="fu">anova</span>(m1, m2)</span>
 <span id="cb409-2"><a href="linear-regression-models.html#cb409-2" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
 <span id="cb409-3"><a href="linear-regression-models.html#cb409-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb409-4"><a href="linear-regression-models.html#cb409-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1 + x2</span></span>
-<span id="cb409-5"><a href="linear-regression-models.html#cb409-5" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2 + x3 + x4</span></span>
-<span id="cb409-6"><a href="linear-regression-models.html#cb409-6" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)</span></span>
-<span id="cb409-7"><a href="linear-regression-models.html#cb409-7" tabindex="-1"></a><span class="do">## 1     97 112.56                           </span></span>
-<span id="cb409-8"><a href="linear-regression-models.html#cb409-8" tabindex="-1"></a><span class="do">## 2     95 110.16  2    2.4024 1.0359 0.3589</span></span></code></pre></div>
-<p>The difference is not statistically significant, implying <code>x3</code> and <code>x4</code> may not be necessary.</p>
-<p>Compare <code>m3</code> and <code>m4</code>:</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="linear-regression-models.html#cb410-1" tabindex="-1"></a><span class="fu">anova</span>(m3, m4)</span>
+<span id="cb409-4"><a href="linear-regression-models.html#cb409-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1</span></span>
+<span id="cb409-5"><a href="linear-regression-models.html#cb409-5" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2</span></span>
+<span id="cb409-6"><a href="linear-regression-models.html#cb409-6" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    </span></span>
+<span id="cb409-7"><a href="linear-regression-models.html#cb409-7" tabindex="-1"></a><span class="do">## 1     98 618.26                                  </span></span>
+<span id="cb409-8"><a href="linear-regression-models.html#cb409-8" tabindex="-1"></a><span class="do">## 2     97 112.56  1     505.7 435.79 &lt; 2.2e-16 ***</span></span>
+<span id="cb409-9"><a href="linear-regression-models.html#cb409-9" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb409-10"><a href="linear-regression-models.html#cb409-10" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>The difference is statistically significant, implying <code>x2</code> should be necessary.</p>
+<p>Compare <code>m2</code> and <code>m4</code>:</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="linear-regression-models.html#cb410-1" tabindex="-1"></a><span class="fu">anova</span>(m2, m4)</span>
 <span id="cb410-2"><a href="linear-regression-models.html#cb410-2" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
 <span id="cb410-3"><a href="linear-regression-models.html#cb410-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb410-4"><a href="linear-regression-models.html#cb410-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1 + x2 + x3</span></span>
+<span id="cb410-4"><a href="linear-regression-models.html#cb410-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1 + x2</span></span>
 <span id="cb410-5"><a href="linear-regression-models.html#cb410-5" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2 + x3 + x4</span></span>
 <span id="cb410-6"><a href="linear-regression-models.html#cb410-6" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)</span></span>
-<span id="cb410-7"><a href="linear-regression-models.html#cb410-7" tabindex="-1"></a><span class="do">## 1     96 110.78                           </span></span>
-<span id="cb410-8"><a href="linear-regression-models.html#cb410-8" tabindex="-1"></a><span class="do">## 2     95 110.16  1   0.61992 0.5346 0.4665</span></span></code></pre></div>
+<span id="cb410-7"><a href="linear-regression-models.html#cb410-7" tabindex="-1"></a><span class="do">## 1     97 112.56                           </span></span>
+<span id="cb410-8"><a href="linear-regression-models.html#cb410-8" tabindex="-1"></a><span class="do">## 2     95 110.16  2    2.4024 1.0359 0.3589</span></span></code></pre></div>
+<p>The difference is not statistically significant, implying <code>x3</code> and <code>x4</code> may not be necessary.</p>
+<p>Compare <code>m3</code> and <code>m4</code>:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="linear-regression-models.html#cb411-1" tabindex="-1"></a><span class="fu">anova</span>(m3, m4)</span>
+<span id="cb411-2"><a href="linear-regression-models.html#cb411-2" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
+<span id="cb411-3"><a href="linear-regression-models.html#cb411-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb411-4"><a href="linear-regression-models.html#cb411-4" tabindex="-1"></a><span class="do">## Model 1: y ~ x1 + x2 + x3</span></span>
+<span id="cb411-5"><a href="linear-regression-models.html#cb411-5" tabindex="-1"></a><span class="do">## Model 2: y ~ x1 + x2 + x3 + x4</span></span>
+<span id="cb411-6"><a href="linear-regression-models.html#cb411-6" tabindex="-1"></a><span class="do">##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)</span></span>
+<span id="cb411-7"><a href="linear-regression-models.html#cb411-7" tabindex="-1"></a><span class="do">## 1     96 110.78                           </span></span>
+<span id="cb411-8"><a href="linear-regression-models.html#cb411-8" tabindex="-1"></a><span class="do">## 2     95 110.16  1   0.61992 0.5346 0.4665</span></span></code></pre></div>
 <p>The difference is not statistically significant, implying <code>x4</code> may not be necessary.</p>
 </div>
 <div id="prediction" class="section level2 hasAnchor" number="10.7">
 <h2><span class="header-section-number">10.7</span> Prediction<a href="linear-regression-models.html#prediction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s use the <code>flights</code> dataset again.</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="linear-regression-models.html#cb411-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb411-2"><a href="linear-regression-models.html#cb411-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(flights), <span class="at">size =</span> <span class="fu">nrow</span>(flights) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
-<span id="cb411-3"><a href="linear-regression-models.html#cb411-3" tabindex="-1"></a>flights_train <span class="ot">&lt;-</span> flights[random_index, ]</span>
-<span id="cb411-4"><a href="linear-regression-models.html#cb411-4" tabindex="-1"></a>flights_test <span class="ot">&lt;-</span> flights[<span class="sc">-</span>random_index, ]</span>
-<span id="cb411-5"><a href="linear-regression-models.html#cb411-5" tabindex="-1"></a></span>
-<span id="cb411-6"><a href="linear-regression-models.html#cb411-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(arr_delay <span class="sc">~</span> dep_delay, <span class="at">data =</span> flights_train)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="linear-regression-models.html#cb412-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb412-2"><a href="linear-regression-models.html#cb412-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(flights), <span class="at">size =</span> <span class="fu">nrow</span>(flights) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
+<span id="cb412-3"><a href="linear-regression-models.html#cb412-3" tabindex="-1"></a>flights_train <span class="ot">&lt;-</span> flights[random_index, ]</span>
+<span id="cb412-4"><a href="linear-regression-models.html#cb412-4" tabindex="-1"></a>flights_test <span class="ot">&lt;-</span> flights[<span class="sc">-</span>random_index, ]</span>
+<span id="cb412-5"><a href="linear-regression-models.html#cb412-5" tabindex="-1"></a></span>
+<span id="cb412-6"><a href="linear-regression-models.html#cb412-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(arr_delay <span class="sc">~</span> dep_delay, <span class="at">data =</span> flights_train)</span></code></pre></div>
 <p>Prediction</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="linear-regression-models.html#cb412-1" tabindex="-1"></a><span class="co"># prediction</span></span>
-<span id="cb412-2"><a href="linear-regression-models.html#cb412-2" tabindex="-1"></a><span class="fu">predict</span>(fit, flights_test)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="linear-regression-models.html#cb413-1" tabindex="-1"></a><span class="co"># prediction</span></span>
+<span id="cb413-2"><a href="linear-regression-models.html#cb413-2" tabindex="-1"></a><span class="fu">predict</span>(fit, flights_test)</span></code></pre></div>
 <p>Since the response is continuous, we cannot use “accuracy” to measure the performance of our prediction. One possible measure is to use correlation. The higher the correlation, the better the prediction.</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="linear-regression-models.html#cb413-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">predict</span>(fit, flights_test), flights_test<span class="sc">$</span>arr_delay, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb413-2"><a href="linear-regression-models.html#cb413-2" tabindex="-1"></a><span class="do">## [1] 0.9171425</span></span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="linear-regression-models.html#cb414-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">predict</span>(fit, flights_test), flights_test<span class="sc">$</span>arr_delay, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb414-2"><a href="linear-regression-models.html#cb414-2" tabindex="-1"></a><span class="do">## [1] 0.9171425</span></span></code></pre></div>
 <p>Since there are missing values, we set <code>use = "complete.obs"</code>.</p>
 </div>
 <div id="interaction-terms" class="section level2 hasAnchor" number="10.8">
@@ -877,61 +885,61 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i1} X_{i2} + \varep
 \end{equation*}\]</span>
 use <code>lm(y ~ x1 * x2)</code>.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="linear-regression-models.html#cb414-1" tabindex="-1"></a><span class="co"># simulation</span></span>
-<span id="cb414-2"><a href="linear-regression-models.html#cb414-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb414-3"><a href="linear-regression-models.html#cb414-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb414-4"><a href="linear-regression-models.html#cb414-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb414-5"><a href="linear-regression-models.html#cb414-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb414-6"><a href="linear-regression-models.html#cb414-6" tabindex="-1"></a></span>
-<span id="cb414-7"><a href="linear-regression-models.html#cb414-7" tabindex="-1"></a><span class="co"># estimation</span></span>
-<span id="cb414-8"><a href="linear-regression-models.html#cb414-8" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2)</span>
-<span id="cb414-9"><a href="linear-regression-models.html#cb414-9" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb414-10"><a href="linear-regression-models.html#cb414-10" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb414-11"><a href="linear-regression-models.html#cb414-11" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 * x2)</span></span>
-<span id="cb414-12"><a href="linear-regression-models.html#cb414-12" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb414-13"><a href="linear-regression-models.html#cb414-13" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb414-14"><a href="linear-regression-models.html#cb414-14" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2  </span></span>
-<span id="cb414-15"><a href="linear-regression-models.html#cb414-15" tabindex="-1"></a><span class="do">##       1.031        1.966        2.972        3.760</span></span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="linear-regression-models.html#cb415-1" tabindex="-1"></a><span class="co"># simulation</span></span>
+<span id="cb415-2"><a href="linear-regression-models.html#cb415-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb415-3"><a href="linear-regression-models.html#cb415-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb415-4"><a href="linear-regression-models.html#cb415-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb415-5"><a href="linear-regression-models.html#cb415-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb415-6"><a href="linear-regression-models.html#cb415-6" tabindex="-1"></a></span>
+<span id="cb415-7"><a href="linear-regression-models.html#cb415-7" tabindex="-1"></a><span class="co"># estimation</span></span>
+<span id="cb415-8"><a href="linear-regression-models.html#cb415-8" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2)</span>
+<span id="cb415-9"><a href="linear-regression-models.html#cb415-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb415-10"><a href="linear-regression-models.html#cb415-10" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb415-11"><a href="linear-regression-models.html#cb415-11" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 * x2)</span></span>
+<span id="cb415-12"><a href="linear-regression-models.html#cb415-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb415-13"><a href="linear-regression-models.html#cb415-13" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb415-14"><a href="linear-regression-models.html#cb415-14" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2  </span></span>
+<span id="cb415-15"><a href="linear-regression-models.html#cb415-15" tabindex="-1"></a><span class="do">##       1.031        1.966        2.972        3.760</span></span></code></pre></div>
 <p>To perform the following regression
 <span class="math display">\[\begin{equation*}
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3}  + \beta_4 X_{i1} X_{i2} + \beta_5 X_{i1}X_{i3} + \beta_6 X_{i2} X_{i3} + \beta_7 X_{i1} X_{i2} X_{i3} + \varepsilon_i,
 \end{equation*}\]</span>
 use <code>lm(y ~ x1 * x2 * x3)</code>.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="linear-regression-models.html#cb415-1" tabindex="-1"></a><span class="co"># simulation</span></span>
-<span id="cb415-2"><a href="linear-regression-models.html#cb415-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb415-3"><a href="linear-regression-models.html#cb415-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb415-4"><a href="linear-regression-models.html#cb415-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb415-5"><a href="linear-regression-models.html#cb415-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb415-6"><a href="linear-regression-models.html#cb415-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb415-7"><a href="linear-regression-models.html#cb415-7" tabindex="-1"></a></span>
-<span id="cb415-8"><a href="linear-regression-models.html#cb415-8" tabindex="-1"></a><span class="co"># estimation</span></span>
-<span id="cb415-9"><a href="linear-regression-models.html#cb415-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3)</span>
-<span id="cb415-10"><a href="linear-regression-models.html#cb415-10" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb415-11"><a href="linear-regression-models.html#cb415-11" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb415-12"><a href="linear-regression-models.html#cb415-12" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb415-13"><a href="linear-regression-models.html#cb415-13" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 * x2 * x3)</span></span>
-<span id="cb415-14"><a href="linear-regression-models.html#cb415-14" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb415-15"><a href="linear-regression-models.html#cb415-15" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb415-16"><a href="linear-regression-models.html#cb415-16" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb415-17"><a href="linear-regression-models.html#cb415-17" tabindex="-1"></a><span class="do">## -2.31655 -0.51032 -0.00288  0.76844  2.01342 </span></span>
-<span id="cb415-18"><a href="linear-regression-models.html#cb415-18" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb415-19"><a href="linear-regression-models.html#cb415-19" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb415-20"><a href="linear-regression-models.html#cb415-20" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb415-21"><a href="linear-regression-models.html#cb415-21" tabindex="-1"></a><span class="do">## (Intercept)  1.050754   0.098109  10.710   &lt;2e-16 ***</span></span>
-<span id="cb415-22"><a href="linear-regression-models.html#cb415-22" tabindex="-1"></a><span class="do">## x1           1.862611   0.113359  16.431   &lt;2e-16 ***</span></span>
-<span id="cb415-23"><a href="linear-regression-models.html#cb415-23" tabindex="-1"></a><span class="do">## x2           2.942130   0.104931  28.039   &lt;2e-16 ***</span></span>
-<span id="cb415-24"><a href="linear-regression-models.html#cb415-24" tabindex="-1"></a><span class="do">## x3           0.034585   0.096500   0.358   0.7209    </span></span>
-<span id="cb415-25"><a href="linear-regression-models.html#cb415-25" tabindex="-1"></a><span class="do">## x1:x2        3.636972   0.143910  25.272   &lt;2e-16 ***</span></span>
-<span id="cb415-26"><a href="linear-regression-models.html#cb415-26" tabindex="-1"></a><span class="do">## x1:x3       -0.246646   0.118356  -2.084   0.0399 *  </span></span>
-<span id="cb415-27"><a href="linear-regression-models.html#cb415-27" tabindex="-1"></a><span class="do">## x2:x3        0.002958   0.113553   0.026   0.9793    </span></span>
-<span id="cb415-28"><a href="linear-regression-models.html#cb415-28" tabindex="-1"></a><span class="do">## x1:x2:x3     1.873330   0.140592  13.325   &lt;2e-16 ***</span></span>
-<span id="cb415-29"><a href="linear-regression-models.html#cb415-29" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb415-30"><a href="linear-regression-models.html#cb415-30" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb415-31"><a href="linear-regression-models.html#cb415-31" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb415-32"><a href="linear-regression-models.html#cb415-32" tabindex="-1"></a><span class="do">## Residual standard error: 0.9552 on 92 degrees of freedom</span></span>
-<span id="cb415-33"><a href="linear-regression-models.html#cb415-33" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9625, Adjusted R-squared:  0.9597 </span></span>
-<span id="cb415-34"><a href="linear-regression-models.html#cb415-34" tabindex="-1"></a><span class="do">## F-statistic: 337.6 on 7 and 92 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="linear-regression-models.html#cb416-1" tabindex="-1"></a><span class="co"># simulation</span></span>
+<span id="cb416-2"><a href="linear-regression-models.html#cb416-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb416-3"><a href="linear-regression-models.html#cb416-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb416-4"><a href="linear-regression-models.html#cb416-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb416-5"><a href="linear-regression-models.html#cb416-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb416-6"><a href="linear-regression-models.html#cb416-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb416-7"><a href="linear-regression-models.html#cb416-7" tabindex="-1"></a></span>
+<span id="cb416-8"><a href="linear-regression-models.html#cb416-8" tabindex="-1"></a><span class="co"># estimation</span></span>
+<span id="cb416-9"><a href="linear-regression-models.html#cb416-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3)</span>
+<span id="cb416-10"><a href="linear-regression-models.html#cb416-10" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb416-11"><a href="linear-regression-models.html#cb416-11" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb416-12"><a href="linear-regression-models.html#cb416-12" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb416-13"><a href="linear-regression-models.html#cb416-13" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 * x2 * x3)</span></span>
+<span id="cb416-14"><a href="linear-regression-models.html#cb416-14" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb416-15"><a href="linear-regression-models.html#cb416-15" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb416-16"><a href="linear-regression-models.html#cb416-16" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb416-17"><a href="linear-regression-models.html#cb416-17" tabindex="-1"></a><span class="do">## -2.31655 -0.51032 -0.00288  0.76844  2.01342 </span></span>
+<span id="cb416-18"><a href="linear-regression-models.html#cb416-18" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb416-19"><a href="linear-regression-models.html#cb416-19" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb416-20"><a href="linear-regression-models.html#cb416-20" tabindex="-1"></a><span class="do">##              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb416-21"><a href="linear-regression-models.html#cb416-21" tabindex="-1"></a><span class="do">## (Intercept)  1.050754   0.098109  10.710   &lt;2e-16 ***</span></span>
+<span id="cb416-22"><a href="linear-regression-models.html#cb416-22" tabindex="-1"></a><span class="do">## x1           1.862611   0.113359  16.431   &lt;2e-16 ***</span></span>
+<span id="cb416-23"><a href="linear-regression-models.html#cb416-23" tabindex="-1"></a><span class="do">## x2           2.942130   0.104931  28.039   &lt;2e-16 ***</span></span>
+<span id="cb416-24"><a href="linear-regression-models.html#cb416-24" tabindex="-1"></a><span class="do">## x3           0.034585   0.096500   0.358   0.7209    </span></span>
+<span id="cb416-25"><a href="linear-regression-models.html#cb416-25" tabindex="-1"></a><span class="do">## x1:x2        3.636972   0.143910  25.272   &lt;2e-16 ***</span></span>
+<span id="cb416-26"><a href="linear-regression-models.html#cb416-26" tabindex="-1"></a><span class="do">## x1:x3       -0.246646   0.118356  -2.084   0.0399 *  </span></span>
+<span id="cb416-27"><a href="linear-regression-models.html#cb416-27" tabindex="-1"></a><span class="do">## x2:x3        0.002958   0.113553   0.026   0.9793    </span></span>
+<span id="cb416-28"><a href="linear-regression-models.html#cb416-28" tabindex="-1"></a><span class="do">## x1:x2:x3     1.873330   0.140592  13.325   &lt;2e-16 ***</span></span>
+<span id="cb416-29"><a href="linear-regression-models.html#cb416-29" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb416-30"><a href="linear-regression-models.html#cb416-30" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb416-31"><a href="linear-regression-models.html#cb416-31" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb416-32"><a href="linear-regression-models.html#cb416-32" tabindex="-1"></a><span class="do">## Residual standard error: 0.9552 on 92 degrees of freedom</span></span>
+<span id="cb416-33"><a href="linear-regression-models.html#cb416-33" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9625, Adjusted R-squared:  0.9597 </span></span>
+<span id="cb416-34"><a href="linear-regression-models.html#cb416-34" tabindex="-1"></a><span class="do">## F-statistic: 337.6 on 7 and 92 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
 <p>We notice that the coefficients of <code>x3</code> and <code>x2:x3</code> are not significantly different from <span class="math inline">\(0\)</span>. This makes sense because our simulation model does not include these two predictors. However, we see that <code>x1:x3</code> is significantly different from <span class="math inline">\(0\)</span> (at the <span class="math inline">\(0.05\)</span> level) even though we did not include this predictor in the simulation model. This is because we will commit Type I error.</p>
 <p>We can also include a specific interaction by using <code>:</code> instead of <code>*</code>. For example, to fit
 <span class="math display">\[\begin{equation*}
@@ -939,19 +947,19 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2}   + \beta_3 X_{i1} X_{i2} + \bet
 \end{equation*}\]</span>
 we can use <code>lm(y ~ x1 + x2 + x1:x2 + x1:x2:x3)</code>.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="linear-regression-models.html#cb416-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb416-2"><a href="linear-regression-models.html#cb416-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb416-3"><a href="linear-regression-models.html#cb416-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb416-4"><a href="linear-regression-models.html#cb416-4" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb416-5"><a href="linear-regression-models.html#cb416-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb416-6"><a href="linear-regression-models.html#cb416-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1<span class="sc">:</span>x2 <span class="sc">+</span> x1<span class="sc">:</span>x2<span class="sc">:</span>x3)</span>
-<span id="cb416-7"><a href="linear-regression-models.html#cb416-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb416-8"><a href="linear-regression-models.html#cb416-8" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb416-9"><a href="linear-regression-models.html#cb416-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + x2 + x1:x2 + x1:x2:x3)</span></span>
-<span id="cb416-10"><a href="linear-regression-models.html#cb416-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb416-11"><a href="linear-regression-models.html#cb416-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb416-12"><a href="linear-regression-models.html#cb416-12" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2     x1:x2:x3  </span></span>
-<span id="cb416-13"><a href="linear-regression-models.html#cb416-13" tabindex="-1"></a><span class="do">##       1.061        1.853        2.981        3.598        1.967</span></span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="linear-regression-models.html#cb417-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb417-2"><a href="linear-regression-models.html#cb417-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb417-3"><a href="linear-regression-models.html#cb417-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb417-4"><a href="linear-regression-models.html#cb417-4" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb417-5"><a href="linear-regression-models.html#cb417-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb417-6"><a href="linear-regression-models.html#cb417-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1<span class="sc">:</span>x2 <span class="sc">+</span> x1<span class="sc">:</span>x2<span class="sc">:</span>x3)</span>
+<span id="cb417-7"><a href="linear-regression-models.html#cb417-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb417-8"><a href="linear-regression-models.html#cb417-8" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb417-9"><a href="linear-regression-models.html#cb417-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + x2 + x1:x2 + x1:x2:x3)</span></span>
+<span id="cb417-10"><a href="linear-regression-models.html#cb417-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb417-11"><a href="linear-regression-models.html#cb417-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb417-12"><a href="linear-regression-models.html#cb417-12" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2        x1:x2     x1:x2:x3  </span></span>
+<span id="cb417-13"><a href="linear-regression-models.html#cb417-13" tabindex="-1"></a><span class="do">##       1.061        1.853        2.981        3.598        1.967</span></span></code></pre></div>
 </div>
 <div id="variable-transformation" class="section level2 hasAnchor" number="10.9">
 <h2><span class="header-section-number">10.9</span> Variable Transformation<a href="linear-regression-models.html#variable-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -964,19 +972,19 @@ is a special case of the genearl linear regression model because we can define <
 Y_i&#39; = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i3} + \varepsilon_i.
 \end{equation*}\]</span></p>
 <p>Let’s generate some data in which <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> do not have a linear relationship.</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="linear-regression-models.html#cb417-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb417-2"><a href="linear-regression-models.html#cb417-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
-<span id="cb417-3"><a href="linear-regression-models.html#cb417-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x  <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-449-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="linear-regression-models.html#cb418-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb418-2"><a href="linear-regression-models.html#cb418-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb418-3"><a href="linear-regression-models.html#cb418-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x  <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-455-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>To perform regression for the transformed variable:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="linear-regression-models.html#cb418-1" tabindex="-1"></a><span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> x)</span>
-<span id="cb418-2"><a href="linear-regression-models.html#cb418-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb418-3"><a href="linear-regression-models.html#cb418-3" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb418-4"><a href="linear-regression-models.html#cb418-4" tabindex="-1"></a><span class="do">## lm(formula = log(y) ~ x)</span></span>
-<span id="cb418-5"><a href="linear-regression-models.html#cb418-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb418-6"><a href="linear-regression-models.html#cb418-6" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb418-7"><a href="linear-regression-models.html#cb418-7" tabindex="-1"></a><span class="do">## (Intercept)            x  </span></span>
-<span id="cb418-8"><a href="linear-regression-models.html#cb418-8" tabindex="-1"></a><span class="do">##      0.9623       1.9979</span></span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-models.html#cb419-1" tabindex="-1"></a><span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> x)</span>
+<span id="cb419-2"><a href="linear-regression-models.html#cb419-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb419-3"><a href="linear-regression-models.html#cb419-3" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb419-4"><a href="linear-regression-models.html#cb419-4" tabindex="-1"></a><span class="do">## lm(formula = log(y) ~ x)</span></span>
+<span id="cb419-5"><a href="linear-regression-models.html#cb419-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb419-6"><a href="linear-regression-models.html#cb419-6" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb419-7"><a href="linear-regression-models.html#cb419-7" tabindex="-1"></a><span class="do">## (Intercept)            x  </span></span>
+<span id="cb419-8"><a href="linear-regression-models.html#cb419-8" tabindex="-1"></a><span class="do">##      0.9623       1.9979</span></span></code></pre></div>
 </div>
 <div id="polynomial-regression" class="section level2 hasAnchor" number="10.10">
 <h2><span class="header-section-number">10.10</span> Polynomial Regression<a href="linear-regression-models.html#polynomial-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -989,36 +997,36 @@ It is a special case of the general linear regression model because we can defin
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 \end{equation*}\]</span></p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="linear-regression-models.html#cb419-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb419-2"><a href="linear-regression-models.html#cb419-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb419-3"><a href="linear-regression-models.html#cb419-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb419-4"><a href="linear-regression-models.html#cb419-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb419-5"><a href="linear-regression-models.html#cb419-5" tabindex="-1"></a></span>
-<span id="cb419-6"><a href="linear-regression-models.html#cb419-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x1, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> x2)</span>
-<span id="cb419-7"><a href="linear-regression-models.html#cb419-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb419-8"><a href="linear-regression-models.html#cb419-8" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb419-9"><a href="linear-regression-models.html#cb419-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
-<span id="cb419-10"><a href="linear-regression-models.html#cb419-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb419-11"><a href="linear-regression-models.html#cb419-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb419-12"><a href="linear-regression-models.html#cb419-12" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
-<span id="cb419-13"><a href="linear-regression-models.html#cb419-13" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976  </span></span>
-<span id="cb419-14"><a href="linear-regression-models.html#cb419-14" tabindex="-1"></a><span class="do">##                       x2  </span></span>
-<span id="cb419-15"><a href="linear-regression-models.html#cb419-15" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
-<p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
-<p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="linear-regression-models.html#cb420-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb420-2"><a href="linear-regression-models.html#cb420-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb420-3"><a href="linear-regression-models.html#cb420-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb420-4"><a href="linear-regression-models.html#cb420-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb420-5"><a href="linear-regression-models.html#cb420-5" tabindex="-1"></a></span>
-<span id="cb420-6"><a href="linear-regression-models.html#cb420-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x2)</span>
+<span id="cb420-6"><a href="linear-regression-models.html#cb420-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x1, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> x2)</span>
 <span id="cb420-7"><a href="linear-regression-models.html#cb420-7" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb420-8"><a href="linear-regression-models.html#cb420-8" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb420-9"><a href="linear-regression-models.html#cb420-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^2) + x2)</span></span>
+<span id="cb420-9"><a href="linear-regression-models.html#cb420-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
 <span id="cb420-10"><a href="linear-regression-models.html#cb420-10" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb420-11"><a href="linear-regression-models.html#cb420-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb420-12"><a href="linear-regression-models.html#cb420-12" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)           x2  </span></span>
-<span id="cb420-13"><a href="linear-regression-models.html#cb420-13" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976       -2.058</span></span></code></pre></div>
+<span id="cb420-12"><a href="linear-regression-models.html#cb420-12" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2  </span></span>
+<span id="cb420-13"><a href="linear-regression-models.html#cb420-13" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976  </span></span>
+<span id="cb420-14"><a href="linear-regression-models.html#cb420-14" tabindex="-1"></a><span class="do">##                       x2  </span></span>
+<span id="cb420-15"><a href="linear-regression-models.html#cb420-15" tabindex="-1"></a><span class="do">##                   -2.058</span></span></code></pre></div>
+<p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
+<p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-models.html#cb421-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb421-2"><a href="linear-regression-models.html#cb421-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-3"><a href="linear-regression-models.html#cb421-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-4"><a href="linear-regression-models.html#cb421-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-5"><a href="linear-regression-models.html#cb421-5" tabindex="-1"></a></span>
+<span id="cb421-6"><a href="linear-regression-models.html#cb421-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x2)</span>
+<span id="cb421-7"><a href="linear-regression-models.html#cb421-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb421-8"><a href="linear-regression-models.html#cb421-8" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb421-9"><a href="linear-regression-models.html#cb421-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^2) + x2)</span></span>
+<span id="cb421-10"><a href="linear-regression-models.html#cb421-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb421-11"><a href="linear-regression-models.html#cb421-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb421-12"><a href="linear-regression-models.html#cb421-12" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)           x2  </span></span>
+<span id="cb421-13"><a href="linear-regression-models.html#cb421-13" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976       -2.058</span></span></code></pre></div>
 <p>Note that <code>lm(y ~ x1 + x1^2 + x2)</code> does not do what you think.</p>
 <p>If you want to perform
 <span class="math display">\[\begin{equation*}
@@ -1026,18 +1034,18 @@ Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i1}^3 + \varepsilon,
 \end{equation*}\]</span>
 you can use <code>lm(y ~ x1 + I(x1^3))</code>.</p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-models.html#cb421-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb421-2"><a href="linear-regression-models.html#cb421-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb421-3"><a href="linear-regression-models.html#cb421-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb421-4"><a href="linear-regression-models.html#cb421-4" tabindex="-1"></a></span>
-<span id="cb421-5"><a href="linear-regression-models.html#cb421-5" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb421-6"><a href="linear-regression-models.html#cb421-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb421-7"><a href="linear-regression-models.html#cb421-7" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb421-8"><a href="linear-regression-models.html#cb421-8" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^3))</span></span>
-<span id="cb421-9"><a href="linear-regression-models.html#cb421-9" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb421-10"><a href="linear-regression-models.html#cb421-10" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb421-11"><a href="linear-regression-models.html#cb421-11" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^3)  </span></span>
-<span id="cb421-12"><a href="linear-regression-models.html#cb421-12" tabindex="-1"></a><span class="do">##      0.9623       2.0014       2.9990</span></span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-models.html#cb422-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb422-2"><a href="linear-regression-models.html#cb422-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb422-3"><a href="linear-regression-models.html#cb422-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb422-4"><a href="linear-regression-models.html#cb422-4" tabindex="-1"></a></span>
+<span id="cb422-5"><a href="linear-regression-models.html#cb422-5" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb422-6"><a href="linear-regression-models.html#cb422-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb422-7"><a href="linear-regression-models.html#cb422-7" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb422-8"><a href="linear-regression-models.html#cb422-8" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^3))</span></span>
+<span id="cb422-9"><a href="linear-regression-models.html#cb422-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb422-10"><a href="linear-regression-models.html#cb422-10" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb422-11"><a href="linear-regression-models.html#cb422-11" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^3)  </span></span>
+<span id="cb422-12"><a href="linear-regression-models.html#cb422-12" tabindex="-1"></a><span class="do">##      0.9623       2.0014       2.9990</span></span></code></pre></div>
 </div>
 <div id="stepwise-regression" class="section level2 hasAnchor" number="10.11">
 <h2><span class="header-section-number">10.11</span> Stepwise regression<a href="linear-regression-models.html#stepwise-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1050,66 +1058,66 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <p>We will illustrate <code>step()</code> using the prostate cancer dataset <code>zprostate</code> in the package <code>bestglm</code>.</p>
 <p>Details of the dataset: a study of 97 men with prostate cancer examined the correlation between PSA (prostate specific antigen) and a number of clinical measurements: lcavol, lweight, lbph, svi, lcp, gleason, pgg45.</p>
 <p><strong>Backward stepwise regression</strong>: starts with the full model (or a model with many variables) and <strong>removes</strong> the variable that results in the largest AIC until no variables can be removed.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-models.html#cb422-1" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lpsa <span class="sc">~</span> . , <span class="at">data =</span> zprostate[, <span class="sc">-</span><span class="dv">10</span>])</span>
-<span id="cb422-2"><a href="linear-regression-models.html#cb422-2" tabindex="-1"></a><span class="fu">step</span>(full_model, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span>
-<span id="cb422-3"><a href="linear-regression-models.html#cb422-3" tabindex="-1"></a><span class="do">## Start:  AIC=-60.78</span></span>
-<span id="cb422-4"><a href="linear-regression-models.html#cb422-4" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + lcp + gleason + </span></span>
-<span id="cb422-5"><a href="linear-regression-models.html#cb422-5" tabindex="-1"></a><span class="do">##     pgg45</span></span>
-<span id="cb422-6"><a href="linear-regression-models.html#cb422-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-7"><a href="linear-regression-models.html#cb422-7" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb422-8"><a href="linear-regression-models.html#cb422-8" tabindex="-1"></a><span class="do">## - gleason  1    0.0491 43.108 -62.668</span></span>
-<span id="cb422-9"><a href="linear-regression-models.html#cb422-9" tabindex="-1"></a><span class="do">## - pgg45    1    0.5102 43.569 -61.636</span></span>
-<span id="cb422-10"><a href="linear-regression-models.html#cb422-10" tabindex="-1"></a><span class="do">## - lcp      1    0.6814 43.740 -61.256</span></span>
-<span id="cb422-11"><a href="linear-regression-models.html#cb422-11" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.058 -60.779</span></span>
-<span id="cb422-12"><a href="linear-regression-models.html#cb422-12" tabindex="-1"></a><span class="do">## - lbph     1    1.3646 44.423 -59.753</span></span>
-<span id="cb422-13"><a href="linear-regression-models.html#cb422-13" tabindex="-1"></a><span class="do">## - age      1    1.7981 44.857 -58.810</span></span>
-<span id="cb422-14"><a href="linear-regression-models.html#cb422-14" tabindex="-1"></a><span class="do">## - lweight  1    4.6907 47.749 -52.749</span></span>
-<span id="cb422-15"><a href="linear-regression-models.html#cb422-15" tabindex="-1"></a><span class="do">## - svi      1    4.8803 47.939 -52.364</span></span>
-<span id="cb422-16"><a href="linear-regression-models.html#cb422-16" tabindex="-1"></a><span class="do">## - lcavol   1   20.1994 63.258 -25.467</span></span>
-<span id="cb422-17"><a href="linear-regression-models.html#cb422-17" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-18"><a href="linear-regression-models.html#cb422-18" tabindex="-1"></a><span class="do">## Step:  AIC=-62.67</span></span>
-<span id="cb422-19"><a href="linear-regression-models.html#cb422-19" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + lcp + pgg45</span></span>
-<span id="cb422-20"><a href="linear-regression-models.html#cb422-20" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-21"><a href="linear-regression-models.html#cb422-21" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb422-22"><a href="linear-regression-models.html#cb422-22" tabindex="-1"></a><span class="do">## - lcp      1    0.6684 43.776 -63.176</span></span>
-<span id="cb422-23"><a href="linear-regression-models.html#cb422-23" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.108 -62.668</span></span>
-<span id="cb422-24"><a href="linear-regression-models.html#cb422-24" tabindex="-1"></a><span class="do">## - pgg45    1    1.1987 44.306 -62.008</span></span>
-<span id="cb422-25"><a href="linear-regression-models.html#cb422-25" tabindex="-1"></a><span class="do">## - lbph     1    1.3844 44.492 -61.602</span></span>
-<span id="cb422-26"><a href="linear-regression-models.html#cb422-26" tabindex="-1"></a><span class="do">## - age      1    1.7579 44.865 -60.791</span></span>
-<span id="cb422-27"><a href="linear-regression-models.html#cb422-27" tabindex="-1"></a><span class="do">## - lweight  1    4.6429 47.751 -54.746</span></span>
-<span id="cb422-28"><a href="linear-regression-models.html#cb422-28" tabindex="-1"></a><span class="do">## - svi      1    4.8333 47.941 -54.360</span></span>
-<span id="cb422-29"><a href="linear-regression-models.html#cb422-29" tabindex="-1"></a><span class="do">## - lcavol   1   21.3191 64.427 -25.691</span></span>
-<span id="cb422-30"><a href="linear-regression-models.html#cb422-30" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-31"><a href="linear-regression-models.html#cb422-31" tabindex="-1"></a><span class="do">## Step:  AIC=-63.18</span></span>
-<span id="cb422-32"><a href="linear-regression-models.html#cb422-32" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + pgg45</span></span>
-<span id="cb422-33"><a href="linear-regression-models.html#cb422-33" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-34"><a href="linear-regression-models.html#cb422-34" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb422-35"><a href="linear-regression-models.html#cb422-35" tabindex="-1"></a><span class="do">## - pgg45    1    0.6607 44.437 -63.723</span></span>
-<span id="cb422-36"><a href="linear-regression-models.html#cb422-36" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.776 -63.176</span></span>
-<span id="cb422-37"><a href="linear-regression-models.html#cb422-37" tabindex="-1"></a><span class="do">## - lbph     1    1.3329 45.109 -62.266</span></span>
-<span id="cb422-38"><a href="linear-regression-models.html#cb422-38" tabindex="-1"></a><span class="do">## - age      1    1.4878 45.264 -61.934</span></span>
-<span id="cb422-39"><a href="linear-regression-models.html#cb422-39" tabindex="-1"></a><span class="do">## - svi      1    4.1766 47.953 -56.336</span></span>
-<span id="cb422-40"><a href="linear-regression-models.html#cb422-40" tabindex="-1"></a><span class="do">## - lweight  1    4.6553 48.431 -55.373</span></span>
-<span id="cb422-41"><a href="linear-regression-models.html#cb422-41" tabindex="-1"></a><span class="do">## - lcavol   1   22.7555 66.531 -24.572</span></span>
-<span id="cb422-42"><a href="linear-regression-models.html#cb422-42" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-43"><a href="linear-regression-models.html#cb422-43" tabindex="-1"></a><span class="do">## Step:  AIC=-63.72</span></span>
-<span id="cb422-44"><a href="linear-regression-models.html#cb422-44" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi</span></span>
-<span id="cb422-45"><a href="linear-regression-models.html#cb422-45" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-46"><a href="linear-regression-models.html#cb422-46" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb422-47"><a href="linear-regression-models.html#cb422-47" tabindex="-1"></a><span class="do">## &lt;none&gt;                 44.437 -63.723</span></span>
-<span id="cb422-48"><a href="linear-regression-models.html#cb422-48" tabindex="-1"></a><span class="do">## - age      1    1.1588 45.595 -63.226</span></span>
-<span id="cb422-49"><a href="linear-regression-models.html#cb422-49" tabindex="-1"></a><span class="do">## - lbph     1    1.5087 45.945 -62.484</span></span>
-<span id="cb422-50"><a href="linear-regression-models.html#cb422-50" tabindex="-1"></a><span class="do">## - lweight  1    4.3140 48.751 -56.735</span></span>
-<span id="cb422-51"><a href="linear-regression-models.html#cb422-51" tabindex="-1"></a><span class="do">## - svi      1    5.8509 50.288 -53.724</span></span>
-<span id="cb422-52"><a href="linear-regression-models.html#cb422-52" tabindex="-1"></a><span class="do">## - lcavol   1   25.9427 70.379 -21.119</span></span>
-<span id="cb422-53"><a href="linear-regression-models.html#cb422-53" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-54"><a href="linear-regression-models.html#cb422-54" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb422-55"><a href="linear-regression-models.html#cb422-55" tabindex="-1"></a><span class="do">## lm(formula = lpsa ~ lcavol + lweight + age + lbph + svi, data = zprostate[, </span></span>
-<span id="cb422-56"><a href="linear-regression-models.html#cb422-56" tabindex="-1"></a><span class="do">##     -10])</span></span>
-<span id="cb422-57"><a href="linear-regression-models.html#cb422-57" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-58"><a href="linear-regression-models.html#cb422-58" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb422-59"><a href="linear-regression-models.html#cb422-59" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph          svi  </span></span>
-<span id="cb422-60"><a href="linear-regression-models.html#cb422-60" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469       0.2960</span></span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="linear-regression-models.html#cb423-1" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lpsa <span class="sc">~</span> . , <span class="at">data =</span> zprostate[, <span class="sc">-</span><span class="dv">10</span>])</span>
+<span id="cb423-2"><a href="linear-regression-models.html#cb423-2" tabindex="-1"></a><span class="fu">step</span>(full_model, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span>
+<span id="cb423-3"><a href="linear-regression-models.html#cb423-3" tabindex="-1"></a><span class="do">## Start:  AIC=-60.78</span></span>
+<span id="cb423-4"><a href="linear-regression-models.html#cb423-4" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + lcp + gleason + </span></span>
+<span id="cb423-5"><a href="linear-regression-models.html#cb423-5" tabindex="-1"></a><span class="do">##     pgg45</span></span>
+<span id="cb423-6"><a href="linear-regression-models.html#cb423-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-7"><a href="linear-regression-models.html#cb423-7" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb423-8"><a href="linear-regression-models.html#cb423-8" tabindex="-1"></a><span class="do">## - gleason  1    0.0491 43.108 -62.668</span></span>
+<span id="cb423-9"><a href="linear-regression-models.html#cb423-9" tabindex="-1"></a><span class="do">## - pgg45    1    0.5102 43.569 -61.636</span></span>
+<span id="cb423-10"><a href="linear-regression-models.html#cb423-10" tabindex="-1"></a><span class="do">## - lcp      1    0.6814 43.740 -61.256</span></span>
+<span id="cb423-11"><a href="linear-regression-models.html#cb423-11" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.058 -60.779</span></span>
+<span id="cb423-12"><a href="linear-regression-models.html#cb423-12" tabindex="-1"></a><span class="do">## - lbph     1    1.3646 44.423 -59.753</span></span>
+<span id="cb423-13"><a href="linear-regression-models.html#cb423-13" tabindex="-1"></a><span class="do">## - age      1    1.7981 44.857 -58.810</span></span>
+<span id="cb423-14"><a href="linear-regression-models.html#cb423-14" tabindex="-1"></a><span class="do">## - lweight  1    4.6907 47.749 -52.749</span></span>
+<span id="cb423-15"><a href="linear-regression-models.html#cb423-15" tabindex="-1"></a><span class="do">## - svi      1    4.8803 47.939 -52.364</span></span>
+<span id="cb423-16"><a href="linear-regression-models.html#cb423-16" tabindex="-1"></a><span class="do">## - lcavol   1   20.1994 63.258 -25.467</span></span>
+<span id="cb423-17"><a href="linear-regression-models.html#cb423-17" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-18"><a href="linear-regression-models.html#cb423-18" tabindex="-1"></a><span class="do">## Step:  AIC=-62.67</span></span>
+<span id="cb423-19"><a href="linear-regression-models.html#cb423-19" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + lcp + pgg45</span></span>
+<span id="cb423-20"><a href="linear-regression-models.html#cb423-20" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-21"><a href="linear-regression-models.html#cb423-21" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb423-22"><a href="linear-regression-models.html#cb423-22" tabindex="-1"></a><span class="do">## - lcp      1    0.6684 43.776 -63.176</span></span>
+<span id="cb423-23"><a href="linear-regression-models.html#cb423-23" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.108 -62.668</span></span>
+<span id="cb423-24"><a href="linear-regression-models.html#cb423-24" tabindex="-1"></a><span class="do">## - pgg45    1    1.1987 44.306 -62.008</span></span>
+<span id="cb423-25"><a href="linear-regression-models.html#cb423-25" tabindex="-1"></a><span class="do">## - lbph     1    1.3844 44.492 -61.602</span></span>
+<span id="cb423-26"><a href="linear-regression-models.html#cb423-26" tabindex="-1"></a><span class="do">## - age      1    1.7579 44.865 -60.791</span></span>
+<span id="cb423-27"><a href="linear-regression-models.html#cb423-27" tabindex="-1"></a><span class="do">## - lweight  1    4.6429 47.751 -54.746</span></span>
+<span id="cb423-28"><a href="linear-regression-models.html#cb423-28" tabindex="-1"></a><span class="do">## - svi      1    4.8333 47.941 -54.360</span></span>
+<span id="cb423-29"><a href="linear-regression-models.html#cb423-29" tabindex="-1"></a><span class="do">## - lcavol   1   21.3191 64.427 -25.691</span></span>
+<span id="cb423-30"><a href="linear-regression-models.html#cb423-30" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-31"><a href="linear-regression-models.html#cb423-31" tabindex="-1"></a><span class="do">## Step:  AIC=-63.18</span></span>
+<span id="cb423-32"><a href="linear-regression-models.html#cb423-32" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi + pgg45</span></span>
+<span id="cb423-33"><a href="linear-regression-models.html#cb423-33" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-34"><a href="linear-regression-models.html#cb423-34" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb423-35"><a href="linear-regression-models.html#cb423-35" tabindex="-1"></a><span class="do">## - pgg45    1    0.6607 44.437 -63.723</span></span>
+<span id="cb423-36"><a href="linear-regression-models.html#cb423-36" tabindex="-1"></a><span class="do">## &lt;none&gt;                 43.776 -63.176</span></span>
+<span id="cb423-37"><a href="linear-regression-models.html#cb423-37" tabindex="-1"></a><span class="do">## - lbph     1    1.3329 45.109 -62.266</span></span>
+<span id="cb423-38"><a href="linear-regression-models.html#cb423-38" tabindex="-1"></a><span class="do">## - age      1    1.4878 45.264 -61.934</span></span>
+<span id="cb423-39"><a href="linear-regression-models.html#cb423-39" tabindex="-1"></a><span class="do">## - svi      1    4.1766 47.953 -56.336</span></span>
+<span id="cb423-40"><a href="linear-regression-models.html#cb423-40" tabindex="-1"></a><span class="do">## - lweight  1    4.6553 48.431 -55.373</span></span>
+<span id="cb423-41"><a href="linear-regression-models.html#cb423-41" tabindex="-1"></a><span class="do">## - lcavol   1   22.7555 66.531 -24.572</span></span>
+<span id="cb423-42"><a href="linear-regression-models.html#cb423-42" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-43"><a href="linear-regression-models.html#cb423-43" tabindex="-1"></a><span class="do">## Step:  AIC=-63.72</span></span>
+<span id="cb423-44"><a href="linear-regression-models.html#cb423-44" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + age + lbph + svi</span></span>
+<span id="cb423-45"><a href="linear-regression-models.html#cb423-45" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-46"><a href="linear-regression-models.html#cb423-46" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb423-47"><a href="linear-regression-models.html#cb423-47" tabindex="-1"></a><span class="do">## &lt;none&gt;                 44.437 -63.723</span></span>
+<span id="cb423-48"><a href="linear-regression-models.html#cb423-48" tabindex="-1"></a><span class="do">## - age      1    1.1588 45.595 -63.226</span></span>
+<span id="cb423-49"><a href="linear-regression-models.html#cb423-49" tabindex="-1"></a><span class="do">## - lbph     1    1.5087 45.945 -62.484</span></span>
+<span id="cb423-50"><a href="linear-regression-models.html#cb423-50" tabindex="-1"></a><span class="do">## - lweight  1    4.3140 48.751 -56.735</span></span>
+<span id="cb423-51"><a href="linear-regression-models.html#cb423-51" tabindex="-1"></a><span class="do">## - svi      1    5.8509 50.288 -53.724</span></span>
+<span id="cb423-52"><a href="linear-regression-models.html#cb423-52" tabindex="-1"></a><span class="do">## - lcavol   1   25.9427 70.379 -21.119</span></span>
+<span id="cb423-53"><a href="linear-regression-models.html#cb423-53" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-54"><a href="linear-regression-models.html#cb423-54" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb423-55"><a href="linear-regression-models.html#cb423-55" tabindex="-1"></a><span class="do">## lm(formula = lpsa ~ lcavol + lweight + age + lbph + svi, data = zprostate[, </span></span>
+<span id="cb423-56"><a href="linear-regression-models.html#cb423-56" tabindex="-1"></a><span class="do">##     -10])</span></span>
+<span id="cb423-57"><a href="linear-regression-models.html#cb423-57" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb423-58"><a href="linear-regression-models.html#cb423-58" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb423-59"><a href="linear-regression-models.html#cb423-59" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          age         lbph          svi  </span></span>
+<span id="cb423-60"><a href="linear-regression-models.html#cb423-60" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520      -0.1224       0.1469       0.2960</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>From the full model, removing <code>gleason</code> results in a model with the smallest AIC. Therefore, the algorithm first removes <code>gleason</code>.</p></li>
 <li><p>Next, removing <code>lcp</code> results in a model with the smallest AIC. Therefore, <code>lcp</code> is removed in the next step.</p></li>
@@ -1117,84 +1125,84 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 <li><p>Finally, removing any variable will not reduce the AIC. Therefore, the algorithm stops and the “best” model is <code>lpsa ~ lcavol + lweight + age + lbph + svi</code>.</p></li>
 </ol>
 <p><strong>Forward stepwise regression:</strong> starts with the intercept (or a few variables) and adds new ones until the model cannot be improved (in the sense that the AIC will not decrease).</p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="linear-regression-models.html#cb423-1" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lpsa <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> zprostate[, <span class="sc">-</span><span class="dv">10</span>]) <span class="co"># the model with intercept only</span></span>
-<span id="cb423-2"><a href="linear-regression-models.html#cb423-2" tabindex="-1"></a><span class="fu">step</span>(null_model, <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">scope =</span> <span class="fu">formula</span>(full_model))</span>
-<span id="cb423-3"><a href="linear-regression-models.html#cb423-3" tabindex="-1"></a><span class="do">## Start:  AIC=28.84</span></span>
-<span id="cb423-4"><a href="linear-regression-models.html#cb423-4" tabindex="-1"></a><span class="do">## lpsa ~ 1</span></span>
-<span id="cb423-5"><a href="linear-regression-models.html#cb423-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-6"><a href="linear-regression-models.html#cb423-6" tabindex="-1"></a><span class="do">##           Df Sum of Sq     RSS     AIC</span></span>
-<span id="cb423-7"><a href="linear-regression-models.html#cb423-7" tabindex="-1"></a><span class="do">## + lcavol   1    69.003  58.915 -44.366</span></span>
-<span id="cb423-8"><a href="linear-regression-models.html#cb423-8" tabindex="-1"></a><span class="do">## + svi      1    41.011  86.907  -6.658</span></span>
-<span id="cb423-9"><a href="linear-regression-models.html#cb423-9" tabindex="-1"></a><span class="do">## + lcp      1    38.528  89.389  -3.926</span></span>
-<span id="cb423-10"><a href="linear-regression-models.html#cb423-10" tabindex="-1"></a><span class="do">## + lweight  1    24.019 103.899  10.665</span></span>
-<span id="cb423-11"><a href="linear-regression-models.html#cb423-11" tabindex="-1"></a><span class="do">## + pgg45    1    22.814 105.103  11.783</span></span>
-<span id="cb423-12"><a href="linear-regression-models.html#cb423-12" tabindex="-1"></a><span class="do">## + gleason  1    17.416 110.502  16.641</span></span>
-<span id="cb423-13"><a href="linear-regression-models.html#cb423-13" tabindex="-1"></a><span class="do">## + lbph     1     4.136 123.782  27.650</span></span>
-<span id="cb423-14"><a href="linear-regression-models.html#cb423-14" tabindex="-1"></a><span class="do">## + age      1     3.679 124.239  28.007</span></span>
-<span id="cb423-15"><a href="linear-regression-models.html#cb423-15" tabindex="-1"></a><span class="do">## &lt;none&gt;                 127.918  28.838</span></span>
-<span id="cb423-16"><a href="linear-regression-models.html#cb423-16" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-17"><a href="linear-regression-models.html#cb423-17" tabindex="-1"></a><span class="do">## Step:  AIC=-44.37</span></span>
-<span id="cb423-18"><a href="linear-regression-models.html#cb423-18" tabindex="-1"></a><span class="do">## lpsa ~ lcavol</span></span>
-<span id="cb423-19"><a href="linear-regression-models.html#cb423-19" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-20"><a href="linear-regression-models.html#cb423-20" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb423-21"><a href="linear-regression-models.html#cb423-21" tabindex="-1"></a><span class="do">## + lweight  1    7.1726 51.742 -54.958</span></span>
-<span id="cb423-22"><a href="linear-regression-models.html#cb423-22" tabindex="-1"></a><span class="do">## + svi      1    5.2375 53.677 -51.397</span></span>
-<span id="cb423-23"><a href="linear-regression-models.html#cb423-23" tabindex="-1"></a><span class="do">## + lbph     1    3.2658 55.649 -47.898</span></span>
-<span id="cb423-24"><a href="linear-regression-models.html#cb423-24" tabindex="-1"></a><span class="do">## + pgg45    1    1.6980 57.217 -45.203</span></span>
-<span id="cb423-25"><a href="linear-regression-models.html#cb423-25" tabindex="-1"></a><span class="do">## &lt;none&gt;                 58.915 -44.366</span></span>
-<span id="cb423-26"><a href="linear-regression-models.html#cb423-26" tabindex="-1"></a><span class="do">## + lcp      1    0.6562 58.259 -43.452</span></span>
-<span id="cb423-27"><a href="linear-regression-models.html#cb423-27" tabindex="-1"></a><span class="do">## + gleason  1    0.4156 58.499 -43.053</span></span>
-<span id="cb423-28"><a href="linear-regression-models.html#cb423-28" tabindex="-1"></a><span class="do">## + age      1    0.0025 58.912 -42.370</span></span>
-<span id="cb423-29"><a href="linear-regression-models.html#cb423-29" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-30"><a href="linear-regression-models.html#cb423-30" tabindex="-1"></a><span class="do">## Step:  AIC=-54.96</span></span>
-<span id="cb423-31"><a href="linear-regression-models.html#cb423-31" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight</span></span>
-<span id="cb423-32"><a href="linear-regression-models.html#cb423-32" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-33"><a href="linear-regression-models.html#cb423-33" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb423-34"><a href="linear-regression-models.html#cb423-34" tabindex="-1"></a><span class="do">## + svi      1    5.1737 46.568 -63.177</span></span>
-<span id="cb423-35"><a href="linear-regression-models.html#cb423-35" tabindex="-1"></a><span class="do">## + pgg45    1    1.8158 49.926 -56.424</span></span>
-<span id="cb423-36"><a href="linear-regression-models.html#cb423-36" tabindex="-1"></a><span class="do">## &lt;none&gt;                 51.742 -54.958</span></span>
-<span id="cb423-37"><a href="linear-regression-models.html#cb423-37" tabindex="-1"></a><span class="do">## + lcp      1    0.8187 50.923 -54.506</span></span>
-<span id="cb423-38"><a href="linear-regression-models.html#cb423-38" tabindex="-1"></a><span class="do">## + gleason  1    0.7163 51.026 -54.311</span></span>
-<span id="cb423-39"><a href="linear-regression-models.html#cb423-39" tabindex="-1"></a><span class="do">## + age      1    0.6456 51.097 -54.176</span></span>
-<span id="cb423-40"><a href="linear-regression-models.html#cb423-40" tabindex="-1"></a><span class="do">## + lbph     1    0.4440 51.298 -53.794</span></span>
-<span id="cb423-41"><a href="linear-regression-models.html#cb423-41" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-42"><a href="linear-regression-models.html#cb423-42" tabindex="-1"></a><span class="do">## Step:  AIC=-63.18</span></span>
-<span id="cb423-43"><a href="linear-regression-models.html#cb423-43" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi</span></span>
-<span id="cb423-44"><a href="linear-regression-models.html#cb423-44" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-45"><a href="linear-regression-models.html#cb423-45" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb423-46"><a href="linear-regression-models.html#cb423-46" tabindex="-1"></a><span class="do">## + lbph     1   0.97296 45.595 -63.226</span></span>
-<span id="cb423-47"><a href="linear-regression-models.html#cb423-47" tabindex="-1"></a><span class="do">## &lt;none&gt;                 46.568 -63.177</span></span>
-<span id="cb423-48"><a href="linear-regression-models.html#cb423-48" tabindex="-1"></a><span class="do">## + age      1   0.62301 45.945 -62.484</span></span>
-<span id="cb423-49"><a href="linear-regression-models.html#cb423-49" tabindex="-1"></a><span class="do">## + pgg45    1   0.50069 46.068 -62.226</span></span>
-<span id="cb423-50"><a href="linear-regression-models.html#cb423-50" tabindex="-1"></a><span class="do">## + gleason  1   0.34449 46.224 -61.898</span></span>
-<span id="cb423-51"><a href="linear-regression-models.html#cb423-51" tabindex="-1"></a><span class="do">## + lcp      1   0.06937 46.499 -61.322</span></span>
-<span id="cb423-52"><a href="linear-regression-models.html#cb423-52" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-53"><a href="linear-regression-models.html#cb423-53" tabindex="-1"></a><span class="do">## Step:  AIC=-63.23</span></span>
-<span id="cb423-54"><a href="linear-regression-models.html#cb423-54" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi + lbph</span></span>
-<span id="cb423-55"><a href="linear-regression-models.html#cb423-55" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-56"><a href="linear-regression-models.html#cb423-56" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb423-57"><a href="linear-regression-models.html#cb423-57" tabindex="-1"></a><span class="do">## + age      1   1.15879 44.437 -63.723</span></span>
-<span id="cb423-58"><a href="linear-regression-models.html#cb423-58" tabindex="-1"></a><span class="do">## &lt;none&gt;                 45.595 -63.226</span></span>
-<span id="cb423-59"><a href="linear-regression-models.html#cb423-59" tabindex="-1"></a><span class="do">## + pgg45    1   0.33173 45.264 -61.934</span></span>
-<span id="cb423-60"><a href="linear-regression-models.html#cb423-60" tabindex="-1"></a><span class="do">## + gleason  1   0.20691 45.389 -61.667</span></span>
-<span id="cb423-61"><a href="linear-regression-models.html#cb423-61" tabindex="-1"></a><span class="do">## + lcp      1   0.10115 45.494 -61.441</span></span>
-<span id="cb423-62"><a href="linear-regression-models.html#cb423-62" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-63"><a href="linear-regression-models.html#cb423-63" tabindex="-1"></a><span class="do">## Step:  AIC=-63.72</span></span>
-<span id="cb423-64"><a href="linear-regression-models.html#cb423-64" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi + lbph + age</span></span>
-<span id="cb423-65"><a href="linear-regression-models.html#cb423-65" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-66"><a href="linear-regression-models.html#cb423-66" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
-<span id="cb423-67"><a href="linear-regression-models.html#cb423-67" tabindex="-1"></a><span class="do">## &lt;none&gt;                 44.437 -63.723</span></span>
-<span id="cb423-68"><a href="linear-regression-models.html#cb423-68" tabindex="-1"></a><span class="do">## + pgg45    1   0.66071 43.776 -63.176</span></span>
-<span id="cb423-69"><a href="linear-regression-models.html#cb423-69" tabindex="-1"></a><span class="do">## + gleason  1   0.47674 43.960 -62.769</span></span>
-<span id="cb423-70"><a href="linear-regression-models.html#cb423-70" tabindex="-1"></a><span class="do">## + lcp      1   0.13040 44.306 -62.008</span></span>
-<span id="cb423-71"><a href="linear-regression-models.html#cb423-71" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-72"><a href="linear-regression-models.html#cb423-72" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb423-73"><a href="linear-regression-models.html#cb423-73" tabindex="-1"></a><span class="do">## lm(formula = lpsa ~ lcavol + lweight + svi + lbph + age, data = zprostate[, </span></span>
-<span id="cb423-74"><a href="linear-regression-models.html#cb423-74" tabindex="-1"></a><span class="do">##     -10])</span></span>
-<span id="cb423-75"><a href="linear-regression-models.html#cb423-75" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb423-76"><a href="linear-regression-models.html#cb423-76" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb423-77"><a href="linear-regression-models.html#cb423-77" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph          age  </span></span>
-<span id="cb423-78"><a href="linear-regression-models.html#cb423-78" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469      -0.1224</span></span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="linear-regression-models.html#cb424-1" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lpsa <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> zprostate[, <span class="sc">-</span><span class="dv">10</span>]) <span class="co"># the model with intercept only</span></span>
+<span id="cb424-2"><a href="linear-regression-models.html#cb424-2" tabindex="-1"></a><span class="fu">step</span>(null_model, <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">scope =</span> <span class="fu">formula</span>(full_model))</span>
+<span id="cb424-3"><a href="linear-regression-models.html#cb424-3" tabindex="-1"></a><span class="do">## Start:  AIC=28.84</span></span>
+<span id="cb424-4"><a href="linear-regression-models.html#cb424-4" tabindex="-1"></a><span class="do">## lpsa ~ 1</span></span>
+<span id="cb424-5"><a href="linear-regression-models.html#cb424-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-6"><a href="linear-regression-models.html#cb424-6" tabindex="-1"></a><span class="do">##           Df Sum of Sq     RSS     AIC</span></span>
+<span id="cb424-7"><a href="linear-regression-models.html#cb424-7" tabindex="-1"></a><span class="do">## + lcavol   1    69.003  58.915 -44.366</span></span>
+<span id="cb424-8"><a href="linear-regression-models.html#cb424-8" tabindex="-1"></a><span class="do">## + svi      1    41.011  86.907  -6.658</span></span>
+<span id="cb424-9"><a href="linear-regression-models.html#cb424-9" tabindex="-1"></a><span class="do">## + lcp      1    38.528  89.389  -3.926</span></span>
+<span id="cb424-10"><a href="linear-regression-models.html#cb424-10" tabindex="-1"></a><span class="do">## + lweight  1    24.019 103.899  10.665</span></span>
+<span id="cb424-11"><a href="linear-regression-models.html#cb424-11" tabindex="-1"></a><span class="do">## + pgg45    1    22.814 105.103  11.783</span></span>
+<span id="cb424-12"><a href="linear-regression-models.html#cb424-12" tabindex="-1"></a><span class="do">## + gleason  1    17.416 110.502  16.641</span></span>
+<span id="cb424-13"><a href="linear-regression-models.html#cb424-13" tabindex="-1"></a><span class="do">## + lbph     1     4.136 123.782  27.650</span></span>
+<span id="cb424-14"><a href="linear-regression-models.html#cb424-14" tabindex="-1"></a><span class="do">## + age      1     3.679 124.239  28.007</span></span>
+<span id="cb424-15"><a href="linear-regression-models.html#cb424-15" tabindex="-1"></a><span class="do">## &lt;none&gt;                 127.918  28.838</span></span>
+<span id="cb424-16"><a href="linear-regression-models.html#cb424-16" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-17"><a href="linear-regression-models.html#cb424-17" tabindex="-1"></a><span class="do">## Step:  AIC=-44.37</span></span>
+<span id="cb424-18"><a href="linear-regression-models.html#cb424-18" tabindex="-1"></a><span class="do">## lpsa ~ lcavol</span></span>
+<span id="cb424-19"><a href="linear-regression-models.html#cb424-19" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-20"><a href="linear-regression-models.html#cb424-20" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb424-21"><a href="linear-regression-models.html#cb424-21" tabindex="-1"></a><span class="do">## + lweight  1    7.1726 51.742 -54.958</span></span>
+<span id="cb424-22"><a href="linear-regression-models.html#cb424-22" tabindex="-1"></a><span class="do">## + svi      1    5.2375 53.677 -51.397</span></span>
+<span id="cb424-23"><a href="linear-regression-models.html#cb424-23" tabindex="-1"></a><span class="do">## + lbph     1    3.2658 55.649 -47.898</span></span>
+<span id="cb424-24"><a href="linear-regression-models.html#cb424-24" tabindex="-1"></a><span class="do">## + pgg45    1    1.6980 57.217 -45.203</span></span>
+<span id="cb424-25"><a href="linear-regression-models.html#cb424-25" tabindex="-1"></a><span class="do">## &lt;none&gt;                 58.915 -44.366</span></span>
+<span id="cb424-26"><a href="linear-regression-models.html#cb424-26" tabindex="-1"></a><span class="do">## + lcp      1    0.6562 58.259 -43.452</span></span>
+<span id="cb424-27"><a href="linear-regression-models.html#cb424-27" tabindex="-1"></a><span class="do">## + gleason  1    0.4156 58.499 -43.053</span></span>
+<span id="cb424-28"><a href="linear-regression-models.html#cb424-28" tabindex="-1"></a><span class="do">## + age      1    0.0025 58.912 -42.370</span></span>
+<span id="cb424-29"><a href="linear-regression-models.html#cb424-29" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-30"><a href="linear-regression-models.html#cb424-30" tabindex="-1"></a><span class="do">## Step:  AIC=-54.96</span></span>
+<span id="cb424-31"><a href="linear-regression-models.html#cb424-31" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight</span></span>
+<span id="cb424-32"><a href="linear-regression-models.html#cb424-32" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-33"><a href="linear-regression-models.html#cb424-33" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb424-34"><a href="linear-regression-models.html#cb424-34" tabindex="-1"></a><span class="do">## + svi      1    5.1737 46.568 -63.177</span></span>
+<span id="cb424-35"><a href="linear-regression-models.html#cb424-35" tabindex="-1"></a><span class="do">## + pgg45    1    1.8158 49.926 -56.424</span></span>
+<span id="cb424-36"><a href="linear-regression-models.html#cb424-36" tabindex="-1"></a><span class="do">## &lt;none&gt;                 51.742 -54.958</span></span>
+<span id="cb424-37"><a href="linear-regression-models.html#cb424-37" tabindex="-1"></a><span class="do">## + lcp      1    0.8187 50.923 -54.506</span></span>
+<span id="cb424-38"><a href="linear-regression-models.html#cb424-38" tabindex="-1"></a><span class="do">## + gleason  1    0.7163 51.026 -54.311</span></span>
+<span id="cb424-39"><a href="linear-regression-models.html#cb424-39" tabindex="-1"></a><span class="do">## + age      1    0.6456 51.097 -54.176</span></span>
+<span id="cb424-40"><a href="linear-regression-models.html#cb424-40" tabindex="-1"></a><span class="do">## + lbph     1    0.4440 51.298 -53.794</span></span>
+<span id="cb424-41"><a href="linear-regression-models.html#cb424-41" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-42"><a href="linear-regression-models.html#cb424-42" tabindex="-1"></a><span class="do">## Step:  AIC=-63.18</span></span>
+<span id="cb424-43"><a href="linear-regression-models.html#cb424-43" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi</span></span>
+<span id="cb424-44"><a href="linear-regression-models.html#cb424-44" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-45"><a href="linear-regression-models.html#cb424-45" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb424-46"><a href="linear-regression-models.html#cb424-46" tabindex="-1"></a><span class="do">## + lbph     1   0.97296 45.595 -63.226</span></span>
+<span id="cb424-47"><a href="linear-regression-models.html#cb424-47" tabindex="-1"></a><span class="do">## &lt;none&gt;                 46.568 -63.177</span></span>
+<span id="cb424-48"><a href="linear-regression-models.html#cb424-48" tabindex="-1"></a><span class="do">## + age      1   0.62301 45.945 -62.484</span></span>
+<span id="cb424-49"><a href="linear-regression-models.html#cb424-49" tabindex="-1"></a><span class="do">## + pgg45    1   0.50069 46.068 -62.226</span></span>
+<span id="cb424-50"><a href="linear-regression-models.html#cb424-50" tabindex="-1"></a><span class="do">## + gleason  1   0.34449 46.224 -61.898</span></span>
+<span id="cb424-51"><a href="linear-regression-models.html#cb424-51" tabindex="-1"></a><span class="do">## + lcp      1   0.06937 46.499 -61.322</span></span>
+<span id="cb424-52"><a href="linear-regression-models.html#cb424-52" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-53"><a href="linear-regression-models.html#cb424-53" tabindex="-1"></a><span class="do">## Step:  AIC=-63.23</span></span>
+<span id="cb424-54"><a href="linear-regression-models.html#cb424-54" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi + lbph</span></span>
+<span id="cb424-55"><a href="linear-regression-models.html#cb424-55" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-56"><a href="linear-regression-models.html#cb424-56" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb424-57"><a href="linear-regression-models.html#cb424-57" tabindex="-1"></a><span class="do">## + age      1   1.15879 44.437 -63.723</span></span>
+<span id="cb424-58"><a href="linear-regression-models.html#cb424-58" tabindex="-1"></a><span class="do">## &lt;none&gt;                 45.595 -63.226</span></span>
+<span id="cb424-59"><a href="linear-regression-models.html#cb424-59" tabindex="-1"></a><span class="do">## + pgg45    1   0.33173 45.264 -61.934</span></span>
+<span id="cb424-60"><a href="linear-regression-models.html#cb424-60" tabindex="-1"></a><span class="do">## + gleason  1   0.20691 45.389 -61.667</span></span>
+<span id="cb424-61"><a href="linear-regression-models.html#cb424-61" tabindex="-1"></a><span class="do">## + lcp      1   0.10115 45.494 -61.441</span></span>
+<span id="cb424-62"><a href="linear-regression-models.html#cb424-62" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-63"><a href="linear-regression-models.html#cb424-63" tabindex="-1"></a><span class="do">## Step:  AIC=-63.72</span></span>
+<span id="cb424-64"><a href="linear-regression-models.html#cb424-64" tabindex="-1"></a><span class="do">## lpsa ~ lcavol + lweight + svi + lbph + age</span></span>
+<span id="cb424-65"><a href="linear-regression-models.html#cb424-65" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-66"><a href="linear-regression-models.html#cb424-66" tabindex="-1"></a><span class="do">##           Df Sum of Sq    RSS     AIC</span></span>
+<span id="cb424-67"><a href="linear-regression-models.html#cb424-67" tabindex="-1"></a><span class="do">## &lt;none&gt;                 44.437 -63.723</span></span>
+<span id="cb424-68"><a href="linear-regression-models.html#cb424-68" tabindex="-1"></a><span class="do">## + pgg45    1   0.66071 43.776 -63.176</span></span>
+<span id="cb424-69"><a href="linear-regression-models.html#cb424-69" tabindex="-1"></a><span class="do">## + gleason  1   0.47674 43.960 -62.769</span></span>
+<span id="cb424-70"><a href="linear-regression-models.html#cb424-70" tabindex="-1"></a><span class="do">## + lcp      1   0.13040 44.306 -62.008</span></span>
+<span id="cb424-71"><a href="linear-regression-models.html#cb424-71" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-72"><a href="linear-regression-models.html#cb424-72" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb424-73"><a href="linear-regression-models.html#cb424-73" tabindex="-1"></a><span class="do">## lm(formula = lpsa ~ lcavol + lweight + svi + lbph + age, data = zprostate[, </span></span>
+<span id="cb424-74"><a href="linear-regression-models.html#cb424-74" tabindex="-1"></a><span class="do">##     -10])</span></span>
+<span id="cb424-75"><a href="linear-regression-models.html#cb424-75" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb424-76"><a href="linear-regression-models.html#cb424-76" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb424-77"><a href="linear-regression-models.html#cb424-77" tabindex="-1"></a><span class="do">## (Intercept)       lcavol      lweight          svi         lbph          age  </span></span>
+<span id="cb424-78"><a href="linear-regression-models.html#cb424-78" tabindex="-1"></a><span class="do">##      2.4784       0.6412       0.2520       0.2960       0.1469      -0.1224</span></span></code></pre></div>
 <p>Remark: there is also an option <code>direction = "both"</code>.</p>
 </div>
 <div id="best-subset" class="section level2 hasAnchor" number="10.12">
@@ -1205,18 +1213,18 @@ where <span class="math inline">\(k\)</span> is the number of parameters and <sp
 BIC = -2\log L(\hat{\beta}) + k \log (n),
 \end{equation*}\]</span>
 where <span class="math inline">\(k\)</span> is the number of parameters, <span class="math inline">\(n\)</span> is the number of observations, and <span class="math inline">\(L(\hat{\beta})\)</span> is the likelihood function evaluated at the MLE. You can think of <span class="math inline">\(k \log (n)\)</span> as a penalty to discourage us to use too many predictors to avoid overfitting.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="linear-regression-models.html#cb424-1" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
-<span id="cb424-2"><a href="linear-regression-models.html#cb424-2" tabindex="-1"></a></span>
-<span id="cb424-3"><a href="linear-regression-models.html#cb424-3" tabindex="-1"></a><span class="co"># the last column ind</span></span>
-<span id="cb424-4"><a href="linear-regression-models.html#cb424-4" tabindex="-1"></a><span class="fu">bestglm</span>(zprostate[, <span class="sc">-</span><span class="dv">10</span>], <span class="at">IC =</span> <span class="st">&quot;BIC&quot;</span>)</span>
-<span id="cb424-5"><a href="linear-regression-models.html#cb424-5" tabindex="-1"></a><span class="do">## BIC</span></span>
-<span id="cb424-6"><a href="linear-regression-models.html#cb424-6" tabindex="-1"></a><span class="do">## BICq equivalent for q in (0.0561398731346802, 0.759703855996616)</span></span>
-<span id="cb424-7"><a href="linear-regression-models.html#cb424-7" tabindex="-1"></a><span class="do">## Best Model:</span></span>
-<span id="cb424-8"><a href="linear-regression-models.html#cb424-8" tabindex="-1"></a><span class="do">##              Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
-<span id="cb424-9"><a href="linear-regression-models.html#cb424-9" tabindex="-1"></a><span class="do">## (Intercept) 2.4783869 0.07184863 34.494560 8.637858e-55</span></span>
-<span id="cb424-10"><a href="linear-regression-models.html#cb424-10" tabindex="-1"></a><span class="do">## lcavol      0.6197821 0.08823567  7.024168 3.493564e-10</span></span>
-<span id="cb424-11"><a href="linear-regression-models.html#cb424-11" tabindex="-1"></a><span class="do">## lweight     0.2835097 0.07524408  3.767867 2.887126e-04</span></span>
-<span id="cb424-12"><a href="linear-regression-models.html#cb424-12" tabindex="-1"></a><span class="do">## svi         0.2755825 0.08573414  3.214385 1.797619e-03</span></span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="linear-regression-models.html#cb425-1" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
+<span id="cb425-2"><a href="linear-regression-models.html#cb425-2" tabindex="-1"></a></span>
+<span id="cb425-3"><a href="linear-regression-models.html#cb425-3" tabindex="-1"></a><span class="co"># the last column ind</span></span>
+<span id="cb425-4"><a href="linear-regression-models.html#cb425-4" tabindex="-1"></a><span class="fu">bestglm</span>(zprostate[, <span class="sc">-</span><span class="dv">10</span>], <span class="at">IC =</span> <span class="st">&quot;BIC&quot;</span>)</span>
+<span id="cb425-5"><a href="linear-regression-models.html#cb425-5" tabindex="-1"></a><span class="do">## BIC</span></span>
+<span id="cb425-6"><a href="linear-regression-models.html#cb425-6" tabindex="-1"></a><span class="do">## BICq equivalent for q in (0.0561398731346802, 0.759703855996616)</span></span>
+<span id="cb425-7"><a href="linear-regression-models.html#cb425-7" tabindex="-1"></a><span class="do">## Best Model:</span></span>
+<span id="cb425-8"><a href="linear-regression-models.html#cb425-8" tabindex="-1"></a><span class="do">##              Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span id="cb425-9"><a href="linear-regression-models.html#cb425-9" tabindex="-1"></a><span class="do">## (Intercept) 2.4783869 0.07184863 34.494560 8.637858e-55</span></span>
+<span id="cb425-10"><a href="linear-regression-models.html#cb425-10" tabindex="-1"></a><span class="do">## lcavol      0.6197821 0.08823567  7.024168 3.493564e-10</span></span>
+<span id="cb425-11"><a href="linear-regression-models.html#cb425-11" tabindex="-1"></a><span class="do">## lweight     0.2835097 0.07524408  3.767867 2.887126e-04</span></span>
+<span id="cb425-12"><a href="linear-regression-models.html#cb425-12" tabindex="-1"></a><span class="do">## svi         0.2755825 0.08573414  3.214385 1.797619e-03</span></span></code></pre></div>
 
 </div>
 </div>

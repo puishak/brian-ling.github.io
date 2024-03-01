@@ -420,6 +420,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
 <li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -1049,7 +1051,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb126-7"><a href="programming-in-r.html#cb126-7" tabindex="-1"></a>}</span>
 <span id="cb126-8"><a href="programming-in-r.html#cb126-8" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb126-9"><a href="programming-in-r.html#cb126-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb126-10"><a href="programming-in-r.html#cb126-10" tabindex="-1"></a><span class="do">##    0.02    0.00    0.24</span></span></code></pre></div>
+<span id="cb126-10"><a href="programming-in-r.html#cb126-10" tabindex="-1"></a><span class="do">##    0.06    0.00    0.19</span></span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="programming-in-r.html#cb127-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb127-2"><a href="programming-in-r.html#cb127-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb127-3"><a href="programming-in-r.html#cb127-3" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -1059,7 +1061,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" tabindex="-1"></a>  }</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" tabindex="-1"></a>})</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.05    0.00    0.25</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.07    0.02    0.19</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1080,7 +1082,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-9"><a href="programming-in-r.html#cb129-9" tabindex="-1"></a>  }</span>
 <span id="cb129-10"><a href="programming-in-r.html#cb129-10" tabindex="-1"></a>})</span>
 <span id="cb129-11"><a href="programming-in-r.html#cb129-11" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-12"><a href="programming-in-r.html#cb129-12" tabindex="-1"></a><span class="do">##    0.00    0.00    0.07</span></span>
+<span id="cb129-12"><a href="programming-in-r.html#cb129-12" tabindex="-1"></a><span class="do">##    0.05    0.00    0.06</span></span>
 <span id="cb129-13"><a href="programming-in-r.html#cb129-13" tabindex="-1"></a></span>
 <span id="cb129-14"><a href="programming-in-r.html#cb129-14" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb129-15"><a href="programming-in-r.html#cb129-15" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>

@@ -420,6 +420,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
 <li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -607,7 +609,7 @@ The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing 
 <span id="cb334-12"><a href="statistical-inference-in-r.html#cb334-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-13"><a href="statistical-inference-in-r.html#cb334-13" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> beta, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-14"><a href="statistical-inference-in-r.html#cb334-14" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> vline_data, <span class="fu">aes</span>(<span class="at">xintercept =</span> mean), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-352-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-357-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>From the above plots, you can see the distributions of your estimators. The true parameters lie in the middle of the distributions. You can also add lines to visualize the mean of the distributions. In this case, the lines actually overlap with lines for the true parameters. Thus, the estimators are essentially unbiased. You can also see that there are times that <span class="math inline">\(\hat{\beta}_0\)</span> can be as large as <span class="math inline">\(1\)</span> or as small as <span class="math inline">\(0.1\)</span> while the true value is <span class="math inline">\(0.5\)</span>.</p>
 <p>You can also use a larger sample size.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="statistical-inference-in-r.html#cb335-1" tabindex="-1"></a><span class="co"># setting</span></span>
@@ -1124,7 +1126,7 @@ and
 <p>The <span class="math inline">\(p\)</span>-value is very small. We will reject the null hypothesis that the two distributions are the same.</p>
 <p><strong>Example</strong></p>
 <p>Recall the dataset <code>birthwt</code> from the package MASS. We created the following histograms to visualize the distributions of birth weights for the two groups (smoke and no smoke).</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-379-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-384-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We may want to ask if the two distributions are different</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="statistical-inference-in-r.html#cb357-1" tabindex="-1"></a><span class="fu">ks.test</span>(birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">0</span>], birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">1</span>])</span>
 <span id="cb357-2"><a href="statistical-inference-in-r.html#cb357-2" tabindex="-1"></a><span class="do">## </span></span>

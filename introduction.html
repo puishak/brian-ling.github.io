@@ -420,6 +420,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
 <li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -524,21 +526,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
 <p><strong>Scatterplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-2-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Scatterplots</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Line Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Bar chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Another Bar Chart</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Boxplot</strong></p>
+<p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p><strong>Histogram</strong></p>
+<p><strong>Scatterplots</strong></p>
 <p><img src="Book_files/figure-html/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Line Chart</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Bar chart</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-11-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Another Bar Chart</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Boxplot</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><strong>Histogram</strong></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-14-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="statistical-inference" class="section level3 hasAnchor" number="1.3.4">
 <h3><span class="header-section-number">1.3.4</span> Statistical Inference<a href="introduction.html#statistical-inference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -560,7 +562,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Employ Naive Bayes to build an SMS junk message filter (text data)</p></li>
 </ul>
 <p>A wordcloud of text data</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Use neural network to predict the compressive strength of concrete</li>
 </ul>
@@ -1311,16 +1313,12 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb34-5"><a href="introduction.html#cb34-5" tabindex="-1"></a><span class="do">## [1] FALSE FALSE  TRUE</span></span>
 <span id="cb34-6"><a href="introduction.html#cb34-6" tabindex="-1"></a></span>
 <span id="cb34-7"><a href="introduction.html#cb34-7" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> y</span>
-<span id="cb34-8"><a href="introduction.html#cb34-8" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb34-8"><a href="introduction.html#cb34-8" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
 <span id="cb34-9"><a href="introduction.html#cb34-9" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="introduction.html#cb34-10" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-11"><a href="introduction.html#cb34-11" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
-<span id="cb34-12"><a href="introduction.html#cb34-12" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="introduction.html#cb34-13" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb34-14"><a href="introduction.html#cb34-14" tabindex="-1"></a></span>
-<span id="cb34-15"><a href="introduction.html#cb34-15" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
-<span id="cb34-16"><a href="introduction.html#cb34-16" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-17"><a href="introduction.html#cb34-17" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb34-10"><a href="introduction.html#cb34-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb34-11"><a href="introduction.html#cb34-11" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="introduction.html#cb34-12" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
+<span id="cb34-13"><a href="introduction.html#cb34-13" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><code>|</code> and <code>||</code> indicate logical OR. The shorter form performs elementwise comparisons. The longer form examine only the first element of each vector.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction.html#cb35-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb35-2"><a href="introduction.html#cb35-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
@@ -1329,14 +1327,12 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb35-5"><a href="introduction.html#cb35-5" tabindex="-1"></a><span class="do">## [1]  TRUE FALSE  TRUE</span></span>
 <span id="cb35-6"><a href="introduction.html#cb35-6" tabindex="-1"></a></span>
 <span id="cb35-7"><a href="introduction.html#cb35-7" tabindex="-1"></a>x <span class="sc">||</span> y</span>
-<span id="cb35-8"><a href="introduction.html#cb35-8" tabindex="-1"></a><span class="do">## Warning in x || y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-9"><a href="introduction.html#cb35-9" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
-<span id="cb35-10"><a href="introduction.html#cb35-10" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="introduction.html#cb35-11" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb35-12"><a href="introduction.html#cb35-12" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="introduction.html#cb35-13" tabindex="-1"></a>x <span class="sc">||</span> z</span>
-<span id="cb35-14"><a href="introduction.html#cb35-14" tabindex="-1"></a><span class="do">## Warning in x || z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-15"><a href="introduction.html#cb35-15" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb35-8"><a href="introduction.html#cb35-8" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb35-9"><a href="introduction.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="introduction.html#cb35-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb35-11"><a href="introduction.html#cb35-11" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="introduction.html#cb35-12" tabindex="-1"></a>x <span class="sc">||</span> z</span>
+<span id="cb35-13"><a href="introduction.html#cb35-13" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><strong>Assignment</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction.html#cb36-1" tabindex="-1"></a><span class="co"># these assignments are the same, it is recommended to use &lt;-</span></span>
 <span id="cb36-2"><a href="introduction.html#cb36-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>

@@ -190,6 +190,8 @@ selecting-the-tuning-parameter
 glmnet
 ridge-regression-1
 lasso-1
+penalized-logistic-regression
+penalized-multinomial-regression
 evaluating-model-performance-1
 accuracy-and-confusion-matrix
 other-measures-of-performance
