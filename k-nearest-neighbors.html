@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-02-29" />
+<meta name="date" content="2024-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -477,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The predicted class for <span class="math inline">\(x^*\)</span> is determined by the majority vote of the <span class="math inline">\(k\)</span> training data in Step 2.</li>
 </ol>
 <p>The idea before the algorithm is simple. We expect that observations with similar features should have the same class label. In the following figure, we have some labeled data. Suppose the black dot is our new data without label, which group will you assign this data to? A natural choice is to assign the black dot to group A because the <span class="math inline">\(5\)</span> nearest neighbors are all in group A. This is the idea of <span class="math inline">\(k\)</span>-nearest neighbors algorithm.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-412-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-407-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Remark:</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>We can use the <span class="math inline">\(k\)</span>-NN algorithm for regression. In that case, <span class="math inline">\(y_i\)</span> is the numeric response. The corresponding algorithm replaces the majority vote by the mean of the responses in the <span class="math inline">\(k\)</span> nearest training data.</p></li>

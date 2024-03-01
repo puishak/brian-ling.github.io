@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-02-29" />
+<meta name="date" content="2024-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -612,7 +612,7 @@ x_n = x_{n-1} - \frac{f(x_{n-1})}{f&#39;(x_{n-1})}.
 <span id="cb365-10"><a href="root-finding-and-optimization.html#cb365-10" tabindex="-1"></a><span class="do">## 2 * x - 2</span></span></code></pre></div>
 <p><strong>Apply our NR function</strong></p>
 <p>Let’s plot the function first.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-395-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-390-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Using our function:</p>
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="root-finding-and-optimization.html#cb366-1" tabindex="-1"></a><span class="fu">NR</span>(f, fp, <span class="fl">1.25</span>, <span class="at">tol =</span> <span class="fl">1e-3</span>)</span>
 <span id="cb366-2"><a href="root-finding-and-optimization.html#cb366-2" tabindex="-1"></a><span class="do">## [1] 1.000508</span></span></code></pre></div>
@@ -747,7 +747,7 @@ x_{n+1} = x_{n} - h f&#39;(x_{n}).
 <span id="cb368-14"><a href="root-finding-and-optimization.html#cb368-14" tabindex="-1"></a>}</span></code></pre></div>
 <p><strong>Example:</strong> Find the local minima of <span class="math inline">\(f(x) = \frac{1}{4} x^4 + x^3 - x - 1\)</span>.</p>
 <p>Plot:</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-399-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-394-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Gradient descent:</p>
 <div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="root-finding-and-optimization.html#cb369-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">4</span> <span class="sc">+</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> x <span class="sc">-</span> <span class="dv">1</span>}</span>
 <span id="cb369-2"><a href="root-finding-and-optimization.html#cb369-2" tabindex="-1"></a>fp <span class="ot">&lt;-</span> <span class="fu">Deriv</span>(f)</span>

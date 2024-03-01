@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-02-29" />
+<meta name="date" content="2024-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1212,12 +1212,12 @@ The first question that should come to your mind is how is <strong>midnight</str
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="managing-data-with-r.html#cb208-1" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mutate</span>(flights, <span class="at">min_dep_time =</span> <span class="fu">time_to_minutes</span>(dep_time),</span>
 <span id="cb208-2"><a href="managing-data-with-r.html#cb208-2" tabindex="-1"></a>                <span class="at">min_sched_dep_time =</span> <span class="fu">time_to_minutes</span>(sched_dep_time)))</span>
 <span id="cb208-3"><a href="managing-data-with-r.html#cb208-3" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb208-4"><a href="managing-data-with-r.html#cb208-4" tabindex="-1"></a><span class="do">##    0.02    0.00    0.05</span></span>
+<span id="cb208-4"><a href="managing-data-with-r.html#cb208-4" tabindex="-1"></a><span class="do">##    0.00    0.00    0.03</span></span>
 <span id="cb208-5"><a href="managing-data-with-r.html#cb208-5" tabindex="-1"></a></span>
 <span id="cb208-6"><a href="managing-data-with-r.html#cb208-6" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mutate</span>(flights, <span class="at">min_dep_time =</span> <span class="fu">time_to_minutes_if</span>(dep_time),</span>
 <span id="cb208-7"><a href="managing-data-with-r.html#cb208-7" tabindex="-1"></a>                <span class="at">min_sched_dep_time =</span> <span class="fu">time_to_minutes_if</span>(sched_dep_time)))</span>
 <span id="cb208-8"><a href="managing-data-with-r.html#cb208-8" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb208-9"><a href="managing-data-with-r.html#cb208-9" tabindex="-1"></a><span class="do">##    0.07    0.00    0.21</span></span></code></pre></div>
+<span id="cb208-9"><a href="managing-data-with-r.html#cb208-9" tabindex="-1"></a><span class="do">##    0.08    0.00    0.25</span></span></code></pre></div>
 <!-- 2. Compare `dep_time, sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related? -->
 <!-- ```{r} -->
 <!-- x = time_to_minutes(flights$dep_time) -->
@@ -1251,21 +1251,23 @@ The first question that should come to your mind is how is <strong>midnight</str
 <p>E.g.: Average departure delay per date (more useful):</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="managing-data-with-r.html#cb210-1" tabindex="-1"></a>by_day <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, year, month, day)</span>
 <span id="cb210-2"><a href="managing-data-with-r.html#cb210-2" tabindex="-1"></a>mean_delay <span class="ot">&lt;-</span> <span class="fu">summarize</span>(by_day, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb210-3"><a href="managing-data-with-r.html#cb210-3" tabindex="-1"></a>(mean_delay <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(mean_delay)) <span class="co"># use ungroup() after gropu_by()</span></span>
-<span id="cb210-4"><a href="managing-data-with-r.html#cb210-4" tabindex="-1"></a><span class="do">## # A tibble: 365 × 4</span></span>
-<span id="cb210-5"><a href="managing-data-with-r.html#cb210-5" tabindex="-1"></a><span class="do">##     year month   day delay</span></span>
-<span id="cb210-6"><a href="managing-data-with-r.html#cb210-6" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
-<span id="cb210-7"><a href="managing-data-with-r.html#cb210-7" tabindex="-1"></a><span class="do">##  1  2013     1     1 11.5 </span></span>
-<span id="cb210-8"><a href="managing-data-with-r.html#cb210-8" tabindex="-1"></a><span class="do">##  2  2013     1     2 13.9 </span></span>
-<span id="cb210-9"><a href="managing-data-with-r.html#cb210-9" tabindex="-1"></a><span class="do">##  3  2013     1     3 11.0 </span></span>
-<span id="cb210-10"><a href="managing-data-with-r.html#cb210-10" tabindex="-1"></a><span class="do">##  4  2013     1     4  8.95</span></span>
-<span id="cb210-11"><a href="managing-data-with-r.html#cb210-11" tabindex="-1"></a><span class="do">##  5  2013     1     5  5.73</span></span>
-<span id="cb210-12"><a href="managing-data-with-r.html#cb210-12" tabindex="-1"></a><span class="do">##  6  2013     1     6  7.15</span></span>
-<span id="cb210-13"><a href="managing-data-with-r.html#cb210-13" tabindex="-1"></a><span class="do">##  7  2013     1     7  5.42</span></span>
-<span id="cb210-14"><a href="managing-data-with-r.html#cb210-14" tabindex="-1"></a><span class="do">##  8  2013     1     8  2.55</span></span>
-<span id="cb210-15"><a href="managing-data-with-r.html#cb210-15" tabindex="-1"></a><span class="do">##  9  2013     1     9  2.28</span></span>
-<span id="cb210-16"><a href="managing-data-with-r.html#cb210-16" tabindex="-1"></a><span class="do">## 10  2013     1    10  2.84</span></span>
-<span id="cb210-17"><a href="managing-data-with-r.html#cb210-17" tabindex="-1"></a><span class="do">## # … with 355 more rows</span></span></code></pre></div>
+<span id="cb210-3"><a href="managing-data-with-r.html#cb210-3" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You can override using</span></span>
+<span id="cb210-4"><a href="managing-data-with-r.html#cb210-4" tabindex="-1"></a><span class="do">## the `.groups` argument.</span></span>
+<span id="cb210-5"><a href="managing-data-with-r.html#cb210-5" tabindex="-1"></a>(mean_delay <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(mean_delay)) <span class="co"># use ungroup() after gropu_by()</span></span>
+<span id="cb210-6"><a href="managing-data-with-r.html#cb210-6" tabindex="-1"></a><span class="do">## # A tibble: 365 × 4</span></span>
+<span id="cb210-7"><a href="managing-data-with-r.html#cb210-7" tabindex="-1"></a><span class="do">##     year month   day delay</span></span>
+<span id="cb210-8"><a href="managing-data-with-r.html#cb210-8" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb210-9"><a href="managing-data-with-r.html#cb210-9" tabindex="-1"></a><span class="do">##  1  2013     1     1 11.5 </span></span>
+<span id="cb210-10"><a href="managing-data-with-r.html#cb210-10" tabindex="-1"></a><span class="do">##  2  2013     1     2 13.9 </span></span>
+<span id="cb210-11"><a href="managing-data-with-r.html#cb210-11" tabindex="-1"></a><span class="do">##  3  2013     1     3 11.0 </span></span>
+<span id="cb210-12"><a href="managing-data-with-r.html#cb210-12" tabindex="-1"></a><span class="do">##  4  2013     1     4  8.95</span></span>
+<span id="cb210-13"><a href="managing-data-with-r.html#cb210-13" tabindex="-1"></a><span class="do">##  5  2013     1     5  5.73</span></span>
+<span id="cb210-14"><a href="managing-data-with-r.html#cb210-14" tabindex="-1"></a><span class="do">##  6  2013     1     6  7.15</span></span>
+<span id="cb210-15"><a href="managing-data-with-r.html#cb210-15" tabindex="-1"></a><span class="do">##  7  2013     1     7  5.42</span></span>
+<span id="cb210-16"><a href="managing-data-with-r.html#cb210-16" tabindex="-1"></a><span class="do">##  8  2013     1     8  2.55</span></span>
+<span id="cb210-17"><a href="managing-data-with-r.html#cb210-17" tabindex="-1"></a><span class="do">##  9  2013     1     9  2.28</span></span>
+<span id="cb210-18"><a href="managing-data-with-r.html#cb210-18" tabindex="-1"></a><span class="do">## 10  2013     1    10  2.84</span></span>
+<span id="cb210-19"><a href="managing-data-with-r.html#cb210-19" tabindex="-1"></a><span class="do">## # … with 355 more rows</span></span></code></pre></div>
 </div>
 <div id="combining-multiple-operations-with-pipe" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Combining Multiple Operations with Pipe <code>%&gt;%</code><a href="managing-data-with-r.html#combining-multiple-operations-with-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1363,7 +1365,7 @@ The first question that should come to your mind is how is <strong>midnight</str
 <span id="cb218-4"><a href="managing-data-with-r.html#cb218-4" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb218-5"><a href="managing-data-with-r.html#cb218-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(month), <span class="at">y =</span> mean_dep_delay)) <span class="sc">+</span></span>
 <span id="cb218-6"><a href="managing-data-with-r.html#cb218-6" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="co"># notice the spacing for good indentation</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-237-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-232-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Notice the difference between <code>%&gt;%</code> and <code>+</code> in the above code.</p>
 <p>E.g. Create new columns for the average departure delay by date and average departure delay by destination using <code>mutate</code></p>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="managing-data-with-r.html#cb219-1" tabindex="-1"></a>group_date <span class="ot">&lt;-</span> <span class="fu">group_by</span>(<span class="fu">select</span>(flights, year<span class="sc">:</span>day, dep_delay, dest), month, day)</span>
