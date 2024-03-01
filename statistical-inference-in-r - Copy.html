@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Statistical Inference in R | STAT 362 R for Data Science</title>
+  <meta name="description" content="Notes for STAT 362" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Statistical Inference in R | STAT 362 R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Notes for STAT 362" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Statistical Inference in R | STAT 362 R for Data Science" />
+  
+  <meta name="twitter:description" content="Notes for STAT 362" />
+  
+
+<meta name="author" content="Brian Ling" />
+
+
+<meta name="date" content="2024-03-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-visualization-with-ggplot2.html"/>
+<link rel="next" href="root-finding-and-optimization.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.3</b> What will you learn in this course?</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.3.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.5</b> R Data Structures</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.5.2</b> Factors</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.5.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.5.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.5.4</b> Lists</a></li>
+<li class="chapter" data-level="1.5.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.5.5</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.6</b> Operators</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.6.1</b> Vectorized Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.7</b> Built-in Functions</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.7.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.7.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.7.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.7.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.7.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.7.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.7.4</b> <code>pmax</code>, <code>pmin</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.8</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+<li class="chapter" data-level="1.10" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.10</b> Comments to Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html"><i class="fa fa-check"></i><b>2</b> Probability and Simulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="programming-in-r.html"><a href="programming-in-r.html#argument-matching"><i class="fa fa-check"></i><b>3.1.1</b> Argument Matching</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#nested-for-loop"><i class="fa fa-check"></i><b>3.2.2</b> nested for loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.3</b> while loop</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.4</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.5</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.6" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.6</b> If else ladder</a></li>
+<li class="chapter" data-level="3.2.7" data-path="programming-in-r.html"><a href="programming-in-r.html#switch"><i class="fa fa-check"></i><b>3.2.7</b> <code>switch</code></a></li>
+<li class="chapter" data-level="3.2.8" data-path="programming-in-r.html"><a href="programming-in-r.html#next-break"><i class="fa fa-check"></i><b>3.2.8</b> <code>next</code>, <code>break</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#loop-functions"><i class="fa fa-check"></i><b>3.3</b> Loop functions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#apply"><i class="fa fa-check"></i><b>3.3.1</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#lapply"><i class="fa fa-check"></i><b>3.3.2</b> <code>lapply()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>4.1</b> Missing Values</a></li>
+<li class="chapter" data-level="4.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>4.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="4.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>4.3</b> Importing and saving data from CSV files</a></li>
+<li class="chapter" data-level="4.4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#data-transformation-with-dplyr"><i class="fa fa-check"></i><b>4.4</b> Data Transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="4.5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#arrange"><i class="fa fa-check"></i><b>4.5</b> <code>arrange()</code></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-2"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-3"><i class="fa fa-check"></i><b>4.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#select"><i class="fa fa-check"></i><b>4.7</b> <code>select()</code></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-4"><i class="fa fa-check"></i><b>4.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#mutate"><i class="fa fa-check"></i><b>4.8</b> <code>mutate()</code></a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-5"><i class="fa fa-check"></i><b>4.8.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summarize-group_by"><i class="fa fa-check"></i><b>4.9</b> <code>summarize(), group_by()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>4.10</b> Combining Multiple Operations with Pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.11" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summary"><i class="fa fa-check"></i><b>4.11</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>5</b> Creating Some Basic Plots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>5.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>5.2</b> Line Graph</a></li>
+<li class="chapter" data-level="5.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>5.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="5.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>5.4</b> Histogram</a></li>
+<li class="chapter" data-level="5.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>5.5</b> Box Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>5.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="5.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>5.7</b> More on plots with base R</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>5.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="5.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>5.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="5.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>5.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="5.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>5.7.4</b> Elements on plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data Visualization with ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>6.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>6.2</b> Line Graph</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.3</b> Scatter Plots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>6.3.1</b> Overplotting</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>6.3.2</b> Labelling points in a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>6.4</b> Summarizing Data Distributions</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>6.4.1</b> Histogram</a></li>
+<li class="chapter" data-level="6.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>6.4.2</b> Kernel Density Estimate</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>6.5</b> Saving your plots</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>6.5.1</b> Outputting to pdf vector files</a></li>
+<li class="chapter" data-level="6.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>6.5.2</b> Outputting to bitmap files</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance"><i class="fa fa-check"></i><b>6.6</b> Axes, appearance</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#swapping-x--and-y-axes"><i class="fa fa-check"></i><b>6.6.1</b> Swapping X- and Y-axes</a></li>
+<li class="chapter" data-level="6.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#setting-the-range-of-a-continuous-axis"><i class="fa fa-check"></i><b>6.6.2</b> Setting the range of a continuous axis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#changing-the-text-of-axis-labels"><i class="fa fa-check"></i><b>6.6.3</b> Changing the text of axis labels</a></li>
+<li class="chapter" data-level="6.6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-title"><i class="fa fa-check"></i><b>6.6.4</b> Adding Title</a></li>
+<li class="chapter" data-level="6.6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-subtitle"><i class="fa fa-check"></i><b>6.6.5</b> Adding Subtitle</a></li>
+<li class="chapter" data-level="6.6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#using-themes"><i class="fa fa-check"></i><b>6.6.6</b> Using Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>6.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>6.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.7.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>6.7.2</b> Line graphs</a></li>
+<li class="chapter" data-level="6.7.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>6.7.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="6.7.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>6.7.4</b> Summarizing data distributions</a></li>
+<li class="chapter" data-level="6.7.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>6.7.5</b> Saving your plots</a></li>
+<li class="chapter" data-level="6.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance-1"><i class="fa fa-check"></i><b>6.7.6</b> Axes, appearance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>7</b> Statistical Inference in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>7.1</b> Maximum Likelihood Estimation</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>7.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>7.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>7.2</b> Interval Estimation and Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>7.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>7.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>7.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="7.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>7.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="7.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>7.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="7.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>7.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="7.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>7.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="7.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>7.2.8</b> Testing if two samples have the same underlying distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>8</b> Root finding and optimization</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>8.1</b> Root Finding</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>8.1.1</b> Bisection Method</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>8.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>8.3</b> Minimization and Maximization</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>8.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>8.3.2</b> Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>8.4</b> <code>optim</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>9</b> k-nearest neighbors</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>9.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="9.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>9.3</b> Example: Classifying Breast Cancers</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>9.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>9.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>10.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="10.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>10.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="10.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>10.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="10.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>10.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="10.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>10.7</b> Prediction</a></li>
+<li class="chapter" data-level="10.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>10.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="10.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>10.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="10.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>10.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="10.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>10.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="12" data-path="multinomial-regression-model.html"><a href="multinomial-regression-model.html"><i class="fa fa-check"></i><b>12</b> Multinomial Regression Model</a></li>
+<li class="chapter" data-level="13" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>13</b> Decision Trees</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>13.1</b> Introduction to Classification Tree</a></li>
+<li class="chapter" data-level="13.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>13.2</b> Introduction to regression tree</a></li>
+<li class="chapter" data-level="13.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>13.3</b> Mathematical Formulation</a></li>
+<li class="chapter" data-level="13.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>13.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>13.4.1</b> Classification Tree</a></li>
+<li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="r-markdown.html"><a href="r-markdown.html#basic-formatting"><i class="fa fa-check"></i><b>16.1</b> Basic formatting</a></li>
+<li class="chapter" data-level="16.2" data-path="r-markdown.html"><a href="r-markdown.html#this-is-a-subsection"><i class="fa fa-check"></i><b>16.2</b> This is a subsection</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="r-markdown.html"><a href="r-markdown.html#this-is-a-subsubsection"><i class="fa fa-check"></i><b>16.2.1</b> This is a subsubsection</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="r-markdown.html"><a href="r-markdown.html#formatting-text"><i class="fa fa-check"></i><b>16.3</b> Formatting Text</a></li>
+<li class="chapter" data-level="16.4" data-path="r-markdown.html"><a href="r-markdown.html#list"><i class="fa fa-check"></i><b>16.4</b> List</a></li>
+<li class="chapter" data-level="16.5" data-path="r-markdown.html"><a href="r-markdown.html#table"><i class="fa fa-check"></i><b>16.5</b> Table</a></li>
+<li class="chapter" data-level="16.6" data-path="r-markdown.html"><a href="r-markdown.html#r-code"><i class="fa fa-check"></i><b>16.6</b> R code</a></li>
+<li class="chapter" data-level="16.7" data-path="r-markdown.html"><a href="r-markdown.html#graphics"><i class="fa fa-check"></i><b>16.7</b> Graphics</a></li>
+<li class="chapter" data-level="16.8" data-path="r-markdown.html"><a href="r-markdown.html#latex-equation"><i class="fa fa-check"></i><b>16.8</b> Latex Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>17</b> k-means Clustering</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>17.2</b> Applications</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>17.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="17.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>17.2.2</b> Image Segementation and Image Compression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>18</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>18.1</b> Dissimilarity measure and Linkage</a></li>
+<li class="chapter" data-level="18.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>18.2</b> Alogrithm</a></li>
+<li class="chapter" data-level="18.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>18.3</b> Applications</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>20.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="20.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>20.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>20.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="20.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>20.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="20.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>20.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="20.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>20.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>20.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 362 R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-inference-in-r" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Statistical Inference in R<a href="statistical-inference-in-r.html#statistical-inference-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter, we discuss how to perform some parameter estimations and hypothesis testings in R. You may have learned their theory in previous statistics courses. I do not intend to give a very comprehensive review to these methods due to time constraint.</p>
+<p>Optional Readings:</p>
+<ul>
+<li>You can find a few more statistical tests in Ch 9 of R Cookbook (<a href="https://rc2e.com/" class="uri">https://rc2e.com/</a>)</li>
+<li>You can review Ch 10-13 of John E. Freund’s Mathematical Statistics with Applications by Irwin Miller and Marylees Miller (textbook for STAT 269) for some background and theory on statistical inference</li>
+</ul>
+<div id="maximum-likelihood-estimation" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Maximum Likelihood Estimation<a href="statistical-inference-in-r.html#maximum-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After you collect some data and formulate a statistical model, you have to estimate the parameters in your model. One of the most common methods is to use maximum likelihood estimation. Very often, there is no closed-form expression for your estimators. In general, suppose you have data <span class="math inline">\(y_1,\ldots,y_n\)</span>. The likelihood function is a function of the parameter defined as
+<span class="math display">\[\begin{equation*}
+L(\theta|y_1,\ldots,y_n) = f_{y_1,\ldots,y_n}(y_1,\ldots,y_n|\theta),
+\end{equation*}\]</span>
+where <span class="math inline">\(f_{y_1,\ldots,y_n}(\cdot |\theta)\)</span> is the joint pmf or pdf of <span class="math inline">\(y_1,\ldots,y_n\)</span> with parameter <span class="math inline">\(\theta\)</span>. That is, the likelihood function evaluated at <span class="math inline">\(\theta\)</span> is simply the joint “probability” of observing <span class="math inline">\(y_1,\ldots,y_n\)</span> when the parameter value is <span class="math inline">\(\theta\)</span>. Assuming <span class="math inline">\(y_1,\ldots,y_n\)</span> are i.i.d. with density <span class="math inline">\(f(\cdot|\theta)\)</span>, we have
+<span class="math display">\[\begin{equation*}
+L(\theta|y_1,\ldots,y_n) = f_{y_1,\ldots,y_n}(y_1,\ldots,y_n|\theta) = \prod^n_{i=1} f(y_i|\theta).
+\end{equation*}\]</span>
+In maximum likelihood estimation, we estimate the parameter <span class="math inline">\(\theta\)</span> by maximizing <span class="math inline">\(L\)</span>. The maximizer is called the maximum likelihood estimator (MLE).</p>
+<p><strong>Some theory</strong></p>
+<p>Why do we want to maximize the likelihood?</p>
+<ol style="list-style-type: decimal">
+<li>Informally, the likelihood is the chance of observing the data. Therefore, we want to find the parameters so that such a chance is maximized.</li>
+<li>MLE has good statistical properties. Under some regularity conditions,</li>
+</ol>
+<ul>
+<li>MLE is consistent: <span class="math inline">\(\hat{\theta}_n\)</span> converges in probability to <span class="math inline">\(\theta_0\)</span></li>
+<li>Asymptotically efficient: the estimator has the lowest variance asymptotically in some sense</li>
+<li>Asymptotically normality: can be used to find confidence intervals and perform hypothesis testings</li>
+</ul>
+<p><strong>Example (Logistic Regression)</strong>: Suppose we observe <span class="math inline">\(\{(x_i, y_i):i=1,\ldots,n\}\)</span>, where <span class="math inline">\(y_i\)</span> is a binary variable and <span class="math inline">\(x_i\)</span> is a vector of covariates (including the intercept <span class="math inline">\(1\)</span>). In logistic regression we assume that
+<span class="math display">\[\begin{equation*}
+P(Y_i = 1|x_i, \beta) = \frac{e^{x^T_i \beta}}{1+e^{x^T_i \beta}} = \frac{ e^{\beta_0 + \beta_1 x_{i1} +\ldots +\beta_p x_{ip}}}{1 +  e^{\beta_0 + \beta_1 x_{i1} +\ldots +\beta_p x_{ip}}}.
+\end{equation*}\]</span>
+Since <span class="math inline">\(Y_i\)</span> takes only two values,
+<span class="math display">\[\begin{equation*}
+P(Y_i = 0|x_i, \beta) = \frac{1}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+We can use one single formula for <span class="math inline">\(y = 0, 1\)</span>:
+<span class="math display">\[\begin{equation*}
+P(Y_i = y|x_i, \beta) = \frac{e^{(x^T_i \beta)y_i}}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+The likelihood function (conditional on x) is
+<span class="math display">\[\begin{equation*}
+L(\beta|y_1,\ldots,y_n, x_1,\ldots,x_n) = \prod^n_{i=1} P(Y_i = y_i|x_i, \beta) = \prod^n_{i=1} \frac{e^{(x^T_i \beta)y_i}}{1+e^{x^T_i \beta}}.
+\end{equation*}\]</span>
+The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing <span class="math inline">\(L(\beta|y,x)\)</span> with respect to <span class="math inline">\(\beta\)</span>. We usually maximize the <strong>natural</strong> logarithm of the likelihood function instead of the likelihood function, which is easier.</p>
+<p>The log likelihood function is
+<span class="math display">\[\begin{equation*}
+\sum^n_{i=1} \bigg( (x^T_i \beta) y_i - \log(1+e^{x^T_i \beta}) \bigg).
+\end{equation*}\]</span></p>
+<p>In this case, there is no closed-form formula for finding the maximizer. Nevertheless, we can use numerical methods to find out the maximizer. Of course, there are existing functions to perform this task in R. However, we will illustrate how to perform an optimization using the function <code>optim()</code>. By default, <code>optim()</code> will find the minimum. Therefore, we will minimize the negative of the log likelihood function.</p>
+<p><strong>Simulated Example</strong></p>
+<p>This is also a good time to introduce how to perform simulation based on a model and check the validity of the estimation method and algorithm. We will first generate some covariates and binary variables based on the logistic regression model.</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="statistical-inference-in-r.html#cb329-1" tabindex="-1"></a><span class="co"># Setting</span></span>
+<span id="cb329-2"><a href="statistical-inference-in-r.html#cb329-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb329-3"><a href="statistical-inference-in-r.html#cb329-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb329-4"><a href="statistical-inference-in-r.html#cb329-4" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># true beta</span></span>
+<span id="cb329-5"><a href="statistical-inference-in-r.html#cb329-5" tabindex="-1"></a></span>
+<span id="cb329-6"><a href="statistical-inference-in-r.html#cb329-6" tabindex="-1"></a><span class="co"># Simulation</span></span>
+<span id="cb329-7"><a href="statistical-inference-in-r.html#cb329-7" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb329-8"><a href="statistical-inference-in-r.html#cb329-8" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb329-9"><a href="statistical-inference-in-r.html#cb329-9" tabindex="-1"></a>prob_num <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta_0[<span class="dv">1</span>] <span class="sc">+</span> beta_0[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta_0[<span class="dv">3</span>] <span class="sc">*</span> x2)</span>
+<span id="cb329-10"><a href="statistical-inference-in-r.html#cb329-10" tabindex="-1"></a>prob <span class="ot">&lt;-</span> prob_num <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> prob_num)</span>
+<span id="cb329-11"><a href="statistical-inference-in-r.html#cb329-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> prob)</span></code></pre></div>
+<p>Now, we will write a function to compute the negative of the log likelihood function (as a function of the parameter <span class="math inline">\(\beta\)</span> and the data <span class="math inline">\(\{y_i, x_{i1}, x_{i2}: i=1,\ldots,n\}\)</span>), which is the objective function to be minimized.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="statistical-inference-in-r.html#cb330-1" tabindex="-1"></a>neg_log_like <span class="ot">&lt;-</span> <span class="cf">function</span>(beta, y, x1, x2) {</span>
+<span id="cb330-2"><a href="statistical-inference-in-r.html#cb330-2" tabindex="-1"></a>  beta_X <span class="ot">&lt;-</span> beta[<span class="dv">1</span>] <span class="sc">+</span> beta[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta[<span class="dv">3</span>] <span class="sc">*</span> x2</span>
+<span id="cb330-3"><a href="statistical-inference-in-r.html#cb330-3" tabindex="-1"></a>  log_like <span class="ot">&lt;-</span> <span class="fu">sum</span>(beta_X <span class="sc">*</span> y) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(beta_X)))</span>
+<span id="cb330-4"><a href="statistical-inference-in-r.html#cb330-4" tabindex="-1"></a>  <span class="sc">-</span>log_like <span class="co"># return the negative log likelihood </span></span>
+<span id="cb330-5"><a href="statistical-inference-in-r.html#cb330-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>After defining our objective function, we can now use <code>optim()</code> to perform the optimization.</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="statistical-inference-in-r.html#cb331-1" tabindex="-1"></a><span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">f =</span> neg_log_like, </span>
+<span id="cb331-2"><a href="statistical-inference-in-r.html#cb331-2" tabindex="-1"></a>      <span class="at">y =</span> y, <span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2, <span class="at">method =</span> <span class="st">&quot;BFGS&quot;</span>)</span>
+<span id="cb331-3"><a href="statistical-inference-in-r.html#cb331-3" tabindex="-1"></a><span class="do">## $par</span></span>
+<span id="cb331-4"><a href="statistical-inference-in-r.html#cb331-4" tabindex="-1"></a><span class="do">## [1]  0.7830734  1.0067301 -1.4920231</span></span>
+<span id="cb331-5"><a href="statistical-inference-in-r.html#cb331-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb331-6"><a href="statistical-inference-in-r.html#cb331-6" tabindex="-1"></a><span class="do">## $value</span></span>
+<span id="cb331-7"><a href="statistical-inference-in-r.html#cb331-7" tabindex="-1"></a><span class="do">## [1] 632.7284</span></span>
+<span id="cb331-8"><a href="statistical-inference-in-r.html#cb331-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb331-9"><a href="statistical-inference-in-r.html#cb331-9" tabindex="-1"></a><span class="do">## $counts</span></span>
+<span id="cb331-10"><a href="statistical-inference-in-r.html#cb331-10" tabindex="-1"></a><span class="do">## function gradient </span></span>
+<span id="cb331-11"><a href="statistical-inference-in-r.html#cb331-11" tabindex="-1"></a><span class="do">##       28        7 </span></span>
+<span id="cb331-12"><a href="statistical-inference-in-r.html#cb331-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb331-13"><a href="statistical-inference-in-r.html#cb331-13" tabindex="-1"></a><span class="do">## $convergence</span></span>
+<span id="cb331-14"><a href="statistical-inference-in-r.html#cb331-14" tabindex="-1"></a><span class="do">## [1] 0</span></span>
+<span id="cb331-15"><a href="statistical-inference-in-r.html#cb331-15" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb331-16"><a href="statistical-inference-in-r.html#cb331-16" tabindex="-1"></a><span class="do">## $message</span></span>
+<span id="cb331-17"><a href="statistical-inference-in-r.html#cb331-17" tabindex="-1"></a><span class="do">## NULL</span></span></code></pre></div>
+<ul>
+<li><code>par</code> is the initial values for the optimization. We set some random numbers for the initial values by <code>par = runif(3, 0, 1)</code>.</li>
+<li>Because the function <code>neg_log_like</code> have multiple arguments, we have to supply them inside <code>optim()</code>.</li>
+<li><code>method = "BFGS"</code> is a quasi-Newton method. <code>method = "L-BFGS-B"</code> is also useful when you want to add box constraints to your variable. You can check <code>?optim</code> to learn more about this.</li>
+</ul>
+<p>Output:</p>
+<ul>
+<li><code>par</code> is the parameter values at which the minimum is obtained</li>
+<li><code>value</code> is the minimum function value</li>
+<li><code>convergence = 0</code> indicates successful completion</li>
+</ul>
+<p>Compare with the built-in function <code>glm()</code> for estimating the parameters:</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="statistical-inference-in-r.html#cb332-1" tabindex="-1"></a><span class="co"># will discuss this in more detail later</span></span>
+<span id="cb332-2"><a href="statistical-inference-in-r.html#cb332-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb332-3"><a href="statistical-inference-in-r.html#cb332-3" tabindex="-1"></a>fit</span>
+<span id="cb332-4"><a href="statistical-inference-in-r.html#cb332-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb332-5"><a href="statistical-inference-in-r.html#cb332-5" tabindex="-1"></a><span class="do">## Call:  glm(formula = y ~ x1 + x2, family = &quot;binomial&quot;)</span></span>
+<span id="cb332-6"><a href="statistical-inference-in-r.html#cb332-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb332-7"><a href="statistical-inference-in-r.html#cb332-7" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb332-8"><a href="statistical-inference-in-r.html#cb332-8" tabindex="-1"></a><span class="do">## (Intercept)           x1           x2  </span></span>
+<span id="cb332-9"><a href="statistical-inference-in-r.html#cb332-9" tabindex="-1"></a><span class="do">##      0.7831       1.0067      -1.4920  </span></span>
+<span id="cb332-10"><a href="statistical-inference-in-r.html#cb332-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb332-11"><a href="statistical-inference-in-r.html#cb332-11" tabindex="-1"></a><span class="do">## Degrees of Freedom: 999 Total (i.e. Null);  997 Residual</span></span>
+<span id="cb332-12"><a href="statistical-inference-in-r.html#cb332-12" tabindex="-1"></a><span class="do">## Null Deviance:       1324 </span></span>
+<span id="cb332-13"><a href="statistical-inference-in-r.html#cb332-13" tabindex="-1"></a><span class="do">## Residual Deviance: 1265  AIC: 1271</span></span></code></pre></div>
+<p>You can see that both methods give the same estimates 0.783, 1.007, -1.492 for the regression coefficients.</p>
+<p>How do you know your method of estimation makes sense? How do you know if you have simulated the data correctly? In the above example, the true parameters are 0.5, 1, -1. The estimates are not really that close to the true values. We do not know if the estimation method will give a good result in general. To tackle this problem, we could simulate many datasets, perform the estimation, and take a look at the distributions of the estimates.</p>
+<p>Perform the simulation and estimation <span class="math inline">\(250\)</span> times:</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="statistical-inference-in-r.html#cb333-1" tabindex="-1"></a><span class="co"># Setting </span></span>
+<span id="cb333-2"><a href="statistical-inference-in-r.html#cb333-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb333-3"><a href="statistical-inference-in-r.html#cb333-3" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># true beta</span></span>
+<span id="cb333-4"><a href="statistical-inference-in-r.html#cb333-4" tabindex="-1"></a>no_iter <span class="ot">&lt;-</span> <span class="dv">250</span></span>
+<span id="cb333-5"><a href="statistical-inference-in-r.html#cb333-5" tabindex="-1"></a>beta_est <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> no_iter, <span class="at">ncol =</span> <span class="fu">length</span>(beta_0))</span>
+<span id="cb333-6"><a href="statistical-inference-in-r.html#cb333-6" tabindex="-1"></a></span>
+<span id="cb333-7"><a href="statistical-inference-in-r.html#cb333-7" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>no_iter) {</span>
+<span id="cb333-8"><a href="statistical-inference-in-r.html#cb333-8" tabindex="-1"></a>  <span class="co"># Simulation</span></span>
+<span id="cb333-9"><a href="statistical-inference-in-r.html#cb333-9" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb333-10"><a href="statistical-inference-in-r.html#cb333-10" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb333-11"><a href="statistical-inference-in-r.html#cb333-11" tabindex="-1"></a>  prob_num <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta_0[<span class="dv">1</span>] <span class="sc">+</span> beta_0[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta_0[<span class="dv">3</span>] <span class="sc">*</span> x2)</span>
+<span id="cb333-12"><a href="statistical-inference-in-r.html#cb333-12" tabindex="-1"></a>  prob <span class="ot">&lt;-</span> prob_num <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> prob_num)</span>
+<span id="cb333-13"><a href="statistical-inference-in-r.html#cb333-13" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> prob)</span>
+<span id="cb333-14"><a href="statistical-inference-in-r.html#cb333-14" tabindex="-1"></a>  </span>
+<span id="cb333-15"><a href="statistical-inference-in-r.html#cb333-15" tabindex="-1"></a>  <span class="co"># Estimation</span></span>
+<span id="cb333-16"><a href="statistical-inference-in-r.html#cb333-16" tabindex="-1"></a>  beta_est[i, ] <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">f =</span> neg_log_like, </span>
+<span id="cb333-17"><a href="statistical-inference-in-r.html#cb333-17" tabindex="-1"></a>                         <span class="at">y =</span> y, <span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2, <span class="at">method =</span> <span class="st">&quot;BFGS&quot;</span>)<span class="sc">$</span>par</span>
+<span id="cb333-18"><a href="statistical-inference-in-r.html#cb333-18" tabindex="-1"></a>}</span></code></pre></div>
+<p>Displaying the results:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="statistical-inference-in-r.html#cb334-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb334-2"><a href="statistical-inference-in-r.html#cb334-2" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="statistical-inference-in-r.html#cb334-3" tabindex="-1"></a><span class="co"># create the dataframe for plotting</span></span>
+<span id="cb334-4"><a href="statistical-inference-in-r.html#cb334-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">est =</span> <span class="fu">c</span>(beta_est[, <span class="dv">1</span>], beta_est[, <span class="dv">2</span>], beta_est[, <span class="dv">3</span>]), </span>
+<span id="cb334-5"><a href="statistical-inference-in-r.html#cb334-5" tabindex="-1"></a>               <span class="at">beta =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Beta1&quot;</span>, no_iter), <span class="fu">rep</span>(<span class="st">&quot;Beta2&quot;</span>, no_iter), <span class="fu">rep</span>(<span class="st">&quot;Beta3&quot;</span>, no_iter)))</span>
+<span id="cb334-6"><a href="statistical-inference-in-r.html#cb334-6" tabindex="-1"></a></span>
+<span id="cb334-7"><a href="statistical-inference-in-r.html#cb334-7" tabindex="-1"></a><span class="co"># dataframe for adding the vertical lines for the true parameters</span></span>
+<span id="cb334-8"><a href="statistical-inference-in-r.html#cb334-8" tabindex="-1"></a>vline_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">beta =</span> <span class="fu">c</span>(<span class="st">&quot;Beta1&quot;</span>, <span class="st">&quot;Beta2&quot;</span>, <span class="st">&quot;Beta3&quot;</span>), </span>
+<span id="cb334-9"><a href="statistical-inference-in-r.html#cb334-9" tabindex="-1"></a>                     <span class="at">mean =</span> beta_0)</span>
+<span id="cb334-10"><a href="statistical-inference-in-r.html#cb334-10" tabindex="-1"></a></span>
+<span id="cb334-11"><a href="statistical-inference-in-r.html#cb334-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> est)) <span class="sc">+</span></span>
+<span id="cb334-12"><a href="statistical-inference-in-r.html#cb334-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-13"><a href="statistical-inference-in-r.html#cb334-13" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> beta, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-14"><a href="statistical-inference-in-r.html#cb334-14" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> vline_data, <span class="fu">aes</span>(<span class="at">xintercept =</span> mean), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-352-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>From the above plots, you can see the distributions of your estimators. The true parameters lie in the middle of the distributions. You can also add lines to visualize the mean of the distributions. In this case, the lines actually overlap with lines for the true parameters. Thus, the estimators are essentially unbiased. You can also see that there are times that <span class="math inline">\(\hat{\beta}_0\)</span> can be as large as <span class="math inline">\(1\)</span> or as small as <span class="math inline">\(0.1\)</span> while the true value is <span class="math inline">\(0.5\)</span>.</p>
+<p>You can also use a larger sample size.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="statistical-inference-in-r.html#cb335-1" tabindex="-1"></a><span class="co"># setting</span></span>
+<span id="cb335-2"><a href="statistical-inference-in-r.html#cb335-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb335-3"><a href="statistical-inference-in-r.html#cb335-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb335-4"><a href="statistical-inference-in-r.html#cb335-4" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># true beta</span></span>
+<span id="cb335-5"><a href="statistical-inference-in-r.html#cb335-5" tabindex="-1"></a></span>
+<span id="cb335-6"><a href="statistical-inference-in-r.html#cb335-6" tabindex="-1"></a><span class="co"># simulation</span></span>
+<span id="cb335-7"><a href="statistical-inference-in-r.html#cb335-7" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb335-8"><a href="statistical-inference-in-r.html#cb335-8" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb335-9"><a href="statistical-inference-in-r.html#cb335-9" tabindex="-1"></a>prob_num <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta_0[<span class="dv">1</span>] <span class="sc">+</span> beta_0[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta_0[<span class="dv">3</span>] <span class="sc">*</span> x2)</span>
+<span id="cb335-10"><a href="statistical-inference-in-r.html#cb335-10" tabindex="-1"></a>prob <span class="ot">&lt;-</span> prob_num <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> prob_num)</span>
+<span id="cb335-11"><a href="statistical-inference-in-r.html#cb335-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> prob)</span>
+<span id="cb335-12"><a href="statistical-inference-in-r.html#cb335-12" tabindex="-1"></a></span>
+<span id="cb335-13"><a href="statistical-inference-in-r.html#cb335-13" tabindex="-1"></a><span class="co"># Estimation</span></span>
+<span id="cb335-14"><a href="statistical-inference-in-r.html#cb335-14" tabindex="-1"></a>(est <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">f =</span> neg_log_like, </span>
+<span id="cb335-15"><a href="statistical-inference-in-r.html#cb335-15" tabindex="-1"></a>             <span class="at">y =</span> y, <span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2, <span class="at">method =</span> <span class="st">&quot;BFGS&quot;</span>)<span class="sc">$</span>par)</span>
+<span id="cb335-16"><a href="statistical-inference-in-r.html#cb335-16" tabindex="-1"></a><span class="do">## [1]  0.4803615  1.0275395 -0.9871783</span></span></code></pre></div>
+<p>The estimates are now 0.48, 1.03, -0.99, which are close to the true values 0.5, 1, -1.</p>
+<p>We will see some applications of the logistic regression later.</p>
+<div id="exercises-on-mle" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Exercises on MLE<a href="statistical-inference-in-r.html#exercises-on-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Exercise 1 (Gamma distribution)</strong></p>
+<p>You observe a random sample <span class="math inline">\(y_1,\ldots,y_n\)</span> from a Gamma distribution with unknown parameters <span class="math inline">\(\alpha, \beta\)</span>. The likelihood function is
+<span class="math display">\[\begin{equation*}
+L(\alpha, \beta |y_1,\ldots,y_n) = \prod^n_{i=1} \frac{\beta^\alpha}{\Gamma(\alpha)} y^{\alpha-1}_i e^{-\beta y_i}.
+\end{equation*}\]</span>
+The log likelihood, after simpliciation, is
+<span class="math display">\[\begin{equation*}
+\log L(\alpha, \beta) = n \alpha \log \beta - n \log \Gamma(\alpha) + (\alpha - 1) \sum^n_{i=1} \log y_i - \beta \sum^n_{i=1} y_i.
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="statistical-inference-in-r.html#cb336-1" tabindex="-1"></a><span class="co"># Setting</span></span>
+<span id="cb336-2"><a href="statistical-inference-in-r.html#cb336-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb336-3"><a href="statistical-inference-in-r.html#cb336-3" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb336-4"><a href="statistical-inference-in-r.html#cb336-4" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb336-5"><a href="statistical-inference-in-r.html#cb336-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb336-6"><a href="statistical-inference-in-r.html#cb336-6" tabindex="-1"></a></span>
+<span id="cb336-7"><a href="statistical-inference-in-r.html#cb336-7" tabindex="-1"></a><span class="co"># Simulation</span></span>
+<span id="cb336-8"><a href="statistical-inference-in-r.html#cb336-8" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, alpha ,beta)</span>
+<span id="cb336-9"><a href="statistical-inference-in-r.html#cb336-9" tabindex="-1"></a></span>
+<span id="cb336-10"><a href="statistical-inference-in-r.html#cb336-10" tabindex="-1"></a><span class="co"># Optimization (Estimation)</span></span>
+<span id="cb336-11"><a href="statistical-inference-in-r.html#cb336-11" tabindex="-1"></a></span>
+<span id="cb336-12"><a href="statistical-inference-in-r.html#cb336-12" tabindex="-1"></a><span class="co"># Assignment 4</span></span></code></pre></div>
+<p><strong>Exercise 2 (Poisson Regression)</strong></p>
+<p>Suppose we observe <span class="math inline">\(\{(x_i, y_i):i=1,\ldots,n\}\)</span>, where <span class="math inline">\(y_i\)</span> only takes nonnegative integer values (count data) and <span class="math inline">\(x_i\)</span> is a vector of covariates (including the intercept <span class="math inline">\(1\)</span>). In Poisson regression, we assume that <span class="math inline">\(Y_i\)</span> has a Poisson distribution and
+<span class="math display">\[\begin{equation*}
+\log (E(Y_i|x_i)) = \beta^T x_i = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip},
+\end{equation*}\]</span>
+where <span class="math inline">\(\beta \in \mathbb{R}^{p+1}\)</span>. Alternatively, condition on <span class="math inline">\(x_i\)</span>, <span class="math inline">\(Y_i|x_i \sim \text{Pois}(e^{\beta^T x_i})\)</span>. The likelihood is
+<span class="math display">\[\begin{equation*}
+L(\beta|y,x) = \prod^n_{i=1} \frac{e^{-e^{\beta^T x_i}}  e^{(\beta^T x_i)y_i}}{y_i!}.
+\end{equation*}\]</span>
+The log likelihood is
+<span class="math display">\[\begin{equation*}
+\log L(\beta|y, x) = \sum^n_{i=1} \bigg( -e^{\beta^T x_i} + (\beta^T x_i) y_i - \log (y_i!) \bigg).
+\end{equation*}\]</span>
+Clearly, the term <span class="math inline">\(\log (y_i !)\)</span> does not depend on <span class="math inline">\(\beta\)</span> and hence we do not need to consider it during our optimization. Therefore, it suffices to maximize (or minimize the negative of) the following objective function
+<span class="math display">\[\begin{equation*}
+\sum^n_{i=1} \bigg( -e^{\beta^T x_i} + (\beta^T x_i) y_i \bigg).
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="statistical-inference-in-r.html#cb337-1" tabindex="-1"></a><span class="co"># Setting</span></span>
+<span id="cb337-2"><a href="statistical-inference-in-r.html#cb337-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb337-3"><a href="statistical-inference-in-r.html#cb337-3" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb337-4"><a href="statistical-inference-in-r.html#cb337-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb337-5"><a href="statistical-inference-in-r.html#cb337-5" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(beta) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb337-6"><a href="statistical-inference-in-r.html#cb337-6" tabindex="-1"></a></span>
+<span id="cb337-7"><a href="statistical-inference-in-r.html#cb337-7" tabindex="-1"></a><span class="co"># Simulation</span></span>
+<span id="cb337-8"><a href="statistical-inference-in-r.html#cb337-8" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="fu">matrix</span>(<span class="fu">runif</span>(n <span class="sc">*</span> p), <span class="at">nrow =</span> n, <span class="at">ncol =</span> p))</span>
+<span id="cb337-9"><a href="statistical-inference-in-r.html#cb337-9" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="fu">exp</span>(X <span class="sc">%*%</span> beta))</span>
+<span id="cb337-10"><a href="statistical-inference-in-r.html#cb337-10" tabindex="-1"></a></span>
+<span id="cb337-11"><a href="statistical-inference-in-r.html#cb337-11" tabindex="-1"></a><span class="co"># Optimization (Estimation)</span></span>
+<span id="cb337-12"><a href="statistical-inference-in-r.html#cb337-12" tabindex="-1"></a></span>
+<span id="cb337-13"><a href="statistical-inference-in-r.html#cb337-13" tabindex="-1"></a><span class="co"># Assignment 4</span></span></code></pre></div>
+</div>
+<div id="summary-2" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Summary<a href="statistical-inference-in-r.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Review of the MLE</li>
+<li>Use <code>optim()</code> to minimize an objective function</li>
+<li>Simplify the objective function before you try to minimize it (take log and remove terms that do not depend on the parameters)</li>
+<li>how to simulate from a model</li>
+<li>how to check the validity of the simulation results</li>
+</ol>
+</div>
+</div>
+<div id="interval-estimation-and-hypothesis-testing" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Interval Estimation and Hypothesis Testing<a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two types of estimation: point estimation (e.g. MLE) and interval estimation (e.g. confidence interval).</p>
+<div id="examples-of-hypothesis-testing" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Examples of Hypothesis Testing<a href="statistical-inference-in-r.html#examples-of-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Optional reading: Chapter 12 in John E. Freund’s Mathematical Statistics with Applications.</p>
+<p>You have a die and you wonder if it is unbiased. If the die is unbiased, the (population) mean of the result from rolling the die is <span class="math inline">\(3.5\)</span>. Suppose you roll the die <span class="math inline">\(10\)</span> times, the sample mean is <span class="math inline">\(5\)</span>. What is your decision on determining if the die is biased or not? How confident is your decision? What if you roll the die <span class="math inline">\(100\)</span> times, and the sample mean is <span class="math inline">\(5\)</span>? What is your decision now? Are you more confident in your decision? What if your roll the die <span class="math inline">\(10\)</span> times but the sample mean is <span class="math inline">\(4\)</span>? To answer these questions, we need to understand interval estimation and hypothesis testing.</p>
+<p><strong>Some more examples:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>An engineer has to decide on the basis of sample data whether the true average lifetime of a certain kind of tire is at least <span class="math inline">\(42,000\)</span> miles</p></li>
+<li><p>An agronomist has to decide on the basis of experiments whether one kind of fertilizer produces a higher yield of soybeans than another</p></li>
+<li><p>A manufacturer of pharmaceutical products has to decide on the basis of samples whether 90 percent of all patients given a new medication will recover from a certain disease</p></li>
+</ol>
+<p>These problems can all be translated into the language of <strong>statistical tests of hypotheses</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><p>the engineer has to test the hypothesis that <span class="math inline">\(\theta\)</span>, the parameter of an exponential population,
+is at least <span class="math inline">\(42,000\)</span></p></li>
+<li><p>the agronomist has to decide whether <span class="math inline">\(\mu_1 &gt; \mu_2\)</span>, where <span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span> are the means of two normal populations</p></li>
+<li><p>the manufacturer has to decide whether <span class="math inline">\(\theta\)</span>, the parameter of a binomial population, equals <span class="math inline">\(0.90\)</span></p></li>
+</ol>
+<p>In each case it must be assumed, of course, that the chosen distribution correctly describes the experimental conditions; that is, the distribution provides the correct statistical model.</p>
+</div>
+<div id="null-hypotheses-alternative-hypotheses-and-p-values" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Null Hypotheses, Alternative Hypotheses, and p-values<a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An assertion or conjecture about the distribution of one or more random variables is called a <strong>statistical hypothesis</strong>.</p>
+<p>If a statistical hypothesis completely specifies the distribution, it is called a <strong>simple hypothesis</strong>; if not, it is referred to as a <strong>composite hypothesis</strong>.</p>
+<p><strong>Null hypothesis:</strong> In view of the assumptions of “no difference,” hypotheses such as these led to the term null hypothesis, but nowadays this term is applied to any hypothesis that we may want to test.</p>
+<p><strong>p-value</strong>: the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct</p>
+<p><strong>Steps in Hypothesis Testing</strong></p>
+<ol style="list-style-type: decimal">
+<li>Assume the null hypothesis is true</li>
+<li>Calculate a test statistic. E.g., sample mean</li>
+<li>Calculate a <span class="math inline">\(p\)</span>-value (denoted by <span class="math inline">\(p\)</span>) from the statistic and its distribution. For example, if the die is unbiased, what is the probability that we observe the sample mean to be larger than <span class="math inline">\(5\)</span> after rolling it <span class="math inline">\(100\)</span> times?</li>
+</ol>
+<ul>
+<li>small <span class="math inline">\(p\)</span>-value small: we have strong evidence to reject the null hypothesis because it is unlikely to observe such a test statistic if the null hypothesis is true</li>
+<li>large <span class="math inline">\(p\)</span>-value small: we do not have enough evidence to reject the null hypothesis</li>
+</ul>
+<p><strong><em>Remark</em></strong></p>
+<ul>
+<li>In this course, we will follow the “common convention” to reject the null hypothesis when <span class="math inline">\(p &lt; 0.05\)</span></li>
+<li>In real applications, how small is small depends on the problems.</li>
+<li>Being statistically significant (small <span class="math inline">\(p\)</span>-value) does not mean the difference between the null and alternative hypotheses is large. One should also look at the confidence intervals or distributions of your estimates.
+<!-- * One should not say "The interval is $97.16 < \mu < 103.88$, meaning that there is a 95% probability that the population's mean $\mu$, is between $97.16$ and $103.98$." This sentence is problematic because the mean is either in that interval or not. As long as we observe the data, there is no randomness. That's the reason why we use  --></li>
+</ul>
+</div>
+<div id="type-i-error-and-type-ii-error" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Type I error and Type II error<a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Type I error</strong>: reject the null hypothesis when it is true.</p>
+<p>The probability of committing a type I error is denoted by <span class="math inline">\(\alpha\)</span> (level of significance of the test).</p>
+<p><strong>Type II error</strong>: do not reject the null hypothesis when it is false.</p>
+<p>The probability of committing a type II error is denoted by <span class="math inline">\(\beta\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(H_0\)</span> is true</th>
+<th><span class="math inline">\(H_1\)</span> is true</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reject <span class="math inline">\(H_0\)</span></td>
+<td>Type I error</td>
+<td>No Error</td>
+</tr>
+<tr class="even">
+<td>Do not reject <span class="math inline">\(H_0\)</span></td>
+<td>No Error</td>
+<td>Type II Error</td>
+</tr>
+</tbody>
+</table>
+<p>A good test procedure is one in which both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are small, thereby giving us a good chance of making the correct decision. When the sample size <span class="math inline">\(n\)</span> is held fixed, reducing <span class="math inline">\(\alpha\)</span> by changing the rejection region will increase <span class="math inline">\(\beta\)</span> and vice versa. The only way in which we can reduce the probabilities of both types of errors is to increase <span class="math inline">\(n\)</span>. As long as <span class="math inline">\(n\)</span> is held fixed, this inverse relationship between the probabilities of type I and type II errors is typical of statistical decision procedures.</p>
+<p>Usually, we control <span class="math inline">\(\alpha\)</span> to be small (e.g. <span class="math inline">\(0.05\)</span>).</p>
+</div>
+<div id="inference-for-mean-of-one-sample" class="section level3 hasAnchor" number="7.2.4">
+<h3><span class="header-section-number">7.2.4</span> Inference for Mean of One Sample<a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Hypothesis Testing Problem</strong></p>
+<p>You have a random sample <span class="math inline">\(X_1,\ldots,X_n\)</span> from a population. You want to know if the population mean <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(\mu_0\)</span>. That is, <span class="math inline">\(H_0 : \mu =\mu_0\)</span> vs <span class="math inline">\(H_1: \mu \neq \mu_0\)</span>.</p>
+<p><strong>Solution</strong></p>
+<p>You can use the <span class="math inline">\(t\)</span>-test for this problem. It is appropriate when either</p>
+<ul>
+<li>Your data is normally distributed</li>
+<li>You have a large sample size <span class="math inline">\(n\)</span>. A rule of thumb is <span class="math inline">\(n &gt; 30\)</span>.</li>
+</ul>
+<p>The test statistic is
+<span class="math display">\[\begin{equation*}
+\frac{\overline{X}_n - \mu_0}{s/\sqrt{n}},
+\end{equation*}\]</span>
+where <span class="math inline">\(\overline{X}_n\)</span> is the sample mean and <span class="math inline">\(s\)</span> is the sample standard deviation. In R, use <code>t.test()</code> to perform the t-test.</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="statistical-inference-in-r.html#cb338-1" tabindex="-1"></a><span class="co"># Simulate the data</span></span>
+<span id="cb338-2"><a href="statistical-inference-in-r.html#cb338-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>) <span class="co"># so that you can replicate the result</span></span>
+<span id="cb338-3"><a href="statistical-inference-in-r.html#cb338-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">75</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb338-4"><a href="statistical-inference-in-r.html#cb338-4" tabindex="-1"></a></span>
+<span id="cb338-5"><a href="statistical-inference-in-r.html#cb338-5" tabindex="-1"></a><span class="co"># Perform t-test</span></span>
+<span id="cb338-6"><a href="statistical-inference-in-r.html#cb338-6" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">95</span>)</span>
+<span id="cb338-7"><a href="statistical-inference-in-r.html#cb338-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb338-8"><a href="statistical-inference-in-r.html#cb338-8" tabindex="-1"></a><span class="do">##  One Sample t-test</span></span>
+<span id="cb338-9"><a href="statistical-inference-in-r.html#cb338-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb338-10"><a href="statistical-inference-in-r.html#cb338-10" tabindex="-1"></a><span class="do">## data:  x</span></span>
+<span id="cb338-11"><a href="statistical-inference-in-r.html#cb338-11" tabindex="-1"></a><span class="do">## t = 4.7246, df = 74, p-value = 1.071e-05</span></span>
+<span id="cb338-12"><a href="statistical-inference-in-r.html#cb338-12" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean is not equal to 95</span></span>
+<span id="cb338-13"><a href="statistical-inference-in-r.html#cb338-13" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb338-14"><a href="statistical-inference-in-r.html#cb338-14" tabindex="-1"></a><span class="do">##   99.36832 105.74018</span></span>
+<span id="cb338-15"><a href="statistical-inference-in-r.html#cb338-15" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb338-16"><a href="statistical-inference-in-r.html#cb338-16" tabindex="-1"></a><span class="do">## mean of x </span></span>
+<span id="cb338-17"><a href="statistical-inference-in-r.html#cb338-17" tabindex="-1"></a><span class="do">##  102.5543</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is small, so it is unlikely that the mean of the population is <span class="math inline">\(95\)</span>. The <span class="math inline">\(p\)</span>-value in this case is <span class="math inline">\(2 \times P_{H_0}(T &gt; |\text{obs. T.S.|})\)</span>, where <span class="math inline">\(T\)</span> has a <span class="math inline">\(t\)</span>-distribution with degrees of freedom <span class="math inline">\(n-1\)</span> if the data from are from a normal distribution and obs. T.S. stands for the observed test statistic. The subscript <span class="math inline">\(H_0\)</span> is to stress that the probability measure is under <span class="math inline">\(H_0\)</span>.</p>
+<p>[Optional] How are the test statistic and <span class="math inline">\(p\)</span>-value calculated?</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="statistical-inference-in-r.html#cb339-1" tabindex="-1"></a><span class="co"># test statistic</span></span>
+<span id="cb339-2"><a href="statistical-inference-in-r.html#cb339-2" tabindex="-1"></a>(obs_ts <span class="ot">&lt;-</span> (<span class="fu">mean</span>(x) <span class="sc">-</span> <span class="dv">95</span>) <span class="sc">/</span> (<span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))))</span>
+<span id="cb339-3"><a href="statistical-inference-in-r.html#cb339-3" tabindex="-1"></a><span class="do">## [1] 4.724574</span></span>
+<span id="cb339-4"><a href="statistical-inference-in-r.html#cb339-4" tabindex="-1"></a></span>
+<span id="cb339-5"><a href="statistical-inference-in-r.html#cb339-5" tabindex="-1"></a><span class="co"># p-value</span></span>
+<span id="cb339-6"><a href="statistical-inference-in-r.html#cb339-6" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(obs_ts), <span class="at">df =</span> <span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb339-7"><a href="statistical-inference-in-r.html#cb339-7" tabindex="-1"></a><span class="do">## [1] 1.071253e-05</span></span></code></pre></div>
+<p>What do you expect when <span class="math inline">\(x\)</span> is from a distribution with a much larger SD?</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="statistical-inference-in-r.html#cb340-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>) <span class="co"># so that you can replicate the result</span></span>
+<span id="cb340-2"><a href="statistical-inference-in-r.html#cb340-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">75</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">200</span>)</span>
+<span id="cb340-3"><a href="statistical-inference-in-r.html#cb340-3" tabindex="-1"></a>(test_x2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x2, <span class="at">mu =</span> <span class="dv">95</span>))</span>
+<span id="cb340-4"><a href="statistical-inference-in-r.html#cb340-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb340-5"><a href="statistical-inference-in-r.html#cb340-5" tabindex="-1"></a><span class="do">##  One Sample t-test</span></span>
+<span id="cb340-6"><a href="statistical-inference-in-r.html#cb340-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb340-7"><a href="statistical-inference-in-r.html#cb340-7" tabindex="-1"></a><span class="do">## data:  x2</span></span>
+<span id="cb340-8"><a href="statistical-inference-in-r.html#cb340-8" tabindex="-1"></a><span class="do">## t = 1.832, df = 74, p-value = 0.07097</span></span>
+<span id="cb340-9"><a href="statistical-inference-in-r.html#cb340-9" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean is not equal to 95</span></span>
+<span id="cb340-10"><a href="statistical-inference-in-r.html#cb340-10" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb340-11"><a href="statistical-inference-in-r.html#cb340-11" tabindex="-1"></a><span class="do">##   91.57758 176.53580</span></span>
+<span id="cb340-12"><a href="statistical-inference-in-r.html#cb340-12" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb340-13"><a href="statistical-inference-in-r.html#cb340-13" tabindex="-1"></a><span class="do">## mean of x </span></span>
+<span id="cb340-14"><a href="statistical-inference-in-r.html#cb340-14" tabindex="-1"></a><span class="do">##  134.0567</span></span></code></pre></div>
+<p>Even if the estimate of the population mean is 134, the test does not reject the null hypothesis that the mean is <span class="math inline">\(95\)</span>. This is because the sample has a very large variance.</p>
+<p><strong>Interval Estimation</strong>
+Denote <span class="math inline">\(\overline{x}_n\)</span> and <span class="math inline">\(s_n\)</span> be the sample mean and sample standard deviation, respectively. The <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval of <span class="math inline">\(\mu\)</span> is given by
+<span class="math display">\[\begin{equation*}
+\bigg[ \overline{x}_n - t_{n-1; \alpha/2} \frac{s_n}{\sqrt{n}},
+\overline{x}_n + t_{n-1; \alpha/2} \frac{s_n}{\sqrt{n}} \bigg],
+\end{equation*}\]</span>
+where <span class="math inline">\(t_{n-1;\alpha/2}\)</span> satisfies <span class="math inline">\(P(T &gt; t_{n-1;\alpha/2}) = \alpha/2\)</span> and <span class="math inline">\(T \sim t(n-1)\)</span>.</p>
+<p>To find the confidence interval of <span class="math inline">\(\mu\)</span> in R, use <code>t.test()</code>. For example, the <span class="math inline">\(99\%\)</span> confidence interval of <span class="math inline">\(\mu\)</span> is</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="statistical-inference-in-r.html#cb341-1" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb341-2"><a href="statistical-inference-in-r.html#cb341-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb341-3"><a href="statistical-inference-in-r.html#cb341-3" tabindex="-1"></a><span class="do">##  One Sample t-test</span></span>
+<span id="cb341-4"><a href="statistical-inference-in-r.html#cb341-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb341-5"><a href="statistical-inference-in-r.html#cb341-5" tabindex="-1"></a><span class="do">## data:  x</span></span>
+<span id="cb341-6"><a href="statistical-inference-in-r.html#cb341-6" tabindex="-1"></a><span class="do">## t = 64.139, df = 74, p-value &lt; 2.2e-16</span></span>
+<span id="cb341-7"><a href="statistical-inference-in-r.html#cb341-7" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb341-8"><a href="statistical-inference-in-r.html#cb341-8" tabindex="-1"></a><span class="do">## 99 percent confidence interval:</span></span>
+<span id="cb341-9"><a href="statistical-inference-in-r.html#cb341-9" tabindex="-1"></a><span class="do">##   98.32683 106.78168</span></span>
+<span id="cb341-10"><a href="statistical-inference-in-r.html#cb341-10" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb341-11"><a href="statistical-inference-in-r.html#cb341-11" tabindex="-1"></a><span class="do">## mean of x </span></span>
+<span id="cb341-12"><a href="statistical-inference-in-r.html#cb341-12" tabindex="-1"></a><span class="do">##  102.5543</span></span></code></pre></div>
+<p><strong>Remark</strong></p>
+<ul>
+<li>By omitting <code>mu = 0.95</code>, the default value is <code>mu = 0</code>. Since we are interested in finding the confidence intervals, we do not need to care about the value of <span class="math inline">\(\mu_0\)</span>.</li>
+</ul>
+<p>[Optional] Without using <code>t.test()</code>:</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="statistical-inference-in-r.html#cb342-1" tabindex="-1"></a><span class="co"># just an illustration of how CI can be computed</span></span>
+<span id="cb342-2"><a href="statistical-inference-in-r.html#cb342-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb342-3"><a href="statistical-inference-in-r.html#cb342-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb342-4"><a href="statistical-inference-in-r.html#cb342-4" tabindex="-1"></a>half_width <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb342-5"><a href="statistical-inference-in-r.html#cb342-5" tabindex="-1"></a></span>
+<span id="cb342-6"><a href="statistical-inference-in-r.html#cb342-6" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(x) <span class="sc">-</span> half_width, <span class="fu">mean</span>(x) <span class="sc">+</span> half_width)</span>
+<span id="cb342-7"><a href="statistical-inference-in-r.html#cb342-7" tabindex="-1"></a><span class="do">## [1]  98.32683 106.78168</span></span></code></pre></div>
+<p><strong>Interpretation</strong></p>
+<p>If you can repeat the experiment many times, then about <span class="math inline">\(95\%\)</span> of the confidence intervals computed in those many times will contain the true mean.</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="statistical-inference-in-r.html#cb343-1" tabindex="-1"></a>no_sim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb343-2"><a href="statistical-inference-in-r.html#cb343-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>) <span class="co"># so that you can replicate the result</span></span>
+<span id="cb343-3"><a href="statistical-inference-in-r.html#cb343-3" tabindex="-1"></a>true_mean <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb343-4"><a href="statistical-inference-in-r.html#cb343-4" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> no_sim, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb343-5"><a href="statistical-inference-in-r.html#cb343-5" tabindex="-1"></a></span>
+<span id="cb343-6"><a href="statistical-inference-in-r.html#cb343-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>no_sim) {</span>
+<span id="cb343-7"><a href="statistical-inference-in-r.html#cb343-7" tabindex="-1"></a>  CI[i, ] <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">75</span>, <span class="at">mean =</span> true_mean, <span class="at">sd =</span> <span class="dv">200</span>))<span class="sc">$</span>conf.int</span>
+<span id="cb343-8"><a href="statistical-inference-in-r.html#cb343-8" tabindex="-1"></a>}</span>
+<span id="cb343-9"><a href="statistical-inference-in-r.html#cb343-9" tabindex="-1"></a></span>
+<span id="cb343-10"><a href="statistical-inference-in-r.html#cb343-10" tabindex="-1"></a><span class="co"># find out the proportion of CIs that contain 0</span></span>
+<span id="cb343-11"><a href="statistical-inference-in-r.html#cb343-11" tabindex="-1"></a><span class="fu">mean</span>(CI[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> <span class="dv">100</span> <span class="sc">&lt;</span> CI[, <span class="dv">2</span>]) </span>
+<span id="cb343-12"><a href="statistical-inference-in-r.html#cb343-12" tabindex="-1"></a><span class="do">## [1] 0.9503</span></span></code></pre></div>
+<p><strong>Example</strong></p>
+<p>Recall that we talked about how to use simulation to estimate <span class="math inline">\(P(X &gt; Y)\)</span>, where <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are some random variables. For example, if <span class="math inline">\(X \sim N(0, 1)\)</span>, <span class="math inline">\(Y \sim \text{Exp}(2)\)</span>, and they are independent. R code to estimate <span class="math inline">\(P(X &gt; Y)\)</span>:</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="statistical-inference-in-r.html#cb344-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb344-2"><a href="statistical-inference-in-r.html#cb344-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb344-3"><a href="statistical-inference-in-r.html#cb344-3" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb344-4"><a href="statistical-inference-in-r.html#cb344-4" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb344-5"><a href="statistical-inference-in-r.html#cb344-5" tabindex="-1"></a><span class="fu">mean</span>(X <span class="sc">&gt;</span> Y)</span>
+<span id="cb344-6"><a href="statistical-inference-in-r.html#cb344-6" tabindex="-1"></a><span class="do">## [1] 0.3299</span></span></code></pre></div>
+<p>We know the true value is not exactly 0.3299 because the law of large numbers only ensure that the sample mean converges to the true mean. We can use <code>t.test()</code> to find an confidence interval for <span class="math inline">\(P(X &gt; Y)\)</span>.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="statistical-inference-in-r.html#cb345-1" tabindex="-1"></a><span class="fu">t.test</span>(X <span class="sc">&gt;</span> Y)</span>
+<span id="cb345-2"><a href="statistical-inference-in-r.html#cb345-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb345-3"><a href="statistical-inference-in-r.html#cb345-3" tabindex="-1"></a><span class="do">##  One Sample t-test</span></span>
+<span id="cb345-4"><a href="statistical-inference-in-r.html#cb345-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb345-5"><a href="statistical-inference-in-r.html#cb345-5" tabindex="-1"></a><span class="do">## data:  X &gt; Y</span></span>
+<span id="cb345-6"><a href="statistical-inference-in-r.html#cb345-6" tabindex="-1"></a><span class="do">## t = 70.162, df = 9999, p-value &lt; 2.2e-16</span></span>
+<span id="cb345-7"><a href="statistical-inference-in-r.html#cb345-7" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb345-8"><a href="statistical-inference-in-r.html#cb345-8" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb345-9"><a href="statistical-inference-in-r.html#cb345-9" tabindex="-1"></a><span class="do">##  0.3206831 0.3391169</span></span>
+<span id="cb345-10"><a href="statistical-inference-in-r.html#cb345-10" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb345-11"><a href="statistical-inference-in-r.html#cb345-11" tabindex="-1"></a><span class="do">## mean of x </span></span>
+<span id="cb345-12"><a href="statistical-inference-in-r.html#cb345-12" tabindex="-1"></a><span class="do">##    0.3299</span></span></code></pre></div>
+<p>We see that the <span class="math inline">\(95\%\)</span> CI is (0.321, 0.339). To make the CI narrower, we can increase the number of simulation.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="statistical-inference-in-r.html#cb346-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb346-2"><a href="statistical-inference-in-r.html#cb346-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb346-3"><a href="statistical-inference-in-r.html#cb346-3" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb346-4"><a href="statistical-inference-in-r.html#cb346-4" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n, <span class="dv">2</span>)</span>
+<span id="cb346-5"><a href="statistical-inference-in-r.html#cb346-5" tabindex="-1"></a><span class="fu">t.test</span>(X <span class="sc">&gt;</span> Y)</span>
+<span id="cb346-6"><a href="statistical-inference-in-r.html#cb346-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb346-7"><a href="statistical-inference-in-r.html#cb346-7" tabindex="-1"></a><span class="do">##  One Sample t-test</span></span>
+<span id="cb346-8"><a href="statistical-inference-in-r.html#cb346-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb346-9"><a href="statistical-inference-in-r.html#cb346-9" tabindex="-1"></a><span class="do">## data:  X &gt; Y</span></span>
+<span id="cb346-10"><a href="statistical-inference-in-r.html#cb346-10" tabindex="-1"></a><span class="do">## t = 704.63, df = 1e+06, p-value &lt; 2.2e-16</span></span>
+<span id="cb346-11"><a href="statistical-inference-in-r.html#cb346-11" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb346-12"><a href="statistical-inference-in-r.html#cb346-12" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb346-13"><a href="statistical-inference-in-r.html#cb346-13" tabindex="-1"></a><span class="do">##  0.3308521 0.3326979</span></span>
+<span id="cb346-14"><a href="statistical-inference-in-r.html#cb346-14" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb346-15"><a href="statistical-inference-in-r.html#cb346-15" tabindex="-1"></a><span class="do">## mean of x </span></span>
+<span id="cb346-16"><a href="statistical-inference-in-r.html#cb346-16" tabindex="-1"></a><span class="do">##  0.331775</span></span></code></pre></div>
+<p>The <span class="math inline">\(95\%\)</span> CI becomes (0.331, 0.333). The width of the CI is equal to
+<span class="math display">\[\begin{equation*}
+2 \times  t_{n-1; \alpha/2} \frac{s}{\sqrt{n}}.
+\end{equation*}\]</span>
+From the above formula, you could determine the minimum number of simulations required to achieve a certain degree of accuracy,</p>
+</div>
+<div id="comparing-the-means-of-two-samples" class="section level3 hasAnchor" number="7.2.5">
+<h3><span class="header-section-number">7.2.5</span> Comparing the means of two samples<a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose you have one sample each from two populations. You want to test if the two populations have the same mean.</p>
+<p>There are two different <span class="math inline">\(t\)</span>-tests for this task (assuming data are normally distributed or you have large samples):</p>
+<ol style="list-style-type: decimal">
+<li><p>the observations are not paired</p></li>
+<li><p>the observations are paired</p></li>
+</ol>
+<p>To explain the meaning of paired data, consider two experiments to see if drinking coffee in the morning improves your test scores:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Unpaired observations:</strong> Randomly select two groups of people. People in one group have a cup of morning coffee and take the test. The other group just takes the test. For each person, we have one test score. All the scores are independent.</p></li>
+<li><p><strong>Paired observations:</strong> Randomly select one group of people. Give them the test twice, once with morning coffee and once without morning coffee. For each person, we have two test scores. Clearly, the two scores are not statistically independent.</p></li>
+</ol>
+<p><strong>Example</strong></p>
+<p>We illustrate the paired <span class="math inline">\(t\)</span>-test using the dataset <code>sleep</code> (no package is required). The data contains the increase in hours of sleep when the subject took two soporific drugs compared to control on <span class="math inline">\(10\)</span> subjects. Since each subject received two drugs, the observations are paired.</p>
+<p>Take a look at <code>sleep</code>:</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="statistical-inference-in-r.html#cb347-1" tabindex="-1"></a>sleep</span>
+<span id="cb347-2"><a href="statistical-inference-in-r.html#cb347-2" tabindex="-1"></a><span class="do">##    extra group ID</span></span>
+<span id="cb347-3"><a href="statistical-inference-in-r.html#cb347-3" tabindex="-1"></a><span class="do">## 1    0.7     1  1</span></span>
+<span id="cb347-4"><a href="statistical-inference-in-r.html#cb347-4" tabindex="-1"></a><span class="do">## 2   -1.6     1  2</span></span>
+<span id="cb347-5"><a href="statistical-inference-in-r.html#cb347-5" tabindex="-1"></a><span class="do">## 3   -0.2     1  3</span></span>
+<span id="cb347-6"><a href="statistical-inference-in-r.html#cb347-6" tabindex="-1"></a><span class="do">## 4   -1.2     1  4</span></span>
+<span id="cb347-7"><a href="statistical-inference-in-r.html#cb347-7" tabindex="-1"></a><span class="do">## 5   -0.1     1  5</span></span>
+<span id="cb347-8"><a href="statistical-inference-in-r.html#cb347-8" tabindex="-1"></a><span class="do">## 6    3.4     1  6</span></span>
+<span id="cb347-9"><a href="statistical-inference-in-r.html#cb347-9" tabindex="-1"></a><span class="do">## 7    3.7     1  7</span></span>
+<span id="cb347-10"><a href="statistical-inference-in-r.html#cb347-10" tabindex="-1"></a><span class="do">## 8    0.8     1  8</span></span>
+<span id="cb347-11"><a href="statistical-inference-in-r.html#cb347-11" tabindex="-1"></a><span class="do">## 9    0.0     1  9</span></span>
+<span id="cb347-12"><a href="statistical-inference-in-r.html#cb347-12" tabindex="-1"></a><span class="do">## 10   2.0     1 10</span></span>
+<span id="cb347-13"><a href="statistical-inference-in-r.html#cb347-13" tabindex="-1"></a><span class="do">## 11   1.9     2  1</span></span>
+<span id="cb347-14"><a href="statistical-inference-in-r.html#cb347-14" tabindex="-1"></a><span class="do">## 12   0.8     2  2</span></span>
+<span id="cb347-15"><a href="statistical-inference-in-r.html#cb347-15" tabindex="-1"></a><span class="do">## 13   1.1     2  3</span></span>
+<span id="cb347-16"><a href="statistical-inference-in-r.html#cb347-16" tabindex="-1"></a><span class="do">## 14   0.1     2  4</span></span>
+<span id="cb347-17"><a href="statistical-inference-in-r.html#cb347-17" tabindex="-1"></a><span class="do">## 15  -0.1     2  5</span></span>
+<span id="cb347-18"><a href="statistical-inference-in-r.html#cb347-18" tabindex="-1"></a><span class="do">## 16   4.4     2  6</span></span>
+<span id="cb347-19"><a href="statistical-inference-in-r.html#cb347-19" tabindex="-1"></a><span class="do">## 17   5.5     2  7</span></span>
+<span id="cb347-20"><a href="statistical-inference-in-r.html#cb347-20" tabindex="-1"></a><span class="do">## 18   1.6     2  8</span></span>
+<span id="cb347-21"><a href="statistical-inference-in-r.html#cb347-21" tabindex="-1"></a><span class="do">## 19   4.6     2  9</span></span>
+<span id="cb347-22"><a href="statistical-inference-in-r.html#cb347-22" tabindex="-1"></a><span class="do">## 20   3.4     2 10</span></span></code></pre></div>
+<p>The <code>sleep</code> data is in a long format. Let’s turn it into a wide format using <code>spread</code>, a function in the package tidyr, which is contained in tidyverse.</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="statistical-inference-in-r.html#cb348-1" tabindex="-1"></a>(sleep_wide <span class="ot">&lt;-</span> <span class="fu">spread</span>(sleep, group, extra))</span>
+<span id="cb348-2"><a href="statistical-inference-in-r.html#cb348-2" tabindex="-1"></a><span class="do">##    ID    1    2</span></span>
+<span id="cb348-3"><a href="statistical-inference-in-r.html#cb348-3" tabindex="-1"></a><span class="do">## 1   1  0.7  1.9</span></span>
+<span id="cb348-4"><a href="statistical-inference-in-r.html#cb348-4" tabindex="-1"></a><span class="do">## 2   2 -1.6  0.8</span></span>
+<span id="cb348-5"><a href="statistical-inference-in-r.html#cb348-5" tabindex="-1"></a><span class="do">## 3   3 -0.2  1.1</span></span>
+<span id="cb348-6"><a href="statistical-inference-in-r.html#cb348-6" tabindex="-1"></a><span class="do">## 4   4 -1.2  0.1</span></span>
+<span id="cb348-7"><a href="statistical-inference-in-r.html#cb348-7" tabindex="-1"></a><span class="do">## 5   5 -0.1 -0.1</span></span>
+<span id="cb348-8"><a href="statistical-inference-in-r.html#cb348-8" tabindex="-1"></a><span class="do">## 6   6  3.4  4.4</span></span>
+<span id="cb348-9"><a href="statistical-inference-in-r.html#cb348-9" tabindex="-1"></a><span class="do">## 7   7  3.7  5.5</span></span>
+<span id="cb348-10"><a href="statistical-inference-in-r.html#cb348-10" tabindex="-1"></a><span class="do">## 8   8  0.8  1.6</span></span>
+<span id="cb348-11"><a href="statistical-inference-in-r.html#cb348-11" tabindex="-1"></a><span class="do">## 9   9  0.0  4.6</span></span>
+<span id="cb348-12"><a href="statistical-inference-in-r.html#cb348-12" tabindex="-1"></a><span class="do">## 10 10  2.0  3.4</span></span></code></pre></div>
+<p>Paired <span class="math inline">\(t\)</span>-test:</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="statistical-inference-in-r.html#cb349-1" tabindex="-1"></a><span class="fu">t.test</span>(sleep_wide[, <span class="dv">2</span>], sleep_wide[, <span class="dv">3</span>], <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb349-2"><a href="statistical-inference-in-r.html#cb349-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb349-3"><a href="statistical-inference-in-r.html#cb349-3" tabindex="-1"></a><span class="do">##  Paired t-test</span></span>
+<span id="cb349-4"><a href="statistical-inference-in-r.html#cb349-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb349-5"><a href="statistical-inference-in-r.html#cb349-5" tabindex="-1"></a><span class="do">## data:  sleep_wide[, 2] and sleep_wide[, 3]</span></span>
+<span id="cb349-6"><a href="statistical-inference-in-r.html#cb349-6" tabindex="-1"></a><span class="do">## t = -4.0621, df = 9, p-value = 0.002833</span></span>
+<span id="cb349-7"><a href="statistical-inference-in-r.html#cb349-7" tabindex="-1"></a><span class="do">## alternative hypothesis: true mean difference is not equal to 0</span></span>
+<span id="cb349-8"><a href="statistical-inference-in-r.html#cb349-8" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb349-9"><a href="statistical-inference-in-r.html#cb349-9" tabindex="-1"></a><span class="do">##  -2.4598858 -0.7001142</span></span>
+<span id="cb349-10"><a href="statistical-inference-in-r.html#cb349-10" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb349-11"><a href="statistical-inference-in-r.html#cb349-11" tabindex="-1"></a><span class="do">## mean difference </span></span>
+<span id="cb349-12"><a href="statistical-inference-in-r.html#cb349-12" tabindex="-1"></a><span class="do">##           -1.58</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&lt; 0.05\)</span>. We conclude that the effect of the two drugs are different. The <span class="math inline">\(95\%\)</span> CI of the difference between the two means is (-2.46, -0.70).</p>
+<p><strong>Example</strong></p>
+<p>Are the means of the birth weights in the smoking group and non-smoking group different?</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="statistical-inference-in-r.html#cb350-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb350-2"><a href="statistical-inference-in-r.html#cb350-2" tabindex="-1"></a><span class="fu">t.test</span>(birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">1</span>], birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb350-3"><a href="statistical-inference-in-r.html#cb350-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb350-4"><a href="statistical-inference-in-r.html#cb350-4" tabindex="-1"></a><span class="do">##  Welch Two Sample t-test</span></span>
+<span id="cb350-5"><a href="statistical-inference-in-r.html#cb350-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb350-6"><a href="statistical-inference-in-r.html#cb350-6" tabindex="-1"></a><span class="do">## data:  birthwt$bwt[birthwt$smoke == 1] and birthwt$bwt[birthwt$smoke == 0]</span></span>
+<span id="cb350-7"><a href="statistical-inference-in-r.html#cb350-7" tabindex="-1"></a><span class="do">## t = -2.7299, df = 170.1, p-value = 0.007003</span></span>
+<span id="cb350-8"><a href="statistical-inference-in-r.html#cb350-8" tabindex="-1"></a><span class="do">## alternative hypothesis: true difference in means is not equal to 0</span></span>
+<span id="cb350-9"><a href="statistical-inference-in-r.html#cb350-9" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb350-10"><a href="statistical-inference-in-r.html#cb350-10" tabindex="-1"></a><span class="do">##  -488.97860  -78.57486</span></span>
+<span id="cb350-11"><a href="statistical-inference-in-r.html#cb350-11" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb350-12"><a href="statistical-inference-in-r.html#cb350-12" tabindex="-1"></a><span class="do">## mean of x mean of y </span></span>
+<span id="cb350-13"><a href="statistical-inference-in-r.html#cb350-13" tabindex="-1"></a><span class="do">##  2771.919  3055.696</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&lt; 0.05\)</span>. We conclude that the means are different. The <span class="math inline">\(95\%\)</span> CI of the difference between the two means is (-489.0, -78.6).</p>
+</div>
+<div id="inference-of-a-sample-proportion" class="section level3 hasAnchor" number="7.2.6">
+<h3><span class="header-section-number">7.2.6</span> Inference of a Sample Proportion<a href="statistical-inference-in-r.html#inference-of-a-sample-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You have a sample of values from a population consisting of successes and failures. The null hypothesis is the true proportion of success <span class="math inline">\(p\)</span> is equal to some particular number <span class="math inline">\(p_0\)</span>. The alternative hypothesis is the <span class="math inline">\(p \neq p_0\)</span>.</p>
+<p><strong>Example</strong></p>
+<p>You flip a coin <span class="math inline">\(100\)</span> times independently. You want to test if the coin is fair <span class="math inline">\((p_0 = 0.5)\)</span>.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="statistical-inference-in-r.html#cb351-1" tabindex="-1"></a><span class="co"># Simulate the coin flips</span></span>
+<span id="cb351-2"><a href="statistical-inference-in-r.html#cb351-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb351-3"><a href="statistical-inference-in-r.html#cb351-3" tabindex="-1"></a>heads <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> .<span class="dv">4</span>)</span>
+<span id="cb351-4"><a href="statistical-inference-in-r.html#cb351-4" tabindex="-1"></a></span>
+<span id="cb351-5"><a href="statistical-inference-in-r.html#cb351-5" tabindex="-1"></a><span class="co"># Test, p_0 = 0.5</span></span>
+<span id="cb351-6"><a href="statistical-inference-in-r.html#cb351-6" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>))</span>
+<span id="cb351-7"><a href="statistical-inference-in-r.html#cb351-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb351-8"><a href="statistical-inference-in-r.html#cb351-8" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb351-9"><a href="statistical-inference-in-r.html#cb351-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb351-10"><a href="statistical-inference-in-r.html#cb351-10" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb351-11"><a href="statistical-inference-in-r.html#cb351-11" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.1336</span></span>
+<span id="cb351-12"><a href="statistical-inference-in-r.html#cb351-12" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is not equal to 0.5</span></span>
+<span id="cb351-13"><a href="statistical-inference-in-r.html#cb351-13" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb351-14"><a href="statistical-inference-in-r.html#cb351-14" tabindex="-1"></a><span class="do">##  0.3233236 0.5228954</span></span>
+<span id="cb351-15"><a href="statistical-inference-in-r.html#cb351-15" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb351-16"><a href="statistical-inference-in-r.html#cb351-16" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb351-17"><a href="statistical-inference-in-r.html#cb351-17" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
+<p>The point estimate is 0.42. Although the true probability of success used in the simulation is
+<span class="math inline">\(0.4\)</span>, for this particular data, we do not reject to null hypothesis that the true probability of success is <span class="math inline">\(0.5\)</span> as the <span class="math inline">\(p\)</span>-value equals 0.134, which is larger than <span class="math inline">\(0.05\)</span>. The 95% confidence interval is equal to (0.323, 0.523).</p>
+<p>You can change the alternative hypothesis to <span class="math inline">\(p &gt; p_0\)</span> or <span class="math inline">\(p &lt; p_0\)</span>:</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="statistical-inference-in-r.html#cb352-1" tabindex="-1"></a><span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb352-2"><a href="statistical-inference-in-r.html#cb352-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-3"><a href="statistical-inference-in-r.html#cb352-3" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb352-4"><a href="statistical-inference-in-r.html#cb352-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-5"><a href="statistical-inference-in-r.html#cb352-5" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb352-6"><a href="statistical-inference-in-r.html#cb352-6" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.9332</span></span>
+<span id="cb352-7"><a href="statistical-inference-in-r.html#cb352-7" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is greater than 0.5</span></span>
+<span id="cb352-8"><a href="statistical-inference-in-r.html#cb352-8" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb352-9"><a href="statistical-inference-in-r.html#cb352-9" tabindex="-1"></a><span class="do">##  0.3372368 1.0000000</span></span>
+<span id="cb352-10"><a href="statistical-inference-in-r.html#cb352-10" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb352-11"><a href="statistical-inference-in-r.html#cb352-11" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb352-12"><a href="statistical-inference-in-r.html#cb352-12" tabindex="-1"></a><span class="do">## 0.42</span></span>
+<span id="cb352-13"><a href="statistical-inference-in-r.html#cb352-13" tabindex="-1"></a></span>
+<span id="cb352-14"><a href="statistical-inference-in-r.html#cb352-14" tabindex="-1"></a><span class="fu">prop.test</span>(heads, <span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>)</span>
+<span id="cb352-15"><a href="statistical-inference-in-r.html#cb352-15" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-16"><a href="statistical-inference-in-r.html#cb352-16" tabindex="-1"></a><span class="do">##  1-sample proportions test with continuity correction</span></span>
+<span id="cb352-17"><a href="statistical-inference-in-r.html#cb352-17" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb352-18"><a href="statistical-inference-in-r.html#cb352-18" tabindex="-1"></a><span class="do">## data:  heads out of 100, null probability 0.5</span></span>
+<span id="cb352-19"><a href="statistical-inference-in-r.html#cb352-19" tabindex="-1"></a><span class="do">## X-squared = 2.25, df = 1, p-value = 0.06681</span></span>
+<span id="cb352-20"><a href="statistical-inference-in-r.html#cb352-20" tabindex="-1"></a><span class="do">## alternative hypothesis: true p is less than 0.5</span></span>
+<span id="cb352-21"><a href="statistical-inference-in-r.html#cb352-21" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb352-22"><a href="statistical-inference-in-r.html#cb352-22" tabindex="-1"></a><span class="do">##  0.0000000 0.5072341</span></span>
+<span id="cb352-23"><a href="statistical-inference-in-r.html#cb352-23" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb352-24"><a href="statistical-inference-in-r.html#cb352-24" tabindex="-1"></a><span class="do">##    p </span></span>
+<span id="cb352-25"><a href="statistical-inference-in-r.html#cb352-25" tabindex="-1"></a><span class="do">## 0.42</span></span></code></pre></div>
+</div>
+<div id="testing-groups-for-equal-proportions" class="section level3 hasAnchor" number="7.2.7">
+<h3><span class="header-section-number">7.2.7</span> Testing groups for equal proportions<a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You have samples from two or more groups. The data from each group are binary-valued: either “success” or “failure”. You want to test if the groups have equal proportions of “success”.</p>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="statistical-inference-in-r.html#cb353-1" tabindex="-1"></a><span class="co"># 3 groups</span></span>
+<span id="cb353-2"><a href="statistical-inference-in-r.html#cb353-2" tabindex="-1"></a>no_success <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">60</span>, <span class="dv">50</span>) <span class="co"># no. of successes in the 3 groups</span></span>
+<span id="cb353-3"><a href="statistical-inference-in-r.html#cb353-3" tabindex="-1"></a>no_trial <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>) <span class="co"># corresponding no. of trails in the 3 groups</span></span>
+<span id="cb353-4"><a href="statistical-inference-in-r.html#cb353-4" tabindex="-1"></a><span class="fu">prop.test</span>(no_success, no_trial)</span>
+<span id="cb353-5"><a href="statistical-inference-in-r.html#cb353-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb353-6"><a href="statistical-inference-in-r.html#cb353-6" tabindex="-1"></a><span class="do">##  3-sample test for equality of proportions without continuity</span></span>
+<span id="cb353-7"><a href="statistical-inference-in-r.html#cb353-7" tabindex="-1"></a><span class="do">##  correction</span></span>
+<span id="cb353-8"><a href="statistical-inference-in-r.html#cb353-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb353-9"><a href="statistical-inference-in-r.html#cb353-9" tabindex="-1"></a><span class="do">## data:  no_success out of no_trial</span></span>
+<span id="cb353-10"><a href="statistical-inference-in-r.html#cb353-10" tabindex="-1"></a><span class="do">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
+<span id="cb353-11"><a href="statistical-inference-in-r.html#cb353-11" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
+<span id="cb353-12"><a href="statistical-inference-in-r.html#cb353-12" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb353-13"><a href="statistical-inference-in-r.html#cb353-13" tabindex="-1"></a><span class="do">## prop 1 prop 2 prop 3 </span></span>
+<span id="cb353-14"><a href="statistical-inference-in-r.html#cb353-14" tabindex="-1"></a><span class="do">##   0.48   0.60   0.50</span></span></code></pre></div>
+<p><span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the three groups have the same proportion of success.</p>
+<p><strong>Example</strong></p>
+<p>In a class of <span class="math inline">\(38\)</span> students, <span class="math inline">\(14\)</span> of them got <span class="math inline">\(A\)</span>. In another class of <span class="math inline">\(40\)</span> students, only <span class="math inline">\(10\)</span> got <span class="math inline">\(A\)</span>. We want to know if the difference between the two proportions is statistically significant.</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="statistical-inference-in-r.html#cb354-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">40</span>))</span>
+<span id="cb354-2"><a href="statistical-inference-in-r.html#cb354-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb354-3"><a href="statistical-inference-in-r.html#cb354-3" tabindex="-1"></a><span class="do">##  2-sample test for equality of proportions with continuity correction</span></span>
+<span id="cb354-4"><a href="statistical-inference-in-r.html#cb354-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb354-5"><a href="statistical-inference-in-r.html#cb354-5" tabindex="-1"></a><span class="do">## data:  c(14, 10) out of c(38, 40)</span></span>
+<span id="cb354-6"><a href="statistical-inference-in-r.html#cb354-6" tabindex="-1"></a><span class="do">## X-squared = 0.7872, df = 1, p-value = 0.3749</span></span>
+<span id="cb354-7"><a href="statistical-inference-in-r.html#cb354-7" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
+<span id="cb354-8"><a href="statistical-inference-in-r.html#cb354-8" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb354-9"><a href="statistical-inference-in-r.html#cb354-9" tabindex="-1"></a><span class="do">##  -0.1110245  0.3478666</span></span>
+<span id="cb354-10"><a href="statistical-inference-in-r.html#cb354-10" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb354-11"><a href="statistical-inference-in-r.html#cb354-11" tabindex="-1"></a><span class="do">##    prop 1    prop 2 </span></span>
+<span id="cb354-12"><a href="statistical-inference-in-r.html#cb354-12" tabindex="-1"></a><span class="do">## 0.3684211 0.2500000</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the students in the two groups have the same proportion of getting an A.</p>
+</div>
+<div id="testing-if-two-samples-have-the-same-underlying-distribution" class="section level3 hasAnchor" number="7.2.8">
+<h3><span class="header-section-number">7.2.8</span> Testing if two samples have the same underlying distribution<a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Problem</strong></p>
+<p>You have two random samples <span class="math inline">\(X_1,\ldots,X_n\)</span> and <span class="math inline">\(Y_1,\ldots,Y_m\)</span>. Let <span class="math inline">\(F\)</span> and <span class="math inline">\(G\)</span> be the distribution functions of <span class="math inline">\(X_i\)</span>’s and <span class="math inline">\(Y_i\)</span>’s respectively. You want to know if <span class="math inline">\(F \equiv G\)</span>.</p>
+<p><strong>Solution</strong></p>
+<p>You may use the Kolmogorov-Smirnov test.</p>
+<ul>
+<li><span class="math inline">\(H_0: F = G\)</span> vs <span class="math inline">\(H_1: F \neq G\)</span>.</li>
+<li>It does not require any assumptions.</li>
+<li>The test statistic is
+<span class="math display">\[ D := \sup_{x \in \mathbb{R}}|F_n(x) - G_m(x)|,\]</span>
+where <span class="math inline">\(F_n\)</span> and <span class="math inline">\(G_m\)</span> are the empirical distribution functions of <span class="math inline">\(X_i\)</span>’s and <span class="math inline">\(Y_i\)</span>’s respectively. That is,
+<span class="math display">\[ F_n(x) := \frac{1}{n} \sum^n_{i=1} I(X_i \leq x)\]</span>
+and
+<span class="math display">\[ G_m(x) := \frac{1}{m} \sum^m_{i=1} I(Y_i \leq x).\]</span></li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="statistical-inference-in-r.html#cb355-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb355-2"><a href="statistical-inference-in-r.html#cb355-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb355-3"><a href="statistical-inference-in-r.html#cb355-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb355-4"><a href="statistical-inference-in-r.html#cb355-4" tabindex="-1"></a><span class="fu">ks.test</span>(x, y)</span>
+<span id="cb355-5"><a href="statistical-inference-in-r.html#cb355-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb355-6"><a href="statistical-inference-in-r.html#cb355-6" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov test</span></span>
+<span id="cb355-7"><a href="statistical-inference-in-r.html#cb355-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb355-8"><a href="statistical-inference-in-r.html#cb355-8" tabindex="-1"></a><span class="do">## data:  x and y</span></span>
+<span id="cb355-9"><a href="statistical-inference-in-r.html#cb355-9" tabindex="-1"></a><span class="do">## D = 0.07, p-value = 0.9671</span></span>
+<span id="cb355-10"><a href="statistical-inference-in-r.html#cb355-10" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is not small. We do not have enough evidence to reject the null hypothesis that the two distributions are the same.</p>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="statistical-inference-in-r.html#cb356-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb356-2"><a href="statistical-inference-in-r.html#cb356-2" tabindex="-1"></a><span class="fu">ks.test</span>(y, z)</span>
+<span id="cb356-3"><a href="statistical-inference-in-r.html#cb356-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb356-4"><a href="statistical-inference-in-r.html#cb356-4" tabindex="-1"></a><span class="do">##  Asymptotic two-sample Kolmogorov-Smirnov test</span></span>
+<span id="cb356-5"><a href="statistical-inference-in-r.html#cb356-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb356-6"><a href="statistical-inference-in-r.html#cb356-6" tabindex="-1"></a><span class="do">## data:  y and z</span></span>
+<span id="cb356-7"><a href="statistical-inference-in-r.html#cb356-7" tabindex="-1"></a><span class="do">## D = 0.77, p-value &lt; 2.2e-16</span></span>
+<span id="cb356-8"><a href="statistical-inference-in-r.html#cb356-8" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is very small. We will reject the null hypothesis that the two distributions are the same.</p>
+<p><strong>Example</strong></p>
+<p>Recall the dataset <code>birthwt</code> from the package MASS. We created the following histograms to visualize the distributions of birth weights for the two groups (smoke and no smoke).</p>
+<p><img src="Book_files/figure-html/unnamed-chunk-379-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>We may want to ask if the two distributions are different</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="statistical-inference-in-r.html#cb357-1" tabindex="-1"></a><span class="fu">ks.test</span>(birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">0</span>], birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb357-2"><a href="statistical-inference-in-r.html#cb357-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb357-3"><a href="statistical-inference-in-r.html#cb357-3" tabindex="-1"></a><span class="do">##  Exact two-sample Kolmogorov-Smirnov test</span></span>
+<span id="cb357-4"><a href="statistical-inference-in-r.html#cb357-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb357-5"><a href="statistical-inference-in-r.html#cb357-5" tabindex="-1"></a><span class="do">## data:  birthwt$bwt[birthwt$smoke == 0] and birthwt$bwt[birthwt$smoke == 1]</span></span>
+<span id="cb357-6"><a href="statistical-inference-in-r.html#cb357-6" tabindex="-1"></a><span class="do">## D = 0.21962, p-value = 0.01915</span></span>
+<span id="cb357-7"><a href="statistical-inference-in-r.html#cb357-7" tabindex="-1"></a><span class="do">## alternative hypothesis: two-sided</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is smaller than <span class="math inline">\(0.05\)</span>. Therefore, we conclude that the difference of the two distributions is statistically significant.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-visualization-with-ggplot2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="root-finding-and-optimization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Book.pdf", "Book.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
