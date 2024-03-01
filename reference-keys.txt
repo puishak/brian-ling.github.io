@@ -146,11 +146,7 @@ polynomial-regression
 stepwise-regression
 best-subset
 logistic-regression-model
-k-means-clustering
-introduction-2
-applications
-cluster-analysis
-image-segementation-and-image-compression
+multinomial-regression-model
 decision-trees
 introduction-to-classification-tree
 introduction-to-regression-tree
@@ -177,6 +173,11 @@ table
 r-code
 graphics
 latex-equation
+k-means-clustering
+introduction-2
+applications
+cluster-analysis
+image-segementation-and-image-compression
 hierarchical-clustering
 dissimilarity-measure-and-linkage
 alogrithm

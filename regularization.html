@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 18 Regularization | STAT 362 R for Data Science</title>
+  <title>Chapter 19 Regularization | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 18 Regularization | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 19 Regularization | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes for STAT 362" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 18 Regularization | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 19 Regularization | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2023-04-02" />
+<meta name="date" content="2024-02-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -351,15 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
-<li class="chapter" data-level="12" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>12</b> k-means Clustering</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
-<li class="chapter" data-level="12.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>12.2</b> Applications</a>
-<ul>
-<li class="chapter" data-level="12.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>12.2.1</b> Cluster Analysis</a></li>
-<li class="chapter" data-level="12.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>12.2.2</b> Image Segementation and Image Compression</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="12" data-path="multinomial-regression-model.html"><a href="multinomial-regression-model.html"><i class="fa fa-check"></i><b>12</b> Multinomial Regression Model</a></li>
 <li class="chapter" data-level="13" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>13</b> Decision Trees</a>
 <ul>
 <li class="chapter" data-level="13.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>13.1</b> Introduction to Classification Tree</a></li>
@@ -400,41 +392,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.7" data-path="r-markdown.html"><a href="r-markdown.html#graphics"><i class="fa fa-check"></i><b>16.7</b> Graphics</a></li>
 <li class="chapter" data-level="16.8" data-path="r-markdown.html"><a href="r-markdown.html#latex-equation"><i class="fa fa-check"></i><b>16.8</b> Latex Equation</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>17</b> Hierarchical Clustering</a>
+<li class="chapter" data-level="17" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>17</b> k-means Clustering</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>17.1</b> Dissimilarity measure and Linkage</a></li>
-<li class="chapter" data-level="17.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>17.2</b> Alogrithm</a></li>
-<li class="chapter" data-level="17.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>17.3</b> Applications</a>
+<li class="chapter" data-level="17.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>17.2</b> Applications</a>
 <ul>
-<li class="chapter" data-level="17.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>17.3.1</b> NCI60 Data</a></li>
+<li class="chapter" data-level="17.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>17.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="17.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>17.2.2</b> Image Segementation and Image Compression</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>18</b> Regularization</a>
+<li class="chapter" data-level="18" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>18</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>18.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="18.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>18.2</b> LASSO</a></li>
-<li class="chapter" data-level="18.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>18.3</b> Selecting the tuning parameter</a></li>
-<li class="chapter" data-level="18.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>18.4</b> <code>glmnet</code></a>
+<li class="chapter" data-level="18.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>18.1</b> Dissimilarity measure and Linkage</a></li>
+<li class="chapter" data-level="18.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>18.2</b> Alogrithm</a></li>
+<li class="chapter" data-level="18.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>18.3</b> Applications</a>
 <ul>
-<li class="chapter" data-level="18.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>18.4.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="18.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>18.4.2</b> LASSO</a></li>
+<li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>19</b> Evaluating Model Performance</a>
+<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>19.1</b> Accuracy and Confusion Matrix</a></li>
-<li class="chapter" data-level="19.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>19.2</b> Other Measures of Performance</a>
+<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
 <ul>
-<li class="chapter" data-level="19.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>19.2.1</b> The kappa statistic</a></li>
-<li class="chapter" data-level="19.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>19.2.2</b> Sensitivity and specificity</a></li>
-<li class="chapter" data-level="19.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>19.2.3</b> Precision and Recall</a></li>
-<li class="chapter" data-level="19.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>19.2.4</b> ROC and AUC</a></li>
+<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="19.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>19.3</b> Estimating future performances</a>
-<ul>
-<li class="chapter" data-level="19.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>19.3.1</b> Cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="19.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>19.4</b> Class Imbalance in Classification</a></li>
+<li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>20.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="20.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>20.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>20.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="20.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>20.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="20.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>20.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="20.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>20.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>20.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -456,8 +457,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regularization" class="section level1 hasAnchor" number="18">
-<h1><span class="header-section-number">Chapter 18</span> Regularization<a href="regularization.html#regularization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="regularization" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">Chapter 19</span> Regularization<a href="regularization.html#regularization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Reference: Ch6 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani.</p>
 <p>An introduction to <code>glmnet</code>: <a href="https://glmnet.stanford.edu/articles/glmnet.html" class="uri">https://glmnet.stanford.edu/articles/glmnet.html</a></p>
 <p>For theory behind the methods, study Statistical Learning I and II (STAT462, STAT457).</p>
@@ -469,8 +470,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Variable selection here means the process of determining which variables to be included in your model. Examples that we have seen before are the forward stepwise regression, backward stepwise regression and the best subset selection.</p></li>
 <li><p>Regularization is not limited to linear regression models (although we describe this idea using linear regression in this chpater). It is a general method that is also used in other methods as well (e.g., logistic regression, deep learning)</p></li>
 </ul>
-<div id="ridge-regression" class="section level2 hasAnchor" number="18.1">
-<h2><span class="header-section-number">18.1</span> Ridge Regression<a href="regularization.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ridge-regression" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">19.1</span> Ridge Regression<a href="regularization.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In linear regression, we minimize
 <span class="math display">\[\begin{equation*}
 \sum^n_{i=1} \bigg( y_i -\beta_0 - \sum^p_{j=1} \beta_j x_{ij} \bigg)^2.
@@ -495,8 +496,8 @@ where <span class="math inline">\(\lambda \geq 0\)</span> is a tuning parameter 
 <li><p>Ridge regression works best in situations where the least squares estimates have high variance</p></li>
 </ul>
 </div>
-<div id="lasso" class="section level2 hasAnchor" number="18.2">
-<h2><span class="header-section-number">18.2</span> LASSO<a href="regularization.html#lasso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lasso" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">19.2</span> LASSO<a href="regularization.html#lasso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The lasso coefficients <span class="math inline">\(\hat{\beta}^L_\lambda\)</span> minimize the quantity</p>
 <p><span class="math display">\[\begin{equation*}
 \sum^n_{i=1} \bigg( y_i -\beta_0 - \sum^p_{j=1} \beta_j x_{ij} \bigg)^2 + \lambda \sum^p_{j=1} |\beta_j|.
@@ -509,8 +510,8 @@ where <span class="math inline">\(\lambda \geq 0\)</span> is a tuning parameter 
 <li><p>A sparse model is a model that only involves a fraction of all the variables. Thus, lasso yields sparse models.</p></li>
 </ul>
 </div>
-<div id="selecting-the-tuning-parameter" class="section level2 hasAnchor" number="18.3">
-<h2><span class="header-section-number">18.3</span> Selecting the tuning parameter<a href="regularization.html#selecting-the-tuning-parameter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="selecting-the-tuning-parameter" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> Selecting the tuning parameter<a href="regularization.html#selecting-the-tuning-parameter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A standard way to choose the tuning parameter <span class="math inline">\(\lambda\)</span> is to use cross-validation.</p>
 <p>Steps:</p>
 <ol style="list-style-type: decimal">
@@ -520,8 +521,8 @@ where <span class="math inline">\(\lambda \geq 0\)</span> is a tuning parameter 
 <li><p>Refit the model using all of the data and the selected value of the tuning parameter</p></li>
 </ol>
 </div>
-<div id="glmnet" class="section level2 hasAnchor" number="18.4">
-<h2><span class="header-section-number">18.4</span> <code>glmnet</code><a href="regularization.html#glmnet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="glmnet" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">19.4</span> <code>glmnet</code><a href="regularization.html#glmnet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To perform ridge regression and the lasso in R, we can use the <code>glmnet</code> package. The main function in this package is <code>glmnet()</code>. In this case of linear regression, <code>glmnet()</code> solves the problem
 <span class="math display">\[\begin{equation*}
 \min_{\beta_0, \beta} \frac{1}{n} \sum^n_{i=1} (y_i - \beta_0 - x^T_i \beta)^2 + \lambda\{
@@ -532,96 +533,98 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <p>The syntax of <code>glmnet()</code> is different from <code>lm()</code> or <code>glm()</code>. In particular, we have to provide the <code>x</code> and <code>y</code> separately in the function.</p>
 <p>In general, a data set may have some categorical variables. We can prepare the data set to be used in <code>glmnet()</code> using <code>model.matrix()</code>.</p>
 <p>The data set contains three factors: <code>League</code>, <code>Division</code>, <code>NewLeague</code>:</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="regularization.html#cb508-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb508-2"><a href="regularization.html#cb508-2" aria-hidden="true" tabindex="-1"></a><span class="co"># first remove rows with missing values</span></span>
-<span id="cb508-3"><a href="regularization.html#cb508-3" aria-hidden="true" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
-<span id="cb508-4"><a href="regularization.html#cb508-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb508-5"><a href="regularization.html#cb508-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Hitters[, <span class="fu">c</span>(<span class="st">&quot;League&quot;</span>, <span class="st">&quot;Division&quot;</span>, <span class="st">&quot;NewLeague&quot;</span>)])</span>
-<span id="cb508-6"><a href="regularization.html#cb508-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                   League Division NewLeague</span></span>
-<span id="cb508-7"><a href="regularization.html#cb508-7" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alan Ashby            N        W         N</span></span>
-<span id="cb508-8"><a href="regularization.html#cb508-8" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alvin Davis           A        W         A</span></span>
-<span id="cb508-9"><a href="regularization.html#cb508-9" aria-hidden="true" tabindex="-1"></a><span class="do">## -Andre Dawson          N        E         N</span></span>
-<span id="cb508-10"><a href="regularization.html#cb508-10" aria-hidden="true" tabindex="-1"></a><span class="do">## -Andres Galarraga      N        E         N</span></span>
-<span id="cb508-11"><a href="regularization.html#cb508-11" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alfredo Griffin       A        W         A</span></span>
-<span id="cb508-12"><a href="regularization.html#cb508-12" aria-hidden="true" tabindex="-1"></a><span class="do">## -Al Newman             N        E         A</span></span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="regularization.html#cb512-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb512-2"><a href="regularization.html#cb512-2" tabindex="-1"></a><span class="co"># first remove rows with missing values</span></span>
+<span id="cb512-3"><a href="regularization.html#cb512-3" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
+<span id="cb512-4"><a href="regularization.html#cb512-4" tabindex="-1"></a></span>
+<span id="cb512-5"><a href="regularization.html#cb512-5" tabindex="-1"></a><span class="fu">head</span>(Hitters[, <span class="fu">c</span>(<span class="st">&quot;League&quot;</span>, <span class="st">&quot;Division&quot;</span>, <span class="st">&quot;NewLeague&quot;</span>)])</span>
+<span id="cb512-6"><a href="regularization.html#cb512-6" tabindex="-1"></a><span class="do">##                   League Division NewLeague</span></span>
+<span id="cb512-7"><a href="regularization.html#cb512-7" tabindex="-1"></a><span class="do">## -Alan Ashby            N        W         N</span></span>
+<span id="cb512-8"><a href="regularization.html#cb512-8" tabindex="-1"></a><span class="do">## -Alvin Davis           A        W         A</span></span>
+<span id="cb512-9"><a href="regularization.html#cb512-9" tabindex="-1"></a><span class="do">## -Andre Dawson          N        E         N</span></span>
+<span id="cb512-10"><a href="regularization.html#cb512-10" tabindex="-1"></a><span class="do">## -Andres Galarraga      N        E         N</span></span>
+<span id="cb512-11"><a href="regularization.html#cb512-11" tabindex="-1"></a><span class="do">## -Alfredo Griffin       A        W         A</span></span>
+<span id="cb512-12"><a href="regularization.html#cb512-12" tabindex="-1"></a><span class="do">## -Al Newman             N        E         A</span></span></code></pre></div>
 <p>Use <code>model.matrix</code> to prepare the data. The first column is the intercept and we remove it when putting into <code>glmnet()</code>.</p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="regularization.html#cb509-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Salary <span class="sc">~</span>., Hitters)[, <span class="sc">-</span><span class="dv">1</span>] </span>
-<span id="cb509-2"><a href="regularization.html#cb509-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Hitters<span class="sc">$</span>Salary</span>
-<span id="cb509-3"><a href="regularization.html#cb509-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb509-4"><a href="regularization.html#cb509-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x[, <span class="fu">c</span>(<span class="st">&quot;LeagueN&quot;</span>, <span class="st">&quot;DivisionW&quot;</span>, <span class="st">&quot;NewLeagueN&quot;</span>)])</span>
-<span id="cb509-5"><a href="regularization.html#cb509-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                   LeagueN DivisionW NewLeagueN</span></span>
-<span id="cb509-6"><a href="regularization.html#cb509-6" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alan Ashby             1         1          1</span></span>
-<span id="cb509-7"><a href="regularization.html#cb509-7" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alvin Davis            0         1          0</span></span>
-<span id="cb509-8"><a href="regularization.html#cb509-8" aria-hidden="true" tabindex="-1"></a><span class="do">## -Andre Dawson           1         0          1</span></span>
-<span id="cb509-9"><a href="regularization.html#cb509-9" aria-hidden="true" tabindex="-1"></a><span class="do">## -Andres Galarraga       1         0          1</span></span>
-<span id="cb509-10"><a href="regularization.html#cb509-10" aria-hidden="true" tabindex="-1"></a><span class="do">## -Alfredo Griffin        0         1          0</span></span>
-<span id="cb509-11"><a href="regularization.html#cb509-11" aria-hidden="true" tabindex="-1"></a><span class="do">## -Al Newman              1         0          0</span></span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="regularization.html#cb513-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Salary <span class="sc">~</span>., Hitters)[, <span class="sc">-</span><span class="dv">1</span>] </span>
+<span id="cb513-2"><a href="regularization.html#cb513-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> Hitters<span class="sc">$</span>Salary</span>
+<span id="cb513-3"><a href="regularization.html#cb513-3" tabindex="-1"></a></span>
+<span id="cb513-4"><a href="regularization.html#cb513-4" tabindex="-1"></a><span class="fu">head</span>(x[, <span class="fu">c</span>(<span class="st">&quot;LeagueN&quot;</span>, <span class="st">&quot;DivisionW&quot;</span>, <span class="st">&quot;NewLeagueN&quot;</span>)])</span>
+<span id="cb513-5"><a href="regularization.html#cb513-5" tabindex="-1"></a><span class="do">##                   LeagueN DivisionW NewLeagueN</span></span>
+<span id="cb513-6"><a href="regularization.html#cb513-6" tabindex="-1"></a><span class="do">## -Alan Ashby             1         1          1</span></span>
+<span id="cb513-7"><a href="regularization.html#cb513-7" tabindex="-1"></a><span class="do">## -Alvin Davis            0         1          0</span></span>
+<span id="cb513-8"><a href="regularization.html#cb513-8" tabindex="-1"></a><span class="do">## -Andre Dawson           1         0          1</span></span>
+<span id="cb513-9"><a href="regularization.html#cb513-9" tabindex="-1"></a><span class="do">## -Andres Galarraga       1         0          1</span></span>
+<span id="cb513-10"><a href="regularization.html#cb513-10" tabindex="-1"></a><span class="do">## -Alfredo Griffin        0         1          0</span></span>
+<span id="cb513-11"><a href="regularization.html#cb513-11" tabindex="-1"></a><span class="do">## -Al Newman              1         0          0</span></span></code></pre></div>
 <p>Generate random indexes to split the data into training and testing data:</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="regularization.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb510-2"><a href="regularization.html#cb510-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x) <span class="sc">*</span> <span class="fl">0.5</span>) <span class="co"># use half of data as training data</span></span></code></pre></div>
-<div id="ridge-regression-1" class="section level3 hasAnchor" number="18.4.1">
-<h3><span class="header-section-number">18.4.1</span> Ridge Regression<a href="regularization.html#ridge-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="regularization.html#cb514-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb514-2"><a href="regularization.html#cb514-2" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x) <span class="sc">*</span> <span class="fl">0.5</span>) <span class="co"># use half of data as training data</span></span></code></pre></div>
+<div id="ridge-regression-1" class="section level3 hasAnchor" number="19.4.1">
+<h3><span class="header-section-number">19.4.1</span> Ridge Regression<a href="regularization.html#ridge-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Perform ridge regression with cross-validation. The default option is <span class="math inline">\(10\)</span>-fold CV. Note that by default, the variables will be scaled automatically in the function.</p>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="regularization.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb511-2"><a href="regularization.html#cb511-2" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb511-3"><a href="regularization.html#cb511-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-594-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="regularization.html#cb515-1" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb515-2"><a href="regularization.html#cb515-2" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb515-3"><a href="regularization.html#cb515-3" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-575-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The above plot shows the cross-validation error (the mean squared error computed using the CV approach) with different values of <span class="math inline">\(\lambda\)</span> in the <span class="math inline">\(\ln\)</span> scale. We can pick the <span class="math inline">\(\lambda\)</span> that results in the smallest cross-validation error using the following code:</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="regularization.html#cb512-1" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> ridge_cv<span class="sc">$</span>lambda.min</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="regularization.html#cb516-1" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> ridge_cv<span class="sc">$</span>lambda.min</span></code></pre></div>
 <p>Fit the ridge regression for the training data set with the “best” lambda and evaluate the test error.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="regularization.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ridge regression with a particular value of lambda</span></span>
-<span id="cb513-2"><a href="regularization.html#cb513-2" aria-hidden="true" tabindex="-1"></a>ridge_best <span class="ot">&lt;-</span>  <span class="fu">glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> best_lambda)</span>
-<span id="cb513-3"><a href="regularization.html#cb513-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb513-4"><a href="regularization.html#cb513-4" aria-hidden="true" tabindex="-1"></a><span class="co"># form predictions</span></span>
-<span id="cb513-5"><a href="regularization.html#cb513-5" aria-hidden="true" tabindex="-1"></a>ridge_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge_best, <span class="at">s =</span> best_lambda, <span class="at">newx =</span> x[<span class="sc">-</span>index, ])</span>
-<span id="cb513-6"><a href="regularization.html#cb513-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb513-7"><a href="regularization.html#cb513-7" aria-hidden="true" tabindex="-1"></a><span class="co"># test error</span></span>
-<span id="cb513-8"><a href="regularization.html#cb513-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb513-9"><a href="regularization.html#cb513-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 82978.09</span></span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="regularization.html#cb517-1" tabindex="-1"></a><span class="co"># ridge regression with a particular value of lambda</span></span>
+<span id="cb517-2"><a href="regularization.html#cb517-2" tabindex="-1"></a>ridge_best <span class="ot">&lt;-</span>  <span class="fu">glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb517-3"><a href="regularization.html#cb517-3" tabindex="-1"></a></span>
+<span id="cb517-4"><a href="regularization.html#cb517-4" tabindex="-1"></a><span class="co"># form predictions</span></span>
+<span id="cb517-5"><a href="regularization.html#cb517-5" tabindex="-1"></a>ridge_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge_best, <span class="at">s =</span> best_lambda, <span class="at">newx =</span> x[<span class="sc">-</span>index, ])</span>
+<span id="cb517-6"><a href="regularization.html#cb517-6" tabindex="-1"></a></span>
+<span id="cb517-7"><a href="regularization.html#cb517-7" tabindex="-1"></a><span class="co"># test error</span></span>
+<span id="cb517-8"><a href="regularization.html#cb517-8" tabindex="-1"></a><span class="fu">mean</span>((ridge_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb517-9"><a href="regularization.html#cb517-9" tabindex="-1"></a><span class="do">## [1] 82978.09</span></span></code></pre></div>
 <p>Coefficients (when the variables are in the original scale):</p>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="regularization.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb514-2"><a href="regularization.html#cb514-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI </span></span>
-<span id="cb514-3"><a href="regularization.html#cb514-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 734.98187060  -0.39771682   0.09856678   1.90816636   1.12520209   1.12817707 </span></span>
-<span id="cb514-4"><a href="regularization.html#cb514-4" aria-hidden="true" tabindex="-1"></a><span class="do">##        Walks        Years       CAtBat        CHits       CHmRun        CRuns </span></span>
-<span id="cb514-5"><a href="regularization.html#cb514-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.84214466  -1.07801226  -0.01043714   0.04680252   0.29728579   0.06784558 </span></span>
-<span id="cb514-6"><a href="regularization.html#cb514-6" aria-hidden="true" tabindex="-1"></a><span class="do">##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists </span></span>
-<span id="cb514-7"><a href="regularization.html#cb514-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.10195270   0.22099398  52.85489693 -87.77696817   0.02659380   0.25831844 </span></span>
-<span id="cb514-8"><a href="regularization.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="do">##       Errors   NewLeagueN </span></span>
-<span id="cb514-9"><a href="regularization.html#cb514-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  -2.60678334 -21.39048354</span></span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="regularization.html#cb518-1" tabindex="-1"></a><span class="fu">predict</span>(ridge_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
+<span id="cb518-2"><a href="regularization.html#cb518-2" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI </span></span>
+<span id="cb518-3"><a href="regularization.html#cb518-3" tabindex="-1"></a><span class="do">## 734.98187060  -0.39771682   0.09856678   1.90816636   1.12520209   1.12817707 </span></span>
+<span id="cb518-4"><a href="regularization.html#cb518-4" tabindex="-1"></a><span class="do">##        Walks        Years       CAtBat        CHits       CHmRun        CRuns </span></span>
+<span id="cb518-5"><a href="regularization.html#cb518-5" tabindex="-1"></a><span class="do">##   1.84214466  -1.07801226  -0.01043714   0.04680252   0.29728579   0.06784558 </span></span>
+<span id="cb518-6"><a href="regularization.html#cb518-6" tabindex="-1"></a><span class="do">##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists </span></span>
+<span id="cb518-7"><a href="regularization.html#cb518-7" tabindex="-1"></a><span class="do">##   0.10195270   0.22099398  52.85489693 -87.77696817   0.02659380   0.25831844 </span></span>
+<span id="cb518-8"><a href="regularization.html#cb518-8" tabindex="-1"></a><span class="do">##       Errors   NewLeagueN </span></span>
+<span id="cb518-9"><a href="regularization.html#cb518-9" tabindex="-1"></a><span class="do">##  -2.60678334 -21.39048354</span></span></code></pre></div>
 <p><strong>Compare with the least squares approach</strong></p>
-<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="regularization.html#cb515-1" aria-hidden="true" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters[index, ])</span>
-<span id="cb515-2"><a href="regularization.html#cb515-2" aria-hidden="true" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters[<span class="sc">-</span>index, ])</span>
-<span id="cb515-3"><a href="regularization.html#cb515-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ls_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb515-4"><a href="regularization.html#cb515-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 93373.95</span></span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="regularization.html#cb519-1" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters[index, ])</span>
+<span id="cb519-2"><a href="regularization.html#cb519-2" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters[<span class="sc">-</span>index, ])</span>
+<span id="cb519-3"><a href="regularization.html#cb519-3" tabindex="-1"></a><span class="fu">mean</span>((ls_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb519-4"><a href="regularization.html#cb519-4" tabindex="-1"></a><span class="do">## [1] 93373.95</span></span></code></pre></div>
 <p>We can see that the test error obtained from ridge regression is smaller.</p>
 </div>
-<div id="lasso-1" class="section level3 hasAnchor" number="18.4.2">
-<h3><span class="header-section-number">18.4.2</span> LASSO<a href="regularization.html#lasso-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="lasso-1" class="section level3 hasAnchor" number="19.4.2">
+<h3><span class="header-section-number">19.4.2</span> LASSO<a href="regularization.html#lasso-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The code to perform LASSO is essentially the same as that in ridge regression. We only need to change the value of <code>alpha</code> to <code>1</code>.</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="regularization.html#cb516-1" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb516-2"><a href="regularization.html#cb516-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb516-3"><a href="regularization.html#cb516-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-599-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="regularization.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the best lambda</span></span>
-<span id="cb517-2"><a href="regularization.html#cb517-2" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
-<span id="cb517-3"><a href="regularization.html#cb517-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb517-4"><a href="regularization.html#cb517-4" aria-hidden="true" tabindex="-1"></a>lasso_best <span class="ot">&lt;-</span>  <span class="fu">glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span>
-<span id="cb517-5"><a href="regularization.html#cb517-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb517-6"><a href="regularization.html#cb517-6" aria-hidden="true" tabindex="-1"></a><span class="co"># form predictions</span></span>
-<span id="cb517-7"><a href="regularization.html#cb517-7" aria-hidden="true" tabindex="-1"></a>lasso_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_best, <span class="at">s =</span> best_lambda, <span class="at">newx =</span> x[<span class="sc">-</span>index, ])</span>
-<span id="cb517-8"><a href="regularization.html#cb517-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb517-9"><a href="regularization.html#cb517-9" aria-hidden="true" tabindex="-1"></a><span class="co"># test error</span></span>
-<span id="cb517-10"><a href="regularization.html#cb517-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((lasso_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb517-11"><a href="regularization.html#cb517-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 85771.99</span></span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="regularization.html#cb520-1" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb520-2"><a href="regularization.html#cb520-2" tabindex="-1"></a></span>
+<span id="cb520-3"><a href="regularization.html#cb520-3" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-580-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="regularization.html#cb521-1" tabindex="-1"></a><span class="co"># find the best lambda</span></span>
+<span id="cb521-2"><a href="regularization.html#cb521-2" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
+<span id="cb521-3"><a href="regularization.html#cb521-3" tabindex="-1"></a></span>
+<span id="cb521-4"><a href="regularization.html#cb521-4" tabindex="-1"></a>lasso_best <span class="ot">&lt;-</span>  <span class="fu">glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> best_lambda)</span>
+<span id="cb521-5"><a href="regularization.html#cb521-5" tabindex="-1"></a></span>
+<span id="cb521-6"><a href="regularization.html#cb521-6" tabindex="-1"></a><span class="co"># form predictions</span></span>
+<span id="cb521-7"><a href="regularization.html#cb521-7" tabindex="-1"></a>lasso_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_best, <span class="at">s =</span> best_lambda, <span class="at">newx =</span> x[<span class="sc">-</span>index, ])</span>
+<span id="cb521-8"><a href="regularization.html#cb521-8" tabindex="-1"></a></span>
+<span id="cb521-9"><a href="regularization.html#cb521-9" tabindex="-1"></a><span class="co"># test error</span></span>
+<span id="cb521-10"><a href="regularization.html#cb521-10" tabindex="-1"></a><span class="fu">mean</span>((lasso_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb521-11"><a href="regularization.html#cb521-11" tabindex="-1"></a><span class="do">## [1] 85771.99</span></span></code></pre></div>
 <p>The test error obtained from lasso is also smaller than that obtained from the least squares approach.</p>
 <p>Coefficients (when the variables are in the original scale):</p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="regularization.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb518-2"><a href="regularization.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)       AtBat        Hits       HmRun        Runs         RBI       Walks </span></span>
-<span id="cb518-3"><a href="regularization.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 820.2506544   0.0000000   0.0000000   0.0000000   0.0000000   0.8252274   0.7905141 </span></span>
-<span id="cb518-4"><a href="regularization.html#cb518-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       Years      CAtBat       CHits      CHmRun       CRuns        CRBI      CWalks </span></span>
-<span id="cb518-5"><a href="regularization.html#cb518-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000   0.0000000   0.0000000   0.1572202   0.0000000   0.0000000   0.3894920 </span></span>
-<span id="cb518-6"><a href="regularization.html#cb518-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     LeagueN   DivisionW     PutOuts     Assists      Errors  NewLeagueN </span></span>
-<span id="cb518-7"><a href="regularization.html#cb518-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.0000000 -59.0032158   0.0000000   0.0000000   0.0000000   0.0000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="regularization.html#cb522-1" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
+<span id="cb522-2"><a href="regularization.html#cb522-2" tabindex="-1"></a><span class="do">## (Intercept)       AtBat        Hits       HmRun        Runs         RBI </span></span>
+<span id="cb522-3"><a href="regularization.html#cb522-3" tabindex="-1"></a><span class="do">## 820.2506544   0.0000000   0.0000000   0.0000000   0.0000000   0.8252274 </span></span>
+<span id="cb522-4"><a href="regularization.html#cb522-4" tabindex="-1"></a><span class="do">##       Walks       Years      CAtBat       CHits      CHmRun       CRuns </span></span>
+<span id="cb522-5"><a href="regularization.html#cb522-5" tabindex="-1"></a><span class="do">##   0.7905141   0.0000000   0.0000000   0.0000000   0.1572202   0.0000000 </span></span>
+<span id="cb522-6"><a href="regularization.html#cb522-6" tabindex="-1"></a><span class="do">##        CRBI      CWalks     LeagueN   DivisionW     PutOuts     Assists </span></span>
+<span id="cb522-7"><a href="regularization.html#cb522-7" tabindex="-1"></a><span class="do">##   0.0000000   0.3894920   0.0000000 -59.0032158   0.0000000   0.0000000 </span></span>
+<span id="cb522-8"><a href="regularization.html#cb522-8" tabindex="-1"></a><span class="do">##      Errors  NewLeagueN </span></span>
+<span id="cb522-9"><a href="regularization.html#cb522-9" tabindex="-1"></a><span class="do">##   0.0000000   0.0000000</span></span></code></pre></div>
 <p>We can see that the lasso results in a model where the coefficient estimates are sparse: <span class="math inline">\(7\)</span> of the estimates are exactly <span class="math inline">\(0\)</span>.</p>
 <p><strong>Variable selection property of LASSO</strong></p>
 <p>In the following toy example, the response is only related to the first five features <span class="math inline">\(X_1,\ldots,X_5\)</span>:
@@ -629,25 +632,27 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 Y_i = 1 + 3(X_{i1} + \ldots +X_{i5}) + \varepsilon_i
 \end{equation*}\]</span>
 We apply LASSO and see that LASSO can select the true model, that is, a linear model that only includes <span class="math inline">\(X_1,\ldots,X_5\)</span>.</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="regularization.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb519-2"><a href="regularization.html#cb519-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">500</span> <span class="sc">*</span> <span class="dv">20</span>), <span class="at">nrow =</span> <span class="dv">500</span>, <span class="at">ncol =</span> <span class="dv">20</span>)</span>
-<span id="cb519-3"><a href="regularization.html#cb519-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="dv">0</span>, <span class="fl">0.1</span>)</span>
-<span id="cb519-4"><a href="regularization.html#cb519-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb519-5"><a href="regularization.html#cb519-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform CV to find the best lambda</span></span>
-<span id="cb519-6"><a href="regularization.html#cb519-6" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb519-7"><a href="regularization.html#cb519-7" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
-<span id="cb519-8"><a href="regularization.html#cb519-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb519-9"><a href="regularization.html#cb519-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Refit the data with the best lambda</span></span>
-<span id="cb519-10"><a href="regularization.html#cb519-10" aria-hidden="true" tabindex="-1"></a>lasso_best <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">lambda =</span> best_lambda, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb519-11"><a href="regularization.html#cb519-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb519-12"><a href="regularization.html#cb519-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated regression coefficients</span></span>
-<span id="cb519-13"><a href="regularization.html#cb519-13" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[, <span class="dv">1</span>]</span>
-<span id="cb519-14"><a href="regularization.html#cb519-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5          V6 </span></span>
-<span id="cb519-15"><a href="regularization.html#cb519-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180    0.000000 </span></span>
-<span id="cb519-16"><a href="regularization.html#cb519-16" aria-hidden="true" tabindex="-1"></a><span class="do">##          V7          V8          V9         V10         V11         V12         V13 </span></span>
-<span id="cb519-17"><a href="regularization.html#cb519-17" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
-<span id="cb519-18"><a href="regularization.html#cb519-18" aria-hidden="true" tabindex="-1"></a><span class="do">##         V14         V15         V16         V17         V18         V19         V20 </span></span>
-<span id="cb519-19"><a href="regularization.html#cb519-19" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="regularization.html#cb523-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb523-2"><a href="regularization.html#cb523-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">500</span> <span class="sc">*</span> <span class="dv">20</span>), <span class="at">nrow =</span> <span class="dv">500</span>, <span class="at">ncol =</span> <span class="dv">20</span>)</span>
+<span id="cb523-3"><a href="regularization.html#cb523-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="dv">0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb523-4"><a href="regularization.html#cb523-4" tabindex="-1"></a></span>
+<span id="cb523-5"><a href="regularization.html#cb523-5" tabindex="-1"></a><span class="co"># Perform CV to find the best lambda</span></span>
+<span id="cb523-6"><a href="regularization.html#cb523-6" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb523-7"><a href="regularization.html#cb523-7" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
+<span id="cb523-8"><a href="regularization.html#cb523-8" tabindex="-1"></a></span>
+<span id="cb523-9"><a href="regularization.html#cb523-9" tabindex="-1"></a><span class="co"># Refit the data with the best lambda</span></span>
+<span id="cb523-10"><a href="regularization.html#cb523-10" tabindex="-1"></a>lasso_best <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">lambda =</span> best_lambda, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb523-11"><a href="regularization.html#cb523-11" tabindex="-1"></a></span>
+<span id="cb523-12"><a href="regularization.html#cb523-12" tabindex="-1"></a><span class="co"># Estimated regression coefficients</span></span>
+<span id="cb523-13"><a href="regularization.html#cb523-13" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[, <span class="dv">1</span>]</span>
+<span id="cb523-14"><a href="regularization.html#cb523-14" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5 </span></span>
+<span id="cb523-15"><a href="regularization.html#cb523-15" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180 </span></span>
+<span id="cb523-16"><a href="regularization.html#cb523-16" tabindex="-1"></a><span class="do">##          V6          V7          V8          V9         V10         V11 </span></span>
+<span id="cb523-17"><a href="regularization.html#cb523-17" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
+<span id="cb523-18"><a href="regularization.html#cb523-18" tabindex="-1"></a><span class="do">##         V12         V13         V14         V15         V16         V17 </span></span>
+<span id="cb523-19"><a href="regularization.html#cb523-19" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
+<span id="cb523-20"><a href="regularization.html#cb523-20" tabindex="-1"></a><span class="do">##         V18         V19         V20 </span></span>
+<span id="cb523-21"><a href="regularization.html#cb523-21" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000</span></span></code></pre></div>
 
 </div>
 </div>
