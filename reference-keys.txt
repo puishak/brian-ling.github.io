@@ -159,10 +159,12 @@ cross-validation
 estimate-test-errors
 model-selection
 bootstrap-optional
-ensemble-methods-and-random-forest
+ensemble-methods
 bagging
 random-forest
 example
+boosting
+example-1
 r-markdown
 basic-formatting
 this-is-a-subsection
