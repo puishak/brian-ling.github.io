@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -609,7 +615,7 @@ The MLE of <span class="math inline">\(\beta\)</span> is obtained by maximizing 
 <span id="cb334-12"><a href="statistical-inference-in-r.html#cb334-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-13"><a href="statistical-inference-in-r.html#cb334-13" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> beta, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
 <span id="cb334-14"><a href="statistical-inference-in-r.html#cb334-14" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> vline_data, <span class="fu">aes</span>(<span class="at">xintercept =</span> mean), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-352-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-369-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>From the above plots, you can see the distributions of your estimators. The true parameters lie in the middle of the distributions. You can also add lines to visualize the mean of the distributions. In this case, the lines actually overlap with lines for the true parameters. Thus, the estimators are essentially unbiased. You can also see that there are times that <span class="math inline">\(\hat{\beta}_0\)</span> can be as large as <span class="math inline">\(1\)</span> or as small as <span class="math inline">\(0.1\)</span> while the true value is <span class="math inline">\(0.5\)</span>.</p>
 <p>You can also use a larger sample size.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="statistical-inference-in-r.html#cb335-1" tabindex="-1"></a><span class="co"># setting</span></span>
@@ -1060,15 +1066,14 @@ From the above formula, you could determine the minimum number of simulations re
 <span id="cb353-3"><a href="statistical-inference-in-r.html#cb353-3" tabindex="-1"></a>no_trial <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>) <span class="co"># corresponding no. of trails in the 3 groups</span></span>
 <span id="cb353-4"><a href="statistical-inference-in-r.html#cb353-4" tabindex="-1"></a><span class="fu">prop.test</span>(no_success, no_trial)</span>
 <span id="cb353-5"><a href="statistical-inference-in-r.html#cb353-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb353-6"><a href="statistical-inference-in-r.html#cb353-6" tabindex="-1"></a><span class="do">##  3-sample test for equality of proportions without continuity</span></span>
-<span id="cb353-7"><a href="statistical-inference-in-r.html#cb353-7" tabindex="-1"></a><span class="do">##  correction</span></span>
-<span id="cb353-8"><a href="statistical-inference-in-r.html#cb353-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb353-9"><a href="statistical-inference-in-r.html#cb353-9" tabindex="-1"></a><span class="do">## data:  no_success out of no_trial</span></span>
-<span id="cb353-10"><a href="statistical-inference-in-r.html#cb353-10" tabindex="-1"></a><span class="do">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
-<span id="cb353-11"><a href="statistical-inference-in-r.html#cb353-11" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
-<span id="cb353-12"><a href="statistical-inference-in-r.html#cb353-12" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb353-13"><a href="statistical-inference-in-r.html#cb353-13" tabindex="-1"></a><span class="do">## prop 1 prop 2 prop 3 </span></span>
-<span id="cb353-14"><a href="statistical-inference-in-r.html#cb353-14" tabindex="-1"></a><span class="do">##   0.48   0.60   0.50</span></span></code></pre></div>
+<span id="cb353-6"><a href="statistical-inference-in-r.html#cb353-6" tabindex="-1"></a><span class="do">##  3-sample test for equality of proportions without continuity correction</span></span>
+<span id="cb353-7"><a href="statistical-inference-in-r.html#cb353-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb353-8"><a href="statistical-inference-in-r.html#cb353-8" tabindex="-1"></a><span class="do">## data:  no_success out of no_trial</span></span>
+<span id="cb353-9"><a href="statistical-inference-in-r.html#cb353-9" tabindex="-1"></a><span class="do">## X-squared = 3.3161, df = 2, p-value = 0.1905</span></span>
+<span id="cb353-10"><a href="statistical-inference-in-r.html#cb353-10" tabindex="-1"></a><span class="do">## alternative hypothesis: two.sided</span></span>
+<span id="cb353-11"><a href="statistical-inference-in-r.html#cb353-11" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb353-12"><a href="statistical-inference-in-r.html#cb353-12" tabindex="-1"></a><span class="do">## prop 1 prop 2 prop 3 </span></span>
+<span id="cb353-13"><a href="statistical-inference-in-r.html#cb353-13" tabindex="-1"></a><span class="do">##   0.48   0.60   0.50</span></span></code></pre></div>
 <p><span class="math inline">\(p\)</span>-value is <span class="math inline">\(&gt; 0.05\)</span>. We do not reject the null hypothesis that the three groups have the same proportion of success.</p>
 <p><strong>Example</strong></p>
 <p>In a class of <span class="math inline">\(38\)</span> students, <span class="math inline">\(14\)</span> of them got <span class="math inline">\(A\)</span>. In another class of <span class="math inline">\(40\)</span> students, only <span class="math inline">\(10\)</span> got <span class="math inline">\(A\)</span>. We want to know if the difference between the two proportions is statistically significant.</p>
@@ -1126,7 +1131,7 @@ and
 <p>The <span class="math inline">\(p\)</span>-value is very small. We will reject the null hypothesis that the two distributions are the same.</p>
 <p><strong>Example</strong></p>
 <p>Recall the dataset <code>birthwt</code> from the package MASS. We created the following histograms to visualize the distributions of birth weights for the two groups (smoke and no smoke).</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-379-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-396-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We may want to ask if the two distributions are different</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="statistical-inference-in-r.html#cb357-1" tabindex="-1"></a><span class="fu">ks.test</span>(birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">0</span>], birthwt<span class="sc">$</span>bwt[birthwt<span class="sc">$</span>smoke <span class="sc">==</span> <span class="dv">1</span>])</span>
 <span id="cb357-2"><a href="statistical-inference-in-r.html#cb357-2" tabindex="-1"></a><span class="do">## </span></span>

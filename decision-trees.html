@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -507,11 +513,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="decision-trees.html#cb437-1" tabindex="-1"></a><span class="co"># we only want to plot the numeric features</span></span>
 <span id="cb437-2"><a href="decision-trees.html#cb437-2" tabindex="-1"></a><span class="co"># the 5th column is the species of the flowers</span></span>
 <span id="cb437-3"><a href="decision-trees.html#cb437-3" tabindex="-1"></a><span class="fu">pairs</span>(iris_train[, <span class="sc">-</span><span class="dv">5</span>])</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-475-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-492-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>With <code>ggpairs()</code>, you can also visualize an additional category by specifying <code>color =</code> with your variable describing the category.</p>
 <div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="decision-trees.html#cb438-1" tabindex="-1"></a><span class="fu">library</span>(GGally) <span class="co"># to use ggpairs, install it first if you haven&#39;t done so</span></span>
 <span id="cb438-2"><a href="decision-trees.html#cb438-2" tabindex="-1"></a><span class="fu">ggpairs</span>(<span class="at">data =</span> iris_train, <span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">alpha =</span> <span class="fl">0.8</span>), <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-476-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-493-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>In the above code:</p>
 <ul>
 <li><code>columns = 1:4</code> tells the function only uses the first <span class="math inline">\(4\)</span> columns of the dataset for plotting.</li>
@@ -521,14 +527,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From the plots, it seems that the variable <code>Petal.Width</code> and <code>Petal.Length</code> will be useful in classifying the flowers. Let’s focus on the scatterplot of these two variables.</p>
 <div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="decision-trees.html#cb439-1" tabindex="-1"></a><span class="fu">ggplot</span>(iris_train, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Width, <span class="at">y =</span> Petal.Length, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
 <span id="cb439-2"><a href="decision-trees.html#cb439-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-477-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-494-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>From the above plot, we see that we can easily classify the flowers with high accuracy using these two features. For example, if we draw the horizontal line <span class="math inline">\(y = 1.9\)</span>, we could classify any iris lying on or below this line as setosa with <span class="math inline">\(100\%\)</span> accuracy.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-478-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-495-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Next, we draw the vertical line <span class="math inline">\(x = 1.7\)</span>. We could classify any iris lying on or to the left of this line as versicolor.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-479-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-496-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We get a pretty good classification with only 3 mistakes.</p>
 <p>The above classification is an example of classification trees (because the outcome is categorical) and can be visualized as</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-481-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-498-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="introduction-to-regression-tree" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Introduction to regression tree<a href="decision-trees.html#introduction-to-regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -641,7 +647,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Plot the tree:</p>
 <div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="decision-trees.html#cb443-1" tabindex="-1"></a><span class="fu">plot</span>(tree_iris)</span>
 <span id="cb443-2"><a href="decision-trees.html#cb443-2" tabindex="-1"></a><span class="fu">text</span>(tree_iris, <span class="at">pretty =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-487-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-504-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prediction and accuracy:</p>
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="decision-trees.html#cb444-1" tabindex="-1"></a><span class="co"># prediction</span></span>
 <span id="cb444-2"><a href="decision-trees.html#cb444-2" tabindex="-1"></a>predict_iris <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree_iris, iris[<span class="sc">-</span>index, ], <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
@@ -692,7 +698,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Visualize the classification rules using tree:</p>
 <div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="decision-trees.html#cb447-1" tabindex="-1"></a><span class="fu">plot</span>(fit)</span>
 <span id="cb447-2"><a href="decision-trees.html#cb447-2" tabindex="-1"></a><span class="fu">text</span>(fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-491-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-508-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regression-tree" class="section level3 hasAnchor" number="13.4.2">
 <h3><span class="header-section-number">13.4.2</span> Regression Tree<a href="decision-trees.html#regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -706,7 +712,7 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <p>Tree without pruning</p>
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="decision-trees.html#cb449-1" tabindex="-1"></a><span class="fu">plot</span>(reg_tree)</span>
 <span id="cb449-2"><a href="decision-trees.html#cb449-2" tabindex="-1"></a><span class="fu">text</span>(reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-493-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-510-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

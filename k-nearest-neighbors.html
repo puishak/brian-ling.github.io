@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -477,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The predicted class for <span class="math inline">\(x^*\)</span> is determined by the majority vote of the <span class="math inline">\(k\)</span> training data in Step 2.</li>
 </ol>
 <p>The idea before the algorithm is simple. We expect that observations with similar features should have the same class label. In the following figure, we have some labeled data. Suppose the black dot is our new data without label, which group will you assign this data to? A natural choice is to assign the black dot to group A because the <span class="math inline">\(5\)</span> nearest neighbors are all in group A. This is the idea of <span class="math inline">\(k\)</span>-nearest neighbors algorithm.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-407-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-424-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Remark:</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>We can use the <span class="math inline">\(k\)</span>-NN algorithm for regression. In that case, <span class="math inline">\(y_i\)</span> is the numeric response. The corresponding algorithm replaces the majority vote by the mean of the responses in the <span class="math inline">\(k\)</span> nearest training data.</p></li>
@@ -556,22 +562,17 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="k-nearest-neighbors.html#cb379-1" tabindex="-1"></a>wbcd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;.../wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
 <p>Variables:</p>
 <div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="k-nearest-neighbors.html#cb380-1" tabindex="-1"></a><span class="fu">names</span>(wbcd)</span>
-<span id="cb380-2"><a href="k-nearest-neighbors.html#cb380-2" tabindex="-1"></a><span class="do">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;              </span></span>
-<span id="cb380-3"><a href="k-nearest-neighbors.html#cb380-3" tabindex="-1"></a><span class="do">##  [3] &quot;radius_mean&quot;             &quot;texture_mean&quot;           </span></span>
-<span id="cb380-4"><a href="k-nearest-neighbors.html#cb380-4" tabindex="-1"></a><span class="do">##  [5] &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
-<span id="cb380-5"><a href="k-nearest-neighbors.html#cb380-5" tabindex="-1"></a><span class="do">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;       </span></span>
-<span id="cb380-6"><a href="k-nearest-neighbors.html#cb380-6" tabindex="-1"></a><span class="do">##  [9] &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;    </span></span>
-<span id="cb380-7"><a href="k-nearest-neighbors.html#cb380-7" tabindex="-1"></a><span class="do">## [11] &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
-<span id="cb380-8"><a href="k-nearest-neighbors.html#cb380-8" tabindex="-1"></a><span class="do">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;             </span></span>
-<span id="cb380-9"><a href="k-nearest-neighbors.html#cb380-9" tabindex="-1"></a><span class="do">## [15] &quot;perimeter_se&quot;            &quot;area_se&quot;                </span></span>
-<span id="cb380-10"><a href="k-nearest-neighbors.html#cb380-10" tabindex="-1"></a><span class="do">## [17] &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
-<span id="cb380-11"><a href="k-nearest-neighbors.html#cb380-11" tabindex="-1"></a><span class="do">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;      </span></span>
-<span id="cb380-12"><a href="k-nearest-neighbors.html#cb380-12" tabindex="-1"></a><span class="do">## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;   </span></span>
-<span id="cb380-13"><a href="k-nearest-neighbors.html#cb380-13" tabindex="-1"></a><span class="do">## [23] &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
-<span id="cb380-14"><a href="k-nearest-neighbors.html#cb380-14" tabindex="-1"></a><span class="do">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;             </span></span>
-<span id="cb380-15"><a href="k-nearest-neighbors.html#cb380-15" tabindex="-1"></a><span class="do">## [27] &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      </span></span>
-<span id="cb380-16"><a href="k-nearest-neighbors.html#cb380-16" tabindex="-1"></a><span class="do">## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
-<span id="cb380-17"><a href="k-nearest-neighbors.html#cb380-17" tabindex="-1"></a><span class="do">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
+<span id="cb380-2"><a href="k-nearest-neighbors.html#cb380-2" tabindex="-1"></a><span class="do">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;               &quot;radius_mean&quot;            </span></span>
+<span id="cb380-3"><a href="k-nearest-neighbors.html#cb380-3" tabindex="-1"></a><span class="do">##  [4] &quot;texture_mean&quot;            &quot;perimeter_mean&quot;          &quot;area_mean&quot;              </span></span>
+<span id="cb380-4"><a href="k-nearest-neighbors.html#cb380-4" tabindex="-1"></a><span class="do">##  [7] &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;        &quot;concavity_mean&quot;         </span></span>
+<span id="cb380-5"><a href="k-nearest-neighbors.html#cb380-5" tabindex="-1"></a><span class="do">## [10] &quot;concave.points_mean&quot;     &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
+<span id="cb380-6"><a href="k-nearest-neighbors.html#cb380-6" tabindex="-1"></a><span class="do">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;              &quot;perimeter_se&quot;           </span></span>
+<span id="cb380-7"><a href="k-nearest-neighbors.html#cb380-7" tabindex="-1"></a><span class="do">## [16] &quot;area_se&quot;                 &quot;smoothness_se&quot;           &quot;compactness_se&quot;         </span></span>
+<span id="cb380-8"><a href="k-nearest-neighbors.html#cb380-8" tabindex="-1"></a><span class="do">## [19] &quot;concavity_se&quot;            &quot;concave.points_se&quot;       &quot;symmetry_se&quot;            </span></span>
+<span id="cb380-9"><a href="k-nearest-neighbors.html#cb380-9" tabindex="-1"></a><span class="do">## [22] &quot;fractal_dimension_se&quot;    &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
+<span id="cb380-10"><a href="k-nearest-neighbors.html#cb380-10" tabindex="-1"></a><span class="do">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;              &quot;smoothness_worst&quot;       </span></span>
+<span id="cb380-11"><a href="k-nearest-neighbors.html#cb380-11" tabindex="-1"></a><span class="do">## [28] &quot;compactness_worst&quot;       &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
+<span id="cb380-12"><a href="k-nearest-neighbors.html#cb380-12" tabindex="-1"></a><span class="do">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
 <p><strong>Creating Training and Testing Datasets</strong></p>
 <p>The first column is <code>id</code>, which should not be included in the classification. The second column is <code>diagnosis</code>. <code>B</code> means benign and <code>M</code> means malignant. In short, the meaning of malignant is cancerous and the meaning of benign is non-cancerous. We will separate the labels from the features. To evaluate the model performance, we always split our full dataset into a training dataset and a testing daatset.</p>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="k-nearest-neighbors.html#cb381-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>

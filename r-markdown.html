@@ -23,14 +23,14 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ensemble-methods-and-random-forest.html"/>
+<link rel="prev" href="ensemble-methods.html"/>
 <link rel="next" href="k-means-clustering.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -581,22 +587,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">16.6</span> R code<a href="r-markdown.html#r-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two ways: inline and code chunk.</p>
 <p>Code Chunk:</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="r-markdown.html#cb480-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb480-2"><a href="r-markdown.html#cb480-2" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
-<span id="cb480-3"><a href="r-markdown.html#cb480-3" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span>
-<span id="cb480-4"><a href="r-markdown.html#cb480-4" tabindex="-1"></a></span>
-<span id="cb480-5"><a href="r-markdown.html#cb480-5" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
-<span id="cb480-6"><a href="r-markdown.html#cb480-6" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span>
-<span id="cb480-7"><a href="r-markdown.html#cb480-7" tabindex="-1"></a></span>
-<span id="cb480-8"><a href="r-markdown.html#cb480-8" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
-<span id="cb480-9"><a href="r-markdown.html#cb480-9" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="r-markdown.html#cb484-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb484-2"><a href="r-markdown.html#cb484-2" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
+<span id="cb484-3"><a href="r-markdown.html#cb484-3" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span>
+<span id="cb484-4"><a href="r-markdown.html#cb484-4" tabindex="-1"></a></span>
+<span id="cb484-5"><a href="r-markdown.html#cb484-5" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
+<span id="cb484-6"><a href="r-markdown.html#cb484-6" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span>
+<span id="cb484-7"><a href="r-markdown.html#cb484-7" tabindex="-1"></a></span>
+<span id="cb484-8"><a href="r-markdown.html#cb484-8" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
+<span id="cb484-9"><a href="r-markdown.html#cb484-9" tabindex="-1"></a><span class="do">## [1] 2.44949</span></span></code></pre></div>
 <p>Inline: The square root of <code>x</code> is 2.4494897.</p>
 <p><strong>Controlling Which Code and Results Are Shown</strong></p>
 <p>See: <a href="https://rc2e.com/rmarkdown#recipe-code-results" class="uri">https://rc2e.com/rmarkdown#recipe-code-results</a></p>
 </div>
 <div id="graphics" class="section level2 hasAnchor" number="16.7">
 <h2><span class="header-section-number">16.7</span> Graphics<a href="r-markdown.html#graphics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><img src="Book_files/figure-html/unnamed-chunk-525-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-544-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="latex-equation" class="section level2 hasAnchor" number="16.8">
 <h2><span class="header-section-number">16.8</span> Latex Equation<a href="r-markdown.html#latex-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -615,7 +621,7 @@ x + 2 = 4
           </div>
         </div>
       </div>
-<a href="ensemble-methods-and-random-forest.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ensemble-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="k-means-clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

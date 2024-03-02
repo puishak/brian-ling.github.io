@@ -4,19 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 19 Ensemble Methods | STAT 362 R for Data Science</title>
+  <title>Chapter 15 Ensemble Methods | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 19 Ensemble Methods | STAT 362 R for Data Science" />
+  <meta property="og:title" content="Chapter 15 Ensemble Methods | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Notes for STAT 362" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Ensemble Methods | STAT 362 R for Data Science" />
+  <meta name="twitter:title" content="Chapter 15 Ensemble Methods | STAT 362 R for Data Science" />
   
   <meta name="twitter:description" content="Notes for STAT 362" />
   
@@ -24,15 +23,15 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2022-04-05" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="decision-trees.html"/>
-<link rel="next" href="deep-learning.html"/>
+<link rel="prev" href="resampling-methods.html"/>
+<link rel="next" href="r-markdown.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,25 +49,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -88,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -138,232 +136,314 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R for Data Science</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#syllabus">Syllabus<span></span></a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.2</b> What will you learn in this course?<span></span></a><ul>
-<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.2.1</b> R and R as a programming language<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.2.2</b> Data Wrangling<span></span></a></li>
-<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.2.3</b> Data Visualization<span></span></a></li>
-<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.2.4</b> Statistical Inference<span></span></a></li>
-<li class="chapter" data-level="1.2.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.2.5</b> Machine Learning<span></span></a></li>
-<li class="chapter" data-level="1.2.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.2.6</b> Some Numerical Methods<span></span></a></li>
-<li class="chapter" data-level="1.2.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.2.7</b> Lastly<span></span></a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> What is R and RStudio?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#what-will-you-learn-in-this-course"><i class="fa fa-check"></i><b>1.3</b> What will you learn in this course?</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction.html"><a href="introduction.html#r-and-r-as-a-programming-language"><i class="fa fa-check"></i><b>1.3.1</b> R and R as a programming language</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.3</b> Let’s Get Started<span></span></a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.4</b> R Data Structures<span></span></a><ul>
-<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.4.1</b> Vectors<span></span></a></li>
-<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.4.2</b> Factors<span></span></a></li>
-<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.4.3</b> Matrix<span></span></a></li>
-<li class="chapter" data-level="1.4.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.4.4</b> Lists<span></span></a></li>
-<li class="chapter" data-level="1.4.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.4.5</b> Data frames<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#r-data-structures"><i class="fa fa-check"></i><b>1.5</b> R Data Structures</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectors"><i class="fa fa-check"></i><b>1.5.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction.html"><a href="introduction.html#factors"><i class="fa fa-check"></i><b>1.5.2</b> Factors</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introduction.html"><a href="introduction.html#matrix"><i class="fa fa-check"></i><b>1.5.3</b> Matrix</a></li>
+<li class="chapter" data-level="1.5.4" data-path="introduction.html"><a href="introduction.html#lists"><i class="fa fa-check"></i><b>1.5.4</b> Lists</a></li>
+<li class="chapter" data-level="1.5.5" data-path="introduction.html"><a href="introduction.html#data-frames"><i class="fa fa-check"></i><b>1.5.5</b> Data frames</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.5</b> Operators<span></span></a><ul>
-<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.5.1</b> Vectorized Operators<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#operators"><i class="fa fa-check"></i><b>1.6</b> Operators</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#vectorized-operators"><i class="fa fa-check"></i><b>1.6.1</b> Vectorized Operators</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.6</b> Built-in Functions<span></span></a><ul>
-<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.6.1</b> <code>sort()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.6.2</b> <code>seq()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.6.3</b> <code>rep()</code><span></span></a></li>
-<li class="chapter" data-level="1.6.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.6.4</b> <code>pmax</code>, <code>pmin</code><span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#built-in-functions"><i class="fa fa-check"></i><b>1.7</b> Built-in Functions</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="introduction.html"><a href="introduction.html#sort"><i class="fa fa-check"></i><b>1.7.1</b> <code>sort()</code></a></li>
+<li class="chapter" data-level="1.7.2" data-path="introduction.html"><a href="introduction.html#seq"><i class="fa fa-check"></i><b>1.7.2</b> <code>seq()</code></a></li>
+<li class="chapter" data-level="1.7.3" data-path="introduction.html"><a href="introduction.html#rep"><i class="fa fa-check"></i><b>1.7.3</b> <code>rep()</code></a></li>
+<li class="chapter" data-level="1.7.4" data-path="introduction.html"><a href="introduction.html#pmax-pmin"><i class="fa fa-check"></i><b>1.7.4</b> <code>pmax</code>, <code>pmin</code></a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.7</b> Some Useful RStudio Shortcuts<span></span></a></li>
-<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.8</b> Exercises<span></span></a></li>
-<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.9</b> Comments to Exercises<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#some-useful-rstudio-shortcuts"><i class="fa fa-check"></i><b>1.8</b> Some Useful RStudio Shortcuts</a></li>
+<li class="chapter" data-level="1.9" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+<li class="chapter" data-level="1.10" data-path="introduction.html"><a href="introduction.html#comments-to-exercises"><i class="fa fa-check"></i><b>1.10</b> Comments to Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>2</b> Probability<span></span></a><ul>
-<li class="chapter" data-level="2.1" data-path="probability.html"><a href="probability.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions<span></span></a><ul>
-<li class="chapter" data-level="2.1.1" data-path="probability.html"><a href="probability.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="probability.html"><a href="probability.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html"><i class="fa fa-check"></i><b>2</b> Probability and Simulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Probability Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#common-distributions"><i class="fa fa-check"></i><b>2.1.1</b> Common Distributions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="probability.html"><a href="probability.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R<span></span></a><ul>
-<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow<span></span></a><ul>
-<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop<span></span></a></li>
-<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.2</b> while loop<span></span></a></li>
-<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.3</b> if (cond)<span></span></a></li>
-<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.4</b> if (cond) else expr<span></span></a></li>
-<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.5</b> If else ladder<span></span></a></li>
+<li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#writing-functions-in-r"><i class="fa fa-check"></i><b>3.1</b> Writing functions in R</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="programming-in-r.html"><a href="programming-in-r.html#argument-matching"><i class="fa fa-check"></i><b>3.1.1</b> Argument Matching</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.3</b> Automatically Reindent Code<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.4</b> Speed Consideration<span></span></a></li>
-<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.5</b> Another Simulation Example<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#control-flow"><i class="fa fa-check"></i><b>3.2</b> Control Flow</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="programming-in-r.html"><a href="programming-in-r.html#for-loop"><i class="fa fa-check"></i><b>3.2.1</b> for loop</a></li>
+<li class="chapter" data-level="3.2.2" data-path="programming-in-r.html"><a href="programming-in-r.html#nested-for-loop"><i class="fa fa-check"></i><b>3.2.2</b> nested for loop</a></li>
+<li class="chapter" data-level="3.2.3" data-path="programming-in-r.html"><a href="programming-in-r.html#while-loop"><i class="fa fa-check"></i><b>3.2.3</b> while loop</a></li>
+<li class="chapter" data-level="3.2.4" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond"><i class="fa fa-check"></i><b>3.2.4</b> if (cond)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="programming-in-r.html"><a href="programming-in-r.html#if-cond-else-expr"><i class="fa fa-check"></i><b>3.2.5</b> if (cond) else expr</a></li>
+<li class="chapter" data-level="3.2.6" data-path="programming-in-r.html"><a href="programming-in-r.html#if-else-ladder"><i class="fa fa-check"></i><b>3.2.6</b> If else ladder</a></li>
+<li class="chapter" data-level="3.2.7" data-path="programming-in-r.html"><a href="programming-in-r.html#switch"><i class="fa fa-check"></i><b>3.2.7</b> <code>switch</code></a></li>
+<li class="chapter" data-level="3.2.8" data-path="programming-in-r.html"><a href="programming-in-r.html#next-break"><i class="fa fa-check"></i><b>3.2.8</b> <code>next</code>, <code>break</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>4</b> Creating Some Basic Plots<span></span></a><ul>
-<li class="chapter" data-level="4.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>4.1</b> Scatter Plot<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>4.2</b> Line Graph<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>4.3</b> Bar Chart<span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>4.4</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>4.5</b> Box Plot<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>4.6</b> Plotting a function curve<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>4.7</b> More on plots with base R<span></span></a><ul>
-<li class="chapter" data-level="4.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>4.7.1</b> Multi-frame plot<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>4.7.2</b> Type of Plot<span></span></a></li>
-<li class="chapter" data-level="4.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>4.7.3</b> Parameters of a plot<span></span></a></li>
-<li class="chapter" data-level="4.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>4.7.4</b> Elements on plot<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="programming-in-r.html"><a href="programming-in-r.html#loop-functions"><i class="fa fa-check"></i><b>3.3</b> Loop functions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="programming-in-r.html"><a href="programming-in-r.html#apply"><i class="fa fa-check"></i><b>3.3.1</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="programming-in-r.html"><a href="programming-in-r.html#lapply"><i class="fa fa-check"></i><b>3.3.2</b> <code>lapply()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#summary-of-ggplot"><i class="fa fa-check"></i><b>4.8</b> Summary of <code>ggplot</code><span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
+<li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>5</b> Managing Data with R<span></span></a><ul>
-<li class="chapter" data-level="5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>5.1</b> Missing Values<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>5.2</b> Saving, loading, and removing R data structures<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>5.3</b> Importing and saving data from CSV files<span></span></a></li>
+<li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#missing-values"><i class="fa fa-check"></i><b>4.1</b> Missing Values</a></li>
+<li class="chapter" data-level="4.2" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#saving-loading-and-removing-r-data-structures"><i class="fa fa-check"></i><b>4.2</b> Saving, loading, and removing R data structures</a></li>
+<li class="chapter" data-level="4.3" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#importing-and-saving-data-from-csv-files"><i class="fa fa-check"></i><b>4.3</b> Importing and saving data from CSV files</a></li>
+<li class="chapter" data-level="4.4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#data-transformation-with-dplyr"><i class="fa fa-check"></i><b>4.4</b> Data Transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="4.5" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#arrange"><i class="fa fa-check"></i><b>4.5</b> <code>arrange()</code></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-2"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html"><i class="fa fa-check"></i><b>6</b> Review (Chapter 1-5)<span></span></a><ul>
-<li class="chapter" data-level="6.1" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#simulation-1"><i class="fa fa-check"></i><b>6.1</b> Simulation<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#matrix-1"><i class="fa fa-check"></i><b>6.2</b> Matrix<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#basic-operation"><i class="fa fa-check"></i><b>6.3</b> Basic Operation<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="review-chapter-1-5.html"><a href="review-chapter-1-5.html#some-basic-plots-in-r"><i class="fa fa-check"></i><b>6.4</b> Some basic plots in R<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#filter"><i class="fa fa-check"></i><b>4.6</b> <code>filter()</code></a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-3"><i class="fa fa-check"></i><b>4.6.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>7</b> Data Transformation with <code>dplyr</code><span></span></a><ul>
-<li class="chapter" data-level="7.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#introduction-1"><i class="fa fa-check"></i><b>7.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.2</b> <code>arrange()</code><span></span></a><ul>
-<li class="chapter" data-level="7.2.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-2"><i class="fa fa-check"></i><b>7.2.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#select"><i class="fa fa-check"></i><b>4.7</b> <code>select()</code></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-4"><i class="fa fa-check"></i><b>4.7.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>7.3</b> <code>filter()</code><span></span></a><ul>
-<li class="chapter" data-level="7.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-3"><i class="fa fa-check"></i><b>7.3.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#mutate"><i class="fa fa-check"></i><b>4.8</b> <code>mutate()</code></a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#exercises-5"><i class="fa fa-check"></i><b>4.8.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#select"><i class="fa fa-check"></i><b>7.4</b> <code>select()</code><span></span></a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-4"><i class="fa fa-check"></i><b>7.4.1</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="4.9" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summarize-group_by"><i class="fa fa-check"></i><b>4.9</b> <code>summarize(), group_by()</code></a></li>
+<li class="chapter" data-level="4.10" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>4.10</b> Combining Multiple Operations with Pipe <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.11" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html#summary"><i class="fa fa-check"></i><b>4.11</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5</b> <code>mutate()</code><span></span></a><ul>
-<li class="chapter" data-level="7.5.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#exercises-5"><i class="fa fa-check"></i><b>7.5.1</b> Exercises<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summarize-group_by"><i class="fa fa-check"></i><b>7.6</b> <code>summarize(), group_by()</code><span></span></a></li>
-<li class="chapter" data-level="7.7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#combining-multiple-operations-with-pipe"><i class="fa fa-check"></i><b>7.7</b> Combining Multiple Operations with Pipe <code>%&gt;%</code><span></span></a></li>
-<li class="chapter" data-level="7.8" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summary"><i class="fa fa-check"></i><b>7.8</b> Summary<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2<span></span></a><ul>
-<li class="chapter" data-level="8.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>8.1</b> Bar charts<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>8.2</b> Line Graph<span></span></a></li>
-<li class="chapter" data-level="8.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>8.3</b> Scatter Plots<span></span></a><ul>
-<li class="chapter" data-level="8.3.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>8.3.1</b> Overplotting<span></span></a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>8.3.2</b> Labelling points in a scatter plot<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>8.4</b> Summarizing Data Distributions<span></span></a><ul>
-<li class="chapter" data-level="8.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>8.4.1</b> Histogram<span></span></a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>8.4.2</b> Kernel Density Estimate<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>8.5</b> Saving your plots<span></span></a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>8.5.1</b> Outputting to pdf vector files<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>8.5.2</b> Outputting to bitmap files<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>8.6</b> Summary<span></span></a><ul>
-<li class="chapter" data-level="8.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#combining-multiple-operations-with-pipe-1"><i class="fa fa-check"></i><b>8.6.1</b> Combining multiple operations with pipe <code>%&gt;%</code><span></span></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>8.6.2</b> Bar charts<span></span></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>8.6.3</b> Line graphs<span></span></a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>8.6.4</b> Scatter plot<span></span></a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>8.6.5</b> Summarizing data distributions<span></span></a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>8.6.6</b> Saving your plots<span></span></a></li>
+<li class="chapter" data-level="5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html"><i class="fa fa-check"></i><b>5</b> Creating Some Basic Plots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#scatter-plot"><i class="fa fa-check"></i><b>5.1</b> Scatter Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#line-graph"><i class="fa fa-check"></i><b>5.2</b> Line Graph</a></li>
+<li class="chapter" data-level="5.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#bar-chart"><i class="fa fa-check"></i><b>5.3</b> Bar Chart</a></li>
+<li class="chapter" data-level="5.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#histogram"><i class="fa fa-check"></i><b>5.4</b> Histogram</a></li>
+<li class="chapter" data-level="5.5" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#box-plot"><i class="fa fa-check"></i><b>5.5</b> Box Plot</a></li>
+<li class="chapter" data-level="5.6" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#plotting-a-function-curve"><i class="fa fa-check"></i><b>5.6</b> Plotting a function curve</a></li>
+<li class="chapter" data-level="5.7" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#more-on-plots-with-base-r"><i class="fa fa-check"></i><b>5.7</b> More on plots with base R</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#multi-frame-plot"><i class="fa fa-check"></i><b>5.7.1</b> Multi-frame plot</a></li>
+<li class="chapter" data-level="5.7.2" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#subsubsec:type_of_plot"><i class="fa fa-check"></i><b>5.7.2</b> Type of Plot</a></li>
+<li class="chapter" data-level="5.7.3" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#parameters-of-a-plot"><i class="fa fa-check"></i><b>5.7.3</b> Parameters of a plot</a></li>
+<li class="chapter" data-level="5.7.4" data-path="creating-some-basic-plots.html"><a href="creating-some-basic-plots.html#elements-on-plot"><i class="fa fa-check"></i><b>5.7.4</b> Elements on plot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>9</b> Statistical Inference in R<span></span></a><ul>
-<li class="chapter" data-level="9.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>9.1</b> Maximum Likelihood Estimation<span></span></a><ul>
-<li class="chapter" data-level="9.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>9.1.1</b> Exercises on MLE<span></span></a></li>
-<li class="chapter" data-level="9.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>9.1.2</b> Summary<span></span></a></li>
+<li class="chapter" data-level="6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data Visualization with ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts"><i class="fa fa-check"></i><b>6.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graph-1"><i class="fa fa-check"></i><b>6.2</b> Line Graph</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.3</b> Scatter Plots</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#overplotting"><i class="fa fa-check"></i><b>6.3.1</b> Overplotting</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#labelling-points-in-a-scatter-plot"><i class="fa fa-check"></i><b>6.3.2</b> Labelling points in a scatter plot</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Interval Estimation and Hypothesis Testing<span></span></a><ul>
-<li class="chapter" data-level="9.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>9.2.1</b> Examples of Hypothesis Testing<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>9.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values<span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>9.2.3</b> Type I error and Type II error<span></span></a></li>
-<li class="chapter" data-level="9.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>9.2.4</b> Inference for Mean of One Sample<span></span></a></li>
-<li class="chapter" data-level="9.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>9.2.5</b> Comparing the means of two samples<span></span></a></li>
-<li class="chapter" data-level="9.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>9.2.6</b> Inference of a Sample Proportion<span></span></a></li>
-<li class="chapter" data-level="9.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>9.2.7</b> Testing groups for equal proportions<span></span></a></li>
-<li class="chapter" data-level="9.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>9.2.8</b> Testing if two samples have the same underlying distribution<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions"><i class="fa fa-check"></i><b>6.4</b> Summarizing Data Distributions</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histogram-1"><i class="fa fa-check"></i><b>6.4.1</b> Histogram</a></li>
+<li class="chapter" data-level="6.4.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#kernel-density-estimate"><i class="fa fa-check"></i><b>6.4.2</b> Kernel Density Estimate</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots"><i class="fa fa-check"></i><b>6.5</b> Saving your plots</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-pdf-vector-files"><i class="fa fa-check"></i><b>6.5.1</b> Outputting to pdf vector files</a></li>
+<li class="chapter" data-level="6.5.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#outputting-to-bitmap-files"><i class="fa fa-check"></i><b>6.5.2</b> Outputting to bitmap files</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>10</b> Root finding and optimization<span></span></a><ul>
-<li class="chapter" data-level="10.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>10.1</b> Root Finding<span></span></a><ul>
-<li class="chapter" data-level="10.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>10.1.1</b> Bisection Method<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance"><i class="fa fa-check"></i><b>6.6</b> Axes, appearance</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#swapping-x--and-y-axes"><i class="fa fa-check"></i><b>6.6.1</b> Swapping X- and Y-axes</a></li>
+<li class="chapter" data-level="6.6.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#setting-the-range-of-a-continuous-axis"><i class="fa fa-check"></i><b>6.6.2</b> Setting the range of a continuous axis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#changing-the-text-of-axis-labels"><i class="fa fa-check"></i><b>6.6.3</b> Changing the text of axis labels</a></li>
+<li class="chapter" data-level="6.6.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-title"><i class="fa fa-check"></i><b>6.6.4</b> Adding Title</a></li>
+<li class="chapter" data-level="6.6.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#adding-subtitle"><i class="fa fa-check"></i><b>6.6.5</b> Adding Subtitle</a></li>
+<li class="chapter" data-level="6.6.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#using-themes"><i class="fa fa-check"></i><b>6.6.6</b> Using Themes</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>10.2</b> Newton-Raphson Method<span></span></a></li>
-<li class="chapter" data-level="10.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>10.3</b> Minimization and Maximization<span></span></a><ul>
-<li class="chapter" data-level="10.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>10.3.1</b> Newton-Raphson Method<span></span></a></li>
-<li class="chapter" data-level="10.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>10.3.2</b> Gradient Descent<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>10.4</b> <code>optim</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>11</b> k-nearest neighbors<span></span></a><ul>
-<li class="chapter" data-level="11.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-2"><i class="fa fa-check"></i><b>11.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>11.2</b> Feature Scaling<span></span></a></li>
-<li class="chapter" data-level="11.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>11.3</b> Example: Classifying Breast Cancers<span></span></a><ul>
-<li class="chapter" data-level="11.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>11.3.1</b> Evaluating Model Performance<span></span></a></li>
-<li class="chapter" data-level="11.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>11.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization<span></span></a></li>
-<li class="chapter" data-level="11.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>11.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span><span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models<span></span></a><ul>
-<li class="chapter" data-level="12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>12.1</b> Simple Linear Regression<span></span></a></li>
-<li class="chapter" data-level="12.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>12.2</b> Smoothed Conditional Means<span></span></a></li>
-<li class="chapter" data-level="12.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>12.3</b> Multiple Linear Regression<span></span></a></li>
-<li class="chapter" data-level="12.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>12.4</b> Example: <code>diamonds</code><span></span></a></li>
-<li class="chapter" data-level="12.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>12.5</b> Categorical Predictors<span></span></a></li>
-<li class="chapter" data-level="12.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>12.6</b> Compare models using ANOVA<span></span></a></li>
-<li class="chapter" data-level="12.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>12.7</b> Prediction<span></span></a></li>
-<li class="chapter" data-level="12.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>12.8</b> Interaction Terms<span></span></a></li>
-<li class="chapter" data-level="12.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>12.9</b> Variable Transformation<span></span></a></li>
-<li class="chapter" data-level="12.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>12.10</b> Polynomial Regression<span></span></a></li>
-<li class="chapter" data-level="12.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>12.11</b> Stepwise regression<span></span></a></li>
-<li class="chapter" data-level="12.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>12.12</b> Best subset<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression Model<span></span></a></li>
-<li class="chapter" data-level="14" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>14</b> k-means Clustering<span></span></a><ul>
-<li class="chapter" data-level="14.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-3"><i class="fa fa-check"></i><b>14.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="14.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>14.2</b> Applications<span></span></a><ul>
-<li class="chapter" data-level="14.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>14.2.1</b> Cluster Analysis<span></span></a></li>
-<li class="chapter" data-level="14.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>14.2.2</b> Image Segementation and Image Compression<span></span></a></li>
+<li class="chapter" data-level="6.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summary-1"><i class="fa fa-check"></i><b>6.7</b> Summary</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#bar-charts-1"><i class="fa fa-check"></i><b>6.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="6.7.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#line-graphs"><i class="fa fa-check"></i><b>6.7.2</b> Line graphs</a></li>
+<li class="chapter" data-level="6.7.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#scatter-plot-1"><i class="fa fa-check"></i><b>6.7.3</b> Scatter plot</a></li>
+<li class="chapter" data-level="6.7.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#summarizing-data-distributions-1"><i class="fa fa-check"></i><b>6.7.4</b> Summarizing data distributions</a></li>
+<li class="chapter" data-level="6.7.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#saving-your-plots-1"><i class="fa fa-check"></i><b>6.7.5</b> Saving your plots</a></li>
+<li class="chapter" data-level="6.7.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#axes-appearance-1"><i class="fa fa-check"></i><b>6.7.6</b> Axes, appearance</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>15</b> Hierarchical Clustering<span></span></a><ul>
-<li class="chapter" data-level="15.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>15.1</b> Dissimilarity measure and Linkage<span></span></a></li>
-<li class="chapter" data-level="15.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>15.2</b> Alogrithm<span></span></a></li>
-<li class="chapter" data-level="15.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>15.3</b> Applications<span></span></a><ul>
-<li class="chapter" data-level="15.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>15.3.1</b> NCI60 Data<span></span></a></li>
+<li class="chapter" data-level="7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html"><i class="fa fa-check"></i><b>7</b> Statistical Inference in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>7.1</b> Maximum Likelihood Estimation</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#exercises-on-mle"><i class="fa fa-check"></i><b>7.1.1</b> Exercises on MLE</a></li>
+<li class="chapter" data-level="7.1.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#summary-2"><i class="fa fa-check"></i><b>7.1.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#interval-estimation-and-hypothesis-testing"><i class="fa fa-check"></i><b>7.2</b> Interval Estimation and Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#examples-of-hypothesis-testing"><i class="fa fa-check"></i><b>7.2.1</b> Examples of Hypothesis Testing</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#null-hypotheses-alternative-hypotheses-and-p-values"><i class="fa fa-check"></i><b>7.2.2</b> Null Hypotheses, Alternative Hypotheses, and p-values</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#type-i-error-and-type-ii-error"><i class="fa fa-check"></i><b>7.2.3</b> Type I error and Type II error</a></li>
+<li class="chapter" data-level="7.2.4" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-for-mean-of-one-sample"><i class="fa fa-check"></i><b>7.2.4</b> Inference for Mean of One Sample</a></li>
+<li class="chapter" data-level="7.2.5" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#comparing-the-means-of-two-samples"><i class="fa fa-check"></i><b>7.2.5</b> Comparing the means of two samples</a></li>
+<li class="chapter" data-level="7.2.6" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#inference-of-a-sample-proportion"><i class="fa fa-check"></i><b>7.2.6</b> Inference of a Sample Proportion</a></li>
+<li class="chapter" data-level="7.2.7" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-groups-for-equal-proportions"><i class="fa fa-check"></i><b>7.2.7</b> Testing groups for equal proportions</a></li>
+<li class="chapter" data-level="7.2.8" data-path="statistical-inference-in-r.html"><a href="statistical-inference-in-r.html#testing-if-two-samples-have-the-same-underlying-distribution"><i class="fa fa-check"></i><b>7.2.8</b> Testing if two samples have the same underlying distribution</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>16</b> Resampling Methods<span></span></a><ul>
-<li class="chapter" data-level="16.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>16.1</b> Cross-validation<span></span></a><ul>
-<li class="chapter" data-level="16.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cv-in-glm"><i class="fa fa-check"></i><b>16.1.1</b> CV in GLM<span></span></a></li>
-<li class="chapter" data-level="16.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#general-implementation"><i class="fa fa-check"></i><b>16.1.2</b> General Implementation<span></span></a></li>
+<li class="chapter" data-level="8" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html"><i class="fa fa-check"></i><b>8</b> Root finding and optimization</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#root-finding"><i class="fa fa-check"></i><b>8.1</b> Root Finding</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#bisection-method"><i class="fa fa-check"></i><b>8.1.1</b> Bisection Method</a></li>
 </ul></li>
-<li class="chapter" data-level="16.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap"><i class="fa fa-check"></i><b>16.2</b> Bootstrap<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method"><i class="fa fa-check"></i><b>8.2</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#minimization-and-maximization"><i class="fa fa-check"></i><b>8.3</b> Minimization and Maximization</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#newton-raphson-method-1"><i class="fa fa-check"></i><b>8.3.1</b> Newton-Raphson Method</a></li>
+<li class="chapter" data-level="8.3.2" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#gradient-descent"><i class="fa fa-check"></i><b>8.3.2</b> Gradient Descent</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>17</b> Regularization<span></span></a><ul>
-<li class="chapter" data-level="17.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>17.1</b> Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="17.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>17.2</b> LASSO<span></span></a></li>
-<li class="chapter" data-level="17.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>17.3</b> Selecting the tuning parameter<span></span></a></li>
-<li class="chapter" data-level="17.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>17.4</b> <code>glmnet</code><span></span></a><ul>
-<li class="chapter" data-level="17.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>17.4.1</b> Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="17.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>17.4.2</b> LASSO<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="root-finding-and-optimization.html"><a href="root-finding-and-optimization.html#optim"><i class="fa fa-check"></i><b>8.4</b> <code>optim</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html"><i class="fa fa-check"></i><b>9</b> k-nearest neighbors</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#feature-scaling"><i class="fa fa-check"></i><b>9.2</b> Feature Scaling</a></li>
+<li class="chapter" data-level="9.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#example-classifying-breast-cancers"><i class="fa fa-check"></i><b>9.3</b> Example: Classifying Breast Cancers</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#evaluating-model-performance"><i class="fa fa-check"></i><b>9.3.1</b> Evaluating Model Performance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#using-z-score-standardization"><i class="fa fa-check"></i><b>9.3.2</b> Using <span class="math inline">\(z\)</span>-score standardization</a></li>
+<li class="chapter" data-level="9.3.3" data-path="k-nearest-neighbors.html"><a href="k-nearest-neighbors.html#testing-alternative-values-of-k"><i class="fa fa-check"></i><b>9.3.3</b> Testing alternative values of <span class="math inline">\(k\)</span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>18</b> Decision Trees<span></span></a><ul>
-<li class="chapter" data-level="18.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>18.1</b> Introduction to Classification Tree<span></span></a></li>
-<li class="chapter" data-level="18.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>18.2</b> Introduction to regression tree<span></span></a></li>
-<li class="chapter" data-level="18.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>18.3</b> Mathematical Formulation<span></span></a></li>
-<li class="chapter" data-level="18.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>18.4</b> Examples<span></span></a><ul>
-<li class="chapter" data-level="18.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>18.4.1</b> Classification Tree<span></span></a></li>
-<li class="chapter" data-level="18.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>18.4.2</b> Regression Tree<span></span></a></li>
+<li class="chapter" data-level="10" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#smoothed-conditional-means"><i class="fa fa-check"></i><b>10.2</b> Smoothed Conditional Means</a></li>
+<li class="chapter" data-level="10.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#example-diamonds"><i class="fa fa-check"></i><b>10.4</b> Example: <code>diamonds</code></a></li>
+<li class="chapter" data-level="10.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#categorical-predictors"><i class="fa fa-check"></i><b>10.5</b> Categorical Predictors</a></li>
+<li class="chapter" data-level="10.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#compare-models-using-anova"><i class="fa fa-check"></i><b>10.6</b> Compare models using ANOVA</a></li>
+<li class="chapter" data-level="10.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#prediction"><i class="fa fa-check"></i><b>10.7</b> Prediction</a></li>
+<li class="chapter" data-level="10.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>10.8</b> Interaction Terms</a></li>
+<li class="chapter" data-level="10.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variable-transformation"><i class="fa fa-check"></i><b>10.9</b> Variable Transformation</a></li>
+<li class="chapter" data-level="10.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#polynomial-regression"><i class="fa fa-check"></i><b>10.10</b> Polynomial Regression</a></li>
+<li class="chapter" data-level="10.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#stepwise-regression"><i class="fa fa-check"></i><b>10.11</b> Stepwise regression</a></li>
+<li class="chapter" data-level="10.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#best-subset"><i class="fa fa-check"></i><b>10.12</b> Best subset</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="logistic-regression-model.html"><a href="logistic-regression-model.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="12" data-path="multinomial-regression-model.html"><a href="multinomial-regression-model.html"><i class="fa fa-check"></i><b>12</b> Multinomial Regression Model</a></li>
+<li class="chapter" data-level="13" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>13</b> Decision Trees</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-classification-tree"><i class="fa fa-check"></i><b>13.1</b> Introduction to Classification Tree</a></li>
+<li class="chapter" data-level="13.2" data-path="decision-trees.html"><a href="decision-trees.html#introduction-to-regression-tree"><i class="fa fa-check"></i><b>13.2</b> Introduction to regression tree</a></li>
+<li class="chapter" data-level="13.3" data-path="decision-trees.html"><a href="decision-trees.html#mathematical-formulation"><i class="fa fa-check"></i><b>13.3</b> Mathematical Formulation</a></li>
+<li class="chapter" data-level="13.4" data-path="decision-trees.html"><a href="decision-trees.html#examples"><i class="fa fa-check"></i><b>13.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="decision-trees.html"><a href="decision-trees.html#classification-tree"><i class="fa fa-check"></i><b>13.4.1</b> Classification Tree</a></li>
+<li class="chapter" data-level="13.4.2" data-path="decision-trees.html"><a href="decision-trees.html#regression-tree"><i class="fa fa-check"></i><b>13.4.2</b> Regression Tree</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>19</b> Ensemble Methods<span></span></a><ul>
-<li class="chapter" data-level="19.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>19.1</b> Bagging<span></span></a></li>
-<li class="chapter" data-level="19.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>19.2</b> Random Forest<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>19.3</b> Example<span></span></a></li>
+<li class="chapter" data-level="14" data-path="resampling-methods.html"><a href="resampling-methods.html"><i class="fa fa-check"></i><b>14</b> Resampling Methods</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="resampling-methods.html"><a href="resampling-methods.html#cross-validation"><i class="fa fa-check"></i><b>14.1</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="resampling-methods.html"><a href="resampling-methods.html#estimate-test-errors"><i class="fa fa-check"></i><b>14.1.1</b> Estimate Test Errors</a></li>
+<li class="chapter" data-level="14.1.2" data-path="resampling-methods.html"><a href="resampling-methods.html#model-selection"><i class="fa fa-check"></i><b>14.1.2</b> Model Selection</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>20</b> Deep Learning<span></span></a><ul>
-<li class="chapter" data-level="20.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-4"><i class="fa fa-check"></i><b>20.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="20.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>20.2</b> Single Layer Neural Netowrks<span></span></a></li>
-<li class="chapter" data-level="20.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>20.3</b> Multilayer Neural Networks<span></span></a></li>
-<li class="chapter" data-level="20.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>20.4</b> Examples<span></span></a><ul>
-<li class="chapter" data-level="20.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>20.4.1</b> MNIST<span></span></a></li>
-<li class="chapter" data-level="20.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>20.4.2</b> Encoding the data<span></span></a></li>
-<li class="chapter" data-level="20.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>20.4.3</b> Implementation<span></span></a></li>
-<li class="chapter" data-level="20.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>20.4.4</b> Multilayer Neural Network<span></span></a></li>
+<li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="r-markdown.html"><a href="r-markdown.html#basic-formatting"><i class="fa fa-check"></i><b>16.1</b> Basic formatting</a></li>
+<li class="chapter" data-level="16.2" data-path="r-markdown.html"><a href="r-markdown.html#this-is-a-subsection"><i class="fa fa-check"></i><b>16.2</b> This is a subsection</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="r-markdown.html"><a href="r-markdown.html#this-is-a-subsubsection"><i class="fa fa-check"></i><b>16.2.1</b> This is a subsubsection</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="r-markdown.html"><a href="r-markdown.html#formatting-text"><i class="fa fa-check"></i><b>16.3</b> Formatting Text</a></li>
+<li class="chapter" data-level="16.4" data-path="r-markdown.html"><a href="r-markdown.html#list"><i class="fa fa-check"></i><b>16.4</b> List</a></li>
+<li class="chapter" data-level="16.5" data-path="r-markdown.html"><a href="r-markdown.html#table"><i class="fa fa-check"></i><b>16.5</b> Table</a></li>
+<li class="chapter" data-level="16.6" data-path="r-markdown.html"><a href="r-markdown.html#r-code"><i class="fa fa-check"></i><b>16.6</b> R code</a></li>
+<li class="chapter" data-level="16.7" data-path="r-markdown.html"><a href="r-markdown.html#graphics"><i class="fa fa-check"></i><b>16.7</b> Graphics</a></li>
+<li class="chapter" data-level="16.8" data-path="r-markdown.html"><a href="r-markdown.html#latex-equation"><i class="fa fa-check"></i><b>16.8</b> Latex Equation</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>17</b> k-means Clustering</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#introduction-2"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#applications"><i class="fa fa-check"></i><b>17.2</b> Applications</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#cluster-analysis"><i class="fa fa-check"></i><b>17.2.1</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="17.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#image-segementation-and-image-compression"><i class="fa fa-check"></i><b>17.2.2</b> Image Segementation and Image Compression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>18</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#dissimilarity-measure-and-linkage"><i class="fa fa-check"></i><b>18.1</b> Dissimilarity measure and Linkage</a></li>
+<li class="chapter" data-level="18.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#alogrithm"><i class="fa fa-check"></i><b>18.2</b> Alogrithm</a></li>
+<li class="chapter" data-level="18.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#applications-1"><i class="fa fa-check"></i><b>18.3</b> Applications</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix"><i class="fa fa-check"></i><b>20.1</b> Accuracy and Confusion Matrix</a></li>
+<li class="chapter" data-level="20.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#other-measures-of-performance"><i class="fa fa-check"></i><b>20.2</b> Other Measures of Performance</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#the-kappa-statistic"><i class="fa fa-check"></i><b>20.2.1</b> The kappa statistic</a></li>
+<li class="chapter" data-level="20.2.2" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>20.2.2</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="20.2.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#precision-and-recall"><i class="fa fa-check"></i><b>20.2.3</b> Precision and Recall</a></li>
+<li class="chapter" data-level="20.2.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#roc-and-auc"><i class="fa fa-check"></i><b>20.2.4</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#estimating-future-performances"><i class="fa fa-check"></i><b>20.3</b> Estimating future performances</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -385,24 +465,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ensemble-methods" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 19</span> Ensemble Methods<a href="ensemble-methods.html#ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Reference: Ch8 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani. For more details, study STAT457/ 462.</p>
+<div id="ensemble-methods" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Ensemble Methods<a href="ensemble-methods.html#ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Reference: Ch8 in An introduction to Statistical Learning with applications in R by James, Witten, Hastie and Tibshirani. For more details, study STAT457/ 462.</p>
 <p>Package used:</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="ensemble-methods.html#cb488-1"></a><span class="kw">library</span>(ISLR2)</span>
-<span id="cb488-2"><a href="ensemble-methods.html#cb488-2"></a><span class="kw">library</span>(randomForest)</span>
-<span id="cb488-3"><a href="ensemble-methods.html#cb488-3"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb488-4"><a href="ensemble-methods.html#cb488-4"></a><span class="kw">library</span>(tree)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="ensemble-methods.html#cb466-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb466-2"><a href="ensemble-methods.html#cb466-2" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb466-3"><a href="ensemble-methods.html#cb466-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb466-4"><a href="ensemble-methods.html#cb466-4" tabindex="-1"></a><span class="fu">library</span>(tree)</span></code></pre></div>
 <ul>
 <li><p>Ensemble methods involve pooling together the predictions of a set of many models.</p></li>
-<li><p>In this chapter, we illustrate this idea by pooling together many decision trees, resulting in a method called <strong>random forest</strong>.</p></li>
+<li><p>In this chapter, we illustrate this idea by pooling together many decision trees, resulting in a method called <strong>random forest</strong>. Another powerful technique is called <strong>boosting</strong>.</p></li>
 <li><p>However, it is important to note that ensemble method is a generally method that can be applied not only to tree-based methods but virtually any models. For example, you can combine the predictions from a neural network and a random forest. In fact, many of the winners of the machine-learning competitions on Kaggle use very large ensembles of models.</p></li>
 </ul>
 <p><strong>Remark</strong>: of course, to get a good performance, the weights used to combine the models should be optimized on the validation data.</p>
 <p>The main idea of ensemble methods is to combine models that are as good as possible while being as <strong>different</strong> as possible.</p>
 <p>Analogy: combining experts from different fields to solve a difficult problem is usually more effective than one single expert or a group of experts in the same field.</p>
-<div id="bagging" class="section level2 hasAnchor">
-<h2><span class="header-section-number">19.1</span> Bagging<a href="ensemble-methods.html#bagging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bagging" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Bagging<a href="ensemble-methods.html#bagging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Bagging = Bootstrap aggregation</p>
 <ul>
 <li>a general-purpose procedure for reducing the variance of a statistical learning method</li>
@@ -419,8 +499,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{equation*}\]</span></p></li>
 </ol>
 </div>
-<div id="random-forest" class="section level2 hasAnchor">
-<h2><span class="header-section-number">19.2</span> Random Forest<a href="ensemble-methods.html#random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="random-forest" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Random Forest<a href="ensemble-methods.html#random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Bagging decision trees uses the same model and variables repeatedly. Thus, the models lack diversity. In fact, the bagged trees are highly correlated. To improve the prediction accuracy, we want to combine trees that are “different”.</p>
 <p>Random forest includes a small tweak that decorrelates the trees used in the ensemble.</p>
 <p>Ideas of random forest:</p>
@@ -431,43 +511,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In this way, the correlation between the predictions from the trees will be reduced because each tree is built using only a subset of predictors at each split.</p>
 <p>Remark: when <span class="math inline">\(m = p\)</span>, random forest is the same as bagging decision tree.</p>
-</div>
-<div id="example" class="section level2 hasAnchor">
-<h2><span class="header-section-number">19.3</span> Example<a href="ensemble-methods.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We will use the <code>Hitters</code> dataset from <code>ISLR2</code> to illustrate how to perform random forest with the function <code>randomForest()</code> in the package <code>randomForest</code>.</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="ensemble-methods.html#cb489-1"></a>Hitters &lt;-<span class="st"> </span><span class="kw">na.omit</span>(Hitters)</span>
-<span id="cb489-2"><a href="ensemble-methods.html#cb489-2"></a></span>
-<span id="cb489-3"><a href="ensemble-methods.html#cb489-3"></a><span class="co"># split the dataset</span></span>
-<span id="cb489-4"><a href="ensemble-methods.html#cb489-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb489-5"><a href="ensemble-methods.html#cb489-5"></a>index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(Hitters), <span class="kw">nrow</span>(Hitters) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)</span>
-<span id="cb489-6"><a href="ensemble-methods.html#cb489-6"></a>Hitters_train &lt;-<span class="st"> </span>Hitters[index, ]</span>
-<span id="cb489-7"><a href="ensemble-methods.html#cb489-7"></a>Hitters_test &lt;-<span class="st"> </span>Hitters[<span class="op">-</span>index, ]</span></code></pre></div>
+<div id="example" class="section level3 hasAnchor" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Example<a href="ensemble-methods.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will use the <code>Hitters</code> dataset from the package <code>ISLR2</code> to illustrate how to perform random forest with the function <code>randomForest()</code> in the package <code>randomForest</code>.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="ensemble-methods.html#cb467-1" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
+<span id="cb467-2"><a href="ensemble-methods.html#cb467-2" tabindex="-1"></a></span>
+<span id="cb467-3"><a href="ensemble-methods.html#cb467-3" tabindex="-1"></a><span class="co"># split the dataset</span></span>
+<span id="cb467-4"><a href="ensemble-methods.html#cb467-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb467-5"><a href="ensemble-methods.html#cb467-5" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Hitters), <span class="fu">nrow</span>(Hitters) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb467-6"><a href="ensemble-methods.html#cb467-6" tabindex="-1"></a>Hitters_train <span class="ot">&lt;-</span> Hitters[index, ]</span>
+<span id="cb467-7"><a href="ensemble-methods.html#cb467-7" tabindex="-1"></a>Hitters_test <span class="ot">&lt;-</span> Hitters[<span class="sc">-</span>index, ]</span></code></pre></div>
 <p>Fitting a random forest:</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="ensemble-methods.html#cb490-1"></a>rf_fit &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Salary <span class="op">~</span>., <span class="dt">data =</span> Hitters_train, </span>
-<span id="cb490-2"><a href="ensemble-methods.html#cb490-2"></a>                       <span class="dt">mtry =</span> (<span class="kw">ncol</span>(Hitters_train) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">ntree =</span> <span class="dv">1000</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="ensemble-methods.html#cb468-1" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train, </span>
+<span id="cb468-2"><a href="ensemble-methods.html#cb468-2" tabindex="-1"></a>                       <span class="at">mtry =</span> (<span class="fu">ncol</span>(Hitters_train) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span> <span class="dv">3</span>, <span class="at">ntree =</span> <span class="dv">1000</span>, <span class="at">importance =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Two important parameters:</p>
 <p><code>mtry</code>: Number of variables randomly sampled as candidates at each split. The default values for classification and regression are <span class="math inline">\(\sqrt{p}\)</span> and <span class="math inline">\(p/3\)</span>, respectively.</p>
 <p><code>ntree</code>: Number of trees to grow. The default is <span class="math inline">\(500\)</span>. More trees will require more time.</p>
 <p>Prediction:</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="ensemble-methods.html#cb491-1"></a>rf_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rf_fit, Hitters_test)</span>
-<span id="cb491-2"><a href="ensemble-methods.html#cb491-2"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>rf_pred)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb491-3"><a href="ensemble-methods.html#cb491-3"></a><span class="co">## [1] 62219.41</span></span></code></pre></div>
-<p>Compared with least squares:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="ensemble-methods.html#cb492-1"></a>ls_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Salary <span class="op">~</span>., <span class="dt">data =</span> Hitters_train)</span>
-<span id="cb492-2"><a href="ensemble-methods.html#cb492-2"></a>ls_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ls_fit, Hitters_test)</span>
-<span id="cb492-3"><a href="ensemble-methods.html#cb492-3"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>ls_pred)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb492-4"><a href="ensemble-methods.html#cb492-4"></a><span class="co">## [1] 93373.95</span></span></code></pre></div>
-<p>Compared with one tree:</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="ensemble-methods.html#cb493-1"></a><span class="co"># Fit regression tree</span></span>
-<span id="cb493-2"><a href="ensemble-methods.html#cb493-2"></a>tree_fit &lt;-<span class="st"> </span><span class="kw">tree</span>(Salary <span class="op">~</span>., Hitters_train)</span>
-<span id="cb493-3"><a href="ensemble-methods.html#cb493-3"></a></span>
-<span id="cb493-4"><a href="ensemble-methods.html#cb493-4"></a><span class="co"># MSE in test data</span></span>
-<span id="cb493-5"><a href="ensemble-methods.html#cb493-5"></a>tree_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(tree_fit, Hitters_test)</span>
-<span id="cb493-6"><a href="ensemble-methods.html#cb493-6"></a><span class="kw">mean</span>((Hitters_test<span class="op">$</span>Salary <span class="op">-</span><span class="st"> </span>tree_pred)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb493-7"><a href="ensemble-methods.html#cb493-7"></a><span class="co">## [1] 83073.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="ensemble-methods.html#cb469-1" tabindex="-1"></a><span class="co"># Obtain prediction on test data</span></span>
+<span id="cb469-2"><a href="ensemble-methods.html#cb469-2" tabindex="-1"></a>rf_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit, Hitters_test)</span>
+<span id="cb469-3"><a href="ensemble-methods.html#cb469-3" tabindex="-1"></a></span>
+<span id="cb469-4"><a href="ensemble-methods.html#cb469-4" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
+<span id="cb469-5"><a href="ensemble-methods.html#cb469-5" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> rf_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb469-6"><a href="ensemble-methods.html#cb469-6" tabindex="-1"></a><span class="do">## [1] 62219.41</span></span></code></pre></div>
+<p>Compared with a multiple linear regression model:</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="ensemble-methods.html#cb470-1" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
+<span id="cb470-2"><a href="ensemble-methods.html#cb470-2" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train)</span>
+<span id="cb470-3"><a href="ensemble-methods.html#cb470-3" tabindex="-1"></a></span>
+<span id="cb470-4"><a href="ensemble-methods.html#cb470-4" tabindex="-1"></a><span class="co"># Obtain prediction on test data</span></span>
+<span id="cb470-5"><a href="ensemble-methods.html#cb470-5" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters_test)</span>
+<span id="cb470-6"><a href="ensemble-methods.html#cb470-6" tabindex="-1"></a></span>
+<span id="cb470-7"><a href="ensemble-methods.html#cb470-7" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
+<span id="cb470-8"><a href="ensemble-methods.html#cb470-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> ls_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb470-9"><a href="ensemble-methods.html#cb470-9" tabindex="-1"></a><span class="do">## [1] 93373.95</span></span></code></pre></div>
+<p>Compared with a single regression tree:</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="ensemble-methods.html#cb471-1" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
+<span id="cb471-2"><a href="ensemble-methods.html#cb471-2" tabindex="-1"></a>tree_fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>., Hitters_train)</span>
+<span id="cb471-3"><a href="ensemble-methods.html#cb471-3" tabindex="-1"></a></span>
+<span id="cb471-4"><a href="ensemble-methods.html#cb471-4" tabindex="-1"></a><span class="co"># Obtain prediction on test data</span></span>
+<span id="cb471-5"><a href="ensemble-methods.html#cb471-5" tabindex="-1"></a>tree_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree_fit, Hitters_test)</span>
+<span id="cb471-6"><a href="ensemble-methods.html#cb471-6" tabindex="-1"></a></span>
+<span id="cb471-7"><a href="ensemble-methods.html#cb471-7" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
+<span id="cb471-8"><a href="ensemble-methods.html#cb471-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> tree_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb471-9"><a href="ensemble-methods.html#cb471-9" tabindex="-1"></a><span class="do">## [1] 83073.2</span></span></code></pre></div>
 <p>A plot showing the predictions by different methods and the corresponding observed values.</p>
 <pre><code>## [1] FALSE</code></pre>
-<p><img src="Book_files/figure-html/unnamed-chunk-567-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-537-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Several observations:</p>
 <ul>
 <li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
@@ -476,33 +565,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>Variable Importance Plot</strong></p>
 <p>Random forest typically improves the accuracy over predictions using a single tree. However, it can be difficult to interpret the resulting model, losing the advantage of using a decision tree.</p>
-<p>On the other hand, one can still obtain an overall summary of the importance of each feature using the RSS (for regression problems) or the Gini index (for classification problems). Basically, we can record the total amount that the measure (RSS or Gini index) decreases due to splits over a given predictor, averaged over all <span class="math inline">\(B\)</span> trees. A large value indicates an important predictor. This importance measure is given in the second column of <code>importance(rf_fit)</code>.</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="ensemble-methods.html#cb495-1"></a><span class="kw">importance</span>(rf_fit)</span>
-<span id="cb495-2"><a href="ensemble-methods.html#cb495-2"></a><span class="co">##               %IncMSE IncNodePurity</span></span>
-<span id="cb495-3"><a href="ensemble-methods.html#cb495-3"></a><span class="co">## AtBat      3.35182212     524974.45</span></span>
-<span id="cb495-4"><a href="ensemble-methods.html#cb495-4"></a><span class="co">## Hits       1.13094383     611669.31</span></span>
-<span id="cb495-5"><a href="ensemble-methods.html#cb495-5"></a><span class="co">## HmRun      2.85844392     631697.80</span></span>
-<span id="cb495-6"><a href="ensemble-methods.html#cb495-6"></a><span class="co">## Runs       2.65375662     712993.07</span></span>
-<span id="cb495-7"><a href="ensemble-methods.html#cb495-7"></a><span class="co">## RBI        0.91376847     858711.10</span></span>
-<span id="cb495-8"><a href="ensemble-methods.html#cb495-8"></a><span class="co">## Walks      5.10158070     938898.67</span></span>
-<span id="cb495-9"><a href="ensemble-methods.html#cb495-9"></a><span class="co">## Years      5.38718804     295859.22</span></span>
-<span id="cb495-10"><a href="ensemble-methods.html#cb495-10"></a><span class="co">## CAtBat    12.34565397    1501003.50</span></span>
-<span id="cb495-11"><a href="ensemble-methods.html#cb495-11"></a><span class="co">## CHits     12.66787049    1861108.04</span></span>
-<span id="cb495-12"><a href="ensemble-methods.html#cb495-12"></a><span class="co">## CHmRun     4.50720662    1086255.87</span></span>
-<span id="cb495-13"><a href="ensemble-methods.html#cb495-13"></a><span class="co">## CRuns     13.31276946    2103022.87</span></span>
-<span id="cb495-14"><a href="ensemble-methods.html#cb495-14"></a><span class="co">## CRBI      11.11503712    2101151.04</span></span>
-<span id="cb495-15"><a href="ensemble-methods.html#cb495-15"></a><span class="co">## CWalks     9.40813964    1447656.21</span></span>
-<span id="cb495-16"><a href="ensemble-methods.html#cb495-16"></a><span class="co">## League     0.57926429      20002.08</span></span>
-<span id="cb495-17"><a href="ensemble-methods.html#cb495-17"></a><span class="co">## Division   2.04714437      45064.15</span></span>
-<span id="cb495-18"><a href="ensemble-methods.html#cb495-18"></a><span class="co">## PutOuts    3.67103105     296237.51</span></span>
-<span id="cb495-19"><a href="ensemble-methods.html#cb495-19"></a><span class="co">## Assists   -0.26947886     152545.23</span></span>
-<span id="cb495-20"><a href="ensemble-methods.html#cb495-20"></a><span class="co">## Errors    -0.07960768     142009.27</span></span>
-<span id="cb495-21"><a href="ensemble-methods.html#cb495-21"></a><span class="co">## NewLeague  0.11678271      23564.81</span></span>
-<span id="cb495-22"><a href="ensemble-methods.html#cb495-22"></a><span class="co">## High      29.37244111    7814171.92</span></span></code></pre></div>
+<p>On the other hand, one can still obtain an overall summary of the importance of each feature using the RSS (for regression problems) or the Gini index (for classification problems). Basically, we can record the total amount that the measure (RSS or Gini index) decreases due to splits over a given predictor, averaged over all the <span class="math inline">\(B\)</span> trees. A large value indicates an important predictor. This importance measure is given in the second column of <code>importance(rf_fit)</code>.</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="ensemble-methods.html#cb473-1" tabindex="-1"></a><span class="fu">importance</span>(rf_fit)</span>
+<span id="cb473-2"><a href="ensemble-methods.html#cb473-2" tabindex="-1"></a><span class="do">##               %IncMSE IncNodePurity</span></span>
+<span id="cb473-3"><a href="ensemble-methods.html#cb473-3" tabindex="-1"></a><span class="do">## AtBat      3.35182212     524974.45</span></span>
+<span id="cb473-4"><a href="ensemble-methods.html#cb473-4" tabindex="-1"></a><span class="do">## Hits       1.13094383     611669.31</span></span>
+<span id="cb473-5"><a href="ensemble-methods.html#cb473-5" tabindex="-1"></a><span class="do">## HmRun      2.85844392     631697.80</span></span>
+<span id="cb473-6"><a href="ensemble-methods.html#cb473-6" tabindex="-1"></a><span class="do">## Runs       2.65375662     712993.07</span></span>
+<span id="cb473-7"><a href="ensemble-methods.html#cb473-7" tabindex="-1"></a><span class="do">## RBI        0.91376847     858711.10</span></span>
+<span id="cb473-8"><a href="ensemble-methods.html#cb473-8" tabindex="-1"></a><span class="do">## Walks      5.10158070     938898.67</span></span>
+<span id="cb473-9"><a href="ensemble-methods.html#cb473-9" tabindex="-1"></a><span class="do">## Years      5.38718804     295859.22</span></span>
+<span id="cb473-10"><a href="ensemble-methods.html#cb473-10" tabindex="-1"></a><span class="do">## CAtBat    12.34565397    1501003.50</span></span>
+<span id="cb473-11"><a href="ensemble-methods.html#cb473-11" tabindex="-1"></a><span class="do">## CHits     12.66787049    1861108.04</span></span>
+<span id="cb473-12"><a href="ensemble-methods.html#cb473-12" tabindex="-1"></a><span class="do">## CHmRun     4.50720662    1086255.87</span></span>
+<span id="cb473-13"><a href="ensemble-methods.html#cb473-13" tabindex="-1"></a><span class="do">## CRuns     13.31276946    2103022.87</span></span>
+<span id="cb473-14"><a href="ensemble-methods.html#cb473-14" tabindex="-1"></a><span class="do">## CRBI      11.11503712    2101151.04</span></span>
+<span id="cb473-15"><a href="ensemble-methods.html#cb473-15" tabindex="-1"></a><span class="do">## CWalks     9.40813964    1447656.21</span></span>
+<span id="cb473-16"><a href="ensemble-methods.html#cb473-16" tabindex="-1"></a><span class="do">## League     0.57926429      20002.08</span></span>
+<span id="cb473-17"><a href="ensemble-methods.html#cb473-17" tabindex="-1"></a><span class="do">## Division   2.04714437      45064.15</span></span>
+<span id="cb473-18"><a href="ensemble-methods.html#cb473-18" tabindex="-1"></a><span class="do">## PutOuts    3.67103105     296237.51</span></span>
+<span id="cb473-19"><a href="ensemble-methods.html#cb473-19" tabindex="-1"></a><span class="do">## Assists   -0.26947886     152545.23</span></span>
+<span id="cb473-20"><a href="ensemble-methods.html#cb473-20" tabindex="-1"></a><span class="do">## Errors    -0.07960768     142009.27</span></span>
+<span id="cb473-21"><a href="ensemble-methods.html#cb473-21" tabindex="-1"></a><span class="do">## NewLeague  0.11678271      23564.81</span></span>
+<span id="cb473-22"><a href="ensemble-methods.html#cb473-22" tabindex="-1"></a><span class="do">## High      29.37244111    7814171.92</span></span></code></pre></div>
 <p>Visualizing the importance of the features:</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="ensemble-methods.html#cb496-1"></a><span class="kw">varImpPlot</span>(rf_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-569-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="ensemble-methods.html#cb474-1" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-539-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="boosting" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Boosting<a href="ensemble-methods.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Boosting is a genearl approach that can be applied to many statistical learning methods</p></li>
+<li><p>We focus on using using decision trees as building blocks</p></li>
+<li><p>Boosting involves growing the trees sequentially, using information from previously grown trees.</p></li>
+</ul>
+<p><strong>Algorithm (Boosting for regression trees)</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Set <span class="math inline">\(\hat{f}(x) = 0\)</span> and <span class="math inline">\(r_i= y_i\)</span> for all <span class="math inline">\(i\)</span> in the training set</p></li>
+<li><p>For <span class="math inline">\(b=1,\ldots,B\)</span>, repeat:</p></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Fit a tree <span class="math inline">\(\hat{f}^b\)</span> with <span class="math inline">\(d\)</span> splits (<span class="math inline">\(d+1\)</span> treminal nodes) to the training data <span class="math inline">\((X,r)\)</span></p></li>
+<li><p>Update <span class="math inline">\(\hat{f}\)</span> by adding in a shrunkwn version of the new tree:</p></li>
+</ol>
+<p><span class="math display">\[\begin{equation*}
+\hat{f}(x) \leftarrow \hat{f}(x) + \lambda \hat{f}^b(x).
+\end{equation*}\]</span></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Update the residuals:</li>
+</ol>
+<p><span class="math display">\[\begin{equation*}
+r_i \leftarrow r_i - \lambda \hat{f}^b(x_i).
+\end{equation*}\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Output the boosted model:
+<span class="math display">\[\begin{equation*}
+\hat{f}(x) = \sum^B_{b=1} \lambda \hat{f}^b(x).
+\end{equation*}\]</span></li>
+</ol>
+<p>Boosting has <span class="math inline">\(3\)</span> tuning parameters:</p>
+<ol style="list-style-type: decimal">
+<li><p>The number of trees <span class="math inline">\(B\)</span>. Large <span class="math inline">\(B\)</span> can overfit the data. Use cross-validation to select <span class="math inline">\(B\)</span>.</p></li>
+<li><p>The shrinkage parameter <span class="math inline">\(\lambda\)</span>. It controls the learning rate. Typical values are <span class="math inline">\(0.01\)</span> or <span class="math inline">\(0.001\)</span>.</p></li>
+<li><p>The number <span class="math inline">\(d\)</span> of splits (interaction depth) in each tree. Often <span class="math inline">\(d=1\)</span> works well, in which case each tree is a stump. This controls the interaction order of the boosted model.</p></li>
+</ol>
+<div id="example-1" class="section level3 hasAnchor" number="15.3.1">
+<h3><span class="header-section-number">15.3.1</span> Example<a href="ensemble-methods.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we use the function <code>gbm</code> in the <code>gbm</code> package to perform boosting.</p>
+<ul>
+<li><p>For regression problems, use <code>distribution = "gaussian"</code>.</p></li>
+<li><p>For classification problemsm, use <code>distribution = "bernoulli"</code>.</p></li>
+</ul>
+<p>In this example, we use <span class="math inline">\(5\)</span>-fold CV to pick the optimal number of trees to combine.</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="ensemble-methods.html#cb475-1" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
+<span id="cb475-2"><a href="ensemble-methods.html#cb475-2" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb475-3"><a href="ensemble-methods.html#cb475-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb475-4"><a href="ensemble-methods.html#cb475-4" tabindex="-1"></a>boost_fit <span class="ot">&lt;-</span> <span class="fu">gbm</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train, <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>, <span class="at">n.trees =</span> <span class="dv">5000</span>, </span>
+<span id="cb475-5"><a href="ensemble-methods.html#cb475-5" tabindex="-1"></a>                 <span class="at">interaction.depth =</span> <span class="dv">3</span>, <span class="at">shrinkage =</span> <span class="fl">0.01</span>, <span class="at">cv.folds =</span> <span class="dv">5</span>)</span>
+<span id="cb475-6"><a href="ensemble-methods.html#cb475-6" tabindex="-1"></a>Bhat <span class="ot">&lt;-</span> <span class="fu">gbm.perf</span>(boost_fit) <span class="co"># optimal value</span></span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-540-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="ensemble-methods.html#cb476-1" tabindex="-1"></a>Bhat</span>
+<span id="cb476-2"><a href="ensemble-methods.html#cb476-2" tabindex="-1"></a><span class="do">## [1] 378</span></span>
+<span id="cb476-3"><a href="ensemble-methods.html#cb476-3" tabindex="-1"></a><span class="fu">summary</span>(boost_fit, <span class="at">n.trees =</span> Bhat)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-540-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>##                 var     rel.inf
+## High           High 66.52569760
+## CWalks       CWalks  4.47335852
+## Walks         Walks  4.13471066
+## CRuns         CRuns  3.75899271
+## CHmRun       CHmRun  3.46823597
+## RBI             RBI  2.61182242
+## CAtBat       CAtBat  2.39444179
+## CRBI           CRBI  1.93602357
+## PutOuts     PutOuts  1.72423683
+## CHits         CHits  1.51351722
+## Runs           Runs  1.28925568
+## Years         Years  1.06199301
+## Assists     Assists  1.06115944
+## Division   Division  0.99321807
+## Errors       Errors  0.91804903
+## HmRun         HmRun  0.66075807
+## AtBat         AtBat  0.64573458
+## Hits           Hits  0.49041025
+## League       League  0.30037483
+## NewLeague NewLeague  0.03800974</code></pre>
+<p>The <code>summary()</code> function produces a relative influence plot and also outputs the relative influence statistics.</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="ensemble-methods.html#cb478-1" tabindex="-1"></a>boost_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(boost_fit, <span class="at">newdata =</span> Hitters_test, <span class="at">n.trees =</span> Bhat)</span>
+<span id="cb478-2"><a href="ensemble-methods.html#cb478-2" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> boost_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb478-3"><a href="ensemble-methods.html#cb478-3" tabindex="-1"></a><span class="do">## [1] 69670.1</span></span></code></pre></div>
+<p>In this particular dataset, random forest performs sligtly better than boosting (with this set of tuning parameters).</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -510,8 +684,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="decision-trees.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="deep-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="resampling-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -571,7 +745,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

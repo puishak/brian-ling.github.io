@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="decision-trees.html"/>
-<link rel="next" href="ensemble-methods-and-random-forest.html"/>
+<link rel="next" href="ensemble-methods.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -597,7 +603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb457-15"><a href="resampling-methods.html#cb457-15" tabindex="-1"></a><span class="do">## attr(,&quot;class&quot;)</span></span>
 <span id="cb457-16"><a href="resampling-methods.html#cb457-16" tabindex="-1"></a><span class="do">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
 <span id="cb457-17"><a href="resampling-methods.html#cb457-17" tabindex="-1"></a><span class="fu">plot</span>(cv_fit<span class="sc">$</span>size, cv_fit<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-504-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-521-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><code>size</code>: number of terminal nodes of the tree</p>
 <p><code>dev</code>: cross-validation errors</p>
 <p>We will choose the <code>size</code> with the minimum <code>dev</code>.</p>
@@ -612,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For this particular example, the classification accuracy actually becomes lower when we prune the tree. However, the pruned tree has only <span class="math inline">\(3\)</span> terminal nodes, which can be easier for interpretation.</p>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="resampling-methods.html#cb459-1" tabindex="-1"></a><span class="fu">plot</span>(prune_fit)</span>
 <span id="cb459-2"><a href="resampling-methods.html#cb459-2" tabindex="-1"></a><span class="fu">text</span>(prune_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-506-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-523-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Regression Tree</strong></p>
 <p>Pruning can be performed with regression tree as well.</p>
 <div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="resampling-methods.html#cb460-1" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span></code></pre></div>
@@ -620,7 +626,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="resampling-methods.html#cb461-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
 <span id="cb461-2"><a href="resampling-methods.html#cb461-2" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(reg_tree)</span>
 <span id="cb461-3"><a href="resampling-methods.html#cb461-3" tabindex="-1"></a><span class="fu">plot</span>(cv<span class="sc">$</span>size, cv<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-508-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-525-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prune the tree:</p>
 <div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="resampling-methods.html#cb462-1" tabindex="-1"></a><span class="co"># best size</span></span>
 <span id="cb462-2"><a href="resampling-methods.html#cb462-2" tabindex="-1"></a>cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)] </span>
@@ -634,7 +640,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Pruned tree:</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="resampling-methods.html#cb463-1" tabindex="-1"></a><span class="fu">plot</span>(prune_reg_tree)</span>
 <span id="cb463-2"><a href="resampling-methods.html#cb463-2" tabindex="-1"></a><span class="fu">text</span>(prune_reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-510-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-527-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The performance (in terms of MSE) of the pruned tree in test data is similar to the tree without pruning.</p>
 </div>
 </div>
@@ -708,7 +714,7 @@ Since in reality <span class="math inline">\(\sigma^2_A, \sigma^2_B, \sigma_{AB}
         </div>
       </div>
 <a href="decision-trees.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ensemble-methods-and-random-forest.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ensemble-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

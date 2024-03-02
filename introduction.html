@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-01" />
+<meta name="date" content="2024-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,11 +372,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="resampling-methods.html"><a href="resampling-methods.html#bootstrap-optional"><i class="fa fa-check"></i><b>14.2</b> Bootstrap (optional)</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods and Random Forest</a>
+<li class="chapter" data-level="15" data-path="ensemble-methods.html"><a href="ensemble-methods.html"><i class="fa fa-check"></i><b>15</b> Ensemble Methods</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
-<li class="chapter" data-level="15.2" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a></li>
-<li class="chapter" data-level="15.3" data-path="ensemble-methods-and-random-forest.html"><a href="ensemble-methods-and-random-forest.html#example"><i class="fa fa-check"></i><b>15.3</b> Example</a></li>
+<li class="chapter" data-level="15.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#bagging"><i class="fa fa-check"></i><b>15.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.2" data-path="ensemble-methods.html"><a href="ensemble-methods.html#random-forest"><i class="fa fa-check"></i><b>15.2</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example"><i class="fa fa-check"></i><b>15.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="ensemble-methods.html"><a href="ensemble-methods.html#boosting"><i class="fa fa-check"></i><b>15.3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="ensemble-methods.html"><a href="ensemble-methods.html#example-1"><i class="fa fa-check"></i><b>15.3.1</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a>
 <ul>
@@ -509,38 +515,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="introduction.html#cb1-2" tabindex="-1"></a>mpg</span>
 <span id="cb1-3"><a href="introduction.html#cb1-3" tabindex="-1"></a><span class="do">## # A tibble: 234 × 11</span></span>
-<span id="cb1-4"><a href="introduction.html#cb1-4" tabindex="-1"></a><span class="do">##    manufacturer model    displ  year   cyl trans drv     cty   hwy fl    class</span></span>
-<span id="cb1-5"><a href="introduction.html#cb1-5" tabindex="-1"></a><span class="do">##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6" tabindex="-1"></a><span class="do">##  1 audi         a4         1.8  1999     4 auto… f        18    29 p     comp…</span></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7" tabindex="-1"></a><span class="do">##  2 audi         a4         1.8  1999     4 manu… f        21    29 p     comp…</span></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8" tabindex="-1"></a><span class="do">##  3 audi         a4         2    2008     4 manu… f        20    31 p     comp…</span></span>
-<span id="cb1-9"><a href="introduction.html#cb1-9" tabindex="-1"></a><span class="do">##  4 audi         a4         2    2008     4 auto… f        21    30 p     comp…</span></span>
-<span id="cb1-10"><a href="introduction.html#cb1-10" tabindex="-1"></a><span class="do">##  5 audi         a4         2.8  1999     6 auto… f        16    26 p     comp…</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11" tabindex="-1"></a><span class="do">##  6 audi         a4         2.8  1999     6 manu… f        18    26 p     comp…</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12" tabindex="-1"></a><span class="do">##  7 audi         a4         3.1  2008     6 auto… f        18    27 p     comp…</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13" tabindex="-1"></a><span class="do">##  8 audi         a4 quat…   1.8  1999     4 manu… 4        18    26 p     comp…</span></span>
-<span id="cb1-14"><a href="introduction.html#cb1-14" tabindex="-1"></a><span class="do">##  9 audi         a4 quat…   1.8  1999     4 auto… 4        16    25 p     comp…</span></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15" tabindex="-1"></a><span class="do">## 10 audi         a4 quat…   2    2008     4 manu… 4        20    28 p     comp…</span></span>
+<span id="cb1-4"><a href="introduction.html#cb1-4" tabindex="-1"></a><span class="do">##    manufacturer model      displ  year   cyl trans    drv     cty   hwy fl    class</span></span>
+<span id="cb1-5"><a href="introduction.html#cb1-5" tabindex="-1"></a><span class="do">##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb1-6"><a href="introduction.html#cb1-6" tabindex="-1"></a><span class="do">##  1 audi         a4           1.8  1999     4 auto(l5) f        18    29 p     comp…</span></span>
+<span id="cb1-7"><a href="introduction.html#cb1-7" tabindex="-1"></a><span class="do">##  2 audi         a4           1.8  1999     4 manual(… f        21    29 p     comp…</span></span>
+<span id="cb1-8"><a href="introduction.html#cb1-8" tabindex="-1"></a><span class="do">##  3 audi         a4           2    2008     4 manual(… f        20    31 p     comp…</span></span>
+<span id="cb1-9"><a href="introduction.html#cb1-9" tabindex="-1"></a><span class="do">##  4 audi         a4           2    2008     4 auto(av) f        21    30 p     comp…</span></span>
+<span id="cb1-10"><a href="introduction.html#cb1-10" tabindex="-1"></a><span class="do">##  5 audi         a4           2.8  1999     6 auto(l5) f        16    26 p     comp…</span></span>
+<span id="cb1-11"><a href="introduction.html#cb1-11" tabindex="-1"></a><span class="do">##  6 audi         a4           2.8  1999     6 manual(… f        18    26 p     comp…</span></span>
+<span id="cb1-12"><a href="introduction.html#cb1-12" tabindex="-1"></a><span class="do">##  7 audi         a4           3.1  2008     6 auto(av) f        18    27 p     comp…</span></span>
+<span id="cb1-13"><a href="introduction.html#cb1-13" tabindex="-1"></a><span class="do">##  8 audi         a4 quattro   1.8  1999     4 manual(… 4        18    26 p     comp…</span></span>
+<span id="cb1-14"><a href="introduction.html#cb1-14" tabindex="-1"></a><span class="do">##  9 audi         a4 quattro   1.8  1999     4 auto(l5) 4        16    25 p     comp…</span></span>
+<span id="cb1-15"><a href="introduction.html#cb1-15" tabindex="-1"></a><span class="do">## 10 audi         a4 quattro   2    2008     4 manual(… 4        20    28 p     comp…</span></span>
 <span id="cb1-16"><a href="introduction.html#cb1-16" tabindex="-1"></a><span class="do">## # … with 224 more rows</span></span></code></pre></div>
 <p>Among the variables in mpg are:</p>
 <p><code>displ</code>, a car’s engine size, in litres.</p>
 <p><code>hwy</code>, a car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.</p>
 <p><strong>Scatterplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-2-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-19-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Scatterplot, points are labeled with colors according to the <code>class</code> variable</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-20-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Scatterplots</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-21-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Line Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-22-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Bar chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-23-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Another Bar Chart</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-24-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Boxplot</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-25-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><strong>Histogram</strong></p>
-<p><img src="Book_files/figure-html/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-26-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="statistical-inference" class="section level3 hasAnchor" number="1.3.4">
 <h3><span class="header-section-number">1.3.4</span> Statistical Inference<a href="introduction.html#statistical-inference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -562,7 +568,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Employ Naive Bayes to build an SMS junk message filter (text data)</p></li>
 </ul>
 <p>A wordcloud of text data</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Use neural network to predict the compressive strength of concrete</li>
 </ul>
@@ -610,174 +616,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-5"><a href="introduction.html#cb6-5" tabindex="-1"></a><span class="do">## [1] 1 3 5</span></span></code></pre></div>
 <p>R is case-sensitive. When you type <code>Y</code>, you will see an error message: object ‘Y’ not found</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction.html#cb7-1" tabindex="-1"></a>Y</span>
-<span id="cb7-2"><a href="introduction.html#cb7-2" tabindex="-1"></a><span class="do">##    [1] 0.114305988 0.486971860 1.014030007 0.331295674 0.780460508 0.584427028</span></span>
-<span id="cb7-3"><a href="introduction.html#cb7-3" tabindex="-1"></a><span class="do">##    [7] 0.232725628 0.273408411 0.498773347 0.033237986 0.009634090 0.767343555</span></span>
-<span id="cb7-4"><a href="introduction.html#cb7-4" tabindex="-1"></a><span class="do">##   [13] 0.392361431 0.085237052 1.025748554 0.258635081 1.117215580 0.115149787</span></span>
-<span id="cb7-5"><a href="introduction.html#cb7-5" tabindex="-1"></a><span class="do">##   [19] 0.020453922 0.460819192 0.855482244 0.795669517 0.321032185 0.086982945</span></span>
-<span id="cb7-6"><a href="introduction.html#cb7-6" tabindex="-1"></a><span class="do">##   [25] 0.677297958 0.820099395 0.036188328 0.092014409 0.521903102 0.050377275</span></span>
-<span id="cb7-7"><a href="introduction.html#cb7-7" tabindex="-1"></a><span class="do">##   [31] 0.116055059 0.020241100 0.892788827 0.208686769 0.075167513 0.315202201</span></span>
-<span id="cb7-8"><a href="introduction.html#cb7-8" tabindex="-1"></a><span class="do">##   [37] 0.226350231 1.150664191 0.207206264 1.394964494 0.048981157 0.581247779</span></span>
-<span id="cb7-9"><a href="introduction.html#cb7-9" tabindex="-1"></a><span class="do">##   [43] 0.206729957 0.001518602 0.109802860 0.002397081 0.317459047 0.360006579</span></span>
-<span id="cb7-10"><a href="introduction.html#cb7-10" tabindex="-1"></a><span class="do">##   [49] 0.010927155 0.362469076 0.175205326 0.110263387 0.003701054 0.002662251</span></span>
-<span id="cb7-11"><a href="introduction.html#cb7-11" tabindex="-1"></a><span class="do">##   [55] 0.401809896 0.992305070 0.206800305 0.596601761 0.135900203 0.433446454</span></span>
-<span id="cb7-12"><a href="introduction.html#cb7-12" tabindex="-1"></a><span class="do">##   [61] 0.542227333 0.106618057 0.756509970 2.175904119 1.174091813 0.313000944</span></span>
-<span id="cb7-13"><a href="introduction.html#cb7-13" tabindex="-1"></a><span class="do">##   [67] 0.272968603 1.207022970 0.066223388 1.008554895 0.313663758 0.104149820</span></span>
-<span id="cb7-14"><a href="introduction.html#cb7-14" tabindex="-1"></a><span class="do">##   [73] 2.262375126 0.410971100 0.559304906 0.256424120 0.656786556 0.020051719</span></span>
-<span id="cb7-15"><a href="introduction.html#cb7-15" tabindex="-1"></a><span class="do">##   [79] 0.454555284 0.405154956 1.029767433 0.759887177 0.130771258 0.101638528</span></span>
-<span id="cb7-16"><a href="introduction.html#cb7-16" tabindex="-1"></a><span class="do">##   [85] 1.582234587 0.251345998 0.448476134 1.034402105 0.102742671 0.503615533</span></span>
-<span id="cb7-17"><a href="introduction.html#cb7-17" tabindex="-1"></a><span class="do">##   [91] 0.051636175 0.667929185 1.343903371 0.869391883 0.447776220 0.860782029</span></span>
-<span id="cb7-18"><a href="introduction.html#cb7-18" tabindex="-1"></a><span class="do">##   [97] 0.201062721 0.105670575 0.273751424 0.405010797 0.353995353 0.076387702</span></span>
-<span id="cb7-19"><a href="introduction.html#cb7-19" tabindex="-1"></a><span class="do">##  [103] 0.743366132 1.617695581 1.032095372 0.250277958 1.173932319 0.603893176</span></span>
-<span id="cb7-20"><a href="introduction.html#cb7-20" tabindex="-1"></a><span class="do">##  [109] 0.101576940 0.365096157 1.502377584 0.682086725 0.316928274 0.019247589</span></span>
-<span id="cb7-21"><a href="introduction.html#cb7-21" tabindex="-1"></a><span class="do">##  [115] 0.365168370 0.087114525 0.943174735 0.300021803 0.987939996 0.189258872</span></span>
-<span id="cb7-22"><a href="introduction.html#cb7-22" tabindex="-1"></a><span class="do">##  [121] 0.220623464 0.143499199 0.706814156 0.403205899 0.283293154 0.033458683</span></span>
-<span id="cb7-23"><a href="introduction.html#cb7-23" tabindex="-1"></a><span class="do">##  [127] 0.997361333 0.402062385 0.937893072 0.234753546 0.927977253 0.112884727</span></span>
-<span id="cb7-24"><a href="introduction.html#cb7-24" tabindex="-1"></a><span class="do">##  [133] 0.097848499 0.137427134 0.302750747 0.723676180 0.221458586 0.054052875</span></span>
-<span id="cb7-25"><a href="introduction.html#cb7-25" tabindex="-1"></a><span class="do">##  [139] 0.271607734 1.584587373 0.156866252 0.190232053 0.627744752 0.596899876</span></span>
-<span id="cb7-26"><a href="introduction.html#cb7-26" tabindex="-1"></a><span class="do">##  [145] 0.631270086 0.157599649 0.149713283 0.320102528 0.338203163 0.715251351</span></span>
-<span id="cb7-27"><a href="introduction.html#cb7-27" tabindex="-1"></a><span class="do">##  [151] 0.057067506 0.688149798 0.055206182 0.038350971 0.317018815 0.221506572</span></span>
-<span id="cb7-28"><a href="introduction.html#cb7-28" tabindex="-1"></a><span class="do">##  [157] 0.107634028 0.192607970 0.471084716 0.332242277 1.138934403 0.264706248</span></span>
-<span id="cb7-29"><a href="introduction.html#cb7-29" tabindex="-1"></a><span class="do">##  [163] 0.341095922 1.235168086 0.113844021 0.081067188 0.158115612 0.328635416</span></span>
-<span id="cb7-30"><a href="introduction.html#cb7-30" tabindex="-1"></a><span class="do">##  [169] 0.984423414 0.266048033 0.526487505 0.032671309 1.589303639 0.527397077</span></span>
-<span id="cb7-31"><a href="introduction.html#cb7-31" tabindex="-1"></a><span class="do">##  [175] 0.146868787 0.413781535 0.192172087 0.870620330 1.497370556 0.264431546</span></span>
-<span id="cb7-32"><a href="introduction.html#cb7-32" tabindex="-1"></a><span class="do">##  [181] 0.290465569 0.409592229 1.001080188 0.800269758 0.316087815 0.555713537</span></span>
-<span id="cb7-33"><a href="introduction.html#cb7-33" tabindex="-1"></a><span class="do">##  [187] 0.218085976 0.116094398 0.598580974 0.506726755 0.083989617 0.468120805</span></span>
-<span id="cb7-34"><a href="introduction.html#cb7-34" tabindex="-1"></a><span class="do">##  [193] 0.144062695 2.190196374 0.658057418 0.713855372 0.095027973 0.003542766</span></span>
-<span id="cb7-35"><a href="introduction.html#cb7-35" tabindex="-1"></a><span class="do">##  [199] 0.032813905 0.323298841 0.037881962 1.044188249 0.509173056 0.540627410</span></span>
-<span id="cb7-36"><a href="introduction.html#cb7-36" tabindex="-1"></a><span class="do">##  [205] 0.907198684 0.342145491 0.916385842 1.043278961 0.362624578 0.464406061</span></span>
-<span id="cb7-37"><a href="introduction.html#cb7-37" tabindex="-1"></a><span class="do">##  [211] 0.252545177 0.231379010 0.186521973 1.721121162 0.701010525 0.116970367</span></span>
-<span id="cb7-38"><a href="introduction.html#cb7-38" tabindex="-1"></a><span class="do">##  [217] 0.347518745 0.136763565 0.208588448 0.037706998 0.089114935 0.609575820</span></span>
-<span id="cb7-39"><a href="introduction.html#cb7-39" tabindex="-1"></a><span class="do">##  [223] 0.765762515 0.044106536 0.377070141 1.612166340 1.329647875 0.764209700</span></span>
-<span id="cb7-40"><a href="introduction.html#cb7-40" tabindex="-1"></a><span class="do">##  [229] 0.818383303 0.065847166 0.234157664 0.264909827 1.339857723 0.377166394</span></span>
-<span id="cb7-41"><a href="introduction.html#cb7-41" tabindex="-1"></a><span class="do">##  [235] 0.057357478 0.206230454 0.603219380 0.921458551 0.212939940 0.179995547</span></span>
-<span id="cb7-42"><a href="introduction.html#cb7-42" tabindex="-1"></a><span class="do">##  [241] 0.507923770 0.102414213 0.253283086 0.436617990 0.639887432 0.313781449</span></span>
-<span id="cb7-43"><a href="introduction.html#cb7-43" tabindex="-1"></a><span class="do">##  [247] 0.697707924 0.583950124 0.814076815 0.310568905 0.170468003 0.369421517</span></span>
-<span id="cb7-44"><a href="introduction.html#cb7-44" tabindex="-1"></a><span class="do">##  [253] 0.143040084 0.916152514 0.940161515 0.862329037 2.174442077 0.541052988</span></span>
-<span id="cb7-45"><a href="introduction.html#cb7-45" tabindex="-1"></a><span class="do">##  [259] 0.468395051 0.119013933 0.230042307 0.781605464 0.628909620 1.888750086</span></span>
-<span id="cb7-46"><a href="introduction.html#cb7-46" tabindex="-1"></a><span class="do">##  [265] 2.534774356 0.580441425 0.164316293 0.174264794 0.339682089 0.037718475</span></span>
-<span id="cb7-47"><a href="introduction.html#cb7-47" tabindex="-1"></a><span class="do">##  [271] 1.546334808 0.311142375 0.765260855 0.839232773 0.143639112 0.378402124</span></span>
-<span id="cb7-48"><a href="introduction.html#cb7-48" tabindex="-1"></a><span class="do">##  [277] 0.582662110 0.458921853 0.517066843 0.603250031 0.029215608 0.812865035</span></span>
-<span id="cb7-49"><a href="introduction.html#cb7-49" tabindex="-1"></a><span class="do">##  [283] 0.334156212 0.893139350 0.018132696 0.707666597 0.184064932 0.768589338</span></span>
-<span id="cb7-50"><a href="introduction.html#cb7-50" tabindex="-1"></a><span class="do">##  [289] 0.874276770 1.120859601 0.199044462 0.229718079 0.430525001 0.586947476</span></span>
-<span id="cb7-51"><a href="introduction.html#cb7-51" tabindex="-1"></a><span class="do">##  [295] 1.575488735 0.450734677 0.110648763 0.024415308 0.087488637 0.255548427</span></span>
-<span id="cb7-52"><a href="introduction.html#cb7-52" tabindex="-1"></a><span class="do">##  [301] 1.440568758 0.011017731 0.206952971 1.345980559 0.667624221 0.394569380</span></span>
-<span id="cb7-53"><a href="introduction.html#cb7-53" tabindex="-1"></a><span class="do">##  [307] 0.434092598 0.507009864 0.499754793 0.006170296 0.540210927 0.405622980</span></span>
-<span id="cb7-54"><a href="introduction.html#cb7-54" tabindex="-1"></a><span class="do">##  [313] 0.409429111 0.721661720 1.321607235 0.172141821 1.050492501 0.023709765</span></span>
-<span id="cb7-55"><a href="introduction.html#cb7-55" tabindex="-1"></a><span class="do">##  [319] 0.125234695 1.740760495 1.091960496 0.072843902 0.332962817 0.068260924</span></span>
-<span id="cb7-56"><a href="introduction.html#cb7-56" tabindex="-1"></a><span class="do">##  [325] 0.473832466 1.524203826 0.040062807 0.169020683 0.447388773 0.768890228</span></span>
-<span id="cb7-57"><a href="introduction.html#cb7-57" tabindex="-1"></a><span class="do">##  [331] 1.988177339 0.552910194 0.695069783 0.051537391 0.317338370 0.200365924</span></span>
-<span id="cb7-58"><a href="introduction.html#cb7-58" tabindex="-1"></a><span class="do">##  [337] 1.853254790 0.113382990 0.377544865 0.055296064 0.047436869 1.521327898</span></span>
-<span id="cb7-59"><a href="introduction.html#cb7-59" tabindex="-1"></a><span class="do">##  [343] 0.519627368 0.403729430 0.060989899 0.208657463 0.255813022 0.367842091</span></span>
-<span id="cb7-60"><a href="introduction.html#cb7-60" tabindex="-1"></a><span class="do">##  [349] 0.339372812 1.184326821 0.524748922 0.022438671 0.061435700 0.094387687</span></span>
-<span id="cb7-61"><a href="introduction.html#cb7-61" tabindex="-1"></a><span class="do">##  [355] 0.012586010 0.390819404 0.304075087 0.519143131 0.860828988 0.997139501</span></span>
-<span id="cb7-62"><a href="introduction.html#cb7-62" tabindex="-1"></a><span class="do">##  [361] 0.889586265 0.365231046 0.549936220 0.345593471 0.895686957 0.082741297</span></span>
-<span id="cb7-63"><a href="introduction.html#cb7-63" tabindex="-1"></a><span class="do">##  [367] 0.564249888 1.511104427 0.102626102 0.676578902 0.285274687 0.334938495</span></span>
-<span id="cb7-64"><a href="introduction.html#cb7-64" tabindex="-1"></a><span class="do">##  [373] 0.596994464 0.320167650 0.058982335 0.399138277 0.843593545 0.496713981</span></span>
-<span id="cb7-65"><a href="introduction.html#cb7-65" tabindex="-1"></a><span class="do">##  [379] 1.478438381 0.054324137 0.456168833 1.290335449 0.192601522 0.950018787</span></span>
-<span id="cb7-66"><a href="introduction.html#cb7-66" tabindex="-1"></a><span class="do">##  [385] 0.208820475 0.067761859 0.602739125 0.074097911 0.039682662 0.042094670</span></span>
-<span id="cb7-67"><a href="introduction.html#cb7-67" tabindex="-1"></a><span class="do">##  [391] 0.607718180 0.385255742 0.363399979 0.580866248 0.205526357 0.057042715</span></span>
-<span id="cb7-68"><a href="introduction.html#cb7-68" tabindex="-1"></a><span class="do">##  [397] 0.126505695 0.096821250 0.024134657 0.291733709 0.648647628 0.696083107</span></span>
-<span id="cb7-69"><a href="introduction.html#cb7-69" tabindex="-1"></a><span class="do">##  [403] 1.901157739 0.180338953 0.026043881 0.331625087 0.990849312 0.212152718</span></span>
-<span id="cb7-70"><a href="introduction.html#cb7-70" tabindex="-1"></a><span class="do">##  [409] 0.519140227 2.899762020 0.791500930 1.118349400 0.284658107 0.362926274</span></span>
-<span id="cb7-71"><a href="introduction.html#cb7-71" tabindex="-1"></a><span class="do">##  [415] 0.046372122 0.030650604 0.047728980 0.134951993 1.315891889 0.952189876</span></span>
-<span id="cb7-72"><a href="introduction.html#cb7-72" tabindex="-1"></a><span class="do">##  [421] 0.619790128 0.338789787 0.170225051 1.099273288 0.356401492 0.244739159</span></span>
-<span id="cb7-73"><a href="introduction.html#cb7-73" tabindex="-1"></a><span class="do">##  [427] 0.393758667 0.956607319 0.134327111 0.484807384 0.196246542 0.731926407</span></span>
-<span id="cb7-74"><a href="introduction.html#cb7-74" tabindex="-1"></a><span class="do">##  [433] 0.088965355 0.532506766 0.089145668 1.374714726 0.441018388 0.424136223</span></span>
-<span id="cb7-75"><a href="introduction.html#cb7-75" tabindex="-1"></a><span class="do">##  [439] 0.342329822 0.526120115 0.818244549 1.036297466 0.171423663 0.065418955</span></span>
-<span id="cb7-76"><a href="introduction.html#cb7-76" tabindex="-1"></a><span class="do">##  [445] 0.006882296 0.586921757 0.414848103 0.331126488 0.321655616 0.138970539</span></span>
-<span id="cb7-77"><a href="introduction.html#cb7-77" tabindex="-1"></a><span class="do">##  [451] 0.820265052 0.015393489 1.136307568 1.827539043 0.864947176 0.291201256</span></span>
-<span id="cb7-78"><a href="introduction.html#cb7-78" tabindex="-1"></a><span class="do">##  [457] 0.001109250 0.918366573 0.180220499 0.014598554 0.048288112 1.205323930</span></span>
-<span id="cb7-79"><a href="introduction.html#cb7-79" tabindex="-1"></a><span class="do">##  [463] 0.748056937 0.575982844 0.437934244 0.112955767 1.764430011 0.261323123</span></span>
-<span id="cb7-80"><a href="introduction.html#cb7-80" tabindex="-1"></a><span class="do">##  [469] 1.434081433 0.600247446 1.156804877 0.061347813 0.401826886 0.013326896</span></span>
-<span id="cb7-81"><a href="introduction.html#cb7-81" tabindex="-1"></a><span class="do">##  [475] 1.632836956 0.287556428 0.534878690 1.109766443 0.192561213 0.454715490</span></span>
-<span id="cb7-82"><a href="introduction.html#cb7-82" tabindex="-1"></a><span class="do">##  [481] 0.997662184 0.170184148 0.444690336 0.648253102 0.255192148 0.200572000</span></span>
-<span id="cb7-83"><a href="introduction.html#cb7-83" tabindex="-1"></a><span class="do">##  [487] 0.577619117 0.385337827 0.022020845 0.697385910 0.822696903 0.334266646</span></span>
-<span id="cb7-84"><a href="introduction.html#cb7-84" tabindex="-1"></a><span class="do">##  [493] 0.664587884 0.648833686 1.617470317 0.028509523 0.062271706 0.650037626</span></span>
-<span id="cb7-85"><a href="introduction.html#cb7-85" tabindex="-1"></a><span class="do">##  [499] 0.356808429 0.492447017 0.454638648 0.068881335 0.373350979 0.384444969</span></span>
-<span id="cb7-86"><a href="introduction.html#cb7-86" tabindex="-1"></a><span class="do">##  [505] 0.241745650 0.516748310 1.124715972 0.018127596 0.082439690 0.765819847</span></span>
-<span id="cb7-87"><a href="introduction.html#cb7-87" tabindex="-1"></a><span class="do">##  [511] 0.768021732 1.356838346 0.116308966 0.231189313 0.112094942 0.010181062</span></span>
-<span id="cb7-88"><a href="introduction.html#cb7-88" tabindex="-1"></a><span class="do">##  [517] 0.432329645 0.120124937 0.199257264 0.226648113 0.041924753 1.551741490</span></span>
-<span id="cb7-89"><a href="introduction.html#cb7-89" tabindex="-1"></a><span class="do">##  [523] 0.113104238 0.453805173 0.037788922 0.259932387 0.021147107 0.068636304</span></span>
-<span id="cb7-90"><a href="introduction.html#cb7-90" tabindex="-1"></a><span class="do">##  [529] 0.612618572 0.561174252 0.266654158 0.825298362 0.678942707 0.176698674</span></span>
-<span id="cb7-91"><a href="introduction.html#cb7-91" tabindex="-1"></a><span class="do">##  [535] 0.240868614 0.089515051 0.741530160 0.622373953 0.005131401 1.384113257</span></span>
-<span id="cb7-92"><a href="introduction.html#cb7-92" tabindex="-1"></a><span class="do">##  [541] 0.162997008 1.042657047 0.033369070 2.201446587 0.084484149 0.310895825</span></span>
-<span id="cb7-93"><a href="introduction.html#cb7-93" tabindex="-1"></a><span class="do">##  [547] 0.226171783 0.030282784 0.057646846 1.041281622 0.882011955 0.721504766</span></span>
-<span id="cb7-94"><a href="introduction.html#cb7-94" tabindex="-1"></a><span class="do">##  [553] 0.673939917 0.392909055 0.812837077 1.364714003 0.039379520 0.108436156</span></span>
-<span id="cb7-95"><a href="introduction.html#cb7-95" tabindex="-1"></a><span class="do">##  [559] 2.043176590 0.049020504 0.601452555 0.155245326 0.913161870 0.494422246</span></span>
-<span id="cb7-96"><a href="introduction.html#cb7-96" tabindex="-1"></a><span class="do">##  [565] 0.190492859 0.355696744 0.055005760 0.818657120 0.128250783 0.091548511</span></span>
-<span id="cb7-97"><a href="introduction.html#cb7-97" tabindex="-1"></a><span class="do">##  [571] 0.671022481 0.987314491 0.278980718 0.409849194 0.504812922 0.080796026</span></span>
-<span id="cb7-98"><a href="introduction.html#cb7-98" tabindex="-1"></a><span class="do">##  [577] 0.306793286 0.249139092 0.667604531 0.559511592 0.498997039 0.448712231</span></span>
-<span id="cb7-99"><a href="introduction.html#cb7-99" tabindex="-1"></a><span class="do">##  [583] 0.424421485 0.826728827 0.498075531 0.415289640 0.339868641 0.823204584</span></span>
-<span id="cb7-100"><a href="introduction.html#cb7-100" tabindex="-1"></a><span class="do">##  [589] 0.467931331 1.264274317 0.043063191 0.904281078 0.802636784 0.357202326</span></span>
-<span id="cb7-101"><a href="introduction.html#cb7-101" tabindex="-1"></a><span class="do">##  [595] 0.635983052 1.548991479 0.209813123 1.031978491 1.031561547 0.039725058</span></span>
-<span id="cb7-102"><a href="introduction.html#cb7-102" tabindex="-1"></a><span class="do">##  [601] 0.089648475 1.508504216 1.171300714 0.621866920 0.526089647 0.084254707</span></span>
-<span id="cb7-103"><a href="introduction.html#cb7-103" tabindex="-1"></a><span class="do">##  [607] 0.246071049 0.301043131 0.533906033 0.547873073 0.532609912 0.071552686</span></span>
-<span id="cb7-104"><a href="introduction.html#cb7-104" tabindex="-1"></a><span class="do">##  [613] 0.921035063 0.211121772 0.260621753 0.772846683 0.075419413 0.930738036</span></span>
-<span id="cb7-105"><a href="introduction.html#cb7-105" tabindex="-1"></a><span class="do">##  [619] 0.491323693 0.493525875 0.289468923 0.803938577 0.473665907 0.256219900</span></span>
-<span id="cb7-106"><a href="introduction.html#cb7-106" tabindex="-1"></a><span class="do">##  [625] 0.070710957 0.324922291 0.337590885 0.191657171 1.253374101 0.272172487</span></span>
-<span id="cb7-107"><a href="introduction.html#cb7-107" tabindex="-1"></a><span class="do">##  [631] 0.139014124 0.069076065 0.753837273 0.552765918 0.079432619 1.051731022</span></span>
-<span id="cb7-108"><a href="introduction.html#cb7-108" tabindex="-1"></a><span class="do">##  [637] 0.858738832 0.096546267 0.734090762 0.266721670 0.146120129 0.117429775</span></span>
-<span id="cb7-109"><a href="introduction.html#cb7-109" tabindex="-1"></a><span class="do">##  [643] 0.176978193 0.408641680 0.001630022 0.028182602 0.146544379 0.060395583</span></span>
-<span id="cb7-110"><a href="introduction.html#cb7-110" tabindex="-1"></a><span class="do">##  [649] 0.492136737 0.168835149 0.593778450 0.277633042 0.185936376 0.411072076</span></span>
-<span id="cb7-111"><a href="introduction.html#cb7-111" tabindex="-1"></a><span class="do">##  [655] 0.296935074 0.356447967 0.203177091 0.346533650 1.762874159 0.118832150</span></span>
-<span id="cb7-112"><a href="introduction.html#cb7-112" tabindex="-1"></a><span class="do">##  [661] 0.223342329 0.737081655 1.148893671 0.864336227 0.437699466 0.170718352</span></span>
-<span id="cb7-113"><a href="introduction.html#cb7-113" tabindex="-1"></a><span class="do">##  [667] 0.453033334 0.284686619 0.220664163 1.270076190 0.159175233 0.985991335</span></span>
-<span id="cb7-114"><a href="introduction.html#cb7-114" tabindex="-1"></a><span class="do">##  [673] 0.355393307 0.029068875 0.729858551 1.192362318 1.228492474 0.618226990</span></span>
-<span id="cb7-115"><a href="introduction.html#cb7-115" tabindex="-1"></a><span class="do">##  [679] 0.258127426 0.994683053 0.622921309 0.286508049 0.313194664 0.101023336</span></span>
-<span id="cb7-116"><a href="introduction.html#cb7-116" tabindex="-1"></a><span class="do">##  [685] 0.050432791 0.994842797 0.401375517 0.195938303 0.188628324 0.454393757</span></span>
-<span id="cb7-117"><a href="introduction.html#cb7-117" tabindex="-1"></a><span class="do">##  [691] 0.352803155 0.279566123 0.901496702 0.460887553 0.075552129 0.351821536</span></span>
-<span id="cb7-118"><a href="introduction.html#cb7-118" tabindex="-1"></a><span class="do">##  [697] 0.315558587 0.269195604 0.052841050 0.344008449 0.506264741 0.242800298</span></span>
-<span id="cb7-119"><a href="introduction.html#cb7-119" tabindex="-1"></a><span class="do">##  [703] 0.228570326 0.128708044 1.019939650 0.221918903 0.435252097 0.897294571</span></span>
-<span id="cb7-120"><a href="introduction.html#cb7-120" tabindex="-1"></a><span class="do">##  [709] 0.146910850 0.238745095 0.129419207 0.430012817 0.617225470 0.250176708</span></span>
-<span id="cb7-121"><a href="introduction.html#cb7-121" tabindex="-1"></a><span class="do">##  [715] 0.112356332 1.211477407 1.474098589 1.982732813 0.018066104 0.427273062</span></span>
-<span id="cb7-122"><a href="introduction.html#cb7-122" tabindex="-1"></a><span class="do">##  [721] 0.009232481 0.477778847 1.128154167 0.092666285 0.433171838 0.074400972</span></span>
-<span id="cb7-123"><a href="introduction.html#cb7-123" tabindex="-1"></a><span class="do">##  [727] 0.841435024 0.251317355 0.541455199 0.193974684 0.618515766 0.179186255</span></span>
-<span id="cb7-124"><a href="introduction.html#cb7-124" tabindex="-1"></a><span class="do">##  [733] 1.502764431 0.547125198 0.289621415 0.799203753 0.022803527 0.471033177</span></span>
-<span id="cb7-125"><a href="introduction.html#cb7-125" tabindex="-1"></a><span class="do">##  [739] 0.052174684 1.037569742 0.185001681 1.185447137 0.078579151 0.045157256</span></span>
-<span id="cb7-126"><a href="introduction.html#cb7-126" tabindex="-1"></a><span class="do">##  [745] 0.046316527 0.553438011 0.121114951 0.450341409 0.181195629 0.084452273</span></span>
-<span id="cb7-127"><a href="introduction.html#cb7-127" tabindex="-1"></a><span class="do">##  [751] 0.796326219 0.173316319 0.803480546 0.022918319 0.793654830 0.335047148</span></span>
-<span id="cb7-128"><a href="introduction.html#cb7-128" tabindex="-1"></a><span class="do">##  [757] 0.265222968 0.141398187 1.101651413 0.294136508 0.021626998 0.032978077</span></span>
-<span id="cb7-129"><a href="introduction.html#cb7-129" tabindex="-1"></a><span class="do">##  [763] 0.995229506 1.414827309 0.497906272 0.655626042 0.642986060 0.072982345</span></span>
-<span id="cb7-130"><a href="introduction.html#cb7-130" tabindex="-1"></a><span class="do">##  [769] 1.407518778 0.164534279 0.806604142 0.024238264 1.283695050 0.154971001</span></span>
-<span id="cb7-131"><a href="introduction.html#cb7-131" tabindex="-1"></a><span class="do">##  [775] 0.012891663 0.501994214 0.270027704 0.027776621 0.358837495 0.484911255</span></span>
-<span id="cb7-132"><a href="introduction.html#cb7-132" tabindex="-1"></a><span class="do">##  [781] 0.204886571 0.139495552 0.195229138 0.026874175 0.304000215 0.074696255</span></span>
-<span id="cb7-133"><a href="introduction.html#cb7-133" tabindex="-1"></a><span class="do">##  [787] 0.194862565 0.439471007 1.451284464 0.195583041 0.138769553 0.139342928</span></span>
-<span id="cb7-134"><a href="introduction.html#cb7-134" tabindex="-1"></a><span class="do">##  [793] 0.031609945 0.029500088 0.035554840 0.206713657 3.366952411 0.009377497</span></span>
-<span id="cb7-135"><a href="introduction.html#cb7-135" tabindex="-1"></a><span class="do">##  [799] 0.276773972 0.099330204 1.637314189 0.530101417 0.803167904 1.050967670</span></span>
-<span id="cb7-136"><a href="introduction.html#cb7-136" tabindex="-1"></a><span class="do">##  [805] 0.692287825 0.137782557 0.246405107 0.404624542 0.350396352 0.796928341</span></span>
-<span id="cb7-137"><a href="introduction.html#cb7-137" tabindex="-1"></a><span class="do">##  [811] 0.446560640 1.723842248 1.076454880 0.409882272 0.103717124 0.156647405</span></span>
-<span id="cb7-138"><a href="introduction.html#cb7-138" tabindex="-1"></a><span class="do">##  [817] 0.213177088 0.053153932 0.033289510 0.301272004 0.036639550 0.852190749</span></span>
-<span id="cb7-139"><a href="introduction.html#cb7-139" tabindex="-1"></a><span class="do">##  [823] 0.147093994 1.290224709 0.018083671 1.257474658 0.039238167 0.068097631</span></span>
-<span id="cb7-140"><a href="introduction.html#cb7-140" tabindex="-1"></a><span class="do">##  [829] 0.034724634 0.703086638 0.214568190 0.237077258 0.116071925 0.016400442</span></span>
-<span id="cb7-141"><a href="introduction.html#cb7-141" tabindex="-1"></a><span class="do">##  [835] 0.130404300 0.586118123 0.728925783 0.074947637 0.196644112 0.042671078</span></span>
-<span id="cb7-142"><a href="introduction.html#cb7-142" tabindex="-1"></a><span class="do">##  [841] 0.237886993 0.534602394 0.646552752 0.050660982 2.010122555 0.626543230</span></span>
-<span id="cb7-143"><a href="introduction.html#cb7-143" tabindex="-1"></a><span class="do">##  [847] 1.126897858 0.419781275 0.023896212 0.705951755 0.562956772 1.328329020</span></span>
-<span id="cb7-144"><a href="introduction.html#cb7-144" tabindex="-1"></a><span class="do">##  [853] 0.169302088 0.835206813 0.277542274 1.697271161 0.186081092 0.209499781</span></span>
-<span id="cb7-145"><a href="introduction.html#cb7-145" tabindex="-1"></a><span class="do">##  [859] 1.816792357 0.357757377 0.370632947 0.606682359 0.767872353 0.504081775</span></span>
-<span id="cb7-146"><a href="introduction.html#cb7-146" tabindex="-1"></a><span class="do">##  [865] 0.001247507 0.374714445 1.260728429 0.548030595 0.051366394 0.669499010</span></span>
-<span id="cb7-147"><a href="introduction.html#cb7-147" tabindex="-1"></a><span class="do">##  [871] 0.204565098 0.357138523 0.325922715 0.173138955 0.194792269 0.261868417</span></span>
-<span id="cb7-148"><a href="introduction.html#cb7-148" tabindex="-1"></a><span class="do">##  [877] 0.442155302 0.543873114 0.348234492 0.440612675 0.353307406 0.173264065</span></span>
-<span id="cb7-149"><a href="introduction.html#cb7-149" tabindex="-1"></a><span class="do">##  [883] 0.220092329 0.798013205 0.503934160 0.254727222 0.132962129 0.035786185</span></span>
-<span id="cb7-150"><a href="introduction.html#cb7-150" tabindex="-1"></a><span class="do">##  [889] 1.123864970 0.032491306 0.341407514 2.650059455 0.150015373 2.011432568</span></span>
-<span id="cb7-151"><a href="introduction.html#cb7-151" tabindex="-1"></a><span class="do">##  [895] 0.300456046 0.026849726 0.042129711 0.238689675 0.543583132 0.742656440</span></span>
-<span id="cb7-152"><a href="introduction.html#cb7-152" tabindex="-1"></a><span class="do">##  [901] 1.812237861 0.358463121 0.236546929 0.002406647 0.176971153 1.063445113</span></span>
-<span id="cb7-153"><a href="introduction.html#cb7-153" tabindex="-1"></a><span class="do">##  [907] 0.030157944 0.024307241 0.163734285 0.199360676 0.912160062 0.355351432</span></span>
-<span id="cb7-154"><a href="introduction.html#cb7-154" tabindex="-1"></a><span class="do">##  [913] 0.189718243 0.296674911 0.697464872 0.708444965 0.368647130 0.060187919</span></span>
-<span id="cb7-155"><a href="introduction.html#cb7-155" tabindex="-1"></a><span class="do">##  [919] 0.549456722 0.021641581 0.290603287 0.798261852 0.314019459 0.724568625</span></span>
-<span id="cb7-156"><a href="introduction.html#cb7-156" tabindex="-1"></a><span class="do">##  [925] 0.941018307 0.293596455 1.223980258 0.039571142 1.158070871 0.460868258</span></span>
-<span id="cb7-157"><a href="introduction.html#cb7-157" tabindex="-1"></a><span class="do">##  [931] 0.247997364 0.263236532 0.139143773 0.140968290 0.761795888 0.148662237</span></span>
-<span id="cb7-158"><a href="introduction.html#cb7-158" tabindex="-1"></a><span class="do">##  [937] 0.421526592 0.300876187 0.243498721 0.112615235 0.471772086 0.405499176</span></span>
-<span id="cb7-159"><a href="introduction.html#cb7-159" tabindex="-1"></a><span class="do">##  [943] 0.214608951 0.858494705 0.671296073 0.577190732 0.626394997 1.441889776</span></span>
-<span id="cb7-160"><a href="introduction.html#cb7-160" tabindex="-1"></a><span class="do">##  [949] 0.826892055 0.219829575 0.236749843 0.422409285 0.513638322 0.948081072</span></span>
-<span id="cb7-161"><a href="introduction.html#cb7-161" tabindex="-1"></a><span class="do">##  [955] 0.087779378 0.310692295 0.182598396 0.094122408 0.104511606 0.958150160</span></span>
-<span id="cb7-162"><a href="introduction.html#cb7-162" tabindex="-1"></a><span class="do">##  [961] 0.009967102 0.573083842 0.589041397 0.007254992 0.674541067 0.128007672</span></span>
-<span id="cb7-163"><a href="introduction.html#cb7-163" tabindex="-1"></a><span class="do">##  [967] 0.221526028 0.506869351 1.241580902 0.350246169 0.482062772 0.509659327</span></span>
-<span id="cb7-164"><a href="introduction.html#cb7-164" tabindex="-1"></a><span class="do">##  [973] 0.491551620 0.216713121 0.531841479 0.812028819 0.722980367 0.219843920</span></span>
-<span id="cb7-165"><a href="introduction.html#cb7-165" tabindex="-1"></a><span class="do">##  [979] 0.123427497 0.704556302 0.673024458 0.334282570 0.250186152 0.209072944</span></span>
-<span id="cb7-166"><a href="introduction.html#cb7-166" tabindex="-1"></a><span class="do">##  [985] 0.755435145 0.198548994 0.595404624 0.062569472 0.087195339 0.214494597</span></span>
-<span id="cb7-167"><a href="introduction.html#cb7-167" tabindex="-1"></a><span class="do">##  [991] 0.377236614 0.006950117 0.479850746 0.235103038 0.944594361 0.076321719</span></span>
-<span id="cb7-168"><a href="introduction.html#cb7-168" tabindex="-1"></a><span class="do">##  [997] 0.052428768 0.541751376 0.225168060 0.703976140</span></span>
-<span id="cb7-169"><a href="introduction.html#cb7-169" tabindex="-1"></a><span class="do">##  [ reached getOption(&quot;max.print&quot;) -- omitted 999000 entries ]</span></span></code></pre></div>
+<span id="cb7-2"><a href="introduction.html#cb7-2" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): object &#39;Y&#39; not found</span></span></code></pre></div>
 </div>
 <div id="r-data-structures" class="section level2 hasAnchor" number="1.5">
 <h2><span class="header-section-number">1.5</span> R Data Structures<a href="introduction.html#r-data-structures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1313,16 +1152,12 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb34-5"><a href="introduction.html#cb34-5" tabindex="-1"></a><span class="do">## [1] FALSE FALSE  TRUE</span></span>
 <span id="cb34-6"><a href="introduction.html#cb34-6" tabindex="-1"></a></span>
 <span id="cb34-7"><a href="introduction.html#cb34-7" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> y</span>
-<span id="cb34-8"><a href="introduction.html#cb34-8" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
+<span id="cb34-8"><a href="introduction.html#cb34-8" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
 <span id="cb34-9"><a href="introduction.html#cb34-9" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="introduction.html#cb34-10" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-11"><a href="introduction.html#cb34-11" tabindex="-1"></a><span class="do">## [1] FALSE</span></span>
-<span id="cb34-12"><a href="introduction.html#cb34-12" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="introduction.html#cb34-13" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb34-14"><a href="introduction.html#cb34-14" tabindex="-1"></a></span>
-<span id="cb34-15"><a href="introduction.html#cb34-15" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
-<span id="cb34-16"><a href="introduction.html#cb34-16" tabindex="-1"></a><span class="do">## Warning in x &amp;&amp; z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb34-17"><a href="introduction.html#cb34-17" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb34-10"><a href="introduction.html#cb34-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb34-11"><a href="introduction.html#cb34-11" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="introduction.html#cb34-12" tabindex="-1"></a>x <span class="sc">&amp;&amp;</span> z</span>
+<span id="cb34-13"><a href="introduction.html#cb34-13" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><code>|</code> and <code>||</code> indicate logical OR. The shorter form performs elementwise comparisons. The longer form examine only the first element of each vector.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction.html#cb35-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb35-2"><a href="introduction.html#cb35-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
@@ -1331,14 +1166,12 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb35-5"><a href="introduction.html#cb35-5" tabindex="-1"></a><span class="do">## [1]  TRUE FALSE  TRUE</span></span>
 <span id="cb35-6"><a href="introduction.html#cb35-6" tabindex="-1"></a></span>
 <span id="cb35-7"><a href="introduction.html#cb35-7" tabindex="-1"></a>x <span class="sc">||</span> y</span>
-<span id="cb35-8"><a href="introduction.html#cb35-8" tabindex="-1"></a><span class="do">## Warning in x || y: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-9"><a href="introduction.html#cb35-9" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
-<span id="cb35-10"><a href="introduction.html#cb35-10" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="introduction.html#cb35-11" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb35-12"><a href="introduction.html#cb35-12" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="introduction.html#cb35-13" tabindex="-1"></a>x <span class="sc">||</span> z</span>
-<span id="cb35-14"><a href="introduction.html#cb35-14" tabindex="-1"></a><span class="do">## Warning in x || z: &#39;length(x) = 3 &gt; 1&#39; in coercion to &#39;logical(1)&#39;</span></span>
-<span id="cb35-15"><a href="introduction.html#cb35-15" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<span id="cb35-8"><a href="introduction.html#cb35-8" tabindex="-1"></a><span class="do">## [1] TRUE</span></span>
+<span id="cb35-9"><a href="introduction.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="introduction.html#cb35-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb35-11"><a href="introduction.html#cb35-11" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="introduction.html#cb35-12" tabindex="-1"></a>x <span class="sc">||</span> z</span>
+<span id="cb35-13"><a href="introduction.html#cb35-13" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
 <p><strong>Assignment</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction.html#cb36-1" tabindex="-1"></a><span class="co"># these assignments are the same, it is recommended to use &lt;-</span></span>
 <span id="cb36-2"><a href="introduction.html#cb36-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
@@ -1357,8 +1190,8 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb37-2"><a href="introduction.html#cb37-2" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
 <span id="cb37-3"><a href="introduction.html#cb37-3" tabindex="-1"></a><span class="do">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
 <span id="cb37-4"><a href="introduction.html#cb37-4" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
-<span id="cb37-5"><a href="introduction.html#cb37-5" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</span></span>
-<span id="cb37-6"><a href="introduction.html#cb37-6" tabindex="-1"></a><span class="do">## [13]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb37-5"><a href="introduction.html#cb37-5" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb37-6"><a href="introduction.html#cb37-6" tabindex="-1"></a><span class="do">## [14] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
 <span id="cb37-7"><a href="introduction.html#cb37-7" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
 <span id="cb37-8"><a href="introduction.html#cb37-8" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
 <span id="cb37-9"><a href="introduction.html#cb37-9" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
@@ -1604,12 +1437,12 @@ Note that we divide the sum by <span class="math inline">\(n-1\)</span> but not 
 <span id="cb44-14"><a href="introduction.html#cb44-14" tabindex="-1"></a></span>
 <span id="cb44-15"><a href="introduction.html#cb44-15" tabindex="-1"></a><span class="co"># seq(from, to, length)</span></span>
 <span id="cb44-16"><a href="introduction.html#cb44-16" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-17"><a href="introduction.html#cb44-17" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5</span></span>
-<span id="cb44-18"><a href="introduction.html#cb44-18" tabindex="-1"></a><span class="do">## [15]  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
+<span id="cb44-17"><a href="introduction.html#cb44-17" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb44-18"><a href="introduction.html#cb44-18" tabindex="-1"></a><span class="do">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span>
 <span id="cb44-19"><a href="introduction.html#cb44-19" tabindex="-1"></a></span>
 <span id="cb44-20"><a href="introduction.html#cb44-20" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
-<span id="cb44-21"><a href="introduction.html#cb44-21" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5</span></span>
-<span id="cb44-22"><a href="introduction.html#cb44-22" tabindex="-1"></a><span class="do">## [15]  7.0  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
+<span id="cb44-21"><a href="introduction.html#cb44-21" tabindex="-1"></a><span class="do">##  [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0</span></span>
+<span id="cb44-22"><a href="introduction.html#cb44-22" tabindex="-1"></a><span class="do">## [16]  7.5  8.0  8.5  9.0  9.5 10.0</span></span></code></pre></div>
 </div>
 <div id="rep" class="section level3 hasAnchor" number="1.7.3">
 <h3><span class="header-section-number">1.7.3</span> <code>rep()</code><a href="introduction.html#rep" class="anchor-section" aria-label="Anchor link to header"></a></h3>
