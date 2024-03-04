@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-02" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -535,16 +535,21 @@ and
 <span id="cb431-41"><a href="multinomial-regression-model.html#cb431-41" tabindex="-1"></a><span class="do">## final  value 4251.314670 </span></span>
 <span id="cb431-42"><a href="multinomial-regression-model.html#cb431-42" tabindex="-1"></a><span class="do">## converged</span></span>
 <span id="cb431-43"><a href="multinomial-regression-model.html#cb431-43" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients, <span class="dv">3</span>)</span>
-<span id="cb431-44"><a href="multinomial-regression-model.html#cb431-44" tabindex="-1"></a><span class="do">##   (Intercept) fixed.acidity volatile.acidity citric.acid residual.sugar chlorides</span></span>
-<span id="cb431-45"><a href="multinomial-regression-model.html#cb431-45" tabindex="-1"></a><span class="do">## 5       2.712        -0.029           -0.354       0.080          1.142     0.003</span></span>
-<span id="cb431-46"><a href="multinomial-regression-model.html#cb431-46" tabindex="-1"></a><span class="do">## 6       3.398        -0.011           -0.937       0.079          1.756     0.015</span></span>
-<span id="cb431-47"><a href="multinomial-regression-model.html#cb431-47" tabindex="-1"></a><span class="do">## 7       2.036         0.409           -1.140      -0.012          2.989    -0.248</span></span>
-<span id="cb431-48"><a href="multinomial-regression-model.html#cb431-48" tabindex="-1"></a><span class="do">## 8       0.220         0.516           -1.050       0.014          3.550     0.021</span></span>
-<span id="cb431-49"><a href="multinomial-regression-model.html#cb431-49" tabindex="-1"></a><span class="do">##   free.sulfur.dioxide total.sulfur.dioxide density    pH sulphates alcohol</span></span>
-<span id="cb431-50"><a href="multinomial-regression-model.html#cb431-50" tabindex="-1"></a><span class="do">## 5               0.478                0.234  -1.385 0.144     0.093  -0.610</span></span>
-<span id="cb431-51"><a href="multinomial-regression-model.html#cb431-51" tabindex="-1"></a><span class="do">## 6               0.604                0.166  -1.945 0.264     0.229   0.183</span></span>
-<span id="cb431-52"><a href="multinomial-regression-model.html#cb431-52" tabindex="-1"></a><span class="do">## 7               0.741                0.147  -3.652 0.690     0.452   0.135</span></span>
-<span id="cb431-53"><a href="multinomial-regression-model.html#cb431-53" tabindex="-1"></a><span class="do">## 8               0.955                0.161  -4.325 0.815     0.375   0.165</span></span></code></pre></div>
+<span id="cb431-44"><a href="multinomial-regression-model.html#cb431-44" tabindex="-1"></a><span class="do">##   (Intercept) fixed.acidity volatile.acidity citric.acid residual.sugar</span></span>
+<span id="cb431-45"><a href="multinomial-regression-model.html#cb431-45" tabindex="-1"></a><span class="do">## 5       2.712        -0.029           -0.354       0.080          1.142</span></span>
+<span id="cb431-46"><a href="multinomial-regression-model.html#cb431-46" tabindex="-1"></a><span class="do">## 6       3.398        -0.011           -0.937       0.079          1.756</span></span>
+<span id="cb431-47"><a href="multinomial-regression-model.html#cb431-47" tabindex="-1"></a><span class="do">## 7       2.036         0.409           -1.140      -0.012          2.989</span></span>
+<span id="cb431-48"><a href="multinomial-regression-model.html#cb431-48" tabindex="-1"></a><span class="do">## 8       0.220         0.516           -1.050       0.014          3.550</span></span>
+<span id="cb431-49"><a href="multinomial-regression-model.html#cb431-49" tabindex="-1"></a><span class="do">##   chlorides free.sulfur.dioxide total.sulfur.dioxide density    pH</span></span>
+<span id="cb431-50"><a href="multinomial-regression-model.html#cb431-50" tabindex="-1"></a><span class="do">## 5     0.003               0.478                0.234  -1.385 0.144</span></span>
+<span id="cb431-51"><a href="multinomial-regression-model.html#cb431-51" tabindex="-1"></a><span class="do">## 6     0.015               0.604                0.166  -1.945 0.264</span></span>
+<span id="cb431-52"><a href="multinomial-regression-model.html#cb431-52" tabindex="-1"></a><span class="do">## 7    -0.248               0.741                0.147  -3.652 0.690</span></span>
+<span id="cb431-53"><a href="multinomial-regression-model.html#cb431-53" tabindex="-1"></a><span class="do">## 8     0.021               0.955                0.161  -4.325 0.815</span></span>
+<span id="cb431-54"><a href="multinomial-regression-model.html#cb431-54" tabindex="-1"></a><span class="do">##   sulphates alcohol</span></span>
+<span id="cb431-55"><a href="multinomial-regression-model.html#cb431-55" tabindex="-1"></a><span class="do">## 5     0.093  -0.610</span></span>
+<span id="cb431-56"><a href="multinomial-regression-model.html#cb431-56" tabindex="-1"></a><span class="do">## 6     0.229   0.183</span></span>
+<span id="cb431-57"><a href="multinomial-regression-model.html#cb431-57" tabindex="-1"></a><span class="do">## 7     0.452   0.135</span></span>
+<span id="cb431-58"><a href="multinomial-regression-model.html#cb431-58" tabindex="-1"></a><span class="do">## 8     0.375   0.165</span></span></code></pre></div>
 <p>For example,
 <span class="math display">\[\begin{equation*}
 \log \frac{\mathbb{P}(Y = 8|X=x)}{\mathbb{P}(Y = 4 | X = x)} = 0.220 + 0.516 \text{fixed acidity} +\ldots + 0.165\text{alcohol}.
@@ -556,16 +561,21 @@ and
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="multinomial-regression-model.html#cb432-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients <span class="sc">/</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>standard.errors</span>
 <span id="cb432-2"><a href="multinomial-regression-model.html#cb432-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z), <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span></span>
 <span id="cb432-3"><a href="multinomial-regression-model.html#cb432-3" tabindex="-1"></a><span class="fu">round</span>(p, <span class="at">digits =</span> <span class="dv">3</span>)</span>
-<span id="cb432-4"><a href="multinomial-regression-model.html#cb432-4" tabindex="-1"></a><span class="do">##   (Intercept) fixed.acidity volatile.acidity citric.acid residual.sugar chlorides</span></span>
-<span id="cb432-5"><a href="multinomial-regression-model.html#cb432-5" tabindex="-1"></a><span class="do">## 5       0.000         0.852                0       0.405          0.001     0.975</span></span>
-<span id="cb432-6"><a href="multinomial-regression-model.html#cb432-6" tabindex="-1"></a><span class="do">## 6       0.000         0.943                0       0.422          0.000     0.867</span></span>
-<span id="cb432-7"><a href="multinomial-regression-model.html#cb432-7" tabindex="-1"></a><span class="do">## 7       0.000         0.017                0       0.913          0.000     0.056</span></span>
-<span id="cb432-8"><a href="multinomial-regression-model.html#cb432-8" tabindex="-1"></a><span class="do">## 8       0.257         0.020                0       0.926          0.000     0.902</span></span>
-<span id="cb432-9"><a href="multinomial-regression-model.html#cb432-9" tabindex="-1"></a><span class="do">##   free.sulfur.dioxide total.sulfur.dioxide density    pH sulphates alcohol</span></span>
-<span id="cb432-10"><a href="multinomial-regression-model.html#cb432-10" tabindex="-1"></a><span class="do">## 5               0.001                0.074   0.006 0.337     0.414   0.026</span></span>
-<span id="cb432-11"><a href="multinomial-regression-model.html#cb432-11" tabindex="-1"></a><span class="do">## 6               0.000                0.211   0.000 0.082     0.043   0.513</span></span>
-<span id="cb432-12"><a href="multinomial-regression-model.html#cb432-12" tabindex="-1"></a><span class="do">## 7               0.000                0.318   0.000 0.000     0.000   0.665</span></span>
-<span id="cb432-13"><a href="multinomial-regression-model.html#cb432-13" tabindex="-1"></a><span class="do">## 8               0.000                0.417   0.000 0.000     0.008   0.693</span></span></code></pre></div>
+<span id="cb432-4"><a href="multinomial-regression-model.html#cb432-4" tabindex="-1"></a><span class="do">##   (Intercept) fixed.acidity volatile.acidity citric.acid residual.sugar</span></span>
+<span id="cb432-5"><a href="multinomial-regression-model.html#cb432-5" tabindex="-1"></a><span class="do">## 5       0.000         0.852                0       0.405          0.001</span></span>
+<span id="cb432-6"><a href="multinomial-regression-model.html#cb432-6" tabindex="-1"></a><span class="do">## 6       0.000         0.943                0       0.422          0.000</span></span>
+<span id="cb432-7"><a href="multinomial-regression-model.html#cb432-7" tabindex="-1"></a><span class="do">## 7       0.000         0.017                0       0.913          0.000</span></span>
+<span id="cb432-8"><a href="multinomial-regression-model.html#cb432-8" tabindex="-1"></a><span class="do">## 8       0.257         0.020                0       0.926          0.000</span></span>
+<span id="cb432-9"><a href="multinomial-regression-model.html#cb432-9" tabindex="-1"></a><span class="do">##   chlorides free.sulfur.dioxide total.sulfur.dioxide density    pH</span></span>
+<span id="cb432-10"><a href="multinomial-regression-model.html#cb432-10" tabindex="-1"></a><span class="do">## 5     0.975               0.001                0.074   0.006 0.337</span></span>
+<span id="cb432-11"><a href="multinomial-regression-model.html#cb432-11" tabindex="-1"></a><span class="do">## 6     0.867               0.000                0.211   0.000 0.082</span></span>
+<span id="cb432-12"><a href="multinomial-regression-model.html#cb432-12" tabindex="-1"></a><span class="do">## 7     0.056               0.000                0.318   0.000 0.000</span></span>
+<span id="cb432-13"><a href="multinomial-regression-model.html#cb432-13" tabindex="-1"></a><span class="do">## 8     0.902               0.000                0.417   0.000 0.000</span></span>
+<span id="cb432-14"><a href="multinomial-regression-model.html#cb432-14" tabindex="-1"></a><span class="do">##   sulphates alcohol</span></span>
+<span id="cb432-15"><a href="multinomial-regression-model.html#cb432-15" tabindex="-1"></a><span class="do">## 5     0.414   0.026</span></span>
+<span id="cb432-16"><a href="multinomial-regression-model.html#cb432-16" tabindex="-1"></a><span class="do">## 6     0.043   0.513</span></span>
+<span id="cb432-17"><a href="multinomial-regression-model.html#cb432-17" tabindex="-1"></a><span class="do">## 7     0.000   0.665</span></span>
+<span id="cb432-18"><a href="multinomial-regression-model.html#cb432-18" tabindex="-1"></a><span class="do">## 8     0.008   0.693</span></span></code></pre></div>
 <p><strong>Prediction and Confusion Matrix</strong></p>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="multinomial-regression-model.html#cb433-1" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, wine_df[<span class="sc">-</span>random_index, ])</span>
 <span id="cb433-2"><a href="multinomial-regression-model.html#cb433-2" tabindex="-1"></a>test_value <span class="ot">&lt;-</span> wine_df[<span class="sc">-</span>random_index, ]<span class="sc">$</span>quality</span>

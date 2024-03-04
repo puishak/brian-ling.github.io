@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-02" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -574,7 +574,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="regularization.html#cb521-1" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
 <span id="cb521-2"><a href="regularization.html#cb521-2" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
 <span id="cb521-3"><a href="regularization.html#cb521-3" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-597-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-590-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The above plot shows the cross-validation error (the mean squared error computed using the CV approach) with different values of <span class="math inline">\(\lambda\)</span> in the <span class="math inline">\(\ln\)</span> scale. We can pick the <span class="math inline">\(\lambda\)</span> that results in the smallest cross-validation error using the following code:</p>
 <div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="regularization.html#cb522-1" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> ridge_cv<span class="sc">$</span>lambda.min</span></code></pre></div>
 <p>Fit the ridge regression for the training data set with the “best” lambda and evaluate the test error.</p>
@@ -586,22 +586,22 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <span id="cb523-6"><a href="regularization.html#cb523-6" tabindex="-1"></a></span>
 <span id="cb523-7"><a href="regularization.html#cb523-7" tabindex="-1"></a><span class="co"># test error</span></span>
 <span id="cb523-8"><a href="regularization.html#cb523-8" tabindex="-1"></a><span class="fu">mean</span>((ridge_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb523-9"><a href="regularization.html#cb523-9" tabindex="-1"></a><span class="do">## [1] 82978.09</span></span></code></pre></div>
+<span id="cb523-9"><a href="regularization.html#cb523-9" tabindex="-1"></a><span class="do">## [1] 138800.2</span></span></code></pre></div>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="regularization.html#cb524-1" tabindex="-1"></a><span class="fu">predict</span>(ridge_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb524-2"><a href="regularization.html#cb524-2" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI </span></span>
-<span id="cb524-3"><a href="regularization.html#cb524-3" tabindex="-1"></a><span class="do">## 734.98187060  -0.39771682   0.09856678   1.90816636   1.12520209   1.12817707 </span></span>
-<span id="cb524-4"><a href="regularization.html#cb524-4" tabindex="-1"></a><span class="do">##        Walks        Years       CAtBat        CHits       CHmRun        CRuns </span></span>
-<span id="cb524-5"><a href="regularization.html#cb524-5" tabindex="-1"></a><span class="do">##   1.84214466  -1.07801226  -0.01043714   0.04680252   0.29728579   0.06784558 </span></span>
-<span id="cb524-6"><a href="regularization.html#cb524-6" tabindex="-1"></a><span class="do">##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists </span></span>
-<span id="cb524-7"><a href="regularization.html#cb524-7" tabindex="-1"></a><span class="do">##   0.10195270   0.22099398  52.85489693 -87.77696817   0.02659380   0.25831844 </span></span>
-<span id="cb524-8"><a href="regularization.html#cb524-8" tabindex="-1"></a><span class="do">##       Errors   NewLeagueN </span></span>
-<span id="cb524-9"><a href="regularization.html#cb524-9" tabindex="-1"></a><span class="do">##  -2.60678334 -21.39048354</span></span></code></pre></div>
+<span id="cb524-2"><a href="regularization.html#cb524-2" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs </span></span>
+<span id="cb524-3"><a href="regularization.html#cb524-3" tabindex="-1"></a><span class="do">##  71.16411532   0.05151174   0.31495026   2.49638228   0.68833226 </span></span>
+<span id="cb524-4"><a href="regularization.html#cb524-4" tabindex="-1"></a><span class="do">##          RBI        Walks        Years       CAtBat        CHits </span></span>
+<span id="cb524-5"><a href="regularization.html#cb524-5" tabindex="-1"></a><span class="do">##   0.73836757   1.77444807  -0.48852879   0.01327951   0.06333713 </span></span>
+<span id="cb524-6"><a href="regularization.html#cb524-6" tabindex="-1"></a><span class="do">##       CHmRun        CRuns         CRBI       CWalks      LeagueN </span></span>
+<span id="cb524-7"><a href="regularization.html#cb524-7" tabindex="-1"></a><span class="do">##   0.62913292   0.12448162   0.15070839   0.16896589  31.16003691 </span></span>
+<span id="cb524-8"><a href="regularization.html#cb524-8" tabindex="-1"></a><span class="do">##    DivisionW      PutOuts      Assists       Errors </span></span>
+<span id="cb524-9"><a href="regularization.html#cb524-9" tabindex="-1"></a><span class="do">## -77.93859127   0.09125514   0.06393766  -0.33532271</span></span></code></pre></div>
 <p><strong>Compare with the least squares approach</strong></p>
 <div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="regularization.html#cb525-1" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters[index, ])</span>
 <span id="cb525-2"><a href="regularization.html#cb525-2" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters[<span class="sc">-</span>index, ])</span>
 <span id="cb525-3"><a href="regularization.html#cb525-3" tabindex="-1"></a><span class="fu">mean</span>((ls_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb525-4"><a href="regularization.html#cb525-4" tabindex="-1"></a><span class="do">## [1] 93373.95</span></span></code></pre></div>
+<span id="cb525-4"><a href="regularization.html#cb525-4" tabindex="-1"></a><span class="do">## [1] 168593.3</span></span></code></pre></div>
 <p>We can see that the test error obtained from ridge regression is smaller.</p>
 </div>
 <div id="lasso-1" class="section level3 hasAnchor" number="19.4.2">
@@ -610,7 +610,7 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="regularization.html#cb526-1" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[index, ], y[index], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb526-2"><a href="regularization.html#cb526-2" tabindex="-1"></a></span>
 <span id="cb526-3"><a href="regularization.html#cb526-3" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-602-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-595-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="regularization.html#cb527-1" tabindex="-1"></a><span class="co"># find the best lambda</span></span>
 <span id="cb527-2"><a href="regularization.html#cb527-2" tabindex="-1"></a>best_lambda <span class="ot">&lt;-</span> lasso_cv<span class="sc">$</span>lambda.min</span>
 <span id="cb527-3"><a href="regularization.html#cb527-3" tabindex="-1"></a></span>
@@ -621,18 +621,18 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <span id="cb527-8"><a href="regularization.html#cb527-8" tabindex="-1"></a></span>
 <span id="cb527-9"><a href="regularization.html#cb527-9" tabindex="-1"></a><span class="co"># test error</span></span>
 <span id="cb527-10"><a href="regularization.html#cb527-10" tabindex="-1"></a><span class="fu">mean</span>((lasso_pred <span class="sc">-</span> y[<span class="sc">-</span>index])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb527-11"><a href="regularization.html#cb527-11" tabindex="-1"></a><span class="do">## [1] 85771.99</span></span></code></pre></div>
+<span id="cb527-11"><a href="regularization.html#cb527-11" tabindex="-1"></a><span class="do">## [1] 144127.2</span></span></code></pre></div>
 <p>The test error obtained from lasso is also smaller than that obtained from the least squares approach.</p>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="regularization.html#cb528-1" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb528-2"><a href="regularization.html#cb528-2" tabindex="-1"></a><span class="do">## (Intercept)       AtBat        Hits       HmRun        Runs         RBI </span></span>
-<span id="cb528-3"><a href="regularization.html#cb528-3" tabindex="-1"></a><span class="do">## 820.2506544   0.0000000   0.0000000   0.0000000   0.0000000   0.8252274 </span></span>
-<span id="cb528-4"><a href="regularization.html#cb528-4" tabindex="-1"></a><span class="do">##       Walks       Years      CAtBat       CHits      CHmRun       CRuns </span></span>
-<span id="cb528-5"><a href="regularization.html#cb528-5" tabindex="-1"></a><span class="do">##   0.7905141   0.0000000   0.0000000   0.0000000   0.1572202   0.0000000 </span></span>
-<span id="cb528-6"><a href="regularization.html#cb528-6" tabindex="-1"></a><span class="do">##        CRBI      CWalks     LeagueN   DivisionW     PutOuts     Assists </span></span>
-<span id="cb528-7"><a href="regularization.html#cb528-7" tabindex="-1"></a><span class="do">##   0.0000000   0.3894920   0.0000000 -59.0032158   0.0000000   0.0000000 </span></span>
-<span id="cb528-8"><a href="regularization.html#cb528-8" tabindex="-1"></a><span class="do">##      Errors  NewLeagueN </span></span>
-<span id="cb528-9"><a href="regularization.html#cb528-9" tabindex="-1"></a><span class="do">##   0.0000000   0.0000000</span></span></code></pre></div>
+<span id="cb528-2"><a href="regularization.html#cb528-2" tabindex="-1"></a><span class="do">##   (Intercept)         AtBat          Hits         HmRun          Runs </span></span>
+<span id="cb528-3"><a href="regularization.html#cb528-3" tabindex="-1"></a><span class="do">##  126.13087838    0.00000000    0.00000000    3.49595499    0.00000000 </span></span>
+<span id="cb528-4"><a href="regularization.html#cb528-4" tabindex="-1"></a><span class="do">##           RBI         Walks         Years        CAtBat         CHits </span></span>
+<span id="cb528-5"><a href="regularization.html#cb528-5" tabindex="-1"></a><span class="do">##    0.00000000    3.93919763  -15.95901778    0.00000000    0.23935217 </span></span>
+<span id="cb528-6"><a href="regularization.html#cb528-6" tabindex="-1"></a><span class="do">##        CHmRun         CRuns          CRBI        CWalks       LeagueN </span></span>
+<span id="cb528-7"><a href="regularization.html#cb528-7" tabindex="-1"></a><span class="do">##    0.87111840    0.00000000    0.39819654    0.00000000   52.95398929 </span></span>
+<span id="cb528-8"><a href="regularization.html#cb528-8" tabindex="-1"></a><span class="do">##     DivisionW       PutOuts       Assists        Errors </span></span>
+<span id="cb528-9"><a href="regularization.html#cb528-9" tabindex="-1"></a><span class="do">## -139.60281921    0.12169771    0.14858018   -0.06371655</span></span></code></pre></div>
 <p>We can see that the lasso results in a model where the coefficient estimates are sparse: <span class="math inline">\(7\)</span> of the estimates are exactly <span class="math inline">\(0\)</span>.</p>
 <p><strong>Variable selection property of LASSO</strong></p>
 <p>In the following toy example, the response is only related to the first five features <span class="math inline">\(X_1,\ldots,X_5\)</span>:
@@ -681,7 +681,7 @@ We apply LASSO and see that LASSO can select the true model, that is, a linear m
 <div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="regularization.html#cb531-1" tabindex="-1"></a>cvfit <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">type.measure =</span> <span class="st">&quot;class&quot;</span>)</span>
 <span id="cb531-2"><a href="regularization.html#cb531-2" tabindex="-1"></a></span>
 <span id="cb531-3"><a href="regularization.html#cb531-3" tabindex="-1"></a><span class="fu">plot</span>(cvfit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-607-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-600-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="regularization.html#cb532-1" tabindex="-1"></a>cvfit<span class="sc">$</span>lambda.min</span>
 <span id="cb532-2"><a href="regularization.html#cb532-2" tabindex="-1"></a><span class="do">## [1] 0.02578548</span></span>
 <span id="cb532-3"><a href="regularization.html#cb532-3" tabindex="-1"></a>cvfit<span class="sc">$</span>lambda<span class="fl">.1</span>se</span>
@@ -707,7 +707,7 @@ where we do not penalize the intercept.</p>
 <span id="cb533-3"><a href="regularization.html#cb533-3" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb533-4"><a href="regularization.html#cb533-4" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">28</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">28</span>, <span class="fu">matrix</span>(mnist<span class="sc">$</span>test<span class="sc">$</span>images[i,], <span class="at">nrow =</span> <span class="dv">28</span>)[ , <span class="dv">28</span><span class="sc">:</span><span class="dv">1</span>], </span>
 <span id="cb533-5"><a href="regularization.html#cb533-5" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">gray</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)), <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-608-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-601-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="regularization.html#cb534-1" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
 <span id="cb534-2"><a href="regularization.html#cb534-2" tabindex="-1"></a>train_X <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>images</span>
 <span id="cb534-3"><a href="regularization.html#cb534-3" tabindex="-1"></a>train_y <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>labels</span>

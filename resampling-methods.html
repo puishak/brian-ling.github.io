@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-02" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -603,7 +603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb457-15"><a href="resampling-methods.html#cb457-15" tabindex="-1"></a><span class="do">## attr(,&quot;class&quot;)</span></span>
 <span id="cb457-16"><a href="resampling-methods.html#cb457-16" tabindex="-1"></a><span class="do">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
 <span id="cb457-17"><a href="resampling-methods.html#cb457-17" tabindex="-1"></a><span class="fu">plot</span>(cv_fit<span class="sc">$</span>size, cv_fit<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-521-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-514-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><code>size</code>: number of terminal nodes of the tree</p>
 <p><code>dev</code>: cross-validation errors</p>
 <p>We will choose the <code>size</code> with the minimum <code>dev</code>.</p>
@@ -618,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For this particular example, the classification accuracy actually becomes lower when we prune the tree. However, the pruned tree has only <span class="math inline">\(3\)</span> terminal nodes, which can be easier for interpretation.</p>
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="resampling-methods.html#cb459-1" tabindex="-1"></a><span class="fu">plot</span>(prune_fit)</span>
 <span id="cb459-2"><a href="resampling-methods.html#cb459-2" tabindex="-1"></a><span class="fu">text</span>(prune_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-523-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Regression Tree</strong></p>
 <p>Pruning can be performed with regression tree as well.</p>
 <div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="resampling-methods.html#cb460-1" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span></code></pre></div>
@@ -626,7 +626,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="resampling-methods.html#cb461-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
 <span id="cb461-2"><a href="resampling-methods.html#cb461-2" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(reg_tree)</span>
 <span id="cb461-3"><a href="resampling-methods.html#cb461-3" tabindex="-1"></a><span class="fu">plot</span>(cv<span class="sc">$</span>size, cv<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-525-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-518-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prune the tree:</p>
 <div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="resampling-methods.html#cb462-1" tabindex="-1"></a><span class="co"># best size</span></span>
 <span id="cb462-2"><a href="resampling-methods.html#cb462-2" tabindex="-1"></a>cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)] </span>
@@ -640,7 +640,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Pruned tree:</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="resampling-methods.html#cb463-1" tabindex="-1"></a><span class="fu">plot</span>(prune_reg_tree)</span>
 <span id="cb463-2"><a href="resampling-methods.html#cb463-2" tabindex="-1"></a><span class="fu">text</span>(prune_reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-527-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-520-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The performance (in terms of MSE) of the pruned tree in test data is similar to the tree without pruning.</p>
 </div>
 </div>

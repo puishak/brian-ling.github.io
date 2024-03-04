@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-02" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1057,7 +1057,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb126-7"><a href="programming-in-r.html#cb126-7" tabindex="-1"></a>}</span>
 <span id="cb126-8"><a href="programming-in-r.html#cb126-8" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb126-9"><a href="programming-in-r.html#cb126-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb126-10"><a href="programming-in-r.html#cb126-10" tabindex="-1"></a><span class="do">##    0.05    0.00    0.49</span></span></code></pre></div>
+<span id="cb126-10"><a href="programming-in-r.html#cb126-10" tabindex="-1"></a><span class="do">##    0.18    0.00    0.36</span></span></code></pre></div>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="programming-in-r.html#cb127-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb127-2"><a href="programming-in-r.html#cb127-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb127-3"><a href="programming-in-r.html#cb127-3" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -1067,7 +1067,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" tabindex="-1"></a>  }</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" tabindex="-1"></a>})</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.01    0.00    0.42</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.08    0.00    0.22</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1075,7 +1075,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb128-3"><a href="programming-in-r.html#cb128-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
 <span id="cb128-4"><a href="programming-in-r.html#cb128-4" tabindex="-1"></a>})</span>
 <span id="cb128-5"><a href="programming-in-r.html#cb128-5" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb128-6"><a href="programming-in-r.html#cb128-6" tabindex="-1"></a><span class="do">##    0.00    0.00    0.01</span></span></code></pre></div>
+<span id="cb128-6"><a href="programming-in-r.html#cb128-6" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="programming-in-r.html#cb129-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb129-2"><a href="programming-in-r.html#cb129-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -1088,11 +1088,11 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-9"><a href="programming-in-r.html#cb129-9" tabindex="-1"></a>  }</span>
 <span id="cb129-10"><a href="programming-in-r.html#cb129-10" tabindex="-1"></a>})</span>
 <span id="cb129-11"><a href="programming-in-r.html#cb129-11" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-12"><a href="programming-in-r.html#cb129-12" tabindex="-1"></a><span class="do">##    0.00    0.00    0.18</span></span>
+<span id="cb129-12"><a href="programming-in-r.html#cb129-12" tabindex="-1"></a><span class="do">##    0.04    0.00    0.06</span></span>
 <span id="cb129-13"><a href="programming-in-r.html#cb129-13" tabindex="-1"></a></span>
 <span id="cb129-14"><a href="programming-in-r.html#cb129-14" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb129-15"><a href="programming-in-r.html#cb129-15" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-16"><a href="programming-in-r.html#cb129-16" tabindex="-1"></a><span class="do">##    0.00    0.00    0.02</span></span></code></pre></div>
+<span id="cb129-16"><a href="programming-in-r.html#cb129-16" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
 <p>The general rule is to use vectorized operations whenever possible and to avoid using for loops. We use a for loop when the code is not time-consuming or when the code is hard to write without using a for loop. A more advanced option is to combine C++ with R using the package <code>rcpp</code>. That is, we can write the most time-consuming part of the R code in C++, which could run many times faster (will not be discussed in this course).</p>
 <p>See also <a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/" class="uri">http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/</a></p>
 </div>
@@ -1200,7 +1200,8 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <li>Generate some random integers from 1 to 1 million</li>
 </ol>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="programming-in-r.html#cb137-1" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb137-2"><a href="programming-in-r.html#cb137-2" tabindex="-1"></a><span class="do">##  [1] 561439 127167 780154 220509 719167 764255 396230 217832 690367 751599</span></span></code></pre></div>
+<span id="cb137-2"><a href="programming-in-r.html#cb137-2" tabindex="-1"></a><span class="do">##  [1] 561439 127167 780154 220509 719167 764255 396230 217832 690367</span></span>
+<span id="cb137-3"><a href="programming-in-r.html#cb137-3" tabindex="-1"></a><span class="do">## [10] 751599</span></span></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
 <li>Write an if statement that checks if a variable <code>x</code> is equal to 5, and if so print “x is equal to 5”.</li>
 </ol>

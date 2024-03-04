@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-02" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -469,10 +469,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 15</span> Ensemble Methods<a href="ensemble-methods.html#ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Reference: Ch8 in An introduction to Statistical Learning with applications in R by James, Witten, Hastie and Tibshirani. For more details, study STAT457/ 462.</p>
 <p>Package used:</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="ensemble-methods.html#cb466-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb466-2"><a href="ensemble-methods.html#cb466-2" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb466-3"><a href="ensemble-methods.html#cb466-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb466-4"><a href="ensemble-methods.html#cb466-4" tabindex="-1"></a><span class="fu">library</span>(tree)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="ensemble-methods.html#cb466-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb466-2"><a href="ensemble-methods.html#cb466-2" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb466-3"><a href="ensemble-methods.html#cb466-3" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb466-4"><a href="ensemble-methods.html#cb466-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb466-5"><a href="ensemble-methods.html#cb466-5" tabindex="-1"></a><span class="fu">library</span>(tree)</span></code></pre></div>
 <ul>
 <li><p>Ensemble methods involve pooling together the predictions of a set of many models.</p></li>
 <li><p>In this chapter, we illustrate this idea by pooling together many decision trees, resulting in a method called <strong>random forest</strong>. Another powerful technique is called <strong>boosting</strong>.</p></li>
@@ -533,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb469-3"><a href="ensemble-methods.html#cb469-3" tabindex="-1"></a></span>
 <span id="cb469-4"><a href="ensemble-methods.html#cb469-4" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
 <span id="cb469-5"><a href="ensemble-methods.html#cb469-5" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> rf_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb469-6"><a href="ensemble-methods.html#cb469-6" tabindex="-1"></a><span class="do">## [1] 62219.41</span></span></code></pre></div>
+<span id="cb469-6"><a href="ensemble-methods.html#cb469-6" tabindex="-1"></a><span class="do">## [1] 87650.31</span></span></code></pre></div>
 <p>Compared with a multiple linear regression model:</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="ensemble-methods.html#cb470-1" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
 <span id="cb470-2"><a href="ensemble-methods.html#cb470-2" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train)</span>
@@ -543,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb470-6"><a href="ensemble-methods.html#cb470-6" tabindex="-1"></a></span>
 <span id="cb470-7"><a href="ensemble-methods.html#cb470-7" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
 <span id="cb470-8"><a href="ensemble-methods.html#cb470-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> ls_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb470-9"><a href="ensemble-methods.html#cb470-9" tabindex="-1"></a><span class="do">## [1] 93373.95</span></span></code></pre></div>
+<span id="cb470-9"><a href="ensemble-methods.html#cb470-9" tabindex="-1"></a><span class="do">## [1] 168593.3</span></span></code></pre></div>
 <p>Compared with a single regression tree:</p>
 <div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="ensemble-methods.html#cb471-1" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
 <span id="cb471-2"><a href="ensemble-methods.html#cb471-2" tabindex="-1"></a>tree_fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>., Hitters_train)</span>
@@ -553,10 +554,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb471-6"><a href="ensemble-methods.html#cb471-6" tabindex="-1"></a></span>
 <span id="cb471-7"><a href="ensemble-methods.html#cb471-7" tabindex="-1"></a><span class="co"># Compute MSE in test data</span></span>
 <span id="cb471-8"><a href="ensemble-methods.html#cb471-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> tree_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb471-9"><a href="ensemble-methods.html#cb471-9" tabindex="-1"></a><span class="do">## [1] 83073.2</span></span></code></pre></div>
+<span id="cb471-9"><a href="ensemble-methods.html#cb471-9" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
 <p>A plot showing the predictions by different methods and the corresponding observed values.</p>
 <pre><code>## [1] FALSE</code></pre>
-<p><img src="Book_files/figure-html/unnamed-chunk-537-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-530-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Several observations:</p>
 <ul>
 <li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
@@ -567,30 +568,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random forest typically improves the accuracy over predictions using a single tree. However, it can be difficult to interpret the resulting model, losing the advantage of using a decision tree.</p>
 <p>On the other hand, one can still obtain an overall summary of the importance of each feature using the RSS (for regression problems) or the Gini index (for classification problems). Basically, we can record the total amount that the measure (RSS or Gini index) decreases due to splits over a given predictor, averaged over all the <span class="math inline">\(B\)</span> trees. A large value indicates an important predictor. This importance measure is given in the second column of <code>importance(rf_fit)</code>.</p>
 <div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="ensemble-methods.html#cb473-1" tabindex="-1"></a><span class="fu">importance</span>(rf_fit)</span>
-<span id="cb473-2"><a href="ensemble-methods.html#cb473-2" tabindex="-1"></a><span class="do">##               %IncMSE IncNodePurity</span></span>
-<span id="cb473-3"><a href="ensemble-methods.html#cb473-3" tabindex="-1"></a><span class="do">## AtBat      3.35182212     524974.45</span></span>
-<span id="cb473-4"><a href="ensemble-methods.html#cb473-4" tabindex="-1"></a><span class="do">## Hits       1.13094383     611669.31</span></span>
-<span id="cb473-5"><a href="ensemble-methods.html#cb473-5" tabindex="-1"></a><span class="do">## HmRun      2.85844392     631697.80</span></span>
-<span id="cb473-6"><a href="ensemble-methods.html#cb473-6" tabindex="-1"></a><span class="do">## Runs       2.65375662     712993.07</span></span>
-<span id="cb473-7"><a href="ensemble-methods.html#cb473-7" tabindex="-1"></a><span class="do">## RBI        0.91376847     858711.10</span></span>
-<span id="cb473-8"><a href="ensemble-methods.html#cb473-8" tabindex="-1"></a><span class="do">## Walks      5.10158070     938898.67</span></span>
-<span id="cb473-9"><a href="ensemble-methods.html#cb473-9" tabindex="-1"></a><span class="do">## Years      5.38718804     295859.22</span></span>
-<span id="cb473-10"><a href="ensemble-methods.html#cb473-10" tabindex="-1"></a><span class="do">## CAtBat    12.34565397    1501003.50</span></span>
-<span id="cb473-11"><a href="ensemble-methods.html#cb473-11" tabindex="-1"></a><span class="do">## CHits     12.66787049    1861108.04</span></span>
-<span id="cb473-12"><a href="ensemble-methods.html#cb473-12" tabindex="-1"></a><span class="do">## CHmRun     4.50720662    1086255.87</span></span>
-<span id="cb473-13"><a href="ensemble-methods.html#cb473-13" tabindex="-1"></a><span class="do">## CRuns     13.31276946    2103022.87</span></span>
-<span id="cb473-14"><a href="ensemble-methods.html#cb473-14" tabindex="-1"></a><span class="do">## CRBI      11.11503712    2101151.04</span></span>
-<span id="cb473-15"><a href="ensemble-methods.html#cb473-15" tabindex="-1"></a><span class="do">## CWalks     9.40813964    1447656.21</span></span>
-<span id="cb473-16"><a href="ensemble-methods.html#cb473-16" tabindex="-1"></a><span class="do">## League     0.57926429      20002.08</span></span>
-<span id="cb473-17"><a href="ensemble-methods.html#cb473-17" tabindex="-1"></a><span class="do">## Division   2.04714437      45064.15</span></span>
-<span id="cb473-18"><a href="ensemble-methods.html#cb473-18" tabindex="-1"></a><span class="do">## PutOuts    3.67103105     296237.51</span></span>
-<span id="cb473-19"><a href="ensemble-methods.html#cb473-19" tabindex="-1"></a><span class="do">## Assists   -0.26947886     152545.23</span></span>
-<span id="cb473-20"><a href="ensemble-methods.html#cb473-20" tabindex="-1"></a><span class="do">## Errors    -0.07960768     142009.27</span></span>
-<span id="cb473-21"><a href="ensemble-methods.html#cb473-21" tabindex="-1"></a><span class="do">## NewLeague  0.11678271      23564.81</span></span>
-<span id="cb473-22"><a href="ensemble-methods.html#cb473-22" tabindex="-1"></a><span class="do">## High      29.37244111    7814171.92</span></span></code></pre></div>
+<span id="cb473-2"><a href="ensemble-methods.html#cb473-2" tabindex="-1"></a><span class="do">##              %IncMSE IncNodePurity</span></span>
+<span id="cb473-3"><a href="ensemble-methods.html#cb473-3" tabindex="-1"></a><span class="do">## AtBat      7.3420553     997214.23</span></span>
+<span id="cb473-4"><a href="ensemble-methods.html#cb473-4" tabindex="-1"></a><span class="do">## Hits       4.8603778    1157644.19</span></span>
+<span id="cb473-5"><a href="ensemble-methods.html#cb473-5" tabindex="-1"></a><span class="do">## HmRun      6.4390840     812973.05</span></span>
+<span id="cb473-6"><a href="ensemble-methods.html#cb473-6" tabindex="-1"></a><span class="do">## Runs       7.6439109    1106475.84</span></span>
+<span id="cb473-7"><a href="ensemble-methods.html#cb473-7" tabindex="-1"></a><span class="do">## RBI        4.4687909    1467502.92</span></span>
+<span id="cb473-8"><a href="ensemble-methods.html#cb473-8" tabindex="-1"></a><span class="do">## Walks      8.8932891    1487171.67</span></span>
+<span id="cb473-9"><a href="ensemble-methods.html#cb473-9" tabindex="-1"></a><span class="do">## Years      5.8261376     512650.11</span></span>
+<span id="cb473-10"><a href="ensemble-methods.html#cb473-10" tabindex="-1"></a><span class="do">## CAtBat    13.5150479    2338936.62</span></span>
+<span id="cb473-11"><a href="ensemble-methods.html#cb473-11" tabindex="-1"></a><span class="do">## CHits     13.7118147    2513887.88</span></span>
+<span id="cb473-12"><a href="ensemble-methods.html#cb473-12" tabindex="-1"></a><span class="do">## CHmRun     9.4399564    1547444.74</span></span>
+<span id="cb473-13"><a href="ensemble-methods.html#cb473-13" tabindex="-1"></a><span class="do">## CRuns     14.6943914    2661689.41</span></span>
+<span id="cb473-14"><a href="ensemble-methods.html#cb473-14" tabindex="-1"></a><span class="do">## CRBI      15.1491101    3386198.09</span></span>
+<span id="cb473-15"><a href="ensemble-methods.html#cb473-15" tabindex="-1"></a><span class="do">## CWalks     9.6892596    1949324.00</span></span>
+<span id="cb473-16"><a href="ensemble-methods.html#cb473-16" tabindex="-1"></a><span class="do">## League     1.8178805      65645.25</span></span>
+<span id="cb473-17"><a href="ensemble-methods.html#cb473-17" tabindex="-1"></a><span class="do">## Division   1.5007606      67524.47</span></span>
+<span id="cb473-18"><a href="ensemble-methods.html#cb473-18" tabindex="-1"></a><span class="do">## PutOuts    6.5967866     425899.66</span></span>
+<span id="cb473-19"><a href="ensemble-methods.html#cb473-19" tabindex="-1"></a><span class="do">## Assists    0.1277274     255659.19</span></span>
+<span id="cb473-20"><a href="ensemble-methods.html#cb473-20" tabindex="-1"></a><span class="do">## Errors    -2.0154659     205205.38</span></span>
+<span id="cb473-21"><a href="ensemble-methods.html#cb473-21" tabindex="-1"></a><span class="do">## NewLeague  0.1637974      47893.61</span></span></code></pre></div>
 <p>Visualizing the importance of the features:</p>
 <div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="ensemble-methods.html#cb474-1" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-539-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-532-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="boosting" class="section level2 hasAnchor" number="15.3">
@@ -644,36 +644,35 @@ r_i \leftarrow r_i - \lambda \hat{f}^b(x_i).
 <span id="cb475-4"><a href="ensemble-methods.html#cb475-4" tabindex="-1"></a>boost_fit <span class="ot">&lt;-</span> <span class="fu">gbm</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train, <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>, <span class="at">n.trees =</span> <span class="dv">5000</span>, </span>
 <span id="cb475-5"><a href="ensemble-methods.html#cb475-5" tabindex="-1"></a>                 <span class="at">interaction.depth =</span> <span class="dv">3</span>, <span class="at">shrinkage =</span> <span class="fl">0.01</span>, <span class="at">cv.folds =</span> <span class="dv">5</span>)</span>
 <span id="cb475-6"><a href="ensemble-methods.html#cb475-6" tabindex="-1"></a>Bhat <span class="ot">&lt;-</span> <span class="fu">gbm.perf</span>(boost_fit) <span class="co"># optimal value</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-540-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-533-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="ensemble-methods.html#cb476-1" tabindex="-1"></a>Bhat</span>
-<span id="cb476-2"><a href="ensemble-methods.html#cb476-2" tabindex="-1"></a><span class="do">## [1] 378</span></span>
+<span id="cb476-2"><a href="ensemble-methods.html#cb476-2" tabindex="-1"></a><span class="do">## [1] 506</span></span>
 <span id="cb476-3"><a href="ensemble-methods.html#cb476-3" tabindex="-1"></a><span class="fu">summary</span>(boost_fit, <span class="at">n.trees =</span> Bhat)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-540-2.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>##                 var     rel.inf
-## High           High 66.52569760
-## CWalks       CWalks  4.47335852
-## Walks         Walks  4.13471066
-## CRuns         CRuns  3.75899271
-## CHmRun       CHmRun  3.46823597
-## RBI             RBI  2.61182242
-## CAtBat       CAtBat  2.39444179
-## CRBI           CRBI  1.93602357
-## PutOuts     PutOuts  1.72423683
-## CHits         CHits  1.51351722
-## Runs           Runs  1.28925568
-## Years         Years  1.06199301
-## Assists     Assists  1.06115944
-## Division   Division  0.99321807
-## Errors       Errors  0.91804903
-## HmRun         HmRun  0.66075807
-## AtBat         AtBat  0.64573458
-## Hits           Hits  0.49041025
-## League       League  0.30037483
-## NewLeague NewLeague  0.03800974</code></pre>
+<p><img src="Book_files/figure-html/unnamed-chunk-533-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>##                 var   rel.inf
+## Walks         Walks 11.320578
+## CRBI           CRBI 10.877212
+## CHmRun       CHmRun 10.297120
+## CRuns         CRuns  8.237119
+## CAtBat       CAtBat  7.714124
+## CWalks       CWalks  7.677176
+## RBI             RBI  5.678778
+## CHits         CHits  5.651414
+## Assists     Assists  4.570534
+## PutOuts     PutOuts  4.353594
+## HmRun         HmRun  4.071464
+## Runs           Runs  3.955627
+## Years         Years  3.300331
+## AtBat         AtBat  2.982853
+## Hits           Hits  2.908079
+## Division   Division  2.395454
+## Errors       Errors  2.294263
+## League       League  1.714280
+## NewLeague NewLeague  0.000000</code></pre>
 <p>The <code>summary()</code> function produces a relative influence plot and also outputs the relative influence statistics.</p>
 <div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="ensemble-methods.html#cb478-1" tabindex="-1"></a>boost_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(boost_fit, <span class="at">newdata =</span> Hitters_test, <span class="at">n.trees =</span> Bhat)</span>
 <span id="cb478-2"><a href="ensemble-methods.html#cb478-2" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> boost_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb478-3"><a href="ensemble-methods.html#cb478-3" tabindex="-1"></a><span class="do">## [1] 69670.1</span></span></code></pre></div>
+<span id="cb478-3"><a href="ensemble-methods.html#cb478-3" tabindex="-1"></a><span class="do">## [1] 92857.11</span></span></code></pre></div>
 <p>In this particular dataset, random forest performs sligtly better than boosting (with this set of tuning parameters).</p>
 
 </div>
