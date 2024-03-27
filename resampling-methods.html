@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Resampling Methods | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Resampling Methods | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-04" />
+<meta name="date" content="2024-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -416,18 +420,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
+<li class="chapter" data-level="19" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html"><i class="fa fa-check"></i><b>19</b> Shrinkage Methods</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
-<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
-<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
+<li class="chapter" data-level="19.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
 <ul>
-<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.4.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
-<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
+<li class="chapter" data-level="19.5" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -444,6 +448,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
 </ul></li>
 <li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html"><i class="fa fa-check"></i><b>21</b> Using C++ in R with Rcpp</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#basic-examples"><i class="fa fa-check"></i><b>21.1</b> Basic Examples</a></li>
+<li class="chapter" data-level="21.2" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#scalar-input-scalar-output"><i class="fa fa-check"></i><b>21.2</b> Scalar Input, Scalar Output</a></li>
+<li class="chapter" data-level="21.3" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-scalar-ouptut"><i class="fa fa-check"></i><b>21.3</b> Vector Input, Scalar Ouptut</a></li>
+<li class="chapter" data-level="21.4" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-vector-output"><i class="fa fa-check"></i><b>21.4</b> Vector Input, Vector Output</a></li>
+<li class="chapter" data-level="21.5" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#returning-a-list"><i class="fa fa-check"></i><b>21.5</b> Returning a list</a></li>
+<li class="chapter" data-level="21.6" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#using-sourcecpp"><i class="fa fa-check"></i><b>21.6</b> Using <code>sourceCpp</code></a></li>
+<li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
+<li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -486,21 +501,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>However, the test error obtained using the above holdout method depends on the particular training and testing split. That is, if you split the dataset differently, the test error will be different.</p></li>
 </ul>
 <p>The following simple example illustrates this general observation.</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="resampling-methods.html#cb450-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb450-2"><a href="resampling-methods.html#cb450-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb450-3"><a href="resampling-methods.html#cb450-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb450-4"><a href="resampling-methods.html#cb450-4" tabindex="-1"></a></span>
-<span id="cb450-5"><a href="resampling-methods.html#cb450-5" tabindex="-1"></a><span class="co"># Split 1</span></span>
-<span id="cb450-6"><a href="resampling-methods.html#cb450-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>] <span class="sc">~</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>])</span>
-<span id="cb450-7"><a href="resampling-methods.html#cb450-7" tabindex="-1"></a><span class="co"># test error:</span></span>
-<span id="cb450-8"><a href="resampling-methods.html#cb450-8" tabindex="-1"></a><span class="fu">mean</span>((y[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">-</span> <span class="fu">predict</span>(fit, <span class="fu">data.frame</span>(x[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>])))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb450-9"><a href="resampling-methods.html#cb450-9" tabindex="-1"></a><span class="do">## [1] 1.293077</span></span>
-<span id="cb450-10"><a href="resampling-methods.html#cb450-10" tabindex="-1"></a></span>
-<span id="cb450-11"><a href="resampling-methods.html#cb450-11" tabindex="-1"></a><span class="co"># Split 2</span></span>
-<span id="cb450-12"><a href="resampling-methods.html#cb450-12" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">~</span> x[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>])</span>
-<span id="cb450-13"><a href="resampling-methods.html#cb450-13" tabindex="-1"></a><span class="co"># test error:</span></span>
-<span id="cb450-14"><a href="resampling-methods.html#cb450-14" tabindex="-1"></a><span class="fu">mean</span>((y[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>] <span class="sc">-</span> <span class="fu">predict</span>(fit, <span class="fu">data.frame</span>(x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>])))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb450-15"><a href="resampling-methods.html#cb450-15" tabindex="-1"></a><span class="do">## [1] 1.209196</span></span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="resampling-methods.html#cb451-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb451-2"><a href="resampling-methods.html#cb451-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb451-3"><a href="resampling-methods.html#cb451-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb451-4"><a href="resampling-methods.html#cb451-4" tabindex="-1"></a></span>
+<span id="cb451-5"><a href="resampling-methods.html#cb451-5" tabindex="-1"></a><span class="co"># Split 1</span></span>
+<span id="cb451-6"><a href="resampling-methods.html#cb451-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>] <span class="sc">~</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>])</span>
+<span id="cb451-7"><a href="resampling-methods.html#cb451-7" tabindex="-1"></a><span class="co"># test error:</span></span>
+<span id="cb451-8"><a href="resampling-methods.html#cb451-8" tabindex="-1"></a><span class="fu">mean</span>((y[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">-</span> <span class="fu">predict</span>(fit, <span class="fu">data.frame</span>(x[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>])))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb451-9"><a href="resampling-methods.html#cb451-9" tabindex="-1"></a><span class="do">## [1] 1.293077</span></span>
+<span id="cb451-10"><a href="resampling-methods.html#cb451-10" tabindex="-1"></a></span>
+<span id="cb451-11"><a href="resampling-methods.html#cb451-11" tabindex="-1"></a><span class="co"># Split 2</span></span>
+<span id="cb451-12"><a href="resampling-methods.html#cb451-12" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">~</span> x[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>])</span>
+<span id="cb451-13"><a href="resampling-methods.html#cb451-13" tabindex="-1"></a><span class="co"># test error:</span></span>
+<span id="cb451-14"><a href="resampling-methods.html#cb451-14" tabindex="-1"></a><span class="fu">mean</span>((y[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>] <span class="sc">-</span> <span class="fu">predict</span>(fit, <span class="fu">data.frame</span>(x[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>])))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb451-15"><a href="resampling-methods.html#cb451-15" tabindex="-1"></a><span class="do">## [1] 1.209196</span></span></code></pre></div>
 <p>To get a better test error estimate, we can use <strong>repeated holdout</strong>. That is, we repeat the whole splitting process several times with several random holdout samples and take the average of the performance measures to evaluate the model performance.</p>
 <p>A standard practice now is to use <strong><span class="math inline">\(k\)</span>-fold cross-validation</strong> (<span class="math inline">\(k\)</span>-fold CV). It is a procedure in which instead of randomly partition the data many times, we divide the data into <span class="math inline">\(k\)</span> random non-overlapping partitions. Then, we combine <span class="math inline">\(k-1\)</span> partitions to form a training dataset and the remaining one to form the testing dataset. We repeat this procedure <span class="math inline">\(k\)</span> times using different partitions and obtain <span class="math inline">\(k\)</span> evaluations. It is common to use <span class="math inline">\(10\)</span>-fold CV.</p>
 <p>For example, when <span class="math inline">\(k=3\)</span>:</p>
@@ -513,134 +528,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>See <a href="https://en.wikipedia.org/wiki/File:KfoldCV.gif" class="uri">https://en.wikipedia.org/wiki/File:KfoldCV.gif</a> for a gif animation showing the <span class="math inline">\(k\)</span>-fold CV.</p>
 <p>Leave-one-out CV (LOOCV)</p>
-<p><img src="image/5_3.PNG" width="80%" style="display: block; margin: auto;" /></p>
+<p><img src="image/5_3.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>5-fold CV</p>
-<p><img src="image/5_5.PNG" width="80%" style="display: block; margin: auto;" /></p>
+<p><img src="image/5_5.png" width="80%" style="display: block; margin: auto;" /></p>
 <p><strong>CV in Genearlized Linear Model</strong></p>
 <p>We can perform CV for linear regression and logistic regression using <code>cv.glm()</code> from the package <code>boot</code>.</p>
 <p>For the purpose of using <code>cv.glm()</code>, instead of using <code>lm()</code> to fit a linear regression, we will use <code>glm()</code> without specifying the <code>family</code> argument. The following two methods will give you the same result.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="resampling-methods.html#cb451-1" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span>
-<span id="cb451-2"><a href="resampling-methods.html#cb451-2" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)<span class="sc">$</span>coef</span>
-<span id="cb451-3"><a href="resampling-methods.html#cb451-3" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)<span class="sc">$</span>coef</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="resampling-methods.html#cb452-1" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span>
+<span id="cb452-2"><a href="resampling-methods.html#cb452-2" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)<span class="sc">$</span>coef</span>
+<span id="cb452-3"><a href="resampling-methods.html#cb452-3" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)<span class="sc">$</span>coef</span></code></pre></div>
 <p>The function <code>cv.glm()</code> calculates the estimated <span class="math inline">\(K\)</span>-fold cross-validation prediction error. The default is to perform leave-one-out CV:</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="resampling-methods.html#cb452-1" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb452-2"><a href="resampling-methods.html#cb452-2" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span>
-<span id="cb452-3"><a href="resampling-methods.html#cb452-3" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)</span>
-<span id="cb452-4"><a href="resampling-methods.html#cb452-4" tabindex="-1"></a>cv_error <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> toy_data, <span class="at">glmfit =</span> fit)</span>
-<span id="cb452-5"><a href="resampling-methods.html#cb452-5" tabindex="-1"></a>cv_error<span class="sc">$</span>delta[<span class="dv">1</span>] <span class="co"># get the cross-validation estimate of prediction error</span></span>
-<span id="cb452-6"><a href="resampling-methods.html#cb452-6" tabindex="-1"></a><span class="do">## [1] 0.9047164</span></span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="resampling-methods.html#cb453-1" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb453-2"><a href="resampling-methods.html#cb453-2" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x)</span>
+<span id="cb453-3"><a href="resampling-methods.html#cb453-3" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data)</span>
+<span id="cb453-4"><a href="resampling-methods.html#cb453-4" tabindex="-1"></a>cv_error <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> toy_data, <span class="at">glmfit =</span> fit)</span>
+<span id="cb453-5"><a href="resampling-methods.html#cb453-5" tabindex="-1"></a>cv_error<span class="sc">$</span>delta[<span class="dv">1</span>] <span class="co"># get the cross-validation estimate of prediction error</span></span>
+<span id="cb453-6"><a href="resampling-methods.html#cb453-6" tabindex="-1"></a><span class="do">## [1] 0.9047164</span></span></code></pre></div>
 <p>Without using <code>cv.glm()</code>:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="resampling-methods.html#cb453-1" tabindex="-1"></a>error <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(toy_data))</span>
-<span id="cb453-2"><a href="resampling-methods.html#cb453-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(toy_data)) {</span>
-<span id="cb453-3"><a href="resampling-methods.html#cb453-3" tabindex="-1"></a>  fit_no_i <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data[<span class="sc">-</span>i, ])</span>
-<span id="cb453-4"><a href="resampling-methods.html#cb453-4" tabindex="-1"></a>  error[i] <span class="ot">&lt;-</span> (toy_data[i, ]<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">predict</span>(fit_no_i, toy_data[i, ]))<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb453-5"><a href="resampling-methods.html#cb453-5" tabindex="-1"></a>}</span>
-<span id="cb453-6"><a href="resampling-methods.html#cb453-6" tabindex="-1"></a><span class="fu">mean</span>(error)</span>
-<span id="cb453-7"><a href="resampling-methods.html#cb453-7" tabindex="-1"></a><span class="do">## [1] 0.9047164</span></span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="resampling-methods.html#cb454-1" tabindex="-1"></a>error <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(toy_data))</span>
+<span id="cb454-2"><a href="resampling-methods.html#cb454-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(toy_data)) {</span>
+<span id="cb454-3"><a href="resampling-methods.html#cb454-3" tabindex="-1"></a>  fit_no_i <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> toy_data[<span class="sc">-</span>i, ])</span>
+<span id="cb454-4"><a href="resampling-methods.html#cb454-4" tabindex="-1"></a>  error[i] <span class="ot">&lt;-</span> (toy_data[i, ]<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">predict</span>(fit_no_i, toy_data[i, ]))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb454-5"><a href="resampling-methods.html#cb454-5" tabindex="-1"></a>}</span>
+<span id="cb454-6"><a href="resampling-methods.html#cb454-6" tabindex="-1"></a><span class="fu">mean</span>(error)</span>
+<span id="cb454-7"><a href="resampling-methods.html#cb454-7" tabindex="-1"></a><span class="do">## [1] 0.9047164</span></span></code></pre></div>
 <p>Use <code>cv.glm()</code> with <span class="math inline">\(K = 10\)</span> to perform <span class="math inline">\(10\)</span>-fold CV:</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="resampling-methods.html#cb454-1" tabindex="-1"></a>cv_error <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> toy_data, <span class="at">glmfit =</span> fit, <span class="at">K =</span> <span class="dv">10</span>)</span>
-<span id="cb454-2"><a href="resampling-methods.html#cb454-2" tabindex="-1"></a>cv_error<span class="sc">$</span>delta[<span class="dv">1</span>] <span class="co"># get the cross-validation estimate of prediction error</span></span>
-<span id="cb454-3"><a href="resampling-methods.html#cb454-3" tabindex="-1"></a><span class="do">## [1] 0.8879592</span></span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="resampling-methods.html#cb455-1" tabindex="-1"></a>cv_error <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data =</span> toy_data, <span class="at">glmfit =</span> fit, <span class="at">K =</span> <span class="dv">10</span>)</span>
+<span id="cb455-2"><a href="resampling-methods.html#cb455-2" tabindex="-1"></a>cv_error<span class="sc">$</span>delta[<span class="dv">1</span>] <span class="co"># get the cross-validation estimate of prediction error</span></span>
+<span id="cb455-3"><a href="resampling-methods.html#cb455-3" tabindex="-1"></a><span class="do">## [1] 0.8879592</span></span></code></pre></div>
 <p><strong>General Implementation</strong></p>
 <p>In general, you may or may not be able to find the CV function that helps you to implement the CV to estimate the test error for a particular method. However, you can implement <span class="math inline">\(k\)</span>-fold CV easily by yourself. For simplicity, we illustrate the implementation using a simple linear regression model. But the idea is the same for other methods.</p>
 <p>To create the <span class="math inline">\(k\)</span> partitions, we can use <code>createFolds()</code> from the <code>caret</code> package.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="resampling-methods.html#cb455-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb455-2"><a href="resampling-methods.html#cb455-2" tabindex="-1"></a></span>
-<span id="cb455-3"><a href="resampling-methods.html#cb455-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb455-4"><a href="resampling-methods.html#cb455-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb455-5"><a href="resampling-methods.html#cb455-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb455-6"><a href="resampling-methods.html#cb455-6" tabindex="-1"></a>CV_example <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb455-7"><a href="resampling-methods.html#cb455-7" tabindex="-1"></a></span>
-<span id="cb455-8"><a href="resampling-methods.html#cb455-8" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(y, <span class="at">k =</span> <span class="dv">10</span>) <span class="co"># the result is a list</span></span>
-<span id="cb455-9"><a href="resampling-methods.html#cb455-9" tabindex="-1"></a>test_error <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb455-10"><a href="resampling-methods.html#cb455-10" tabindex="-1"></a></span>
-<span id="cb455-11"><a href="resampling-methods.html#cb455-11" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb455-12"><a href="resampling-methods.html#cb455-12" tabindex="-1"></a>  <span class="co"># fit the model without one partition</span></span>
-<span id="cb455-13"><a href="resampling-methods.html#cb455-13" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> CV_example[<span class="sc">-</span>folds[[k]], ])</span>
-<span id="cb455-14"><a href="resampling-methods.html#cb455-14" tabindex="-1"></a>  <span class="co"># MSE as the test error</span></span>
-<span id="cb455-15"><a href="resampling-methods.html#cb455-15" tabindex="-1"></a>  test_error[k] <span class="ot">&lt;-</span> <span class="fu">sum</span>((CV_example<span class="sc">$</span>y[folds[[k]]] <span class="sc">-</span></span>
-<span id="cb455-16"><a href="resampling-methods.html#cb455-16" tabindex="-1"></a>                          <span class="fu">predict</span>(fit, CV_example[folds[[k]], ]))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(folds[[k]])</span>
-<span id="cb455-17"><a href="resampling-methods.html#cb455-17" tabindex="-1"></a>}</span>
-<span id="cb455-18"><a href="resampling-methods.html#cb455-18" tabindex="-1"></a></span>
-<span id="cb455-19"><a href="resampling-methods.html#cb455-19" tabindex="-1"></a><span class="co"># average</span></span>
-<span id="cb455-20"><a href="resampling-methods.html#cb455-20" tabindex="-1"></a><span class="fu">mean</span>(test_error)</span>
-<span id="cb455-21"><a href="resampling-methods.html#cb455-21" tabindex="-1"></a><span class="do">## [1] 0.9071669</span></span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="resampling-methods.html#cb456-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb456-2"><a href="resampling-methods.html#cb456-2" tabindex="-1"></a></span>
+<span id="cb456-3"><a href="resampling-methods.html#cb456-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb456-4"><a href="resampling-methods.html#cb456-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb456-5"><a href="resampling-methods.html#cb456-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb456-6"><a href="resampling-methods.html#cb456-6" tabindex="-1"></a>CV_example <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb456-7"><a href="resampling-methods.html#cb456-7" tabindex="-1"></a></span>
+<span id="cb456-8"><a href="resampling-methods.html#cb456-8" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(y, <span class="at">k =</span> <span class="dv">10</span>) <span class="co"># the result is a list</span></span>
+<span id="cb456-9"><a href="resampling-methods.html#cb456-9" tabindex="-1"></a>test_error <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb456-10"><a href="resampling-methods.html#cb456-10" tabindex="-1"></a></span>
+<span id="cb456-11"><a href="resampling-methods.html#cb456-11" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb456-12"><a href="resampling-methods.html#cb456-12" tabindex="-1"></a>  <span class="co"># fit the model without one partition</span></span>
+<span id="cb456-13"><a href="resampling-methods.html#cb456-13" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> CV_example[<span class="sc">-</span>folds[[k]], ])</span>
+<span id="cb456-14"><a href="resampling-methods.html#cb456-14" tabindex="-1"></a>  <span class="co"># MSE as the test error</span></span>
+<span id="cb456-15"><a href="resampling-methods.html#cb456-15" tabindex="-1"></a>  test_error[k] <span class="ot">&lt;-</span> <span class="fu">sum</span>((CV_example<span class="sc">$</span>y[folds[[k]]] <span class="sc">-</span></span>
+<span id="cb456-16"><a href="resampling-methods.html#cb456-16" tabindex="-1"></a>                          <span class="fu">predict</span>(fit, CV_example[folds[[k]], ]))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(folds[[k]])</span>
+<span id="cb456-17"><a href="resampling-methods.html#cb456-17" tabindex="-1"></a>}</span>
+<span id="cb456-18"><a href="resampling-methods.html#cb456-18" tabindex="-1"></a></span>
+<span id="cb456-19"><a href="resampling-methods.html#cb456-19" tabindex="-1"></a><span class="co"># average</span></span>
+<span id="cb456-20"><a href="resampling-methods.html#cb456-20" tabindex="-1"></a><span class="fu">mean</span>(test_error)</span>
+<span id="cb456-21"><a href="resampling-methods.html#cb456-21" tabindex="-1"></a><span class="do">## [1] 0.9071669</span></span></code></pre></div>
 </div>
 <div id="model-selection" class="section level3 hasAnchor" number="14.1.2">
 <h3><span class="header-section-number">14.1.2</span> Model Selection<a href="resampling-methods.html#model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Tree pruning can be performed in a decision tree to avoid the model becomes too complex, which overfits the training data and may lead to poor test performance.</p>
 <p>Recall the following example in the previous chapter.</p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="resampling-methods.html#cb456-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb456-2"><a href="resampling-methods.html#cb456-2" tabindex="-1"></a><span class="fu">library</span>(tree)</span>
-<span id="cb456-3"><a href="resampling-methods.html#cb456-3" tabindex="-1"></a><span class="co"># remove rows with missing values</span></span>
-<span id="cb456-4"><a href="resampling-methods.html#cb456-4" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
-<span id="cb456-5"><a href="resampling-methods.html#cb456-5" tabindex="-1"></a></span>
-<span id="cb456-6"><a href="resampling-methods.html#cb456-6" tabindex="-1"></a><span class="co"># create an additional variable</span></span>
-<span id="cb456-7"><a href="resampling-methods.html#cb456-7" tabindex="-1"></a>Hitters<span class="sc">$</span>High <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Hitters<span class="sc">$</span>Salary <span class="sc">&gt;=</span> </span>
-<span id="cb456-8"><a href="resampling-methods.html#cb456-8" tabindex="-1"></a>                                <span class="fu">quantile</span>(Hitters<span class="sc">$</span>Salary, <span class="fl">0.75</span>), <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))</span>
-<span id="cb456-9"><a href="resampling-methods.html#cb456-9" tabindex="-1"></a></span>
-<span id="cb456-10"><a href="resampling-methods.html#cb456-10" tabindex="-1"></a><span class="co"># split the dataset</span></span>
-<span id="cb456-11"><a href="resampling-methods.html#cb456-11" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb456-12"><a href="resampling-methods.html#cb456-12" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Hitters), <span class="fu">nrow</span>(Hitters) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
-<span id="cb456-13"><a href="resampling-methods.html#cb456-13" tabindex="-1"></a>Hitters_train <span class="ot">&lt;-</span> Hitters[index, ]</span>
-<span id="cb456-14"><a href="resampling-methods.html#cb456-14" tabindex="-1"></a>Hitters_test <span class="ot">&lt;-</span> Hitters[<span class="sc">-</span>index, ]</span>
-<span id="cb456-15"><a href="resampling-methods.html#cb456-15" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(High <span class="sc">~</span>. <span class="sc">-</span> Salary, <span class="at">data =</span> Hitters_train)</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="resampling-methods.html#cb457-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb457-2"><a href="resampling-methods.html#cb457-2" tabindex="-1"></a><span class="fu">library</span>(tree)</span>
+<span id="cb457-3"><a href="resampling-methods.html#cb457-3" tabindex="-1"></a><span class="co"># remove rows with missing values</span></span>
+<span id="cb457-4"><a href="resampling-methods.html#cb457-4" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
+<span id="cb457-5"><a href="resampling-methods.html#cb457-5" tabindex="-1"></a></span>
+<span id="cb457-6"><a href="resampling-methods.html#cb457-6" tabindex="-1"></a><span class="co"># create an additional variable</span></span>
+<span id="cb457-7"><a href="resampling-methods.html#cb457-7" tabindex="-1"></a>Hitters<span class="sc">$</span>High <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Hitters<span class="sc">$</span>Salary <span class="sc">&gt;=</span> </span>
+<span id="cb457-8"><a href="resampling-methods.html#cb457-8" tabindex="-1"></a>                                <span class="fu">quantile</span>(Hitters<span class="sc">$</span>Salary, <span class="fl">0.75</span>), <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))</span>
+<span id="cb457-9"><a href="resampling-methods.html#cb457-9" tabindex="-1"></a></span>
+<span id="cb457-10"><a href="resampling-methods.html#cb457-10" tabindex="-1"></a><span class="co"># split the dataset</span></span>
+<span id="cb457-11"><a href="resampling-methods.html#cb457-11" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb457-12"><a href="resampling-methods.html#cb457-12" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Hitters), <span class="fu">nrow</span>(Hitters) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb457-13"><a href="resampling-methods.html#cb457-13" tabindex="-1"></a>Hitters_train <span class="ot">&lt;-</span> Hitters[index, ]</span>
+<span id="cb457-14"><a href="resampling-methods.html#cb457-14" tabindex="-1"></a>Hitters_test <span class="ot">&lt;-</span> Hitters[<span class="sc">-</span>index, ]</span>
+<span id="cb457-15"><a href="resampling-methods.html#cb457-15" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(High <span class="sc">~</span>. <span class="sc">-</span> Salary, <span class="at">data =</span> Hitters_train)</span></code></pre></div>
 <p>Let’s try to see if pruning the tree will improve the testing accuracy. Set <code>FUN = prune.misclass</code> to tell the function to use misclassification error as the evaluation metric in CV.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="resampling-methods.html#cb457-1" tabindex="-1"></a>cv_fit <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(fit, <span class="at">FUN =</span> prune.misclass) </span>
-<span id="cb457-2"><a href="resampling-methods.html#cb457-2" tabindex="-1"></a>cv_fit</span>
-<span id="cb457-3"><a href="resampling-methods.html#cb457-3" tabindex="-1"></a><span class="do">## $size</span></span>
-<span id="cb457-4"><a href="resampling-methods.html#cb457-4" tabindex="-1"></a><span class="do">## [1] 8 4 3 1</span></span>
-<span id="cb457-5"><a href="resampling-methods.html#cb457-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb457-6"><a href="resampling-methods.html#cb457-6" tabindex="-1"></a><span class="do">## $dev</span></span>
-<span id="cb457-7"><a href="resampling-methods.html#cb457-7" tabindex="-1"></a><span class="do">## [1] 27 27 20 40</span></span>
-<span id="cb457-8"><a href="resampling-methods.html#cb457-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb457-9"><a href="resampling-methods.html#cb457-9" tabindex="-1"></a><span class="do">## $k</span></span>
-<span id="cb457-10"><a href="resampling-methods.html#cb457-10" tabindex="-1"></a><span class="do">## [1] -Inf    0    1   13</span></span>
-<span id="cb457-11"><a href="resampling-methods.html#cb457-11" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb457-12"><a href="resampling-methods.html#cb457-12" tabindex="-1"></a><span class="do">## $method</span></span>
-<span id="cb457-13"><a href="resampling-methods.html#cb457-13" tabindex="-1"></a><span class="do">## [1] &quot;misclass&quot;</span></span>
-<span id="cb457-14"><a href="resampling-methods.html#cb457-14" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb457-15"><a href="resampling-methods.html#cb457-15" tabindex="-1"></a><span class="do">## attr(,&quot;class&quot;)</span></span>
-<span id="cb457-16"><a href="resampling-methods.html#cb457-16" tabindex="-1"></a><span class="do">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
-<span id="cb457-17"><a href="resampling-methods.html#cb457-17" tabindex="-1"></a><span class="fu">plot</span>(cv_fit<span class="sc">$</span>size, cv_fit<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-514-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="resampling-methods.html#cb458-1" tabindex="-1"></a>cv_fit <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(fit, <span class="at">FUN =</span> prune.misclass) </span>
+<span id="cb458-2"><a href="resampling-methods.html#cb458-2" tabindex="-1"></a>cv_fit</span>
+<span id="cb458-3"><a href="resampling-methods.html#cb458-3" tabindex="-1"></a><span class="do">## $size</span></span>
+<span id="cb458-4"><a href="resampling-methods.html#cb458-4" tabindex="-1"></a><span class="do">## [1] 8 4 3 1</span></span>
+<span id="cb458-5"><a href="resampling-methods.html#cb458-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb458-6"><a href="resampling-methods.html#cb458-6" tabindex="-1"></a><span class="do">## $dev</span></span>
+<span id="cb458-7"><a href="resampling-methods.html#cb458-7" tabindex="-1"></a><span class="do">## [1] 27 27 20 40</span></span>
+<span id="cb458-8"><a href="resampling-methods.html#cb458-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb458-9"><a href="resampling-methods.html#cb458-9" tabindex="-1"></a><span class="do">## $k</span></span>
+<span id="cb458-10"><a href="resampling-methods.html#cb458-10" tabindex="-1"></a><span class="do">## [1] -Inf    0    1   13</span></span>
+<span id="cb458-11"><a href="resampling-methods.html#cb458-11" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb458-12"><a href="resampling-methods.html#cb458-12" tabindex="-1"></a><span class="do">## $method</span></span>
+<span id="cb458-13"><a href="resampling-methods.html#cb458-13" tabindex="-1"></a><span class="do">## [1] &quot;misclass&quot;</span></span>
+<span id="cb458-14"><a href="resampling-methods.html#cb458-14" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb458-15"><a href="resampling-methods.html#cb458-15" tabindex="-1"></a><span class="do">## attr(,&quot;class&quot;)</span></span>
+<span id="cb458-16"><a href="resampling-methods.html#cb458-16" tabindex="-1"></a><span class="do">## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</span></span>
+<span id="cb458-17"><a href="resampling-methods.html#cb458-17" tabindex="-1"></a><span class="fu">plot</span>(cv_fit<span class="sc">$</span>size, cv_fit<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>) </span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-504-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><code>size</code>: number of terminal nodes of the tree</p>
 <p><code>dev</code>: cross-validation errors</p>
 <p>We will choose the <code>size</code> with the minimum <code>dev</code>.</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="resampling-methods.html#cb458-1" tabindex="-1"></a>prune_fit <span class="ot">&lt;-</span> <span class="fu">prune.misclass</span>(fit, <span class="at">best =</span> <span class="dv">3</span>)</span>
-<span id="cb458-2"><a href="resampling-methods.html#cb458-2" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(prune_fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
-<span id="cb458-3"><a href="resampling-methods.html#cb458-3" tabindex="-1"></a><span class="do">##       </span></span>
-<span id="cb458-4"><a href="resampling-methods.html#cb458-4" tabindex="-1"></a><span class="do">##        High Low</span></span>
-<span id="cb458-5"><a href="resampling-methods.html#cb458-5" tabindex="-1"></a><span class="do">##   High   21  11</span></span>
-<span id="cb458-6"><a href="resampling-methods.html#cb458-6" tabindex="-1"></a><span class="do">##   Low    16  84</span></span>
-<span id="cb458-7"><a href="resampling-methods.html#cb458-7" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
-<span id="cb458-8"><a href="resampling-methods.html#cb458-8" tabindex="-1"></a><span class="do">## [1] 0.7954545</span></span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="resampling-methods.html#cb459-1" tabindex="-1"></a>prune_fit <span class="ot">&lt;-</span> <span class="fu">prune.misclass</span>(fit, <span class="at">best =</span> <span class="dv">3</span>)</span>
+<span id="cb459-2"><a href="resampling-methods.html#cb459-2" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(prune_fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
+<span id="cb459-3"><a href="resampling-methods.html#cb459-3" tabindex="-1"></a><span class="do">##       </span></span>
+<span id="cb459-4"><a href="resampling-methods.html#cb459-4" tabindex="-1"></a><span class="do">##        High Low</span></span>
+<span id="cb459-5"><a href="resampling-methods.html#cb459-5" tabindex="-1"></a><span class="do">##   High   21  11</span></span>
+<span id="cb459-6"><a href="resampling-methods.html#cb459-6" tabindex="-1"></a><span class="do">##   Low    16  84</span></span>
+<span id="cb459-7"><a href="resampling-methods.html#cb459-7" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
+<span id="cb459-8"><a href="resampling-methods.html#cb459-8" tabindex="-1"></a><span class="do">## [1] 0.7954545</span></span></code></pre></div>
 <p>For this particular example, the classification accuracy actually becomes lower when we prune the tree. However, the pruned tree has only <span class="math inline">\(3\)</span> terminal nodes, which can be easier for interpretation.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="resampling-methods.html#cb459-1" tabindex="-1"></a><span class="fu">plot</span>(prune_fit)</span>
-<span id="cb459-2"><a href="resampling-methods.html#cb459-2" tabindex="-1"></a><span class="fu">text</span>(prune_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-516-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="resampling-methods.html#cb460-1" tabindex="-1"></a><span class="fu">plot</span>(prune_fit)</span>
+<span id="cb460-2"><a href="resampling-methods.html#cb460-2" tabindex="-1"></a><span class="fu">text</span>(prune_fit)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-506-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p><strong>Regression Tree</strong></p>
 <p>Pruning can be performed with regression tree as well.</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="resampling-methods.html#cb460-1" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="resampling-methods.html#cb461-1" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span></code></pre></div>
 <p>Use cross validation to determine the optimal choice of size (the number of terminal nodes)</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="resampling-methods.html#cb461-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
-<span id="cb461-2"><a href="resampling-methods.html#cb461-2" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(reg_tree)</span>
-<span id="cb461-3"><a href="resampling-methods.html#cb461-3" tabindex="-1"></a><span class="fu">plot</span>(cv<span class="sc">$</span>size, cv<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-518-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="resampling-methods.html#cb462-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) <span class="co"># the result of CV is also random because we partition the data randomly</span></span>
+<span id="cb462-2"><a href="resampling-methods.html#cb462-2" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(reg_tree)</span>
+<span id="cb462-3"><a href="resampling-methods.html#cb462-3" tabindex="-1"></a><span class="fu">plot</span>(cv<span class="sc">$</span>size, cv<span class="sc">$</span>dev, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-508-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prune the tree:</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="resampling-methods.html#cb462-1" tabindex="-1"></a><span class="co"># best size</span></span>
-<span id="cb462-2"><a href="resampling-methods.html#cb462-2" tabindex="-1"></a>cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)] </span>
-<span id="cb462-3"><a href="resampling-methods.html#cb462-3" tabindex="-1"></a><span class="do">## [1] 5</span></span>
-<span id="cb462-4"><a href="resampling-methods.html#cb462-4" tabindex="-1"></a></span>
-<span id="cb462-5"><a href="resampling-methods.html#cb462-5" tabindex="-1"></a>prune_reg_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(reg_tree, <span class="at">best =</span> cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)])</span>
-<span id="cb462-6"><a href="resampling-methods.html#cb462-6" tabindex="-1"></a></span>
-<span id="cb462-7"><a href="resampling-methods.html#cb462-7" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
-<span id="cb462-8"><a href="resampling-methods.html#cb462-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(prune_reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb462-9"><a href="resampling-methods.html#cb462-9" tabindex="-1"></a><span class="do">## [1] 122267.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="resampling-methods.html#cb463-1" tabindex="-1"></a><span class="co"># best size</span></span>
+<span id="cb463-2"><a href="resampling-methods.html#cb463-2" tabindex="-1"></a>cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)] </span>
+<span id="cb463-3"><a href="resampling-methods.html#cb463-3" tabindex="-1"></a><span class="do">## [1] 5</span></span>
+<span id="cb463-4"><a href="resampling-methods.html#cb463-4" tabindex="-1"></a></span>
+<span id="cb463-5"><a href="resampling-methods.html#cb463-5" tabindex="-1"></a>prune_reg_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(reg_tree, <span class="at">best =</span> cv<span class="sc">$</span>size[<span class="fu">which.min</span>(cv<span class="sc">$</span>dev)])</span>
+<span id="cb463-6"><a href="resampling-methods.html#cb463-6" tabindex="-1"></a></span>
+<span id="cb463-7"><a href="resampling-methods.html#cb463-7" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
+<span id="cb463-8"><a href="resampling-methods.html#cb463-8" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(prune_reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb463-9"><a href="resampling-methods.html#cb463-9" tabindex="-1"></a><span class="do">## [1] 122267.2</span></span></code></pre></div>
 <p>Pruned tree:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="resampling-methods.html#cb463-1" tabindex="-1"></a><span class="fu">plot</span>(prune_reg_tree)</span>
-<span id="cb463-2"><a href="resampling-methods.html#cb463-2" tabindex="-1"></a><span class="fu">text</span>(prune_reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-520-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="resampling-methods.html#cb464-1" tabindex="-1"></a><span class="fu">plot</span>(prune_reg_tree)</span>
+<span id="cb464-2"><a href="resampling-methods.html#cb464-2" tabindex="-1"></a><span class="fu">text</span>(prune_reg_tree)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-510-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>The performance (in terms of MSE) of the pruned tree in test data is similar to the tree without pruning.</p>
 </div>
 </div>
@@ -673,38 +688,38 @@ Since in reality <span class="math inline">\(\sigma^2_A, \sigma^2_B, \sigma_{AB}
 </ol>
 <p>Then, use <span class="math inline">\(SE_B(\hat{\alpha})\)</span> as an estimate of the standard error of <span class="math inline">\(\hat{\alpha}\)</span> estimated from the original data set.</p>
 <p>Use <code>boot()</code> from the package <code>boot</code> to implement bootstrap. To use <code>boot()</code>, we have to create a function which takes our data as input as well as a vector indicating which observations should be used. The output should be our estimate of interest.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="resampling-methods.html#cb464-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb464-2"><a href="resampling-methods.html#cb464-2" tabindex="-1"></a>rA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>)</span>
-<span id="cb464-3"><a href="resampling-methods.html#cb464-3" tabindex="-1"></a>rB <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> rA <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.05</span>) </span>
-<span id="cb464-4"><a href="resampling-methods.html#cb464-4" tabindex="-1"></a>return_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(rA, rB)</span>
-<span id="cb464-5"><a href="resampling-methods.html#cb464-5" tabindex="-1"></a></span>
-<span id="cb464-6"><a href="resampling-methods.html#cb464-6" tabindex="-1"></a>est_alpha <span class="ot">&lt;-</span> <span class="cf">function</span>(data, index) {</span>
-<span id="cb464-7"><a href="resampling-methods.html#cb464-7" tabindex="-1"></a>  rA <span class="ot">&lt;-</span> data[index, <span class="dv">1</span>]</span>
-<span id="cb464-8"><a href="resampling-methods.html#cb464-8" tabindex="-1"></a>  rB <span class="ot">&lt;-</span> data[index, <span class="dv">2</span>]</span>
-<span id="cb464-9"><a href="resampling-methods.html#cb464-9" tabindex="-1"></a>  (<span class="fu">var</span>(rB) <span class="sc">-</span> <span class="fu">cov</span>(rA, rB)) <span class="sc">/</span> (<span class="fu">var</span>(rA) <span class="sc">+</span> <span class="fu">var</span>(rB) <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">cov</span>(rA, rB))</span>
-<span id="cb464-10"><a href="resampling-methods.html#cb464-10" tabindex="-1"></a>}</span>
-<span id="cb464-11"><a href="resampling-methods.html#cb464-11" tabindex="-1"></a></span>
-<span id="cb464-12"><a href="resampling-methods.html#cb464-12" tabindex="-1"></a><span class="fu">boot</span>(return_data, est_alpha, <span class="at">R =</span> <span class="dv">1000</span>)</span>
-<span id="cb464-13"><a href="resampling-methods.html#cb464-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb464-14"><a href="resampling-methods.html#cb464-14" tabindex="-1"></a><span class="do">## ORDINARY NONPARAMETRIC BOOTSTRAP</span></span>
-<span id="cb464-15"><a href="resampling-methods.html#cb464-15" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb464-16"><a href="resampling-methods.html#cb464-16" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb464-17"><a href="resampling-methods.html#cb464-17" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb464-18"><a href="resampling-methods.html#cb464-18" tabindex="-1"></a><span class="do">## boot(data = return_data, statistic = est_alpha, R = 1000)</span></span>
-<span id="cb464-19"><a href="resampling-methods.html#cb464-19" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb464-20"><a href="resampling-methods.html#cb464-20" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb464-21"><a href="resampling-methods.html#cb464-21" tabindex="-1"></a><span class="do">## Bootstrap Statistics :</span></span>
-<span id="cb464-22"><a href="resampling-methods.html#cb464-22" tabindex="-1"></a><span class="do">##      original       bias    std. error</span></span>
-<span id="cb464-23"><a href="resampling-methods.html#cb464-23" tabindex="-1"></a><span class="do">## t1* 0.6390998 0.0002071561  0.07488879</span></span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="resampling-methods.html#cb465-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb465-2"><a href="resampling-methods.html#cb465-2" tabindex="-1"></a>rA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>)</span>
+<span id="cb465-3"><a href="resampling-methods.html#cb465-3" tabindex="-1"></a>rB <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> rA <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.05</span>) </span>
+<span id="cb465-4"><a href="resampling-methods.html#cb465-4" tabindex="-1"></a>return_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(rA, rB)</span>
+<span id="cb465-5"><a href="resampling-methods.html#cb465-5" tabindex="-1"></a></span>
+<span id="cb465-6"><a href="resampling-methods.html#cb465-6" tabindex="-1"></a>est_alpha <span class="ot">&lt;-</span> <span class="cf">function</span>(data, index) {</span>
+<span id="cb465-7"><a href="resampling-methods.html#cb465-7" tabindex="-1"></a>  rA <span class="ot">&lt;-</span> data[index, <span class="dv">1</span>]</span>
+<span id="cb465-8"><a href="resampling-methods.html#cb465-8" tabindex="-1"></a>  rB <span class="ot">&lt;-</span> data[index, <span class="dv">2</span>]</span>
+<span id="cb465-9"><a href="resampling-methods.html#cb465-9" tabindex="-1"></a>  (<span class="fu">var</span>(rB) <span class="sc">-</span> <span class="fu">cov</span>(rA, rB)) <span class="sc">/</span> (<span class="fu">var</span>(rA) <span class="sc">+</span> <span class="fu">var</span>(rB) <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">cov</span>(rA, rB))</span>
+<span id="cb465-10"><a href="resampling-methods.html#cb465-10" tabindex="-1"></a>}</span>
+<span id="cb465-11"><a href="resampling-methods.html#cb465-11" tabindex="-1"></a></span>
+<span id="cb465-12"><a href="resampling-methods.html#cb465-12" tabindex="-1"></a><span class="fu">boot</span>(return_data, est_alpha, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb465-13"><a href="resampling-methods.html#cb465-13" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb465-14"><a href="resampling-methods.html#cb465-14" tabindex="-1"></a><span class="do">## ORDINARY NONPARAMETRIC BOOTSTRAP</span></span>
+<span id="cb465-15"><a href="resampling-methods.html#cb465-15" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb465-16"><a href="resampling-methods.html#cb465-16" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb465-17"><a href="resampling-methods.html#cb465-17" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb465-18"><a href="resampling-methods.html#cb465-18" tabindex="-1"></a><span class="do">## boot(data = return_data, statistic = est_alpha, R = 1000)</span></span>
+<span id="cb465-19"><a href="resampling-methods.html#cb465-19" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb465-20"><a href="resampling-methods.html#cb465-20" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb465-21"><a href="resampling-methods.html#cb465-21" tabindex="-1"></a><span class="do">## Bootstrap Statistics :</span></span>
+<span id="cb465-22"><a href="resampling-methods.html#cb465-22" tabindex="-1"></a><span class="do">##      original       bias    std. error</span></span>
+<span id="cb465-23"><a href="resampling-methods.html#cb465-23" tabindex="-1"></a><span class="do">## t1* 0.6390998 0.0002071561  0.07488879</span></span></code></pre></div>
 <p>Without using <code>boot()</code>:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="resampling-methods.html#cb465-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb465-2"><a href="resampling-methods.html#cb465-2" tabindex="-1"></a>alpha_b <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, B)</span>
-<span id="cb465-3"><a href="resampling-methods.html#cb465-3" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
-<span id="cb465-4"><a href="resampling-methods.html#cb465-4" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb465-5"><a href="resampling-methods.html#cb465-5" tabindex="-1"></a>  alpha_b[b] <span class="ot">&lt;-</span> <span class="fu">est_alpha</span>(return_data, index)</span>
-<span id="cb465-6"><a href="resampling-methods.html#cb465-6" tabindex="-1"></a>}</span>
-<span id="cb465-7"><a href="resampling-methods.html#cb465-7" tabindex="-1"></a><span class="fu">sd</span>(alpha_b)</span>
-<span id="cb465-8"><a href="resampling-methods.html#cb465-8" tabindex="-1"></a><span class="do">## [1] 0.0717954</span></span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="resampling-methods.html#cb466-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb466-2"><a href="resampling-methods.html#cb466-2" tabindex="-1"></a>alpha_b <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, B)</span>
+<span id="cb466-3"><a href="resampling-methods.html#cb466-3" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb466-4"><a href="resampling-methods.html#cb466-4" tabindex="-1"></a>  index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb466-5"><a href="resampling-methods.html#cb466-5" tabindex="-1"></a>  alpha_b[b] <span class="ot">&lt;-</span> <span class="fu">est_alpha</span>(return_data, index)</span>
+<span id="cb466-6"><a href="resampling-methods.html#cb466-6" tabindex="-1"></a>}</span>
+<span id="cb466-7"><a href="resampling-methods.html#cb466-7" tabindex="-1"></a><span class="fu">sd</span>(alpha_b)</span>
+<span id="cb466-8"><a href="resampling-methods.html#cb466-8" tabindex="-1"></a><span class="do">## [1] 0.0717954</span></span></code></pre></div>
 
 </div>
 </div>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 20 Evaluating Model Performance | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 20 Evaluating Model Performance | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,15 +23,15 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-04" />
+<meta name="date" content="2024-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regularization.html"/>
-
+<link rel="prev" href="shrinkage-methods.html"/>
+<link rel="next" href="using-c-in-r-with-rcpp.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -416,18 +420,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
+<li class="chapter" data-level="19" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html"><i class="fa fa-check"></i><b>19</b> Shrinkage Methods</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
-<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
-<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
+<li class="chapter" data-level="19.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
 <ul>
-<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.4.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
-<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
+<li class="chapter" data-level="19.5" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -444,6 +448,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
 </ul></li>
 <li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html"><i class="fa fa-check"></i><b>21</b> Using C++ in R with Rcpp</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#basic-examples"><i class="fa fa-check"></i><b>21.1</b> Basic Examples</a></li>
+<li class="chapter" data-level="21.2" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#scalar-input-scalar-output"><i class="fa fa-check"></i><b>21.2</b> Scalar Input, Scalar Output</a></li>
+<li class="chapter" data-level="21.3" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-scalar-ouptut"><i class="fa fa-check"></i><b>21.3</b> Vector Input, Scalar Ouptut</a></li>
+<li class="chapter" data-level="21.4" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-vector-output"><i class="fa fa-check"></i><b>21.4</b> Vector Input, Vector Output</a></li>
+<li class="chapter" data-level="21.5" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#returning-a-list"><i class="fa fa-check"></i><b>21.5</b> Returning a list</a></li>
+<li class="chapter" data-level="21.6" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#using-sourcecpp"><i class="fa fa-check"></i><b>21.6</b> Using <code>sourceCpp</code></a></li>
+<li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
+<li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -468,11 +483,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="evaluating-model-performance-1" class="section level1 hasAnchor" number="20">
 <h1><span class="header-section-number">Chapter 20</span> Evaluating Model Performance<a href="evaluating-model-performance-1.html#evaluating-model-performance-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Packages used in this chapter:</p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="evaluating-model-performance-1.html#cb535-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb535-2"><a href="evaluating-model-performance-1.html#cb535-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb535-3"><a href="evaluating-model-performance-1.html#cb535-3" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb535-4"><a href="evaluating-model-performance-1.html#cb535-4" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
-<span id="cb535-5"><a href="evaluating-model-performance-1.html#cb535-5" tabindex="-1"></a><span class="fu">library</span>(DMwR)</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="evaluating-model-performance-1.html#cb536-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb536-2"><a href="evaluating-model-performance-1.html#cb536-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb536-3"><a href="evaluating-model-performance-1.html#cb536-3" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb536-4"><a href="evaluating-model-performance-1.html#cb536-4" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
+<span id="cb536-5"><a href="evaluating-model-performance-1.html#cb536-5" tabindex="-1"></a><span class="fu">library</span>(DMwR)</span></code></pre></div>
 <div id="accuracy-and-confusion-matrix" class="section level2 hasAnchor" number="20.1">
 <h2><span class="header-section-number">20.1</span> Accuracy and Confusion Matrix<a href="evaluating-model-performance-1.html#accuracy-and-confusion-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have defined Accuracy as</p>
@@ -500,57 +515,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Correct predictions fall on the diagonal in the confusion matrix</p></li>
 </ul>
 <p>Recall the logistic regression example:</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="evaluating-model-performance-1.html#cb536-1" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
-<span id="cb536-2"><a href="evaluating-model-performance-1.html#cb536-2" tabindex="-1"></a></span>
-<span id="cb536-3"><a href="evaluating-model-performance-1.html#cb536-3" tabindex="-1"></a><span class="fu">data</span>(PimaIndiansDiabetes2)</span>
-<span id="cb536-4"><a href="evaluating-model-performance-1.html#cb536-4" tabindex="-1"></a>PimaIndiansDiabetes2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(PimaIndiansDiabetes2)</span>
-<span id="cb536-5"><a href="evaluating-model-performance-1.html#cb536-5" tabindex="-1"></a></span>
-<span id="cb536-6"><a href="evaluating-model-performance-1.html#cb536-6" tabindex="-1"></a><span class="co"># Split the data into training and test set</span></span>
-<span id="cb536-7"><a href="evaluating-model-performance-1.html#cb536-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb536-8"><a href="evaluating-model-performance-1.html#cb536-8" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(PimaIndiansDiabetes2), </span>
-<span id="cb536-9"><a href="evaluating-model-performance-1.html#cb536-9" tabindex="-1"></a>                       <span class="at">size =</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
-<span id="cb536-10"><a href="evaluating-model-performance-1.html#cb536-10" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[random_index, ]</span>
-<span id="cb536-11"><a href="evaluating-model-performance-1.html#cb536-11" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>random_index, ]</span>
-<span id="cb536-12"><a href="evaluating-model-performance-1.html#cb536-12" tabindex="-1"></a>fit_simple <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train_data, <span class="at">family =</span> binomial)</span>
-<span id="cb536-13"><a href="evaluating-model-performance-1.html#cb536-13" tabindex="-1"></a></span>
-<span id="cb536-14"><a href="evaluating-model-performance-1.html#cb536-14" tabindex="-1"></a><span class="co"># Prediction</span></span>
-<span id="cb536-15"><a href="evaluating-model-performance-1.html#cb536-15" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_simple, test_data, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb536-16"><a href="evaluating-model-performance-1.html#cb536-16" tabindex="-1"></a>predicted_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="evaluating-model-performance-1.html#cb537-1" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
+<span id="cb537-2"><a href="evaluating-model-performance-1.html#cb537-2" tabindex="-1"></a></span>
+<span id="cb537-3"><a href="evaluating-model-performance-1.html#cb537-3" tabindex="-1"></a><span class="fu">data</span>(PimaIndiansDiabetes2)</span>
+<span id="cb537-4"><a href="evaluating-model-performance-1.html#cb537-4" tabindex="-1"></a>PimaIndiansDiabetes2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(PimaIndiansDiabetes2)</span>
+<span id="cb537-5"><a href="evaluating-model-performance-1.html#cb537-5" tabindex="-1"></a></span>
+<span id="cb537-6"><a href="evaluating-model-performance-1.html#cb537-6" tabindex="-1"></a><span class="co"># Split the data into training and test set</span></span>
+<span id="cb537-7"><a href="evaluating-model-performance-1.html#cb537-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb537-8"><a href="evaluating-model-performance-1.html#cb537-8" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb537-9"><a href="evaluating-model-performance-1.html#cb537-9" tabindex="-1"></a>                       <span class="at">size =</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
+<span id="cb537-10"><a href="evaluating-model-performance-1.html#cb537-10" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb537-11"><a href="evaluating-model-performance-1.html#cb537-11" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>random_index, ]</span>
+<span id="cb537-12"><a href="evaluating-model-performance-1.html#cb537-12" tabindex="-1"></a>fit_simple <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train_data, <span class="at">family =</span> binomial)</span>
+<span id="cb537-13"><a href="evaluating-model-performance-1.html#cb537-13" tabindex="-1"></a></span>
+<span id="cb537-14"><a href="evaluating-model-performance-1.html#cb537-14" tabindex="-1"></a><span class="co"># Prediction</span></span>
+<span id="cb537-15"><a href="evaluating-model-performance-1.html#cb537-15" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_simple, test_data, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb537-16"><a href="evaluating-model-performance-1.html#cb537-16" tabindex="-1"></a>predicted_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span></code></pre></div>
 <p>We can use the function <code>CrossTable()</code> from the package <code>gmodels</code> to create a confusion matrix with some additional information.</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="evaluating-model-performance-1.html#cb537-1" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb537-2"><a href="evaluating-model-performance-1.html#cb537-2" tabindex="-1"></a><span class="fu">CrossTable</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb537-3"><a href="evaluating-model-performance-1.html#cb537-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb537-4"><a href="evaluating-model-performance-1.html#cb537-4" tabindex="-1"></a><span class="do">##  </span></span>
-<span id="cb537-5"><a href="evaluating-model-performance-1.html#cb537-5" tabindex="-1"></a><span class="do">##    Cell Contents</span></span>
-<span id="cb537-6"><a href="evaluating-model-performance-1.html#cb537-6" tabindex="-1"></a><span class="do">## |-------------------------|</span></span>
-<span id="cb537-7"><a href="evaluating-model-performance-1.html#cb537-7" tabindex="-1"></a><span class="do">## |                       N |</span></span>
-<span id="cb537-8"><a href="evaluating-model-performance-1.html#cb537-8" tabindex="-1"></a><span class="do">## |           N / Row Total |</span></span>
-<span id="cb537-9"><a href="evaluating-model-performance-1.html#cb537-9" tabindex="-1"></a><span class="do">## |           N / Col Total |</span></span>
-<span id="cb537-10"><a href="evaluating-model-performance-1.html#cb537-10" tabindex="-1"></a><span class="do">## |         N / Table Total |</span></span>
-<span id="cb537-11"><a href="evaluating-model-performance-1.html#cb537-11" tabindex="-1"></a><span class="do">## |-------------------------|</span></span>
-<span id="cb537-12"><a href="evaluating-model-performance-1.html#cb537-12" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb537-13"><a href="evaluating-model-performance-1.html#cb537-13" tabindex="-1"></a><span class="do">##  </span></span>
-<span id="cb537-14"><a href="evaluating-model-performance-1.html#cb537-14" tabindex="-1"></a><span class="do">## Total Observations in Table:  118 </span></span>
-<span id="cb537-15"><a href="evaluating-model-performance-1.html#cb537-15" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb537-16"><a href="evaluating-model-performance-1.html#cb537-16" tabindex="-1"></a><span class="do">##  </span></span>
-<span id="cb537-17"><a href="evaluating-model-performance-1.html#cb537-17" tabindex="-1"></a><span class="do">##                 | test_data$diabetes </span></span>
-<span id="cb537-18"><a href="evaluating-model-performance-1.html#cb537-18" tabindex="-1"></a><span class="do">## predicted_class |       neg |       pos | Row Total | </span></span>
-<span id="cb537-19"><a href="evaluating-model-performance-1.html#cb537-19" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb537-20"><a href="evaluating-model-performance-1.html#cb537-20" tabindex="-1"></a><span class="do">##             neg |        71 |        23 |        94 | </span></span>
-<span id="cb537-21"><a href="evaluating-model-performance-1.html#cb537-21" tabindex="-1"></a><span class="do">##                 |     0.755 |     0.245 |     0.797 | </span></span>
-<span id="cb537-22"><a href="evaluating-model-performance-1.html#cb537-22" tabindex="-1"></a><span class="do">##                 |     0.899 |     0.590 |           | </span></span>
-<span id="cb537-23"><a href="evaluating-model-performance-1.html#cb537-23" tabindex="-1"></a><span class="do">##                 |     0.602 |     0.195 |           | </span></span>
-<span id="cb537-24"><a href="evaluating-model-performance-1.html#cb537-24" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb537-25"><a href="evaluating-model-performance-1.html#cb537-25" tabindex="-1"></a><span class="do">##             pos |         8 |        16 |        24 | </span></span>
-<span id="cb537-26"><a href="evaluating-model-performance-1.html#cb537-26" tabindex="-1"></a><span class="do">##                 |     0.333 |     0.667 |     0.203 | </span></span>
-<span id="cb537-27"><a href="evaluating-model-performance-1.html#cb537-27" tabindex="-1"></a><span class="do">##                 |     0.101 |     0.410 |           | </span></span>
-<span id="cb537-28"><a href="evaluating-model-performance-1.html#cb537-28" tabindex="-1"></a><span class="do">##                 |     0.068 |     0.136 |           | </span></span>
-<span id="cb537-29"><a href="evaluating-model-performance-1.html#cb537-29" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb537-30"><a href="evaluating-model-performance-1.html#cb537-30" tabindex="-1"></a><span class="do">##    Column Total |        79 |        39 |       118 | </span></span>
-<span id="cb537-31"><a href="evaluating-model-performance-1.html#cb537-31" tabindex="-1"></a><span class="do">##                 |     0.669 |     0.331 |           | </span></span>
-<span id="cb537-32"><a href="evaluating-model-performance-1.html#cb537-32" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
-<span id="cb537-33"><a href="evaluating-model-performance-1.html#cb537-33" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb537-34"><a href="evaluating-model-performance-1.html#cb537-34" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="evaluating-model-performance-1.html#cb538-1" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb538-2"><a href="evaluating-model-performance-1.html#cb538-2" tabindex="-1"></a><span class="fu">CrossTable</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb538-3"><a href="evaluating-model-performance-1.html#cb538-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb538-4"><a href="evaluating-model-performance-1.html#cb538-4" tabindex="-1"></a><span class="do">##  </span></span>
+<span id="cb538-5"><a href="evaluating-model-performance-1.html#cb538-5" tabindex="-1"></a><span class="do">##    Cell Contents</span></span>
+<span id="cb538-6"><a href="evaluating-model-performance-1.html#cb538-6" tabindex="-1"></a><span class="do">## |-------------------------|</span></span>
+<span id="cb538-7"><a href="evaluating-model-performance-1.html#cb538-7" tabindex="-1"></a><span class="do">## |                       N |</span></span>
+<span id="cb538-8"><a href="evaluating-model-performance-1.html#cb538-8" tabindex="-1"></a><span class="do">## |           N / Row Total |</span></span>
+<span id="cb538-9"><a href="evaluating-model-performance-1.html#cb538-9" tabindex="-1"></a><span class="do">## |           N / Col Total |</span></span>
+<span id="cb538-10"><a href="evaluating-model-performance-1.html#cb538-10" tabindex="-1"></a><span class="do">## |         N / Table Total |</span></span>
+<span id="cb538-11"><a href="evaluating-model-performance-1.html#cb538-11" tabindex="-1"></a><span class="do">## |-------------------------|</span></span>
+<span id="cb538-12"><a href="evaluating-model-performance-1.html#cb538-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb538-13"><a href="evaluating-model-performance-1.html#cb538-13" tabindex="-1"></a><span class="do">##  </span></span>
+<span id="cb538-14"><a href="evaluating-model-performance-1.html#cb538-14" tabindex="-1"></a><span class="do">## Total Observations in Table:  118 </span></span>
+<span id="cb538-15"><a href="evaluating-model-performance-1.html#cb538-15" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb538-16"><a href="evaluating-model-performance-1.html#cb538-16" tabindex="-1"></a><span class="do">##  </span></span>
+<span id="cb538-17"><a href="evaluating-model-performance-1.html#cb538-17" tabindex="-1"></a><span class="do">##                 | test_data$diabetes </span></span>
+<span id="cb538-18"><a href="evaluating-model-performance-1.html#cb538-18" tabindex="-1"></a><span class="do">## predicted_class |       neg |       pos | Row Total | </span></span>
+<span id="cb538-19"><a href="evaluating-model-performance-1.html#cb538-19" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb538-20"><a href="evaluating-model-performance-1.html#cb538-20" tabindex="-1"></a><span class="do">##             neg |        71 |        23 |        94 | </span></span>
+<span id="cb538-21"><a href="evaluating-model-performance-1.html#cb538-21" tabindex="-1"></a><span class="do">##                 |     0.755 |     0.245 |     0.797 | </span></span>
+<span id="cb538-22"><a href="evaluating-model-performance-1.html#cb538-22" tabindex="-1"></a><span class="do">##                 |     0.899 |     0.590 |           | </span></span>
+<span id="cb538-23"><a href="evaluating-model-performance-1.html#cb538-23" tabindex="-1"></a><span class="do">##                 |     0.602 |     0.195 |           | </span></span>
+<span id="cb538-24"><a href="evaluating-model-performance-1.html#cb538-24" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb538-25"><a href="evaluating-model-performance-1.html#cb538-25" tabindex="-1"></a><span class="do">##             pos |         8 |        16 |        24 | </span></span>
+<span id="cb538-26"><a href="evaluating-model-performance-1.html#cb538-26" tabindex="-1"></a><span class="do">##                 |     0.333 |     0.667 |     0.203 | </span></span>
+<span id="cb538-27"><a href="evaluating-model-performance-1.html#cb538-27" tabindex="-1"></a><span class="do">##                 |     0.101 |     0.410 |           | </span></span>
+<span id="cb538-28"><a href="evaluating-model-performance-1.html#cb538-28" tabindex="-1"></a><span class="do">##                 |     0.068 |     0.136 |           | </span></span>
+<span id="cb538-29"><a href="evaluating-model-performance-1.html#cb538-29" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb538-30"><a href="evaluating-model-performance-1.html#cb538-30" tabindex="-1"></a><span class="do">##    Column Total |        79 |        39 |       118 | </span></span>
+<span id="cb538-31"><a href="evaluating-model-performance-1.html#cb538-31" tabindex="-1"></a><span class="do">##                 |     0.669 |     0.331 |           | </span></span>
+<span id="cb538-32"><a href="evaluating-model-performance-1.html#cb538-32" tabindex="-1"></a><span class="do">## ----------------|-----------|-----------|-----------|</span></span>
+<span id="cb538-33"><a href="evaluating-model-performance-1.html#cb538-33" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb538-34"><a href="evaluating-model-performance-1.html#cb538-34" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
 <p>The <span class="math inline">\(3\)</span> proportions are</p>
 <ul>
 <li>N / Row Total (e.g. <span class="math inline">\(71/94 = 0.755\)</span>)</li>
@@ -577,37 +592,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="other-measures-of-performance" class="section level2 hasAnchor" number="20.2">
 <h2><span class="header-section-number">20.2</span> Other Measures of Performance<a href="evaluating-model-performance-1.html#other-measures-of-performance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The package <code>caret</code> contains a function <code>confusionMatrix()</code> to output several useful measures of classification performance. We will talk about some of them in the next section.</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="evaluating-model-performance-1.html#cb538-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb538-2"><a href="evaluating-model-performance-1.html#cb538-2" tabindex="-1"></a><span class="co"># requires factor inputs</span></span>
-<span id="cb538-3"><a href="evaluating-model-performance-1.html#cb538-3" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data =</span> <span class="fu">factor</span>(predicted_class), <span class="at">reference =</span>  <span class="fu">factor</span>(test_data<span class="sc">$</span>diabetes),</span>
-<span id="cb538-4"><a href="evaluating-model-performance-1.html#cb538-4" tabindex="-1"></a>                <span class="at">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
-<span id="cb538-5"><a href="evaluating-model-performance-1.html#cb538-5" tabindex="-1"></a><span class="do">## Confusion Matrix and Statistics</span></span>
-<span id="cb538-6"><a href="evaluating-model-performance-1.html#cb538-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb538-7"><a href="evaluating-model-performance-1.html#cb538-7" tabindex="-1"></a><span class="do">##           Reference</span></span>
-<span id="cb538-8"><a href="evaluating-model-performance-1.html#cb538-8" tabindex="-1"></a><span class="do">## Prediction neg pos</span></span>
-<span id="cb538-9"><a href="evaluating-model-performance-1.html#cb538-9" tabindex="-1"></a><span class="do">##        neg  71  23</span></span>
-<span id="cb538-10"><a href="evaluating-model-performance-1.html#cb538-10" tabindex="-1"></a><span class="do">##        pos   8  16</span></span>
-<span id="cb538-11"><a href="evaluating-model-performance-1.html#cb538-11" tabindex="-1"></a><span class="do">##                                          </span></span>
-<span id="cb538-12"><a href="evaluating-model-performance-1.html#cb538-12" tabindex="-1"></a><span class="do">##                Accuracy : 0.7373         </span></span>
-<span id="cb538-13"><a href="evaluating-model-performance-1.html#cb538-13" tabindex="-1"></a><span class="do">##                  95% CI : (0.6483, 0.814)</span></span>
-<span id="cb538-14"><a href="evaluating-model-performance-1.html#cb538-14" tabindex="-1"></a><span class="do">##     No Information Rate : 0.6695         </span></span>
-<span id="cb538-15"><a href="evaluating-model-performance-1.html#cb538-15" tabindex="-1"></a><span class="do">##     P-Value [Acc &gt; NIR] : 0.06908        </span></span>
-<span id="cb538-16"><a href="evaluating-model-performance-1.html#cb538-16" tabindex="-1"></a><span class="do">##                                          </span></span>
-<span id="cb538-17"><a href="evaluating-model-performance-1.html#cb538-17" tabindex="-1"></a><span class="do">##                   Kappa : 0.3423         </span></span>
-<span id="cb538-18"><a href="evaluating-model-performance-1.html#cb538-18" tabindex="-1"></a><span class="do">##                                          </span></span>
-<span id="cb538-19"><a href="evaluating-model-performance-1.html#cb538-19" tabindex="-1"></a><span class="do">##  Mcnemar&#39;s Test P-Value : 0.01192        </span></span>
-<span id="cb538-20"><a href="evaluating-model-performance-1.html#cb538-20" tabindex="-1"></a><span class="do">##                                          </span></span>
-<span id="cb538-21"><a href="evaluating-model-performance-1.html#cb538-21" tabindex="-1"></a><span class="do">##             Sensitivity : 0.4103         </span></span>
-<span id="cb538-22"><a href="evaluating-model-performance-1.html#cb538-22" tabindex="-1"></a><span class="do">##             Specificity : 0.8987         </span></span>
-<span id="cb538-23"><a href="evaluating-model-performance-1.html#cb538-23" tabindex="-1"></a><span class="do">##          Pos Pred Value : 0.6667         </span></span>
-<span id="cb538-24"><a href="evaluating-model-performance-1.html#cb538-24" tabindex="-1"></a><span class="do">##          Neg Pred Value : 0.7553         </span></span>
-<span id="cb538-25"><a href="evaluating-model-performance-1.html#cb538-25" tabindex="-1"></a><span class="do">##              Prevalence : 0.3305         </span></span>
-<span id="cb538-26"><a href="evaluating-model-performance-1.html#cb538-26" tabindex="-1"></a><span class="do">##          Detection Rate : 0.1356         </span></span>
-<span id="cb538-27"><a href="evaluating-model-performance-1.html#cb538-27" tabindex="-1"></a><span class="do">##    Detection Prevalence : 0.2034         </span></span>
-<span id="cb538-28"><a href="evaluating-model-performance-1.html#cb538-28" tabindex="-1"></a><span class="do">##       Balanced Accuracy : 0.6545         </span></span>
-<span id="cb538-29"><a href="evaluating-model-performance-1.html#cb538-29" tabindex="-1"></a><span class="do">##                                          </span></span>
-<span id="cb538-30"><a href="evaluating-model-performance-1.html#cb538-30" tabindex="-1"></a><span class="do">##        &#39;Positive&#39; Class : pos            </span></span>
-<span id="cb538-31"><a href="evaluating-model-performance-1.html#cb538-31" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="evaluating-model-performance-1.html#cb539-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb539-2"><a href="evaluating-model-performance-1.html#cb539-2" tabindex="-1"></a><span class="co"># requires factor inputs</span></span>
+<span id="cb539-3"><a href="evaluating-model-performance-1.html#cb539-3" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">data =</span> <span class="fu">factor</span>(predicted_class), <span class="at">reference =</span>  <span class="fu">factor</span>(test_data<span class="sc">$</span>diabetes),</span>
+<span id="cb539-4"><a href="evaluating-model-performance-1.html#cb539-4" tabindex="-1"></a>                <span class="at">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb539-5"><a href="evaluating-model-performance-1.html#cb539-5" tabindex="-1"></a><span class="do">## Confusion Matrix and Statistics</span></span>
+<span id="cb539-6"><a href="evaluating-model-performance-1.html#cb539-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb539-7"><a href="evaluating-model-performance-1.html#cb539-7" tabindex="-1"></a><span class="do">##           Reference</span></span>
+<span id="cb539-8"><a href="evaluating-model-performance-1.html#cb539-8" tabindex="-1"></a><span class="do">## Prediction neg pos</span></span>
+<span id="cb539-9"><a href="evaluating-model-performance-1.html#cb539-9" tabindex="-1"></a><span class="do">##        neg  71  23</span></span>
+<span id="cb539-10"><a href="evaluating-model-performance-1.html#cb539-10" tabindex="-1"></a><span class="do">##        pos   8  16</span></span>
+<span id="cb539-11"><a href="evaluating-model-performance-1.html#cb539-11" tabindex="-1"></a><span class="do">##                                          </span></span>
+<span id="cb539-12"><a href="evaluating-model-performance-1.html#cb539-12" tabindex="-1"></a><span class="do">##                Accuracy : 0.7373         </span></span>
+<span id="cb539-13"><a href="evaluating-model-performance-1.html#cb539-13" tabindex="-1"></a><span class="do">##                  95% CI : (0.6483, 0.814)</span></span>
+<span id="cb539-14"><a href="evaluating-model-performance-1.html#cb539-14" tabindex="-1"></a><span class="do">##     No Information Rate : 0.6695         </span></span>
+<span id="cb539-15"><a href="evaluating-model-performance-1.html#cb539-15" tabindex="-1"></a><span class="do">##     P-Value [Acc &gt; NIR] : 0.06908        </span></span>
+<span id="cb539-16"><a href="evaluating-model-performance-1.html#cb539-16" tabindex="-1"></a><span class="do">##                                          </span></span>
+<span id="cb539-17"><a href="evaluating-model-performance-1.html#cb539-17" tabindex="-1"></a><span class="do">##                   Kappa : 0.3423         </span></span>
+<span id="cb539-18"><a href="evaluating-model-performance-1.html#cb539-18" tabindex="-1"></a><span class="do">##                                          </span></span>
+<span id="cb539-19"><a href="evaluating-model-performance-1.html#cb539-19" tabindex="-1"></a><span class="do">##  Mcnemar&#39;s Test P-Value : 0.01192        </span></span>
+<span id="cb539-20"><a href="evaluating-model-performance-1.html#cb539-20" tabindex="-1"></a><span class="do">##                                          </span></span>
+<span id="cb539-21"><a href="evaluating-model-performance-1.html#cb539-21" tabindex="-1"></a><span class="do">##             Sensitivity : 0.4103         </span></span>
+<span id="cb539-22"><a href="evaluating-model-performance-1.html#cb539-22" tabindex="-1"></a><span class="do">##             Specificity : 0.8987         </span></span>
+<span id="cb539-23"><a href="evaluating-model-performance-1.html#cb539-23" tabindex="-1"></a><span class="do">##          Pos Pred Value : 0.6667         </span></span>
+<span id="cb539-24"><a href="evaluating-model-performance-1.html#cb539-24" tabindex="-1"></a><span class="do">##          Neg Pred Value : 0.7553         </span></span>
+<span id="cb539-25"><a href="evaluating-model-performance-1.html#cb539-25" tabindex="-1"></a><span class="do">##              Prevalence : 0.3305         </span></span>
+<span id="cb539-26"><a href="evaluating-model-performance-1.html#cb539-26" tabindex="-1"></a><span class="do">##          Detection Rate : 0.1356         </span></span>
+<span id="cb539-27"><a href="evaluating-model-performance-1.html#cb539-27" tabindex="-1"></a><span class="do">##    Detection Prevalence : 0.2034         </span></span>
+<span id="cb539-28"><a href="evaluating-model-performance-1.html#cb539-28" tabindex="-1"></a><span class="do">##       Balanced Accuracy : 0.6545         </span></span>
+<span id="cb539-29"><a href="evaluating-model-performance-1.html#cb539-29" tabindex="-1"></a><span class="do">##                                          </span></span>
+<span id="cb539-30"><a href="evaluating-model-performance-1.html#cb539-30" tabindex="-1"></a><span class="do">##        &#39;Positive&#39; Class : pos            </span></span>
+<span id="cb539-31"><a href="evaluating-model-performance-1.html#cb539-31" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
 <div id="the-kappa-statistic" class="section level3 hasAnchor" number="20.2.1">
 <h3><span class="header-section-number">20.2.1</span> The kappa statistic<a href="evaluating-model-performance-1.html#the-kappa-statistic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Idea: we want to adjust accuracy by accounting for the possibility of a correct prediction by chance alone. For example, if the disease is found <span class="math inline">\(11\)</span> out of every <span class="math inline">\(1000\)</span> people, we can predict each case randomly by assigning the positive case with probability <span class="math inline">\(0.989\)</span>. In this way, our accuracy will be <span class="math inline">\(98.9\%\)</span> on average.</p>
@@ -692,37 +707,37 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 <li>A classifier that results in a higher AUC is considered to be better</li>
 <li>The diagonal line from the bottom-left to the top-right corner of the diagram represents a classifier with no predictive value.</li>
 </ul>
-<p><img src="Book_files/figure-html/unnamed-chunk-608-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-598-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>To understand how ROC is constructed, we use our logistic regression example. The package <code>caret</code> contains the two functions <code>sensitivity</code> and <code>specificity</code> to compute the sensitivity and specificity, respectively. The following code is used to create the above figure (without the dot corresponding to the perfect classifier).</p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="evaluating-model-performance-1.html#cb539-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb539-2"><a href="evaluating-model-performance-1.html#cb539-2" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>)</span>
-<span id="cb539-3"><a href="evaluating-model-performance-1.html#cb539-3" tabindex="-1"></a>roc_sensitivity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(threshold))</span>
-<span id="cb539-4"><a href="evaluating-model-performance-1.html#cb539-4" tabindex="-1"></a>roc_specificity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(threshold))</span>
-<span id="cb539-5"><a href="evaluating-model-performance-1.html#cb539-5" tabindex="-1"></a></span>
-<span id="cb539-6"><a href="evaluating-model-performance-1.html#cb539-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(threshold)) {</span>
-<span id="cb539-7"><a href="evaluating-model-performance-1.html#cb539-7" tabindex="-1"></a>  <span class="co"># for each value of threshold, find our predictions</span></span>
-<span id="cb539-8"><a href="evaluating-model-performance-1.html#cb539-8" tabindex="-1"></a>  predicted_class <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> threshold[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>))</span>
-<span id="cb539-9"><a href="evaluating-model-performance-1.html#cb539-9" tabindex="-1"></a>  <span class="co"># compute the corresponding sensitivity and specificity</span></span>
-<span id="cb539-10"><a href="evaluating-model-performance-1.html#cb539-10" tabindex="-1"></a>  roc_sensitivity[i] <span class="ot">&lt;-</span> <span class="fu">sensitivity</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
-<span id="cb539-11"><a href="evaluating-model-performance-1.html#cb539-11" tabindex="-1"></a>  roc_specificity[i]  <span class="ot">&lt;-</span> <span class="fu">specificity</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">negative =</span> <span class="st">&quot;neg&quot;</span>)</span>
-<span id="cb539-12"><a href="evaluating-model-performance-1.html#cb539-12" tabindex="-1"></a>}</span>
-<span id="cb539-13"><a href="evaluating-model-performance-1.html#cb539-13" tabindex="-1"></a></span>
-<span id="cb539-14"><a href="evaluating-model-performance-1.html#cb539-14" tabindex="-1"></a><span class="co"># ROC, use geom_path instead of geom_line to retain the order when joining the points</span></span>
-<span id="cb539-15"><a href="evaluating-model-performance-1.html#cb539-15" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> roc_specificity, <span class="at">y =</span> roc_sensitivity)) <span class="sc">+</span></span>
-<span id="cb539-16"><a href="evaluating-model-performance-1.html#cb539-16" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span></span>
-<span id="cb539-17"><a href="evaluating-model-performance-1.html#cb539-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sensitivity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb539-18"><a href="evaluating-model-performance-1.html#cb539-18" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> <span class="dv">1</span>), <span class="at">linetype =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="evaluating-model-performance-1.html#cb540-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb540-2"><a href="evaluating-model-performance-1.html#cb540-2" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb540-3"><a href="evaluating-model-performance-1.html#cb540-3" tabindex="-1"></a>roc_sensitivity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(threshold))</span>
+<span id="cb540-4"><a href="evaluating-model-performance-1.html#cb540-4" tabindex="-1"></a>roc_specificity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(threshold))</span>
+<span id="cb540-5"><a href="evaluating-model-performance-1.html#cb540-5" tabindex="-1"></a></span>
+<span id="cb540-6"><a href="evaluating-model-performance-1.html#cb540-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(threshold)) {</span>
+<span id="cb540-7"><a href="evaluating-model-performance-1.html#cb540-7" tabindex="-1"></a>  <span class="co"># for each value of threshold, find our predictions</span></span>
+<span id="cb540-8"><a href="evaluating-model-performance-1.html#cb540-8" tabindex="-1"></a>  predicted_class <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> threshold[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>))</span>
+<span id="cb540-9"><a href="evaluating-model-performance-1.html#cb540-9" tabindex="-1"></a>  <span class="co"># compute the corresponding sensitivity and specificity</span></span>
+<span id="cb540-10"><a href="evaluating-model-performance-1.html#cb540-10" tabindex="-1"></a>  roc_sensitivity[i] <span class="ot">&lt;-</span> <span class="fu">sensitivity</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">positive =</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb540-11"><a href="evaluating-model-performance-1.html#cb540-11" tabindex="-1"></a>  roc_specificity[i]  <span class="ot">&lt;-</span> <span class="fu">specificity</span>(predicted_class, test_data<span class="sc">$</span>diabetes, <span class="at">negative =</span> <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb540-12"><a href="evaluating-model-performance-1.html#cb540-12" tabindex="-1"></a>}</span>
+<span id="cb540-13"><a href="evaluating-model-performance-1.html#cb540-13" tabindex="-1"></a></span>
+<span id="cb540-14"><a href="evaluating-model-performance-1.html#cb540-14" tabindex="-1"></a><span class="co"># ROC, use geom_path instead of geom_line to retain the order when joining the points</span></span>
+<span id="cb540-15"><a href="evaluating-model-performance-1.html#cb540-15" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> roc_specificity, <span class="at">y =</span> roc_sensitivity)) <span class="sc">+</span></span>
+<span id="cb540-16"><a href="evaluating-model-performance-1.html#cb540-16" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span></span>
+<span id="cb540-17"><a href="evaluating-model-performance-1.html#cb540-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;1 - Specificity&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sensitivity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb540-18"><a href="evaluating-model-performance-1.html#cb540-18" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> <span class="dv">1</span>), <span class="at">linetype =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>There is a function called <code>roc()</code> in the package <code>pROC</code> to construct the ROC.</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="evaluating-model-performance-1.html#cb540-1" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb540-2"><a href="evaluating-model-performance-1.html#cb540-2" tabindex="-1"></a></span>
-<span id="cb540-3"><a href="evaluating-model-performance-1.html#cb540-3" tabindex="-1"></a>roc_logistic <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">predictor =</span> <span class="fu">as.numeric</span>(prob), <span class="at">response =</span> test_data<span class="sc">$</span>diabetes)</span>
-<span id="cb540-4"><a href="evaluating-model-performance-1.html#cb540-4" tabindex="-1"></a></span>
-<span id="cb540-5"><a href="evaluating-model-performance-1.html#cb540-5" tabindex="-1"></a><span class="fu">plot</span>(roc_logistic)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-610-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="evaluating-model-performance-1.html#cb541-1" tabindex="-1"></a></span>
-<span id="cb541-2"><a href="evaluating-model-performance-1.html#cb541-2" tabindex="-1"></a><span class="co"># find the AUC</span></span>
-<span id="cb541-3"><a href="evaluating-model-performance-1.html#cb541-3" tabindex="-1"></a><span class="fu">auc</span>(roc_logistic)</span>
-<span id="cb541-4"><a href="evaluating-model-performance-1.html#cb541-4" tabindex="-1"></a><span class="do">## Area under the curve: 0.7592</span></span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="evaluating-model-performance-1.html#cb541-1" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb541-2"><a href="evaluating-model-performance-1.html#cb541-2" tabindex="-1"></a></span>
+<span id="cb541-3"><a href="evaluating-model-performance-1.html#cb541-3" tabindex="-1"></a>roc_logistic <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">predictor =</span> <span class="fu">as.numeric</span>(prob), <span class="at">response =</span> test_data<span class="sc">$</span>diabetes)</span>
+<span id="cb541-4"><a href="evaluating-model-performance-1.html#cb541-4" tabindex="-1"></a></span>
+<span id="cb541-5"><a href="evaluating-model-performance-1.html#cb541-5" tabindex="-1"></a><span class="fu">plot</span>(roc_logistic)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-600-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="evaluating-model-performance-1.html#cb542-1" tabindex="-1"></a></span>
+<span id="cb542-2"><a href="evaluating-model-performance-1.html#cb542-2" tabindex="-1"></a><span class="co"># find the AUC</span></span>
+<span id="cb542-3"><a href="evaluating-model-performance-1.html#cb542-3" tabindex="-1"></a><span class="fu">auc</span>(roc_logistic)</span>
+<span id="cb542-4"><a href="evaluating-model-performance-1.html#cb542-4" tabindex="-1"></a><span class="do">## Area under the curve: 0.7592</span></span></code></pre></div>
 <p>Note that the x-axis label from this function is Specificity starting from 1.</p>
 <p>AUC values:</p>
 <ul>
@@ -742,44 +757,44 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 </ul>
 <p>One problem with the above random partition is that the proportions of the class of interest are very different in the training dataset and testing datase even if we have randomly selected our observations.</p>
 <p><strong>Example</strong></p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="evaluating-model-performance-1.html#cb542-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb542-2"><a href="evaluating-model-performance-1.html#cb542-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(PimaIndiansDiabetes2), </span>
-<span id="cb542-3"><a href="evaluating-model-performance-1.html#cb542-3" tabindex="-1"></a>                       <span class="at">size =</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
-<span id="cb542-4"><a href="evaluating-model-performance-1.html#cb542-4" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[random_index, ]</span>
-<span id="cb542-5"><a href="evaluating-model-performance-1.html#cb542-5" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>random_index, ]</span>
-<span id="cb542-6"><a href="evaluating-model-performance-1.html#cb542-6" tabindex="-1"></a></span>
-<span id="cb542-7"><a href="evaluating-model-performance-1.html#cb542-7" tabindex="-1"></a><span class="fu">table</span>(train_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(train_data)</span>
-<span id="cb542-8"><a href="evaluating-model-performance-1.html#cb542-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb542-9"><a href="evaluating-model-performance-1.html#cb542-9" tabindex="-1"></a><span class="do">##      neg      pos </span></span>
-<span id="cb542-10"><a href="evaluating-model-performance-1.html#cb542-10" tabindex="-1"></a><span class="do">## 0.649635 0.350365</span></span>
-<span id="cb542-11"><a href="evaluating-model-performance-1.html#cb542-11" tabindex="-1"></a></span>
-<span id="cb542-12"><a href="evaluating-model-performance-1.html#cb542-12" tabindex="-1"></a><span class="fu">table</span>(test_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(test_data)</span>
-<span id="cb542-13"><a href="evaluating-model-performance-1.html#cb542-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb542-14"><a href="evaluating-model-performance-1.html#cb542-14" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
-<span id="cb542-15"><a href="evaluating-model-performance-1.html#cb542-15" tabindex="-1"></a><span class="do">## 0.7118644 0.2881356</span></span></code></pre></div>
-<p>You can see that the proportion of <code>pos</code> in the training dataset is <span class="math inline">\(0.350\)</span> while that in the testing dataset is <span class="math inline">\(0.288\)</span>. This may affect the estimation of the model performance.</p>
-<p>To avoid this issue, we can use <strong>stratified random sampling</strong> to ensure the training dataset and testing dataset have nearly the same proportion in the class of interest.</p>
-<p>To do that in R, we can use the function <code>createDataPartition</code> from the package <code>caret</code>.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="evaluating-model-performance-1.html#cb543-1" tabindex="-1"></a>stratified_random_index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes,</span>
-<span id="cb543-2"><a href="evaluating-model-performance-1.html#cb543-2" tabindex="-1"></a>                                               <span class="at">p =</span> <span class="fl">0.7</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb543-3"><a href="evaluating-model-performance-1.html#cb543-3" tabindex="-1"></a></span>
-<span id="cb543-4"><a href="evaluating-model-performance-1.html#cb543-4" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[stratified_random_index, ]</span>
-<span id="cb543-5"><a href="evaluating-model-performance-1.html#cb543-5" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>stratified_random_index, ]</span>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="evaluating-model-performance-1.html#cb543-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb543-2"><a href="evaluating-model-performance-1.html#cb543-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(PimaIndiansDiabetes2), </span>
+<span id="cb543-3"><a href="evaluating-model-performance-1.html#cb543-3" tabindex="-1"></a>                       <span class="at">size =</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2) <span class="sc">*</span> <span class="fl">0.7</span>)</span>
+<span id="cb543-4"><a href="evaluating-model-performance-1.html#cb543-4" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[random_index, ]</span>
+<span id="cb543-5"><a href="evaluating-model-performance-1.html#cb543-5" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>random_index, ]</span>
 <span id="cb543-6"><a href="evaluating-model-performance-1.html#cb543-6" tabindex="-1"></a></span>
 <span id="cb543-7"><a href="evaluating-model-performance-1.html#cb543-7" tabindex="-1"></a><span class="fu">table</span>(train_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(train_data)</span>
 <span id="cb543-8"><a href="evaluating-model-performance-1.html#cb543-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb543-9"><a href="evaluating-model-performance-1.html#cb543-9" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
-<span id="cb543-10"><a href="evaluating-model-performance-1.html#cb543-10" tabindex="-1"></a><span class="do">## 0.6690909 0.3309091</span></span>
+<span id="cb543-9"><a href="evaluating-model-performance-1.html#cb543-9" tabindex="-1"></a><span class="do">##      neg      pos </span></span>
+<span id="cb543-10"><a href="evaluating-model-performance-1.html#cb543-10" tabindex="-1"></a><span class="do">## 0.649635 0.350365</span></span>
 <span id="cb543-11"><a href="evaluating-model-performance-1.html#cb543-11" tabindex="-1"></a></span>
 <span id="cb543-12"><a href="evaluating-model-performance-1.html#cb543-12" tabindex="-1"></a><span class="fu">table</span>(test_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(test_data)</span>
 <span id="cb543-13"><a href="evaluating-model-performance-1.html#cb543-13" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb543-14"><a href="evaluating-model-performance-1.html#cb543-14" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
-<span id="cb543-15"><a href="evaluating-model-performance-1.html#cb543-15" tabindex="-1"></a><span class="do">## 0.6666667 0.3333333</span></span>
-<span id="cb543-16"><a href="evaluating-model-performance-1.html#cb543-16" tabindex="-1"></a></span>
-<span id="cb543-17"><a href="evaluating-model-performance-1.html#cb543-17" tabindex="-1"></a><span class="fu">table</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2)</span>
-<span id="cb543-18"><a href="evaluating-model-performance-1.html#cb543-18" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb543-19"><a href="evaluating-model-performance-1.html#cb543-19" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
-<span id="cb543-20"><a href="evaluating-model-performance-1.html#cb543-20" tabindex="-1"></a><span class="do">## 0.6683673 0.3316327</span></span></code></pre></div>
+<span id="cb543-15"><a href="evaluating-model-performance-1.html#cb543-15" tabindex="-1"></a><span class="do">## 0.7118644 0.2881356</span></span></code></pre></div>
+<p>You can see that the proportion of <code>pos</code> in the training dataset is <span class="math inline">\(0.350\)</span> while that in the testing dataset is <span class="math inline">\(0.288\)</span>. This may affect the estimation of the model performance.</p>
+<p>To avoid this issue, we can use <strong>stratified random sampling</strong> to ensure the training dataset and testing dataset have nearly the same proportion in the class of interest.</p>
+<p>To do that in R, we can use the function <code>createDataPartition</code> from the package <code>caret</code>.</p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="evaluating-model-performance-1.html#cb544-1" tabindex="-1"></a>stratified_random_index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes,</span>
+<span id="cb544-2"><a href="evaluating-model-performance-1.html#cb544-2" tabindex="-1"></a>                                               <span class="at">p =</span> <span class="fl">0.7</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb544-3"><a href="evaluating-model-performance-1.html#cb544-3" tabindex="-1"></a></span>
+<span id="cb544-4"><a href="evaluating-model-performance-1.html#cb544-4" tabindex="-1"></a>train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[stratified_random_index, ]</span>
+<span id="cb544-5"><a href="evaluating-model-performance-1.html#cb544-5" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>stratified_random_index, ]</span>
+<span id="cb544-6"><a href="evaluating-model-performance-1.html#cb544-6" tabindex="-1"></a></span>
+<span id="cb544-7"><a href="evaluating-model-performance-1.html#cb544-7" tabindex="-1"></a><span class="fu">table</span>(train_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(train_data)</span>
+<span id="cb544-8"><a href="evaluating-model-performance-1.html#cb544-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb544-9"><a href="evaluating-model-performance-1.html#cb544-9" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
+<span id="cb544-10"><a href="evaluating-model-performance-1.html#cb544-10" tabindex="-1"></a><span class="do">## 0.6690909 0.3309091</span></span>
+<span id="cb544-11"><a href="evaluating-model-performance-1.html#cb544-11" tabindex="-1"></a></span>
+<span id="cb544-12"><a href="evaluating-model-performance-1.html#cb544-12" tabindex="-1"></a><span class="fu">table</span>(test_data<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(test_data)</span>
+<span id="cb544-13"><a href="evaluating-model-performance-1.html#cb544-13" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb544-14"><a href="evaluating-model-performance-1.html#cb544-14" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
+<span id="cb544-15"><a href="evaluating-model-performance-1.html#cb544-15" tabindex="-1"></a><span class="do">## 0.6666667 0.3333333</span></span>
+<span id="cb544-16"><a href="evaluating-model-performance-1.html#cb544-16" tabindex="-1"></a></span>
+<span id="cb544-17"><a href="evaluating-model-performance-1.html#cb544-17" tabindex="-1"></a><span class="fu">table</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes) <span class="sc">/</span> <span class="fu">nrow</span>(PimaIndiansDiabetes2)</span>
+<span id="cb544-18"><a href="evaluating-model-performance-1.html#cb544-18" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb544-19"><a href="evaluating-model-performance-1.html#cb544-19" tabindex="-1"></a><span class="do">##       neg       pos </span></span>
+<span id="cb544-20"><a href="evaluating-model-performance-1.html#cb544-20" tabindex="-1"></a><span class="do">## 0.6683673 0.3316327</span></span></code></pre></div>
 <p>Now, both proportions are similar to the one in the whole dataset.</p>
 <p>While stratified sampling distribute the classes evenly, it does not guarantee other variables are distributed evenly.</p>
 <ul>
@@ -798,40 +813,38 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 </ol>
 <p>See <a href="https://en.wikipedia.org/wiki/File:KfoldCV.gif" class="uri">https://en.wikipedia.org/wiki/File:KfoldCV.gif</a> for a gif animation showing the <span class="math inline">\(k\)</span>-fold CV.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="evaluating-model-performance-1.html#cb544-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb544-2"><a href="evaluating-model-performance-1.html#cb544-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb544-3"><a href="evaluating-model-performance-1.html#cb544-3" tabindex="-1"></a><span class="co"># the result is a list</span></span>
-<span id="cb544-4"><a href="evaluating-model-performance-1.html#cb544-4" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes, <span class="at">k =</span> k)</span>
-<span id="cb544-5"><a href="evaluating-model-performance-1.html#cb544-5" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, k)</span>
-<span id="cb544-6"><a href="evaluating-model-performance-1.html#cb544-6" tabindex="-1"></a>AUC <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, k)</span>
-<span id="cb544-7"><a href="evaluating-model-performance-1.html#cb544-7" tabindex="-1"></a></span>
-<span id="cb544-8"><a href="evaluating-model-performance-1.html#cb544-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb544-9"><a href="evaluating-model-performance-1.html#cb544-9" tabindex="-1"></a>  train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[folds[[i]], ]</span>
-<span id="cb544-10"><a href="evaluating-model-performance-1.html#cb544-10" tabindex="-1"></a>  test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>folds[[i]], ]</span>
-<span id="cb544-11"><a href="evaluating-model-performance-1.html#cb544-11" tabindex="-1"></a>  fit_simple <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train_data, <span class="at">family =</span> binomial)</span>
-<span id="cb544-12"><a href="evaluating-model-performance-1.html#cb544-12" tabindex="-1"></a></span>
-<span id="cb544-13"><a href="evaluating-model-performance-1.html#cb544-13" tabindex="-1"></a>  <span class="co"># Prediction</span></span>
-<span id="cb544-14"><a href="evaluating-model-performance-1.html#cb544-14" tabindex="-1"></a>  prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_simple, test_data, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb544-15"><a href="evaluating-model-performance-1.html#cb544-15" tabindex="-1"></a>  predicted_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
-<span id="cb544-16"><a href="evaluating-model-performance-1.html#cb544-16" tabindex="-1"></a>  </span>
-<span id="cb544-17"><a href="evaluating-model-performance-1.html#cb544-17" tabindex="-1"></a>  <span class="co"># Compute accuracy and AUC</span></span>
-<span id="cb544-18"><a href="evaluating-model-performance-1.html#cb544-18" tabindex="-1"></a>  accuracy[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(predicted_class <span class="sc">==</span> test_data<span class="sc">$</span>diabetes)</span>
-<span id="cb544-19"><a href="evaluating-model-performance-1.html#cb544-19" tabindex="-1"></a>  AUC[i] <span class="ot">&lt;-</span> <span class="fu">auc</span>(<span class="fu">roc</span>(<span class="at">predictor =</span> <span class="fu">as.numeric</span>(prob), <span class="at">response =</span> test_data<span class="sc">$</span>diabetes))</span>
-<span id="cb544-20"><a href="evaluating-model-performance-1.html#cb544-20" tabindex="-1"></a>}</span></code></pre></div>
-<p>Results:</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="evaluating-model-performance-1.html#cb545-1" tabindex="-1"></a>accuracy</span>
-<span id="cb545-2"><a href="evaluating-model-performance-1.html#cb545-2" tabindex="-1"></a><span class="do">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411</span></span>
-<span id="cb545-3"><a href="evaluating-model-performance-1.html#cb545-3" tabindex="-1"></a><span class="do">##  [7] 0.7563739 0.7620397 0.7443182 0.7705382</span></span>
-<span id="cb545-4"><a href="evaluating-model-performance-1.html#cb545-4" tabindex="-1"></a></span>
-<span id="cb545-5"><a href="evaluating-model-performance-1.html#cb545-5" tabindex="-1"></a><span class="fu">mean</span>(accuracy)</span>
-<span id="cb545-6"><a href="evaluating-model-performance-1.html#cb545-6" tabindex="-1"></a><span class="do">## [1] 0.7607689</span></span>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="evaluating-model-performance-1.html#cb545-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb545-2"><a href="evaluating-model-performance-1.html#cb545-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb545-3"><a href="evaluating-model-performance-1.html#cb545-3" tabindex="-1"></a><span class="co"># the result is a list</span></span>
+<span id="cb545-4"><a href="evaluating-model-performance-1.html#cb545-4" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(PimaIndiansDiabetes2<span class="sc">$</span>diabetes, <span class="at">k =</span> k)</span>
+<span id="cb545-5"><a href="evaluating-model-performance-1.html#cb545-5" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, k)</span>
+<span id="cb545-6"><a href="evaluating-model-performance-1.html#cb545-6" tabindex="-1"></a>AUC <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, k)</span>
 <span id="cb545-7"><a href="evaluating-model-performance-1.html#cb545-7" tabindex="-1"></a></span>
-<span id="cb545-8"><a href="evaluating-model-performance-1.html#cb545-8" tabindex="-1"></a>AUC</span>
-<span id="cb545-9"><a href="evaluating-model-performance-1.html#cb545-9" tabindex="-1"></a><span class="do">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021</span></span>
-<span id="cb545-10"><a href="evaluating-model-performance-1.html#cb545-10" tabindex="-1"></a><span class="do">##  [7] 0.8012821 0.8102455 0.7917803 0.8177061</span></span>
-<span id="cb545-11"><a href="evaluating-model-performance-1.html#cb545-11" tabindex="-1"></a></span>
-<span id="cb545-12"><a href="evaluating-model-performance-1.html#cb545-12" tabindex="-1"></a><span class="fu">mean</span>(AUC)</span>
-<span id="cb545-13"><a href="evaluating-model-performance-1.html#cb545-13" tabindex="-1"></a><span class="do">## [1] 0.8057514</span></span></code></pre></div>
+<span id="cb545-8"><a href="evaluating-model-performance-1.html#cb545-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb545-9"><a href="evaluating-model-performance-1.html#cb545-9" tabindex="-1"></a>  train_data  <span class="ot">&lt;-</span> PimaIndiansDiabetes2[folds[[i]], ]</span>
+<span id="cb545-10"><a href="evaluating-model-performance-1.html#cb545-10" tabindex="-1"></a>  test_data <span class="ot">&lt;-</span> PimaIndiansDiabetes2[<span class="sc">-</span>folds[[i]], ]</span>
+<span id="cb545-11"><a href="evaluating-model-performance-1.html#cb545-11" tabindex="-1"></a>  fit_simple <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train_data, <span class="at">family =</span> binomial)</span>
+<span id="cb545-12"><a href="evaluating-model-performance-1.html#cb545-12" tabindex="-1"></a></span>
+<span id="cb545-13"><a href="evaluating-model-performance-1.html#cb545-13" tabindex="-1"></a>  <span class="co"># Prediction</span></span>
+<span id="cb545-14"><a href="evaluating-model-performance-1.html#cb545-14" tabindex="-1"></a>  prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_simple, test_data, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb545-15"><a href="evaluating-model-performance-1.html#cb545-15" tabindex="-1"></a>  predicted_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb545-16"><a href="evaluating-model-performance-1.html#cb545-16" tabindex="-1"></a>  </span>
+<span id="cb545-17"><a href="evaluating-model-performance-1.html#cb545-17" tabindex="-1"></a>  <span class="co"># Compute accuracy and AUC</span></span>
+<span id="cb545-18"><a href="evaluating-model-performance-1.html#cb545-18" tabindex="-1"></a>  accuracy[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(predicted_class <span class="sc">==</span> test_data<span class="sc">$</span>diabetes)</span>
+<span id="cb545-19"><a href="evaluating-model-performance-1.html#cb545-19" tabindex="-1"></a>  AUC[i] <span class="ot">&lt;-</span> <span class="fu">auc</span>(<span class="fu">roc</span>(<span class="at">predictor =</span> <span class="fu">as.numeric</span>(prob), <span class="at">response =</span> test_data<span class="sc">$</span>diabetes))</span>
+<span id="cb545-20"><a href="evaluating-model-performance-1.html#cb545-20" tabindex="-1"></a>}</span></code></pre></div>
+<p>Results:</p>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="evaluating-model-performance-1.html#cb546-1" tabindex="-1"></a>accuracy</span>
+<span id="cb546-2"><a href="evaluating-model-performance-1.html#cb546-2" tabindex="-1"></a><span class="do">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411 0.7563739 0.7620397 0.7443182 0.7705382</span></span>
+<span id="cb546-3"><a href="evaluating-model-performance-1.html#cb546-3" tabindex="-1"></a></span>
+<span id="cb546-4"><a href="evaluating-model-performance-1.html#cb546-4" tabindex="-1"></a><span class="fu">mean</span>(accuracy)</span>
+<span id="cb546-5"><a href="evaluating-model-performance-1.html#cb546-5" tabindex="-1"></a><span class="do">## [1] 0.7607689</span></span>
+<span id="cb546-6"><a href="evaluating-model-performance-1.html#cb546-6" tabindex="-1"></a></span>
+<span id="cb546-7"><a href="evaluating-model-performance-1.html#cb546-7" tabindex="-1"></a>AUC</span>
+<span id="cb546-8"><a href="evaluating-model-performance-1.html#cb546-8" tabindex="-1"></a><span class="do">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021 0.8012821 0.8102455 0.7917803 0.8177061</span></span>
+<span id="cb546-9"><a href="evaluating-model-performance-1.html#cb546-9" tabindex="-1"></a></span>
+<span id="cb546-10"><a href="evaluating-model-performance-1.html#cb546-10" tabindex="-1"></a><span class="fu">mean</span>(AUC)</span>
+<span id="cb546-11"><a href="evaluating-model-performance-1.html#cb546-11" tabindex="-1"></a><span class="do">## [1] 0.8057514</span></span></code></pre></div>
 </div>
 </div>
 <div id="class-imbalance-in-classification" class="section level2 hasAnchor" number="20.4">
@@ -852,29 +865,29 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 </ol>
 <p>Download the archived version of <code>DMwR</code> here: <a href="https://cran.r-project.org/src/contrib/Archive/DMwR/" class="uri">https://cran.r-project.org/src/contrib/Archive/DMwR/</a></p>
 <p>You may need to install the package <code>ROCR</code> first. Then, you can install <code>DMwR</code> by clicking Tools -&gt; Install Packages -&gt; Install from: Package archive file -&gt; Browse: choose the file you downloaded above.</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="evaluating-model-performance-1.html#cb546-1" tabindex="-1"></a><span class="fu">library</span>(DMwR)</span>
-<span id="cb546-2"><a href="evaluating-model-performance-1.html#cb546-2" tabindex="-1"></a></span>
-<span id="cb546-3"><a href="evaluating-model-performance-1.html#cb546-3" tabindex="-1"></a><span class="co"># simulated data set</span></span>
-<span id="cb546-4"><a href="evaluating-model-performance-1.html#cb546-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>)</span>
-<span id="cb546-5"><a href="evaluating-model-performance-1.html#cb546-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb546-6"><a href="evaluating-model-performance-1.html#cb546-6" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># true beta</span></span>
-<span id="cb546-7"><a href="evaluating-model-performance-1.html#cb546-7" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb546-8"><a href="evaluating-model-performance-1.html#cb546-8" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb546-9"><a href="evaluating-model-performance-1.html#cb546-9" tabindex="-1"></a>prob_num <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta_0[<span class="dv">1</span>] <span class="sc">+</span> beta_0[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta_0[<span class="dv">3</span>] <span class="sc">*</span> x2)</span>
-<span id="cb546-10"><a href="evaluating-model-performance-1.html#cb546-10" tabindex="-1"></a>prob <span class="ot">&lt;-</span> prob_num <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> prob_num)</span>
-<span id="cb546-11"><a href="evaluating-model-performance-1.html#cb546-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> prob)) <span class="co"># the class has to be &quot;factor&quot;</span></span>
-<span id="cb546-12"><a href="evaluating-model-performance-1.html#cb546-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb546-13"><a href="evaluating-model-performance-1.html#cb546-13" tabindex="-1"></a></span>
-<span id="cb546-14"><a href="evaluating-model-performance-1.html#cb546-14" tabindex="-1"></a><span class="co"># SMOTE</span></span>
-<span id="cb546-15"><a href="evaluating-model-performance-1.html#cb546-15" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">SMOTE</span>(y <span class="sc">~</span> ., data, <span class="at">perc.over =</span> <span class="dv">500</span>, <span class="at">perc.under =</span> <span class="dv">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="evaluating-model-performance-1.html#cb547-1" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>y)</span>
-<span id="cb547-2"><a href="evaluating-model-performance-1.html#cb547-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb547-3"><a href="evaluating-model-performance-1.html#cb547-3" tabindex="-1"></a><span class="do">##   0   1 </span></span>
-<span id="cb547-4"><a href="evaluating-model-performance-1.html#cb547-4" tabindex="-1"></a><span class="do">## 894 106</span></span>
-<span id="cb547-5"><a href="evaluating-model-performance-1.html#cb547-5" tabindex="-1"></a><span class="fu">table</span>(new_data<span class="sc">$</span>y)</span>
-<span id="cb547-6"><a href="evaluating-model-performance-1.html#cb547-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb547-7"><a href="evaluating-model-performance-1.html#cb547-7" tabindex="-1"></a><span class="do">##    0    1 </span></span>
-<span id="cb547-8"><a href="evaluating-model-performance-1.html#cb547-8" tabindex="-1"></a><span class="do">## 1060  636</span></span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="evaluating-model-performance-1.html#cb547-1" tabindex="-1"></a><span class="fu">library</span>(DMwR)</span>
+<span id="cb547-2"><a href="evaluating-model-performance-1.html#cb547-2" tabindex="-1"></a></span>
+<span id="cb547-3"><a href="evaluating-model-performance-1.html#cb547-3" tabindex="-1"></a><span class="co"># simulated data set</span></span>
+<span id="cb547-4"><a href="evaluating-model-performance-1.html#cb547-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">362</span>)</span>
+<span id="cb547-5"><a href="evaluating-model-performance-1.html#cb547-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb547-6"><a href="evaluating-model-performance-1.html#cb547-6" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># true beta</span></span>
+<span id="cb547-7"><a href="evaluating-model-performance-1.html#cb547-7" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb547-8"><a href="evaluating-model-performance-1.html#cb547-8" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb547-9"><a href="evaluating-model-performance-1.html#cb547-9" tabindex="-1"></a>prob_num <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta_0[<span class="dv">1</span>] <span class="sc">+</span> beta_0[<span class="dv">2</span>] <span class="sc">*</span> x1 <span class="sc">+</span> beta_0[<span class="dv">3</span>] <span class="sc">*</span> x2)</span>
+<span id="cb547-10"><a href="evaluating-model-performance-1.html#cb547-10" tabindex="-1"></a>prob <span class="ot">&lt;-</span> prob_num <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> prob_num)</span>
+<span id="cb547-11"><a href="evaluating-model-performance-1.html#cb547-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> prob)) <span class="co"># the class has to be &quot;factor&quot;</span></span>
+<span id="cb547-12"><a href="evaluating-model-performance-1.html#cb547-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb547-13"><a href="evaluating-model-performance-1.html#cb547-13" tabindex="-1"></a></span>
+<span id="cb547-14"><a href="evaluating-model-performance-1.html#cb547-14" tabindex="-1"></a><span class="co"># SMOTE</span></span>
+<span id="cb547-15"><a href="evaluating-model-performance-1.html#cb547-15" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">SMOTE</span>(y <span class="sc">~</span> ., data, <span class="at">perc.over =</span> <span class="dv">500</span>, <span class="at">perc.under =</span> <span class="dv">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="evaluating-model-performance-1.html#cb548-1" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>y)</span>
+<span id="cb548-2"><a href="evaluating-model-performance-1.html#cb548-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb548-3"><a href="evaluating-model-performance-1.html#cb548-3" tabindex="-1"></a><span class="do">##   0   1 </span></span>
+<span id="cb548-4"><a href="evaluating-model-performance-1.html#cb548-4" tabindex="-1"></a><span class="do">## 894 106</span></span>
+<span id="cb548-5"><a href="evaluating-model-performance-1.html#cb548-5" tabindex="-1"></a><span class="fu">table</span>(new_data<span class="sc">$</span>y)</span>
+<span id="cb548-6"><a href="evaluating-model-performance-1.html#cb548-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb548-7"><a href="evaluating-model-performance-1.html#cb548-7" tabindex="-1"></a><span class="do">##    0    1 </span></span>
+<span id="cb548-8"><a href="evaluating-model-performance-1.html#cb548-8" tabindex="-1"></a><span class="do">## 1060  636</span></span></code></pre></div>
 <p>Note: Do not generate synthetic data in the test data.</p>
 
 </div>
@@ -884,8 +897,8 @@ It is the proportion of negative examples that are correctly classified. E.g., t
           </div>
         </div>
       </div>
-<a href="regularization.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="shrinkage-methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-c-in-r-with-rcpp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

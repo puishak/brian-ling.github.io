@@ -185,7 +185,7 @@ dissimilarity-measure-and-linkage
 alogrithm
 applications-1
 nci60-data
-regularization
+shrinkage-methods
 ridge-regression
 lasso
 selecting-the-tuning-parameter
@@ -204,3 +204,12 @@ roc-and-auc
 estimating-future-performances
 cross-validation-1
 class-imbalance-in-classification
+using-c-in-r-with-rcpp
+basic-examples
+scalar-input-scalar-output
+vector-input-scalar-ouptut
+vector-input-vector-output
+returning-a-list
+using-sourcecpp
+example-gibbs-sampler
+more-details

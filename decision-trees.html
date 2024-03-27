@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Decision Trees | STAT 362 R for Data Science</title>
   <meta name="description" content="Notes for STAT 362" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Decision Trees | STAT 362 R for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-04" />
+<meta name="date" content="2024-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -416,18 +420,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#nci60-data"><i class="fa fa-check"></i><b>18.3.1</b> NCI60 Data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="regularization.html"><a href="regularization.html"><i class="fa fa-check"></i><b>19</b> Regularization</a>
+<li class="chapter" data-level="19" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html"><i class="fa fa-check"></i><b>19</b> Shrinkage Methods</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="regularization.html"><a href="regularization.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.2" data-path="regularization.html"><a href="regularization.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
-<li class="chapter" data-level="19.3" data-path="regularization.html"><a href="regularization.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
-<li class="chapter" data-level="19.4" data-path="regularization.html"><a href="regularization.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
+<li class="chapter" data-level="19.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression"><i class="fa fa-check"></i><b>19.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso"><i class="fa fa-check"></i><b>19.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.3" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#selecting-the-tuning-parameter"><i class="fa fa-check"></i><b>19.3</b> Selecting the tuning parameter</a></li>
+<li class="chapter" data-level="19.4" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#glmnet"><i class="fa fa-check"></i><b>19.4</b> <code>glmnet</code></a>
 <ul>
-<li class="chapter" data-level="19.4.1" data-path="regularization.html"><a href="regularization.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
-<li class="chapter" data-level="19.4.2" data-path="regularization.html"><a href="regularization.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
+<li class="chapter" data-level="19.4.1" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#ridge-regression-1"><i class="fa fa-check"></i><b>19.4.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="19.4.2" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#lasso-1"><i class="fa fa-check"></i><b>19.4.2</b> LASSO</a></li>
 </ul></li>
-<li class="chapter" data-level="19.5" data-path="regularization.html"><a href="regularization.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
-<li class="chapter" data-level="19.6" data-path="regularization.html"><a href="regularization.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
+<li class="chapter" data-level="19.5" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>19.5</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="19.6" data-path="shrinkage-methods.html"><a href="shrinkage-methods.html#penalized-multinomial-regression"><i class="fa fa-check"></i><b>19.6</b> Penalized Multinomial Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html"><i class="fa fa-check"></i><b>20</b> Evaluating Model Performance</a>
 <ul>
@@ -444,6 +448,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20.3.1" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#cross-validation-1"><i class="fa fa-check"></i><b>20.3.1</b> Cross-validation</a></li>
 </ul></li>
 <li class="chapter" data-level="20.4" data-path="evaluating-model-performance-1.html"><a href="evaluating-model-performance-1.html#class-imbalance-in-classification"><i class="fa fa-check"></i><b>20.4</b> Class Imbalance in Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html"><i class="fa fa-check"></i><b>21</b> Using C++ in R with Rcpp</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#basic-examples"><i class="fa fa-check"></i><b>21.1</b> Basic Examples</a></li>
+<li class="chapter" data-level="21.2" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#scalar-input-scalar-output"><i class="fa fa-check"></i><b>21.2</b> Scalar Input, Scalar Output</a></li>
+<li class="chapter" data-level="21.3" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-scalar-ouptut"><i class="fa fa-check"></i><b>21.3</b> Vector Input, Scalar Ouptut</a></li>
+<li class="chapter" data-level="21.4" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#vector-input-vector-output"><i class="fa fa-check"></i><b>21.4</b> Vector Input, Vector Output</a></li>
+<li class="chapter" data-level="21.5" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#returning-a-list"><i class="fa fa-check"></i><b>21.5</b> Returning a list</a></li>
+<li class="chapter" data-level="21.6" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#using-sourcecpp"><i class="fa fa-check"></i><b>21.6</b> Using <code>sourceCpp</code></a></li>
+<li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
+<li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -469,9 +484,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 13</span> Decision Trees<a href="decision-trees.html#decision-trees" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Reference: Ch8 in An introduction to Statistical Leraning with applications in R by James, Witten, Hastie and Tibshirani.</p>
 <p>In this chapter, we will load the following packages:</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="decision-trees.html#cb434-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
-<span id="cb434-2"><a href="decision-trees.html#cb434-2" tabindex="-1"></a><span class="fu">library</span>(GGally) <span class="co"># to use ggpairs</span></span>
-<span id="cb434-3"><a href="decision-trees.html#cb434-3" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="decision-trees.html#cb435-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb435-2"><a href="decision-trees.html#cb435-2" tabindex="-1"></a><span class="fu">library</span>(GGally) <span class="co"># to use ggpairs</span></span>
+<span id="cb435-3"><a href="decision-trees.html#cb435-3" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span></code></pre></div>
 <ul>
 <li><p>Decision trees involve <strong>stratifying</strong> or <strong>segmenting</strong> the predictor space into a number of simple regions</p></li>
 <li><p>To make a prediction for a new observation, we typically use the <strong>mean</strong> (for continuous response) or <strong>mode</strong> (for categorical response) response value of the training observations in the region to which the new observation belongs</p></li>
@@ -495,29 +510,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Consider the <code>iris</code> dataset, which is available in base R. We have <span class="math inline">\(150\)</span> observations and <span class="math inline">\(5\)</span> variables named <code>Sepal.Length</code>, <code>Sepal.Wdith</code>, <code>Petal.Length</code>, <code>Petal.Width</code>, and <code>Species</code>.</p>
 <p>Let’s take a look at the data.</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="decision-trees.html#cb435-1" tabindex="-1"></a><span class="fu">str</span>(iris) </span>
-<span id="cb435-2"><a href="decision-trees.html#cb435-2" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    150 obs. of  5 variables:</span></span>
-<span id="cb435-3"><a href="decision-trees.html#cb435-3" tabindex="-1"></a><span class="do">##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
-<span id="cb435-4"><a href="decision-trees.html#cb435-4" tabindex="-1"></a><span class="do">##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
-<span id="cb435-5"><a href="decision-trees.html#cb435-5" tabindex="-1"></a><span class="do">##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
-<span id="cb435-6"><a href="decision-trees.html#cb435-6" tabindex="-1"></a><span class="do">##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
-<span id="cb435-7"><a href="decision-trees.html#cb435-7" tabindex="-1"></a><span class="do">##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="decision-trees.html#cb436-1" tabindex="-1"></a><span class="fu">str</span>(iris) </span>
+<span id="cb436-2"><a href="decision-trees.html#cb436-2" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    150 obs. of  5 variables:</span></span>
+<span id="cb436-3"><a href="decision-trees.html#cb436-3" tabindex="-1"></a><span class="do">##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span id="cb436-4"><a href="decision-trees.html#cb436-4" tabindex="-1"></a><span class="do">##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span id="cb436-5"><a href="decision-trees.html#cb436-5" tabindex="-1"></a><span class="do">##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span id="cb436-6"><a href="decision-trees.html#cb436-6" tabindex="-1"></a><span class="do">##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span id="cb436-7"><a href="decision-trees.html#cb436-7" tabindex="-1"></a><span class="do">##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span></code></pre></div>
 <p>The first four variables are numeric features of the flowers. The last column in the dataset is the species of the flower. We will illustrate how to use the numeric features of the flowers to classify the flowers.</p>
 <p>First, we will split the dataset into a training dataset and a testing dataset. For the moment, we will only use the training dataset.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="decision-trees.html#cb436-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>)</span>
-<span id="cb436-2"><a href="decision-trees.html#cb436-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(iris), <span class="dv">100</span>) <span class="co"># select 100 examples for our training dataset</span></span>
-<span id="cb436-3"><a href="decision-trees.html#cb436-3" tabindex="-1"></a>iris_train <span class="ot">&lt;-</span> iris[random_index, ]</span>
-<span id="cb436-4"><a href="decision-trees.html#cb436-4" tabindex="-1"></a>iris_test <span class="ot">&lt;-</span> iris[<span class="sc">-</span>random_index, ]</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="decision-trees.html#cb437-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>)</span>
+<span id="cb437-2"><a href="decision-trees.html#cb437-2" tabindex="-1"></a>random_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(iris), <span class="dv">100</span>) <span class="co"># select 100 examples for our training dataset</span></span>
+<span id="cb437-3"><a href="decision-trees.html#cb437-3" tabindex="-1"></a>iris_train <span class="ot">&lt;-</span> iris[random_index, ]</span>
+<span id="cb437-4"><a href="decision-trees.html#cb437-4" tabindex="-1"></a>iris_test <span class="ot">&lt;-</span> iris[<span class="sc">-</span>random_index, ]</span></code></pre></div>
 <p>It can be helpful to look at the scatterplot matrix when you wish to look at the relationship between each pair of variables. To create a scatterplot matrix, we can use <code>pairs</code> (base R graphics) or <code>ggpairs</code> (in the package <code>GGally</code>).</p>
 <p>With <code>pairs()</code>:</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="decision-trees.html#cb437-1" tabindex="-1"></a><span class="co"># we only want to plot the numeric features</span></span>
-<span id="cb437-2"><a href="decision-trees.html#cb437-2" tabindex="-1"></a><span class="co"># the 5th column is the species of the flowers</span></span>
-<span id="cb437-3"><a href="decision-trees.html#cb437-3" tabindex="-1"></a><span class="fu">pairs</span>(iris_train[, <span class="sc">-</span><span class="dv">5</span>])</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-485-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="decision-trees.html#cb438-1" tabindex="-1"></a><span class="co"># we only want to plot the numeric features</span></span>
+<span id="cb438-2"><a href="decision-trees.html#cb438-2" tabindex="-1"></a><span class="co"># the 5th column is the species of the flowers</span></span>
+<span id="cb438-3"><a href="decision-trees.html#cb438-3" tabindex="-1"></a><span class="fu">pairs</span>(iris_train[, <span class="sc">-</span><span class="dv">5</span>])</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-475-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>With <code>ggpairs()</code>, you can also visualize an additional category by specifying <code>color =</code> with your variable describing the category.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="decision-trees.html#cb438-1" tabindex="-1"></a><span class="fu">library</span>(GGally) <span class="co"># to use ggpairs, install it first if you haven&#39;t done so</span></span>
-<span id="cb438-2"><a href="decision-trees.html#cb438-2" tabindex="-1"></a><span class="fu">ggpairs</span>(<span class="at">data =</span> iris_train, <span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">alpha =</span> <span class="fl">0.8</span>), <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-486-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="decision-trees.html#cb439-1" tabindex="-1"></a><span class="fu">library</span>(GGally) <span class="co"># to use ggpairs, install it first if you haven&#39;t done so</span></span>
+<span id="cb439-2"><a href="decision-trees.html#cb439-2" tabindex="-1"></a><span class="fu">ggpairs</span>(<span class="at">data =</span> iris_train, <span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">alpha =</span> <span class="fl">0.8</span>), <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-476-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>In the above code:</p>
 <ul>
 <li><code>columns = 1:4</code> tells the function only uses the first <span class="math inline">\(4\)</span> columns of the dataset for plotting.</li>
@@ -525,51 +540,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>alpha = 0.8</code> controls the level of transparency so that the density estimates do not overlap each other completely</li>
 </ul>
 <p>From the plots, it seems that the variable <code>Petal.Width</code> and <code>Petal.Length</code> will be useful in classifying the flowers. Let’s focus on the scatterplot of these two variables.</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="decision-trees.html#cb439-1" tabindex="-1"></a><span class="fu">ggplot</span>(iris_train, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Width, <span class="at">y =</span> Petal.Length, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
-<span id="cb439-2"><a href="decision-trees.html#cb439-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-487-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="decision-trees.html#cb440-1" tabindex="-1"></a><span class="fu">ggplot</span>(iris_train, <span class="fu">aes</span>(<span class="at">x =</span> Petal.Width, <span class="at">y =</span> Petal.Length, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb440-2"><a href="decision-trees.html#cb440-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-477-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>From the above plot, we see that we can easily classify the flowers with high accuracy using these two features. For example, if we draw the horizontal line <span class="math inline">\(y = 1.9\)</span>, we could classify any iris lying on or below this line as setosa with <span class="math inline">\(100\%\)</span> accuracy.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-488-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-478-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Next, we draw the vertical line <span class="math inline">\(x = 1.7\)</span>. We could classify any iris lying on or to the left of this line as versicolor.</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-489-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-479-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>We get a pretty good classification with only 3 mistakes.</p>
 <p>The above classification is an example of classification trees (because the outcome is categorical) and can be visualized as</p>
-<p><img src="Book_files/figure-html/unnamed-chunk-491-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-481-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="introduction-to-regression-tree" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Introduction to regression tree<a href="decision-trees.html#introduction-to-regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To describe the regression trees, we consider the dataset <code>Hitters</code> from the package <code>ISLR2</code>, a baseball player dataset with <span class="math inline">\(322\)</span> observations of major league players from the 1986 and 1987 seasons. In this dataset, there are <span class="math inline">\(20\)</span> variables.</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="decision-trees.html#cb440-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb440-2"><a href="decision-trees.html#cb440-2" tabindex="-1"></a><span class="fu">str</span>(Hitters)</span>
-<span id="cb440-3"><a href="decision-trees.html#cb440-3" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    322 obs. of  20 variables:</span></span>
-<span id="cb440-4"><a href="decision-trees.html#cb440-4" tabindex="-1"></a><span class="do">##  $ AtBat    : int  293 315 479 496 321 594 185 298 323 401 ...</span></span>
-<span id="cb440-5"><a href="decision-trees.html#cb440-5" tabindex="-1"></a><span class="do">##  $ Hits     : int  66 81 130 141 87 169 37 73 81 92 ...</span></span>
-<span id="cb440-6"><a href="decision-trees.html#cb440-6" tabindex="-1"></a><span class="do">##  $ HmRun    : int  1 7 18 20 10 4 1 0 6 17 ...</span></span>
-<span id="cb440-7"><a href="decision-trees.html#cb440-7" tabindex="-1"></a><span class="do">##  $ Runs     : int  30 24 66 65 39 74 23 24 26 49 ...</span></span>
-<span id="cb440-8"><a href="decision-trees.html#cb440-8" tabindex="-1"></a><span class="do">##  $ RBI      : int  29 38 72 78 42 51 8 24 32 66 ...</span></span>
-<span id="cb440-9"><a href="decision-trees.html#cb440-9" tabindex="-1"></a><span class="do">##  $ Walks    : int  14 39 76 37 30 35 21 7 8 65 ...</span></span>
-<span id="cb440-10"><a href="decision-trees.html#cb440-10" tabindex="-1"></a><span class="do">##  $ Years    : int  1 14 3 11 2 11 2 3 2 13 ...</span></span>
-<span id="cb440-11"><a href="decision-trees.html#cb440-11" tabindex="-1"></a><span class="do">##  $ CAtBat   : int  293 3449 1624 5628 396 4408 214 509 341 5206 ...</span></span>
-<span id="cb440-12"><a href="decision-trees.html#cb440-12" tabindex="-1"></a><span class="do">##  $ CHits    : int  66 835 457 1575 101 1133 42 108 86 1332 ...</span></span>
-<span id="cb440-13"><a href="decision-trees.html#cb440-13" tabindex="-1"></a><span class="do">##  $ CHmRun   : int  1 69 63 225 12 19 1 0 6 253 ...</span></span>
-<span id="cb440-14"><a href="decision-trees.html#cb440-14" tabindex="-1"></a><span class="do">##  $ CRuns    : int  30 321 224 828 48 501 30 41 32 784 ...</span></span>
-<span id="cb440-15"><a href="decision-trees.html#cb440-15" tabindex="-1"></a><span class="do">##  $ CRBI     : int  29 414 266 838 46 336 9 37 34 890 ...</span></span>
-<span id="cb440-16"><a href="decision-trees.html#cb440-16" tabindex="-1"></a><span class="do">##  $ CWalks   : int  14 375 263 354 33 194 24 12 8 866 ...</span></span>
-<span id="cb440-17"><a href="decision-trees.html#cb440-17" tabindex="-1"></a><span class="do">##  $ League   : Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 2 1 2 1 ...</span></span>
-<span id="cb440-18"><a href="decision-trees.html#cb440-18" tabindex="-1"></a><span class="do">##  $ Division : Factor w/ 2 levels &quot;E&quot;,&quot;W&quot;: 1 2 2 1 1 2 1 2 2 1 ...</span></span>
-<span id="cb440-19"><a href="decision-trees.html#cb440-19" tabindex="-1"></a><span class="do">##  $ PutOuts  : int  446 632 880 200 805 282 76 121 143 0 ...</span></span>
-<span id="cb440-20"><a href="decision-trees.html#cb440-20" tabindex="-1"></a><span class="do">##  $ Assists  : int  33 43 82 11 40 421 127 283 290 0 ...</span></span>
-<span id="cb440-21"><a href="decision-trees.html#cb440-21" tabindex="-1"></a><span class="do">##  $ Errors   : int  20 10 14 3 4 25 7 9 19 0 ...</span></span>
-<span id="cb440-22"><a href="decision-trees.html#cb440-22" tabindex="-1"></a><span class="do">##  $ Salary   : num  NA 475 480 500 91.5 750 70 100 75 1100 ...</span></span>
-<span id="cb440-23"><a href="decision-trees.html#cb440-23" tabindex="-1"></a><span class="do">##  $ NewLeague: Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 1 1 2 1 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="decision-trees.html#cb441-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb441-2"><a href="decision-trees.html#cb441-2" tabindex="-1"></a><span class="fu">str</span>(Hitters)</span>
+<span id="cb441-3"><a href="decision-trees.html#cb441-3" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    322 obs. of  20 variables:</span></span>
+<span id="cb441-4"><a href="decision-trees.html#cb441-4" tabindex="-1"></a><span class="do">##  $ AtBat    : int  293 315 479 496 321 594 185 298 323 401 ...</span></span>
+<span id="cb441-5"><a href="decision-trees.html#cb441-5" tabindex="-1"></a><span class="do">##  $ Hits     : int  66 81 130 141 87 169 37 73 81 92 ...</span></span>
+<span id="cb441-6"><a href="decision-trees.html#cb441-6" tabindex="-1"></a><span class="do">##  $ HmRun    : int  1 7 18 20 10 4 1 0 6 17 ...</span></span>
+<span id="cb441-7"><a href="decision-trees.html#cb441-7" tabindex="-1"></a><span class="do">##  $ Runs     : int  30 24 66 65 39 74 23 24 26 49 ...</span></span>
+<span id="cb441-8"><a href="decision-trees.html#cb441-8" tabindex="-1"></a><span class="do">##  $ RBI      : int  29 38 72 78 42 51 8 24 32 66 ...</span></span>
+<span id="cb441-9"><a href="decision-trees.html#cb441-9" tabindex="-1"></a><span class="do">##  $ Walks    : int  14 39 76 37 30 35 21 7 8 65 ...</span></span>
+<span id="cb441-10"><a href="decision-trees.html#cb441-10" tabindex="-1"></a><span class="do">##  $ Years    : int  1 14 3 11 2 11 2 3 2 13 ...</span></span>
+<span id="cb441-11"><a href="decision-trees.html#cb441-11" tabindex="-1"></a><span class="do">##  $ CAtBat   : int  293 3449 1624 5628 396 4408 214 509 341 5206 ...</span></span>
+<span id="cb441-12"><a href="decision-trees.html#cb441-12" tabindex="-1"></a><span class="do">##  $ CHits    : int  66 835 457 1575 101 1133 42 108 86 1332 ...</span></span>
+<span id="cb441-13"><a href="decision-trees.html#cb441-13" tabindex="-1"></a><span class="do">##  $ CHmRun   : int  1 69 63 225 12 19 1 0 6 253 ...</span></span>
+<span id="cb441-14"><a href="decision-trees.html#cb441-14" tabindex="-1"></a><span class="do">##  $ CRuns    : int  30 321 224 828 48 501 30 41 32 784 ...</span></span>
+<span id="cb441-15"><a href="decision-trees.html#cb441-15" tabindex="-1"></a><span class="do">##  $ CRBI     : int  29 414 266 838 46 336 9 37 34 890 ...</span></span>
+<span id="cb441-16"><a href="decision-trees.html#cb441-16" tabindex="-1"></a><span class="do">##  $ CWalks   : int  14 375 263 354 33 194 24 12 8 866 ...</span></span>
+<span id="cb441-17"><a href="decision-trees.html#cb441-17" tabindex="-1"></a><span class="do">##  $ League   : Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 2 1 2 1 ...</span></span>
+<span id="cb441-18"><a href="decision-trees.html#cb441-18" tabindex="-1"></a><span class="do">##  $ Division : Factor w/ 2 levels &quot;E&quot;,&quot;W&quot;: 1 2 2 1 1 2 1 2 2 1 ...</span></span>
+<span id="cb441-19"><a href="decision-trees.html#cb441-19" tabindex="-1"></a><span class="do">##  $ PutOuts  : int  446 632 880 200 805 282 76 121 143 0 ...</span></span>
+<span id="cb441-20"><a href="decision-trees.html#cb441-20" tabindex="-1"></a><span class="do">##  $ Assists  : int  33 43 82 11 40 421 127 283 290 0 ...</span></span>
+<span id="cb441-21"><a href="decision-trees.html#cb441-21" tabindex="-1"></a><span class="do">##  $ Errors   : int  20 10 14 3 4 25 7 9 19 0 ...</span></span>
+<span id="cb441-22"><a href="decision-trees.html#cb441-22" tabindex="-1"></a><span class="do">##  $ Salary   : num  NA 475 480 500 91.5 750 70 100 75 1100 ...</span></span>
+<span id="cb441-23"><a href="decision-trees.html#cb441-23" tabindex="-1"></a><span class="do">##  $ NewLeague: Factor w/ 2 levels &quot;A&quot;,&quot;N&quot;: 1 2 1 2 2 1 1 1 2 1 ...</span></span></code></pre></div>
 <p>We will consider the problem of predicting player’s <code>Salary</code> (in the log scale so that its distribution has more of a typical bell-shape) based on the other variables. In particular, to illustrate the regression trees, we shall first use only two variables <code>Years</code> and <code>Hits</code>.</p>
 <p><code>Years</code>: the number of years that the player has played in the major leagues</p>
 <p><code>Hits</code>: the number of hits that he made in the previous year</p>
 <p>The following figure shows an example of regression tree using <code>Years</code> and <code>Hits</code>. The split at the top of the tree results in two large branches. The left-hand branch corresponds to <code>Years &lt; 4.5</code>, and the right-hand branch corresponds to <code>Years &gt;= 4.5</code>. The tree has two internal nodes and three terminal nodes, or leaves. The number in each leaf is the mean of the response for the observations that fall there.</p>
-<p><img src="image/8_1_regression_tree.PNG" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="image/8_1_regression_tree.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>For players with <code>Years &lt; 4.5</code>, the mean log salary is <span class="math inline">\(5.11\)</span> and so we make a prediction of <span class="math inline">\(e^{5.11}\)</span> (thousands of dollars). Players with <code>Years &gt;= 4.5</code> are assigned to the right branch, and that group is further subdidived by <code>Hits</code>. The prediction of salary for players with <code>Years &gt;= 4.5</code> and <code>Hits &lt; 117.5</code> is <span class="math inline">\(e^{6}\)</span> and the prediction of salary for players with <code>Years &gt;= 4.5</code> and <code>Hits &gt;= 117.5</code> is <span class="math inline">\(e^{6.74}\)</span>.</p>
 <p>The following figure shows that partition of the predictor space:</p>
-<p><img src="image/8_2_regression_tree.PNG" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="image/8_2_regression_tree.png" width="40%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mathematical-formulation" class="section level2 hasAnchor" number="13.3">
 <h2><span class="header-section-number">13.3</span> Mathematical Formulation<a href="decision-trees.html#mathematical-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -616,103 +631,103 @@ where <span class="math inline">\(\hat{y}_{R_k}\)</span> is the mean response fo
 <div id="classification-tree" class="section level3 hasAnchor" number="13.4.1">
 <h3><span class="header-section-number">13.4.1</span> Classification Tree<a href="decision-trees.html#classification-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s begin with the iris dataset. To build a classification tree, we can use the function <code>tree()</code> from the package <code>tree</code>. The syntax of <code>tree()</code> is similar to that of <code>lm()</code>.</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="decision-trees.html#cb441-1" tabindex="-1"></a><span class="fu">library</span>(tree)</span>
-<span id="cb441-2"><a href="decision-trees.html#cb441-2" tabindex="-1"></a><span class="co"># split the data into training data and testing data</span></span>
-<span id="cb441-3"><a href="decision-trees.html#cb441-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb441-4"><a href="decision-trees.html#cb441-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(iris), <span class="dv">100</span>)</span>
-<span id="cb441-5"><a href="decision-trees.html#cb441-5" tabindex="-1"></a>tree_iris <span class="ot">&lt;-</span> <span class="fu">tree</span>(Species <span class="sc">~</span>. , <span class="at">data =</span> iris[index, ])</span>
-<span id="cb441-6"><a href="decision-trees.html#cb441-6" tabindex="-1"></a></span>
-<span id="cb441-7"><a href="decision-trees.html#cb441-7" tabindex="-1"></a><span class="co"># display the result</span></span>
-<span id="cb441-8"><a href="decision-trees.html#cb441-8" tabindex="-1"></a>tree_iris</span>
-<span id="cb441-9"><a href="decision-trees.html#cb441-9" tabindex="-1"></a><span class="do">## node), split, n, deviance, yval, (yprob)</span></span>
-<span id="cb441-10"><a href="decision-trees.html#cb441-10" tabindex="-1"></a><span class="do">##       * denotes terminal node</span></span>
-<span id="cb441-11"><a href="decision-trees.html#cb441-11" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb441-12"><a href="decision-trees.html#cb441-12" tabindex="-1"></a><span class="do">## 1) root 100 217.70 virginica ( 0.29000 0.31000 0.40000 )  </span></span>
-<span id="cb441-13"><a href="decision-trees.html#cb441-13" tabindex="-1"></a><span class="do">##   2) Petal.Length &lt; 4.75 58  80.41 setosa ( 0.50000 0.50000 0.00000 )  </span></span>
-<span id="cb441-14"><a href="decision-trees.html#cb441-14" tabindex="-1"></a><span class="do">##     4) Petal.Length &lt; 2.5 29   0.00 setosa ( 1.00000 0.00000 0.00000 ) *</span></span>
-<span id="cb441-15"><a href="decision-trees.html#cb441-15" tabindex="-1"></a><span class="do">##     5) Petal.Length &gt; 2.5 29   0.00 versicolor ( 0.00000 1.00000 0.00000 ) *</span></span>
-<span id="cb441-16"><a href="decision-trees.html#cb441-16" tabindex="-1"></a><span class="do">##   3) Petal.Length &gt; 4.75 42  16.08 virginica ( 0.00000 0.04762 0.95238 )  </span></span>
-<span id="cb441-17"><a href="decision-trees.html#cb441-17" tabindex="-1"></a><span class="do">##     6) Petal.Width &lt; 1.75 5   6.73 virginica ( 0.00000 0.40000 0.60000 ) *</span></span>
-<span id="cb441-18"><a href="decision-trees.html#cb441-18" tabindex="-1"></a><span class="do">##     7) Petal.Width &gt; 1.75 37   0.00 virginica ( 0.00000 0.00000 1.00000 ) *</span></span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="decision-trees.html#cb442-1" tabindex="-1"></a><span class="fu">library</span>(tree)</span>
+<span id="cb442-2"><a href="decision-trees.html#cb442-2" tabindex="-1"></a><span class="co"># split the data into training data and testing data</span></span>
+<span id="cb442-3"><a href="decision-trees.html#cb442-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb442-4"><a href="decision-trees.html#cb442-4" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(iris), <span class="dv">100</span>)</span>
+<span id="cb442-5"><a href="decision-trees.html#cb442-5" tabindex="-1"></a>tree_iris <span class="ot">&lt;-</span> <span class="fu">tree</span>(Species <span class="sc">~</span>. , <span class="at">data =</span> iris[index, ])</span>
+<span id="cb442-6"><a href="decision-trees.html#cb442-6" tabindex="-1"></a></span>
+<span id="cb442-7"><a href="decision-trees.html#cb442-7" tabindex="-1"></a><span class="co"># display the result</span></span>
+<span id="cb442-8"><a href="decision-trees.html#cb442-8" tabindex="-1"></a>tree_iris</span>
+<span id="cb442-9"><a href="decision-trees.html#cb442-9" tabindex="-1"></a><span class="do">## node), split, n, deviance, yval, (yprob)</span></span>
+<span id="cb442-10"><a href="decision-trees.html#cb442-10" tabindex="-1"></a><span class="do">##       * denotes terminal node</span></span>
+<span id="cb442-11"><a href="decision-trees.html#cb442-11" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb442-12"><a href="decision-trees.html#cb442-12" tabindex="-1"></a><span class="do">## 1) root 100 217.70 virginica ( 0.29000 0.31000 0.40000 )  </span></span>
+<span id="cb442-13"><a href="decision-trees.html#cb442-13" tabindex="-1"></a><span class="do">##   2) Petal.Length &lt; 4.75 58  80.41 setosa ( 0.50000 0.50000 0.00000 )  </span></span>
+<span id="cb442-14"><a href="decision-trees.html#cb442-14" tabindex="-1"></a><span class="do">##     4) Petal.Length &lt; 2.5 29   0.00 setosa ( 1.00000 0.00000 0.00000 ) *</span></span>
+<span id="cb442-15"><a href="decision-trees.html#cb442-15" tabindex="-1"></a><span class="do">##     5) Petal.Length &gt; 2.5 29   0.00 versicolor ( 0.00000 1.00000 0.00000 ) *</span></span>
+<span id="cb442-16"><a href="decision-trees.html#cb442-16" tabindex="-1"></a><span class="do">##   3) Petal.Length &gt; 4.75 42  16.08 virginica ( 0.00000 0.04762 0.95238 )  </span></span>
+<span id="cb442-17"><a href="decision-trees.html#cb442-17" tabindex="-1"></a><span class="do">##     6) Petal.Width &lt; 1.75 5   6.73 virginica ( 0.00000 0.40000 0.60000 ) *</span></span>
+<span id="cb442-18"><a href="decision-trees.html#cb442-18" tabindex="-1"></a><span class="do">##     7) Petal.Width &gt; 1.75 37   0.00 virginica ( 0.00000 0.00000 1.00000 ) *</span></span></code></pre></div>
 <p>The <code>summary()</code> function lsts the variables that are used as internal nodes in the tree, the number of terminal nodes, and the (training) error rate.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="decision-trees.html#cb442-1" tabindex="-1"></a><span class="fu">summary</span>(tree_iris)</span>
-<span id="cb442-2"><a href="decision-trees.html#cb442-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb442-3"><a href="decision-trees.html#cb442-3" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
-<span id="cb442-4"><a href="decision-trees.html#cb442-4" tabindex="-1"></a><span class="do">## tree(formula = Species ~ ., data = iris[index, ])</span></span>
-<span id="cb442-5"><a href="decision-trees.html#cb442-5" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
-<span id="cb442-6"><a href="decision-trees.html#cb442-6" tabindex="-1"></a><span class="do">## [1] &quot;Petal.Length&quot; &quot;Petal.Width&quot; </span></span>
-<span id="cb442-7"><a href="decision-trees.html#cb442-7" tabindex="-1"></a><span class="do">## Number of terminal nodes:  4 </span></span>
-<span id="cb442-8"><a href="decision-trees.html#cb442-8" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.07011 = 6.73 / 96 </span></span>
-<span id="cb442-9"><a href="decision-trees.html#cb442-9" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.02 = 2 / 100</span></span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="decision-trees.html#cb443-1" tabindex="-1"></a><span class="fu">summary</span>(tree_iris)</span>
+<span id="cb443-2"><a href="decision-trees.html#cb443-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb443-3"><a href="decision-trees.html#cb443-3" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
+<span id="cb443-4"><a href="decision-trees.html#cb443-4" tabindex="-1"></a><span class="do">## tree(formula = Species ~ ., data = iris[index, ])</span></span>
+<span id="cb443-5"><a href="decision-trees.html#cb443-5" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
+<span id="cb443-6"><a href="decision-trees.html#cb443-6" tabindex="-1"></a><span class="do">## [1] &quot;Petal.Length&quot; &quot;Petal.Width&quot; </span></span>
+<span id="cb443-7"><a href="decision-trees.html#cb443-7" tabindex="-1"></a><span class="do">## Number of terminal nodes:  4 </span></span>
+<span id="cb443-8"><a href="decision-trees.html#cb443-8" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.07011 = 6.73 / 96 </span></span>
+<span id="cb443-9"><a href="decision-trees.html#cb443-9" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.02 = 2 / 100</span></span></code></pre></div>
 <p>Plot the tree:</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="decision-trees.html#cb443-1" tabindex="-1"></a><span class="fu">plot</span>(tree_iris)</span>
-<span id="cb443-2"><a href="decision-trees.html#cb443-2" tabindex="-1"></a><span class="fu">text</span>(tree_iris, <span class="at">pretty =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-497-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="decision-trees.html#cb444-1" tabindex="-1"></a><span class="fu">plot</span>(tree_iris)</span>
+<span id="cb444-2"><a href="decision-trees.html#cb444-2" tabindex="-1"></a><span class="fu">text</span>(tree_iris, <span class="at">pretty =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-487-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Prediction and accuracy:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="decision-trees.html#cb444-1" tabindex="-1"></a><span class="co"># prediction</span></span>
-<span id="cb444-2"><a href="decision-trees.html#cb444-2" tabindex="-1"></a>predict_iris <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree_iris, iris[<span class="sc">-</span>index, ], <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
-<span id="cb444-3"><a href="decision-trees.html#cb444-3" tabindex="-1"></a></span>
-<span id="cb444-4"><a href="decision-trees.html#cb444-4" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(iris[<span class="sc">-</span>index, <span class="dv">5</span>], predict_iris))</span>
-<span id="cb444-5"><a href="decision-trees.html#cb444-5" tabindex="-1"></a><span class="do">##             predict_iris</span></span>
-<span id="cb444-6"><a href="decision-trees.html#cb444-6" tabindex="-1"></a><span class="do">##              setosa versicolor virginica</span></span>
-<span id="cb444-7"><a href="decision-trees.html#cb444-7" tabindex="-1"></a><span class="do">##   setosa         21          0         0</span></span>
-<span id="cb444-8"><a href="decision-trees.html#cb444-8" tabindex="-1"></a><span class="do">##   versicolor      0         15         4</span></span>
-<span id="cb444-9"><a href="decision-trees.html#cb444-9" tabindex="-1"></a><span class="do">##   virginica       0          1         9</span></span>
-<span id="cb444-10"><a href="decision-trees.html#cb444-10" tabindex="-1"></a></span>
-<span id="cb444-11"><a href="decision-trees.html#cb444-11" tabindex="-1"></a><span class="co"># accuracy</span></span>
-<span id="cb444-12"><a href="decision-trees.html#cb444-12" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
-<span id="cb444-13"><a href="decision-trees.html#cb444-13" tabindex="-1"></a><span class="do">## [1] 0.9</span></span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="decision-trees.html#cb445-1" tabindex="-1"></a><span class="co"># prediction</span></span>
+<span id="cb445-2"><a href="decision-trees.html#cb445-2" tabindex="-1"></a>predict_iris <span class="ot">&lt;-</span> <span class="fu">predict</span>(tree_iris, iris[<span class="sc">-</span>index, ], <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb445-3"><a href="decision-trees.html#cb445-3" tabindex="-1"></a></span>
+<span id="cb445-4"><a href="decision-trees.html#cb445-4" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(iris[<span class="sc">-</span>index, <span class="dv">5</span>], predict_iris))</span>
+<span id="cb445-5"><a href="decision-trees.html#cb445-5" tabindex="-1"></a><span class="do">##             predict_iris</span></span>
+<span id="cb445-6"><a href="decision-trees.html#cb445-6" tabindex="-1"></a><span class="do">##              setosa versicolor virginica</span></span>
+<span id="cb445-7"><a href="decision-trees.html#cb445-7" tabindex="-1"></a><span class="do">##   setosa         21          0         0</span></span>
+<span id="cb445-8"><a href="decision-trees.html#cb445-8" tabindex="-1"></a><span class="do">##   versicolor      0         15         4</span></span>
+<span id="cb445-9"><a href="decision-trees.html#cb445-9" tabindex="-1"></a><span class="do">##   virginica       0          1         9</span></span>
+<span id="cb445-10"><a href="decision-trees.html#cb445-10" tabindex="-1"></a></span>
+<span id="cb445-11"><a href="decision-trees.html#cb445-11" tabindex="-1"></a><span class="co"># accuracy</span></span>
+<span id="cb445-12"><a href="decision-trees.html#cb445-12" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
+<span id="cb445-13"><a href="decision-trees.html#cb445-13" tabindex="-1"></a><span class="do">## [1] 0.9</span></span></code></pre></div>
 <p>Now, let’s consider <code>Hitters</code> dataset from the package <code>ISLR2</code>. We have used this dataset in Ch17. We will create an additional categorical variable indicating if <code>Salary</code> is higher than the upper quartile of <code>Salary</code></p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="decision-trees.html#cb445-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb445-2"><a href="decision-trees.html#cb445-2" tabindex="-1"></a><span class="co"># remove rows with missing values</span></span>
-<span id="cb445-3"><a href="decision-trees.html#cb445-3" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
-<span id="cb445-4"><a href="decision-trees.html#cb445-4" tabindex="-1"></a></span>
-<span id="cb445-5"><a href="decision-trees.html#cb445-5" tabindex="-1"></a><span class="co"># create an additional variable</span></span>
-<span id="cb445-6"><a href="decision-trees.html#cb445-6" tabindex="-1"></a>Hitters<span class="sc">$</span>High <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Hitters<span class="sc">$</span>Salary <span class="sc">&gt;=</span> </span>
-<span id="cb445-7"><a href="decision-trees.html#cb445-7" tabindex="-1"></a>                                <span class="fu">quantile</span>(Hitters<span class="sc">$</span>Salary, <span class="fl">0.75</span>), <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))</span>
-<span id="cb445-8"><a href="decision-trees.html#cb445-8" tabindex="-1"></a></span>
-<span id="cb445-9"><a href="decision-trees.html#cb445-9" tabindex="-1"></a><span class="co"># split the dataset</span></span>
-<span id="cb445-10"><a href="decision-trees.html#cb445-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb445-11"><a href="decision-trees.html#cb445-11" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Hitters), <span class="fu">nrow</span>(Hitters) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
-<span id="cb445-12"><a href="decision-trees.html#cb445-12" tabindex="-1"></a>Hitters_train <span class="ot">&lt;-</span> Hitters[index, ]</span>
-<span id="cb445-13"><a href="decision-trees.html#cb445-13" tabindex="-1"></a>Hitters_test <span class="ot">&lt;-</span> Hitters[<span class="sc">-</span>index, ]</span></code></pre></div>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="decision-trees.html#cb446-1" tabindex="-1"></a><span class="co"># fit classification tree</span></span>
-<span id="cb446-2"><a href="decision-trees.html#cb446-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(High <span class="sc">~</span>. <span class="sc">-</span> Salary, <span class="at">data =</span> Hitters_train)</span>
-<span id="cb446-3"><a href="decision-trees.html#cb446-3" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb446-4"><a href="decision-trees.html#cb446-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb446-5"><a href="decision-trees.html#cb446-5" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
-<span id="cb446-6"><a href="decision-trees.html#cb446-6" tabindex="-1"></a><span class="do">## tree(formula = High ~ . - Salary, data = Hitters_train)</span></span>
-<span id="cb446-7"><a href="decision-trees.html#cb446-7" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
-<span id="cb446-8"><a href="decision-trees.html#cb446-8" tabindex="-1"></a><span class="do">## [1] &quot;CAtBat&quot;  &quot;CWalks&quot;  &quot;AtBat&quot;   &quot;Hits&quot;    &quot;CRuns&quot;   &quot;PutOuts&quot; &quot;Assists&quot;</span></span>
-<span id="cb446-9"><a href="decision-trees.html#cb446-9" tabindex="-1"></a><span class="do">## Number of terminal nodes:  8 </span></span>
-<span id="cb446-10"><a href="decision-trees.html#cb446-10" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.3054 = 37.56 / 123 </span></span>
-<span id="cb446-11"><a href="decision-trees.html#cb446-11" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.08397 = 11 / 131</span></span>
-<span id="cb446-12"><a href="decision-trees.html#cb446-12" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
-<span id="cb446-13"><a href="decision-trees.html#cb446-13" tabindex="-1"></a><span class="do">##       </span></span>
-<span id="cb446-14"><a href="decision-trees.html#cb446-14" tabindex="-1"></a><span class="do">##        High Low</span></span>
-<span id="cb446-15"><a href="decision-trees.html#cb446-15" tabindex="-1"></a><span class="do">##   High   20  12</span></span>
-<span id="cb446-16"><a href="decision-trees.html#cb446-16" tabindex="-1"></a><span class="do">##   Low    13  87</span></span>
-<span id="cb446-17"><a href="decision-trees.html#cb446-17" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
-<span id="cb446-18"><a href="decision-trees.html#cb446-18" tabindex="-1"></a><span class="do">## [1] 0.8106061</span></span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="decision-trees.html#cb446-1" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb446-2"><a href="decision-trees.html#cb446-2" tabindex="-1"></a><span class="co"># remove rows with missing values</span></span>
+<span id="cb446-3"><a href="decision-trees.html#cb446-3" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(Hitters)</span>
+<span id="cb446-4"><a href="decision-trees.html#cb446-4" tabindex="-1"></a></span>
+<span id="cb446-5"><a href="decision-trees.html#cb446-5" tabindex="-1"></a><span class="co"># create an additional variable</span></span>
+<span id="cb446-6"><a href="decision-trees.html#cb446-6" tabindex="-1"></a>Hitters<span class="sc">$</span>High <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Hitters<span class="sc">$</span>Salary <span class="sc">&gt;=</span> </span>
+<span id="cb446-7"><a href="decision-trees.html#cb446-7" tabindex="-1"></a>                                <span class="fu">quantile</span>(Hitters<span class="sc">$</span>Salary, <span class="fl">0.75</span>), <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))</span>
+<span id="cb446-8"><a href="decision-trees.html#cb446-8" tabindex="-1"></a></span>
+<span id="cb446-9"><a href="decision-trees.html#cb446-9" tabindex="-1"></a><span class="co"># split the dataset</span></span>
+<span id="cb446-10"><a href="decision-trees.html#cb446-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb446-11"><a href="decision-trees.html#cb446-11" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(Hitters), <span class="fu">nrow</span>(Hitters) <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb446-12"><a href="decision-trees.html#cb446-12" tabindex="-1"></a>Hitters_train <span class="ot">&lt;-</span> Hitters[index, ]</span>
+<span id="cb446-13"><a href="decision-trees.html#cb446-13" tabindex="-1"></a>Hitters_test <span class="ot">&lt;-</span> Hitters[<span class="sc">-</span>index, ]</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="decision-trees.html#cb447-1" tabindex="-1"></a><span class="co"># fit classification tree</span></span>
+<span id="cb447-2"><a href="decision-trees.html#cb447-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">tree</span>(High <span class="sc">~</span>. <span class="sc">-</span> Salary, <span class="at">data =</span> Hitters_train)</span>
+<span id="cb447-3"><a href="decision-trees.html#cb447-3" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb447-4"><a href="decision-trees.html#cb447-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb447-5"><a href="decision-trees.html#cb447-5" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
+<span id="cb447-6"><a href="decision-trees.html#cb447-6" tabindex="-1"></a><span class="do">## tree(formula = High ~ . - Salary, data = Hitters_train)</span></span>
+<span id="cb447-7"><a href="decision-trees.html#cb447-7" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
+<span id="cb447-8"><a href="decision-trees.html#cb447-8" tabindex="-1"></a><span class="do">## [1] &quot;CAtBat&quot;  &quot;CWalks&quot;  &quot;AtBat&quot;   &quot;Hits&quot;    &quot;CRuns&quot;   &quot;PutOuts&quot; &quot;Assists&quot;</span></span>
+<span id="cb447-9"><a href="decision-trees.html#cb447-9" tabindex="-1"></a><span class="do">## Number of terminal nodes:  8 </span></span>
+<span id="cb447-10"><a href="decision-trees.html#cb447-10" tabindex="-1"></a><span class="do">## Residual mean deviance:  0.3054 = 37.56 / 123 </span></span>
+<span id="cb447-11"><a href="decision-trees.html#cb447-11" tabindex="-1"></a><span class="do">## Misclassification error rate: 0.08397 = 11 / 131</span></span>
+<span id="cb447-12"><a href="decision-trees.html#cb447-12" tabindex="-1"></a>(result <span class="ot">&lt;-</span> <span class="fu">table</span>(Hitters_test<span class="sc">$</span>High, <span class="fu">predict</span>(fit, Hitters_test, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)))</span>
+<span id="cb447-13"><a href="decision-trees.html#cb447-13" tabindex="-1"></a><span class="do">##       </span></span>
+<span id="cb447-14"><a href="decision-trees.html#cb447-14" tabindex="-1"></a><span class="do">##        High Low</span></span>
+<span id="cb447-15"><a href="decision-trees.html#cb447-15" tabindex="-1"></a><span class="do">##   High   20  12</span></span>
+<span id="cb447-16"><a href="decision-trees.html#cb447-16" tabindex="-1"></a><span class="do">##   Low    13  87</span></span>
+<span id="cb447-17"><a href="decision-trees.html#cb447-17" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(result)) <span class="sc">/</span> <span class="fu">sum</span>(result)</span>
+<span id="cb447-18"><a href="decision-trees.html#cb447-18" tabindex="-1"></a><span class="do">## [1] 0.8106061</span></span></code></pre></div>
 <p>The classification accuracy in the training data is <span class="math inline">\((131 - 11)/131 = 0.916\)</span>. The classification accuracy in the testing data is <span class="math inline">\(0.811\)</span>.</p>
 <p>Visualize the classification rules using tree:</p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="decision-trees.html#cb447-1" tabindex="-1"></a><span class="fu">plot</span>(fit)</span>
-<span id="cb447-2"><a href="decision-trees.html#cb447-2" tabindex="-1"></a><span class="fu">text</span>(fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-501-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="decision-trees.html#cb448-1" tabindex="-1"></a><span class="fu">plot</span>(fit)</span>
+<span id="cb448-2"><a href="decision-trees.html#cb448-2" tabindex="-1"></a><span class="fu">text</span>(fit)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-491-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regression-tree" class="section level3 hasAnchor" number="13.4.2">
 <h3><span class="header-section-number">13.4.2</span> Regression Tree<a href="decision-trees.html#regression-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Fitting regression tree and finding the MSE in test data</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="decision-trees.html#cb448-1" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
-<span id="cb448-2"><a href="decision-trees.html#cb448-2" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span>
-<span id="cb448-3"><a href="decision-trees.html#cb448-3" tabindex="-1"></a></span>
-<span id="cb448-4"><a href="decision-trees.html#cb448-4" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
-<span id="cb448-5"><a href="decision-trees.html#cb448-5" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb448-6"><a href="decision-trees.html#cb448-6" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="decision-trees.html#cb449-1" tabindex="-1"></a><span class="co"># Fit regression tree</span></span>
+<span id="cb449-2"><a href="decision-trees.html#cb449-2" tabindex="-1"></a>reg_tree <span class="ot">&lt;-</span> <span class="fu">tree</span>(Salary <span class="sc">~</span>. <span class="sc">-</span> High, Hitters_train)</span>
+<span id="cb449-3"><a href="decision-trees.html#cb449-3" tabindex="-1"></a></span>
+<span id="cb449-4"><a href="decision-trees.html#cb449-4" tabindex="-1"></a><span class="co"># MSE in test data</span></span>
+<span id="cb449-5"><a href="decision-trees.html#cb449-5" tabindex="-1"></a><span class="fu">mean</span>((Hitters_test<span class="sc">$</span>Salary <span class="sc">-</span> <span class="fu">predict</span>(reg_tree, Hitters_test))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb449-6"><a href="decision-trees.html#cb449-6" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
 <p>Tree without pruning</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="decision-trees.html#cb449-1" tabindex="-1"></a><span class="fu">plot</span>(reg_tree)</span>
-<span id="cb449-2"><a href="decision-trees.html#cb449-2" tabindex="-1"></a><span class="fu">text</span>(reg_tree)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-503-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="decision-trees.html#cb450-1" tabindex="-1"></a><span class="fu">plot</span>(reg_tree)</span>
+<span id="cb450-2"><a href="decision-trees.html#cb450-2" tabindex="-1"></a><span class="fu">text</span>(reg_tree)</span></code></pre></div>
+<p><img src="Book_files/figure-html/unnamed-chunk-493-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
