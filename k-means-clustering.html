@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -460,6 +460,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
 <li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
+<li class="chapter" data-level="22" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>22</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-3"><i class="fa fa-check"></i><b>22.1</b> Introduction</a></li>
+<li class="chapter" data-level="22.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>22.2</b> Single Layer Neural Netowrks</a></li>
+<li class="chapter" data-level="22.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>22.3</b> Multilayer Neural Networks</a></li>
+<li class="chapter" data-level="22.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>22.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>22.4.1</b> MNIST</a></li>
+<li class="chapter" data-level="22.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>22.4.2</b> Encoding the data</a></li>
+<li class="chapter" data-level="22.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>22.4.3</b> Implementation</a></li>
+<li class="chapter" data-level="22.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>22.4.4</b> Multilayer Neural Network</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -590,10 +603,10 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="k-means-clustering.html#cb489-1" tabindex="-1"></a>mall_kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="at">x =</span> <span class="fu">scale</span>(mall[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]), <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="k-means-clustering.html#cb490-1" tabindex="-1"></a><span class="co"># To view the cluster</span></span>
 <span id="cb490-2"><a href="k-means-clustering.html#cb490-2" tabindex="-1"></a>mall_kmeans<span class="sc">$</span>cluster</span>
-<span id="cb490-3"><a href="k-means-clustering.html#cb490-3" tabindex="-1"></a><span class="do">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb490-4"><a href="k-means-clustering.html#cb490-4" tabindex="-1"></a><span class="do">##  [62] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb490-5"><a href="k-means-clustering.html#cb490-5" tabindex="-1"></a><span class="do">## [123] 3 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1</span></span>
-<span id="cb490-6"><a href="k-means-clustering.html#cb490-6" tabindex="-1"></a><span class="do">## [184] 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
+<span id="cb490-3"><a href="k-means-clustering.html#cb490-3" tabindex="-1"></a><span class="do">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb490-4"><a href="k-means-clustering.html#cb490-4" tabindex="-1"></a><span class="do">##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb490-5"><a href="k-means-clustering.html#cb490-5" tabindex="-1"></a><span class="do">## [117] 3 3 3 3 3 3 3 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
+<span id="cb490-6"><a href="k-means-clustering.html#cb490-6" tabindex="-1"></a><span class="do">## [175] 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
 <span id="cb490-7"><a href="k-means-clustering.html#cb490-7" tabindex="-1"></a></span>
 <span id="cb490-8"><a href="k-means-clustering.html#cb490-8" tabindex="-1"></a><span class="co"># To view the centers</span></span>
 <span id="cb490-9"><a href="k-means-clustering.html#cb490-9" tabindex="-1"></a>mall_kmeans<span class="sc">$</span>centers</span>

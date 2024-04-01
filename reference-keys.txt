@@ -213,3 +213,12 @@ returning-a-list
 using-sourcecpp
 example-gibbs-sampler
 more-details
+deep-learning
+introduction-3
+single-layer-neural-netowrks
+multilayer-neural-networks
+examples-1
+mnist
+encoding-the-data
+implementation
+multilayer-neural-network

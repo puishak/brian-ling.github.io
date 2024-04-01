@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -459,6 +459,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.6" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#using-sourcecpp"><i class="fa fa-check"></i><b>21.6</b> Using <code>sourceCpp</code></a></li>
 <li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
 <li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>22</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-3"><i class="fa fa-check"></i><b>22.1</b> Introduction</a></li>
+<li class="chapter" data-level="22.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>22.2</b> Single Layer Neural Netowrks</a></li>
+<li class="chapter" data-level="22.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>22.3</b> Multilayer Neural Networks</a></li>
+<li class="chapter" data-level="22.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>22.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>22.4.1</b> MNIST</a></li>
+<li class="chapter" data-level="22.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>22.4.2</b> Encoding the data</a></li>
+<li class="chapter" data-level="22.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>22.4.3</b> Implementation</a></li>
+<li class="chapter" data-level="22.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>22.4.4</b> Multilayer Neural Network</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1072,7 +1085,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" tabindex="-1"></a>}</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.17    0.00    0.23</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.05    0.00    0.59</span></span></code></pre></div>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb128-2"><a href="programming-in-r.html#cb128-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb128-3"><a href="programming-in-r.html#cb128-3" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -1082,7 +1095,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb128-7"><a href="programming-in-r.html#cb128-7" tabindex="-1"></a>  }</span>
 <span id="cb128-8"><a href="programming-in-r.html#cb128-8" tabindex="-1"></a>})</span>
 <span id="cb128-9"><a href="programming-in-r.html#cb128-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb128-10"><a href="programming-in-r.html#cb128-10" tabindex="-1"></a><span class="do">##    0.14    0.00    0.22</span></span></code></pre></div>
+<span id="cb128-10"><a href="programming-in-r.html#cb128-10" tabindex="-1"></a><span class="do">##    0.09    0.00    0.44</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="programming-in-r.html#cb129-1" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1090,7 +1103,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-3"><a href="programming-in-r.html#cb129-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
 <span id="cb129-4"><a href="programming-in-r.html#cb129-4" tabindex="-1"></a>})</span>
 <span id="cb129-5"><a href="programming-in-r.html#cb129-5" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-6"><a href="programming-in-r.html#cb129-6" tabindex="-1"></a><span class="do">##    0.00    0.00    0.02</span></span></code></pre></div>
+<span id="cb129-6"><a href="programming-in-r.html#cb129-6" tabindex="-1"></a><span class="do">##    0.00    0.00    0.01</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="programming-in-r.html#cb130-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb130-2"><a href="programming-in-r.html#cb130-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -1103,7 +1116,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb130-9"><a href="programming-in-r.html#cb130-9" tabindex="-1"></a>  }</span>
 <span id="cb130-10"><a href="programming-in-r.html#cb130-10" tabindex="-1"></a>})</span>
 <span id="cb130-11"><a href="programming-in-r.html#cb130-11" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb130-12"><a href="programming-in-r.html#cb130-12" tabindex="-1"></a><span class="do">##    0.06    0.00    0.08</span></span>
+<span id="cb130-12"><a href="programming-in-r.html#cb130-12" tabindex="-1"></a><span class="do">##    0.01    0.00    0.17</span></span>
 <span id="cb130-13"><a href="programming-in-r.html#cb130-13" tabindex="-1"></a></span>
 <span id="cb130-14"><a href="programming-in-r.html#cb130-14" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb130-15"><a href="programming-in-r.html#cb130-15" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>

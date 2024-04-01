@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="evaluating-model-performance-1.html"/>
-
+<link rel="next" href="deep-learning.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -460,6 +460,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
 <li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
+<li class="chapter" data-level="22" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>22</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-3"><i class="fa fa-check"></i><b>22.1</b> Introduction</a></li>
+<li class="chapter" data-level="22.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>22.2</b> Single Layer Neural Netowrks</a></li>
+<li class="chapter" data-level="22.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>22.3</b> Multilayer Neural Networks</a></li>
+<li class="chapter" data-level="22.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>22.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>22.4.1</b> MNIST</a></li>
+<li class="chapter" data-level="22.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>22.4.2</b> Encoding the data</a></li>
+<li class="chapter" data-level="22.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>22.4.3</b> Implementation</a></li>
+<li class="chapter" data-level="22.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>22.4.4</b> Multilayer Neural Network</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -518,7 +531,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="using-c-in-r-with-rcpp.html#cb552-1" tabindex="-1"></a><span class="co"># add works like a regular R function</span></span>
 <span id="cb552-2"><a href="using-c-in-r-with-rcpp.html#cb552-2" tabindex="-1"></a>add_C</span>
 <span id="cb552-3"><a href="using-c-in-r-with-rcpp.html#cb552-3" tabindex="-1"></a><span class="do">## function (x, y, z) </span></span>
-<span id="cb552-4"><a href="using-c-in-r-with-rcpp.html#cb552-4" tabindex="-1"></a><span class="do">## .Call(&lt;pointer: 0x00007ff994191610&gt;, x, y, z)</span></span>
+<span id="cb552-4"><a href="using-c-in-r-with-rcpp.html#cb552-4" tabindex="-1"></a><span class="do">## .Call(&lt;pointer: 0x00007fffabf31610&gt;, x, y, z)</span></span>
 <span id="cb552-5"><a href="using-c-in-r-with-rcpp.html#cb552-5" tabindex="-1"></a></span>
 <span id="cb552-6"><a href="using-c-in-r-with-rcpp.html#cb552-6" tabindex="-1"></a><span class="fu">add_C</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
 <span id="cb552-7"><a href="using-c-in-r-with-rcpp.html#cb552-7" tabindex="-1"></a><span class="do">## [1] 6</span></span></code></pre></div>
@@ -659,9 +672,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb555-8"><a href="using-c-in-r-with-rcpp.html#cb555-8" tabindex="-1"></a><span class="do">## # A tibble: 3 × 6</span></span>
 <span id="cb555-9"><a href="using-c-in-r-with-rcpp.html#cb555-9" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb555-10"><a href="using-c-in-r-with-rcpp.html#cb555-10" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb555-11"><a href="using-c-in-r-with-rcpp.html#cb555-11" tabindex="-1"></a><span class="do">## 1 sum(x)        600ns    800ns  1228275.        0B        0</span></span>
-<span id="cb555-12"><a href="using-c-in-r-with-rcpp.html#cb555-12" tabindex="-1"></a><span class="do">## 2 sum_R(x)     14.6µs   17.1µs    55099.   23.23KB        0</span></span>
-<span id="cb555-13"><a href="using-c-in-r-with-rcpp.html#cb555-13" tabindex="-1"></a><span class="do">## 3 sum_C(x)      900ns      1µs   732842.    2.49KB        0</span></span></code></pre></div>
+<span id="cb555-11"><a href="using-c-in-r-with-rcpp.html#cb555-11" tabindex="-1"></a><span class="do">## 1 sum(x)        1.8µs    2.2µs   429507.        0B        0</span></span>
+<span id="cb555-12"><a href="using-c-in-r-with-rcpp.html#cb555-12" tabindex="-1"></a><span class="do">## 2 sum_R(x)       30µs   35.4µs    28017.   23.23KB        0</span></span>
+<span id="cb555-13"><a href="using-c-in-r-with-rcpp.html#cb555-13" tabindex="-1"></a><span class="do">## 3 sum_C(x)      2.1µs    2.4µs   335999.    2.49KB        0</span></span></code></pre></div>
 <p>You can see <code>sum_R</code> is much slower than the built-in <code>sum</code> (which is highly optimized).</p>
 <p><code>sum_C</code> is much faster than <code>sum_R</code></p>
 </div>
@@ -711,9 +724,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb557-7"><a href="using-c-in-r-with-rcpp.html#cb557-7" tabindex="-1"></a><span class="do">## # A tibble: 3 × 6</span></span>
 <span id="cb557-8"><a href="using-c-in-r-with-rcpp.html#cb557-8" tabindex="-1"></a><span class="do">##   expression               min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb557-9"><a href="using-c-in-r-with-rcpp.html#cb557-9" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;          &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb557-10"><a href="using-c-in-r-with-rcpp.html#cb557-10" tabindex="-1"></a><span class="do">## 1 pdist_R(0.5, y)       4.09ms   4.54ms     211.     7.63MB     6.79</span></span>
-<span id="cb557-11"><a href="using-c-in-r-with-rcpp.html#cb557-11" tabindex="-1"></a><span class="do">## 2 pdist_R_for(0.5, y)  47.18ms  49.46ms      20.3    7.67MB     2.25</span></span>
-<span id="cb557-12"><a href="using-c-in-r-with-rcpp.html#cb557-12" tabindex="-1"></a><span class="do">## 3 pdist_C(0.5, y)        2.5ms   2.71ms     356.     7.63MB    12.0</span></span></code></pre></div>
+<span id="cb557-10"><a href="using-c-in-r-with-rcpp.html#cb557-10" tabindex="-1"></a><span class="do">## 1 pdist_R(0.5, y)       7.74ms   8.04ms     118.     7.63MB     4.55</span></span>
+<span id="cb557-11"><a href="using-c-in-r-with-rcpp.html#cb557-11" tabindex="-1"></a><span class="do">## 2 pdist_R_for(0.5, y)  84.88ms  85.88ms      10.8    7.67MB     0   </span></span>
+<span id="cb557-12"><a href="using-c-in-r-with-rcpp.html#cb557-12" tabindex="-1"></a><span class="do">## 3 pdist_C(0.5, y)       4.96ms   5.75ms     169.     7.63MB     7.69</span></span></code></pre></div>
 <p>The C++ version is faster than the vectorized R function in this case.</p>
 <p>In general, I recommend if you can use a vectorized R function, you do not have to write the C++ version (at least not the first part to be considered when you are optimizing your code).</p>
 </div>
@@ -761,8 +774,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb561-6"><a href="using-c-in-r-with-rcpp.html#cb561-6" tabindex="-1"></a><span class="do">## # A tibble: 2 × 6</span></span>
 <span id="cb561-7"><a href="using-c-in-r-with-rcpp.html#cb561-7" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb561-8"><a href="using-c-in-r-with-rcpp.html#cb561-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb561-9"><a href="using-c-in-r-with-rcpp.html#cb561-9" tabindex="-1"></a><span class="do">## 1 mean(x)     123.9µs  133.2µs     7220.        0B        0</span></span>
-<span id="cb561-10"><a href="using-c-in-r-with-rcpp.html#cb561-10" tabindex="-1"></a><span class="do">## 2 mean_C(x)    40.6µs   44.3µs    22179.    2.49KB        0</span></span></code></pre></div>
+<span id="cb561-9"><a href="using-c-in-r-with-rcpp.html#cb561-9" tabindex="-1"></a><span class="do">## 1 mean(x)     281.2µs    291µs     3297.        0B        0</span></span>
+<span id="cb561-10"><a href="using-c-in-r-with-rcpp.html#cb561-10" tabindex="-1"></a><span class="do">## 2 mean_C(x)    92.4µs    102µs     9476.    2.49KB        0</span></span></code></pre></div>
 </div>
 <div id="example-gibbs-sampler" class="section level2 hasAnchor" number="21.7">
 <h2><span class="header-section-number">21.7</span> Example: Gibbs Sampler<a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -814,8 +827,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb564-6"><a href="using-c-in-r-with-rcpp.html#cb564-6" tabindex="-1"></a><span class="do">## # A tibble: 2 × 6</span></span>
 <span id="cb564-7"><a href="using-c-in-r-with-rcpp.html#cb564-7" tabindex="-1"></a><span class="do">##   expression            min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb564-8"><a href="using-c-in-r-with-rcpp.html#cb564-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb564-9"><a href="using-c-in-r-with-rcpp.html#cb564-9" tabindex="-1"></a><span class="do">## 1 gibbs_R(100, 10)   2.05ms   2.83ms      346.    4.94MB     9.81</span></span>
-<span id="cb564-10"><a href="using-c-in-r-with-rcpp.html#cb564-10" tabindex="-1"></a><span class="do">## 2 gibbs_C(100, 10)  163.8µs  206.8µs     4588.     4.1KB     8.44</span></span></code></pre></div>
+<span id="cb564-9"><a href="using-c-in-r-with-rcpp.html#cb564-9" tabindex="-1"></a><span class="do">## 1 gibbs_R(100, 10)   4.01ms    6.2ms      167.    4.94MB     4.58</span></span>
+<span id="cb564-10"><a href="using-c-in-r-with-rcpp.html#cb564-10" tabindex="-1"></a><span class="do">## 2 gibbs_C(100, 10)  337.9µs    387µs     2526.     4.1KB     6.43</span></span></code></pre></div>
 </div>
 <div id="more-details" class="section level2 hasAnchor" number="21.8">
 <h2><span class="header-section-number">21.8</span> More Details<a href="using-c-in-r-with-rcpp.html#more-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -846,7 +859,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td><code>x[2]</code></td>
-<td><code>x[2]</code> or <code>x(2)</code></td>
+<td><code>x[1]</code> or <code>x(1)</code></td>
 </tr>
 </tbody>
 </table>
@@ -938,8 +951,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="evaluating-model-performance-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="evaluating-model-performance-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="deep-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

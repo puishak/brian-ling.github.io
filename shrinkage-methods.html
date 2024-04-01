@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -460,6 +460,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.7" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler"><i class="fa fa-check"></i><b>21.7</b> Example: Gibbs Sampler</a></li>
 <li class="chapter" data-level="21.8" data-path="using-c-in-r-with-rcpp.html"><a href="using-c-in-r-with-rcpp.html#more-details"><i class="fa fa-check"></i><b>21.8</b> More Details</a></li>
 </ul></li>
+<li class="chapter" data-level="22" data-path="deep-learning.html"><a href="deep-learning.html"><i class="fa fa-check"></i><b>22</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="deep-learning.html"><a href="deep-learning.html#introduction-3"><i class="fa fa-check"></i><b>22.1</b> Introduction</a></li>
+<li class="chapter" data-level="22.2" data-path="deep-learning.html"><a href="deep-learning.html#single-layer-neural-netowrks"><i class="fa fa-check"></i><b>22.2</b> Single Layer Neural Netowrks</a></li>
+<li class="chapter" data-level="22.3" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>22.3</b> Multilayer Neural Networks</a></li>
+<li class="chapter" data-level="22.4" data-path="deep-learning.html"><a href="deep-learning.html#examples-1"><i class="fa fa-check"></i><b>22.4</b> Examples</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="deep-learning.html"><a href="deep-learning.html#mnist"><i class="fa fa-check"></i><b>22.4.1</b> MNIST</a></li>
+<li class="chapter" data-level="22.4.2" data-path="deep-learning.html"><a href="deep-learning.html#encoding-the-data"><i class="fa fa-check"></i><b>22.4.2</b> Encoding the data</a></li>
+<li class="chapter" data-level="22.4.3" data-path="deep-learning.html"><a href="deep-learning.html#implementation"><i class="fa fa-check"></i><b>22.4.3</b> Implementation</a></li>
+<li class="chapter" data-level="22.4.4" data-path="deep-learning.html"><a href="deep-learning.html#multilayer-neural-network"><i class="fa fa-check"></i><b>22.4.4</b> Multilayer Neural Network</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -638,12 +651,12 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <p>The test error obtained from lasso is also smaller than that obtained from the least squares approach.</p>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="shrinkage-methods.html#cb529-1" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb529-2"><a href="shrinkage-methods.html#cb529-2" tabindex="-1"></a><span class="do">##   (Intercept)         AtBat          Hits         HmRun          Runs           RBI         Walks         Years        CAtBat </span></span>
-<span id="cb529-3"><a href="shrinkage-methods.html#cb529-3" tabindex="-1"></a><span class="do">##  126.13087838    0.00000000    0.00000000    3.49595499    0.00000000    0.00000000    3.93919763  -15.95901778    0.00000000 </span></span>
-<span id="cb529-4"><a href="shrinkage-methods.html#cb529-4" tabindex="-1"></a><span class="do">##         CHits        CHmRun         CRuns          CRBI        CWalks       LeagueN     DivisionW       PutOuts       Assists </span></span>
-<span id="cb529-5"><a href="shrinkage-methods.html#cb529-5" tabindex="-1"></a><span class="do">##    0.23935217    0.87111840    0.00000000    0.39819654    0.00000000   52.95398929 -139.60281921    0.12169771    0.14858018 </span></span>
-<span id="cb529-6"><a href="shrinkage-methods.html#cb529-6" tabindex="-1"></a><span class="do">##        Errors </span></span>
-<span id="cb529-7"><a href="shrinkage-methods.html#cb529-7" tabindex="-1"></a><span class="do">##   -0.06371655</span></span></code></pre></div>
+<span id="cb529-2"><a href="shrinkage-methods.html#cb529-2" tabindex="-1"></a><span class="do">##   (Intercept)         AtBat          Hits         HmRun          Runs           RBI         Walks         Years </span></span>
+<span id="cb529-3"><a href="shrinkage-methods.html#cb529-3" tabindex="-1"></a><span class="do">##  126.13087838    0.00000000    0.00000000    3.49595499    0.00000000    0.00000000    3.93919763  -15.95901778 </span></span>
+<span id="cb529-4"><a href="shrinkage-methods.html#cb529-4" tabindex="-1"></a><span class="do">##        CAtBat         CHits        CHmRun         CRuns          CRBI        CWalks       LeagueN     DivisionW </span></span>
+<span id="cb529-5"><a href="shrinkage-methods.html#cb529-5" tabindex="-1"></a><span class="do">##    0.00000000    0.23935217    0.87111840    0.00000000    0.39819654    0.00000000   52.95398929 -139.60281921 </span></span>
+<span id="cb529-6"><a href="shrinkage-methods.html#cb529-6" tabindex="-1"></a><span class="do">##       PutOuts       Assists        Errors </span></span>
+<span id="cb529-7"><a href="shrinkage-methods.html#cb529-7" tabindex="-1"></a><span class="do">##    0.12169771    0.14858018   -0.06371655</span></span></code></pre></div>
 <p>We can see that the lasso results in a model where the coefficient estimates are sparse: <span class="math inline">\(7\)</span> of the estimates are exactly <span class="math inline">\(0\)</span>.</p>
 <p><strong>Variable selection property of LASSO</strong></p>
 <p>In the following toy example, the response is only related to the first five features <span class="math inline">\(X_1,\ldots,X_5\)</span>:
