@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -815,13 +815,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In the following example, we use the dataset <code>ChickWeight</code>, where <code>Time</code> is a discrete variable.</p>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="data-visualization-with-ggplot2.html#cb296-1" tabindex="-1"></a><span class="fu">head</span>(ChickWeight)</span>
-<span id="cb296-2"><a href="data-visualization-with-ggplot2.html#cb296-2" tabindex="-1"></a><span class="do">##   weight Time Chick Diet</span></span>
-<span id="cb296-3"><a href="data-visualization-with-ggplot2.html#cb296-3" tabindex="-1"></a><span class="do">## 1     42    0     1    1</span></span>
-<span id="cb296-4"><a href="data-visualization-with-ggplot2.html#cb296-4" tabindex="-1"></a><span class="do">## 2     51    2     1    1</span></span>
-<span id="cb296-5"><a href="data-visualization-with-ggplot2.html#cb296-5" tabindex="-1"></a><span class="do">## 3     59    4     1    1</span></span>
-<span id="cb296-6"><a href="data-visualization-with-ggplot2.html#cb296-6" tabindex="-1"></a><span class="do">## 4     64    6     1    1</span></span>
-<span id="cb296-7"><a href="data-visualization-with-ggplot2.html#cb296-7" tabindex="-1"></a><span class="do">## 5     76    8     1    1</span></span>
-<span id="cb296-8"><a href="data-visualization-with-ggplot2.html#cb296-8" tabindex="-1"></a><span class="do">## 6     93   10     1    1</span></span></code></pre></div>
+<span id="cb296-2"><a href="data-visualization-with-ggplot2.html#cb296-2" tabindex="-1"></a><span class="do">## Grouped Data: weight ~ Time | Chick</span></span>
+<span id="cb296-3"><a href="data-visualization-with-ggplot2.html#cb296-3" tabindex="-1"></a><span class="do">##   weight Time Chick Diet</span></span>
+<span id="cb296-4"><a href="data-visualization-with-ggplot2.html#cb296-4" tabindex="-1"></a><span class="do">## 1     42    0     1    1</span></span>
+<span id="cb296-5"><a href="data-visualization-with-ggplot2.html#cb296-5" tabindex="-1"></a><span class="do">## 2     51    2     1    1</span></span>
+<span id="cb296-6"><a href="data-visualization-with-ggplot2.html#cb296-6" tabindex="-1"></a><span class="do">## 3     59    4     1    1</span></span>
+<span id="cb296-7"><a href="data-visualization-with-ggplot2.html#cb296-7" tabindex="-1"></a><span class="do">## 4     64    6     1    1</span></span>
+<span id="cb296-8"><a href="data-visualization-with-ggplot2.html#cb296-8" tabindex="-1"></a><span class="do">## 5     76    8     1    1</span></span>
+<span id="cb296-9"><a href="data-visualization-with-ggplot2.html#cb296-9" tabindex="-1"></a><span class="do">## 6     93   10     1    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-visualization-with-ggplot2.html#cb297-1" tabindex="-1"></a><span class="co"># create a base plot</span></span>
 <span id="cb297-2"><a href="data-visualization-with-ggplot2.html#cb297-2" tabindex="-1"></a>cw_ggplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight))</span>
 <span id="cb297-3"><a href="data-visualization-with-ggplot2.html#cb297-3" tabindex="-1"></a>cw_ggplot <span class="sc">+</span></span>

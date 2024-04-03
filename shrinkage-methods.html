@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -617,12 +617,10 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <span id="cb524-9"><a href="shrinkage-methods.html#cb524-9" tabindex="-1"></a><span class="do">## [1] 138800.2</span></span></code></pre></div>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="shrinkage-methods.html#cb525-1" tabindex="-1"></a><span class="fu">predict</span>(ridge_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb525-2"><a href="shrinkage-methods.html#cb525-2" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI        Walks        Years       CAtBat </span></span>
-<span id="cb525-3"><a href="shrinkage-methods.html#cb525-3" tabindex="-1"></a><span class="do">##  71.16411532   0.05151174   0.31495026   2.49638228   0.68833226   0.73836757   1.77444807  -0.48852879   0.01327951 </span></span>
-<span id="cb525-4"><a href="shrinkage-methods.html#cb525-4" tabindex="-1"></a><span class="do">##        CHits       CHmRun        CRuns         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists </span></span>
-<span id="cb525-5"><a href="shrinkage-methods.html#cb525-5" tabindex="-1"></a><span class="do">##   0.06333713   0.62913292   0.12448162   0.15070839   0.16896589  31.16003691 -77.93859127   0.09125514   0.06393766 </span></span>
-<span id="cb525-6"><a href="shrinkage-methods.html#cb525-6" tabindex="-1"></a><span class="do">##       Errors </span></span>
-<span id="cb525-7"><a href="shrinkage-methods.html#cb525-7" tabindex="-1"></a><span class="do">##  -0.33532271</span></span></code></pre></div>
+<span id="cb525-2"><a href="shrinkage-methods.html#cb525-2" tabindex="-1"></a><span class="do">##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI        Walks        Years       CAtBat        CHits       CHmRun </span></span>
+<span id="cb525-3"><a href="shrinkage-methods.html#cb525-3" tabindex="-1"></a><span class="do">##  71.16411532   0.05151174   0.31495026   2.49638228   0.68833226   0.73836757   1.77444807  -0.48852879   0.01327951   0.06333713   0.62913292 </span></span>
+<span id="cb525-4"><a href="shrinkage-methods.html#cb525-4" tabindex="-1"></a><span class="do">##        CRuns         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists       Errors </span></span>
+<span id="cb525-5"><a href="shrinkage-methods.html#cb525-5" tabindex="-1"></a><span class="do">##   0.12448162   0.15070839   0.16896589  31.16003691 -77.93859127   0.09125514   0.06393766  -0.33532271</span></span></code></pre></div>
 <p><strong>Compare with the least squares approach</strong></p>
 <div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="shrinkage-methods.html#cb526-1" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters[index, ])</span>
 <span id="cb526-2"><a href="shrinkage-methods.html#cb526-2" tabindex="-1"></a>ls_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ls_fit, Hitters[<span class="sc">-</span>index, ])</span>
@@ -651,12 +649,10 @@ This penalty is called the elastic net penalty. When <span class="math inline">\
 <p>The test error obtained from lasso is also smaller than that obtained from the least squares approach.</p>
 <p>Coefficients (when the variables are in the original scale):</p>
 <div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="shrinkage-methods.html#cb529-1" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), ]</span>
-<span id="cb529-2"><a href="shrinkage-methods.html#cb529-2" tabindex="-1"></a><span class="do">##   (Intercept)         AtBat          Hits         HmRun          Runs           RBI         Walks         Years </span></span>
-<span id="cb529-3"><a href="shrinkage-methods.html#cb529-3" tabindex="-1"></a><span class="do">##  126.13087838    0.00000000    0.00000000    3.49595499    0.00000000    0.00000000    3.93919763  -15.95901778 </span></span>
-<span id="cb529-4"><a href="shrinkage-methods.html#cb529-4" tabindex="-1"></a><span class="do">##        CAtBat         CHits        CHmRun         CRuns          CRBI        CWalks       LeagueN     DivisionW </span></span>
-<span id="cb529-5"><a href="shrinkage-methods.html#cb529-5" tabindex="-1"></a><span class="do">##    0.00000000    0.23935217    0.87111840    0.00000000    0.39819654    0.00000000   52.95398929 -139.60281921 </span></span>
-<span id="cb529-6"><a href="shrinkage-methods.html#cb529-6" tabindex="-1"></a><span class="do">##       PutOuts       Assists        Errors </span></span>
-<span id="cb529-7"><a href="shrinkage-methods.html#cb529-7" tabindex="-1"></a><span class="do">##    0.12169771    0.14858018   -0.06371655</span></span></code></pre></div>
+<span id="cb529-2"><a href="shrinkage-methods.html#cb529-2" tabindex="-1"></a><span class="do">##   (Intercept)         AtBat          Hits         HmRun          Runs           RBI         Walks         Years        CAtBat         CHits </span></span>
+<span id="cb529-3"><a href="shrinkage-methods.html#cb529-3" tabindex="-1"></a><span class="do">##  126.13087838    0.00000000    0.00000000    3.49595499    0.00000000    0.00000000    3.93919763  -15.95901778    0.00000000    0.23935217 </span></span>
+<span id="cb529-4"><a href="shrinkage-methods.html#cb529-4" tabindex="-1"></a><span class="do">##        CHmRun         CRuns          CRBI        CWalks       LeagueN     DivisionW       PutOuts       Assists        Errors </span></span>
+<span id="cb529-5"><a href="shrinkage-methods.html#cb529-5" tabindex="-1"></a><span class="do">##    0.87111840    0.00000000    0.39819654    0.00000000   52.95398929 -139.60281921    0.12169771    0.14858018   -0.06371655</span></span></code></pre></div>
 <p>We can see that the lasso results in a model where the coefficient estimates are sparse: <span class="math inline">\(7\)</span> of the estimates are exactly <span class="math inline">\(0\)</span>.</p>
 <p><strong>Variable selection property of LASSO</strong></p>
 <p>In the following toy example, the response is only related to the first five features <span class="math inline">\(X_1,\ldots,X_5\)</span>:
@@ -677,12 +673,10 @@ We apply LASSO and see that LASSO can select the true model, that is, a linear m
 <span id="cb530-11"><a href="shrinkage-methods.html#cb530-11" tabindex="-1"></a></span>
 <span id="cb530-12"><a href="shrinkage-methods.html#cb530-12" tabindex="-1"></a><span class="co"># Estimated regression coefficients</span></span>
 <span id="cb530-13"><a href="shrinkage-methods.html#cb530-13" tabindex="-1"></a><span class="fu">predict</span>(lasso_best, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)[, <span class="dv">1</span>]</span>
-<span id="cb530-14"><a href="shrinkage-methods.html#cb530-14" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5          V6          V7          V8          V9 </span></span>
-<span id="cb530-15"><a href="shrinkage-methods.html#cb530-15" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180    0.000000    0.000000    0.000000    0.000000 </span></span>
-<span id="cb530-16"><a href="shrinkage-methods.html#cb530-16" tabindex="-1"></a><span class="do">##         V10         V11         V12         V13         V14         V15         V16         V17         V18         V19 </span></span>
-<span id="cb530-17"><a href="shrinkage-methods.html#cb530-17" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
-<span id="cb530-18"><a href="shrinkage-methods.html#cb530-18" tabindex="-1"></a><span class="do">##         V20 </span></span>
-<span id="cb530-19"><a href="shrinkage-methods.html#cb530-19" tabindex="-1"></a><span class="do">##    0.000000</span></span></code></pre></div>
+<span id="cb530-14"><a href="shrinkage-methods.html#cb530-14" tabindex="-1"></a><span class="do">## (Intercept)          V1          V2          V3          V4          V5          V6          V7          V8          V9         V10         V11 </span></span>
+<span id="cb530-15"><a href="shrinkage-methods.html#cb530-15" tabindex="-1"></a><span class="do">##    1.023367    2.926722    2.912596    2.917734    2.928092    2.921180    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000 </span></span>
+<span id="cb530-16"><a href="shrinkage-methods.html#cb530-16" tabindex="-1"></a><span class="do">##         V12         V13         V14         V15         V16         V17         V18         V19         V20 </span></span>
+<span id="cb530-17"><a href="shrinkage-methods.html#cb530-17" tabindex="-1"></a><span class="do">##    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000</span></span></code></pre></div>
 </div>
 </div>
 <div id="penalized-logistic-regression" class="section level2 hasAnchor" number="19.5">

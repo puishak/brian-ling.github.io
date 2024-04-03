@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -714,8 +714,8 @@ The least square estimator for <span class="math inline">\(\beta\)</span> is
 </ol>
 <p>Objects in <code>fit</code></p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="linear-regression-models.html#cb400-1" tabindex="-1"></a><span class="fu">names</span>(fit)</span>
-<span id="cb400-2"><a href="linear-regression-models.html#cb400-2" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;           </span></span>
-<span id="cb400-3"><a href="linear-regression-models.html#cb400-3" tabindex="-1"></a><span class="do">##  [8] &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
+<span id="cb400-2"><a href="linear-regression-models.html#cb400-2" tabindex="-1"></a><span class="do">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;      </span></span>
+<span id="cb400-3"><a href="linear-regression-models.html#cb400-3" tabindex="-1"></a><span class="do">## [10] &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
 <p>Extract the coefficients</p>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="linear-regression-models.html#cb401-1" tabindex="-1"></a>fit<span class="sc">$</span>coefficients <span class="co"># or coef(fit)</span></span>
 <span id="cb401-2"><a href="linear-regression-models.html#cb401-2" tabindex="-1"></a><span class="do">## (Intercept)          x1          x2 </span></span>
@@ -1030,34 +1030,35 @@ It is a special case of the general linear regression model because we can defin
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \varepsilon_i.
 \end{equation*}\]</span></p>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-models.html#cb421-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb421-2"><a href="linear-regression-models.html#cb421-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb421-3"><a href="linear-regression-models.html#cb421-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb421-4"><a href="linear-regression-models.html#cb421-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb421-5"><a href="linear-regression-models.html#cb421-5" tabindex="-1"></a></span>
-<span id="cb421-6"><a href="linear-regression-models.html#cb421-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x1, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> x2)</span>
-<span id="cb421-7"><a href="linear-regression-models.html#cb421-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb421-8"><a href="linear-regression-models.html#cb421-8" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb421-9"><a href="linear-regression-models.html#cb421-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
-<span id="cb421-10"><a href="linear-regression-models.html#cb421-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb421-11"><a href="linear-regression-models.html#cb421-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb421-12"><a href="linear-regression-models.html#cb421-12" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2                        x2  </span></span>
-<span id="cb421-13"><a href="linear-regression-models.html#cb421-13" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976                    -2.058</span></span></code></pre></div>
+<p>Suppose that you wish to fit the following linear regression
+<span class="math display">\[\begin{equation*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i1}^2 + \beta_3 X_{i2} + \varepsilon_i.
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="linear-regression-models.html#cb421-1" tabindex="-1"></a><span class="co"># simulated example</span></span>
+<span id="cb421-2"><a href="linear-regression-models.html#cb421-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb421-3"><a href="linear-regression-models.html#cb421-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-4"><a href="linear-regression-models.html#cb421-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-5"><a href="linear-regression-models.html#cb421-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb421-6"><a href="linear-regression-models.html#cb421-6" tabindex="-1"></a></span>
+<span id="cb421-7"><a href="linear-regression-models.html#cb421-7" tabindex="-1"></a><span class="co"># perform linear regression that fits the above displayed equation</span></span>
+<span id="cb421-8"><a href="linear-regression-models.html#cb421-8" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x1, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> x2)</span>
+<span id="cb421-9"><a href="linear-regression-models.html#cb421-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb421-10"><a href="linear-regression-models.html#cb421-10" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb421-11"><a href="linear-regression-models.html#cb421-11" tabindex="-1"></a><span class="do">## lm(formula = y ~ poly(x1, 2, raw = TRUE) + x2)</span></span>
+<span id="cb421-12"><a href="linear-regression-models.html#cb421-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb421-13"><a href="linear-regression-models.html#cb421-13" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb421-14"><a href="linear-regression-models.html#cb421-14" tabindex="-1"></a><span class="do">##              (Intercept)  poly(x1, 2, raw = TRUE)1  poly(x1, 2, raw = TRUE)2                        x2  </span></span>
+<span id="cb421-15"><a href="linear-regression-models.html#cb421-15" tabindex="-1"></a><span class="do">##                    1.044                     2.025                     2.976                    -2.058</span></span></code></pre></div>
 <p>We have to set <code>raw = TRUE</code> in <code>ploy()</code>.</p>
 <p>Alternatively, include <code>I(x1^2)</code> not <code>x1^2</code>:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-models.html#cb422-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb422-2"><a href="linear-regression-models.html#cb422-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb422-3"><a href="linear-regression-models.html#cb422-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb422-4"><a href="linear-regression-models.html#cb422-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb422-5"><a href="linear-regression-models.html#cb422-5" tabindex="-1"></a></span>
-<span id="cb422-6"><a href="linear-regression-models.html#cb422-6" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x2)</span>
-<span id="cb422-7"><a href="linear-regression-models.html#cb422-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-8"><a href="linear-regression-models.html#cb422-8" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb422-9"><a href="linear-regression-models.html#cb422-9" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^2) + x2)</span></span>
-<span id="cb422-10"><a href="linear-regression-models.html#cb422-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb422-11"><a href="linear-regression-models.html#cb422-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb422-12"><a href="linear-regression-models.html#cb422-12" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)           x2  </span></span>
-<span id="cb422-13"><a href="linear-regression-models.html#cb422-13" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976       -2.058</span></span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="linear-regression-models.html#cb422-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x2)</span>
+<span id="cb422-2"><a href="linear-regression-models.html#cb422-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb422-3"><a href="linear-regression-models.html#cb422-3" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb422-4"><a href="linear-regression-models.html#cb422-4" tabindex="-1"></a><span class="do">## lm(formula = y ~ x1 + I(x1^2) + x2)</span></span>
+<span id="cb422-5"><a href="linear-regression-models.html#cb422-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb422-6"><a href="linear-regression-models.html#cb422-6" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb422-7"><a href="linear-regression-models.html#cb422-7" tabindex="-1"></a><span class="do">## (Intercept)           x1      I(x1^2)           x2  </span></span>
+<span id="cb422-8"><a href="linear-regression-models.html#cb422-8" tabindex="-1"></a><span class="do">##       1.044        2.025        2.976       -2.058</span></span></code></pre></div>
 <p>Note that <code>lm(y ~ x1 + x1^2 + x2)</code> does not do what you think.</p>
 <p>If you want to perform
 <span class="math display">\[\begin{equation*}

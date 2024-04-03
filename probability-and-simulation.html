@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-5"><a href="probability-and-simulation.html#cb59-5" tabindex="-1"></a><span class="do">## [1] 0.6305587</span></span></code></pre></div>
 <p>Generate 10 random variables, each follows <span class="math inline">\(N(3, 4^2)\)</span>.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability-and-simulation.html#cb60-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb60-2"><a href="probability-and-simulation.html#cb60-2" tabindex="-1"></a><span class="do">##  [1]  5.631939 -2.516361  1.578962 -4.216345 11.758845 -5.996257  4.952728  8.665207  4.115733 -2.219729</span></span></code></pre></div>
+<span id="cb60-2"><a href="probability-and-simulation.html#cb60-2" tabindex="-1"></a><span class="do">##  [1]  6.134238  3.881177 10.142106  2.986068  5.721259  1.544929  6.376358 -5.683805  5.387371  9.742924</span></span></code></pre></div>
 <p>95th percenttile of <span class="math inline">\(N(0, 1)\)</span>. Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(Z \leq q) = 0.95\)</span></p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="probability-and-simulation.html#cb61-1" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb61-2"><a href="probability-and-simulation.html#cb61-2" tabindex="-1"></a><span class="do">## [1] 1.644854</span></span></code></pre></div>
@@ -676,7 +676,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-8"><a href="probability-and-simulation.html#cb64-8" tabindex="-1"></a><span class="do">## [1] 6</span></span>
 <span id="cb64-9"><a href="probability-and-simulation.html#cb64-9" tabindex="-1"></a></span>
 <span id="cb64-10"><a href="probability-and-simulation.html#cb64-10" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.6</span>) <span class="co"># generate 4 random variables from Bin(n=10, p=0.6)</span></span>
-<span id="cb64-11"><a href="probability-and-simulation.html#cb64-11" tabindex="-1"></a><span class="do">## [1] 4 4 6 5</span></span>
+<span id="cb64-11"><a href="probability-and-simulation.html#cb64-11" tabindex="-1"></a><span class="do">## [1] 7 6 4 6</span></span>
 <span id="cb64-12"><a href="probability-and-simulation.html#cb64-12" tabindex="-1"></a></span>
 <span id="cb64-13"><a href="probability-and-simulation.html#cb64-13" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
 <span id="cb64-14"><a href="probability-and-simulation.html#cb64-14" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dbinom</span>(x, <span class="dv">10</span>, <span class="fl">0.6</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>) <span class="co"># &quot;h&quot; for histogram like vertical lines</span></span></code></pre></div>
@@ -733,7 +733,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="probability-and-simulation.html#cb71-1" tabindex="-1"></a><span class="co"># Bernoulli(p) = Bin(1, p)</span></span>
 <span id="cb71-2"><a href="probability-and-simulation.html#cb71-2" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.6</span>)</span>
-<span id="cb71-3"><a href="probability-and-simulation.html#cb71-3" tabindex="-1"></a><span class="do">##  [1] 1 1 0 1 1 1 1 1 1 0</span></span></code></pre></div>
+<span id="cb71-3"><a href="probability-and-simulation.html#cb71-3" tabindex="-1"></a><span class="do">##  [1] 0 1 1 1 1 1 0 0 0 1</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plot the Poisson pmf with parameter <span class="math inline">\(2\)</span> from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = 10\)</span>.</li>
 </ol>

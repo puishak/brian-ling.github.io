@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -589,10 +589,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Cancer types for the cell lines:</p>
 <div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="hierarchical-clustering.html#cb514-1" tabindex="-1"></a><span class="fu">table</span>(nci_labs)</span>
 <span id="cb514-2"><a href="hierarchical-clustering.html#cb514-2" tabindex="-1"></a><span class="do">## nci_labs</span></span>
-<span id="cb514-3"><a href="hierarchical-clustering.html#cb514-3" tabindex="-1"></a><span class="do">##      BREAST         CNS       COLON K562A-repro K562B-repro    LEUKEMIA MCF7A-repro MCF7D-repro    MELANOMA       NSCLC </span></span>
-<span id="cb514-4"><a href="hierarchical-clustering.html#cb514-4" tabindex="-1"></a><span class="do">##           7           5           7           1           1           6           1           1           8           9 </span></span>
-<span id="cb514-5"><a href="hierarchical-clustering.html#cb514-5" tabindex="-1"></a><span class="do">##     OVARIAN    PROSTATE       RENAL     UNKNOWN </span></span>
-<span id="cb514-6"><a href="hierarchical-clustering.html#cb514-6" tabindex="-1"></a><span class="do">##           6           2           9           1</span></span></code></pre></div>
+<span id="cb514-3"><a href="hierarchical-clustering.html#cb514-3" tabindex="-1"></a><span class="do">##      BREAST         CNS       COLON K562A-repro K562B-repro    LEUKEMIA MCF7A-repro MCF7D-repro    MELANOMA       NSCLC     OVARIAN    PROSTATE </span></span>
+<span id="cb514-4"><a href="hierarchical-clustering.html#cb514-4" tabindex="-1"></a><span class="do">##           7           5           7           1           1           6           1           1           8           9           6           2 </span></span>
+<span id="cb514-5"><a href="hierarchical-clustering.html#cb514-5" tabindex="-1"></a><span class="do">##       RENAL     UNKNOWN </span></span>
+<span id="cb514-6"><a href="hierarchical-clustering.html#cb514-6" tabindex="-1"></a><span class="do">##           9           1</span></span></code></pre></div>
 <p>Suppose we perform hierarchical clustering on this data with the goal of finding out whether or not the observation cluster into distinct types of cancer.</p>
 <p>We first scale the data (this step may be optional):</p>
 <div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="hierarchical-clustering.html#cb515-1" tabindex="-1"></a>nci_data_scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(nci_data)</span></code></pre></div>
@@ -605,17 +605,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="hierarchical-clustering.html#cb517-1" tabindex="-1"></a>hc_cluster <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc_complete, <span class="at">k =</span> <span class="dv">4</span>)</span>
 <span id="cb517-2"><a href="hierarchical-clustering.html#cb517-2" tabindex="-1"></a><span class="fu">table</span>(hc_cluster, nci_labs)</span>
 <span id="cb517-3"><a href="hierarchical-clustering.html#cb517-3" tabindex="-1"></a><span class="do">##           nci_labs</span></span>
-<span id="cb517-4"><a href="hierarchical-clustering.html#cb517-4" tabindex="-1"></a><span class="do">## hc_cluster BREAST CNS COLON K562A-repro K562B-repro LEUKEMIA MCF7A-repro MCF7D-repro MELANOMA NSCLC OVARIAN PROSTATE</span></span>
-<span id="cb517-5"><a href="hierarchical-clustering.html#cb517-5" tabindex="-1"></a><span class="do">##          1      2   3     2           0           0        0           0           0        8     8       6        2</span></span>
-<span id="cb517-6"><a href="hierarchical-clustering.html#cb517-6" tabindex="-1"></a><span class="do">##          2      3   2     0           0           0        0           0           0        0     1       0        0</span></span>
-<span id="cb517-7"><a href="hierarchical-clustering.html#cb517-7" tabindex="-1"></a><span class="do">##          3      0   0     0           1           1        6           0           0        0     0       0        0</span></span>
-<span id="cb517-8"><a href="hierarchical-clustering.html#cb517-8" tabindex="-1"></a><span class="do">##          4      2   0     5           0           0        0           1           1        0     0       0        0</span></span>
-<span id="cb517-9"><a href="hierarchical-clustering.html#cb517-9" tabindex="-1"></a><span class="do">##           nci_labs</span></span>
-<span id="cb517-10"><a href="hierarchical-clustering.html#cb517-10" tabindex="-1"></a><span class="do">## hc_cluster RENAL UNKNOWN</span></span>
-<span id="cb517-11"><a href="hierarchical-clustering.html#cb517-11" tabindex="-1"></a><span class="do">##          1     8       1</span></span>
-<span id="cb517-12"><a href="hierarchical-clustering.html#cb517-12" tabindex="-1"></a><span class="do">##          2     1       0</span></span>
-<span id="cb517-13"><a href="hierarchical-clustering.html#cb517-13" tabindex="-1"></a><span class="do">##          3     0       0</span></span>
-<span id="cb517-14"><a href="hierarchical-clustering.html#cb517-14" tabindex="-1"></a><span class="do">##          4     0       0</span></span></code></pre></div>
+<span id="cb517-4"><a href="hierarchical-clustering.html#cb517-4" tabindex="-1"></a><span class="do">## hc_cluster BREAST CNS COLON K562A-repro K562B-repro LEUKEMIA MCF7A-repro MCF7D-repro MELANOMA NSCLC OVARIAN PROSTATE RENAL UNKNOWN</span></span>
+<span id="cb517-5"><a href="hierarchical-clustering.html#cb517-5" tabindex="-1"></a><span class="do">##          1      2   3     2           0           0        0           0           0        8     8       6        2     8       1</span></span>
+<span id="cb517-6"><a href="hierarchical-clustering.html#cb517-6" tabindex="-1"></a><span class="do">##          2      3   2     0           0           0        0           0           0        0     1       0        0     1       0</span></span>
+<span id="cb517-7"><a href="hierarchical-clustering.html#cb517-7" tabindex="-1"></a><span class="do">##          3      0   0     0           1           1        6           0           0        0     0       0        0     0       0</span></span>
+<span id="cb517-8"><a href="hierarchical-clustering.html#cb517-8" tabindex="-1"></a><span class="do">##          4      2   0     5           0           0        0           1           1        0     0       0        0     0       0</span></span></code></pre></div>
 <p>Some patterns:</p>
 <ul>
 <li><p>All the leukemia cell lines fall in cluster 3</p></li>

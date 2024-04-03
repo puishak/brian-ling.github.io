@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1229,23 +1229,22 @@ where <span class="math inline">\(\varepsilon\)</span> is the error term. Our go
 <span id="cb38-2"><a href="introduction.html#cb38-2" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="co"># find the remainder, if the remainder is 0, it is an even number</span></span>
 <span id="cb38-3"><a href="introduction.html#cb38-3" tabindex="-1"></a><span class="do">##  [1] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</span></span>
 <span id="cb38-4"><a href="introduction.html#cb38-4" tabindex="-1"></a>v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>  <span class="co"># check which elements is 0</span></span>
-<span id="cb38-5"><a href="introduction.html#cb38-5" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
-<span id="cb38-6"><a href="introduction.html#cb38-6" tabindex="-1"></a><span class="do">## [20] FALSE  TRUE</span></span>
-<span id="cb38-7"><a href="introduction.html#cb38-7" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
-<span id="cb38-8"><a href="introduction.html#cb38-8" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
-<span id="cb38-9"><a href="introduction.html#cb38-9" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
-<span id="cb38-10"><a href="introduction.html#cb38-10" tabindex="-1"></a><span class="do">## [1] 0</span></span>
-<span id="cb38-11"><a href="introduction.html#cb38-11" tabindex="-1"></a></span>
-<span id="cb38-12"><a href="introduction.html#cb38-12" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
-<span id="cb38-13"><a href="introduction.html#cb38-13" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
-<span id="cb38-14"><a href="introduction.html#cb38-14" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
-<span id="cb38-15"><a href="introduction.html#cb38-15" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb38-16"><a href="introduction.html#cb38-16" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb38-17"><a href="introduction.html#cb38-17" tabindex="-1"></a></span>
-<span id="cb38-18"><a href="introduction.html#cb38-18" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
-<span id="cb38-19"><a href="introduction.html#cb38-19" tabindex="-1"></a><span class="do">## [1] 384</span></span>
-<span id="cb38-20"><a href="introduction.html#cb38-20" tabindex="-1"></a></span>
-<span id="cb38-21"><a href="introduction.html#cb38-21" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
+<span id="cb38-5"><a href="introduction.html#cb38-5" tabindex="-1"></a><span class="do">##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb38-6"><a href="introduction.html#cb38-6" tabindex="-1"></a>v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="co"># select the elements which are &quot;TRUE&quot;</span></span>
+<span id="cb38-7"><a href="introduction.html#cb38-7" tabindex="-1"></a><span class="do">##  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></span>
+<span id="cb38-8"><a href="introduction.html#cb38-8" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># find the product</span></span>
+<span id="cb38-9"><a href="introduction.html#cb38-9" tabindex="-1"></a><span class="do">## [1] 0</span></span>
+<span id="cb38-10"><a href="introduction.html#cb38-10" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="introduction.html#cb38-11" tabindex="-1"></a><span class="co"># the result is 0. v may not be a good example to check if the code is correct</span></span>
+<span id="cb38-12"><a href="introduction.html#cb38-12" tabindex="-1"></a><span class="co"># let&#39;s change to some other vector</span></span>
+<span id="cb38-13"><a href="introduction.html#cb38-13" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb38-14"><a href="introduction.html#cb38-14" tabindex="-1"></a><span class="fu">prod</span>(v[v <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb38-15"><a href="introduction.html#cb38-15" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb38-16"><a href="introduction.html#cb38-16" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="introduction.html#cb38-17" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span> <span class="sc">*</span> <span class="dv">6</span> <span class="sc">*</span> <span class="dv">8</span> <span class="co">#check </span></span>
+<span id="cb38-18"><a href="introduction.html#cb38-18" tabindex="-1"></a><span class="do">## [1] 384</span></span>
+<span id="cb38-19"><a href="introduction.html#cb38-19" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="introduction.html#cb38-20" tabindex="-1"></a><span class="co"># now, the final answer is prod(v[v %% 2 == 0])</span></span></code></pre></div>
 <div id="vectorized-operators" class="section level3 hasAnchor" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> Vectorized Operators<a href="introduction.html#vectorized-operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An important property of many of the operators is that they are “vectorized”. This means that the operation will be performed elementwise.</p>

@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -590,14 +590,13 @@ When both hot and medium are <span class="math inline">\(0\)</span>, we know the
 <div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="k-nearest-neighbors.html#cb380-1" tabindex="-1"></a>wbcd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;.../wisc_bc_data.csv&quot;</span>)</span></code></pre></div>
 <p>Variables:</p>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="k-nearest-neighbors.html#cb381-1" tabindex="-1"></a><span class="fu">names</span>(wbcd)</span>
-<span id="cb381-2"><a href="k-nearest-neighbors.html#cb381-2" tabindex="-1"></a><span class="do">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;               &quot;radius_mean&quot;             &quot;texture_mean&quot;           </span></span>
-<span id="cb381-3"><a href="k-nearest-neighbors.html#cb381-3" tabindex="-1"></a><span class="do">##  [5] &quot;perimeter_mean&quot;          &quot;area_mean&quot;               &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;       </span></span>
-<span id="cb381-4"><a href="k-nearest-neighbors.html#cb381-4" tabindex="-1"></a><span class="do">##  [9] &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;     &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot; </span></span>
-<span id="cb381-5"><a href="k-nearest-neighbors.html#cb381-5" tabindex="-1"></a><span class="do">## [13] &quot;radius_se&quot;               &quot;texture_se&quot;              &quot;perimeter_se&quot;            &quot;area_se&quot;                </span></span>
-<span id="cb381-6"><a href="k-nearest-neighbors.html#cb381-6" tabindex="-1"></a><span class="do">## [17] &quot;smoothness_se&quot;           &quot;compactness_se&quot;          &quot;concavity_se&quot;            &quot;concave.points_se&quot;      </span></span>
-<span id="cb381-7"><a href="k-nearest-neighbors.html#cb381-7" tabindex="-1"></a><span class="do">## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;    &quot;radius_worst&quot;            &quot;texture_worst&quot;          </span></span>
-<span id="cb381-8"><a href="k-nearest-neighbors.html#cb381-8" tabindex="-1"></a><span class="do">## [25] &quot;perimeter_worst&quot;         &quot;area_worst&quot;              &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;      </span></span>
-<span id="cb381-9"><a href="k-nearest-neighbors.html#cb381-9" tabindex="-1"></a><span class="do">## [29] &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;    &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
+<span id="cb381-2"><a href="k-nearest-neighbors.html#cb381-2" tabindex="-1"></a><span class="do">##  [1] &quot;id&quot;                      &quot;diagnosis&quot;               &quot;radius_mean&quot;             &quot;texture_mean&quot;            &quot;perimeter_mean&quot;         </span></span>
+<span id="cb381-3"><a href="k-nearest-neighbors.html#cb381-3" tabindex="-1"></a><span class="do">##  [6] &quot;area_mean&quot;               &quot;smoothness_mean&quot;         &quot;compactness_mean&quot;        &quot;concavity_mean&quot;          &quot;concave.points_mean&quot;    </span></span>
+<span id="cb381-4"><a href="k-nearest-neighbors.html#cb381-4" tabindex="-1"></a><span class="do">## [11] &quot;symmetry_mean&quot;           &quot;fractal_dimension_mean&quot;  &quot;radius_se&quot;               &quot;texture_se&quot;              &quot;perimeter_se&quot;           </span></span>
+<span id="cb381-5"><a href="k-nearest-neighbors.html#cb381-5" tabindex="-1"></a><span class="do">## [16] &quot;area_se&quot;                 &quot;smoothness_se&quot;           &quot;compactness_se&quot;          &quot;concavity_se&quot;            &quot;concave.points_se&quot;      </span></span>
+<span id="cb381-6"><a href="k-nearest-neighbors.html#cb381-6" tabindex="-1"></a><span class="do">## [21] &quot;symmetry_se&quot;             &quot;fractal_dimension_se&quot;    &quot;radius_worst&quot;            &quot;texture_worst&quot;           &quot;perimeter_worst&quot;        </span></span>
+<span id="cb381-7"><a href="k-nearest-neighbors.html#cb381-7" tabindex="-1"></a><span class="do">## [26] &quot;area_worst&quot;              &quot;smoothness_worst&quot;        &quot;compactness_worst&quot;       &quot;concavity_worst&quot;         &quot;concave.points_worst&quot;   </span></span>
+<span id="cb381-8"><a href="k-nearest-neighbors.html#cb381-8" tabindex="-1"></a><span class="do">## [31] &quot;symmetry_worst&quot;          &quot;fractal_dimension_worst&quot;</span></span></code></pre></div>
 <p><strong>Creating Training and Testing Datasets</strong></p>
 <p>The first column is <code>id</code>, which should not be included in the classification. The second column is <code>diagnosis</code>. <code>B</code> means benign and <code>M</code> means malignant. In short, the meaning of malignant is cancerous and the meaning of benign is non-cancerous. We will separate the labels from the features. To evaluate the model performance, we always split our full dataset into a training dataset and a testing daatset.</p>
 <div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="k-nearest-neighbors.html#cb382-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>) <span class="co"># reproduce the result</span></span>

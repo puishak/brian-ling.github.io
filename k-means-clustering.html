@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-01" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -603,17 +603,16 @@ In words, <span class="math inline">\(\mu_j\)</span> is simply the mean of all t
 <div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="k-means-clustering.html#cb489-1" tabindex="-1"></a>mall_kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(<span class="at">x =</span> <span class="fu">scale</span>(mall[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]), <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="k-means-clustering.html#cb490-1" tabindex="-1"></a><span class="co"># To view the cluster</span></span>
 <span id="cb490-2"><a href="k-means-clustering.html#cb490-2" tabindex="-1"></a>mall_kmeans<span class="sc">$</span>cluster</span>
-<span id="cb490-3"><a href="k-means-clustering.html#cb490-3" tabindex="-1"></a><span class="do">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb490-4"><a href="k-means-clustering.html#cb490-4" tabindex="-1"></a><span class="do">##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb490-5"><a href="k-means-clustering.html#cb490-5" tabindex="-1"></a><span class="do">## [117] 3 3 3 3 3 3 3 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
-<span id="cb490-6"><a href="k-means-clustering.html#cb490-6" tabindex="-1"></a><span class="do">## [175] 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
-<span id="cb490-7"><a href="k-means-clustering.html#cb490-7" tabindex="-1"></a></span>
-<span id="cb490-8"><a href="k-means-clustering.html#cb490-8" tabindex="-1"></a><span class="co"># To view the centers</span></span>
-<span id="cb490-9"><a href="k-means-clustering.html#cb490-9" tabindex="-1"></a>mall_kmeans<span class="sc">$</span>centers</span>
-<span id="cb490-10"><a href="k-means-clustering.html#cb490-10" tabindex="-1"></a><span class="do">##   Annual Income (k$) Spending Score (1-100)</span></span>
-<span id="cb490-11"><a href="k-means-clustering.html#cb490-11" tabindex="-1"></a><span class="do">## 1          1.0066735            -1.22246770</span></span>
-<span id="cb490-12"><a href="k-means-clustering.html#cb490-12" tabindex="-1"></a><span class="do">## 2          0.9891010             1.23640011</span></span>
-<span id="cb490-13"><a href="k-means-clustering.html#cb490-13" tabindex="-1"></a><span class="do">## 3         -0.6246222            -0.01435636</span></span></code></pre></div>
+<span id="cb490-3"><a href="k-means-clustering.html#cb490-3" tabindex="-1"></a><span class="do">##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</span></span>
+<span id="cb490-4"><a href="k-means-clustering.html#cb490-4" tabindex="-1"></a><span class="do">##  [72] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
+<span id="cb490-5"><a href="k-means-clustering.html#cb490-5" tabindex="-1"></a><span class="do">## [143] 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2</span></span>
+<span id="cb490-6"><a href="k-means-clustering.html#cb490-6" tabindex="-1"></a></span>
+<span id="cb490-7"><a href="k-means-clustering.html#cb490-7" tabindex="-1"></a><span class="co"># To view the centers</span></span>
+<span id="cb490-8"><a href="k-means-clustering.html#cb490-8" tabindex="-1"></a>mall_kmeans<span class="sc">$</span>centers</span>
+<span id="cb490-9"><a href="k-means-clustering.html#cb490-9" tabindex="-1"></a><span class="do">##   Annual Income (k$) Spending Score (1-100)</span></span>
+<span id="cb490-10"><a href="k-means-clustering.html#cb490-10" tabindex="-1"></a><span class="do">## 1          1.0066735            -1.22246770</span></span>
+<span id="cb490-11"><a href="k-means-clustering.html#cb490-11" tabindex="-1"></a><span class="do">## 2          0.9891010             1.23640011</span></span>
+<span id="cb490-12"><a href="k-means-clustering.html#cb490-12" tabindex="-1"></a><span class="do">## 3         -0.6246222            -0.01435636</span></span></code></pre></div>
 <p>Visualize the clusters:</p>
 <div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="k-means-clustering.html#cb491-1" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
 <span id="cb491-2"><a href="k-means-clustering.html#cb491-2" tabindex="-1"></a><span class="fu">fviz_cluster</span>(mall_kmeans,  <span class="at">data =</span> mall[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>)</span></code></pre></div>
