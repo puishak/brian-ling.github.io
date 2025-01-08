@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-02" />
+<meta name="date" content="2025-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,8 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
 <li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
 <li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
-<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
-<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.5</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#statistical-and-machine-learning"><i class="fa fa-check"></i><b>1.3.6</b> Statistical and Machine Learning</a></li>
 <li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
@@ -565,13 +565,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="hierarchical-clustering.html#cb506-1" tabindex="-1"></a>hc_complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(X), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span></code></pre></div>
 <p>Plot the dendrogram:</p>
 <div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="hierarchical-clustering.html#cb507-1" tabindex="-1"></a><span class="fu">plot</span>(hc_complete, <span class="at">main =</span> <span class="st">&quot;Complete Linkage&quot;</span>, <span class="at">xlab =</span><span class="st">&quot;&quot;</span>, <span class="at">sub =</span> <span class="st">&quot;&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-564-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-562-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Use <code>cutree()</code> to determine the cluster labels for each observation associated with a given number of clusters:</p>
 <div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="hierarchical-clustering.html#cb508-1" tabindex="-1"></a><span class="fu">cutree</span>(hc_complete, <span class="at">k =</span> <span class="dv">2</span>)  <span class="co"># given number of clusters = 2</span></span>
-<span id="cb508-2"><a href="hierarchical-clustering.html#cb508-2" tabindex="-1"></a><span class="do">##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></span></code></pre></div>
+<span id="cb508-2"><a href="hierarchical-clustering.html#cb508-2" tabindex="-1"></a><span class="do">##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2</span></span>
+<span id="cb508-3"><a href="hierarchical-clustering.html#cb508-3" tabindex="-1"></a><span class="do">## [36] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</span></span></code></pre></div>
 <p>Use <code>cutree()</code> to determine the cluster labels for each observation associated with a given cut of the dendrogram:</p>
 <div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="hierarchical-clustering.html#cb509-1" tabindex="-1"></a><span class="fu">cutree</span>(hc_complete, <span class="at">h =</span> <span class="dv">3</span>)  <span class="co"># cut at 3</span></span>
-<span id="cb509-2"><a href="hierarchical-clustering.html#cb509-2" tabindex="-1"></a><span class="do">##  [1] 1 2 3 2 1 1 3 2 3 2 1 2 1 2 3 4 1 1 3 1 3 2 3 3 1 5 4 5 4 6 4 6 6 6 6 4 5 5 5 5 4 5 6 6 6 6 4 5 6 5</span></span></code></pre></div>
+<span id="cb509-2"><a href="hierarchical-clustering.html#cb509-2" tabindex="-1"></a><span class="do">##  [1] 1 2 3 2 1 1 3 2 3 2 1 2 1 2 3 4 1 1 3 1 3 2 3 3 1 5 4 5 4 6 4 6 6 6 6</span></span>
+<span id="cb509-3"><a href="hierarchical-clustering.html#cb509-3" tabindex="-1"></a><span class="do">## [36] 4 5 5 5 5 4 5 6 6 6 6 4 5 6 5</span></span></code></pre></div>
 <p>To perform hierarchical clustering with average linkage:</p>
 <div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="hierarchical-clustering.html#cb510-1" tabindex="-1"></a>hc_average <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(X), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span></code></pre></div>
 <p>To perform hierarchical clustering with single linkage:</p>
@@ -589,27 +591,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Cancer types for the cell lines:</p>
 <div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="hierarchical-clustering.html#cb514-1" tabindex="-1"></a><span class="fu">table</span>(nci_labs)</span>
 <span id="cb514-2"><a href="hierarchical-clustering.html#cb514-2" tabindex="-1"></a><span class="do">## nci_labs</span></span>
-<span id="cb514-3"><a href="hierarchical-clustering.html#cb514-3" tabindex="-1"></a><span class="do">##      BREAST         CNS       COLON K562A-repro K562B-repro    LEUKEMIA MCF7A-repro MCF7D-repro    MELANOMA       NSCLC     OVARIAN    PROSTATE </span></span>
-<span id="cb514-4"><a href="hierarchical-clustering.html#cb514-4" tabindex="-1"></a><span class="do">##           7           5           7           1           1           6           1           1           8           9           6           2 </span></span>
-<span id="cb514-5"><a href="hierarchical-clustering.html#cb514-5" tabindex="-1"></a><span class="do">##       RENAL     UNKNOWN </span></span>
-<span id="cb514-6"><a href="hierarchical-clustering.html#cb514-6" tabindex="-1"></a><span class="do">##           9           1</span></span></code></pre></div>
+<span id="cb514-3"><a href="hierarchical-clustering.html#cb514-3" tabindex="-1"></a><span class="do">##      BREAST         CNS       COLON K562A-repro K562B-repro    LEUKEMIA </span></span>
+<span id="cb514-4"><a href="hierarchical-clustering.html#cb514-4" tabindex="-1"></a><span class="do">##           7           5           7           1           1           6 </span></span>
+<span id="cb514-5"><a href="hierarchical-clustering.html#cb514-5" tabindex="-1"></a><span class="do">## MCF7A-repro MCF7D-repro    MELANOMA       NSCLC     OVARIAN    PROSTATE </span></span>
+<span id="cb514-6"><a href="hierarchical-clustering.html#cb514-6" tabindex="-1"></a><span class="do">##           1           1           8           9           6           2 </span></span>
+<span id="cb514-7"><a href="hierarchical-clustering.html#cb514-7" tabindex="-1"></a><span class="do">##       RENAL     UNKNOWN </span></span>
+<span id="cb514-8"><a href="hierarchical-clustering.html#cb514-8" tabindex="-1"></a><span class="do">##           9           1</span></span></code></pre></div>
 <p>Suppose we perform hierarchical clustering on this data with the goal of finding out whether or not the observation cluster into distinct types of cancer.</p>
 <p>We first scale the data (this step may be optional):</p>
 <div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="hierarchical-clustering.html#cb515-1" tabindex="-1"></a>nci_data_scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(nci_data)</span></code></pre></div>
 <p>Dendrogram:</p>
 <div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="hierarchical-clustering.html#cb516-1" tabindex="-1"></a>hc_complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(nci_data_scale), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
 <span id="cb516-2"><a href="hierarchical-clustering.html#cb516-2" tabindex="-1"></a><span class="fu">plot</span>(hc_complete, <span class="at">labels =</span> nci_labs, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">sub =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-573-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-571-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Clearly, cell lines within a single cancer type do tend to cluster together.</p>
 <p>Now, let’s cut the dendrogram to obtain, say, <span class="math inline">\(4\)</span> clusters and compare with the true cancer types:</p>
 <div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="hierarchical-clustering.html#cb517-1" tabindex="-1"></a>hc_cluster <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc_complete, <span class="at">k =</span> <span class="dv">4</span>)</span>
 <span id="cb517-2"><a href="hierarchical-clustering.html#cb517-2" tabindex="-1"></a><span class="fu">table</span>(hc_cluster, nci_labs)</span>
 <span id="cb517-3"><a href="hierarchical-clustering.html#cb517-3" tabindex="-1"></a><span class="do">##           nci_labs</span></span>
-<span id="cb517-4"><a href="hierarchical-clustering.html#cb517-4" tabindex="-1"></a><span class="do">## hc_cluster BREAST CNS COLON K562A-repro K562B-repro LEUKEMIA MCF7A-repro MCF7D-repro MELANOMA NSCLC OVARIAN PROSTATE RENAL UNKNOWN</span></span>
-<span id="cb517-5"><a href="hierarchical-clustering.html#cb517-5" tabindex="-1"></a><span class="do">##          1      2   3     2           0           0        0           0           0        8     8       6        2     8       1</span></span>
-<span id="cb517-6"><a href="hierarchical-clustering.html#cb517-6" tabindex="-1"></a><span class="do">##          2      3   2     0           0           0        0           0           0        0     1       0        0     1       0</span></span>
-<span id="cb517-7"><a href="hierarchical-clustering.html#cb517-7" tabindex="-1"></a><span class="do">##          3      0   0     0           1           1        6           0           0        0     0       0        0     0       0</span></span>
-<span id="cb517-8"><a href="hierarchical-clustering.html#cb517-8" tabindex="-1"></a><span class="do">##          4      2   0     5           0           0        0           1           1        0     0       0        0     0       0</span></span></code></pre></div>
+<span id="cb517-4"><a href="hierarchical-clustering.html#cb517-4" tabindex="-1"></a><span class="do">## hc_cluster BREAST CNS COLON K562A-repro K562B-repro LEUKEMIA MCF7A-repro</span></span>
+<span id="cb517-5"><a href="hierarchical-clustering.html#cb517-5" tabindex="-1"></a><span class="do">##          1      2   3     2           0           0        0           0</span></span>
+<span id="cb517-6"><a href="hierarchical-clustering.html#cb517-6" tabindex="-1"></a><span class="do">##          2      3   2     0           0           0        0           0</span></span>
+<span id="cb517-7"><a href="hierarchical-clustering.html#cb517-7" tabindex="-1"></a><span class="do">##          3      0   0     0           1           1        6           0</span></span>
+<span id="cb517-8"><a href="hierarchical-clustering.html#cb517-8" tabindex="-1"></a><span class="do">##          4      2   0     5           0           0        0           1</span></span>
+<span id="cb517-9"><a href="hierarchical-clustering.html#cb517-9" tabindex="-1"></a><span class="do">##           nci_labs</span></span>
+<span id="cb517-10"><a href="hierarchical-clustering.html#cb517-10" tabindex="-1"></a><span class="do">## hc_cluster MCF7D-repro MELANOMA NSCLC OVARIAN PROSTATE RENAL UNKNOWN</span></span>
+<span id="cb517-11"><a href="hierarchical-clustering.html#cb517-11" tabindex="-1"></a><span class="do">##          1           0        8     8       6        2     8       1</span></span>
+<span id="cb517-12"><a href="hierarchical-clustering.html#cb517-12" tabindex="-1"></a><span class="do">##          2           0        0     1       0        0     1       0</span></span>
+<span id="cb517-13"><a href="hierarchical-clustering.html#cb517-13" tabindex="-1"></a><span class="do">##          3           0        0     0       0        0     0       0</span></span>
+<span id="cb517-14"><a href="hierarchical-clustering.html#cb517-14" tabindex="-1"></a><span class="do">##          4           1        0     0       0        0     0       0</span></span></code></pre></div>
 <p>Some patterns:</p>
 <ul>
 <li><p>All the leukemia cell lines fall in cluster 3</p></li>

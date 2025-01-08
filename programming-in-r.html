@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-02" />
+<meta name="date" content="2025-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,8 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
 <li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
 <li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
-<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
-<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.5</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#statistical-and-machine-learning"><i class="fa fa-check"></i><b>1.3.6</b> Statistical and Machine Learning</a></li>
 <li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
@@ -1085,7 +1085,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb127-7"><a href="programming-in-r.html#cb127-7" tabindex="-1"></a>}</span>
 <span id="cb127-8"><a href="programming-in-r.html#cb127-8" tabindex="-1"></a><span class="fu">proc.time</span>() <span class="sc">-</span> initial_time</span>
 <span id="cb127-9"><a href="programming-in-r.html#cb127-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.03    0.05    0.32</span></span></code></pre></div>
+<span id="cb127-10"><a href="programming-in-r.html#cb127-10" tabindex="-1"></a><span class="do">##    0.04    0.00    0.42</span></span></code></pre></div>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="programming-in-r.html#cb128-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200000</span> </span>
 <span id="cb128-2"><a href="programming-in-r.html#cb128-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n) <span class="co"># create a vector for storage of the values</span></span>
 <span id="cb128-3"><a href="programming-in-r.html#cb128-3" tabindex="-1"></a><span class="co"># Alternatively</span></span>
@@ -1095,7 +1095,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb128-7"><a href="programming-in-r.html#cb128-7" tabindex="-1"></a>  }</span>
 <span id="cb128-8"><a href="programming-in-r.html#cb128-8" tabindex="-1"></a>})</span>
 <span id="cb128-9"><a href="programming-in-r.html#cb128-9" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb128-10"><a href="programming-in-r.html#cb128-10" tabindex="-1"></a><span class="do">##    0.00    0.00    0.25</span></span></code></pre></div>
+<span id="cb128-10"><a href="programming-in-r.html#cb128-10" tabindex="-1"></a><span class="do">##    0.03    0.01    0.30</span></span></code></pre></div>
 <p>The ‘user time’ is the CPU time charged for the execution of user instructions of the calling process. The ‘system time’ is the CPU time charged for execution by the system on behalf of the calling process.</p>
 <p>A much more efficient way for the same task is to use</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="programming-in-r.html#cb129-1" tabindex="-1"></a><span class="fu">system.time</span>({</span>
@@ -1103,7 +1103,7 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb129-3"><a href="programming-in-r.html#cb129-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
 <span id="cb129-4"><a href="programming-in-r.html#cb129-4" tabindex="-1"></a>})</span>
 <span id="cb129-5"><a href="programming-in-r.html#cb129-5" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb129-6"><a href="programming-in-r.html#cb129-6" tabindex="-1"></a><span class="do">##    0.00    0.00    0.01</span></span></code></pre></div>
+<span id="cb129-6"><a href="programming-in-r.html#cb129-6" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
 <p>Another example:</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="programming-in-r.html#cb130-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb130-2"><a href="programming-in-r.html#cb130-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">2e6</span>)</span>
@@ -1116,11 +1116,11 @@ where <span class="math inline">\(S^2_X\)</span> and <span class="math inline">\
 <span id="cb130-9"><a href="programming-in-r.html#cb130-9" tabindex="-1"></a>  }</span>
 <span id="cb130-10"><a href="programming-in-r.html#cb130-10" tabindex="-1"></a>})</span>
 <span id="cb130-11"><a href="programming-in-r.html#cb130-11" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb130-12"><a href="programming-in-r.html#cb130-12" tabindex="-1"></a><span class="do">##    0.04    0.00    0.08</span></span>
+<span id="cb130-12"><a href="programming-in-r.html#cb130-12" tabindex="-1"></a><span class="do">##    0.01    0.00    0.09</span></span>
 <span id="cb130-13"><a href="programming-in-r.html#cb130-13" tabindex="-1"></a></span>
 <span id="cb130-14"><a href="programming-in-r.html#cb130-14" tabindex="-1"></a><span class="fu">system.time</span>(v <span class="ot">&lt;-</span> x <span class="sc">+</span> y)</span>
 <span id="cb130-15"><a href="programming-in-r.html#cb130-15" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
-<span id="cb130-16"><a href="programming-in-r.html#cb130-16" tabindex="-1"></a><span class="do">##       0       0       0</span></span></code></pre></div>
+<span id="cb130-16"><a href="programming-in-r.html#cb130-16" tabindex="-1"></a><span class="do">##    0.00    0.00    0.01</span></span></code></pre></div>
 <p>The general rule is to use vectorized operations whenever possible and to avoid using for loops. We use a for loop when the code is not time-consuming or when the code is hard to write without using a for loop. A more advanced option is to combine C++ with R using the package <code>rcpp</code>. That is, we can write the most time-consuming part of the R code in C++, which could run many times faster (will not be discussed in this course).</p>
 <p>See also <a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/" class="uri">http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/</a></p>
 </div>

@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2024-04-02" />
+<meta name="date" content="2025-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,8 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#data-wrangling"><i class="fa fa-check"></i><b>1.3.2</b> Data Wrangling</a></li>
 <li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#data-visualization"><i class="fa fa-check"></i><b>1.3.3</b> Data Visualization</a></li>
 <li class="chapter" data-level="1.3.4" data-path="introduction.html"><a href="introduction.html#statistical-inference"><i class="fa fa-check"></i><b>1.3.4</b> Statistical Inference</a></li>
-<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#machine-learning"><i class="fa fa-check"></i><b>1.3.5</b> Machine Learning</a></li>
-<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.6</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.5" data-path="introduction.html"><a href="introduction.html#some-numerical-methods"><i class="fa fa-check"></i><b>1.3.5</b> Some Numerical Methods</a></li>
+<li class="chapter" data-level="1.3.6" data-path="introduction.html"><a href="introduction.html#statistical-and-machine-learning"><i class="fa fa-check"></i><b>1.3.6</b> Statistical and Machine Learning</a></li>
 <li class="chapter" data-level="1.3.7" data-path="introduction.html"><a href="introduction.html#lastly"><i class="fa fa-check"></i><b>1.3.7</b> Lastly</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#lets-get-started"><i class="fa fa-check"></i><b>1.4</b> Let’s Get Started</a></li>
@@ -585,7 +585,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb472-9"><a href="ensemble-methods.html#cb472-9" tabindex="-1"></a><span class="do">## [1] 122872.5</span></span></code></pre></div>
 <p>A plot showing the predictions by different methods and the corresponding observed values.</p>
 <pre><code>## [1] FALSE</code></pre>
-<p><img src="Book_files/figure-html/unnamed-chunk-520-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-518-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Several observations:</p>
 <ul>
 <li><p>The regression tree can only use a few distinct values as the prediction values (the number of such values equals the number of terminal nodes). Hence, you can see the blue points are all located at several vertical lines.</p></li>
@@ -618,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb474-21"><a href="ensemble-methods.html#cb474-21" tabindex="-1"></a><span class="do">## NewLeague  0.1637974      47893.61</span></span></code></pre></div>
 <p>Visualizing the importance of the features:</p>
 <div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="ensemble-methods.html#cb475-1" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-522-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-520-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="boosting" class="section level2 hasAnchor" number="15.3">
@@ -672,11 +672,11 @@ r_i \leftarrow r_i - \lambda \hat{f}^b(x_i).
 <span id="cb476-4"><a href="ensemble-methods.html#cb476-4" tabindex="-1"></a>boost_fit <span class="ot">&lt;-</span> <span class="fu">gbm</span>(Salary <span class="sc">~</span>., <span class="at">data =</span> Hitters_train, <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>, <span class="at">n.trees =</span> <span class="dv">5000</span>, </span>
 <span id="cb476-5"><a href="ensemble-methods.html#cb476-5" tabindex="-1"></a>                 <span class="at">interaction.depth =</span> <span class="dv">3</span>, <span class="at">shrinkage =</span> <span class="fl">0.01</span>, <span class="at">cv.folds =</span> <span class="dv">5</span>)</span>
 <span id="cb476-6"><a href="ensemble-methods.html#cb476-6" tabindex="-1"></a>Bhat <span class="ot">&lt;-</span> <span class="fu">gbm.perf</span>(boost_fit) <span class="co"># optimal value</span></span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-523-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-521-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="ensemble-methods.html#cb477-1" tabindex="-1"></a>Bhat</span>
 <span id="cb477-2"><a href="ensemble-methods.html#cb477-2" tabindex="-1"></a><span class="do">## [1] 506</span></span>
 <span id="cb477-3"><a href="ensemble-methods.html#cb477-3" tabindex="-1"></a><span class="fu">summary</span>(boost_fit, <span class="at">n.trees =</span> Bhat)</span></code></pre></div>
-<p><img src="Book_files/figure-html/unnamed-chunk-523-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="Book_files/figure-html/unnamed-chunk-521-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>##                 var   rel.inf
 ## Walks         Walks 11.320578
 ## CRBI           CRBI 10.877212

@@ -6,8 +6,8 @@ r-and-r-as-a-programming-language
 data-wrangling
 data-visualization
 statistical-inference
-machine-learning
 some-numerical-methods
+statistical-and-machine-learning
 lastly
 lets-get-started
 r-data-structures
