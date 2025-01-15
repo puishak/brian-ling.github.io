@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2025-01-08" />
+<meta name="date" content="2025-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
 <ul>
@@ -213,7 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
 <li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
-<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.6</b> Another Simulation Example</a></li>
+<li class="chapter" data-level="3.7" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.7</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
 <ul>
@@ -531,7 +532,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="using-c-in-r-with-rcpp.html#cb552-1" tabindex="-1"></a><span class="co"># add works like a regular R function</span></span>
 <span id="cb552-2"><a href="using-c-in-r-with-rcpp.html#cb552-2" tabindex="-1"></a>add_C</span>
 <span id="cb552-3"><a href="using-c-in-r-with-rcpp.html#cb552-3" tabindex="-1"></a><span class="do">## function (x, y, z) </span></span>
-<span id="cb552-4"><a href="using-c-in-r-with-rcpp.html#cb552-4" tabindex="-1"></a><span class="do">## .Call(&lt;pointer: 0x00007ff98a041610&gt;, x, y, z)</span></span>
+<span id="cb552-4"><a href="using-c-in-r-with-rcpp.html#cb552-4" tabindex="-1"></a><span class="do">## .Call(&lt;pointer: 0x00007ff9bb9e1610&gt;, x, y, z)</span></span>
 <span id="cb552-5"><a href="using-c-in-r-with-rcpp.html#cb552-5" tabindex="-1"></a></span>
 <span id="cb552-6"><a href="using-c-in-r-with-rcpp.html#cb552-6" tabindex="-1"></a><span class="fu">add_C</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
 <span id="cb552-7"><a href="using-c-in-r-with-rcpp.html#cb552-7" tabindex="-1"></a><span class="do">## [1] 6</span></span></code></pre></div>
@@ -670,11 +671,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb555-6"><a href="using-c-in-r-with-rcpp.html#cb555-6" tabindex="-1"></a>  <span class="fu">sum_C</span>(x)</span>
 <span id="cb555-7"><a href="using-c-in-r-with-rcpp.html#cb555-7" tabindex="-1"></a>)</span>
 <span id="cb555-8"><a href="using-c-in-r-with-rcpp.html#cb555-8" tabindex="-1"></a><span class="do">## # A tibble: 3 × 6</span></span>
-<span id="cb555-9"><a href="using-c-in-r-with-rcpp.html#cb555-9" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span id="cb555-10"><a href="using-c-in-r-with-rcpp.html#cb555-10" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb555-11"><a href="using-c-in-r-with-rcpp.html#cb555-11" tabindex="-1"></a><span class="do">## 1 sum(x)        900ns    1.1µs   582065.        0B        0</span></span>
-<span id="cb555-12"><a href="using-c-in-r-with-rcpp.html#cb555-12" tabindex="-1"></a><span class="do">## 2 sum_R(x)       15µs   16.9µs    51971.   23.21KB        0</span></span>
-<span id="cb555-13"><a href="using-c-in-r-with-rcpp.html#cb555-13" tabindex="-1"></a><span class="do">## 3 sum_C(x)        1µs    1.1µs   697598.    2.49KB        0</span></span></code></pre></div>
+<span id="cb555-9"><a href="using-c-in-r-with-rcpp.html#cb555-9" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc</span></span>
+<span id="cb555-10"><a href="using-c-in-r-with-rcpp.html#cb555-10" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
+<span id="cb555-11"><a href="using-c-in-r-with-rcpp.html#cb555-11" tabindex="-1"></a><span class="do">## 1 sum(x)        1.3µs    1.4µs   516137.        0B</span></span>
+<span id="cb555-12"><a href="using-c-in-r-with-rcpp.html#cb555-12" tabindex="-1"></a><span class="do">## 2 sum_R(x)     25.4µs   27.6µs    35059.   23.21KB</span></span>
+<span id="cb555-13"><a href="using-c-in-r-with-rcpp.html#cb555-13" tabindex="-1"></a><span class="do">## 3 sum_C(x)      1.7µs    1.9µs   420129.    2.49KB</span></span>
+<span id="cb555-14"><a href="using-c-in-r-with-rcpp.html#cb555-14" tabindex="-1"></a><span class="do">## # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 <p>You can see <code>sum_R</code> is much slower than the built-in <code>sum</code> (which is highly optimized).</p>
 <p><code>sum_C</code> is much faster than <code>sum_R</code></p>
 </div>
@@ -722,11 +724,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb557-5"><a href="using-c-in-r-with-rcpp.html#cb557-5" tabindex="-1"></a>  <span class="fu">pdist_C</span>(<span class="fl">0.5</span>, y)</span>
 <span id="cb557-6"><a href="using-c-in-r-with-rcpp.html#cb557-6" tabindex="-1"></a>)</span>
 <span id="cb557-7"><a href="using-c-in-r-with-rcpp.html#cb557-7" tabindex="-1"></a><span class="do">## # A tibble: 3 × 6</span></span>
-<span id="cb557-8"><a href="using-c-in-r-with-rcpp.html#cb557-8" tabindex="-1"></a><span class="do">##   expression               min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span id="cb557-9"><a href="using-c-in-r-with-rcpp.html#cb557-9" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;          &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb557-10"><a href="using-c-in-r-with-rcpp.html#cb557-10" tabindex="-1"></a><span class="do">## 1 pdist_R(0.5, y)       4.24ms   4.81ms     196.     7.63MB     6.77</span></span>
-<span id="cb557-11"><a href="using-c-in-r-with-rcpp.html#cb557-11" tabindex="-1"></a><span class="do">## 2 pdist_R_for(0.5, y)  45.53ms  48.79ms      20.4    7.67MB     0   </span></span>
-<span id="cb557-12"><a href="using-c-in-r-with-rcpp.html#cb557-12" tabindex="-1"></a><span class="do">## 3 pdist_C(0.5, y)       2.71ms   2.88ms     332.     7.63MB    12.1</span></span></code></pre></div>
+<span id="cb557-8"><a href="using-c-in-r-with-rcpp.html#cb557-8" tabindex="-1"></a><span class="do">##   expression           min  median `itr/sec` mem_alloc</span></span>
+<span id="cb557-9"><a href="using-c-in-r-with-rcpp.html#cb557-9" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;       &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
+<span id="cb557-10"><a href="using-c-in-r-with-rcpp.html#cb557-10" tabindex="-1"></a><span class="do">## 1 pdist_R(0.5, y)   6.41ms  6.68ms     128.     7.63MB</span></span>
+<span id="cb557-11"><a href="using-c-in-r-with-rcpp.html#cb557-11" tabindex="-1"></a><span class="do">## 2 pdist_R_for(0.5… 71.86ms  74.1ms      11.8    7.67MB</span></span>
+<span id="cb557-12"><a href="using-c-in-r-with-rcpp.html#cb557-12" tabindex="-1"></a><span class="do">## 3 pdist_C(0.5, y)    3.5ms  3.81ms     253.     7.63MB</span></span>
+<span id="cb557-13"><a href="using-c-in-r-with-rcpp.html#cb557-13" tabindex="-1"></a><span class="do">## # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 <p>The C++ version is faster than the vectorized R function in this case.</p>
 <p>In general, I recommend if you can use a vectorized R function, you do not have to write the C++ version (at least not the first part to be considered when you are optimizing your code).</p>
 </div>
@@ -772,10 +775,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb561-4"><a href="using-c-in-r-with-rcpp.html#cb561-4" tabindex="-1"></a>  <span class="fu">mean_C</span>(x)</span>
 <span id="cb561-5"><a href="using-c-in-r-with-rcpp.html#cb561-5" tabindex="-1"></a>)</span>
 <span id="cb561-6"><a href="using-c-in-r-with-rcpp.html#cb561-6" tabindex="-1"></a><span class="do">## # A tibble: 2 × 6</span></span>
-<span id="cb561-7"><a href="using-c-in-r-with-rcpp.html#cb561-7" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span id="cb561-8"><a href="using-c-in-r-with-rcpp.html#cb561-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb561-9"><a href="using-c-in-r-with-rcpp.html#cb561-9" tabindex="-1"></a><span class="do">## 1 mean(x)     132.5µs  144.6µs     6173.        0B        0</span></span>
-<span id="cb561-10"><a href="using-c-in-r-with-rcpp.html#cb561-10" tabindex="-1"></a><span class="do">## 2 mean_C(x)    43.2µs   48.4µs    18702.    2.49KB        0</span></span></code></pre></div>
+<span id="cb561-7"><a href="using-c-in-r-with-rcpp.html#cb561-7" tabindex="-1"></a><span class="do">##   expression      min   median `itr/sec` mem_alloc</span></span>
+<span id="cb561-8"><a href="using-c-in-r-with-rcpp.html#cb561-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
+<span id="cb561-9"><a href="using-c-in-r-with-rcpp.html#cb561-9" tabindex="-1"></a><span class="do">## 1 mean(x)     237.6µs  238.9µs     3977.        0B</span></span>
+<span id="cb561-10"><a href="using-c-in-r-with-rcpp.html#cb561-10" tabindex="-1"></a><span class="do">## 2 mean_C(x)    78.1µs   78.4µs    12132.    2.49KB</span></span>
+<span id="cb561-11"><a href="using-c-in-r-with-rcpp.html#cb561-11" tabindex="-1"></a><span class="do">## # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div id="example-gibbs-sampler" class="section level2 hasAnchor" number="21.7">
 <h2><span class="header-section-number">21.7</span> Example: Gibbs Sampler<a href="using-c-in-r-with-rcpp.html#example-gibbs-sampler" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -825,10 +829,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb564-4"><a href="using-c-in-r-with-rcpp.html#cb564-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
 <span id="cb564-5"><a href="using-c-in-r-with-rcpp.html#cb564-5" tabindex="-1"></a>)</span>
 <span id="cb564-6"><a href="using-c-in-r-with-rcpp.html#cb564-6" tabindex="-1"></a><span class="do">## # A tibble: 2 × 6</span></span>
-<span id="cb564-7"><a href="using-c-in-r-with-rcpp.html#cb564-7" tabindex="-1"></a><span class="do">##   expression            min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span id="cb564-8"><a href="using-c-in-r-with-rcpp.html#cb564-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb564-9"><a href="using-c-in-r-with-rcpp.html#cb564-9" tabindex="-1"></a><span class="do">## 1 gibbs_R(100, 10)   2.03ms   2.55ms      353.    4.94MB     6.87</span></span>
-<span id="cb564-10"><a href="using-c-in-r-with-rcpp.html#cb564-10" tabindex="-1"></a><span class="do">## 2 gibbs_C(100, 10)  177.7µs  261.2µs     3473.     4.1KB     7.20</span></span></code></pre></div>
+<span id="cb564-7"><a href="using-c-in-r-with-rcpp.html#cb564-7" tabindex="-1"></a><span class="do">##   expression          min   median `itr/sec` mem_alloc</span></span>
+<span id="cb564-8"><a href="using-c-in-r-with-rcpp.html#cb564-8" tabindex="-1"></a><span class="do">##   &lt;bch:expr&gt;     &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
+<span id="cb564-9"><a href="using-c-in-r-with-rcpp.html#cb564-9" tabindex="-1"></a><span class="do">## 1 gibbs_R(100, …   2.81ms   3.78ms      244.    4.94MB</span></span>
+<span id="cb564-10"><a href="using-c-in-r-with-rcpp.html#cb564-10" tabindex="-1"></a><span class="do">## 2 gibbs_C(100, …    224µs 269.75µs     3612.     4.1KB</span></span>
+<span id="cb564-11"><a href="using-c-in-r-with-rcpp.html#cb564-11" tabindex="-1"></a><span class="do">## # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div id="more-details" class="section level2 hasAnchor" number="21.8">
 <h2><span class="header-section-number">21.8</span> More Details<a href="using-c-in-r-with-rcpp.html#more-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>

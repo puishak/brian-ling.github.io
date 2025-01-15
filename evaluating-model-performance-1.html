@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2025-01-08" />
+<meta name="date" content="2025-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
 <ul>
@@ -213,7 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
 <li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
-<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.6</b> Another Simulation Example</a></li>
+<li class="chapter" data-level="3.7" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.7</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
 <ul>
@@ -848,15 +849,15 @@ It is the proportion of negative examples that are correctly classified. E.g., t
 <span id="cb545-20"><a href="evaluating-model-performance-1.html#cb545-20" tabindex="-1"></a>}</span></code></pre></div>
 <p>Results:</p>
 <div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="evaluating-model-performance-1.html#cb546-1" tabindex="-1"></a>accuracy</span>
-<span id="cb546-2"><a href="evaluating-model-performance-1.html#cb546-2" tabindex="-1"></a><span class="do">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411 0.7535411 0.7563739</span></span>
-<span id="cb546-3"><a href="evaluating-model-performance-1.html#cb546-3" tabindex="-1"></a><span class="do">##  [8] 0.7620397 0.7443182 0.7705382</span></span>
+<span id="cb546-2"><a href="evaluating-model-performance-1.html#cb546-2" tabindex="-1"></a><span class="do">##  [1] 0.7733711 0.7535411 0.7705382 0.7698864 0.7535411</span></span>
+<span id="cb546-3"><a href="evaluating-model-performance-1.html#cb546-3" tabindex="-1"></a><span class="do">##  [6] 0.7535411 0.7563739 0.7620397 0.7443182 0.7705382</span></span>
 <span id="cb546-4"><a href="evaluating-model-performance-1.html#cb546-4" tabindex="-1"></a></span>
 <span id="cb546-5"><a href="evaluating-model-performance-1.html#cb546-5" tabindex="-1"></a><span class="fu">mean</span>(accuracy)</span>
 <span id="cb546-6"><a href="evaluating-model-performance-1.html#cb546-6" tabindex="-1"></a><span class="do">## [1] 0.7607689</span></span>
 <span id="cb546-7"><a href="evaluating-model-performance-1.html#cb546-7" tabindex="-1"></a></span>
 <span id="cb546-8"><a href="evaluating-model-performance-1.html#cb546-8" tabindex="-1"></a>AUC</span>
-<span id="cb546-9"><a href="evaluating-model-performance-1.html#cb546-9" tabindex="-1"></a><span class="do">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126 0.7986021 0.8012821</span></span>
-<span id="cb546-10"><a href="evaluating-model-performance-1.html#cb546-10" tabindex="-1"></a><span class="do">##  [8] 0.8102455 0.7917803 0.8177061</span></span>
+<span id="cb546-9"><a href="evaluating-model-performance-1.html#cb546-9" tabindex="-1"></a><span class="do">##  [1] 0.7954331 0.7999783 0.8259271 0.8071468 0.8094126</span></span>
+<span id="cb546-10"><a href="evaluating-model-performance-1.html#cb546-10" tabindex="-1"></a><span class="do">##  [6] 0.7986021 0.8012821 0.8102455 0.7917803 0.8177061</span></span>
 <span id="cb546-11"><a href="evaluating-model-performance-1.html#cb546-11" tabindex="-1"></a></span>
 <span id="cb546-12"><a href="evaluating-model-performance-1.html#cb546-12" tabindex="-1"></a><span class="fu">mean</span>(AUC)</span>
 <span id="cb546-13"><a href="evaluating-model-performance-1.html#cb546-13" tabindex="-1"></a><span class="do">## [1] 0.8057514</span></span></code></pre></div>

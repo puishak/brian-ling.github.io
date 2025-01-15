@@ -49,6 +49,7 @@ apply
 lapply
 automatically-reindent-code
 speed-consideration
+another-simulation-example
 additional-exercises-1
 managing-data-with-r
 missing-values

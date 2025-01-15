@@ -23,7 +23,7 @@
 <meta name="author" content="Brian Ling" />
 
 
-<meta name="date" content="2025-01-08" />
+<meta name="date" content="2025-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#exercises-1"><i class="fa fa-check"></i><b>2.1.2</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#simulation"><i class="fa fa-check"></i><b>2.2</b> Simulation</a></li>
-<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises:</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-and-simulation.html"><a href="probability-and-simulation.html#additional-exercises"><i class="fa fa-check"></i><b>2.3</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="programming-in-r.html"><a href="programming-in-r.html"><i class="fa fa-check"></i><b>3</b> Programming in R</a>
 <ul>
@@ -213,7 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="programming-in-r.html"><a href="programming-in-r.html#automatically-reindent-code"><i class="fa fa-check"></i><b>3.4</b> Automatically Reindent Code</a></li>
 <li class="chapter" data-level="3.5" data-path="programming-in-r.html"><a href="programming-in-r.html#speed-consideration"><i class="fa fa-check"></i><b>3.5</b> Speed Consideration</a></li>
-<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.6</b> Additional Exercises</a></li>
+<li class="chapter" data-level="3.6" data-path="programming-in-r.html"><a href="programming-in-r.html#another-simulation-example"><i class="fa fa-check"></i><b>3.6</b> Another Simulation Example</a></li>
+<li class="chapter" data-level="3.7" data-path="programming-in-r.html"><a href="programming-in-r.html#additional-exercises-1"><i class="fa fa-check"></i><b>3.7</b> Additional Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="managing-data-with-r.html"><a href="managing-data-with-r.html"><i class="fa fa-check"></i><b>4</b> Managing Data with R</a>
 <ul>
@@ -505,13 +506,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Scatter Plot<a href="creating-some-basic-plots.html#scatter-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take a look at the <code>mtcars</code> dataset. This dataset comes with base R.</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="creating-some-basic-plots.html#cb221-1" tabindex="-1"></a><span class="fu">head</span>(mtcars) <span class="co"># this is a data frame</span></span>
-<span id="cb221-2"><a href="creating-some-basic-plots.html#cb221-2" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
-<span id="cb221-3"><a href="creating-some-basic-plots.html#cb221-3" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
-<span id="cb221-4"><a href="creating-some-basic-plots.html#cb221-4" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
-<span id="cb221-5"><a href="creating-some-basic-plots.html#cb221-5" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
-<span id="cb221-6"><a href="creating-some-basic-plots.html#cb221-6" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
-<span id="cb221-7"><a href="creating-some-basic-plots.html#cb221-7" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
-<span id="cb221-8"><a href="creating-some-basic-plots.html#cb221-8" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span></code></pre></div>
+<span id="cb221-2"><a href="creating-some-basic-plots.html#cb221-2" tabindex="-1"></a><span class="do">##                    mpg cyl disp  hp drat    wt  qsec</span></span>
+<span id="cb221-3"><a href="creating-some-basic-plots.html#cb221-3" tabindex="-1"></a><span class="do">## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46</span></span>
+<span id="cb221-4"><a href="creating-some-basic-plots.html#cb221-4" tabindex="-1"></a><span class="do">## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02</span></span>
+<span id="cb221-5"><a href="creating-some-basic-plots.html#cb221-5" tabindex="-1"></a><span class="do">## Datsun 710        22.8   4  108  93 3.85 2.320 18.61</span></span>
+<span id="cb221-6"><a href="creating-some-basic-plots.html#cb221-6" tabindex="-1"></a><span class="do">## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44</span></span>
+<span id="cb221-7"><a href="creating-some-basic-plots.html#cb221-7" tabindex="-1"></a><span class="do">## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02</span></span>
+<span id="cb221-8"><a href="creating-some-basic-plots.html#cb221-8" tabindex="-1"></a><span class="do">## Valiant           18.1   6  225 105 2.76 3.460 20.22</span></span>
+<span id="cb221-9"><a href="creating-some-basic-plots.html#cb221-9" tabindex="-1"></a><span class="do">##                   vs am gear carb</span></span>
+<span id="cb221-10"><a href="creating-some-basic-plots.html#cb221-10" tabindex="-1"></a><span class="do">## Mazda RX4          0  1    4    4</span></span>
+<span id="cb221-11"><a href="creating-some-basic-plots.html#cb221-11" tabindex="-1"></a><span class="do">## Mazda RX4 Wag      0  1    4    4</span></span>
+<span id="cb221-12"><a href="creating-some-basic-plots.html#cb221-12" tabindex="-1"></a><span class="do">## Datsun 710         1  1    4    1</span></span>
+<span id="cb221-13"><a href="creating-some-basic-plots.html#cb221-13" tabindex="-1"></a><span class="do">## Hornet 4 Drive     1  0    3    1</span></span>
+<span id="cb221-14"><a href="creating-some-basic-plots.html#cb221-14" tabindex="-1"></a><span class="do">## Hornet Sportabout  0  0    3    2</span></span>
+<span id="cb221-15"><a href="creating-some-basic-plots.html#cb221-15" tabindex="-1"></a><span class="do">## Valiant            1  0    3    1</span></span></code></pre></div>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="creating-some-basic-plots.html#cb222-1" tabindex="-1"></a><span class="fu">str</span>(mtcars) <span class="co"># display the structure of the data frame</span></span>
 <span id="cb222-2"><a href="creating-some-basic-plots.html#cb222-2" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    32 obs. of  11 variables:</span></span>
 <span id="cb222-3"><a href="creating-some-basic-plots.html#cb222-3" tabindex="-1"></a><span class="do">##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
